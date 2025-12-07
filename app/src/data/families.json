@@ -1,0 +1,486 @@
+[
+    {
+        "Text": "Les démons sont des créatures des enfers, ces mondes maléfiques d’une autre dimension ou les âmes corrompues sont torturées pour l’éternité. L’existence d’un démon est une lutte constante pour le pouvoir et la domination par la force, la ruse et la cruauté. Bien qu’ils ne quittent généralement pas leur plan d’origine, les démons peuvent être appelés par un mortel ou franchir un portail vers le monde des hommes. Ce qu’ils font avec joie car les faibles humains sont pour eux des proies faciles et leurs âmes une source importante de pouvoir. Diables : il ne faut pas confondre les démons et les diables. Les premiers œuvrent pour le chaos, la douleur et la destruction sauvage, là où les seconds prônent un ordre tyrannique, cruel et immuable. Ils sont au contraire ennemis depuis la nuit des temps dans une guerre sans fin appelée la Guerre de Sang. Toutefois, la plupart des mortels ne font pas la différence entre les deux catégories de créatures infernales et ils appellent sans discernement «démon» toutes les créatures maléfiques issues d’un autre monde. CO fantasy fait le choix de ne décrire que les démons, laissant les diables à votre imagination. Chaque type de démon possède son alter-égo chez les diables avec quelques variations d’apparence et de pouvoir. En particulier la résistance des diables concerne le froid et l’électricité plutôt que le feu et l’acide. Les plus connus des diables sont le Diantrefosse (équivalent du Balor), l’Érinye (Succube) et le Diablotin (Quasit). Capacités des démons Tous les démons possèdent les capacités suivantes (NC+1). Démon : les démons ne sont pas considérés comme des créatures non-vivantes toutefois ils partagent avec celles-ci de nombreux traits. Ils ne respirent pas, ne dorment jamais, ne connaissent pas la fatigue et sont immunisées au poison et aux maladies non-magiques. Ils n’ont pas besoin de se sustenter, du moins pas de nourritures terrestres. Résistance : par défaut, tous les démons réduisent les DM de feu et d’acide de 10 points. D’autres capacités peuvent améliorer cette résistance. Télépathie : les démons peuvent communiquer avec toutes les créatures par télépathie à une distance de 50 mètres sans avoir besoin de partager une langue commune. Ils parlent l’infernal. Téléportation (L) : un démon peut se téléporter à n’importe quel endroit qu’il voit ou qu’il connaît à une distance maximum de [NC x 100] mètres. Vision dans le noir : tous les démons voient dans le noir comme en plein jour à une distance de 30 mètres.  ",
+        "Image": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/creature_family/2023-02/demon_and_devil_family-modified.png.webp?itok=pvv2UJTB",
+        "Famille": "Démons et Diables",
+        "Monstres": [
+            "Quasit",
+            "Succube",
+            "Marilith",
+            "Balor"
+        ]
+    },
+    {
+        "Text": "",
+        "Image": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/creature_family/2023-02/eagle-family-modified.png.webp?itok=zTmPJntk",
+        "Famille": "Aigles",
+        "Monstres": [
+            "Aigle",
+            "Aigle géant",
+            "Roc"
+        ]
+    },
+    {
+        "Text": "",
+        "Image": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/creature_family/2023-02/bandits-modified.png.webp?itok=lBAh9QRz",
+        "Famille": "Bandits",
+        "Monstres": [
+            "Bandit de base",
+            "Bandit vétéran",
+            "Chef Bandit"
+        ]
+    },
+    {
+        "Text": "Ce Profil correspond à tous les grands herbivores à cornes (taureau, etc). Les femelles fuient généralement à moins de défendre un petit.",
+        "Image": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/creature_family/2023-02/bison-family-modified.png.webp?itok=a4TrorF3",
+        "Famille": "Bisons",
+        "Monstres": [
+            "Bison",
+            "Bison, Grand mâle"
+        ]
+    },
+    {
+        "Text": "Le centaure est une créature pourvue d’un corps de cheval et d’un buste humanoïde. Un centaure voit dans le noir.",
+        "Image": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/creature_family/2023-02/centaur-family-modified.png.webp?itok=UwQrJVje",
+        "Famille": "Centaures",
+        "Monstres": [
+            "Centaure",
+            "Centaure Rôdeur niveau 4"
+        ]
+    },
+    {
+        "Text": "",
+        "Image": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/creature_family/2023-02/saddlehorse-modified.png.webp?itok=auUz4wkv",
+        "Famille": "Chevaux",
+        "Monstres": [
+            "Cheval de guerre léger",
+            "Cheval de selle",
+            "Cheval de guerre lourd"
+        ]
+    },
+    {
+        "Text": "",
+        "Image": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/creature_family/2023-02/dog-family-modified.png.webp?itok=58SC_d09",
+        "Famille": "Chiens",
+        "Monstres": [
+            "Chien infernal",
+            "Molosse satanique"
+        ]
+    },
+    {
+        "Text": "Ces Caractéristiques correspondent à tous les lézards de grande taille (environ 3 mètres) à forte dentition (alligator et autres varans). Vous pouvez décliner les crocodiles dans de nombreuses variantes en changeant d’archétype (standard ou puissant) et taille. Augmenter au rang 2 la Voie du prédateur pour les crocodiles de taille grande et au rang 3 à partir de énorme.",
+        "Image": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/creature_family/2023-02/crocodile-family-modified.png.webp?itok=PwBqJyb5",
+        "Famille": "Crocodiles",
+        "Monstres": [
+            "Crocodile",
+            "Crocodile géant"
+        ]
+    },
+    {
+        "Text": "Les dinosaures regroupent une catégorie de reptiles géants issus de la préhistoire, la version de chaque espèce présentée ici correspond à une vision fantastique plutôt qu’historique.",
+        "Image": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/creature_family/2023-02/dinosaur-family-modified.png.webp?itok=vyiE8YOs",
+        "Famille": "Dinosaures",
+        "Monstres": [
+            "Deinonychus",
+            "Ptéranodon",
+            "Triceratops",
+            "Tyrannosaure",
+            "Diplodocus"
+        ]
+    },
+    {
+        "Text": "Énormes créatures reptiliennes, les dragons possèdent quatre pattes et de grandes ailes membraneuses.Le caractère de chaque dragon varie selon son espèce, mais tous sont fiers et attirés par les trésors et ceux qui ont réuni un butin fabuleux évitent de s’en éloigner. Les dragons chromatiques sont malfaisants et leur souffle correspond à leur couleur : blanc (froid), bleu (foudre), noir (acide), rouge (feu) et vert (gaz empoisonné). Les dragons métalliques sont bienfaisants et en plus du souffle élémentaire indiqué, ils possèdent un souffle magique non létal (DM temporaires) : airain (feu), argent (froid), bronze (électricité), cuivre (acide) et or (feu). Tous les dragons parlent le draconien et apprennent d’autres langues en vieillissant. Ils deviennent de plus en plus puissants avec l’âge et leur taille peut atteindre plus de 30 m.Les dragons sont des créatures très intelligentes, aux sens très affûtés, et certains utilisent la magie, n’hésitez pas à ajouter des niveaux de Magicien aux Profils décrits si vous le souhaitez. Capacités communes aux dragons Effroi : lorsque le dragon attaque pour la première fois, toutes les créatures à moins de 50 m doivent réussir un test de SAG difficulté [5+Mod. de FOR du dragon] ou être submergées par la peur et Ralenties pendant 1d4 tours. Coup de queue : à chaque fois qu’un adversaire attaque le dragon dans le dos, il subit une attaque de queue gratuite équivalente à une attaque avec un malus de -5 et des DM divisés par 2. Immunités : un dragon est immunisé au sommeil et à la paralysie et ne subit aucun DM du type correspondant à son souffle.",
+        "Image": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/creature_family/2023-02/dragon-family-modified.png.webp?itok=ShtpXS43",
+        "Famille": "Dragons",
+        "Monstres": [
+            "Dragon juvénile",
+            "Dragon jeune",
+            "Dragon adulte",
+            "Dragon ancien"
+        ]
+    },
+    {
+        "Text": "Les élémentaires sont les incarnations des quatre éléments primordiaux : le feu, l’eau, la terre et l’air. Ils peuvent être invoqués par magie et se manifestent dans notre monde sous la forme d’une créature au buste vaguement humanoïde mêlée à un tourbillon de matière élémentaire. Tous les élémentaires partagent les capacités suivantes : Ils voient dans le noir à 30 mètres et ils peuvent déterminer la localisation de toute créature en contact avec leur élément à moins de 30 mètres, même si celle-ci est invisible. Cyclone (L) : une fois par combat, un élémentaire peut se transformer en tourbillon de matière élémentaire. Pendant [1d4+1] tours, il peut se déplacer à travers les créatures et les objets à la vitesse de 30 mètres par tour. Toute créature sur son passage doit faire un test de DEX ou de FOR au choix de difficulté [10 + Mod. de FOR de l’élémentaire].En cas d’échec, la cible subit automatiquement les DM de base de l’élémentaire (selon la taille) et elle est renversée au sol (si sa taille ne dépasse pas celle de l’élémentaire).En cas de succès, elle ne subit que la moitié des DM et peut rester debout. Lorsqu’il est sous forme de cyclone, l’élémentaire gagne un bonus de +5 en DEF.",
+        "Image": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/creature_family/2023-02/elemental_family-modified.png.webp?itok=jUd7iTQu",
+        "Famille": "Elémentaires",
+        "Monstres": [
+            "Elémentaire d'air, petit",
+            "Elémentaire d'eau, petit",
+            "Elémentaire de feu, petit",
+            "Elémentaire de terre, petit",
+            "Elémentaire d'air, moyen",
+            "Elémentaire d'eau, moyen",
+            "Elémentaire de feu, moyen",
+            "Elémentaire de terre, moyen",
+            "Elémentaire d'air, grand",
+            "Elémentaire d'eau, grand",
+            "Elémentaire de feu, grand",
+            "Elémentaire de terre, grand",
+            "Elémentaire d'air, énorme",
+            "Elémentaire d'eau, énorme",
+            "Elémentaire de feu, énorme",
+            "Elémentaire de terre, énorme",
+            "Elémentaire d'air, colossal",
+            "Elémentaire d'eau, colossal",
+            "Elémentaire de feu, colossal",
+            "Elémentaire de terre, colossal"
+        ]
+    },
+    {
+        "Text": "",
+        "Image": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/creature_family/2023-02/elephant_family-modified.png.webp?itok=O5qXZymS",
+        "Famille": "Eléphants",
+        "Monstres": [
+            "Eléphant",
+            "Mammouth"
+        ]
+    },
+    {
+        "Text": "",
+        "Image": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/creature_family/2023-02/elf_family-modified.png.webp?itok=2mcM7Vy-",
+        "Famille": "Elfes",
+        "Monstres": [
+            "Elfe des bois"
+        ]
+    },
+    {
+        "Text": "Il y a une éternité certains elfes se sont réfugiés sous terre pour une obscure raison. Loin de la lumière et de la vie que leur peuple chérissait, ils se sont racornis et ont failli disparaître. Une déesse maléfique s’est alors emparée de leur âme et ils sont redevenus un peuple puissant et fier qui domine et terrorise les royaumes souterrains. Ils vouent une haine sans borne à leurs cousins de la surface. Leur société est une tyrannie matriarcale et les femmes sont plus grandes et plus fortes que leurs homologues masculins. Les elfes noirs ont les cheveux blancs et la peau noire, ils sont vifs et agiles, vicieux, rusés et cruels.",
+        "Image": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/creature_family/2023-02/draw_family-modified.png.webp?itok=wJKeoD45",
+        "Famille": "Elfes noirs (Drows)",
+        "Monstres": [
+            "Guerrier elfe noir",
+            "Guerrière elfe noir",
+            "Prêtresse elfe noir"
+        ]
+    },
+    {
+        "Text": "Un fantôme est la manifestation physique de l’âme d’une créature qui n’a pas trouvé le repos. Il s’agit généralement d’un humain ou d’une autre race pensante humanoïde. Les fantômes peuvent être plus ou moins dangereux en fonction de la volonté et de la puissance de l’être qui se manifeste ou de sa haine pour les vivants. Certains fantômes mineurs sont peu dangereux tandis que les fantômes les plus haineux sont beaucoup plus difficiles à vaincre. Dans tous les cas, il est rare que vaincre la manifestation du fantôme soit suffisant pour s’en débarrasser à long terme et seul un rituel spécial ou une action qui permet à l’âme tourmentée de trouver le repos met fin à sa réapparition systématique au bout de 24 heures. En contrepartie les fantômes sont généralement liés à un lieu ou à un objet et s’éloigner est souvent une action suffisante pour lui échapper.",
+        "Image": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/creature_family/2023-02/ghost_family-modified.png.webp?itok=3HnbqkNv",
+        "Famille": "Fantômes",
+        "Monstres": [
+            "Fantôme mineur",
+            "Fantôme majeur"
+        ]
+    },
+    {
+        "Text": "Les géants sont des humanoïdes immenses dont les Caractéristiques varient selon les espèces. Bien qu’il en existe beaucoup plus, nous ne décrirons ici que quatre variantes correspondant à des gabarits assez différents.",
+        "Image": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/creature_family/2023-02/giant_family-modified.png.webp?itok=NMPJklR3",
+        "Famille": "Géants",
+        "Monstres": [
+            "Géant des collines",
+            "Géant de pierre",
+            "Géant du givre",
+            "Géant des tempêtes"
+        ]
+    },
+    {
+        "Text": "Les génies sont des créatures issues du folklore oriental et des contes des milles et une nuits, ce sont de puissants esprits venus des plans élémentaires dont ils forment l’aristocratie. Nous vous présentons ici les génies les plus connus, correspondant au feu et à l’air : l’efrit et le djinn. Tous les génies sont des magiciens de premier plan, mais certains parmi eux sont encore bien plus puissants. Les génies ressemblent à des humains de très grande taille, ils ont une musculature harmonieuse et une peau parfaite d’une belle couleur assortie à leur élément. Ils sont généralement habillés de tissus précieux à la mode orientale.",
+        "Image": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/creature_family/2023-02/genie-modified.png.webp?itok=xtDJ6zVl",
+        "Famille": "Génies",
+        "Monstres": [
+            "Djinn",
+            "Efrit"
+        ]
+    },
+    {
+        "Text": "Les gnolls combattent généralement en nombre et malgré leur force, ils sont souvent lâches préférant le harcèlement et la supériorité numérique pour affronter leurs adversaires. Il n’est pas rare de trouver des groupes de gnoll disposant d’un rang dans la Voie de la meute (NC+1) sous les ordres d’un chef plus expérimenté.",
+        "Image": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/creature_family/2023-02/gnoll-family-modified.png.webp?itok=tEHwkjsO",
+        "Famille": "Gnolls",
+        "Monstres": [
+            "Gnoll de base",
+            "Chef Gnoll"
+        ]
+    },
+    {
+        "Text": "Le gobelin « peau verte » est une petite créature nuisible d’environ un mètre de haut, cruelle, vicieuse et qui attaque en bande. Les gobelins sont généralement couards : blessés ou en sous-nombre, ils s’enfuient la plupart du temps. Pour obtenir un shaman gobelin remplacez la voie de la meute par la Voie de la magie de combat (rang 1 ou 2).",
+        "Image": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/creature_family/2023-02/goblin-family-modified.png.webp?itok=Kh1pr-5A",
+        "Famille": "Gobelins",
+        "Monstres": [
+            "Gobelin de base",
+            "Gobelin élite",
+            "Chef gobelin"
+        ]
+    },
+    {
+        "Text": "Les golems sont des créatures artificielles fabriquées à partir d’ingrédients étranges ou précieux et animés par magie. Le golem attaché au service d’un Forgesort est une version différente de ce type de créature utilisée comme garde du corps. Les golems décrits ici correspondent à des gardiens infatigables auquel on confie la mission de garder un trésor ou un passage pour l’éternité. Généralement un mot de passe prononcé à voie haute ou un symbole brandi devant soi permet aux personnes sélectionnées d’accéder au lieu protégé en toute sécurité. Les golems sont des créatures non-vivantes dépourvues d’esprit ce qui les immunise à toute magie qui affecte la volonté ou les émotions.",
+        "Image": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/creature_family/2023-02/golem_family-modified.png.webp?itok=WVnSiJAy",
+        "Famille": "Golems",
+        "Monstres": [
+            "Golem de chair",
+            "Golem de pierre",
+            "Golem de fer"
+        ]
+    },
+    {
+        "Text": "",
+        "Image": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/creature_family/2023-02/gorilla_family-modified.png.webp?itok=eDNO6Hsv",
+        "Famille": "Gorilles",
+        "Monstres": [
+            "Gorille",
+            "Gorille géant"
+        ]
+    },
+    {
+        "Text": "Les Hobgobelins (grands gobelins) combattent généralement en nombre et sont parmi les mieux organisés des humanoïdes maléfiques, il n’est pas rare de les trouver dans de véritables armées et leurs leaders bénéficient généralement de quelques rangs dans la Voie du chef d’armée.",
+        "Image": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/creature_family/2023-02/hobgoblin-family-modified.png.webp?itok=6HLkZ4xc",
+        "Famille": "Hobgobelins",
+        "Monstres": [
+            "Hobgobelin de base",
+            "Gobelours",
+            "Capitaine hobgobelin"
+        ]
+    },
+    {
+        "Text": "Les hommes-lézards sont des créatures reptiliennes robustes mesurant environs deux mètres. Ils parlent le draconien. Natation : les hommes-lézards sont parfaitement adaptés au milieu aquatique. En cas de combat dans l’eau, ils ne souffrent d’aucune pénalité tandis que les personnages subissent un malus de -2 (marais) à -5 (natation).Voir les règles sur les conditions difficiles et le NR.",
+        "Image": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/creature_family/2023-02/lizardfolk_family-modified.png.webp?itok=-tNMldzJ",
+        "Famille": "Hommes-lézards",
+        "Monstres": [
+            "Homme-lézard de base",
+            "Champion homme-lézard"
+        ]
+    },
+    {
+        "Text": "L’hydre est une grande créature reptilienne de presque 2 tonnes pourvue de multiples têtes. Imaginez un petit diplodocus doté de 5 à 12 têtes de dragon et vous aurez une idée de l’apparence de cet épouvantable monstre. Couper une tête : l’hydre est un adversaire très dangereux à cause de son nombre élevé d’attaque. Pour réduire le nombre de tête un personnage peut tenter de la décapiter. Dans ce cas, l’attaque souffre d’une pénalité de -5 et elle doit infliger au moins 10 points de DM en une seule fois. En cas de réussite, la tête est coupée et les PV du monstre baissent de 10. Toutefois la guérison accélérée de l’hydre fait repousser la tête en 2 tours (sauf DM de feu). En cas d’échec, l’hydre ne subit aucun DM. Ajouter des têtes : pour chaque tête supplémentaire, ajoutez 10 PV, +1 en attaque et une attaque supplémentaire. Le NC augmente de +1.",
+        "Image": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/creature_family/2023-02/hydra_family-modified.png.webp?itok=CEJIje8l",
+        "Famille": "Hydres",
+        "Monstres": [
+            "Hydre à 5 têtes",
+            "Hydre à 10 têtes"
+        ]
+    },
+    {
+        "Text": "Les insectes géants sont des monstres terrifiants : rapides, puissants et capables de survivre aux pires blessures. On parle d’insecte géant à partir de la taille petite, en dessous de cette taille référez-vous aux Nuée d’insectes géants. Les Caractéristiques des insectes géants dépendent principalement de leur taille et un Profil générique est donné pour chaque taille. Tous les insectes bénéficient des capacités suivantes (qui augmentent leur NC de +1). Résistant : les insectes sont capables de survivre aux pires blessures, le MJ lance deux d20 pour leurs tests de CON et garde le meilleur résultat. Lorsque la créature atteint 0 PV, elle peut encore agir un tour complet. Rapide : un insecte géant est capable de se déplacer de 30 mètres par action de mouvement. Vermine : lorsque vous créez un insecte géant, il obtient des bonus par rapport à un archétype normal. Si vous utilisez un Profil d’insecte décrit ci-dessous, ignorez cette capacité, elle n’est destinée qu’aux MJ souhaitant concevoir ce type de créature. Dans ce cas, augmentez les PV de +10 et le Mod. de FOR et de CON de +3 par rapport à une créature de cette taille. Poisons De nombreux insectes empoisonnent leurs victimes, selon l’insecte choisissez le poison qui convient : par exemple une araignée utilise du poison affaiblissant et un scorpion ou une guêpe un poison mortel. Un insecte capable d’empoisonner ses victimes augmente son NC de +1. Affaiblissant : en cas d’échec d’un test de CON (difficulté 10+Mod. de FOR de l’insecte), la victime est Affaiblie pendant 1d6 heures. Si la victime subit un nouvel empoisonnement du même type pendant cette période, elle sombre dans l’inconscience pour 1d6 heures. Mortel : le poison inflige [Mod. de FOR d6] DM à la victime, la moitié si elle réussi un test de CON difficulté 10. Répartissez les DM au rythme de 1d6 par tour à partir du moment de l’empoisonnement. Variantes Choisissez les capacités qui correspondent à l’insecte que vous voulez utiliser : Cuirassé (RD 5) : les scarabées ou les scorpions bénéficient de cette capacité qui leur permet de retrancher 5 points à tous les DM subits. NC +1. Toile (L) : sur un test d’attaque réussi (portée selon la taille : moyenne 3m, grand 5m, énorme 10 m, colossale 15m), l’araignée emprisonne sa cible dans une toile gluante et solide. Se libérer nécessite l’usage d’une action limitée et il faut réussir un test de FOR difficulté [10 + Mod. de FOR de l’araignée]. Voie des créatures volantes rang 1 : pour les guêpes géantes ou autres prédateurs volants comme les libellules. NC +1.Voie du prédateur rang 1 : pour les araignées chasseuse (celles qui ne tissent pas de toiles). NC +1.             ",
+        "Image": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/creature_family/2023-02/bug_family-modified.png.webp?itok=UzZQRLyu",
+        "Famille": "Insectes géants",
+        "Monstres": [
+            "Insecte de taille petite",
+            "Insecte de taille moyenne",
+            "Insecte de taille grande",
+            "Insecte de taille énorme",
+            "Insecte de taille colossale"
+        ]
+    },
+    {
+        "Text": "Les Kobolds sont de petits humanoïdes reptiliens dont le faciès fait penser au crocodile. Vicieux et malins, ils sont passés maîtres dans l’art de tendres pièges et embuscades. Ils mesurent moins d’un mètre pour une vingtaine de kilos.",
+        "Image": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/creature_family/2023-02/kobold_family-modified.png.webp?itok=WpcWFJrl",
+        "Famille": "Kobolds",
+        "Monstres": [
+            "Kobold de base",
+            "Chef kobold",
+            "Prêtre kobold"
+        ]
+    },
+    {
+        "Text": "",
+        "Image": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/creature_family/2023-02/lion_family-modified.png.webp?itok=z7eVUmou",
+        "Famille": "Lions",
+        "Monstres": [
+            "Lion",
+            "Grand mâle, lion"
+        ]
+    },
+    {
+        "Text": "Odorat : l’odorat supérieur des loups leur permet d'obtenir la SAG en Carac. Supérieure.",
+        "Image": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/creature_family/2023-02/wolf_family-modified.png.webp?itok=aPdogvmp",
+        "Famille": "Loups",
+        "Monstres": [
+            "Loup",
+            "Loup, mâle alpha",
+            "Worg",
+            "Loup géant",
+            "Loup arctique"
+        ]
+    },
+    {
+        "Text": "Les légendes et les superstitions présentent la lycanthropie comme une horrible malédiction, dans cette vision populaire, un loup-garou est un humain qui se transforme involontairement en loup ou en créature mi-homme mi-loup à chaque pleine lune pour dévorer de la chair humaine et massacrer tous ceux qu’il croise. Toutefois Chroniques Oubliées distingue deux catégories de créatures, les lycanthropes infectés et les lycanthropes naturels. Tous les lycanthropes partagent les capacités suivantes : Infection : toute créature humanoïde de taille petite ou moyenne blessée par les armes naturelles d’un Lycanthrope (morsure et griffes) doit réussir un test de CON difficulté 15 à la fin du combat ou être infecté par la maladie. Demandez à chaque joueur de réaliser ce test en secret, les autres joueurs ne doivent pas savoir si leur camarade est atteint ou non. Soigner : si elle est traitée dans les 3 jours suivant la morsure, l’infection peut être guéries par certaines herbes médicinales rares (aconit) ou par les sorts de Guérison ou de Délivrance du Profil de Prêtre. Au-delà de ce laps de temps aucun traitement connu ne permet de guérir l’infection. Voie des créatures magiques rang 1 (RD 5 / argent) : cette réduction des DM ne s’applique que sous forme animale ou sous forme hybride.",
+        "Image": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/creature_family/2023-02/lycanthrope_family-modified.png.webp?itok=Desla7cE",
+        "Famille": "Lycanthropes",
+        "Monstres": [
+            "Rat-garou infecté",
+            "Loup-garou infecté",
+            "Rat-garou naturel",
+            "Loup-garou naturel"
+        ]
+    },
+    {
+        "Text": "Le minotaure est un humanoïde puissant à tête de taureau, mesurant plus de deux mètres, il pèse approximativement 300 kg. D’un tempérament colérique, il charge ses adversaires avec fougue et combat souvent jusqu’à la mort.",
+        "Image": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/creature_family/2023-02/minotaur_family-modified.png.webp?itok=vQpAx4T9",
+        "Famille": "Minotaures",
+        "Monstres": [
+            "Minotaure",
+            "Champion minotaure"
+        ]
+    },
+    {
+        "Text": "Le naga est un énorme serpent à tête humaine (4 mètre pour 200kg), un puissant esprit de la magie aux motivations étranges et souvent incompréhensibles pour les mortels. Les nagas sont quasi-immortels et leur savoir dépasse l’entendement, ils sont généralement liés à un lieu sacré qu’ils gardent et leur apparence ainsi que leurs pouvoirs s’accordent à la nature mystique de l’endroit.",
+        "Image": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/creature_family/2023-02/naga_family-modified.png.webp?itok=UhOt68lJ",
+        "Famille": "Nagas",
+        "Monstres": [
+            "Naga bon",
+            "Naga maléfique",
+            "Naga neutre"
+        ]
+    },
+    {
+        "Text": "",
+        "Image": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/creature_family/2023-02/dwarf_family-modified.png.webp?itok=y8SWof06",
+        "Famille": "Nains",
+        "Monstres": [
+            "Nain",
+            "Nain sombre"
+        ]
+    },
+    {
+        "Text": "Une nuée est un regroupement de très nombreuses petites créatures qui ne représentent de réel danger prises de façon individuelle mais peuvent s’avérer redoutables dans le cas d’une vague de plusieurs dizaines voire de centaines d’individus. Lent : la nuée est un adversaire redoutable mais heureusement elle ne se déplace que de 15 mètres par action de mouvement, ce qui permet à la plupart des créatures de lui échapper simplement en courant vite ! Recouvrir (L) : la nuée peut recouvrir sa proie après avoir réussi une attaque de contact contre sa cible. Dès lors, la cible est distraite, déséquilibrée et victime d’innombrables morsures. La nuée lui inflige automatiquement 1d6 DM par tour et la victime est Affaiblie tant que la nuée n’est pas vaincue. Cibles multiples : la nuée est constituée de très nombreuses cibles et les attaques conventionnelles lui infligent peu de DM. Les attaques de zone lui infligent des DM normaux mais tous les DM par des armes de contact ou à distance ne lui infligent qu’un seul point de DM par attaque réussie.",
+        "Image": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/creature_family/2023-02/swarm_family-modified.png.webp?itok=ejzT_y-s",
+        "Famille": "Nuées",
+        "Monstres": [
+            "Nuée de rats",
+            "Nuée d'araignées venimeuses",
+            "Nuée d'oiseaux",
+            "Nuée de frelons",
+            "Nuée de guêpes géantes"
+        ]
+    },
+    {
+        "Text": "L’ogre est une brute épaisse mesurant plus de 2,50 m (pour 300 kg). Cette créature maléfique a un penchant pour les armes démesurées et la boucherie gratuite. C’est un adversaire formidable et un combat contre un ogre n’est jamais sans risque. Il parle géant et parfois le commun.",
+        "Image": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/creature_family/2023-02/ogre_modified.png.webp?itok=podI1d6Y",
+        "Famille": "Ogres",
+        "Monstres": [
+            "Ogre",
+            "Chef ogre",
+            "Ogre mage"
+        ]
+    },
+    {
+        "Text": "Les orques sont des créatures robustes, un peu plus grandes que les humains, dotées de traits bestiaux et d’habitudes violentes. Ils vivent en tribus sous la domination d’un chef qui règne par la loi du plus fort. Les orques parlent leur propre langue et ils sont capables de gagner des niveaux dans un profil.",
+        "Image": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/creature_family/2023-02/orc_family-modified.png.webp?itok=uIgCjul6",
+        "Famille": "Orques",
+        "Monstres": [
+            "Orque",
+            "Orque noir",
+            "Berserker orque",
+            "Orque élite",
+            "Shaman orque",
+            "Chef orque"
+        ]
+    },
+    {
+        "Text": "",
+        "Image": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/creature_family/2023-02/bear_family-modified.png.webp?itok=ezNFDmkw",
+        "Famille": "Ours",
+        "Monstres": [
+            "Ours noir",
+            "Ours brun",
+            "Ours-hibou",
+            "Ours polaire",
+            "Ours préhistorique"
+        ]
+    },
+    {
+        "Text": "Un pixie est un être féérique de petite taille (environ 75 cm pour 15 kg) d’apparence humaine doté d’ailes diaphanes similaires à celles des libellules. Ils vivent cachés dans les forêts les plus sauvages qu’ils protègent sans peur même devant les créatures les plus malfaisantes. De nombreux pixies sont passés maître dans l’art de la magie de l’esprit ce qui les rend beaucoup plus dangereux que leurs compatriotes non-initiés.",
+        "Image": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/creature_family/2023-02/pixie_family-modified.png.webp?itok=NqkOUXFI",
+        "Famille": "Pixies",
+        "Monstres": [
+            "Pixie",
+            "Pixie ensorceleur"
+        ]
+    },
+    {
+        "Text": "Dans toutes les aventures, les Personnages Non-Joueurs font partie des incontournables. Que ce soit pour assigner une mission, guider ou accompagner les héros. Ou bien pour les dérouter, leur faire perdre du temps, voire les mener tout droit dans la gueule... du dragon.           ",
+        "Image": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/creature_family/2023-02/npc-modified.png.webp?itok=1v_C20Zf",
+        "Famille": "PNJ",
+        "Monstres": [
+            "Gamin",
+            "Passant",
+            "Marchand",
+            "Milicien",
+            "Voleur à la tire",
+            "Gros bras",
+            "Soldat",
+            "Surineur",
+            "Assassin mineur",
+            "Garde du corps",
+            "Spadassin",
+            "Sergent",
+            "Assassin majeur",
+            "Garde d'élite",
+            "Capitaine",
+            "Maître assassin",
+            "Grand maître assassin"
+        ]
+    },
+    {
+        "Text": "Seul, le rat n’est pas considéré comme un ennemi digne de ce nom (utilisez les Caractéristiques d’une créature minuscule). En groupe de nombreuses créatures, vous trouverez ses Caractéristiques en cherchant à Nuée de rats.",
+        "Image": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/creature_family/2023-02/rat_family-modified.png.webp?itok=0-cul-Ar",
+        "Famille": "Rats",
+        "Monstres": [
+            "Rat géant"
+        ]
+    },
+    {
+        "Text": "",
+        "Image": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/creature_family/2023-02/boar_family-modified.png.webp?itok=G0_gD861",
+        "Famille": "Sangliers",
+        "Monstres": [
+            "Sanglier",
+            "Sanglier sanguinaire"
+        ]
+    },
+    {
+        "Text": "",
+        "Image": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/creature_family/2023-02/snake_family-modified.png.webp?itok=BMDn2Upb",
+        "Famille": "Serpents",
+        "Monstres": [
+            "Serpent venimeux",
+            "Serpent constricteur",
+            "Serpent géant"
+        ]
+    },
+    {
+        "Text": "En animant par magie les ossements d’une créature défunte, on obtient un mort-vivant assez fragile appelé le squelette. Un squelette est une créature sans cervelle immunisée à toute forme d’attaque mentale. Et non, il ne parle pas !",
+        "Image": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/creature_family/2023-02/skeleton_family-modified.png.webp?itok=JISao5Cs",
+        "Famille": "Squelettes",
+        "Monstres": [
+            "Squelette de base",
+            "Squelette de géant"
+        ]
+    },
+    {
+        "Text": "Ce Profil correspond à tous les grands herbivores à cornes (taureau, etc). Les femelles fuient généralement à moins de défendre un petit.",
+        "Image": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/creature_family/2023-02/bull_family-modified.png.webp?itok=uc051ww0",
+        "Famille": "Taureaux",
+        "Monstres": [
+            "Taureau",
+            "Taureau, grand mâle"
+        ]
+    },
+    {
+        "Text": "",
+        "Image": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/creature_family/2023-02/tiger_family-modified.png.webp?itok=cTtD-Jo7",
+        "Famille": "Tigres",
+        "Monstres": [
+            "Tigre",
+            "Tigre à dents de sabre"
+        ]
+    },
+    {
+        "Text": "Le vampire est un humanoïde mort-vivant qui se nourrit du sang des vivants, il peut aisément passer pour un être humain lorsqu’il vient de se gaver de sang frais. Toutefois, il peut aussi prendre une apparence plus ou moins cadavérique ou encore une forme hybride proche de la chauve-souris.",
+        "Image": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/creature_family/2023-02/vampire_family-modified.png.webp?itok=1yirNKZ6",
+        "Famille": "Vampires",
+        "Monstres": [
+            "Vampirien",
+            "Vampire",
+            "Vampire ancien"
+        ]
+    },
+    {
+        "Text": "Un zombi est un mort-vivant animé à partir d’un cadavre récent. Les chairs peuvent êtres à un stade plus ou moins avancé de putréfaction mais le corps doit être globalement complet. Le zombi est une créature stupide qui suit les ordres de son créateur ou attaque toute créature vivante à portée. Pour obtenir un zombi, vous pouvez partir de n’importe quelle taille de créature, simplement le type de la créature devient non-vivant et on ajoute les capacités du zombi : Réduction des DM, Sans esprit, Lenteur et Insensible à la douleur (NC +1)",
+        "Image": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/creature_family/2023-02/zombie_family-modified.png.webp?itok=l_nRrRaL",
+        "Famille": "Zombis",
+        "Monstres": [
+            "Zombi humain",
+            "Ours hibou zombi"
+        ]
+    }
+]

@@ -4,7 +4,7 @@ import { Sword, Dices } from 'lucide-react';
 
 export const Tools: React.FC = () => {
     return (
-        <div className="space-y-6">
+        <div className="max-w-6xl mx-auto space-y-6">
             <h2 className="text-4xl font-display font-bold text-primary-400 mb-6 drop-shadow-lg animate-fade-in">Outils du MJ</h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

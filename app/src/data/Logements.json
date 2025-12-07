@@ -1,0 +1,18 @@
+[
+    {
+        "Nom": "Nuit (chambre de 4)",
+        "Prix": "1-2 pa"
+    },
+    {
+        "Nom": "Nuit (chambre individuelle)",
+        "Prix": "2-5 pa"
+    },
+    {
+        "Nom": "Nuit (dortoir)",
+        "Prix": "5-10 pc"
+    },
+    {
+        "Nom": "Nuit (suite)",
+        "Prix": "10-50 pa"
+    }
+]

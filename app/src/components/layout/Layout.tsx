@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
-import { Book, Sword, Users, Home } from 'lucide-react';
+import { Book, Sword, Users, Home, BookOpen, GraduationCap, Sparkles, Zap, Package, Truck, UtensilsCrossed, AlertCircle } from 'lucide-react';
 import clsx from 'clsx';
 
 export const Layout: React.FC = () => {
@@ -10,6 +10,14 @@ export const Layout: React.FC = () => {
         { path: '/', icon: Home, label: 'Accueil' },
         { path: '/campaign', icon: Users, label: 'Campagne' },
         { path: '/bestiary', icon: Book, label: 'Bestiaire' },
+        { path: '/races', icon: BookOpen, label: 'Races' },
+        { path: '/classes', icon: GraduationCap, label: 'Classes' },
+        { path: '/voies', icon: Sparkles, label: 'Voies' },
+        { path: '/capacites', icon: Zap, label: 'Capacités' },
+        { path: '/equipment', icon: Package, label: 'Équipement' },
+        { path: '/mounts', icon: Truck, label: 'Montures' },
+        { path: '/provisions', icon: UtensilsCrossed, label: 'Provisions' },
+        { path: '/states', icon: AlertCircle, label: 'États' },
         { path: '/tools', icon: Sword, label: 'Outils' },
     ];
 
@@ -25,7 +33,7 @@ export const Layout: React.FC = () => {
             </header>
 
             {/* Desktop Sidebar - Visible on medium+ screens */}
-            <aside className="hidden md:flex flex-col w-64 fixed left-0 top-0 bottom-0 z-30 p-4">
+            <aside className="hidden md:flex flex-col w-72 fixed left-0 top-0 bottom-0 z-30 p-4">
                 <div className="glass-panel h-full rounded-2xl border-primary-500/20 flex flex-col shadow-2xl backdrop-blur-xl bg-stone-950/40">
                     <div className="p-6 border-b border-white/5">
                         <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-400 to-primary-600 font-display tracking-wider drop-shadow-sm leading-tight">
@@ -65,7 +73,7 @@ export const Layout: React.FC = () => {
             </aside>
 
             {/* Main Content Area */}
-            <main className="flex-1 px-4 pt-24 pb-28 md:pt-8 md:pb-8 md:pl-72 w-full max-w-7xl mx-auto overflow-x-hidden min-h-screen">
+            <main className="flex-1 px-4 pt-24 pb-28 md:pt-8 md:pb-8 md:pl-80 w-full overflow-x-hidden min-h-screen">
                 <Outlet />
             </main>
 

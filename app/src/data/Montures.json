@@ -1,0 +1,26 @@
+[
+    {
+        "Nom": "Carriole",
+        "Prix": "50 pa"
+    },
+    {
+        "Nom": "Chariot",
+        "Prix": "90 pa"
+    },
+    {
+        "Nom": "Cheval de guerre léger",
+        "Prix": "300 pa"
+    },
+    {
+        "Nom": "Cheval de selle",
+        "Prix": "100 pa"
+    },
+    {
+        "Nom": "Mule ou âne",
+        "Prix": "25 pa"
+    },
+    {
+        "Nom": "Poney",
+        "Prix": "50 pa"
+    }
+]

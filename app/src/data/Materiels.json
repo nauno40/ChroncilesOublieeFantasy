@@ -1,0 +1,54 @@
+[
+    {
+        "Nom": "Briquet à silex",
+        "Prix": "1 pa"
+    },
+    {
+        "Nom": "Carquois 20 flèches.",
+        "Prix": "3 pa"
+    },
+    {
+        "Nom": "Corde (15m)",
+        "Prix": "2 pa"
+    },
+    {
+        "Nom": "Couverture",
+        "Prix": "1 pa"
+    },
+    {
+        "Nom": "Grappin",
+        "Prix": "2 pa"
+    },
+    {
+        "Nom": "Huile Durée : 6 heures",
+        "Prix": "1 pa"
+    },
+    {
+        "Nom": "Lanterne à huile Portée : 10 m",
+        "Prix": "3 pa"
+    },
+    {
+        "Nom": "Matériel d’écriture",
+        "Prix": "5 pa"
+    },
+    {
+        "Nom": "Outils de crochetage Sans ces outils, une pénalité de -10 est infligée au test de DEX",
+        "Prix": "5 pa"
+    },
+    {
+        "Nom": "Potion de soin Soigne 1d8 PV Soumis à autorisation du MJ.",
+        "Prix": "10 pa"
+    },
+    {
+        "Nom": "Ration 1 semaine",
+        "Prix": "4 pa"
+    },
+    {
+        "Nom": "Sac à dos",
+        "Prix": "1 pa"
+    },
+    {
+        "Nom": "Torches Nombre : 3 Durée : 1 heure Portée : 10 m",
+        "Prix": "1 pa"
+    }
+]

@@ -102,7 +102,7 @@ export const Bestiary: React.FC = () => {
     const hasActiveFilters = searchTerm || selectedCategory || selectedFamily || selectedArchetype || selectedEnvironment || selectedSize || minLevel > 0 || maxLevel < 30;
 
     return (
-        <div className="space-y-8">
+        <div className="max-w-6xl mx-auto space-y-6 pb-12">
             <header className="sticky top-[72px] md:top-0 z-20 -mx-4 px-4 pb-4 pt-4 mb-8 transition-all">
                 <div className="glass-panel rounded-2xl p-6 border-primary-500/30 shadow-2xl relative overflow-hidden backdrop-blur-xl bg-stone-950/80">
                     {/* Decorative background glow */}

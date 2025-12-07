@@ -2,7 +2,7 @@ import React from 'react';
 
 export const Home: React.FC = () => {
     return (
-        <div className="space-y-6">
+        <div className="max-w-6xl mx-auto space-y-6">
             <div className="glass-panel rounded-2xl p-8 border-primary-500/20 relative overflow-hidden group">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-primary-600/10 rounded-full blur-3xl group-hover:bg-primary-600/20 transition-colors duration-500 transform translate-x-12 -translate-y-12"></div>
                 <h2 className="text-3xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary-200 to-primary-500 mb-2 relative z-10">Bienvenue, Maître de Jeu</h2>

@@ -88,3 +88,90 @@ export interface Armor {
     Prix: string;
     Comments: string;
 }
+
+export interface Race {
+    Title: string;
+    Desc: string;
+    Desc2: string;
+    Capacités: string;
+    "Âge de départ": string;
+    Desc3: string;
+    Repères: string;
+    "Espérance de vie": string;
+    Caractéristiques: string;
+    "Noms typiques": string;
+    "Taille Min": string;
+    "Taille Max": string;
+    "Poids Min": string;
+    "Poids Max": string;
+}
+
+export interface Profile {
+    Note: string;
+    Profil: string;
+    Description: string;
+    "Dé de vie": string;
+    "Armes et armures": string;
+    "Equipement de départ": string;
+    Image_URL: string;
+    Voie1: string;
+    Voie2: string;
+    Voie3: string;
+    Voie4: string;
+    Voie5: string;
+    Mod: string;
+}
+
+export interface Capability {
+    Nom: string;
+    Desc: string;
+    Profile: string;
+    Voie: string;
+    rang: string;
+}
+
+export interface Weapon {
+    Nom: string;
+    Type: string;
+    Arme_de_jet: string;
+    Portée: string;
+    Rechargement: string;
+    Critique: string;
+    Dégâts: string;
+    Dégâts_temporaires: string;
+    Prix: string;
+}
+
+export interface Armor {
+    Nom: string;
+    Type: string;
+    DEF: string;
+    Prix: string;
+    Comments: string;
+}
+
+export interface Material {
+    Nom: string;
+    Prix: string;
+}
+
+export interface Mount {
+    Nom: string;
+    Prix: string;
+}
+
+export interface Food {
+    Nom: string;
+    Prix: string;
+}
+
+export interface Lodging {
+    Nom: string;
+    Prix: string;
+}
+
+export interface HarmfulState {
+    Image: string;
+    Name: string;
+    Description: string;
+}

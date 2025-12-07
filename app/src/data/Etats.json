@@ -1,0 +1,42 @@
+[
+    {
+        "Image": "https://www.co-drs.org/sites/default/files/co/detrimental_state/achilles-heel.svg",
+        "Name": "Affaibli",
+        "Description": "d12 pour tous les tests au lieu du d20"
+    },
+    {
+        "Image": "https://www.co-drs.org/sites/default/files/co/detrimental_state/sight-disabled.svg",
+        "Name": "Aveuglé",
+        "Description": "Init. -5, Att. contact -5, DEF -5, Att. dist. -10"
+    },
+    {
+        "Image": "https://www.co-drs.org/sites/default/files/co/detrimental_state/stoned-skull.svg",
+        "Name": "Étourdi",
+        "Description": "Aucune action possible, DEF -5"
+    },
+    {
+        "Image": "https://www.co-drs.org/sites/default/files/co/detrimental_state/weight-crush.svg",
+        "Name": "Immobilisé",
+        "Description": "d12 pour tous les tests au lieu du d20, pas de déplacement"
+    },
+    {
+        "Image": "https://www.co-drs.org/sites/default/files/co/detrimental_state/handcuffed.svg",
+        "Name": "Paralysé",
+        "Description": "Aucune action possible, en cas d’attaque : touché automatiquement et subit un coup critique"
+    },
+    {
+        "Image": "https://www.co-drs.org/sites/default/files/co/detrimental_state/tortoise.svg",
+        "Name": "Ralenti",
+        "Description": "Une seule action par tour (action d’attaque ou de mouvement)"
+    },
+    {
+        "Image": "https://www.co-drs.org/sites/default/files/co/detrimental_state/falling.svg",
+        "Name": "Renversé",
+        "Description": "Att. -5, DEF -5, nécessite une action de mouvement pour se relever"
+    },
+    {
+        "Image": "https://www.co-drs.org/sites/default/files/co/detrimental_state/surprised.svg",
+        "Name": "Surpris",
+        "Description": "Pas d’action, DEF -5 au 1er tour de combat"
+    }
+]

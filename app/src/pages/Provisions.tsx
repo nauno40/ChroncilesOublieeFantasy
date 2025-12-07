@@ -1,87 +1,94 @@
-import React, { useState, useMemo } from 'react';
-import nourritureData from '../data/Nourriture.json';
-import logementsData from '../data/Logements.json';
+import React from 'react';
+import foodData from '../data/Nourriture.json';
+import lodgingData from '../data/Logements.json';
 import type { Food, Lodging } from '../types';
-import { Search } from 'lucide-react';
+import { PageContainer, PageHeader, TabGroup, SearchBar, Card, Badge, EmptyState } from '../components/common';
+import { useSearch } from '../hooks';
+import { UtensilsCrossed, Home } from 'lucide-react';
 
-const nourriture = nourritureData as Food[];
-const logements = logementsData as Lodging[];
-
-type Tab = 'food' | 'lodging';
+const foods = foodData as Food[];
+const lodgings = lodgingData as Lodging[];
 
 export const Provisions: React.FC = () => {
-    const [activeTab, setActiveTab] = useState<Tab>('food');
-    const [searchTerm, setSearchTerm] = useState('');
+    const foodSearch = useSearch(foods, (f, term) => f.Nom.toLowerCase().includes(term.toLowerCase()));
+    const lodgingSearch = useSearch(lodgings, (l, term) => l.Nom.toLowerCase().includes(term.toLowerCase()));
 
-    const filteredFood = useMemo(() => {
-        return nourriture.filter(f => f.Nom.toLowerCase().includes(searchTerm.toLowerCase()));
-    }, [searchTerm]);
-
-    const filteredLodging = useMemo(() => {
-        return logements.filter(l => l.Nom.toLowerCase().includes(searchTerm.toLowerCase()));
-    }, [searchTerm]);
+    const tabs = [
+        { id: 'food', label: 'Nourriture', icon: UtensilsCrossed },
+        { id: 'lodging', label: 'Logement', icon: Home }
+    ];
 
     return (
-        <div className="max-w-6xl mx-auto space-y-6 pb-12">
-            <div className="glass-panel rounded-2xl p-6 md:p-8 shadow-2xl border-primary-500/20 sticky top-0 z-10 backdrop-blur-md">
-                <h1 className="text-3xl md:text-4xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary-200 to-primary-500 mb-6">
-                    Provisions
-                </h1>
+        <PageContainer>
+            <PageHeader title="Provisions" />
 
-                <div className="flex gap-2 mb-6">
-                    <button
-                        onClick={() => { setActiveTab('food'); setSearchTerm(''); }}
-                        className={`px-6 py-3 rounded-xl font-display font-bold transition-all ${activeTab === 'food'
-                                ? 'bg-primary-500/20 text-primary-300 border-2 border-primary-500/50'
-                                : 'bg-stone-900/40 text-stone-400 border border-white/5 hover:border-primary-500/30'
-                            }`}
-                    >
-                        Nourriture ({nourriture.length})
-                    </button>
-                    <button
-                        onClick={() => { setActiveTab('lodging'); setSearchTerm(''); }}
-                        className={`px-6 py-3 rounded-xl font-display font-bold transition-all ${activeTab === 'lodging'
-                                ? 'bg-primary-500/20 text-primary-300 border-2 border-primary-500/50'
-                                : 'bg-stone-900/40 text-stone-400 border border-white/5 hover:border-primary-500/30'
-                            }`}
-                    >
-                        Logement ({logements.length})
-                    </button>
-                </div>
+            <TabGroup tabs={tabs}>
+                {(activeTab) => (
+                    <>
+                        {activeTab === 'food' && (
+                            <div className="space-y-4">
+                                <SearchBar
+                                    value={foodSearch.searchTerm}
+                                    onChange={foodSearch.setSearchTerm}
+                                    placeholder="Rechercher de la nourriture..."
+                                />
 
-                <div className="relative">
-                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-stone-400" size={20} />
-                    <input
-                        type="text"
-                        placeholder="Rechercher..."
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        className="w-full pl-12 pr-4 py-3 bg-stone-900/50 border border-primary-500/20 rounded-xl text-stone-100 placeholder-stone-400 focus:outline-none focus:ring-1 focus:ring-primary-400 transition-all"
-                    />
-                </div>
-            </div>
+                                {foodSearch.filteredItems.length === 0 ? (
+                                    <EmptyState message="Aucune nourriture trouvée" />
+                                ) : (
+                                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                        {foodSearch.filteredItems.map((food, i) => (
+                                            <Card key={i}>
+                                                <div className="flex items-start justify-between">
+                                                    <h3 className="text-lg font-display font-bold text-stone-200 flex-1">
+                                                        {food.Nom}
+                                                    </h3>
+                                                    {food.Prix && (
+                                                        <Badge variant="warning" size="sm">
+                                                            {food.Prix}
+                                                        </Badge>
+                                                    )}
+                                                </div>
+                                            </Card>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        )}
 
-            {activeTab === 'food' && (
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {filteredFood.map((food, i) => (
-                        <div key={i} className="glass-panel p-4 rounded-xl border-white/5 hover:border-primary-500/30 transition-all">
-                            <h3 className="text-stone-200 font-semibold mb-1">{food.Nom}</h3>
-                            <p className="text-primary-400 font-mono text-sm">{food.Prix}</p>
-                        </div>
-                    ))}
-                </div>
-            )}
+                        {activeTab === 'lodging' && (
+                            <div className="space-y-4">
+                                <SearchBar
+                                    value={lodgingSearch.searchTerm}
+                                    onChange={lodgingSearch.setSearchTerm}
+                                    placeholder="Rechercher un logement..."
+                                />
 
-            {activeTab === 'lodging' && (
-                <div className="grid md:grid-cols-2 gap-4">
-                    {filteredLodging.map((lodging, i) => (
-                        <div key={i} className="glass-panel p-6 rounded-xl border-white/5 hover:border-primary-500/30 transition-all">
-                            <h3 className="text-lg font-display font-bold text-stone-200 mb-2">{lodging.Nom}</h3>
-                            <p className="text-primary-400 font-mono">{lodging.Prix}</p>
-                        </div>
-                    ))}
-                </div>
-            )}
-        </div>
+                                {lodgingSearch.filteredItems.length === 0 ? (
+                                    <EmptyState message="Aucun logement trouvé" />
+                                ) : (
+                                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                        {lodgingSearch.filteredItems.map((lodging, i) => (
+                                            <Card key={i}>
+                                                <div className="flex items-start justify-between">
+                                                    <h3 className="text-lg font-display font-bold text-stone-200 flex-1">
+                                                        {lodging.Nom}
+                                                    </h3>
+                                                    {lodging.Prix && (
+                                                        <Badge variant="warning" size="sm">
+                                                            {lodging.Prix}
+                                                        </Badge>
+                                                    )}
+                                                </div>
+                                            </Card>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        )}
+                    </>
+                )}
+            </TabGroup>
+        </PageContainer>
     );
 };

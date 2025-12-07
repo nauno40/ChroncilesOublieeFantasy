@@ -1,160 +1,133 @@
-import React, { useState, useMemo } from 'react';
-import armesData from '../data/Armes.json';
-import armuresData from '../data/Armures.json';
-import materielsData from '../data/Materiels.json';
+import React from 'react';
+import weaponsData from '../data/Armes.json';
+import armorsData from '../data/Armures.json';
+import materialsData from '../data/Materiels.json';
 import type { Weapon, Armor, Material } from '../types';
-import { Search, Package } from 'lucide-react';
+import { PageContainer, PageHeader, TabGroup, SearchBar, EmptyState } from '../components/common';
+import { useSearch } from '../hooks';
+import { Sword, Shield, Gem } from 'lucide-react';
 
-const armes = armesData as Weapon[];
-const armures = armuresData as Armor[];
-const materiels = materielsData as Material[];
-
-type Tab = 'weapons' | 'armor' | 'materials';
+const weapons = weaponsData as Weapon[];
+const armors = armorsData as Armor[];
+const materials = materialsData as Material[];
 
 export const Equipment: React.FC = () => {
-    const [activeTab, setActiveTab] = useState<Tab>('weapons');
-    const [searchTerm, setSearchTerm] = useState('');
+    const weaponSearch = useSearch(weapons, (w, term) => w.Nom.toLowerCase().includes(term.toLowerCase()));
+    const armorSearch = useSearch(armors, (a, term) => a.Nom.toLowerCase().includes(term.toLowerCase()));
+    const materialSearch = useSearch(materials, (m, term) => m.Nom.toLowerCase().includes(term.toLowerCase()));
 
-    const filteredWeapons = useMemo(() => {
-        return armes.filter(w => w.Nom.toLowerCase().includes(searchTerm.toLowerCase()));
-    }, [searchTerm]);
-
-    const filteredArmor = useMemo(() => {
-        return armures.filter(a => a.Nom.toLowerCase().includes(searchTerm.toLowerCase()));
-    }, [searchTerm]);
-
-    const filteredMaterials = useMemo(() => {
-        return materiels.filter(m => m.Nom.toLowerCase().includes(searchTerm.toLowerCase()));
-    }, [searchTerm]);
+    const tabs = [
+        { id: 'weapons', label: 'Armes', icon: Sword },
+        { id: 'armors', label: 'Armures', icon: Shield },
+        { id: 'materials', label: 'Matériel', icon: Gem }
+    ];
 
     return (
-        <div className="max-w-6xl mx-auto space-y-6 pb-12">
-            {/* Header */}
-            <div className="glass-panel rounded-2xl p-6 md:p-8 shadow-2xl border-primary-500/20 sticky top-0 z-10 backdrop-blur-md">
-                <h1 className="text-3xl md:text-4xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary-200 to-primary-500 mb-6">
-                    Équipement
-                </h1>
+        <PageContainer>
+            <PageHeader title="Équipement" />
 
-                {/* Tabs */}
-                <div className="flex gap-2 mb-6 flex-wrap">
-                    <button
-                        onClick={() => { setActiveTab('weapons'); setSearchTerm(''); }}
-                        className={`px-6 py-3 rounded-xl font-display font-bold transition-all ${activeTab === 'weapons'
-                                ? 'bg-primary-500/20 text-primary-300 border-2 border-primary-500/50'
-                                : 'bg-stone-900/40 text-stone-400 border border-white/5 hover:border-primary-500/30'
-                            }`}
-                    >
-                        Armes ({armes.length})
-                    </button>
-                    <button
-                        onClick={() => { setActiveTab('armor'); setSearchTerm(''); }}
-                        className={`px-6 py-3 rounded-xl font-display font-bold transition-all ${activeTab === 'armor'
-                                ? 'bg-primary-500/20 text-primary-300 border-2 border-primary-500/50'
-                                : 'bg-stone-900/40 text-stone-400 border border-white/5 hover:border-primary-500/30'
-                            }`}
-                    >
-                        Armures ({armures.length})
-                    </button>
-                    <button
-                        onClick={() => { setActiveTab('materials'); setSearchTerm(''); }}
-                        className={`px-6 py-3 rounded-xl font-display font-bold transition-all ${activeTab === 'materials'
-                                ? 'bg-primary-500/20 text-primary-300 border-2 border-primary-500/50'
-                                : 'bg-stone-900/40 text-stone-400 border border-white/5 hover:border-primary-500/30'
-                            }`}
-                    >
-                        Matériel ({materiels.length})
-                    </button>
-                </div>
+            <TabGroup tabs={tabs}>
+                {(activeTab) => (
+                    <>
+                        {activeTab === 'weapons' && (
+                            <div className="space-y-4">
+                                <SearchBar
+                                    value={weaponSearch.searchTerm}
+                                    onChange={weaponSearch.setSearchTerm}
+                                    placeholder="Rechercher une arme..."
+                                />
 
-                {/* Search */}
-                <div className="relative">
-                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-stone-400" size={20} />
-                    <input
-                        type="text"
-                        placeholder="Rechercher..."
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        className="w-full pl-12 pr-4 py-3 bg-stone-900/50 border border-primary-500/20 rounded-xl text-stone-100 placeholder-stone-400 focus:outline-none focus:ring-1 focus:ring-primary-400 transition-all"
-                    />
-                </div>
-            </div>
-
-            {/* Content */}
-            {activeTab === 'weapons' && (
-                <div className="glass-panel p-6 rounded-xl border-white/5">
-                    <div className="overflow-x-auto">
-                        <table className="w-full text-sm">
-                            <thead>
-                                <tr className="border-b border-white/10">
-                                    <th className="text-left p-3 text-primary-300 font-display">Nom</th>
-                                    <th className="text-left p-3 text-primary-300 font-display">Type</th>
-                                    <th className="text-left p-3 text-primary-300 font-display">Dégâts</th>
-                                    <th className="text-left p-3 text-primary-300 font-display">Portée</th>
-                                    <th className="text-left p-3 text-primary-300 font-display">Critique</th>
-                                    <th className="text-left p-3 text-primary-300 font-display">Prix</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {filteredWeapons.map((weapon, i) => (
-                                    <tr key={i} className="border-b border-white/5 hover:bg-stone-900/30 transition-colors">
-                                        <td className="p-3 text-stone-200 font-semibold">{weapon.Nom}</td>
-                                        <td className="p-3 text-stone-400">{weapon.Type}</td>
-                                        <td className="p-3 text-primary-400 font-mono">{weapon.Dégâts}</td>
-                                        <td className="p-3 text-stone-400">{weapon.Portée}</td>
-                                        <td className="p-3 text-stone-400">{weapon.Critique}</td>
-                                        <td className="p-3 text-stone-300">{weapon.Prix}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            )}
-
-            {activeTab === 'armor' && (
-                <div className="glass-panel p-6 rounded-xl border-white/5">
-                    <div className="overflow-x-auto">
-                        <table className="w-full text-sm">
-                            <thead>
-                                <tr className="border-b border-white/10">
-                                    <th className="text-left p-3 text-primary-300 font-display">Nom</th>
-                                    <th className="text-left p-3 text-primary-300 font-display">Type</th>
-                                    <th className="text-left p-3 text-primary-300 font-display">DEF</th>
-                                    <th className="text-left p-3 text-primary-300 font-display">Prix</th>
-                                    <th className="text-left p-3 text-primary-300 font-display">Commentaires</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {filteredArmor.map((armor, i) => (
-                                    <tr key={i} className="border-b border-white/5 hover:bg-stone-900/30 transition-colors">
-                                        <td className="p-3 text-stone-200 font-semibold">{armor.Nom}</td>
-                                        <td className="p-3 text-stone-400">{armor.Type}</td>
-                                        <td className="p-3 text-primary-400 font-mono">{armor.DEF}</td>
-                                        <td className="p-3 text-stone-300">{armor.Prix}</td>
-                                        <td className="p-3 text-stone-400 text-xs">{armor.Comments}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            )}
-
-            {activeTab === 'materials' && (
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {filteredMaterials.map((material, i) => (
-                        <div key={i} className="glass-panel p-4 rounded-xl border-white/5 hover:border-primary-500/30 transition-all">
-                            <div className="flex items-start justify-between">
-                                <div className="flex-1">
-                                    <h3 className="text-stone-200 font-semibold mb-1">{material.Nom}</h3>
-                                    <p className="text-primary-400 font-mono text-sm">{material.Prix}</p>
-                                </div>
-                                <Package size={20} className="text-stone-600" />
+                                {weaponSearch.filteredItems.length === 0 ? (
+                                    <EmptyState message="Aucune arme trouvée" />
+                                ) : (
+                                    <div className="glass-panel rounded-xl overflow-x-auto">
+                                        <table className="w-full">
+                                            <thead>
+                                                <tr className="border-b border-white/10">
+                                                    <th className="text-left p-4 text-primary-300 font-display font-bold">Nom</th>
+                                                    <th className="text-left p-4 text-primary-300 font-display font-bold">Type</th>
+                                                    <th className="text-left p-4 text-primary-300 font-display font-bold">Dégâts</th>
+                                                    <th className="text-left p-4 text-primary-300 font-display font-bold">Prix</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {weaponSearch.filteredItems.map((weapon, i) => (
+                                                    <tr key={i} className="border-b border-white/5 hover:bg-stone-900/30 transition-colors">
+                                                        <td className="p-4 text-stone-200 font-medium">{weapon.Nom}</td>
+                                                        <td className="p-4 text-stone-400 text-sm">{weapon.Type}</td>
+                                                        <td className="p-4 text-primary-400 font-mono">{weapon.Dégâts}</td>
+                                                        <td className="p-4 text-yellow-500/90 font-mono">{weapon.Prix}</td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                )}
                             </div>
-                        </div>
-                    ))}
-                </div>
-            )}
-        </div>
+                        )}
+
+                        {activeTab === 'armors' && (
+                            <div className="space-y-4">
+                                <SearchBar
+                                    value={armorSearch.searchTerm}
+                                    onChange={armorSearch.setSearchTerm}
+                                    placeholder="Rechercher une armure..."
+                                />
+
+                                {armorSearch.filteredItems.length === 0 ? (
+                                    <EmptyState message="Aucune armure trouvée" />
+                                ) : (
+                                    <div className="glass-panel rounded-xl overflow-x-auto">
+                                        <table className="w-full">
+                                            <thead>
+                                                <tr className="border-b border-white/10">
+                                                    <th className="text-left p-4 text-primary-300 font-display font-bold">Nom</th>
+                                                    <th className="text-left p-4 text-primary-300 font-display font-bold">Type</th>
+                                                    <th className="text-left p-4 text-primary-300 font-display font-bold">DEF</th>
+                                                    <th className="text-left p-4 text-primary-300 font-display font-bold">Prix</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {armorSearch.filteredItems.map((armor, i) => (
+                                                    <tr key={i} className="border-b border-white/5 hover:bg-stone-900/30 transition-colors">
+                                                        <td className="p-4 text-stone-200 font-medium">{armor.Nom}</td>
+                                                        <td className="p-4 text-stone-400 text-sm">{armor.Type}</td>
+                                                        <td className="p-4 text-green-400 font-mono">{armor.DEF}</td>
+                                                        <td className="p-4 text-yellow-500/90 font-mono">{armor.Prix}</td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                )}
+                            </div>
+                        )}
+
+                        {activeTab === 'materials' && (
+                            <div className="space-y-4">
+                                <SearchBar
+                                    value={materialSearch.searchTerm}
+                                    onChange={materialSearch.setSearchTerm}
+                                    placeholder="Rechercher du matériel..."
+                                />
+
+                                {materialSearch.filteredItems.length === 0 ? (
+                                    <EmptyState message="Aucun matériel trouvé" />
+                                ) : (
+                                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                        {materialSearch.filteredItems.map((material, i) => (
+                                            <div key={i} className="glass-panel p-4 rounded-xl border-white/5 hover:border-primary-500/30 transition-all">
+                                                <h3 className="text-stone-200 font-semibold mb-1">{material.Nom}</h3>
+                                                <p className="text-primary-400 font-mono text-sm">{material.Prix}</p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        )}
+                    </>
+                )}
+            </TabGroup>
+        </PageContainer>
     );
 };

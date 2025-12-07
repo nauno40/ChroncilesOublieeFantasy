@@ -1,6 +1,6 @@
 import React from 'react';
-import statesData from '../data/Etats.json';
-import type { HarmfulState } from '../types';
+import statesData from '../data/states.json';
+import type { HarmfulState } from '../types/normalized';
 import { PageContainer, PageHeader, Card } from '../components/common';
 import { useSearch } from '../hooks';
 
@@ -9,7 +9,7 @@ const states = statesData as HarmfulState[];
 export const States: React.FC = () => {
     const { searchTerm, setSearchTerm, filteredItems } = useSearch(
         states,
-        (state, term) => state.Name.toLowerCase().includes(term.toLowerCase())
+        (state, term) => state.name.toLowerCase().includes(term.toLowerCase())
     );
 
     return (
@@ -25,21 +25,21 @@ export const States: React.FC = () => {
             <div className="grid md:grid-cols-2 gap-4">
                 {filteredItems.map((state, index) => (
                     <Card key={index}>
-                        <div className="flex items-start gap-4">
-                            {state.Image && (
-                                <div className="w-16 h-16 flex-shrink-0 bg-stone-900/50 rounded-xl p-3 border border-white/5">
-                                    <img src={state.Image} alt={state.Name} className="w-full h-full object-contain opacity-70" />
-                                </div>
-                            )}
-                            <div className="flex-1">
-                                <h3 className="text-lg font-display font-bold text-primary-300 mb-2">
-                                    {state.Name}
-                                </h3>
-                                <p className="text-stone-300 text-sm leading-relaxed">
-                                    {state.Description}
-                                </p>
-                            </div>
-                        </div>
+                        {state.image && (
+                            <img
+                                src={`/assets/states/${state.image}`}
+                                alt={state.name}
+                                className="w-full h-48 object-cover"
+                            />
+                        )}
+
+                        <h3 className="text-xl font-display font-bold text-primary-300 mb-3 group-hover:text-primary-200 transition-colors">
+                            {state.name}
+                        </h3>
+
+                        <p className="text-sm text-stone-400 line-clamp-4">
+                            {state.description}
+                        </p>
                     </Card>
                 ))}
             </div>

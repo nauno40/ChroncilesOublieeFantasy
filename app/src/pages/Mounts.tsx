@@ -1,5 +1,5 @@
 import React from 'react';
-import mountsData from '../data/Montures.json';
+import mountsData from '../data/mounts.json';
 import type { Mount } from '../types';
 import { PageContainer, PageHeader, Card, Badge } from '../components/common';
 import { useSearch } from '../hooks';

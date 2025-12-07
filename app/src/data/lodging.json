@@ -1,0 +1,22 @@
+[
+  {
+    "id": "nuit_chambre_de_4",
+    "name": "Nuit (chambre de 4)",
+    "price": "1-2 pa"
+  },
+  {
+    "id": "nuit_chambre_individuelle",
+    "name": "Nuit (chambre individuelle)",
+    "price": "2-5 pa"
+  },
+  {
+    "id": "nuit_dortoir",
+    "name": "Nuit (dortoir)",
+    "price": "5-10 pc"
+  },
+  {
+    "id": "nuit_suite",
+    "name": "Nuit (suite)",
+    "price": "10-50 pa"
+  }
+]

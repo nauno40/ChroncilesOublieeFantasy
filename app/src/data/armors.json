@@ -1,0 +1,74 @@
+[
+  {
+    "id": "petit_bouclier",
+    "name": "Petit bouclier",
+    "type": "Bouclier",
+    "defense": "+1 ",
+    "price": "2 pa",
+    "comments": "La DEF s'additionne à celle de l'armure."
+  },
+  {
+    "id": "tissu_matelasse",
+    "name": "Tissu matelassé",
+    "type": "Corps",
+    "defense": "+1 ",
+    "price": "2 pa",
+    "comments": ""
+  },
+  {
+    "id": "cuir",
+    "name": "Cuir",
+    "type": "Corps",
+    "defense": "+2 ",
+    "price": "4 pa",
+    "comments": ""
+  },
+  {
+    "id": "grand_bouclier",
+    "name": "Grand bouclier",
+    "type": "Bouclier",
+    "defense": "+2 ",
+    "price": "4 pa",
+    "comments": "La DEF s'additionne à celle de l'armure."
+  },
+  {
+    "id": "cuir_renforce",
+    "name": "Cuir renforcé",
+    "type": "Corps",
+    "defense": "+3 ",
+    "price": "8 pa",
+    "comments": ""
+  },
+  {
+    "id": "chemise_de_mailles",
+    "name": "Chemise de mailles",
+    "type": "Corps",
+    "defense": "+4 ",
+    "price": "15 pa",
+    "comments": ""
+  },
+  {
+    "id": "cotte_de_mailles",
+    "name": "Cotte de mailles",
+    "type": "Corps",
+    "defense": "+5 ",
+    "price": "20 pa",
+    "comments": ""
+  },
+  {
+    "id": "demiplaque",
+    "name": "Demi-plaque",
+    "type": "Corps",
+    "defense": "+6 ",
+    "price": "50 pa",
+    "comments": "Très rare."
+  },
+  {
+    "id": "plaque_complete",
+    "name": "Plaque complète",
+    "type": "Corps",
+    "defense": "+8 ",
+    "price": "200 pa",
+    "comments": "Très rare. Fabriquée sur mesure, seul le profil de Chevalier est formé au port de cette armure au niveau 1."
+  }
+]

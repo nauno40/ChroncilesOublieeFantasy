@@ -1,0 +1,254 @@
+[
+  {
+    "id": "arquebusier",
+    "name": "Arquebusier",
+    "description": "L’Arquebusier est un dur à cuire, un soldat ou un mercenaire habitué des champs de bataille. C’est un spécialiste du combat à distance et plus particulièrement des armes à feu et des explosifs.",
+    "note": "Poudre ou pas poudre ?\n\nCe personnage utilise des armes à feu et peut être joué dans un cadre équivalent à la Renaissance ou au XVIIe siècle, mais si votre conVoiee de jeu ne le permet pas, vous pouvez remplacer la pétoire par une arbalète de poing, le mousquet par une arbalète lourde et la couleuvrine par une baliste… Supprimez la Voie des explosifs et remplacez-la par la Voie du Maître d’arme de Guerrier, en la limitant aux arbalètes. Le nom du Profil devient alors « Arbalétrier ».",
+    "hitDie": "1D8",
+    "weaponsAndArmor": "L’Arquebusier sait manier toutes les armes de contact à une main, les armes à distance et les armes à poudre. Il peut porter jusqu’à la chemise de maille et ne manie pas de bouclier.",
+    "startingEquipment": "Pétoire (DM 1d10, portée 20m), épée longue (DM 1d8), dague (DM 1d4), armure de cuir (DEF +2).",
+    "imageUrl": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/profile/2023-02/arquebusier.png.webp?itok=Ie9Ebxso",
+    "magicModifier": null,
+    "voies": [
+      "voie_de_l_artilleur",
+      "voie_des_explosifs",
+      "voie_du_champ_de_bataille",
+      "voie_du_pistolero",
+      "voie_de_la_precision"
+    ]
+  },
+  {
+    "id": "barbare",
+    "name": "Barbare",
+    "description": "Le Barbare est un combattant sauvage issu d’une culture primitive. Il affronte ses ennemis avec rage sans se cacher derrière une lourde armure.",
+    "note": "",
+    "hitDie": "1D12",
+    "weaponsAndArmor": "Le Barbare sait manier toutes les armes au contact, toutes les armes à distance (sauf les arbalètes et les armes d’une technologie trop complexe). Il peut porter jusqu’à l’armure de cuir et manier le bouclier.",
+    "startingEquipment": "Hache à 2 mains (DM 2d6), 2 javelots (DM 1d6, portée 20 m), dague (DM 1d4), armure de cuir (DEF +2).",
+    "imageUrl": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/profile/2023-02/barbarian.png.webp?itok=dHQHS0Ze",
+    "magicModifier": null,
+    "voies": [
+      "voie_de_la_brute",
+      "voie_du_pagne",
+      "voie_du_pourfendeur",
+      "voie_du_primitif",
+      "voie_de_la_rage"
+    ]
+  },
+  {
+    "id": "barde",
+    "name": "Barde",
+    "description": "Le Barde est un personnage polyvalent qui utilise la magie et le spectacle pour divertir et parvenir à ses fins. Il est aussi habitué aux ruses qu’à la diplomatie.",
+    "note": "",
+    "hitDie": "1D6",
+    "weaponsAndArmor": "Le Barde sait manier les armes à 1 main. Il peut porter jusqu’à l’armure de cuir renforcée et ne peut pas manier le bouclier.",
+    "startingEquipment": "Rapière (DM 1d6, Crit 19-20), dague (DM 1d4), instrument de musique, armure de cuir (DEF +2).",
+    "imageUrl": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/profile/2023-02/bard.png.webp?itok=PEiVEYQy",
+    "magicModifier": "CHA",
+    "voies": [
+      "voie_de_l_escrime",
+      "voie_du_musicien",
+      "voie_du_saltimbanque",
+      "voie_de_la_seduction",
+      "voie_du_vagabond"
+    ]
+  },
+  {
+    "id": "chevalier",
+    "name": "Chevalier",
+    "description": "Le Chevalier est un noble guerrier errant, monté sur un puissant destrier et protégé par une armure lourde. Il parcourt la campagne en quête de torts à redresser et d’occasions de mettre son courage à l’épreuve.",
+    "note": "",
+    "hitDie": "1D10",
+    "weaponsAndArmor": "Le Chevalier sait manier toutes les armes de contact, mais il dédaigne les armes à distance qu’il considère comme des armes de couard. Il sait manier le bouclier et peut porter toutes les armures jusqu’à l’armure de plaques complète.",
+    "startingEquipment": "Épée longue (DM 1d8), grand bouclier (DEF +2), lance de cavalerie (DM 2d6), dague (DM 1d4), armure de demi-plaque (DEF +6).",
+    "imageUrl": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/profile/2023-02/knight.png.webp?itok=1Dq6PaS4",
+    "magicModifier": null,
+    "voies": [
+      "voie_du_cavalier",
+      "voie_de_la_guerre",
+      "voie_du_heros",
+      "voie_du_meneur_d_homme",
+      "voie_de_la_noblesse"
+    ]
+  },
+  {
+    "id": "druide",
+    "name": "Druide",
+    "description": "Le Druide est un prêtre de la nature qui défend sa pureté originelle et tire ses pouvoirs de la vie, des animaux et des plantes.",
+    "note": "",
+    "hitDie": "1D8",
+    "weaponsAndArmor": "Le Druide sait manier la dague, le gourdin, le bâton de Druide (équivalent à un bâton ferré), l’épieu, le javelot et l’arc court. Il peut porter l’armure de cuir et peut manier le petit bouclier en bois (DEF+1).",
+    "startingEquipment": "Bâton (DM 1d6), dague (DM 1d4), arc court (DM 1d6, portée 30 m), armure de cuir (DEF +2).",
+    "imageUrl": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/profile/2023-02/druid.png.webp?itok=VZOEhX75",
+    "magicModifier": "SAG",
+    "voies": [
+      "voie_des_animaux",
+      "voie_du_fauve",
+      "voie_de_la_nature",
+      "voie_du_protecteur",
+      "voie_des_vegetaux"
+    ]
+  },
+  {
+    "id": "ensorceleur",
+    "name": "Ensorceleur",
+    "description": "L’Ensorceleur tire son pouvoir d’un talent inné pour la magie. Il pratique une magie subtile à base de tromperie et de contrôle, et possède peu de sorts de destruction massive.",
+    "note": "",
+    "hitDie": "1D4",
+    "weaponsAndArmor": "L’Ensorceleur sait manier la dague et le bâton ferré. Il ne peut porter aucune armure (sauf si elle est faite de tissu) et ne peut pas manier le bouclier.",
+    "startingEquipment": "Bâton ferré (DM 1d6), dague (DM 1d4), potion de soins (guérit 1d8 PV).",
+    "imageUrl": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/profile/2023-02/sorcerer.png.webp?itok=39URpkyq",
+    "magicModifier": "CHA",
+    "voies": [
+      "voie_de_l_air",
+      "voie_de_la_divination",
+      "voie_de_l_envoteur",
+      "voie_des_illusions",
+      "voie_de_l_invocation"
+    ]
+  },
+  {
+    "id": "forgesort",
+    "name": "Forgesort",
+    "description": "À la fois artisan et enchanteur, artiste et magicien, le Forgesort lie les énergies occultes à la matière qu’il façonne pour créer des artefacts magiques ou des breuvages aux propriétés fantastiques.",
+    "note": "Science, pas science ?\n\nCe Profil est particulièrement adapté aux univers où le développement technologique n’est pas en reste (tendance Steampunk, Les Royaumes d’Acier ou Eberron par exemple). Dans ce genre d’univers, vous pouvez le typer plus fortement en renommant la Voie du golem en Voie du méca et plutôt que des sorts, tous les effets sont obtenus par de nombreux objets étranges portés, ingérés ou greffés.",
+    "hitDie": "1D6",
+    "weaponsAndArmor": "Le Forgesort sait manier la dague, le bâton ferré, le marteau et l’arbalète légère. Il peut porter une armure de cuir simple seulement et ne peut pas manier de bouclier.",
+    "startingEquipment": "Dague (DM 1d4), bâton ferré (DM 1d6), marteau (DM 1d6).",
+    "imageUrl": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/profile/2023-02/forgesort.png.webp?itok=x79UJDx3",
+    "magicModifier": "INT",
+    "voies": [
+      "voie_des_artefacts",
+      "voie_des_elixirs",
+      "voie_du_metal",
+      "voie_du_golem",
+      "voie_des_runes"
+    ]
+  },
+  {
+    "id": "guerrier",
+    "name": "Guerrier",
+    "description": "Le Guerrier est un combattant émérite qui n’a pas peur du danger et qui affronte ses ennemis l’arme à la main. De tous les profils de combattant, il est le plus spécialisé et le plus complet dans l’art du combat au corps à corps.",
+    "note": "",
+    "hitDie": "1D10",
+    "weaponsAndArmor": "Le Guerrier sait manier toutes les armes de contact et toutes les armes à distance. Il peut porter jusqu’à l’armure de demi-plaque et manier le bouclier.",
+    "startingEquipment": "Épée longue (DM 1d8), épée ou hache à 2 mains (DM 2d6), grand bouclier (DEF +2) et cotte de mailles (DEF +5).",
+    "imageUrl": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/profile/2023-02/warrior.png.webp?itok=dtizFbla",
+    "magicModifier": null,
+    "voies": [
+      "voie_du_bouclier",
+      "voie_du_combat",
+      "voie_du_maitre_d_armes",
+      "voie_de_la_resistance",
+      "voie_du_soldat"
+    ]
+  },
+  {
+    "id": "magicien",
+    "name": "Magicien",
+    "description": "Le Magicien n’est pas qu’un rat de bibliothèque. Il fait aussi appel à ses sorts pour se débarrasser de ses ennemis et pour aider ses compagnons.",
+    "note": "",
+    "hitDie": "1D4",
+    "weaponsAndArmor": "Le Magicien sait manier la dague et le bâton ferré et ne porte que des vêtements en tissu, donc aucune armure.",
+    "startingEquipment": "Bâton (DM 1d6), dague (DM 1d4), grimoire, potion de soin (guérit 1d8 PV).",
+    "imageUrl": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/profile/2023-02/wizard.png.webp?itok=YysF_fBG",
+    "magicModifier": "INT",
+    "voies": [
+      "voie_de_la_magie_des_arcanes",
+      "voie_de_la_magie_destructrice",
+      "voie_de_la_magie_elementaire",
+      "voie_de_la_magie_protectrice",
+      "voie_de_la_magie_universelle"
+    ]
+  },
+  {
+    "id": "moine",
+    "name": "Moine",
+    "description": "Le Moine combat à mains nues et utilise le contrôle qu’il a sur son esprit et son corps pour transformer ce dernier en arme de chair.",
+    "note": "Bien que d’inspiration asiatique, ce Moine est un moine-guerrier qui peut être adapté à de nombreux mondes fantastiques. Si cela ne colle pas avec votre univers, vous pouvez facilement transposer les capacités de combat à mains nues avec une arme (l’épée par exemple) afin d’occidentaliser ce profil.",
+    "hitDie": "1D8",
+    "weaponsAndArmor": "Le Moine ne peut pas porter d’armure. Il sait manier toutes les armes, y compris celles à 2 mains, sauf les armes à poudre. Mais la plupart des Moines n’y font pas appel et sont plus efficaces à mains nues.",
+    "startingEquipment": "Bâton ferré (DM 1d6).",
+    "imageUrl": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/profile/2023-02/monk.png.webp?itok=sBEQSj2V",
+    "magicModifier": "SAG",
+    "voies": [
+      "voie_de_lenergie_vitale",
+      "voie_de_la_maitrise",
+      "voie_de_la_meditation",
+      "voie_du_poing",
+      "voie_du_vent"
+    ]
+  },
+  {
+    "id": "necromancien",
+    "name": "Nécromancien",
+    "description": "Le Nécromancien est un lanceur de sorts qui s’intéresse aux forces obscures et au pouvoir de la mort. Les Nécromanciens sont généralement considérés comme maléfiques et sont peu appréciés. Interprétez-le de façon subtile afin d’en faire un personnage plutôt sombre ou désespéré, mais pas forcément \"mauvais\" !",
+    "note": "",
+    "hitDie": "1D4",
+    "weaponsAndArmor": "Le Nécromancien sait manier la dague et le bâton ferré. Il ne peut porter aucune armure (sauf si celle-ci est faite de tissu) et ne peut pas manier le bouclier.",
+    "startingEquipment": "Bâton ferré (DM 1d6), dague (DM 1d4), potion de soins (guérit 1d8 PV).",
+    "imageUrl": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/profile/2023-02/necromancer.png.webp?itok=DkvQs34L",
+    "magicModifier": "INT",
+    "voies": [
+      "voie_du_demon",
+      "voie_de_la_mort",
+      "voie_de_loutretombe",
+      "voie_du_sang",
+      "voie_de_la_sombre_magie"
+    ]
+  },
+  {
+    "id": "pretre",
+    "name": "Prêtre",
+    "description": "Le Prêtre utilise l’énergie transmise par son dieu pour mener à bien ses missions avec la force de la foi mais aussi celle des armes si nécessaire.",
+    "note": "Pouvoirs divins\n\nLes voies présentées ici sont génériques mais chaque dieu est particulier. Afin de personnaliser votre Prêtre, choisissez une autre arme sacrée et inventez vous-même (ou choisissez parmi les voies des autres profils) un pouvoir de rang 1 ou 2 que le personnage prendra en remplacement d’une capacité de même rang. L'arme sacrée et le pouvoir devra symboliser fortement sa religion et les directives du culte.\n",
+    "hitDie": "1D8",
+    "weaponsAndArmor": "Le Prêtre sait manier les armes contondantes à une main (marteau, masse) plus une arme sacrée qui dépend de son dieu. Il peut porter jusqu'à une chemise de mailles et manier le petit ou le grand bouclier (au choix du MJ en fonction de la divinité).",
+    "startingEquipment": "Masse ou marteau de guerre (DM 1d6), petit bouclier (DEF +1), chemise de maille (DEF +4).",
+    "imageUrl": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/profile/2023-02/priest_1.png.webp?itok=mPP0AOgk",
+    "magicModifier": "SAG",
+    "voies": [
+      "voie_de_la_foi",
+      "voie_de_la_guerre_sainte",
+      "voie_de_la_priere",
+      "voie_des_soins",
+      "voie_de_la_spiritualite"
+    ]
+  },
+  {
+    "id": "rodeur",
+    "name": "Rôdeur",
+    "description": "Le Rôdeur est à l’aise dans les forêts ténébreuses, où il traque les animaux dangereux et les créatures monstrueuses ou, au contraire, se fait l’ami des bêtes et le protecteur des lieux sauvages.",
+    "note": "Si vous jouez dans un monde moins fantastique ou plus exotique, vous pouvez remplacer le loup par un chien ou par tout autre animal adapté à vos aventures (hyène, panthère, chacal...). Si le joueur la choisit, la Voie du montreur d’ours supprime et remplace la Voie du compagnon animal. Un Profil ne peut avoir plus de 5 Voies.",
+    "hitDie": "1D8",
+    "weaponsAndArmor": "Le Rôdeur sait manier les armes de contact à une main et toutes les armes à distance, il peut porter toutes les armures à base de cuir mais ne manie pas de bouclier.",
+    "startingEquipment": "Arc court (DM 1d6, portée 30m), carquois, épée longue (DM 1d8), dague (DM 1d4), armure de cuir renforcée (DEF +3).",
+    "imageUrl": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/profile/2023-02/ranger.png.webp?itok=eNydqDzS",
+    "magicModifier": null,
+    "voies": [
+      "voie_de_larcher",
+      "voie_du_compagnon_animal",
+      "voie_de_lescarmouche",
+      "voie_de_la_survie",
+      "voie_du_traqueur"
+    ]
+  },
+  {
+    "id": "voleur",
+    "name": "Voleur",
+    "description": "Le Voleur crochète les portes, détecte les pièges et préfère piller les cadavres des ennemis que de se salir les mains pendant le combat.",
+    "note": "",
+    "hitDie": "1D6",
+    "weaponsAndArmor": "Le Voleur sait manier les armes de contact à une main et toutes les armes à distance. Il peut seulement porter une armure de cuir simple et ne manie pas de bouclier.",
+    "startingEquipment": "Rapière (DM 1d6, Crit 19-20), 5 dagues (DM 1d4, portée 5 m), outils de crochetage, armure de cuir (DEF +2).",
+    "imageUrl": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/profile/2023-02/thief.png.webp?itok=uYf5aVTh",
+    "magicModifier": null,
+    "voies": [
+      "voie_de_lassassin",
+      "voie_de_laventurier",
+      "voie_du_deplacement",
+      "voie_du_roublard",
+      "voie_du_spadassin"
+    ]
+  }
+]

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import racesData from '../data/Races.json';
-import type { Race } from '../types';
+import racesData from '../data/races.json';
+import type { Race } from '../types/normalized';
 import { ArrowLeft } from 'lucide-react';
 
 const races = racesData as Race[];
@@ -23,14 +23,14 @@ const getRaceImageName = (raceName: string): string => {
 
 export const RaceDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
-    const index = parseInt(id || '0', 10);
-    const race = races[index];
+    // Using ID directly
+    const race = races.find(r => r.id === id);
 
     if (!race) {
         return <div>Race introuvable</div>;
     }
 
-    const raceImageName = getRaceImageName(race.Title);
+    const raceImageName = getRaceImageName(race.name);
 
     return (
         <div className="max-w-4xl mx-auto space-y-6 animate-fade-in pb-12">
@@ -49,7 +49,7 @@ export const RaceDetail: React.FC = () => {
                     <div className="absolute inset-0 opacity-20">
                         <img
                             src={`/assets/races/${raceImageName}`}
-                            alt={race.Title}
+                            alt={race.name}
                             onError={(e) => {
                                 e.currentTarget.style.display = 'none';
                             }}
@@ -60,9 +60,9 @@ export const RaceDetail: React.FC = () => {
 
                     <div className="relative z-10">
                         <h1 className="text-4xl md:text-5xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary-200 to-primary-500 drop-shadow-sm mb-4">
-                            {race.Title}
+                            {race.name}
                         </h1>
-                        <p className="text-stone-400 italic">{race.Repères}</p>
+                        <p className="text-stone-400 italic">{race.physicalTraits}</p>
                     </div>
                 </div>
 
@@ -70,15 +70,15 @@ export const RaceDetail: React.FC = () => {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-6 bg-black/20 border-y border-white/5">
                     <div className="text-center">
                         <div className="text-stone-500 text-xs uppercase tracking-wider mb-1">Âge de départ</div>
-                        <div className="text-2xl font-display font-bold text-primary-400">{race["Âge de départ"]} ans</div>
+                        <div className="text-2xl font-display font-bold text-primary-400">{race.startingAge} ans</div>
                     </div>
                     <div className="text-center">
                         <div className="text-stone-500 text-xs uppercase tracking-wider mb-1">Espérance de vie</div>
-                        <div className="text-2xl font-display font-bold text-primary-400">{race["Espérance de vie"]} ans</div>
+                        <div className="text-2xl font-display font-bold text-primary-400">{race.lifeExpectancy} ans</div>
                     </div>
                     <div className="text-center md:col-span-2">
                         <div className="text-stone-500 text-xs uppercase tracking-wider mb-1">Taille</div>
-                        <div className="text-2xl font-display font-bold text-primary-400">{race["Taille Min"]} - {race["Taille Max"]}</div>
+                        <div className="text-2xl font-display font-bold text-primary-400">{race.size.min} - {race.size.max}</div>
                     </div>
                 </div>
 
@@ -96,7 +96,7 @@ export const RaceDetail: React.FC = () => {
                                 onError={(e) => {
                                     e.currentTarget.parentElement!.style.display = 'none';
                                 }}
-                                alt={race.Title}
+                                alt={race.name}
                                 className="block max-w-full h-auto max-h-[600px] object-contain transform transition-transform duration-700 group-hover:scale-105"
                             />
                         </div>
@@ -107,26 +107,26 @@ export const RaceDetail: React.FC = () => {
                         <h3 className="text-xl font-display font-bold text-primary-300 mb-3 border-b border-primary-500/20 pb-2">
                             Caractéristiques
                         </h3>
-                        <p className="text-stone-300 font-mono text-lg">{race.Caractéristiques}</p>
+                        <p className="text-stone-300 font-mono text-lg">{race.characteristics}</p>
                     </div>
 
                     {/* Desc - Short description */}
-                    {race.Desc && (
+                    {race.description && (
                         <div className="glass-panel p-6 rounded-xl border-white/5">
                             <h3 className="text-xl font-display font-bold text-stone-300 mb-4 border-b border-white/10 pb-2">
                                 Présentation
                             </h3>
-                            <p className="text-stone-300 leading-relaxed">{race.Desc}</p>
+                            <p className="text-stone-300 leading-relaxed">{race.description}</p>
                         </div>
                     )}
 
                     {/* Desc2 - Cultural description */}
-                    {race.Desc2 && (
+                    {race.publicPerception && (
                         <div className="glass-panel p-6 rounded-xl border-white/5 bg-stone-900/30">
                             <h3 className="text-xl font-display font-bold text-stone-300 mb-4 border-b border-white/10 pb-2">
                                 Culture & Réputation
                             </h3>
-                            <p className="text-stone-300 leading-relaxed italic">{race.Desc2}</p>
+                            <p className="text-stone-300 leading-relaxed italic">{race.publicPerception}</p>
                         </div>
                     )}
 
@@ -135,16 +135,16 @@ export const RaceDetail: React.FC = () => {
                         <h3 className="text-xl font-display font-bold text-stone-300 mb-4 border-b border-white/10 pb-2">
                             Description détaillée
                         </h3>
-                        <p className="text-stone-300 leading-relaxed">{race.Desc3}</p>
+                        <p className="text-stone-300 leading-relaxed">{race.detailedDescription}</p>
                     </div>
 
                     {/* Capacités raciales */}
-                    {race.Capacités && (
+                    {race.abilities && (
                         <div className="glass-panel p-6 rounded-xl border-white/5 bg-primary-950/20">
                             <h3 className="text-xl font-display font-bold text-primary-300 mb-4 border-b border-primary-500/20 pb-2">
                                 Capacités raciales
                             </h3>
-                            <p className="text-stone-300 leading-relaxed whitespace-pre-line">{race.Capacités}</p>
+                            <p className="text-stone-300 leading-relaxed whitespace-pre-line">{race.abilities}</p>
                         </div>
                     )}
 
@@ -156,19 +156,19 @@ export const RaceDetail: React.FC = () => {
                         <div className="grid md:grid-cols-2 gap-4 text-stone-300">
                             <div>
                                 <span className="text-stone-500 text-sm">Taille :</span>
-                                <p className="font-semibold">{race["Taille Min"]} - {race["Taille Max"]}</p>
+                                <p className="font-semibold">{race.size.min} - {race.size.max}</p>
                             </div>
                             <div>
                                 <span className="text-stone-500 text-sm">Poids :</span>
-                                <p className="font-semibold">{race["Poids Min"]} - {race["Poids Max"]}</p>
+                                <p className="font-semibold">{race.weight.min} - {race.weight.max}</p>
                             </div>
                             <div>
                                 <span className="text-stone-500 text-sm">Âge de départ :</span>
-                                <p className="font-semibold">{race["Âge de départ"]} ans</p>
+                                <p className="font-semibold">{race.startingAge} ans</p>
                             </div>
                             <div>
                                 <span className="text-stone-500 text-sm">Espérance de vie :</span>
-                                <p className="font-semibold">{race["Espérance de vie"]} ans</p>
+                                <p className="font-semibold">{race.lifeExpectancy} ans</p>
                             </div>
                         </div>
                     </div>
@@ -178,7 +178,7 @@ export const RaceDetail: React.FC = () => {
                         <h3 className="text-xl font-display font-bold text-stone-300 mb-4 border-b border-white/10 pb-2">
                             Noms typiques
                         </h3>
-                        <p className="text-stone-300 leading-relaxed text-sm">{race["Noms typiques"]}</p>
+                        <p className="text-stone-300 leading-relaxed text-sm">{race.typicalNames}</p>
                     </div>
                 </div>
             </div>

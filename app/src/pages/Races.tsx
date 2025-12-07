@@ -1,6 +1,6 @@
 import React from 'react';
-import racesData from '../data/Races.json';
-import type { Race } from '../types';
+import racesData from '../data/races.json';
+import type { Race } from '../types/normalized';
 import { PageContainer, PageHeader, Card } from '../components/common';
 import { useSearch } from '../hooks';
 
@@ -24,7 +24,7 @@ const getRaceImageName = (raceName: string): string => {
 export const Races: React.FC = () => {
     const { searchTerm, setSearchTerm, filteredItems } = useSearch(
         races,
-        (race, term) => race.Title.toLowerCase().includes(term.toLowerCase())
+        (race, term) => race.name.toLowerCase().includes(term.toLowerCase())
     );
 
     return (
@@ -38,17 +38,17 @@ export const Races: React.FC = () => {
             />
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {filteredItems.map((race, index) => (
+                {filteredItems.map((race) => (
                     <Card
-                        key={index}
-                        to={`/races/${index}`}
+                        key={race.id}
+                        to={`/races/${race.id}`}
                         image={{
-                            src: `/assets/races/${getRaceImageName(race.Title)}`,
-                            alt: race.Title
+                            src: `/assets/races/${getRaceImageName(race.name)}`,
+                            alt: race.name
                         }}
                     >
                         <h3 className="text-xl font-display font-bold text-primary-300 mb-3 group-hover:text-primary-200 transition-colors">
-                            {race.Title}
+                            {race.name}
                         </h3>
                     </Card>
                 ))}

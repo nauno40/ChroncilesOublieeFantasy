@@ -1,8 +1,8 @@
 import React from 'react';
-import weaponsData from '../data/Armes.json';
-import armorsData from '../data/Armures.json';
-import materialsData from '../data/Materiels.json';
-import type { Weapon, Armor, Material } from '../types';
+import weaponsData from '../data/weapons.json';
+import armorsData from '../data/armors.json';
+import materialsData from '../data/materials.json';
+import type { Weapon, Armor, Material } from '../types/normalized';
 import { PageContainer, PageHeader, TabGroup, SearchBar, EmptyState } from '../components/common';
 import { useSearch } from '../hooks';
 import { Sword, Shield, Gem } from 'lucide-react';
@@ -12,9 +12,9 @@ const armors = armorsData as Armor[];
 const materials = materialsData as Material[];
 
 export const Equipment: React.FC = () => {
-    const weaponSearch = useSearch(weapons, (w, term) => w.Nom.toLowerCase().includes(term.toLowerCase()));
-    const armorSearch = useSearch(armors, (a, term) => a.Nom.toLowerCase().includes(term.toLowerCase()));
-    const materialSearch = useSearch(materials, (m, term) => m.Nom.toLowerCase().includes(term.toLowerCase()));
+    const weaponSearch = useSearch(weapons, (w, term) => w.name.toLowerCase().includes(term.toLowerCase()));
+    const armorSearch = useSearch(armors, (a, term) => a.name.toLowerCase().includes(term.toLowerCase()));
+    const materialSearch = useSearch(materials, (m, term) => m.name.toLowerCase().includes(term.toLowerCase()));
 
     const tabs = [
         { id: 'weapons', label: 'Armes', icon: Sword },

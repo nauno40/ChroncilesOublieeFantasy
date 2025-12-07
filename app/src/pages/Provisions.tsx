@@ -1,6 +1,6 @@
 import React from 'react';
-import foodData from '../data/Nourriture.json';
-import lodgingData from '../data/Logements.json';
+import foodData from '../data/food.json';
+import lodgingData from '../data/lodging.json';
 import type { Food, Lodging } from '../types';
 import { PageContainer, PageHeader, TabGroup, SearchBar, Card, Badge, EmptyState } from '../components/common';
 import { useSearch } from '../hooks';

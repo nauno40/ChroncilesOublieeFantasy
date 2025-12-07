@@ -1,0 +1,42 @@
+[
+  {
+    "id": "banquet",
+    "name": "Banquet",
+    "price": "10-100 pa"
+  },
+  {
+    "id": "bon_repas",
+    "name": "Bon repas",
+    "price": "5 pa"
+  },
+  {
+    "id": "cervoise_biere_pinte",
+    "name": "Cervoise, Bière Pinte",
+    "price": "2 pc"
+  },
+  {
+    "id": "cidre_lait_verre",
+    "name": "Cidre, lait Verre",
+    "price": "1 pc"
+  },
+  {
+    "id": "grand_cru_bouteille",
+    "name": "Grand Cru Bouteille",
+    "price": "5-50 pa"
+  },
+  {
+    "id": "hydromel_vin_verre",
+    "name": "Hydromel, vin Verre",
+    "price": "5 pc"
+  },
+  {
+    "id": "repas_avec_viande",
+    "name": "Repas avec viande",
+    "price": "1 pa"
+  },
+  {
+    "id": "soupe_et_pain",
+    "name": "Soupe et pain",
+    "price": "1 pc"
+  }
+]

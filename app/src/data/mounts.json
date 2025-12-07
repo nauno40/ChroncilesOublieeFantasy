@@ -1,0 +1,32 @@
+[
+  {
+    "id": "carriole",
+    "name": "Carriole",
+    "price": "50 pa"
+  },
+  {
+    "id": "chariot",
+    "name": "Chariot",
+    "price": "90 pa"
+  },
+  {
+    "id": "cheval_de_guerre_leger",
+    "name": "Cheval de guerre léger",
+    "price": "300 pa"
+  },
+  {
+    "id": "cheval_de_selle",
+    "name": "Cheval de selle",
+    "price": "100 pa"
+  },
+  {
+    "id": "mule_ou_ane",
+    "name": "Mule ou âne",
+    "price": "25 pa"
+  },
+  {
+    "id": "poney",
+    "name": "Poney",
+    "price": "50 pa"
+  }
+]

@@ -53,10 +53,10 @@ export const Equipment: React.FC = () => {
                                             <tbody>
                                                 {weaponSearch.filteredItems.map((weapon, i) => (
                                                     <tr key={i} className="border-b border-white/5 hover:bg-stone-900/30 transition-colors">
-                                                        <td className="p-4 text-stone-200 font-medium">{weapon.Nom}</td>
-                                                        <td className="p-4 text-stone-400 text-sm">{weapon.Type}</td>
-                                                        <td className="p-4 text-primary-400 font-mono">{weapon.Dégâts}</td>
-                                                        <td className="p-4 text-yellow-500/90 font-mono">{weapon.Prix}</td>
+                                                        <td className="p-4 text-stone-200 font-medium">{weapon.name}</td>
+                                                        <td className="p-4 text-stone-400 text-sm">{weapon.type}</td>
+                                                        <td className="p-4 text-primary-400 font-mono">{weapon.damage}</td>
+                                                        <td className="p-4 text-yellow-500/90 font-mono">{weapon.price}</td>
                                                     </tr>
                                                 ))}
                                             </tbody>
@@ -90,10 +90,10 @@ export const Equipment: React.FC = () => {
                                             <tbody>
                                                 {armorSearch.filteredItems.map((armor, i) => (
                                                     <tr key={i} className="border-b border-white/5 hover:bg-stone-900/30 transition-colors">
-                                                        <td className="p-4 text-stone-200 font-medium">{armor.Nom}</td>
-                                                        <td className="p-4 text-stone-400 text-sm">{armor.Type}</td>
-                                                        <td className="p-4 text-green-400 font-mono">{armor.DEF}</td>
-                                                        <td className="p-4 text-yellow-500/90 font-mono">{armor.Prix}</td>
+                                                        <td className="p-4 text-stone-200 font-medium">{armor.name}</td>
+                                                        <td className="p-4 text-stone-400 text-sm">{armor.type}</td>
+                                                        <td className="p-4 text-primary-400 font-mono">{armor.defense}</td>
+                                                        <td className="p-4 text-yellow-500/90 font-mono">{armor.price}</td>
                                                     </tr>
                                                 ))}
                                             </tbody>
@@ -117,8 +117,8 @@ export const Equipment: React.FC = () => {
                                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                                         {materialSearch.filteredItems.map((material, i) => (
                                             <div key={i} className="glass-panel p-4 rounded-xl border-white/5 hover:border-primary-500/30 transition-all">
-                                                <h3 className="text-stone-200 font-semibold mb-1">{material.Nom}</h3>
-                                                <p className="text-primary-400 font-mono text-sm">{material.Prix}</p>
+                                                <h3 className="text-stone-200 font-semibold mb-1">{material.name}</h3>
+                                                <p className="text-primary-400 font-mono text-sm">{material.price}</p>
                                             </div>
                                         ))}
                                     </div>

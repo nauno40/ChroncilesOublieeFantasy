@@ -80,7 +80,7 @@ export const NavItemComponent: React.FC<NavItemComponentProps> = ({ item, isActi
                                 key={subItem.path}
                                 to={subItem.path}
                                 className={clsx(
-                                    'flex items-center gap-2 px-3 py-2 rounded-lg transition-all text-sm',
+                                    'flex items-center gap-2 px-3 py-2 rounded-lg transition-all text-base',
                                     isSubActive
                                         ? 'bg-primary-500/20 text-primary-300'
                                         : 'text-stone-500 hover:bg-stone-900/30 hover:text-primary-400'

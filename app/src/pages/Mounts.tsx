@@ -1,6 +1,6 @@
 import React from 'react';
 import mountsData from '../data/mounts.json';
-import type { Mount } from '../types';
+import type { Mount } from '../types/normalized';
 import { PageContainer, PageHeader, Card, Badge } from '../components/common';
 import { useSearch } from '../hooks';
 
@@ -9,7 +9,7 @@ const mounts = mountsData as Mount[];
 export const Mounts: React.FC = () => {
     const { searchTerm, setSearchTerm, filteredItems } = useSearch(
         mounts,
-        (mount, term) => mount.Nom.toLowerCase().includes(term.toLowerCase())
+        (mount, term) => mount.name.toLowerCase().includes(term.toLowerCase())
     );
 
     return (
@@ -27,11 +27,11 @@ export const Mounts: React.FC = () => {
                     <Card key={index}>
                         <div className="flex items-start justify-between mb-3">
                             <h3 className="text-xl font-display font-bold text-primary-300 group-hover:text-primary-200 transition-colors flex-1">
-                                {mount.Nom}
+                                {mount.name}
                             </h3>
-                            {mount.Prix && (
+                            {mount.price && (
                                 <Badge variant="warning" size="sm">
-                                    {mount.Prix}
+                                    {mount.price}
                                 </Badge>
                             )}
                         </div>

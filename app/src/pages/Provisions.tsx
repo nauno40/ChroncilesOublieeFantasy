@@ -1,7 +1,7 @@
 import React from 'react';
 import foodData from '../data/food.json';
 import lodgingData from '../data/lodging.json';
-import type { Food, Lodging } from '../types';
+import type { Food, Lodging } from '../types/normalized';
 import { PageContainer, PageHeader, TabGroup, SearchBar, Card, Badge, EmptyState } from '../components/common';
 import { useSearch } from '../hooks';
 import { UtensilsCrossed, Home } from 'lucide-react';
@@ -10,8 +10,8 @@ const foods = foodData as Food[];
 const lodgings = lodgingData as Lodging[];
 
 export const Provisions: React.FC = () => {
-    const foodSearch = useSearch(foods, (f, term) => f.Nom.toLowerCase().includes(term.toLowerCase()));
-    const lodgingSearch = useSearch(lodgings, (l, term) => l.Nom.toLowerCase().includes(term.toLowerCase()));
+    const foodSearch = useSearch(foods, (f, term) => f.name.toLowerCase().includes(term.toLowerCase()));
+    const lodgingSearch = useSearch(lodgings, (l, term) => l.name.toLowerCase().includes(term.toLowerCase()));
 
     const tabs = [
         { id: 'food', label: 'Nourriture', icon: UtensilsCrossed },
@@ -41,11 +41,11 @@ export const Provisions: React.FC = () => {
                                             <Card key={i}>
                                                 <div className="flex items-start justify-between">
                                                     <h3 className="text-lg font-display font-bold text-stone-200 flex-1">
-                                                        {food.Nom}
+                                                        {food.name}
                                                     </h3>
-                                                    {food.Prix && (
+                                                    {food.price && (
                                                         <Badge variant="warning" size="sm">
-                                                            {food.Prix}
+                                                            {food.price}
                                                         </Badge>
                                                     )}
                                                 </div>
@@ -72,11 +72,11 @@ export const Provisions: React.FC = () => {
                                             <Card key={i}>
                                                 <div className="flex items-start justify-between">
                                                     <h3 className="text-lg font-display font-bold text-stone-200 flex-1">
-                                                        {lodging.Nom}
+                                                        {lodging.name}
                                                     </h3>
-                                                    {lodging.Prix && (
+                                                    {lodging.price && (
                                                         <Badge variant="warning" size="sm">
-                                                            {lodging.Prix}
+                                                            {lodging.price}
                                                         </Badge>
                                                     )}
                                                 </div>

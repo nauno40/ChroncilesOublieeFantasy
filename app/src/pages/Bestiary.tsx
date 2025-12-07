@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import creaturesData from '../data/creatures.json';
 import type { Creature } from '../types';
-import { getCreatureName, getCreatureLevel, getCreatureCategory, getCreatureFamily, getCreatureArchetype, getCreatureEnvironment, getCreatureSize } from '../utils/creature';
+import { getCreatureName, getCreatureLevel, getCreatureCategory, getCreatureFamily, getCreatureArchetype, getCreatureEnvironment, getCreatureSize, getCreatureImage } from '../utils/creature';
 import { Search, Filter, ChevronDown, ChevronUp, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
@@ -302,38 +302,55 @@ export const Bestiary: React.FC = () => {
                                 {familyCreatures.map((creature, idx) => (
                                     <Link
                                         to={`/bestiary/${creatures.indexOf(creature)}`}
-                                        key={idx} // Using index is risky if filtering, better to use unique ID if available, but staying consistent with previous implementation for now
-                                        className="glass-panel p-4 rounded-xl hover:border-primary-500/40 hover:shadow-[0_0_15px_rgba(245,158,11,0.1)] transition-all duration-300 group flex flex-col justify-between h-full hover:-translate-y-1"
+                                        key={idx}
+                                        className="glass-panel rounded-xl hover:border-primary-500/40 hover:shadow-[0_0_15px_rgba(245,158,11,0.1)] transition-all duration-300 group flex flex-col overflow-hidden hover:-translate-y-1"
                                     >
-                                        <div className="flex justify-between items-start mb-3">
-                                            <div>
-                                                <h3 className="font-display font-bold text-lg text-stone-200 group-hover:text-primary-400 transition-colors">{getCreatureName(creature)}</h3>
-                                                <div className="text-xs text-stone-500 flex flex-wrap gap-2 mt-1">
-                                                    <span className="bg-stone-950/50 px-2 py-0.5 rounded text-primary-400 font-bold border border-primary-900/30">NIV {getCreatureLevel(creature)}</span>
-                                                    {getCreatureCategory(creature) && <span className="opacity-80">{getCreatureCategory(creature)}</span>}
-                                                </div>
-                                            </div>
-
-                                            {creature.health_point?.[0]?.value && (
-                                                <div className="text-right bg-stone-950/30 px-2 py-1 rounded border border-white/5">
-                                                    <span className="text-[10px] text-stone-500 uppercase tracking-wider block">PV</span>
-                                                    <span className="font-mono text-green-500/90 font-bold text-base">{creature.health_point[0].value}</span>
-                                                </div>
-                                            )}
+                                        {/* Creature Image */}
+                                        <div className="relative h-48 overflow-hidden bg-gradient-to-b from-stone-900/50 to-stone-950">
+                                            <img
+                                                src={getCreatureImage(creature)}
+                                                alt={getCreatureName(creature)}
+                                                className="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-500"
+                                                onError={(e) => {
+                                                    // Fallback to placeholder if image not found
+                                                    e.currentTarget.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23292524" width="400" height="300"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-size="24" fill="%23f59e0b"%3E' + getCreatureName(creature).charAt(0) + '%3C/text%3E%3C/svg%3E';
+                                                }}
+                                            />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-transparent to-transparent opacity-60"></div>
                                         </div>
 
-                                        <div className="grid grid-cols-3 gap-px bg-stone-950/40 rounded-lg overflow-hidden border border-white/5">
-                                            <div className="p-2 text-center group-hover:bg-primary-500/5 transition-colors">
-                                                <span className="text-[10px] text-stone-500 uppercase block mb-0.5 font-bold">DEF</span>
-                                                <span className="font-bold text-sm text-stone-300">{creature.defense?.[0]?.value || '-'}</span>
+                                        {/* Creature Info */}
+                                        <div className="p-4 flex flex-col justify-between flex-1">
+                                            <div className="flex justify-between items-start mb-3">
+                                                <div>
+                                                    <h3 className="font-display font-bold text-lg text-stone-200 group-hover:text-primary-400 transition-colors">{getCreatureName(creature)}</h3>
+                                                    <div className="text-xs text-stone-500 flex flex-wrap gap-2 mt-1">
+                                                        <span className="bg-stone-950/50 px-2 py-0.5 rounded text-primary-400 font-bold border border-primary-900/30">NIV {getCreatureLevel(creature)}</span>
+                                                        {getCreatureCategory(creature) && <span className="opacity-80">{getCreatureCategory(creature)}</span>}
+                                                    </div>
+                                                </div>
+
+                                                {creature.health_point?.[0]?.value && (
+                                                    <div className="text-right bg-stone-950/30 px-2 py-1 rounded border border-white/5">
+                                                        <span className="text-[10px] text-stone-500 uppercase tracking-wider block">PV</span>
+                                                        <span className="font-mono text-green-500/90 font-bold text-base">{creature.health_point[0].value}</span>
+                                                    </div>
+                                                )}
                                             </div>
-                                            <div className="p-2 text-center group-hover:bg-primary-500/5 transition-colors border-l border-r border-white/5">
-                                                <span className="text-[10px] text-stone-500 uppercase block mb-0.5 font-bold">FOR</span>
-                                                <span className="font-bold text-sm text-stone-300">{creature.str_mod?.[0]?.value || '0'}</span>
-                                            </div>
-                                            <div className="p-2 text-center group-hover:bg-primary-500/5 transition-colors">
-                                                <span className="text-[10px] text-stone-500 uppercase block mb-0.5 font-bold">INIT</span>
-                                                <span className="font-bold text-sm text-stone-300">{creature.init?.[0]?.value || '-'}</span>
+
+                                            <div className="grid grid-cols-3 gap-px bg-stone-950/40 rounded-lg overflow-hidden border border-white/5">
+                                                <div className="p-2 text-center group-hover:bg-primary-500/5 transition-colors">
+                                                    <span className="text-[10px] text-stone-500 uppercase block mb-0.5 font-bold">DEF</span>
+                                                    <span className="font-bold text-sm text-stone-300">{creature.defense?.[0]?.value || '-'}</span>
+                                                </div>
+                                                <div className="p-2 text-center group-hover:bg-primary-500/5 transition-colors border-l border-r border-white/5">
+                                                    <span className="text-[10px] text-stone-500 uppercase block mb-0.5 font-bold">FOR</span>
+                                                    <span className="font-bold text-sm text-stone-300">{creature.str_mod?.[0]?.value || '0'}</span>
+                                                </div>
+                                                <div className="p-2 text-center group-hover:bg-primary-500/5 transition-colors">
+                                                    <span className="text-[10px] text-stone-500 uppercase block mb-0.5 font-bold">INIT</span>
+                                                    <span className="font-bold text-sm text-stone-300">{creature.init?.[0]?.value || '-'}</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </Link>

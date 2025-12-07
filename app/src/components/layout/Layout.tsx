@@ -1,23 +1,47 @@
 import React from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
-import { Book, Sword, Users, Home, BookOpen, GraduationCap, Sparkles, Zap, Package, Truck, UtensilsCrossed, AlertCircle } from 'lucide-react';
+import { Book, Sword, Users, Home, BookOpen, GraduationCap, Sparkles, Zap, Package, Truck, UtensilsCrossed, AlertCircle, ScrollText } from 'lucide-react';
 import clsx from 'clsx';
+import type { NavItem } from './NavItem';
+import { NavItemComponent } from './NavItem';
 
 export const Layout: React.FC = () => {
     const location = useLocation();
 
-    const navItems = [
+    const navItems: NavItem[] = [
         { path: '/', icon: Home, label: 'Accueil' },
         { path: '/campaign', icon: Users, label: 'Campagne' },
-        { path: '/bestiary', icon: Book, label: 'Bestiaire' },
-        { path: '/races', icon: BookOpen, label: 'Races' },
-        { path: '/classes', icon: GraduationCap, label: 'Classes' },
-        { path: '/voies', icon: Sparkles, label: 'Voies' },
-        { path: '/capacites', icon: Zap, label: 'Capacités' },
-        { path: '/equipment', icon: Package, label: 'Équipement' },
-        { path: '/mounts', icon: Truck, label: 'Montures' },
-        { path: '/provisions', icon: UtensilsCrossed, label: 'Provisions' },
-        { path: '/states', icon: AlertCircle, label: 'États' },
+        {
+            path: '/references',
+            icon: Book,
+            label: 'Références',
+            subItems: [
+                { path: '/rules', icon: ScrollText, label: 'Règles' },
+                { path: '/bestiary', icon: Book, label: 'Bestiaire' },
+                { path: '/states', icon: AlertCircle, label: 'États' },
+            ]
+        },
+        {
+            path: '/characters',
+            icon: GraduationCap,
+            label: 'Personnages',
+            subItems: [
+                { path: '/races', icon: BookOpen, label: 'Races' },
+                { path: '/classes', icon: GraduationCap, label: 'Classes' },
+                { path: '/voies', icon: Sparkles, label: 'Voies' },
+                { path: '/capacites', icon: Zap, label: 'Capacités' },
+            ]
+        },
+        {
+            path: '/gear',
+            icon: Package,
+            label: 'Équipement',
+            subItems: [
+                { path: '/equipment', icon: Package, label: 'Armes & Armures' },
+                { path: '/mounts', icon: Truck, label: 'Montures' },
+                { path: '/provisions', icon: UtensilsCrossed, label: 'Provisions' },
+            ]
+        },
         { path: '/tools', icon: Sword, label: 'Outils' },
     ];
 
@@ -45,23 +69,12 @@ export const Layout: React.FC = () => {
                     <nav className="flex-1 p-4 space-y-2">
                         {navItems.map((item) => {
                             const isActive = location.pathname === item.path;
-                            const Icon = item.icon;
-
                             return (
-                                <Link
+                                <NavItemComponent
                                     key={item.path}
-                                    to={item.path}
-                                    className={clsx(
-                                        "flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300 group relative overflow-hidden",
-                                        isActive
-                                            ? "bg-primary-900/30 text-primary-300 border border-primary-500/30 shadow-[0_0_15px_rgba(245,158,11,0.1)]"
-                                            : "text-stone-400 hover:text-stone-200 hover:bg-white/5 border border-transparent"
-                                    )}
-                                >
-                                    {isActive && <div className="absolute left-0 top-0 bottom-0 w-1 bg-primary-500 shadow-[0_0_10px_#f59e0b]"></div>}
-                                    <Icon size={20} className={clsx("transition-transform", isActive && "scale-110 text-primary-400")} />
-                                    <span className="font-medium tracking-wide">{item.label}</span>
-                                </Link>
+                                    item={item}
+                                    isActive={isActive}
+                                />
                             );
                         })}
                     </nav>
@@ -81,13 +94,18 @@ export const Layout: React.FC = () => {
             <nav className="md:hidden fixed bottom-6 left-4 right-4 z-30">
                 <div className="glass-panel rounded-2xl max-w-md mx-auto h-16 flex justify-around items-center px-2 border-primary-500/30 shadow-[0_8px_32px_rgba(0,0,0,0.6)] backdrop-blur-xl bg-stone-900/80">
                     {navItems.map((item) => {
-                        const isActive = location.pathname === item.path;
+                        // For mobile, show direct link for items without subitems, or link to first subitem
+                        const targetPath = item.subItems && item.subItems.length > 0
+                            ? item.subItems[0].path
+                            : item.path;
+                        const isActive = location.pathname === targetPath ||
+                            (item.subItems && item.subItems.some(sub => location.pathname === sub.path));
                         const Icon = item.icon;
 
                         return (
                             <Link
                                 key={item.path}
-                                to={item.path}
+                                to={targetPath}
                                 className={clsx(
                                     "flex flex-col items-center justify-center w-full h-full transition-all duration-300 relative group",
                                     isActive ? "text-primary-400" : "text-stone-500 hover:text-stone-300"

@@ -28,3 +28,11 @@ export const getCreatureEnvironment = (creature: Creature): string => {
 export const getCreatureSize = (creature: Creature): string => {
     return creature.size?.[0]?.label || '';
 };
+
+/**
+ * Get the image path for a creature
+ */
+export const getCreatureImage = (creature: Creature): string => {
+    const name = getCreatureName(creature);
+    return `/assets/creatures/${name}.jpg`;
+};

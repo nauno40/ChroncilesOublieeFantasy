@@ -19,6 +19,7 @@ import { Equipment } from './pages/Equipment';
 import { Mounts } from './pages/Mounts';
 import { Provisions } from './pages/Provisions';
 import { States } from './pages/States';
+import { Rules } from './pages/Rules';
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
           <Route path="mounts" element={<Mounts />} />
           <Route path="provisions" element={<Provisions />} />
           <Route path="states" element={<States />} />
+          <Route path="rules" element={<Rules />} />
         </Route>
       </Routes>
     </BrowserRouter>

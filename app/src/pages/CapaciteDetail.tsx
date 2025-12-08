@@ -36,10 +36,44 @@ export const CapaciteDetail: React.FC = () => {
 
                 {/* Header */}
                 <div className="bg-stone-900/40 p-8 backdrop-blur-sm">
-                    <h1 className="text-4xl md:text-5xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary-200 to-primary-500 drop-shadow-sm mb-4">
-                        {capacite.name}
-                    </h1>
+                    {(() => {
+                        let displayName = capacite.name;
+
+                        // Clean asterisks
+                        displayName = displayName.replace(/\*/g, '');
+
+                        if (displayName.includes('(L)')) {
+                            displayName = displayName.replace('(L)', '').trim();
+                        } else if (displayName.endsWith(' L')) {
+                            displayName = displayName.slice(0, -2).trim();
+                        }
+
+                        return (
+                            <h1 className="text-4xl md:text-5xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary-200 to-primary-500 drop-shadow-sm mb-4">
+                                {displayName}
+                            </h1>
+                        );
+                    })()}
                     <div className="flex flex-wrap gap-3">
+                        {(() => {
+                            // Re-evaluate limited status here or reuse if we scope it differently.
+                            // Actually, let's just re-check since it's cheap and cleaner than refactoring the whole component state just for this.
+                            // Alternatively, we can check capacite.name again.
+                            let isLimited = false;
+                            if (capacite.name.includes('(L)') || capacite.name.endsWith(' L')) {
+                                isLimited = true;
+                            }
+
+                            if (isLimited) {
+                                return (
+                                    <span className="px-4 py-2 rounded-full bg-red-500/20 text-red-300 text-sm font-bold border border-red-500/30">
+                                        Limité
+                                    </span>
+                                );
+                            }
+                            return null;
+                        })()}
+
                         {capacite.rank && (
                             <span className="px-4 py-2 rounded-full bg-primary-500/20 text-primary-300 text-sm font-bold border border-primary-500/30">
                                 Rang {capacite.rank}

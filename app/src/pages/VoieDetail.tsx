@@ -70,26 +70,49 @@ export const VoieDetail: React.FC = () => {
                             </h3>
 
                             <div className="space-y-4">
-                                {voieCapacities.map((capacity) => (
-                                    <div
-                                        key={capacity.id}
-                                        className="glass-panel p-6 rounded-xl border border-white/5 hover:border-primary-500/30 transition-all duration-300"
-                                    >
-                                        <div className="flex items-start justify-between mb-3">
-                                            <h4 className="text-lg font-display font-bold text-primary-300">
-                                                {capacity.name}
-                                            </h4>
-                                            {capacity.rank && (
-                                                <span className="px-3 py-1 rounded-full bg-primary-500/20 text-primary-300 text-xs font-bold border border-primary-500/30">
-                                                    Rang {capacity.rank}
-                                                </span>
-                                            )}
+                                {voieCapacities.map((capacity) => {
+                                    let displayName = capacity.name;
+                                    let isLimited = false;
+
+                                    // Clean asterisks
+                                    displayName = displayName.replace(/\*/g, '');
+
+                                    if (displayName.includes('(L)')) {
+                                        isLimited = true;
+                                        displayName = displayName.replace('(L)', '').trim();
+                                    } else if (displayName.endsWith(' L')) {
+                                        isLimited = true;
+                                        displayName = displayName.slice(0, -2).trim();
+                                    }
+
+                                    return (
+                                        <div
+                                            key={capacity.id}
+                                            className="glass-panel p-6 rounded-xl border border-white/5 hover:border-primary-500/30 transition-all duration-300"
+                                        >
+                                            <div className="flex items-start justify-between mb-3">
+                                                <h4 className="text-lg font-display font-bold text-primary-300 flex items-center gap-2 flex-wrap">
+                                                    {displayName}
+                                                </h4>
+                                                <div className="flex gap-2">
+                                                    {isLimited && (
+                                                        <span className="px-3 py-1 rounded-full bg-red-500/20 text-red-300 text-xs font-bold border border-red-500/30">
+                                                            Limité
+                                                        </span>
+                                                    )}
+                                                    {capacity.rank && (
+                                                        <span className="px-3 py-1 rounded-full bg-primary-500/20 text-primary-300 text-xs font-bold border border-primary-500/30">
+                                                            Rang {capacity.rank}
+                                                        </span>
+                                                    )}
+                                                </div>
+                                            </div>
+                                            <p className="text-stone-300 leading-relaxed whitespace-pre-line">
+                                                {capacity.description}
+                                            </p>
                                         </div>
-                                        <p className="text-stone-300 leading-relaxed whitespace-pre-line">
-                                            {capacity.description}
-                                        </p>
-                                    </div>
-                                ))}
+                                    );
+                                })}
                             </div>
                         </>
                     ) : (

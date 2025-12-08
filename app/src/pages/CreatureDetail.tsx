@@ -185,12 +185,36 @@ export const CreatureDetail: React.FC = () => {
                                     <span className="w-1 h-6 bg-primary-500 rounded-full"></span> Capacités
                                 </h3>
                                 <div className="grid md:grid-cols-2 gap-3">
-                                    {creature.capabilities.map((cap, i) => (
-                                        <div key={i} className="bg-stone-900/30 p-4 rounded-xl border border-white/5 hover:bg-stone-900/50 transition-colors">
-                                            <div className="font-bold text-primary-300 mb-1 font-display tracking-wide">{cap.label}</div>
-                                            <p className="text-sm text-stone-400 leading-relaxed">{cap.description}</p>
-                                        </div>
-                                    ))}
+                                    {creature.capabilities.map((cap, i) => {
+                                        let displayName = cap.label;
+                                        let isLimited = cap.is_limited === '1';
+
+                                        // Clean asterisks
+                                        displayName = displayName.replace(/\*/g, '');
+
+                                        // Handle "(L)" or " L" suffix removal as per user request
+                                        if (displayName.includes('(L)')) {
+                                            isLimited = true;
+                                            displayName = displayName.replace('(L)', '').trim();
+                                        } else if (displayName.endsWith(' L')) {
+                                            isLimited = true;
+                                            displayName = displayName.slice(0, -2).trim();
+                                        }
+
+                                        return (
+                                            <div key={i} className="bg-stone-900/30 p-4 rounded-xl border border-white/5 hover:bg-stone-900/50 transition-colors">
+                                                <div className="font-bold text-primary-300 mb-1 font-display tracking-wide flex items-center gap-2 flex-wrap">
+                                                    {displayName}
+                                                    {isLimited && (
+                                                        <span className="text-[10px] bg-red-950/40 text-red-300 border border-red-900/50 px-1.5 py-0.5 rounded uppercase tracking-wider font-sans leading-none">
+                                                            Limité
+                                                        </span>
+                                                    )}
+                                                </div>
+                                                <p className="text-sm text-stone-400 leading-relaxed">{cap.description}</p>
+                                            </div>
+                                        );
+                                    })}
                                 </div>
                             </div>
                         )}

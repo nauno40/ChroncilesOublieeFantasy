@@ -130,20 +130,42 @@ export const Capacites: React.FC = () => {
                     const profile = capacite.profileId ? profiles.find(p => p.id === capacite.profileId) : null;
                     const voie = capacite.voieId ? voies.find(v => v.id === capacite.voieId) : null;
 
+                    let displayName = capacite.name;
+                    let isLimited = false;
+
+                    // Clean asterisks
+                    displayName = displayName.replace(/\*/g, '');
+
+                    // Handle "(L)" or " L" suffix removal as per user request
+                    if (displayName.includes('(L)')) {
+                        isLimited = true;
+                        displayName = displayName.replace('(L)', '').trim();
+                    } else if (displayName.endsWith(' L')) {
+                        isLimited = true;
+                        displayName = displayName.slice(0, -2).trim();
+                    }
+
                     return (
                         <Card
                             key={capacite.id}
                             to={`/capacites/${capacite.id}`}
                         >
                             <div className="flex items-start justify-between mb-3">
-                                <h3 className="text-xl font-display font-bold text-primary-300 group-hover:text-primary-200 transition-colors flex-1">
-                                    {capacite.name}
+                                <h3 className="text-xl font-display font-bold text-primary-300 group-hover:text-primary-200 transition-colors flex-1 flex items-center gap-2 flex-wrap">
+                                    {displayName}
                                 </h3>
-                                {capacite.rank && (
-                                    <Badge variant="primary">
-                                        Rang {capacite.rank}
-                                    </Badge>
-                                )}
+                                <div className="flex gap-2">
+                                    {isLimited && (
+                                        <Badge variant="danger">
+                                            Limité
+                                        </Badge>
+                                    )}
+                                    {capacite.rank && (
+                                        <Badge variant="primary">
+                                            Rang {capacite.rank}
+                                        </Badge>
+                                    )}
+                                </div>
                             </div>
 
                             {capacite.description && (

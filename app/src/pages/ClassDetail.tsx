@@ -77,38 +77,64 @@ export const ClassDetail: React.FC = () => {
                         <p className="text-stone-300 leading-relaxed">{profile.description}</p>
                     </div>
 
-                    {/* Game Mechanics */}
+                    {/* Caractéristiques de classe */}
                     <div className="grid md:grid-cols-2 gap-4">
                         {/* Dé de vie */}
                         {profile.hitDie && (
-                            <div className="glass-panel p-6 rounded-xl border-white/5 bg-primary-950/20">
-                                <h4 className="text-sm font-display font-bold text-primary-300 mb-2">
+                            <div className="glass-panel p-6 rounded-xl border-white/5 bg-primary-950/20 flex flex-col justify-center">
+                                <h4 className="text-sm font-display font-bold text-primary-400 mb-1 uppercase tracking-wider">
                                     Dé de vie
                                 </h4>
-                                <p className="text-stone-300 font-mono text-lg">{profile.hitDie}</p>
+                                <div className="flex items-center gap-3">
+                                    <div className="p-2 bg-primary-500/20 rounded-lg">
+                                        <svg className="w-6 h-6 text-primary-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                                        </svg>
+                                    </div>
+                                    <span className="text-2xl font-bold text-white font-mono">{profile.hitDie}</span>
+                                </div>
                             </div>
                         )}
 
-                        {/* Armes et armures */}
-                        {profile.weaponsAndArmor && (
-                            <div className="glass-panel p-6 rounded-xl border-white/5">
-                                <h4 className="text-sm font-display font-bold text-stone-300 mb-2">
-                                    Armes et armures
+                        {/* Modificateur Magique */}
+                        {profile.magicModifier && (
+                            <div className="glass-panel p-6 rounded-xl border-white/5 bg-purple-950/20 flex flex-col justify-center">
+                                <h4 className="text-sm font-display font-bold text-purple-400 mb-1 uppercase tracking-wider">
+                                    Modificateur Magique
                                 </h4>
-                                <p className="text-stone-300 text-sm leading-relaxed">{profile.weaponsAndArmor}</p>
+                                <div className="flex items-center gap-3">
+                                    <div className="p-2 bg-purple-500/20 rounded-lg">
+                                        <svg className="w-6 h-6 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                                        </svg>
+                                    </div>
+                                    <span className="text-2xl font-bold text-white font-mono">{profile.magicModifier}</span>
+                                </div>
                             </div>
                         )}
                     </div>
 
-                    {/* Equipement de départ */}
-                    {profile.startingEquipment && (
-                        <div className="glass-panel p-6 rounded-xl border-white/5">
-                            <h3 className="text-xl font-display font-bold text-stone-300 mb-4 border-b border-white/10 pb-2">
-                                Équipement de départ
-                            </h3>
-                            <p className="text-stone-300 leading-relaxed">{profile.startingEquipment}</p>
-                        </div>
-                    )}
+                    <div className="grid md:grid-cols-2 gap-6">
+                        {/* Armes et armures */}
+                        {profile.weaponsAndArmor && (
+                            <div className="glass-panel p-6 rounded-xl border-white/5">
+                                <h3 className="text-lg font-display font-bold text-stone-300 mb-3 border-b border-white/10 pb-2">
+                                    Armes et armures
+                                </h3>
+                                <p className="text-stone-300 text-sm leading-relaxed">{profile.weaponsAndArmor}</p>
+                            </div>
+                        )}
+
+                        {/* Equipement de départ */}
+                        {profile.startingEquipment && (
+                            <div className="glass-panel p-6 rounded-xl border-white/5">
+                                <h3 className="text-lg font-display font-bold text-stone-300 mb-3 border-b border-white/10 pb-2">
+                                    Équipement de départ
+                                </h3>
+                                <p className="text-stone-300 text-sm leading-relaxed">{profile.startingEquipment}</p>
+                            </div>
+                        )}
+                    </div>
 
                     {/* Voies */}
                     {profile.voies && profile.voies.length > 0 && (
@@ -145,16 +171,6 @@ export const ClassDetail: React.FC = () => {
                                     );
                                 })}
                             </div>
-                        </div>
-                    )}
-
-                    {/* Magic Modifier */}
-                    {profile.magicModifier && (
-                        <div>
-                            <h3 className="text-xl font-display font-bold text-primary-400 mb-4 flex items-center gap-2">
-                                <span className="w-1 h-6 bg-primary-500 rounded-full"></span> Modificateur Magique
-                            </h3>
-                            <p className="text-stone-300">{profile.magicModifier}</p>
                         </div>
                     )}
                 </div>

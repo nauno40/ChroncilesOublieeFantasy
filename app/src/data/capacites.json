@@ -1160,14 +1160,6 @@
     "rank": 2
   },
   {
-    "id": "double_attaque_l",
-    "name": "Double attaque (L)",
-    "description": "Le Guerrier peut tenter deux attaques au contact durant ce tour avec un malus de -2.",
-    "profileId": "guerrier",
-    "voieId": "voie_du_combat",
-    "rank": 3
-  },
-  {
     "id": "double_peine",
     "name": "Double peine",
     "description": "Si les deux armes du personnage atteignent la cible lors d’un même tour, le personnage obtient un effet de combo qui ajoute +1d6 DM à l’une des deux attaques selon son choix.",
@@ -1728,14 +1720,6 @@
     "rank": 2
   },
   {
-    "id": "guerison_l_",
-    "name": "Guérison (L) *",
-    "description": "Une fois par jour, le Prêtre peut toucher une cible, qui récupère alors tous ses PV perdus et se trouve guérie des poisons, maladies et affaiblissements de Caractéristiques.",
-    "profileId": "pretre",
-    "voieId": "voie_des_soins",
-    "rank": 4
-  },
-  {
     "id": "haches_et_marteaux",
     "name": "Haches et marteaux",
     "description": "Le nain gagne un bonus de +1 en attaque et aux DM lorsqu’il utilise une hache ou un marteau de guerre. Il sait utiliser ces armes quel que soit son profil.",
@@ -1814,14 +1798,6 @@
     "profileId": null,
     "voieId": "voie_des_creatures_magiques",
     "rank": 3
-  },
-  {
-    "id": "imparable_l",
-    "name": "Imparable (L)",
-    "description": "Réaliser une attaque en lançant deux d20 et garder le meilleur résultat. Si le champion obtient 15-20 au d20 d’un test d’attaque (même sans utiliser Imparable), il inflige +1d6 DM et l’attaque est automatiquement réussie (quelle que soit la DEF de son adversaire).",
-    "profileId": null,
-    "voieId": "voie_du_champion",
-    "rank": 1
   },
   {
     "id": "impressionnant",
@@ -2392,14 +2368,6 @@
     "rank": 5
   },
   {
-    "id": "pattes_daraignee_l_",
-    "name": "Pattes d’araignée (L) *",
-    "description": "Le Nécromancien peut se déplacer de 10 m par action de mouvement sur les murs et les plafonds pendant [5 + Mod. d’INT] tours. S’il reste immobile, il peut lancer des sorts.",
-    "profileId": "necromancien",
-    "voieId": "voie_de_la_sombre_magie",
-    "rank": 2
-  },
-  {
     "id": "peau_de_fer",
     "name": "Peau de fer",
     "description": "Le Moine gagne un bonus de +2 en DEF.",
@@ -2840,14 +2808,6 @@
     "rank": 5
   },
   {
-    "id": "riposte_355",
-    "name": "Riposte",
-    "description": "Le champion peut effectuer une attaque en action gratuite contre chaque adversaire qui l’attaque à l’exception de celui qu’il a lui-même choisit d’attaquer à son tour.",
-    "profileId": null,
-    "voieId": "voie_du_champion",
-    "rank": 2
-  },
-  {
     "id": "rituel_de_puissance",
     "name": "Rituel de puissance",
     "description": "Sur une attaque magique, le Magicien peut utiliser un d12 en attaque au lieu du d20 habituel. Si l’attaque est réussie, il ajoute 2d6 aux DM. Cette capacité s’utilise uniquement avec les sorts nécessitant un test d’attaque et infligeant des DM. Si les DM sont répartis sur plusieurs tours, seuls les DM initiaux sont modifiés.",
@@ -3040,30 +3000,6 @@
     "rank": 1
   },
   {
-    "id": "soins_de_groupe_l_",
-    "name": "Soins de groupe (L) *",
-    "description": "Une fois par combat, le Prêtre peut libérer une décharge d’énergie bienfaitrice : tous ses compagnons en vue et lui récupèrent [1d8 + niveau du prêtre] PV perdus.",
-    "profileId": "pretre",
-    "voieId": "voie_des_soins",
-    "rank": 3
-  },
-  {
-    "id": "soins_legers_l_",
-    "name": "Soins légers (L) *",
-    "description": "Le Prêtre peut toucher une cible, qui récupère alors [1d8 + niveau du prêtre] PV perdus. Le Prêtre peut utiliser ce sort sur lui-même. Peut être utilisé un nombre de fois par jour égal au Rang que le Prêtre a atteint dans cette Voie.",
-    "profileId": "pretre",
-    "voieId": "voie_des_soins",
-    "rank": 1
-  },
-  {
-    "id": "soins_moderes_l_",
-    "name": "Soins modérés (L) *",
-    "description": "Le Prêtre peut toucher une cible, qui récupère alors [2d8 + niveau du prêtre] PV perdus. Le Prêtre peut utiliser ce sort sur lui-même. Peut être utilisé un nombre de fois par jour égal au Rang que le Prêtre a atteint dans cette Voie.",
-    "profileId": "pretre",
-    "voieId": "voie_des_soins",
-    "rank": 2
-  },
-  {
     "id": "solide_comme_un_roc",
     "name": "Solide comme un roc",
     "description": "Le nain réduit tous les DM subis de 2 points (mais il subit toujours au moins 1 point de DM par attaque reçue). Ce bonus est cumulable avec d’autres sources de réduction des DM comme la Peau d’acier du barbare. Au rang 4, la réduction passe à 3 points.",
@@ -3118,14 +3054,6 @@
     "profileId": "voleur",
     "voieId": "voie_de_laventurier",
     "rank": 1
-  },
-  {
-    "id": "strangulation_l_",
-    "name": "Strangulation (L) *",
-    "description": "En réussissant un test d’attaque magique (portée 20 m), le Nécromancien étouffe une créature vivante et lui inflige [1d6 + Mod. d’INT] DM par tour pendant [rang] tours pourvu qu’il maintienne sa concentration par une action limitée. La victime subit un malus égal au nombre de tours d’effet de la Strangulation (-1 au premier tour, -2 au second, etc.) à tous ses tests. Si la victime sort du champ de vision du Nécromancien, le sort prend fin.",
-    "profileId": "necromancien",
-    "voieId": "voie_de_la_sombre_magie",
-    "rank": 3
   },
   {
     "id": "suggestion_l_",
@@ -3224,14 +3152,6 @@
     "rank": 5
   },
   {
-    "id": "tenebres_l_",
-    "name": "Ténèbres (L) *",
-    "description": "Le Nécromancien invoque une zone fixe de ténèbres magiques, de 10 m de diamètre, pour une durée de [5 + Mod. d’INT] tours. Même les créatures capables de voir dans le noir sont aveuglées dans cette zone.",
-    "profileId": "necromancien",
-    "voieId": "voie_de_la_sombre_magie",
-    "rank": 1
-  },
-  {
     "id": "tir_aveugle_l",
     "name": "Tir aveugle (L)",
     "description": "Le Rôdeur peut attaquer à distance un ennemi qu'il ne voit pas (par exemple invisible ou plongé dans le noir total), mais dont il connaît l'existence et la direction approximative, comme s'il le voyait, donc sans le malus causé par le fait qu'il ne la voit pas.",
@@ -3309,14 +3229,6 @@
     "description": "Le Barbare peut temporairement décupler ses ressources physiques pour faire usage d’une force prodigieuse. Il peut ainsi soulever une charge incroyable, briser une épée, tordre des barreaux ou défoncer une porte d’un seul coup de poing. Il obtient un bonus de +10 à son test de FOR, mais cela lui coûte 1d4 PV.",
     "profileId": "barbare",
     "voieId": "voie_de_la_brute",
-    "rank": 2
-  },
-  {
-    "id": "transe_de_guerison",
-    "name": "Transe de guérison",
-    "description": "Une fois après chaque combat, le Moine peut méditer pendant 10 minutes et récupérer ainsi [niveau + Mod de SAG] PV.",
-    "profileId": "moine",
-    "voieId": "voie_de_la_meditation",
     "rank": 2
   },
   {
@@ -3449,24 +3361,6 @@
     "voieId": "voie_du_colosse"
   },
   {
-    "id": "reduction_des_dm",
-    "name": "Réduction des DM",
-    "rank": 1,
-    "description": "La créature est peu sensible aux DM provoqués par les armes, le métal rebondi sur elle comme un vulgaire morceau de bois ou alors la créature guérit immédiatement. Elle obtient une réduction des DM (RD) de 5, ce score est retranché à tous les DM subits. Choisissez un type d’arme qui ignore cette réduction : un certain métal ou un certain type d’armes ou encore la magie (armes et sorts). Par exemple les masses sur un squelette ou les armes en argent sur un lycanthrope. Vous pouvez augmenter cette réduction des DM à 10 au rang 2 et à 15 au rang 3.",
-    "paths": "Voie des créatures magiques",
-    "profileId": null,
-    "voieId": "voie_des_creatures_magiques"
-  },
-  {
-    "id": "vitalite_surnaturelle",
-    "name": "Vitalité surnaturelle",
-    "rank": 2,
-    "description": "La créature guérit à un rythme fantastique, elle récupère 5 PV à la fin de chaque tour. Il existe parfois une source de DM qui permet d’empêcher cette régénération (le feu pour les trolls par exemple). Alternativement remplacez simplement la régénération par une vitalité extraordinaire (c’est souvent le cas des mort-vivants ou des créatures artificielles) : doublez ses PV ou ajoutez +20 PV (si ces PV de base sont inférieurs à 20).",
-    "paths": "Voie des créatures magiques",
-    "profileId": null,
-    "voieId": "voie_des_creatures_magiques"
-  },
-  {
     "id": "imparable",
     "name": "Imparable",
     "rank": 1,
@@ -3480,15 +3374,6 @@
     "name": "Riposte",
     "rank": 2,
     "description": "Le champion peut effectuer une attaque en action gratuite contre chaque adversaire qui l’attaque à l’exception de celui qu’il a lui-même choisit d’attaquer à son tour.",
-    "paths": "Voie du champion",
-    "profileId": null,
-    "voieId": "voie_du_champion"
-  },
-  {
-    "id": "hausser_le_ton",
-    "name": "Hausser le ton",
-    "rank": 3,
-    "description": "Lorsqu’il passe sous la moitié de ses PV maximum, le champion gagne un bonus de +5 à ses tests d’attaque et +1d6 aux DM et il réduit tous les DM subits de 5 points par attaque (RD 5).",
     "paths": "Voie du champion",
     "profileId": null,
     "voieId": "voie_du_champion"
@@ -3656,15 +3541,6 @@
     "voieId": "voie_des_creatures_elementaire_du_feu"
   },
   {
-    "id": "immortel",
-    "name": "Immortel",
-    "rank": 3,
-    "description": "Lorsqu’elle tombe à 0 PV, la créature n’est pas définitivement détruite, elle est juste chassée et pourra se reconstituer en 24 heures. Parfois elle est simplement bannie dans un autre plan (démon ou élémentaire), d’autre fois, elle s’enfuit sous la forme d’un nuage de ténèbres (vampire). Il faut généralement un rituel spécial pour venir à bout de la créature.",
-    "paths": "Voie des créatures magiques",
-    "profileId": null,
-    "voieId": "voie_des_creatures_magiques"
-  },
-  {
     "id": "lumiere",
     "name": "Lumière",
     "rank": 1,
@@ -3816,51 +3692,6 @@
     "paths": "Voie de la sombre magie",
     "profileId": null,
     "voieId": "voie_de_la_sombre_magie"
-  },
-  {
-    "id": "peau_decorce",
-    "name": "Peau d’écorce",
-    "rank": 1,
-    "description": "La peau du Druide prend la consistance de l’écorce. Il gagne +1 en DEF par rang dans la voie pendant [5 + Mod. de SAG] tours.",
-    "paths": "Voie des végétaux",
-    "profileId": null,
-    "voieId": "voie_des_vegetaux"
-  },
-  {
-    "id": "prison_vegetale",
-    "name": "Prison végétale",
-    "rank": 2,
-    "description": "Le Druide peut commander à la végétation de pousser et bloquer ses ennemis (mais pas ses alliés) dans une zone de 10 m de diamètre (portée 20 m) pendant [5 + Mod. de SAG] tours. Entravées, les cibles subissent un malus de -2 en attaque et en DEF, et ne peuvent pas se déplacer. Chaque tour, une créature peut se libérer avec un test de FOR difficulté [10 + Mod. de SAG].",
-    "paths": "Voie des végétaux",
-    "profileId": null,
-    "voieId": "voie_des_vegetaux"
-  },
-  {
-    "id": "animation_dun_arbre",
-    "name": "Animation d’un arbre",
-    "rank": 3,
-    "description": "Une fois par combat, le Druide peut animer un arbre en le touchant. Il combat pendant [niveau du druide] tours. Arbre animé : Init 7, DEF 13, PV [rang x 10], attaque de contact = [niveau du druide], DM 1d6+3, Déplacement 10 m par action de mouvement. Réduction de DM de 10 sauf contre les armes tranchantes et le feu.",
-    "paths": "Voie des végétaux",
-    "profileId": null,
-    "voieId": "voie_des_vegetaux"
-  },
-  {
-    "id": "gland_de_pouvoir",
-    "name": "Gland de pouvoir",
-    "rank": 4,
-    "description": "Une fois par combat, le Druide peut lancer un gland sur une cible (portée 10 m). En cas d’attaque magique réussie, la victime se transforme en statue de bois pendant [2d6 + Mod. de SAG] tours. Sous cette forme elle ne peut agir et ne ressent rien. Sa DEF passe à 10 mais elle gagne une réduction des DM de 10. Le sort s’achève dès que la cible perd plus de 10 PV.",
-    "paths": "Voie des végétaux",
-    "profileId": null,
-    "voieId": "voie_des_vegetaux"
-  },
-  {
-    "id": "porte_vegetale",
-    "name": "Porte végétale",
-    "rank": 5,
-    "description": "Une fois par jour, le Druide peut pénétrer dans le tronc d’un gros arbre et sortir de celui d’un autre arbre appartenant à la même forêt et situé à une distance maximum de [Mod. de SAG] x 10 km.",
-    "paths": "Voie des végétaux",
-    "profileId": null,
-    "voieId": "voie_des_vegetaux"
   },
   {
     "id": "capitaine",
@@ -4500,5 +4331,54 @@
     "paths": "Voie du tueur",
     "profileId": null,
     "voieId": "voie_du_tueur"
+  },
+  {
+    "id": "septieme_sens",
+    "name": "Septième sens",
+    "rank": 2,
+    "description": "Le Moine n’est jamais surpris. Il peut utiliser son Mod. de SAG à la place de son Mod. de DEX pour calculer son Initiative et sa DEF (seulement s’il ne porte aucune armure).",
+    "profileId": "moine",
+    "voieId": "voie_de_la_meditation"
+  },
+  {
+    "id": "transcendance",
+    "name": "Transcendance",
+    "rank": 5,
+    "description": "Le Moine ne vieillit plus et il est immunisé contre les maladies et les poisons. Il n’a plus besoin de manger, boire ou dormir (mais il doit méditer 4 heures par nuit). Il gagne +2 en SAG et peut relancer tous les tests de caractéristiques ratés (une seule fois par test).",
+    "profileId": "moine",
+    "voieId": "voie_de_la_meditation"
+  },
+  {
+    "id": "liberte",
+    "name": "Liberté",
+    "rank": 5,
+    "description": "Le Barbare ne peut plus être entravé, ralenti ou paralysé par aucun moyen (physique ou magique). Il est immunisé à la peur et à la possession.",
+    "profileId": "barbare",
+    "voieId": "voie_du_pagne"
+  },
+  {
+    "id": "invulnerabilite_l",
+    "name": "Invulnérabilité (L)",
+    "rank": 5,
+    "description": "Pendant [5 + Mod. d’INT] tours, le Nécromancien est invulnérable. Il ne subit plus aucun dégât physique ou magique. Seuls des sorts comme Bannissement ou Désintégration peuvent l'affecter. Il subit encore les DM (divisés par 2) des sorts de zone.",
+    "profileId": "necromancien",
+    "voieId": "voie_de_la_sombre_magie"
+  },
+  {
+    "id": "lien_familier_v",
+    "name": "Lien de familier",
+    "rank": 1,
+    "description": "Le personnage choisit un petit animal (corbeau, chat, furet, serpent…). Il peut utiliser les sens de son familier et communiquer avec lui à distance illimitée. Il gagne de plus +2 en Initiative lorsque son familier est en vue. Familier : DEF [personnage], Init [personnage], PV [il les partage avec ceux de son maître], ils forment une cible unique pour les attaques de zone. FOR -4, DEX +3, CON 0, INT -2, SAG +1, CHA -2.",
+    "profileId": null,
+    "voieId": "voie_du_familier"
+  },
+  {
+    "id": "resistance_magie_creature",
+    "name": "Résistance à la magie",
+    "rank": 4,
+    "description": "La créature bénéficie d'une Résistance à la magie. Lancez 1d20 à chaque fois qu'elle est ciblée par un sort. Sur 10+, le sort n'a aucun effet (en plus du jet de sauvegarde éventuel).",
+    "paths": "Voie des créatures magiques",
+    "profileId": null,
+    "voieId": "voie_des_creatures_magiques"
   }
 ]

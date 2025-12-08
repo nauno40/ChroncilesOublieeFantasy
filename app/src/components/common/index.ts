@@ -7,3 +7,4 @@ export { PageHeader } from './PageHeader';
 export { FilterPanel } from './FilterPanel';
 export { TabGroup } from './TabGroup';
 export { EmptyState } from './EmptyState';
+export { DiceRoller } from './DiceRoller';

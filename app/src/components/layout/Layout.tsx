@@ -4,9 +4,13 @@ import { Book, Sword, Users, Home, BookOpen, GraduationCap, Sparkles, Zap, Packa
 import clsx from 'clsx';
 import type { NavItem } from './NavItem';
 import { NavItemComponent } from './NavItem';
+import { DiceRoller } from '../common';
+import { useToggle } from '../../hooks/useToggle';
+import { Dices } from 'lucide-react';
 
 export const Layout: React.FC = () => {
     const location = useLocation();
+    const [isDiceRollerOpen, toggleDiceRoller] = useToggle(false);
 
     const navItems: NavItem[] = [
         { path: '/', icon: Home, label: 'Accueil' },
@@ -130,6 +134,16 @@ export const Layout: React.FC = () => {
                     })}
                 </div>
             </nav>
+            {/* Dice Roller FAB */}
+            <button
+                onClick={toggleDiceRoller}
+                className="fixed bottom-24 right-4 md:bottom-8 md:right-8 z-40 bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-500 hover:to-primary-600 text-stone-950 p-4 rounded-full shadow-xl hover:shadow-primary-500/20 hover:scale-110 transition-all active:scale-95 group"
+                title="Lanceur de dés"
+            >
+                <Dices size={28} strokeWidth={2.5} className="group-hover:rotate-180 transition-transform duration-700" />
+            </button>
+
+            <DiceRoller isOpen={isDiceRollerOpen} onClose={toggleDiceRoller} />
         </div>
     );
 };

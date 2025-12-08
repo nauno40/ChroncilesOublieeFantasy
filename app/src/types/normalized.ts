@@ -181,7 +181,72 @@ export interface VoieWithCapacities extends Voie {
     capacities: Capacity[];
 }
 
-export interface CapacityWithRelations extends Capacity {
-    profile?: Profile;
-    voie?: Voie;
+// ============================================================================
+// COMPLEX / RAW DATA TYPES (Direct mapping from JSON)
+// ============================================================================
+
+export interface Field<T = string> {
+    value: T;
+    label?: string;
+    format?: string;
+    target_id?: string;
+    src?: string;
+    alt?: string;
+    width?: string;
+    height?: string;
+    creature_token_url?: string;
+}
+
+export interface CreatureData {
+    name: string;
+    test: string;
+    dm: string;
+    special: string | null;
+    リーチ?: string | null; // Handling potential typo/legacy field name if exists, or normalize to reach
+    reach: string | null;
+}
+
+export interface CreatureAttackField extends Field {
+    data: CreatureData[];
+}
+
+export interface CreatureCapability {
+    target_id: string;
+    label: string;
+    rank: string;
+    is_limited: string;
+    is_magical: string;
+    description: string;
+    paths?: string;
+}
+
+export interface Creature {
+    id?: string; // Optional if not in JSON but added by utility
+    name: Field[];
+    appearance: Field[];
+    description: Field[];
+    creature_family: Field[];
+    environment: Field[];
+    archetype: Field[];
+    boss_type: Field[];
+    boss_rank: Field[];
+    level: Field[];
+    category: Field[];
+    size: Field[];
+    str_mod: Field[];
+    dex_mod: Field[];
+    con_mod: Field[];
+    int_mod: Field[];
+    wis_mod: Field[];
+    cha_mod: Field[];
+    sup_abilities: Field[];
+    defense: Field[];
+    health_point: Field[];
+    dmg_reduction: Field[];
+    init: Field[];
+    attacks: CreatureAttackField[];
+    paths: Field[];
+    special_capabilities: Field[];
+    capabilities: CreatureCapability[];
+    picture: Field[];
 }

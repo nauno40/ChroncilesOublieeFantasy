@@ -1,40 +1,12 @@
 import React from 'react';
-import weaponsData from '../data/weapons.json';
-import armorsData from '../data/armors.json';
-import materialsData from '../data/materials.json';
-import type { Weapon, Armor, Material } from '../types/normalized';
-import { PageContainer, PageHeader, TabGroup, SearchBar, EmptyState } from '../components/common';
+import { PageContainer, PageHeader, TabGroup, SearchBar, EmptyState, ItemTable } from '../components/common';
 import { useSearch } from '../hooks';
 import { Sword, Shield, Gem } from 'lucide-react';
+import { DataService } from '../services/dataService';
 
-const weapons = weaponsData as Weapon[];
-const armors = armorsData as Armor[];
-const materials = materialsData as Material[];
-
-const ItemTable = ({ items, emptyMessage }: { items: { name: string; price: string; id: string }[], emptyMessage: string }) => {
-    if (items.length === 0) return <EmptyState message={emptyMessage} />;
-
-    return (
-        <div className="glass-panel rounded-xl overflow-x-auto">
-            <table className="w-full">
-                <thead>
-                    <tr className="border-b border-white/10">
-                        <th className="text-left p-4 text-primary-300 font-display font-bold w-full">Nom</th>
-                        <th className="text-right p-4 text-primary-300 font-display font-bold whitespace-nowrap">Prix</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {items.map((item, i) => (
-                        <tr key={i} className="border-b border-white/5 hover:bg-stone-900/30 transition-colors">
-                            <td className="p-4 text-stone-200 font-medium">{item.name}</td>
-                            <td className="p-4 text-yellow-500/90 font-mono text-right whitespace-nowrap">{item.price}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
-    );
-};
+const weapons = DataService.getWeapons();
+const armors = DataService.getArmors();
+const materials = DataService.getMaterials();
 
 export const Equipment: React.FC = () => {
     const weaponSearch = useSearch(weapons, (w, term) => w.name.toLowerCase().includes(term.toLowerCase()));

@@ -14,9 +14,10 @@ interface RollResult {
 interface DiceRollerProps {
     isOpen: boolean;
     onClose: () => void;
+    mode?: 'popup' | 'inline';
 }
 
-export const DiceRoller: React.FC<DiceRollerProps> = ({ isOpen, onClose }) => {
+export const DiceRoller: React.FC<DiceRollerProps> = ({ isOpen, onClose, mode = 'popup' }) => {
     const [history, setHistory] = useState<RollResult[]>([]);
     const [customFormula, setCustomFormula] = useState('');
     const historyEndRef = useRef<HTMLDivElement>(null);
@@ -89,10 +90,14 @@ export const DiceRoller: React.FC<DiceRollerProps> = ({ isOpen, onClose }) => {
 
     const clearHistory = () => setHistory([]);
 
-    if (!isOpen) return null;
+    if (!isOpen && mode === 'popup') return null;
+
+    const containerClasses = mode === 'popup'
+        ? "fixed bottom-24 right-4 md:right-8 w-80 md:w-96 glass-panel rounded-2xl shadow-2xl z-50 flex flex-col max-h-[600px] border-primary-500/30 animate-in slide-in-from-bottom-10 fade-in duration-200"
+        : "w-full h-full min-h-[500px] glass-panel rounded-2xl flex flex-col border-primary-500/30";
 
     return (
-        <div className="fixed bottom-24 right-4 md:right-8 w-80 md:w-96 glass-panel rounded-2xl shadow-2xl z-50 flex flex-col max-h-[600px] border-primary-500/30 animate-in slide-in-from-bottom-10 fade-in duration-200">
+        <div className={containerClasses}>
             {/* Header */}
             <div className="flex justify-between items-center p-4 border-b border-white/10 bg-black/20 rounded-t-2xl">
                 <div className="flex items-center gap-2 text-primary-400">
@@ -107,12 +112,14 @@ export const DiceRoller: React.FC<DiceRollerProps> = ({ isOpen, onClose }) => {
                     >
                         <Eraser size={16} />
                     </button>
-                    <button
-                        onClick={onClose}
-                        className="p-2 hover:bg-white/5 rounded-lg text-stone-500 hover:text-stone-300 transition-colors"
-                    >
-                        <X size={20} />
-                    </button>
+                    {mode === 'popup' && (
+                        <button
+                            onClick={onClose}
+                            className="p-2 hover:bg-white/5 rounded-lg text-stone-500 hover:text-stone-300 transition-colors"
+                        >
+                            <X size={20} />
+                        </button>
+                    )}
                 </div>
             </div>
 

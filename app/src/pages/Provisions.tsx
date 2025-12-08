@@ -2,7 +2,7 @@ import React from 'react';
 import foodData from '../data/food.json';
 import lodgingData from '../data/lodging.json';
 import type { Food, Lodging } from '../types/normalized';
-import { PageContainer, PageHeader, TabGroup, SearchBar, Card, Badge, EmptyState } from '../components/common';
+import { PageContainer, PageHeader, TabGroup, SearchBar, EmptyState } from '../components/common';
 import { useSearch } from '../hooks';
 import { UtensilsCrossed, Home } from 'lucide-react';
 
@@ -17,6 +17,27 @@ export const Provisions: React.FC = () => {
         { id: 'food', label: 'Nourriture', icon: UtensilsCrossed },
         { id: 'lodging', label: 'Logement', icon: Home }
     ];
+
+    const renderTable = (items: { name: string; price: string }[]) => (
+        <div className="glass-panel rounded-xl overflow-x-auto">
+            <table className="w-full">
+                <thead>
+                    <tr className="border-b border-white/10">
+                        <th className="text-left p-4 text-primary-300 font-display font-bold w-full">Nom</th>
+                        <th className="text-right p-4 text-primary-300 font-display font-bold whitespace-nowrap">Prix</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {items.map((item, i) => (
+                        <tr key={i} className="border-b border-white/5 hover:bg-stone-900/30 transition-colors">
+                            <td className="p-4 text-stone-200 font-medium">{item.name}</td>
+                            <td className="p-4 text-yellow-500/90 font-mono text-right whitespace-nowrap">{item.price}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    );
 
     return (
         <PageContainer>
@@ -36,22 +57,7 @@ export const Provisions: React.FC = () => {
                                 {foodSearch.filteredItems.length === 0 ? (
                                     <EmptyState message="Aucune nourriture trouvée" />
                                 ) : (
-                                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                                        {foodSearch.filteredItems.map((food, i) => (
-                                            <Card key={i}>
-                                                <div className="flex items-start justify-between">
-                                                    <h3 className="text-lg font-display font-bold text-stone-200 flex-1">
-                                                        {food.name}
-                                                    </h3>
-                                                    {food.price && (
-                                                        <Badge variant="warning" size="sm">
-                                                            {food.price}
-                                                        </Badge>
-                                                    )}
-                                                </div>
-                                            </Card>
-                                        ))}
-                                    </div>
+                                    renderTable(foodSearch.filteredItems)
                                 )}
                             </div>
                         )}
@@ -67,22 +73,7 @@ export const Provisions: React.FC = () => {
                                 {lodgingSearch.filteredItems.length === 0 ? (
                                     <EmptyState message="Aucun logement trouvé" />
                                 ) : (
-                                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                                        {lodgingSearch.filteredItems.map((lodging, i) => (
-                                            <Card key={i}>
-                                                <div className="flex items-start justify-between">
-                                                    <h3 className="text-lg font-display font-bold text-stone-200 flex-1">
-                                                        {lodging.name}
-                                                    </h3>
-                                                    {lodging.price && (
-                                                        <Badge variant="warning" size="sm">
-                                                            {lodging.price}
-                                                        </Badge>
-                                                    )}
-                                                </div>
-                                            </Card>
-                                        ))}
-                                    </div>
+                                    renderTable(lodgingSearch.filteredItems)
                                 )}
                             </div>
                         )}

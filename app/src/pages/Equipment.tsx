@@ -11,6 +11,31 @@ const weapons = weaponsData as Weapon[];
 const armors = armorsData as Armor[];
 const materials = materialsData as Material[];
 
+const ItemTable = ({ items, emptyMessage }: { items: { name: string; price: string; id: string }[], emptyMessage: string }) => {
+    if (items.length === 0) return <EmptyState message={emptyMessage} />;
+
+    return (
+        <div className="glass-panel rounded-xl overflow-x-auto">
+            <table className="w-full">
+                <thead>
+                    <tr className="border-b border-white/10">
+                        <th className="text-left p-4 text-primary-300 font-display font-bold w-full">Nom</th>
+                        <th className="text-right p-4 text-primary-300 font-display font-bold whitespace-nowrap">Prix</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {items.map((item, i) => (
+                        <tr key={i} className="border-b border-white/5 hover:bg-stone-900/30 transition-colors">
+                            <td className="p-4 text-stone-200 font-medium">{item.name}</td>
+                            <td className="p-4 text-yellow-500/90 font-mono text-right whitespace-nowrap">{item.price}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    );
+};
+
 export const Equipment: React.FC = () => {
     const weaponSearch = useSearch(weapons, (w, term) => w.name.toLowerCase().includes(term.toLowerCase()));
     const armorSearch = useSearch(armors, (a, term) => a.name.toLowerCase().includes(term.toLowerCase()));
@@ -110,19 +135,7 @@ export const Equipment: React.FC = () => {
                                     onChange={materialSearch.setSearchTerm}
                                     placeholder="Rechercher du matériel..."
                                 />
-
-                                {materialSearch.filteredItems.length === 0 ? (
-                                    <EmptyState message="Aucun matériel trouvé" />
-                                ) : (
-                                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                                        {materialSearch.filteredItems.map((material, i) => (
-                                            <div key={i} className="glass-panel p-4 rounded-xl border-white/5 hover:border-primary-500/30 transition-all">
-                                                <h3 className="text-stone-200 font-semibold mb-1">{material.name}</h3>
-                                                <p className="text-primary-400 font-mono text-sm">{material.price}</p>
-                                            </div>
-                                        ))}
-                                    </div>
-                                )}
+                                <ItemTable items={materialSearch.filteredItems} emptyMessage="Aucun matériel trouvé" />
                             </div>
                         )}
                     </>
@@ -131,3 +144,4 @@ export const Equipment: React.FC = () => {
         </PageContainer>
     );
 };
+

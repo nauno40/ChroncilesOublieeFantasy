@@ -18,6 +18,7 @@ import { CapaciteDetail } from './pages/CapaciteDetail';
 import { Equipment } from './pages/Equipment';
 import { Mounts } from './pages/Mounts';
 import { Provisions } from './pages/Provisions';
+import { Dice } from './pages/Dice';
 import { States } from './pages/States';
 import { Rules } from './pages/Rules';
 
@@ -44,6 +45,7 @@ function App() {
           <Route path="equipment" element={<Equipment />} />
           <Route path="mounts" element={<Mounts />} />
           <Route path="provisions" element={<Provisions />} />
+          <Route path="tools/dice" element={<Dice />} />
           <Route path="states" element={<States />} />
           <Route path="rules" element={<Rules />} />
         </Route>

@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getCampaigns, saveCampaign } from '../utils/campaignService';
-import { ArrowLeft, Users, Sword, Plus, X, Calendar, Clock, Trophy, FileText, Check, Edit, Trash2 } from 'lucide-react';
-import type { Session } from '../types/campaign';
+import { ArrowLeft, Users, Sword, Plus, X, Calendar, Clock, Trophy, FileText, Check, Edit, Trash2, Scroll, HelpCircle, CheckSquare, Square, Search, MapPin } from 'lucide-react';
+import type { Session, Quest, Clue } from '../types/campaign';
 import { clsx } from 'clsx';
 
 export const CampaignDetail: React.FC = () => {
@@ -67,6 +67,76 @@ export const CampaignDetail: React.FC = () => {
         const updatedSessions = (campaign.sessions || []).filter(s => s.id !== sessionId);
         const updatedCampaign = { ...campaign, sessions: updatedSessions };
         saveCampaign(updatedCampaign);
+        setTick(t => t + 1);
+    };
+
+    // --- Quest Logic ---
+    const [newQuest, setNewQuest] = useState({ title: '', type: 'main' as 'main' | 'secondary' });
+    const [showQuestForm, setShowQuestForm] = useState(false);
+
+    const handleAddQuest = () => {
+        if (!campaign || !newQuest.title) return;
+        const quest: Quest = { // Explicit Type
+            id: crypto.randomUUID(),
+            title: newQuest.title,
+            type: newQuest.type,
+            status: 'active'
+        };
+        const updatedCampaign = { ...campaign, quests: [...(campaign.quests || []), quest] };
+        saveCampaign(updatedCampaign);
+        setTick(t => t + 1);
+        setNewQuest({ title: '', type: 'main' });
+        setShowQuestForm(false);
+    };
+
+    const handleToggleQuest = (questId: string) => {
+        if (!campaign) return;
+        const updatedQuests = (campaign.quests || []).map(q =>
+            q.id === questId ? { ...q, status: (q.status === 'completed' ? 'active' : 'completed') } as Quest : q
+        );
+        saveCampaign({ ...campaign, quests: updatedQuests });
+        setTick(t => t + 1);
+    };
+
+    const handleDeleteQuest = (questId: string) => {
+        if (!campaign) return;
+        const updatedQuests = (campaign.quests || []).filter(q => q.id !== questId);
+        saveCampaign({ ...campaign, quests: updatedQuests });
+        setTick(t => t + 1);
+    };
+
+    // --- Clue Logic ---
+    const [newClue, setNewClue] = useState('');
+    const [showClueForm, setShowClueForm] = useState(false);
+
+    const handleAddClue = () => {
+        if (!campaign || !newClue) return;
+        const clue: Clue = { // Explicit Type
+            id: crypto.randomUUID(),
+            content: newClue,
+            status: 'unsolved',
+            found_at: new Date().toISOString().split('T')[0]
+        };
+        const updatedCampaign = { ...campaign, clues: [...(campaign.clues || []), clue] };
+        saveCampaign(updatedCampaign);
+        setTick(t => t + 1);
+        setNewClue('');
+        setShowClueForm(false);
+    };
+
+    const handleToggleClue = (clueId: string) => {
+        if (!campaign) return;
+        const updatedClues = (campaign.clues || []).map(c =>
+            c.id === clueId ? { ...c, status: (c.status === 'solved' ? 'unsolved' : 'solved') } as Clue : c
+        );
+        saveCampaign({ ...campaign, clues: updatedClues });
+        setTick(t => t + 1);
+    };
+
+    const handleDeleteClue = (clueId: string) => {
+        if (!campaign) return;
+        const updatedClues = (campaign.clues || []).filter(c => c.id !== clueId);
+        saveCampaign({ ...campaign, clues: updatedClues });
         setTick(t => t + 1);
     };
 
@@ -172,6 +242,154 @@ export const CampaignDetail: React.FC = () => {
                     <button className="w-full py-2 rounded-lg border border-dashed border-stone-700 text-stone-500 hover:border-red-500 hover:text-red-400 transition-all text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2">
                         <Plus size={16} /> Créer une rencontre
                     </button>
+                </div>
+            </div>
+
+            {/* Quests and Clues */}
+            <div className="grid lg:grid-cols-3 gap-6 mb-6">
+                {/* Quest Log */}
+                <div className="lg:col-span-2 glass-panel p-6 rounded-2xl border-primary-500/20 relative group">
+                    <div className="flex justify-between items-center mb-6">
+                        <div className="flex items-center gap-3">
+                            <div className="bg-amber-900/30 p-2 rounded-lg border border-amber-500/20">
+                                <Scroll size={20} className="text-amber-400" />
+                            </div>
+                            <h2 className="text-xl font-display font-bold text-stone-200">Journal de Quêtes</h2>
+                        </div>
+                        <button
+                            onClick={() => setShowQuestForm(!showQuestForm)}
+                            className="bg-stone-800 hover:bg-stone-700 text-stone-300 p-1.5 rounded-lg transition-colors"
+                        >
+                            {showQuestForm ? <X size={16} /> : <Plus size={16} />}
+                        </button>
+                    </div>
+
+                    {showQuestForm && (
+                        <div className="mb-6 bg-stone-900/50 p-4 rounded-xl border border-white/5 animate-in slide-in-from-top-2">
+                            <input
+                                type="text"
+                                placeholder="Nouvel objectif..."
+                                className="w-full bg-stone-950 border border-white/10 rounded-lg px-3 py-2 text-stone-200 mb-2 focus:border-amber-500 outline-none"
+                                value={newQuest.title}
+                                onChange={e => setNewQuest({ ...newQuest, title: e.target.value })}
+                                autoFocus
+                            />
+                            <div className="flex justify-between items-center">
+                                <div className="flex gap-2">
+                                    <button
+                                        onClick={() => setNewQuest({ ...newQuest, type: 'main' })}
+                                        className={clsx("px-2 py-1 rounded text-xs font-bold uppercase", newQuest.type === 'main' ? "bg-amber-500 text-stone-950" : "bg-stone-800 text-stone-500")}
+                                    >
+                                        Principale
+                                    </button>
+                                    <button
+                                        onClick={() => setNewQuest({ ...newQuest, type: 'secondary' })}
+                                        className={clsx("px-2 py-1 rounded text-xs font-bold uppercase", newQuest.type === 'secondary' ? "bg-stone-600 text-stone-200" : "bg-stone-800 text-stone-500")}
+                                    >
+                                        Secondaire
+                                    </button>
+                                </div>
+                                <button onClick={handleAddQuest} disabled={!newQuest.title} className="text-amber-500 font-bold text-sm hover:text-amber-400 disabled:opacity-50">Ajouter</button>
+                            </div>
+                        </div>
+                    )}
+
+                    <div className="space-y-6">
+                        {/* Main Quests */}
+                        <div>
+                            <h3 className="text-xs font-bold text-amber-500 uppercase tracking-widest mb-3 flex items-center gap-2">
+                                <div className="h-px bg-amber-500/50 flex-1"></div> Quête Principale <div className="h-px bg-amber-500/50 flex-1"></div>
+                            </h3>
+                            <div className="space-y-2">
+                                {(campaign.quests || []).filter(q => q.type === 'main').length === 0 && (
+                                    <p className="text-stone-600 text-sm text-center italic">Aucun objectif principal.</p>
+                                )}
+                                {(campaign.quests || []).filter(q => q.type === 'main').map(quest => (
+                                    <div key={quest.id} className={clsx("flex items-start gap-3 p-3 rounded-lg border transition-all", quest.status === 'completed' ? "bg-stone-900/30 border-transparent opacity-60" : "bg-stone-900/80 border-amber-500/20")}>
+                                        <button onClick={() => handleToggleQuest(quest.id)} className="mt-0.5 text-stone-500 hover:text-amber-500 transition-colors">
+                                            {quest.status === 'completed' ? <CheckSquare size={18} /> : <Square size={18} />}
+                                        </button>
+                                        <div className="flex-1">
+                                            <p className={clsx("text-stone-200 leading-snug", quest.status === 'completed' && "line-through text-stone-500")}>{quest.title}</p>
+                                        </div>
+                                        <button onClick={() => handleDeleteQuest(quest.id)} className="text-stone-600 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"><X size={14} /></button>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Secondary Quests */}
+                        <div>
+                            <h3 className="text-xs font-bold text-stone-500 uppercase tracking-widest mb-3 flex items-center gap-2">
+                                <div className="h-px bg-stone-700 flex-1"></div> Secondaire <div className="h-px bg-stone-700 flex-1"></div>
+                            </h3>
+                            <div className="space-y-2">
+                                {(campaign.quests || []).filter(q => q.type === 'secondary').map(quest => (
+                                    <div key={quest.id} className={clsx("flex items-start gap-3 p-2 rounded-lg border transition-all", quest.status === 'completed' ? "bg-stone-900/30 border-transparent opacity-60" : "bg-stone-900/50 border-white/5")}>
+                                        <button onClick={() => handleToggleQuest(quest.id)} className="mt-0.5 text-stone-600 hover:text-stone-400 transition-colors">
+                                            {quest.status === 'completed' ? <CheckSquare size={16} /> : <Square size={16} />}
+                                        </button>
+                                        <div className="flex-1">
+                                            <p className={clsx("text-sm text-stone-300 leading-snug", quest.status === 'completed' && "line-through text-stone-600")}>{quest.title}</p>
+                                        </div>
+                                        <button onClick={() => handleDeleteQuest(quest.id)} className="text-stone-600 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"><X size={14} /></button>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Clues & Rumors */}
+                <div className="glass-panel p-6 rounded-2xl border-primary-500/20 flex flex-col h-full bg-stone-950/40 relative group">
+                    <div className="flex justify-between items-center mb-4">
+                        <div className="flex items-center gap-2">
+                            <Search size={18} className="text-stone-400" />
+                            <h2 className="text-lg font-display font-bold text-stone-300">Indices & Rumeurs</h2>
+                        </div>
+                        <button
+                            onClick={() => setShowClueForm(!showClueForm)}
+                            className="bg-stone-800 hover:bg-stone-700 text-stone-300 p-1 rounded-lg transition-colors"
+                        >
+                            {showClueForm ? <X size={14} /> : <Plus size={14} />}
+                        </button>
+                    </div>
+
+                    {showClueForm && (
+                        <div className="mb-4">
+                            <textarea
+                                className="w-full bg-stone-950 border border-white/10 rounded-lg px-3 py-2 text-sm text-stone-200 focus:border-stone-500 outline-none min-h-[60px] mb-2"
+                                placeholder="Nouvelle rumeur..."
+                                value={newClue}
+                                onChange={e => setNewClue(e.target.value)}
+                                autoFocus
+                            />
+                            <button onClick={handleAddClue} disabled={!newClue} className="w-full bg-stone-800 hover:bg-stone-700 text-stone-300 py-1.5 rounded text-xs font-bold uppercase disabled:opacity-50">Ajouter</button>
+                        </div>
+                    )}
+
+                    <div className="space-y-3 flex-1 overflow-y-auto custom-scrollbar pr-1 max-h-[400px]">
+                        {(campaign.clues || []).length === 0 && (
+                            <div className="text-center py-8 text-stone-600 text-sm">
+                                <HelpCircle className="mx-auto mb-2 opacity-50" size={24} />
+                                Rien à signaler...
+                            </div>
+                        )}
+                        {(campaign.clues || []).map(clue => (
+                            <div key={clue.id} className={clsx("p-3 rounded-lg border text-sm relative group/clue", clue.status === 'solved' ? "bg-green-900/10 border-green-500/20" : "bg-stone-900/50 border-white/5")}>
+                                <p className={clsx("mb-2", clue.status === 'solved' ? "text-stone-500 line-through" : "text-stone-300")}>{clue.content}</p>
+                                <div className="flex justify-between items-center text-[10px] text-stone-600">
+                                    <span className="flex items-center gap-1"><MapPin size={10} /> Trouvé le {new Date(clue.found_at || '').toLocaleDateString()}</span>
+                                    <div className="flex gap-2">
+                                        <button onClick={() => handleToggleClue(clue.id)} className={clsx("hover:underline", clue.status === 'solved' ? "text-stone-500" : "text-green-600")}>
+                                            {clue.status === 'solved' ? "Rouvrir" : "Résoudre"}
+                                        </button>
+                                        <button onClick={() => handleDeleteClue(clue.id)} className="text-stone-600 hover:text-red-500 opacity-0 group-hover/clue:opacity-100 transition-opacity">Suppr.</button>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
 

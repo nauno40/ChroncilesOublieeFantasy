@@ -17,6 +17,21 @@ export interface Session {
     summary: string;
 }
 
+export interface Quest {
+    id: string;
+    title: string;
+    description?: string;
+    type: 'main' | 'secondary';
+    status: 'active' | 'completed' | 'failed';
+}
+
+export interface Clue {
+    id: string;
+    content: string;
+    found_at?: string;
+    status: 'unsolved' | 'solved';
+}
+
 export interface Campaign {
     id: string;
     name: string;
@@ -27,6 +42,8 @@ export interface Campaign {
     encounters: Encounter[];
     sessions: Session[];
     notes?: string;
+    quests?: Quest[];
+    clues?: Clue[];
 }
 
 export interface Encounter {

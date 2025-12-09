@@ -33,7 +33,9 @@ export const createCampaign = (name: string, description: string): Campaign => {
         characters: [],
         encounters: [],
         sessions: [],
-        notes: ''
+        notes: '',
+        quests: [],
+        clues: []
     };
     saveCampaign(campaign);
     return campaign;

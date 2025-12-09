@@ -8,10 +8,16 @@ const weapons = DataService.getWeapons();
 const armors = DataService.getArmors();
 const materials = DataService.getMaterials();
 
+import { useSearchParams } from 'react-router-dom';
+
 export const Equipment: React.FC = () => {
-    const weaponSearch = useSearch(weapons, (w, term) => w.name.toLowerCase().includes(term.toLowerCase()));
-    const armorSearch = useSearch(armors, (a, term) => a.name.toLowerCase().includes(term.toLowerCase()));
-    const materialSearch = useSearch(materials, (m, term) => m.name.toLowerCase().includes(term.toLowerCase()));
+    const [searchParams] = useSearchParams();
+    const initialTab = searchParams.get('tab') || 'weapons';
+    const initialQuery = searchParams.get('q') || '';
+
+    const weaponSearch = useSearch(weapons, (w, term) => w.name.toLowerCase().includes(term.toLowerCase()), initialTab === 'weapons' ? initialQuery : '');
+    const armorSearch = useSearch(armors, (a, term) => a.name.toLowerCase().includes(term.toLowerCase()), initialTab === 'armors' ? initialQuery : '');
+    const materialSearch = useSearch(materials, (m, term) => m.name.toLowerCase().includes(term.toLowerCase()), initialTab === 'materials' ? initialQuery : '');
 
     const tabs = [
         { id: 'weapons', label: 'Armes', icon: Sword },
@@ -28,7 +34,7 @@ export const Equipment: React.FC = () => {
         <PageContainer>
             <PageHeader title="Équipement" />
 
-            <TabGroup tabs={tabs}>
+            <TabGroup tabs={tabs} defaultTab={initialTab}>
                 {(activeTab) => (
                     <>
                         {activeTab === 'weapons' && (

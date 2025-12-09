@@ -6,8 +6,9 @@
   },
   {
     "id": "carquois_20_fleches",
-    "name": "Carquois 20 flèches.",
-    "price": "3 pa"
+    "name": "Carquois",
+    "price": "3 pa",
+    "notes": "Contient 20 flèches"
   },
   {
     "id": "corde_15m",
@@ -56,8 +57,9 @@
   },
   {
     "id": "ration_1_semaine",
-    "name": "Ration 1 semaine",
-    "price": "4 pa"
+    "name": "Ration de voyage",
+    "price": "4 pa",
+    "notes": "Pour 1 semaine"
   },
   {
     "id": "sac_a_dos",
@@ -66,8 +68,18 @@
   },
   {
     "id": "torches_nombre__3_duree__1_heure_portee__10_m",
-    "name": "Torches",
+    "name": "Torche",
     "price": "1 pa",
-    "notes": "Nombre : 3 Durée : 1 heure Portée : 10 m"
+    "notes": "Vendu par lot de 3. Durée : 1 heure Portée : 10 m"
+  },
+  {
+    "id": "instrument_de_musique",
+    "name": "Instrument de musique",
+    "price": "5 pa"
+  },
+  {
+    "id": "grimoire",
+    "name": "Grimoire",
+    "price": "10 pa"
   }
 ]

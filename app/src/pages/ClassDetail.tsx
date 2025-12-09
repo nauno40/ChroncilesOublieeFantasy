@@ -5,8 +5,52 @@ import voiesData from '../data/voies.json';
 import type { Profile, Voie } from '../types/normalized';
 import { ArrowLeft } from 'lucide-react';
 
+import weaponsData from '../data/weapons.json';
+import armorsData from '../data/armors.json';
+import materialsData from '../data/materials.json';
+
 const profiles = profilesData as Profile[];
 const voies = voiesData as Voie[];
+
+// Map to find items easily
+const allItemsMap = new Map([
+    ...weaponsData.map(w => [w.id, { ...w, tab: 'weapons' }]),
+    ...armorsData.map(a => [a.id, { ...a, tab: 'armors' }]),
+    ...materialsData.map(m => [m.id, { ...m, tab: 'materials' }]),
+]);
+
+const LinkifiedEquipment: React.FC<{ items: any[] }> = ({ items }) => {
+    return (
+        <div className="flex flex-wrap gap-2">
+            {items.map((item, index) => {
+                const equipment = allItemsMap.get(item.id);
+
+                if (equipment) {
+                    const label = item.label || equipment.name;
+                    const quantity = item.quantity && item.quantity > 1 ? `${item.quantity}x ` : '';
+
+                    return (
+                        <Link
+                            key={index}
+                            to={`/equipment?tab=${equipment.tab}&q=${encodeURIComponent(equipment.name)}`}
+                            className="inline-flex items-center px-3 py-1.5 rounded-lg bg-stone-800/50 border border-primary-500/30 text-primary-300 hover:bg-primary-500/20 hover:border-primary-500 hover:text-white transition-all text-xs font-bold uppercase tracking-wide shadow-lg shadow-black/20 backdrop-blur-sm"
+                        >
+                            {quantity}{label}
+                        </Link>
+                    );
+                }
+
+                // Fallback if item ID not found (should not happen if data is correct)
+                return (
+                    <span key={index} className="inline-flex items-center px-3 py-1.5 rounded-lg bg-red-900/20 border border-red-500/30 text-red-300 text-xs font-bold uppercase tracking-wide">
+                        {item.id} (Manquant)
+                    </span>
+                );
+            })}
+        </div>
+    );
+};
+
 
 export const ClassDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
@@ -131,7 +175,7 @@ export const ClassDetail: React.FC = () => {
                                 <h3 className="text-lg font-display font-bold text-stone-300 mb-3 border-b border-white/10 pb-2">
                                     Équipement de départ
                                 </h3>
-                                <p className="text-stone-300 text-sm leading-relaxed">{profile.startingEquipment}</p>
+                                <LinkifiedEquipment items={profile.startingEquipment} />
                             </div>
                         )}
                     </div>

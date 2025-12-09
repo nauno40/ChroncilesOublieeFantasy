@@ -2,9 +2,10 @@ import { useState, useMemo } from 'react';
 
 export function useSearch<T>(
     items: T[],
-    searchFn: (item: T, term: string) => boolean
+    searchFn: (item: T, term: string) => boolean,
+    initialTerm: string = ''
 ) {
-    const [searchTerm, setSearchTerm] = useState('');
+    const [searchTerm, setSearchTerm] = useState(initialTerm);
 
     const filteredItems = useMemo(() => {
         if (!searchTerm) return items;

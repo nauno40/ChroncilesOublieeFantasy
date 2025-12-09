@@ -17,7 +17,7 @@
   },
   {
     "id": "cuir",
-    "name": "Cuir",
+    "name": "Armure de cuir",
     "type": "Corps",
     "defense": "+2 ",
     "price": "4 pa",
@@ -33,7 +33,7 @@
   },
   {
     "id": "cuir_renforce",
-    "name": "Cuir renforcé",
+    "name": "Armure de cuir renforcée",
     "type": "Corps",
     "defense": "+3 ",
     "price": "8 pa",

@@ -274,5 +274,17 @@
     "price": "12 pa",
     "isRanged": true,
     "reload": "Pas d'action"
+  },
+  {
+    "id": "lance_de_cavalerie",
+    "name": "Lance de cavalerie",
+    "type": "Contact",
+    "damage": "2d6",
+    "range": "",
+    "critical": "20",
+    "price": "10 pa",
+    "isRanged": false,
+    "reload": "Pas d'action",
+    "requirements": "Chevalier uniquement"
   }
 ]

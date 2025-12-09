@@ -27,6 +27,12 @@ export interface Race {
     };
 }
 
+export interface StartingEquipmentItem {
+    id: string;
+    quantity?: number;
+    label?: string; // Optional override/choice description
+}
+
 export interface Profile {
     id: string;
     name: string;
@@ -34,7 +40,7 @@ export interface Profile {
     note: string;
     hitDie: string;
     weaponsAndArmor: string;
-    startingEquipment: string;
+    startingEquipment: StartingEquipmentItem[];
     imageUrl: string;
     magicModifier: string | null;
     voies: string[]; // Array of voie IDs

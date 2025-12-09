@@ -4,14 +4,15 @@ import { Book, Sword, Users, Home, BookOpen, GraduationCap, Sparkles, Zap, Packa
 import clsx from 'clsx';
 import type { NavItem } from './NavItem';
 import { NavItemComponent } from './NavItem';
-import { DiceRoller, GlobalNotes } from '../common';
+import { DiceRoller, GlobalNotes, Soundboard } from '../common';
 import { useToggle } from '../../hooks/useToggle';
-import { Dices, StickyNote } from 'lucide-react';
+import { Dices, StickyNote, Music } from 'lucide-react';
 
 export const Layout: React.FC = () => {
     const location = useLocation();
     const [isDiceRollerOpen, toggleDiceRoller] = useToggle(false);
     const [isNotesOpen, toggleNotes] = useToggle(false);
+    const [isSoundboardOpen, toggleSoundboard] = useToggle(false);
 
     const navItems: NavItem[] = [
         { path: '/', icon: Home, label: 'Accueil' },
@@ -136,26 +137,36 @@ export const Layout: React.FC = () => {
                 </div>
             </nav>
             {/* Floating Action Buttons */}
-            <div className="fixed bottom-24 right-4 md:bottom-8 md:right-8 z-40 flex items-end gap-3 flex-col">
+            <div className="fixed bottom-24 right-4 md:bottom-8 md:right-8 z-40 flex items-end gap-4 flex-col">
+                {/* Soundboard Button */}
+                <button
+                    onClick={toggleSoundboard}
+                    className="bg-gradient-to-br from-primary-500 to-primary-700 hover:from-primary-400 hover:to-primary-600 text-stone-950 p-4 md:p-5 rounded-full shadow-xl shadow-primary-900/30 hover:shadow-primary-500/40 hover:scale-110 transition-all duration-300 active:scale-95 group relative animate-in slide-in-from-right-8 fade-in-0 duration-500 delay-200"
+                    title="Soundboard"
+                >
+                    <Music size={28} strokeWidth={2.5} className="group-hover:rotate-12 transition-transform duration-500" />
+                </button>
+
                 {/* Notes Button */}
                 <button
                     onClick={toggleNotes}
-                    className="bg-stone-800 text-primary-400 hover:bg-stone-700 hover:text-primary-300 p-3 md:p-4 rounded-full shadow-lg border border-primary-500/20 hover:scale-110 transition-all active:scale-95 group relative"
+                    className="bg-gradient-to-br from-primary-500 to-primary-700 hover:from-primary-400 hover:to-primary-600 text-stone-950 p-4 md:p-5 rounded-full shadow-xl shadow-primary-900/30 hover:shadow-primary-500/40 hover:scale-110 transition-all duration-300 active:scale-95 group relative animate-in slide-in-from-right-8 fade-in-0 duration-500 delay-100"
                     title="Notes Globales"
                 >
-                    <StickyNote size={24} strokeWidth={2.5} />
+                    <StickyNote size={28} strokeWidth={2.5} className="group-hover:-rotate-12 transition-transform duration-500" />
                 </button>
 
                 {/* Dice Button */}
                 <button
                     onClick={toggleDiceRoller}
-                    className="bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-500 hover:to-primary-600 text-stone-950 p-3 md:p-4 rounded-full shadow-xl hover:shadow-primary-500/20 hover:scale-110 transition-all active:scale-95 group"
+                    className="bg-gradient-to-br from-primary-500 to-primary-700 hover:from-primary-400 hover:to-primary-600 text-stone-950 p-4 md:p-5 rounded-full shadow-xl shadow-primary-900/30 hover:shadow-primary-500/40 hover:scale-110 transition-all duration-300 active:scale-95 group animate-in slide-in-from-right-8 fade-in-0 duration-500"
                     title="Lanceur de dés"
                 >
-                    <Dices size={28} strokeWidth={2.5} className="group-hover:rotate-180 transition-transform duration-700" />
+                    <Dices size={32} strokeWidth={2.5} className="group-hover:rotate-180 transition-transform duration-700" />
                 </button>
             </div>
 
+            <Soundboard isOpen={isSoundboardOpen} onClose={toggleSoundboard} />
             <GlobalNotes isOpen={isNotesOpen} onClose={toggleNotes} />
             <DiceRoller isOpen={isDiceRollerOpen} onClose={toggleDiceRoller} />
         </div>

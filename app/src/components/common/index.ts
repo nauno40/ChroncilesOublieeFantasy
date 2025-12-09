@@ -10,3 +10,4 @@ export { EmptyState } from './EmptyState';
 export { DiceRoller } from './DiceRoller';
 export { ItemTable } from './ItemTable';
 export { GlobalNotes } from './GlobalNotes';
+export { Soundboard } from './Soundboard';

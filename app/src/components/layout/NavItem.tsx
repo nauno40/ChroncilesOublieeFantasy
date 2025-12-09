@@ -41,7 +41,7 @@ export const NavItemComponent: React.FC<NavItemComponentProps> = ({ item, isActi
                     isActive ? 'text-primary-400' : 'text-stone-500 group-hover:text-primary-400'
                 )} />
                 <span className={clsx(
-                    'font-display font-medium transition-colors',
+                    'font-display font-semibold transition-colors',
                     isMobile && 'text-xs'
                 )}>{item.label}</span>
             </Link>
@@ -65,7 +65,7 @@ export const NavItemComponent: React.FC<NavItemComponentProps> = ({ item, isActi
                         'transition-colors',
                         isSubItemActive ? 'text-primary-400' : 'text-stone-500 group-hover:text-primary-400'
                     )} />
-                    <span className="font-display font-medium">{item.label}</span>
+                    <span className="font-display font-semibold">{item.label}</span>
                 </div>
                 {isOpen ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
             </button>
@@ -80,7 +80,7 @@ export const NavItemComponent: React.FC<NavItemComponentProps> = ({ item, isActi
                                 key={subItem.path}
                                 to={subItem.path}
                                 className={clsx(
-                                    'flex items-center gap-2 px-3 py-2 rounded-lg transition-all text-base',
+                                    'flex items-center gap-2 px-3 py-2 rounded-lg transition-all text-base font-medium',
                                     isSubActive
                                         ? 'bg-primary-500/20 text-primary-300'
                                         : 'text-stone-500 hover:bg-stone-900/30 hover:text-primary-400'

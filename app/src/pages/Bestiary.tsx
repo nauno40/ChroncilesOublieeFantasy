@@ -306,7 +306,7 @@ export const Bestiary: React.FC = () => {
                                         className="glass-panel rounded-xl hover:border-primary-500/40 hover:shadow-[0_0_15px_rgba(245,158,11,0.1)] transition-all duration-300 group flex flex-col overflow-hidden hover:-translate-y-1"
                                     >
                                         {/* Creature Image */}
-                                        <div className="relative h-48 overflow-hidden bg-gradient-to-b from-stone-900/50 to-stone-950">
+                                        <div className="relative h-48 overflow-hidden bg-stone-200">
                                             <img
                                                 src={getCreatureImage(creature)}
                                                 alt={getCreatureName(creature)}

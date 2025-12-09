@@ -126,7 +126,7 @@ export const Layout: React.FC = () => {
                                         isActive && "scale-110 drop-shadow-[0_0_8px_rgba(245,158,11,0.5)]"
                                     )}
                                 />
-                                <span className={clsx("text-[10px] mt-1 font-medium z-10 transition-colors", isActive ? "text-primary-300" : "text-stone-600")}>
+                                <span className={clsx("text-[10px] mt-1 font-semibold z-10 transition-colors", isActive ? "text-primary-300" : "text-stone-600")}>
                                     {item.label}
                                 </span>
                             </Link>

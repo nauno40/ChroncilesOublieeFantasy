@@ -11,3 +11,5 @@ export { DiceRoller } from './DiceRoller';
 export { ItemTable } from './ItemTable';
 export { GlobalNotes } from './GlobalNotes';
 export { Soundboard } from './Soundboard';
+export { DraggableWindow } from './DraggableWindow';
+

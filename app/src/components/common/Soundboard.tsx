@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Music, Edit, ExternalLink, Plus, Trash2, Save } from 'lucide-react';
+import { Edit, Plus, Trash2, Save } from 'lucide-react';
 import { clsx } from 'clsx';
 
 interface SoundboardProps {
@@ -23,7 +23,7 @@ const DEFAULT_TRACKS: Track[] = [
     { id: '4', label: 'Voyage', url: 'https://www.youtube.com/results?search_query=rpg+travel+music', color: 'bg-stone-800 border-stone-700 text-stone-300 hover:border-primary-500 hover:text-primary-400' },
 ];
 
-export const Soundboard: React.FC<SoundboardProps> = ({ isOpen, onClose }) => {
+export const Soundboard: React.FC<SoundboardProps> = ({ isOpen }) => {
     const [tracks, setTracks] = useState<Track[]>(DEFAULT_TRACKS);
     const [isEditing, setIsEditing] = useState(false);
     const [editTrack, setEditTrack] = useState<Track | null>(null);
@@ -75,31 +75,24 @@ export const Soundboard: React.FC<SoundboardProps> = ({ isOpen, onClose }) => {
     if (!isOpen) return null;
 
     return (
-        <div className="fixed bottom-24 right-4 md:right-24 w-80 glass-panel rounded-2xl shadow-2xl z-50 flex flex-col max-h-[400px] border-primary-500/30 animate-in slide-in-from-bottom-10 fade-in duration-200">
-            {/* Header */}
-            <div className="flex justify-between items-center p-3 border-b border-white/10 bg-black/20 rounded-t-2xl">
-                <h3 className="font-display font-bold text-base text-primary-400 flex items-center gap-2">
-                    <Music size={18} /> Soundboard
-                </h3>
-                <div className="flex items-center gap-1">
-                    <button
-                        onClick={() => setIsEditing(!isEditing)}
-                        className={clsx("p-1.5 rounded-lg transition-colors", isEditing ? "bg-primary-600 text-stone-900" : "text-stone-400 hover:text-white hover:bg-white/10")}
-                        title="Mode Édition"
-                    >
-                        <Edit size={14} />
-                    </button>
-                    <button
-                        onClick={onClose}
-                        className="text-stone-400 hover:text-white hover:bg-white/10 p-1.5 rounded-lg transition-colors"
-                    >
-                        <X size={18} />
-                    </button>
+        <div className="flex flex-col h-full w-full">
+            {/* Header Toolbar (Optional extra controls inside content if needed, but mostly pure content) */}
+            <div className="p-2 border-b border-white/5 flex justify-between items-center bg-black/10">
+                <div className="text-[10px] uppercase font-bold text-primary-400 tracking-wider">
+                    {isEditing ? "Mode Édition" : "Pistes Audio"}
                 </div>
+                <button
+                    onClick={() => setIsEditing(!isEditing)}
+                    className={clsx("p-1.5 rounded-lg transition-colors", isEditing ? "bg-primary-600 text-stone-900" : "text-stone-400 hover:text-white hover:bg-white/10")}
+                    title="Mode Édition"
+                >
+                    <Edit size={14} />
+                </button>
             </div>
 
-            {/* Content */}
-            <div className="p-3 flex-1 overflow-y-auto custom-scrollbar space-y-3">
+            {/* Content List */}
+            <div className="p-3 flex-1 overflow-y-auto custom-scrollbar space-y-3 min-h-0">
+                {/* min-h-0 is crucial for flex child scroll */}
                 {isEditing && (
                     <button
                         onClick={handleCreateTrack}
@@ -153,18 +146,18 @@ export const Soundboard: React.FC<SoundboardProps> = ({ isOpen, onClose }) => {
                         </div>
                     </div>
                 ) : (
-                    <div className="grid grid-cols-2 gap-2">
+                    <div className="grid grid-cols-2 gap-2 pb-2">
                         {tracks.map(track => (
-                            <div key={track.id} className="relative group">
+                            <div key={track.id} className="relative group min-h-[50px]">
                                 <button
                                     onClick={() => isEditing ? setEditTrack(track) : handleOpenLink(track.url)}
                                     className={clsx(
-                                        "w-full p-3 rounded-lg border text-left transition-all duration-200 flex items-center justify-between group-hover:scale-[1.02] h-full",
+                                        "w-full p-2 h-full rounded-lg border text-left transition-all duration-200 flex items-center justify-between group-hover:scale-[1.02]",
                                         track.color
                                     )}
                                 >
-                                    <span className="font-display font-bold text-xs tracking-wide truncate">{track.label}</span>
-                                    {isEditing && <Edit size={12} className="opacity-50 flex-shrink-0 ml-1" />}
+                                    <span className="font-display font-bold text-xs tracking-wide truncate pr-1">{track.label}</span>
+                                    {isEditing && <Edit size={12} className="opacity-50 flex-shrink-0" />}
                                 </button>
                                 {isEditing && (
                                     <button
@@ -178,10 +171,6 @@ export const Soundboard: React.FC<SoundboardProps> = ({ isOpen, onClose }) => {
                         ))}
                     </div>
                 )}
-            </div>
-
-            <div className="p-2 text-[9px] text-stone-600 text-center border-t border-white/5 bg-black/20 rounded-b-2xl uppercase tracking-widest">
-                {isEditing ? "Mode Édition" : "Soundboard"}
             </div>
         </div>
     );

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Dices, X, Eraser, ChevronRight } from 'lucide-react';
+import { Dices, Eraser, ChevronRight } from 'lucide-react';
 
 interface RollResult {
     id: string;
@@ -17,7 +17,7 @@ interface DiceRollerProps {
     mode?: 'popup' | 'inline';
 }
 
-export const DiceRoller: React.FC<DiceRollerProps> = ({ isOpen, onClose, mode = 'popup' }) => {
+export const DiceRoller: React.FC<DiceRollerProps> = ({ isOpen, mode = 'popup' }) => {
     const [history, setHistory] = useState<RollResult[]>([]);
     const [customFormula, setCustomFormula] = useState('');
     const historyEndRef = useRef<HTMLDivElement>(null);
@@ -92,52 +92,52 @@ export const DiceRoller: React.FC<DiceRollerProps> = ({ isOpen, onClose, mode = 
 
     if (!isOpen && mode === 'popup') return null;
 
+    // In popup mode (draggable window), we just fill 100%. In inline, we might have minimums.
     const containerClasses = mode === 'popup'
-        ? "fixed bottom-24 right-4 md:right-8 w-80 md:w-96 glass-panel rounded-2xl shadow-2xl z-50 flex flex-col max-h-[600px] border-primary-500/30 animate-in slide-in-from-bottom-10 fade-in duration-200"
+        ? "w-full h-full flex flex-col"
         : "w-full h-full min-h-[500px] glass-panel rounded-2xl flex flex-col border-primary-500/30";
 
     return (
         <div className={containerClasses}>
-            {/* Header */}
-            <div className="flex justify-between items-center p-4 border-b border-white/10 bg-black/20 rounded-t-2xl">
-                <div className="flex items-center gap-2 text-primary-400">
-                    <Dices size={20} />
-                    <h3 className="font-display font-bold text-lg">Lanceur de Dés</h3>
+            {/* Header: Only show if INLINE. If popup, DraggableWindow handles the header. */}
+            {mode === 'inline' && (
+                <div className="flex justify-between items-center p-4 border-b border-white/10 bg-black/20 rounded-t-2xl">
+                    <div className="flex items-center gap-2 text-primary-400">
+                        <Dices size={20} />
+                        <h3 className="font-display font-bold text-lg">Lanceur de Dés</h3>
+                    </div>
                 </div>
-                <div className="flex items-center gap-1">
+            )}
+
+            {/* Controls (Title only in popup if needed, or just Action bar) */}
+            {mode === 'popup' && (
+                <div className="p-2 flex justify-end border-b border-white/5 bg-black/10">
                     <button
                         onClick={clearHistory}
-                        className="p-2 hover:bg-white/5 rounded-lg text-stone-500 hover:text-stone-300 transition-colors"
+                        className="text-[10px] uppercase font-bold text-stone-500 hover:text-stone-300 flex items-center gap-1 transition-colors"
                         title="Effacer l'historique"
                     >
-                        <Eraser size={16} />
+                        <Eraser size={12} /> Effacer
                     </button>
-                    {mode === 'popup' && (
-                        <button
-                            onClick={onClose}
-                            className="p-2 hover:bg-white/5 rounded-lg text-stone-500 hover:text-stone-300 transition-colors"
-                        >
-                            <X size={20} />
-                        </button>
-                    )}
                 </div>
-            </div>
+            )}
+
 
             {/* History Area */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-3 min-h-[200px] scrollbar-thin scrollbar-thumb-primary-900 scrollbar-track-transparent">
+            <div className="flex-1 overflow-y-auto p-4 space-y-3 min-h-[100px] scrollbar-thin scrollbar-thumb-primary-900 scrollbar-track-transparent">
                 {history.length === 0 ? (
-                    <div className="h-full flex flex-col items-center justify-center text-stone-600 space-y-2 opacity-50 py-10">
-                        <Dices size={48} />
-                        <p className="text-sm">Lancez les dés pour voir le résultat...</p>
+                    <div className="h-full flex flex-col items-center justify-center text-stone-600 space-y-2 opacity-50 py-4">
+                        <Dices size={32} />
+                        <p className="text-xs">Lancez les dés...</p>
                     </div>
                 ) : (
                     history.map(roll => (
-                        <div key={roll.id} className="glass-panel p-3 rounded-xl border-white/5 bg-black/20 flex justify-between items-center animate-in slide-in-from-right-4 fade-in duration-300">
+                        <div key={roll.id} className="glass-panel p-2 rounded-lg border-white/5 bg-black/20 flex justify-between items-center animate-in slide-in-from-right-2 fade-in duration-300">
                             <div>
-                                <span className="text-xs font-bold text-stone-500 uppercase tracking-wider">{roll.description}</span>
-                                {roll.details && <div className="text-xs text-stone-600 font-mono mt-0.5">{roll.details}</div>}
+                                <span className="text-xs font-bold text-stone-500 uppercase tracking-wider block">{roll.description}</span>
+                                {roll.details && <div className="text-[10px] text-stone-600 font-mono">{roll.details}</div>}
                             </div>
-                            <div className={`text-2xl font-bold font-display ${roll.isCritSuccess ? 'text-green-400 drop-shadow-[0_0_5px_rgba(74,222,128,0.5)]' :
+                            <div className={`text-xl font-bold font-display ${roll.isCritSuccess ? 'text-green-400 drop-shadow-[0_0_5px_rgba(74,222,128,0.5)]' :
                                 roll.isCritFail ? 'text-red-400 drop-shadow-[0_0_5px_rgba(248,113,113,0.5)]' :
                                     'text-stone-200'
                                 }`}>
@@ -150,15 +150,15 @@ export const DiceRoller: React.FC<DiceRollerProps> = ({ isOpen, onClose, mode = 
             </div>
 
             {/* Controls */}
-            <div className="p-4 border-t border-white/10 bg-black/20 rounded-b-2xl space-y-4">
+            <div className="p-3 border-t border-white/10 bg-black/20 space-y-3">
                 {/* Standard Dice Grid */}
-                <div className="grid grid-cols-4 gap-2">
+                <div className="grid grid-cols-4 gap-1.5">
                     {[4, 6, 8, 10, 12, 20, 100].map(die => (
                         <button
                             key={die}
                             onClick={() => rollDice(die)}
                             className={`
-                                py-2 rounded-lg font-bold font-display text-sm transition-all
+                                py-1.5 rounded font-bold font-display text-xs transition-all
                                 ${die === 20
                                     ? 'col-span-2 bg-primary-600 hover:bg-primary-500 text-stone-950 shadow-lg hover:shadow-primary-500/20'
                                     : 'bg-white/5 hover:bg-white/10 text-stone-300 border border-white/5 hover:border-primary-500/30'
@@ -177,14 +177,14 @@ export const DiceRoller: React.FC<DiceRollerProps> = ({ isOpen, onClose, mode = 
                         value={customFormula}
                         onChange={(e) => setCustomFormula(e.target.value)}
                         placeholder="Ex: 2d6+4"
-                        className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-stone-300 placeholder-stone-600 focus:outline-none focus:border-primary-500/50 text-sm font-mono"
+                        className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-1.5 text-stone-300 placeholder-stone-600 focus:outline-none focus:border-primary-500/50 text-xs font-mono"
                     />
                     <button
                         type="submit"
                         disabled={!customFormula}
                         className="absolute right-1 top-1 bottom-1 px-2 text-stone-500 hover:text-primary-400 disabled:opacity-30 disabled:hover:text-stone-500 transition-colors"
                     >
-                        <ChevronRight size={16} />
+                        <ChevronRight size={14} />
                     </button>
                 </form>
             </div>

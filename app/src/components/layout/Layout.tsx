@@ -4,7 +4,7 @@ import { Book, Sword, Users, Home, BookOpen, GraduationCap, Sparkles, Zap, Packa
 import clsx from 'clsx';
 import type { NavItem } from './NavItem';
 import { NavItemComponent } from './NavItem';
-import { DiceRoller, GlobalNotes, Soundboard } from '../common';
+import { DiceRoller, GlobalNotes, Soundboard, DraggableWindow } from '../common';
 import { useToggle } from '../../hooks/useToggle';
 import { Dices, StickyNote, Music } from 'lucide-react';
 
@@ -141,34 +141,63 @@ export const Layout: React.FC = () => {
                 {/* Soundboard Button */}
                 <button
                     onClick={toggleSoundboard}
-                    className="bg-gradient-to-br from-primary-500 to-primary-700 hover:from-primary-400 hover:to-primary-600 text-stone-950 p-4 md:p-5 rounded-full shadow-xl shadow-primary-900/30 hover:shadow-primary-500/40 hover:scale-110 transition-all duration-300 active:scale-95 group relative animate-in slide-in-from-right-8 fade-in-0 duration-500 delay-200"
+                    className="bg-gradient-to-br from-primary-500 to-primary-700 hover:from-primary-400 hover:to-primary-600 text-stone-950 p-3 md:p-4 rounded-full shadow-xl shadow-primary-900/30 hover:shadow-primary-500/40 hover:scale-110 transition-all duration-300 active:scale-95 group relative animate-in slide-in-from-right-8 fade-in-0 duration-500 delay-200"
                     title="Soundboard"
                 >
-                    <Music size={28} strokeWidth={2.5} className="group-hover:rotate-12 transition-transform duration-500" />
+                    <Music size={24} strokeWidth={2.5} className="group-hover:rotate-12 transition-transform duration-500" />
                 </button>
 
                 {/* Notes Button */}
                 <button
                     onClick={toggleNotes}
-                    className="bg-gradient-to-br from-primary-500 to-primary-700 hover:from-primary-400 hover:to-primary-600 text-stone-950 p-4 md:p-5 rounded-full shadow-xl shadow-primary-900/30 hover:shadow-primary-500/40 hover:scale-110 transition-all duration-300 active:scale-95 group relative animate-in slide-in-from-right-8 fade-in-0 duration-500 delay-100"
+                    className="bg-gradient-to-br from-primary-500 to-primary-700 hover:from-primary-400 hover:to-primary-600 text-stone-950 p-3 md:p-4 rounded-full shadow-xl shadow-primary-900/30 hover:shadow-primary-500/40 hover:scale-110 transition-all duration-300 active:scale-95 group relative animate-in slide-in-from-right-8 fade-in-0 duration-500 delay-100"
                     title="Notes Globales"
                 >
-                    <StickyNote size={28} strokeWidth={2.5} className="group-hover:-rotate-12 transition-transform duration-500" />
+                    <StickyNote size={24} strokeWidth={2.5} className="group-hover:-rotate-12 transition-transform duration-500" />
                 </button>
 
                 {/* Dice Button */}
                 <button
                     onClick={toggleDiceRoller}
-                    className="bg-gradient-to-br from-primary-500 to-primary-700 hover:from-primary-400 hover:to-primary-600 text-stone-950 p-4 md:p-5 rounded-full shadow-xl shadow-primary-900/30 hover:shadow-primary-500/40 hover:scale-110 transition-all duration-300 active:scale-95 group animate-in slide-in-from-right-8 fade-in-0 duration-500"
+                    className="bg-gradient-to-br from-primary-500 to-primary-700 hover:from-primary-400 hover:to-primary-600 text-stone-950 p-3 md:p-4 rounded-full shadow-xl shadow-primary-900/30 hover:shadow-primary-500/40 hover:scale-110 transition-all duration-300 active:scale-95 group animate-in slide-in-from-right-8 fade-in-0 duration-500"
                     title="Lanceur de dés"
                 >
-                    <Dices size={32} strokeWidth={2.5} className="group-hover:rotate-180 transition-transform duration-700" />
+                    <Dices size={28} strokeWidth={2.5} className="group-hover:rotate-180 transition-transform duration-700" />
                 </button>
             </div>
 
-            <Soundboard isOpen={isSoundboardOpen} onClose={toggleSoundboard} />
-            <GlobalNotes isOpen={isNotesOpen} onClose={toggleNotes} />
-            <DiceRoller isOpen={isDiceRollerOpen} onClose={toggleDiceRoller} />
+            <DraggableWindow
+                id="soundboard"
+                title="Soundboard"
+                isOpen={isSoundboardOpen}
+                onClose={toggleSoundboard}
+                defaultPosition={{ x: window.innerWidth - 350, y: window.innerHeight - 450 }}
+                defaultSize={{ width: 320, height: 350 }}
+            >
+                <Soundboard isOpen={true} onClose={toggleSoundboard} />
+            </DraggableWindow>
+
+            <DraggableWindow
+                id="global_notes"
+                title="Notes Globales"
+                isOpen={isNotesOpen}
+                onClose={toggleNotes}
+                defaultPosition={{ x: window.innerWidth - 700, y: window.innerHeight - 500 }}
+                defaultSize={{ width: 350, height: 400 }}
+            >
+                <GlobalNotes isOpen={true} onClose={toggleNotes} />
+            </DraggableWindow>
+
+            <DraggableWindow
+                id="dice_roller"
+                title="Lanceur de Dés"
+                isOpen={isDiceRollerOpen}
+                onClose={toggleDiceRoller}
+                defaultPosition={{ x: window.innerWidth - 400, y: 100 }}
+                defaultSize={{ width: 320, height: 500 }}
+            >
+                <DiceRoller isOpen={true} onClose={toggleDiceRoller} mode="popup" />
+            </DraggableWindow>
         </div>
     );
 };

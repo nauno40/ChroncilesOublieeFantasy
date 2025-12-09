@@ -31,7 +31,9 @@ export const createCampaign = (name: string, description: string): Campaign => {
         created_at: Date.now(),
         updated_at: Date.now(),
         characters: [],
-        encounters: []
+        encounters: [],
+        sessions: [],
+        notes: ''
     };
     saveCampaign(campaign);
     return campaign;

@@ -1,16 +1,135 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { getCampaigns } from '../utils/campaignService';
-import { ArrowLeft, Users, Sword } from 'lucide-react';
+import { getCampaigns, saveCampaign } from '../utils/campaignService';
+import { ArrowLeft, Users, Sword, Plus, X, Calendar, Clock, Trophy, FileText, Check, Edit, Trash2 } from 'lucide-react';
+import type { Session } from '../types/campaign';
+import { clsx } from 'clsx';
 
 export const CampaignDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
+    // Force re-render after saves
+    const [_, setTick] = useState(0);
     const campaigns = getCampaigns();
     const campaign = campaigns.find(c => c.id === id);
+
+    // State for Notes
+    const [notes, setNotes] = useState('');
+    const [isSavingNotes, setIsSavingNotes] = useState(false);
+    const saveTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+    // State for Sessions
+    const [showSessionForm, setShowSessionForm] = useState(false);
+    const [editingSessionId, setEditingSessionId] = useState<string | null>(null);
+    const [newSession, setNewSession] = useState<Partial<Session>>({
+        id: undefined, // Add id to newSession state
+        title: '',
+        date: new Date().toISOString().split('T')[0],
+        duration: '',
+        level: '',
+        summary: ''
+    });
+
+    // Initial load of data
+    useEffect(() => {
+        if (campaign) {
+            setNotes(campaign.notes || '');
+        }
+    }, [campaign?.id]);
+
+    // Auto-save Notes logic
+    const handleNotesChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        const newValue = e.target.value;
+        setNotes(newValue);
+        setIsSavingNotes(true);
+
+        if (saveTimeoutRef.current) clearTimeout(saveTimeoutRef.current);
+
+        saveTimeoutRef.current = setTimeout(() => {
+            if (campaign) {
+                const updatedCampaign = { ...campaign, notes: newValue };
+                saveCampaign(updatedCampaign);
+                setIsSavingNotes(false);
+                // No need to force full re-render for just notes, as local state handles UI
+            }
+        }, 1000);
+    };
+
+    const handleEditSession = (session: Session) => {
+        setNewSession({ ...session });
+        setEditingSessionId(session.id);
+        setShowSessionForm(true);
+    };
+
+    const handleDeleteSession = (sessionId: string) => {
+        if (!campaign) return;
+        if (!confirm('Êtes-vous sûr de vouloir supprimer cette session ?')) return;
+
+        const updatedSessions = (campaign.sessions || []).filter(s => s.id !== sessionId);
+        const updatedCampaign = { ...campaign, sessions: updatedSessions };
+        saveCampaign(updatedCampaign);
+        setTick(t => t + 1);
+    };
+
+    const handleSaveSession = () => {
+        if (!campaign || !newSession.title) return;
+
+        let updatedSessions = [...(campaign.sessions || [])];
+
+        if (editingSessionId) {
+            // Update existing
+            updatedSessions = updatedSessions.map(s =>
+                s.id === editingSessionId
+                    ? { ...s, ...newSession as Session, id: editingSessionId }
+                    : s
+            );
+        } else {
+            // Create new
+            const session: Session = {
+                id: crypto.randomUUID(),
+                title: newSession.title || 'Session sans titre',
+                date: new Date().toISOString().split('T')[0],
+                duration: newSession.duration || '',
+                level: newSession.level || '',
+                summary: newSession.summary || ''
+            };
+            updatedSessions = [session, ...updatedSessions];
+        }
+
+        const updatedCampaign = { ...campaign, sessions: updatedSessions };
+        saveCampaign(updatedCampaign);
+
+        // Reset form
+        setTick(t => t + 1);
+        setShowSessionForm(false);
+        setEditingSessionId(null);
+        setNewSession({
+            id: undefined,
+            title: '',
+            date: new Date().toISOString().split('T')[0],
+            duration: '',
+            level: '',
+            summary: ''
+        });
+    };
+
+    const handleCancelSession = () => {
+        setShowSessionForm(false);
+        setEditingSessionId(null);
+        setNewSession({
+            id: undefined,
+            title: '',
+            date: new Date().toISOString().split('T')[0],
+            duration: '',
+            level: '',
+            summary: ''
+        });
+    };
 
     if (!campaign) {
         return <div>Campagne introuvable</div>;
     }
+
+    const sortedSessions = (campaign.sessions || []).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
     return (
         <div className="space-y-6">
@@ -19,7 +138,7 @@ export const CampaignDetail: React.FC = () => {
                     <ArrowLeft size={16} className="mr-2 group-hover:-translate-x-1 transition-transform" /> Retour aux campagnes
                 </Link>
                 <h1 className="text-5xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary-100 to-primary-400 drop-shadow-lg mb-2">{campaign.name}</h1>
-                <p className="text-stone-400 text-lg max-w-2xl leading-relaxed">{campaign.description}</p>
+                <p className="text-stone-400 text-lg max-w-full leading-relaxed whitespace-pre-line">{campaign.description}</p>
             </header>
 
             <div className="grid md:grid-cols-2 gap-6 mb-8">
@@ -35,7 +154,7 @@ export const CampaignDetail: React.FC = () => {
                     </div>
                     <div className="h-px w-full bg-white/5 mb-4"></div>
                     <button className="w-full py-2 rounded-lg border border-dashed border-stone-700 text-stone-500 hover:border-primary-500 hover:text-primary-400 transition-all text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2">
-                        + Ajouter un PJ
+                        <Plus size={16} /> Ajouter un PJ
                     </button>
                 </div>
 
@@ -51,8 +170,187 @@ export const CampaignDetail: React.FC = () => {
                     </div>
                     <div className="h-px w-full bg-white/5 mb-4"></div>
                     <button className="w-full py-2 rounded-lg border border-dashed border-stone-700 text-stone-500 hover:border-red-500 hover:text-red-400 transition-all text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2">
-                        + Créer une rencontre
+                        <Plus size={16} /> Créer une rencontre
                     </button>
+                </div>
+            </div>
+
+            {/* Session Journal & Notes */}
+            <div className="grid lg:grid-cols-3 gap-6">
+                {/* Journal Section */}
+                <div className="lg:col-span-2 space-y-4">
+                    <div className="flex justify-between items-center">
+                        <h2 className="text-2xl font-display font-bold text-stone-200 flex items-center gap-2">
+                            Journal de Campagne
+                        </h2>
+                        {!showSessionForm && (
+                            <button
+                                onClick={() => setShowSessionForm(true)}
+                                className="text-sm bg-primary-600 hover:bg-primary-500 text-stone-950 px-3 py-1.5 rounded-lg font-bold transition-colors flex items-center gap-2"
+                            >
+                                <Plus size={16} /> Nouvelle Session
+                            </button>
+                        )}
+                    </div>
+
+                    {/* New Session Form */}
+                    {showSessionForm && (
+                        <div className="glass-panel p-6 rounded-xl border-primary-500/30 animate-in slide-in-from-top-4 fade-in duration-200 space-y-4 bg-stone-900/80">
+                            <div className="flex justify-between items-center mb-2">
+                                <h3 className="font-bold text-stone-300">{editingSessionId ? 'Modifier la session' : 'Nouvelle session'}</h3>
+                                <button onClick={handleCancelSession} className="text-stone-500 hover:text-white"><X size={16} /></button>
+                            </div>
+                            <div className="grid md:grid-cols-2 gap-4">
+                                <div className="space-y-1">
+                                    <label className="text-xs font-bold text-stone-500 uppercase">Titre de la session</label>
+                                    <input
+                                        type="text"
+                                        className="w-full bg-stone-950/50 border border-white/10 rounded-lg px-4 py-2 text-stone-200 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none"
+                                        placeholder="ex: L'attaque des Gobelins"
+                                        value={newSession.title}
+                                        onChange={e => setNewSession({ ...newSession, title: e.target.value })}
+                                        autoFocus
+                                    />
+                                </div>
+                                <div className="space-y-1">
+                                    <label className="text-xs font-bold text-stone-500 uppercase">Date</label>
+                                    <input
+                                        type="date"
+                                        className="w-full bg-stone-950/50 border border-white/10 rounded-lg px-4 py-2 text-stone-200 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none"
+                                        value={newSession.date}
+                                        onChange={e => setNewSession({ ...newSession, date: e.target.value })}
+                                    />
+                                </div>
+                                <div className="space-y-1">
+                                    <label className="text-xs font-bold text-stone-500 uppercase">Durée (approx)</label>
+                                    <input
+                                        type="text"
+                                        className="w-full bg-stone-950/50 border border-white/10 rounded-lg px-4 py-2 text-stone-200 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none"
+                                        placeholder="ex: 4h"
+                                        value={newSession.duration}
+                                        onChange={e => setNewSession({ ...newSession, duration: e.target.value })}
+                                    />
+                                </div>
+                                <div className="space-y-1">
+                                    <label className="text-xs font-bold text-stone-500 uppercase">Niveau moyen</label>
+                                    <input
+                                        type="text"
+                                        className="w-full bg-stone-950/50 border border-white/10 rounded-lg px-4 py-2 text-stone-200 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none"
+                                        placeholder="ex: 3"
+                                        value={newSession.level}
+                                        onChange={e => setNewSession({ ...newSession, level: e.target.value })}
+                                    />
+                                </div>
+                            </div>
+                            <div className="space-y-1">
+                                <label className="text-xs font-bold text-stone-500 uppercase">Résumé</label>
+                                <textarea
+                                    className="w-full bg-stone-950/50 border border-white/10 rounded-lg px-4 py-2 text-stone-200 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none min-h-[100px]"
+                                    placeholder="Que s'est-il passé ?"
+                                    value={newSession.summary}
+                                    onChange={e => setNewSession({ ...newSession, summary: e.target.value })}
+                                />
+                            </div>
+                            <div className="flex justify-end gap-2 pt-2">
+                                <button
+                                    onClick={handleCancelSession}
+                                    className="px-4 py-2 rounded-lg font-bold text-stone-500 hover:bg-white/5 transition-colors"
+                                >
+                                    Annuler
+                                </button>
+                                <button
+                                    onClick={handleSaveSession}
+                                    disabled={!newSession.title}
+                                    className="bg-primary-600 hover:bg-primary-500 text-stone-950 px-6 py-2 rounded-lg font-bold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                >
+                                    {editingSessionId ? 'Mettre à jour' : 'Enregistrer la session'}
+                                </button>
+                            </div>
+                        </div>
+                    )}
+
+                    <div className="space-y-4">
+                        {sortedSessions.length === 0 ? (
+                            <div className="glass-panel p-8 text-center border-dashed border-white/10">
+                                <FileText className="mx-auto text-stone-600 mb-2" size={32} />
+                                <p className="text-stone-500">Aucune session enregistrée pour le moment.</p>
+                            </div>
+                        ) : (
+                            sortedSessions.map((session) => (
+                                <div key={session.id} className="glass-panel p-4 rounded-xl border-white/5 hover:border-primary-500/30 transition-colors group relative">
+                                    <div className="mb-2 pr-20">
+                                        <div className="flex items-center gap-3 flex-wrap">
+                                            <h3 className="font-bold text-lg text-stone-200 group-hover:text-primary-400 transition-colors">{session.title}</h3>
+                                            {session.level && (
+                                                <span className="text-xs font-mono text-primary-500/60 bg-primary-900/10 px-2 py-1 rounded flex items-center gap-1">
+                                                    <Trophy size={10} /> Niv {session.level}
+                                                </span>
+                                            )}
+                                        </div>
+                                        <div className="text-xs text-stone-500 flex items-center gap-3 mt-1">
+                                            <span className="flex items-center gap-1 bg-stone-900/50 px-2 py-0.5 rounded border border-white/5">
+                                                <Calendar size={12} /> {new Date(session.date).toLocaleDateString()}
+                                            </span>
+                                            {session.duration && (
+                                                <span className="flex items-center gap-1">
+                                                    <Clock size={12} /> {session.duration}
+                                                </span>
+                                            )}
+                                        </div>
+                                    </div>
+                                    <p className="text-stone-400 text-sm line-clamp-3 whitespace-pre-line">
+                                        {session.summary}
+                                    </p>
+
+                                    {/* Action Buttons */}
+                                    <div className="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity bg-stone-900/80 rounded-lg p-1 border border-white/10 shadow-xl backdrop-blur-sm z-10">
+                                        <button
+                                            onClick={() => handleEditSession(session)}
+                                            className="p-1.5 rounded-md text-stone-400 hover:text-white hover:bg-primary-600 transition-colors"
+                                            title="Modifier"
+                                        >
+                                            <Edit size={14} />
+                                        </button>
+                                        <button
+                                            onClick={() => handleDeleteSession(session.id)}
+                                            className="p-1.5 rounded-md text-stone-400 hover:text-white hover:bg-red-600 transition-colors"
+                                            title="Supprimer"
+                                        >
+                                            <Trash2 size={14} />
+                                        </button>
+                                    </div>
+                                </div>
+                            ))
+                        )}
+                    </div>
+                </div>
+
+                {/* Quick Notes */}
+                <div className="space-y-4">
+                    <h2 className="text-2xl font-display font-bold text-stone-200 flex items-center gap-2">
+                        Notes Rapides
+                    </h2>
+                    <div className={clsx(
+                        "glass-panel p-1 rounded-xl border h-[400px] flex flex-col bg-stone-900/40 transition-colors",
+                        isSavingNotes ? "border-primary-500/50" : "border-primary-500/20"
+                    )}>
+                        <textarea
+                            className="w-full h-full bg-transparent p-4 resize-none focus:outline-none text-stone-300 placeholder-stone-600 font-mono text-sm leading-relaxed"
+                            placeholder="Idées en vrac, PNJ improvisés, loot à distribuer..."
+                            value={notes}
+                            onChange={handleNotesChange}
+                        />
+                        <div className="px-3 py-2 text-[10px] text-stone-600 border-t border-white/5 flex justify-between items-center bg-black/20 rounded-b-lg">
+                            <span className="flex items-center gap-1">
+                                {isSavingNotes ? (
+                                    <>Enregistrement...</>
+                                ) : (
+                                    <><Check size={10} className="text-green-500" /> Sauvegardé</>
+                                )}
+                            </span>
+                            <span>{notes.length} caractères</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 

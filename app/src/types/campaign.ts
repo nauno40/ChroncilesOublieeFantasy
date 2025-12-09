@@ -8,6 +8,15 @@ export interface Character {
     notes?: string;
 }
 
+export interface Session {
+    id: string;
+    title: string;
+    date: string;
+    duration: string;
+    level: string;
+    summary: string;
+}
+
 export interface Campaign {
     id: string;
     name: string;
@@ -16,6 +25,8 @@ export interface Campaign {
     updated_at: number;
     characters: Character[];
     encounters: Encounter[];
+    sessions: Session[];
+    notes?: string;
 }
 
 export interface Encounter {

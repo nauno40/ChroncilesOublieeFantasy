@@ -4,13 +4,14 @@ import { Book, Sword, Users, Home, BookOpen, GraduationCap, Sparkles, Zap, Packa
 import clsx from 'clsx';
 import type { NavItem } from './NavItem';
 import { NavItemComponent } from './NavItem';
-import { DiceRoller } from '../common';
+import { DiceRoller, GlobalNotes } from '../common';
 import { useToggle } from '../../hooks/useToggle';
-import { Dices } from 'lucide-react';
+import { Dices, StickyNote } from 'lucide-react';
 
 export const Layout: React.FC = () => {
     const location = useLocation();
     const [isDiceRollerOpen, toggleDiceRoller] = useToggle(false);
+    const [isNotesOpen, toggleNotes] = useToggle(false);
 
     const navItems: NavItem[] = [
         { path: '/', icon: Home, label: 'Accueil' },
@@ -134,15 +135,28 @@ export const Layout: React.FC = () => {
                     })}
                 </div>
             </nav>
-            {/* Dice Roller FAB */}
-            <button
-                onClick={toggleDiceRoller}
-                className="fixed bottom-24 right-4 md:bottom-8 md:right-8 z-40 bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-500 hover:to-primary-600 text-stone-950 p-4 rounded-full shadow-xl hover:shadow-primary-500/20 hover:scale-110 transition-all active:scale-95 group"
-                title="Lanceur de dés"
-            >
-                <Dices size={28} strokeWidth={2.5} className="group-hover:rotate-180 transition-transform duration-700" />
-            </button>
+            {/* Floating Action Buttons */}
+            <div className="fixed bottom-24 right-4 md:bottom-8 md:right-8 z-40 flex items-end gap-3 flex-col">
+                {/* Notes Button */}
+                <button
+                    onClick={toggleNotes}
+                    className="bg-stone-800 text-primary-400 hover:bg-stone-700 hover:text-primary-300 p-3 md:p-4 rounded-full shadow-lg border border-primary-500/20 hover:scale-110 transition-all active:scale-95 group relative"
+                    title="Notes Globales"
+                >
+                    <StickyNote size={24} strokeWidth={2.5} />
+                </button>
 
+                {/* Dice Button */}
+                <button
+                    onClick={toggleDiceRoller}
+                    className="bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-500 hover:to-primary-600 text-stone-950 p-3 md:p-4 rounded-full shadow-xl hover:shadow-primary-500/20 hover:scale-110 transition-all active:scale-95 group"
+                    title="Lanceur de dés"
+                >
+                    <Dices size={28} strokeWidth={2.5} className="group-hover:rotate-180 transition-transform duration-700" />
+                </button>
+            </div>
+
+            <GlobalNotes isOpen={isNotesOpen} onClose={toggleNotes} />
             <DiceRoller isOpen={isDiceRollerOpen} onClose={toggleDiceRoller} />
         </div>
     );

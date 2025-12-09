@@ -51,6 +51,7 @@ export interface Capacity {
     id: string;
     name: string;
     description: string;
+    active: boolean;
     profileId: string | null; // Reference to profile ID
     voieId: string | null; // Reference to voie ID
     rank: number | null;
@@ -70,6 +71,7 @@ export interface Weapon {
     price: string;
     isRanged: boolean;
     reload: string;
+    requirements?: string;
 }
 
 export interface Armor {
@@ -85,6 +87,7 @@ export interface Material {
     id: string;
     name: string;
     price: string;
+    notes?: string;
 }
 
 // ============================================================================

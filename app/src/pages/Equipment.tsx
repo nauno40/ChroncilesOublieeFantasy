@@ -1,5 +1,5 @@
 import React from 'react';
-import { PageContainer, PageHeader, TabGroup, SearchBar, EmptyState, ItemTable } from '../components/common';
+import { PageContainer, PageHeader, SearchBar, EmptyState, TabGroup } from '../components/common';
 import { useSearch } from '../hooks';
 import { Sword, Shield, Gem } from 'lucide-react';
 import { DataService } from '../services/dataService';
@@ -15,9 +15,14 @@ export const Equipment: React.FC = () => {
 
     const tabs = [
         { id: 'weapons', label: 'Armes', icon: Sword },
-        { id: 'armors', label: 'Armures', icon: Shield },
-        { id: 'materials', label: 'Matériel', icon: Gem }
+        { id: 'armors', label: 'Armures et Boucliers', icon: Shield },
+        { id: 'materials', label: 'Matériel et Services', icon: Gem }
     ];
+
+    const getDamageMod = (type: string) => {
+        if (type.toLowerCase().includes('contact')) return '+ FOR';
+        return '-';
+    };
 
     return (
         <PageContainer>
@@ -38,22 +43,32 @@ export const Equipment: React.FC = () => {
                                     <EmptyState message="Aucune arme trouvée" />
                                 ) : (
                                     <div className="glass-panel rounded-xl overflow-x-auto">
-                                        <table className="w-full">
+                                        <table className="w-full text-left border-collapse">
                                             <thead>
-                                                <tr className="border-b border-white/10">
-                                                    <th className="text-left p-4 text-primary-300 font-display font-bold">Nom</th>
-                                                    <th className="text-left p-4 text-primary-300 font-display font-bold">Type</th>
-                                                    <th className="text-left p-4 text-primary-300 font-display font-bold">Dégâts</th>
-                                                    <th className="text-left p-4 text-primary-300 font-display font-bold">Prix</th>
+                                                <tr className="border-b border-white/10 bg-black/20">
+                                                    <th className="p-4 text-primary-300 font-display font-bold whitespace-nowrap">Nom</th>
+                                                    <th className="p-4 text-primary-300 font-display font-bold whitespace-nowrap">Type</th>
+                                                    <th className="p-4 text-primary-300 font-display font-bold whitespace-nowrap">Dégâts</th>
+                                                    <th className="p-4 text-primary-300 font-display font-bold whitespace-nowrap">Mod.</th>
+                                                    <th className="p-4 text-primary-300 font-display font-bold whitespace-nowrap">Critique</th>
+                                                    <th className="p-4 text-primary-300 font-display font-bold whitespace-nowrap">Portée</th>
+                                                    <th className="p-4 text-primary-300 font-display font-bold whitespace-nowrap">Rechargement</th>
+                                                    <th className="p-4 text-primary-300 font-display font-bold whitespace-nowrap">Spécial</th>
+                                                    <th className="p-4 text-primary-300 font-display font-bold whitespace-nowrap text-right">Prix</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody className="divide-y divide-white/5">
                                                 {weaponSearch.filteredItems.map((weapon, i) => (
-                                                    <tr key={i} className="border-b border-white/5 hover:bg-stone-900/30 transition-colors">
-                                                        <td className="p-4 text-stone-200 font-medium">{weapon.name}</td>
-                                                        <td className="p-4 text-stone-400 text-sm">{weapon.type}</td>
-                                                        <td className="p-4 text-primary-400 font-mono">{weapon.damage}</td>
-                                                        <td className="p-4 text-yellow-500/90 font-mono">{weapon.price}</td>
+                                                    <tr key={i} className="hover:bg-primary-500/5 transition-colors">
+                                                        <td className="p-4 text-stone-200 font-bold">{weapon.name}</td>
+                                                        <td className="p-4 text-stone-400 text-sm whitespace-nowrap">{weapon.type}</td>
+                                                        <td className="p-4 text-stone-300 font-mono text-sm">{weapon.damage}</td>
+                                                        <td className="p-4 text-stone-400 font-mono text-sm">{getDamageMod(weapon.type)}</td>
+                                                        <td className="p-4 text-stone-400 font-mono text-sm">{weapon.critical}</td>
+                                                        <td className="p-4 text-stone-400 font-mono text-sm whitespace-nowrap">{weapon.range || '-'}</td>
+                                                        <td className="p-4 text-stone-400 text-sm whitespace-nowrap">{weapon.reload || '-'}</td>
+                                                        <td className="p-4 text-amber-400/80 text-xs italic">{weapon.requirements}</td>
+                                                        <td className="p-4 text-yellow-500/90 font-mono text-sm text-right whitespace-nowrap">{weapon.price}</td>
                                                     </tr>
                                                 ))}
                                             </tbody>
@@ -75,22 +90,24 @@ export const Equipment: React.FC = () => {
                                     <EmptyState message="Aucune armure trouvée" />
                                 ) : (
                                     <div className="glass-panel rounded-xl overflow-x-auto">
-                                        <table className="w-full">
+                                        <table className="w-full text-left border-collapse">
                                             <thead>
-                                                <tr className="border-b border-white/10">
-                                                    <th className="text-left p-4 text-primary-300 font-display font-bold">Nom</th>
-                                                    <th className="text-left p-4 text-primary-300 font-display font-bold">Type</th>
-                                                    <th className="text-left p-4 text-primary-300 font-display font-bold">DEF</th>
-                                                    <th className="text-left p-4 text-primary-300 font-display font-bold">Prix</th>
+                                                <tr className="border-b border-white/10 bg-black/20">
+                                                    <th className="p-4 text-primary-300 font-display font-bold whitespace-nowrap">Nom</th>
+                                                    <th className="p-4 text-primary-300 font-display font-bold whitespace-nowrap">Type</th>
+                                                    <th className="p-4 text-primary-300 font-display font-bold whitespace-nowrap">Défense</th>
+                                                    <th className="p-4 text-primary-300 font-display font-bold whitespace-nowrap">Notes</th>
+                                                    <th className="p-4 text-primary-300 font-display font-bold whitespace-nowrap text-right">Prix</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody className="divide-y divide-white/5">
                                                 {armorSearch.filteredItems.map((armor, i) => (
-                                                    <tr key={i} className="border-b border-white/5 hover:bg-stone-900/30 transition-colors">
-                                                        <td className="p-4 text-stone-200 font-medium">{armor.name}</td>
-                                                        <td className="p-4 text-stone-400 text-sm">{armor.type}</td>
-                                                        <td className="p-4 text-primary-400 font-mono">{armor.defense}</td>
-                                                        <td className="p-4 text-yellow-500/90 font-mono">{armor.price}</td>
+                                                    <tr key={i} className="hover:bg-primary-500/5 transition-colors">
+                                                        <td className="p-4 text-stone-200 font-bold">{armor.name}</td>
+                                                        <td className="p-4 text-stone-400 text-sm whitespace-nowrap">{armor.type}</td>
+                                                        <td className="p-4 text-primary-400 font-mono font-bold whitespace-nowrap">{armor.defense}</td>
+                                                        <td className="p-4 text-stone-400 text-sm italic">{armor.comments}</td>
+                                                        <td className="p-4 text-yellow-500/90 font-mono text-sm text-right whitespace-nowrap">{armor.price}</td>
                                                     </tr>
                                                 ))}
                                             </tbody>
@@ -107,7 +124,30 @@ export const Equipment: React.FC = () => {
                                     onChange={materialSearch.setSearchTerm}
                                     placeholder="Rechercher du matériel..."
                                 />
-                                <ItemTable items={materialSearch.filteredItems} emptyMessage="Aucun matériel trouvé" />
+                                {materialSearch.filteredItems.length === 0 ? (
+                                    <EmptyState message="Aucun matériel trouvé" />
+                                ) : (
+                                    <div className="glass-panel rounded-xl overflow-x-auto">
+                                        <table className="w-full text-left border-collapse">
+                                            <thead>
+                                                <tr className="border-b border-white/10 bg-black/20">
+                                                    <th className="p-4 text-primary-300 font-display font-bold whitespace-nowrap">Nom</th>
+                                                    <th className="p-4 text-primary-300 font-display font-bold whitespace-nowrap">Notes</th>
+                                                    <th className="p-4 text-primary-300 font-display font-bold whitespace-nowrap text-right">Prix</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody className="divide-y divide-white/5">
+                                                {materialSearch.filteredItems.map((item, i) => (
+                                                    <tr key={i} className="hover:bg-primary-500/5 transition-colors">
+                                                        <td className="p-4 text-stone-200 font-bold">{item.name}</td>
+                                                        <td className="p-4 text-stone-400 text-sm italic">{item.notes || '-'}</td>
+                                                        <td className="p-4 text-yellow-500/90 font-mono text-sm text-right whitespace-nowrap">{item.price}</td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                )}
                             </div>
                         )}
                     </>
@@ -116,4 +156,3 @@ export const Equipment: React.FC = () => {
         </PageContainer>
     );
 };
-

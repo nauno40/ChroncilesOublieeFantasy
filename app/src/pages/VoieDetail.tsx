@@ -4,6 +4,7 @@ import voiesData from '../data/voies.json';
 import capacitesData from '../data/capacites.json';
 import type { Voie, Capacity } from '../types/normalized';
 import { ArrowLeft } from 'lucide-react';
+import { Badge } from '../components/common';
 
 const voies = voiesData as Voie[];
 const capacites = capacitesData as Capacity[];
@@ -90,20 +91,29 @@ export const VoieDetail: React.FC = () => {
                                             key={capacity.id}
                                             className="glass-panel p-6 rounded-xl border border-white/5 hover:border-primary-500/30 transition-all duration-300"
                                         >
-                                            <div className="flex items-start justify-between mb-3">
-                                                <h4 className="text-lg font-display font-bold text-primary-300 flex items-center gap-2 flex-wrap">
+                                            <div className="flex flex-col gap-3 mb-3">
+                                                <h4 className="text-lg font-display font-bold text-primary-300">
                                                     {displayName}
                                                 </h4>
-                                                <div className="flex gap-2">
+                                                <div className="flex gap-2 flex-wrap">
                                                     {isLimited && (
-                                                        <span className="px-3 py-1 rounded-full bg-red-500/20 text-red-300 text-xs font-bold border border-red-500/30">
+                                                        <Badge variant="danger">
                                                             Limité
-                                                        </span>
+                                                        </Badge>
+                                                    )}
+                                                    {capacity.active ? (
+                                                        <Badge variant="warning">
+                                                            Actif
+                                                        </Badge>
+                                                    ) : (
+                                                        <Badge variant="secondary">
+                                                            Passif
+                                                        </Badge>
                                                     )}
                                                     {capacity.rank && (
-                                                        <span className="px-3 py-1 rounded-full bg-primary-500/20 text-primary-300 text-xs font-bold border border-primary-500/30">
+                                                        <Badge variant="primary">
                                                             Rang {capacity.rank}
-                                                        </span>
+                                                        </Badge>
                                                     )}
                                                 </div>
                                             </div>

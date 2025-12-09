@@ -150,14 +150,23 @@ export const Capacites: React.FC = () => {
                             key={capacite.id}
                             to={`/capacites/${capacite.id}`}
                         >
-                            <div className="flex items-start justify-between mb-3">
-                                <h3 className="text-xl font-display font-bold text-primary-300 group-hover:text-primary-200 transition-colors flex-1 flex items-center gap-2 flex-wrap">
+                            <div className="flex flex-col gap-3 mb-3">
+                                <h3 className="text-xl font-display font-bold text-primary-300 group-hover:text-primary-200 transition-colors">
                                     {displayName}
                                 </h3>
-                                <div className="flex gap-2">
+                                <div className="flex gap-2 flex-wrap">
                                     {isLimited && (
                                         <Badge variant="danger">
                                             Limité
+                                        </Badge>
+                                    )}
+                                    {capacite.active ? (
+                                        <Badge variant="warning">
+                                            Actif
+                                        </Badge>
+                                    ) : (
+                                        <Badge variant="secondary">
+                                            Passif
                                         </Badge>
                                     )}
                                     {capacite.rank && (

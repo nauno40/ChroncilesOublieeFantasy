@@ -44,15 +44,16 @@
     "reload": "Pas d'action"
   },
   {
-    "id": "arc_longfor_min_13",
-    "name": "Arc longFOR min. 13",
+    "id": "arc_long",
+    "name": "Arc long",
     "type": "Distance (simple)",
     "damage": "1d8",
     "range": "50 m",
     "critical": "20",
     "price": "5 pa",
     "isRanged": true,
-    "reload": "Pas d'action"
+    "reload": "Pas d'action",
+    "requirements": "FOR min. 13"
   },
   {
     "id": "baton",

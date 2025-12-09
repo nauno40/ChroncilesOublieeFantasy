@@ -5,6 +5,7 @@ import profilesData from '../data/profiles.json';
 import voiesData from '../data/voies.json';
 import type { Capacity, Profile, Voie } from '../types/normalized';
 import { ArrowLeft } from 'lucide-react';
+import { Badge } from '../components/common';
 
 const capacites = capacitesData as Capacity[];
 const profiles = profilesData as Profile[];
@@ -54,45 +55,56 @@ export const CapaciteDetail: React.FC = () => {
                             </h1>
                         );
                     })()}
-                    <div className="flex flex-wrap gap-3">
+                    <div className="flex flex-wrap gap-2">
                         {(() => {
-                            // Re-evaluate limited status here or reuse if we scope it differently.
-                            // Actually, let's just re-check since it's cheap and cleaner than refactoring the whole component state just for this.
-                            // Alternatively, we can check capacite.name again.
                             let isLimited = false;
                             if (capacite.name.includes('(L)') || capacite.name.endsWith(' L')) {
                                 isLimited = true;
                             }
 
-                            if (isLimited) {
-                                return (
-                                    <span className="px-4 py-2 rounded-full bg-red-500/20 text-red-300 text-sm font-bold border border-red-500/30">
-                                        Limité
-                                    </span>
-                                );
-                            }
-                            return null;
+                            return (
+                                <>
+                                    {isLimited && (
+                                        <Badge variant="danger" size="lg">
+                                            Limité
+                                        </Badge>
+                                    )}
+                                    {capacite.active ? (
+                                        <Badge variant="warning" size="lg">
+                                            Actif
+                                        </Badge>
+                                    ) : (
+                                        <Badge variant="secondary" size="lg">
+                                            Passif
+                                        </Badge>
+                                    )}
+                                </>
+                            );
                         })()}
 
                         {capacite.rank && (
-                            <span className="px-4 py-2 rounded-full bg-primary-500/20 text-primary-300 text-sm font-bold border border-primary-500/30">
+                            <Badge variant="primary" size="lg">
                                 Rang {capacite.rank}
-                            </span>
+                            </Badge>
                         )}
                         {profile && (
                             <Link
                                 to={`/classes/${profile.id}`}
-                                className="px-4 py-2 rounded-full bg-stone-700/50 text-stone-300 text-sm font-medium border border-stone-600/50 hover:border-primary-500/30 hover:text-primary-300 transition-all"
+                                className="inline-block"
                             >
-                                {profile.name}
+                                <Badge variant="secondary" size="lg" className="hover:border-primary-500/30 hover:text-primary-300 transition-all">
+                                    {profile.name}
+                                </Badge>
                             </Link>
                         )}
                         {voie && (
                             <Link
                                 to={`/voies/${voie.id}`}
-                                className="px-4 py-2 rounded-full bg-stone-700/50 text-stone-300 text-sm font-medium border border-stone-600/50 hover:border-primary-500/30 hover:text-primary-300 transition-all"
+                                className="inline-block"
                             >
-                                {voie.name}
+                                <Badge variant="secondary" size="lg" className="hover:border-primary-500/30 hover:text-primary-300 transition-all">
+                                    {voie.name}
+                                </Badge>
                             </Link>
                         )}
                     </div>

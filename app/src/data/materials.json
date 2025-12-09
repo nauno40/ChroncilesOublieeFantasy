@@ -11,8 +11,9 @@
   },
   {
     "id": "corde_15m",
-    "name": "Corde (15m)",
-    "price": "2 pa"
+    "name": "Corde",
+    "price": "2 pa",
+    "notes": "15m"
   },
   {
     "id": "couverture",
@@ -26,13 +27,15 @@
   },
   {
     "id": "huile_duree__6_heures",
-    "name": "Huile Durée : 6 heures",
-    "price": "1 pa"
+    "name": "Huile",
+    "price": "1 pa",
+    "notes": "Durée : 6 heures"
   },
   {
     "id": "lanterne_a_huile_portee__10_m",
-    "name": "Lanterne à huile Portée : 10 m",
-    "price": "3 pa"
+    "name": "Lanterne à huile",
+    "price": "3 pa",
+    "notes": "Portée : 10 m"
   },
   {
     "id": "materiel_decriture",
@@ -41,13 +44,15 @@
   },
   {
     "id": "outils_de_crochetage_sans_ces_outils_une_penalite_de_10_est_infligee_au_test_de_dex",
-    "name": "Outils de crochetage Sans ces outils, une pénalité de -10 est infligée au test de DEX",
-    "price": "5 pa"
+    "name": "Outils de crochetage",
+    "price": "5 pa",
+    "notes": "Sans ces outils, une pénalité de -10 est infligée au test de DEX"
   },
   {
     "id": "potion_de_soin_soigne_1d8_pv_soumis_a_autorisation_du_mj",
-    "name": "Potion de soin Soigne 1d8 PV Soumis à autorisation du MJ.",
-    "price": "10 pa"
+    "name": "Potion de soin",
+    "price": "10 pa",
+    "notes": "Soigne 1d8 PV Soumis à autorisation du MJ."
   },
   {
     "id": "ration_1_semaine",
@@ -61,7 +66,8 @@
   },
   {
     "id": "torches_nombre__3_duree__1_heure_portee__10_m",
-    "name": "Torches Nombre : 3 Durée : 1 heure Portée : 10 m",
-    "price": "1 pa"
+    "name": "Torches",
+    "price": "1 pa",
+    "notes": "Nombre : 3 Durée : 1 heure Portée : 10 m"
   }
 ]

@@ -4,15 +4,29 @@ import { Book, Sword, Users, Home, BookOpen, GraduationCap, Sparkles, Zap, Packa
 import clsx from 'clsx';
 import type { NavItem } from './NavItem';
 import { NavItemComponent } from './NavItem';
-import { DiceRoller, GlobalNotes, Soundboard, DraggableWindow } from '../common';
+import { DiceRoller, GlobalNotes, Soundboard, DraggableWindow, GlobalSearch } from '../common';
 import { useToggle } from '../../hooks/useToggle';
-import { Dices, StickyNote, Music } from 'lucide-react';
+import { Dices, StickyNote, Music, Search } from 'lucide-react';
 
 export const Layout: React.FC = () => {
     const location = useLocation();
     const [isDiceRollerOpen, toggleDiceRoller] = useToggle(false);
     const [isNotesOpen, toggleNotes] = useToggle(false);
     const [isSoundboardOpen, toggleSoundboard] = useToggle(false);
+    const [isSearchOpen, toggleSearch] = useToggle(false);
+
+    // Keyboard shortcut for search
+    React.useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                e.preventDefault();
+                toggleSearch();
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [toggleSearch]);
 
     const navItems: NavItem[] = [
         { path: '/', icon: Home, label: 'Accueil' },
@@ -59,6 +73,12 @@ export const Layout: React.FC = () => {
                     <h1 className="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-400 to-primary-600 font-display tracking-wider drop-shadow-sm">
                         CHRONIQUES OUBLIÉES
                     </h1>
+                    <button
+                        onClick={toggleSearch}
+                        className="p-2 text-primary-400 hover:bg-primary-500/10 rounded-lg transition-colors"
+                    >
+                        <Search size={20} />
+                    </button>
                 </div>
             </header>
 
@@ -69,7 +89,17 @@ export const Layout: React.FC = () => {
                         <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-400 to-primary-600 font-display tracking-wider drop-shadow-sm leading-tight">
                             CHRONIQUES<br />OUBLIÉES
                         </h1>
-                        <div className="text-[10px] font-mono text-primary-400/60 border border-primary-500/20 px-2 py-0.5 rounded-full inline-block mt-2 bg-primary-950/30">MJ TOOLKIT</div>
+                        <div className="flex items-center justify-between mt-4">
+                            <div className="text-[10px] font-mono text-primary-400/60 border border-primary-500/20 px-2 py-0.5 rounded-full inline-block bg-primary-950/30">MJ TOOLKIT</div>
+                            <button
+                                onClick={toggleSearch}
+                                className="flex items-center gap-2 text-xs text-stone-500 hover:text-primary-400 transition-colors px-2 py-1 rounded hover:bg-white/5 border border-transparent hover:border-white/5"
+                                title="Rechercher (Cmd+K)"
+                            >
+                                <Search size={14} />
+                                <span>Cmd+K</span>
+                            </button>
+                        </div>
                     </div>
 
                     <nav className="flex-1 p-4 space-y-2">
@@ -138,6 +168,15 @@ export const Layout: React.FC = () => {
             </nav>
             {/* Floating Action Buttons */}
             <div className="fixed bottom-24 right-4 md:bottom-8 md:right-8 z-40 flex items-end gap-4 flex-col">
+                {/* Search Button (Mobile/Tablet only or if shortcut not known) */}
+                <button
+                    onClick={toggleSearch}
+                    className="md:hidden bg-gradient-to-br from-stone-800 to-stone-900 border border-primary-500/30 text-primary-400 p-3 rounded-full shadow-xl hover:scale-110 transition-all duration-300 active:scale-95 group relative animate-in slide-in-from-right-8 fade-in-0 duration-500 delay-300"
+                    title="Rechercher (Cmd+K)"
+                >
+                    <Search size={24} strokeWidth={2.5} />
+                </button>
+
                 {/* Soundboard Button */}
                 <button
                     onClick={toggleSoundboard}
@@ -198,6 +237,8 @@ export const Layout: React.FC = () => {
             >
                 <DiceRoller isOpen={true} onClose={toggleDiceRoller} mode="popup" />
             </DraggableWindow>
+
+            <GlobalSearch isOpen={isSearchOpen} onClose={toggleSearch} />
         </div>
     );
 };

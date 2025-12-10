@@ -12,4 +12,5 @@ export { ItemTable } from './ItemTable';
 export { GlobalNotes } from './GlobalNotes';
 export { Soundboard } from './Soundboard';
 export { DraggableWindow } from './DraggableWindow';
+export { GlobalSearch } from './GlobalSearch';
 

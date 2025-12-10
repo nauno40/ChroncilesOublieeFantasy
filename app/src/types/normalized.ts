@@ -25,6 +25,7 @@ export interface Race {
         min: string;
         max: string;
     };
+    voieId?: string; // Refactored Voie ID
 }
 
 export interface StartingEquipmentItem {
@@ -229,12 +230,18 @@ export interface CreatureCapability {
     paths?: string;
 }
 
+export interface CreaturePath {
+    id: string;
+    rank: number;
+}
+
 export interface Creature {
     id?: string; // Optional if not in JSON but added by utility
     name: Field[];
     appearance: Field[];
     description: Field[];
     creature_family: Field[];
+    family_id?: string; // Refactored family ID
     environment: Field[];
     archetype: Field[];
     boss_type: Field[];
@@ -254,7 +261,7 @@ export interface Creature {
     dmg_reduction: Field[];
     init: Field[];
     attacks: CreatureAttackField[];
-    paths: Field[];
+    paths: CreaturePath[];
     special_capabilities: Field[];
     capabilities: CreatureCapability[];
     picture: Field[];

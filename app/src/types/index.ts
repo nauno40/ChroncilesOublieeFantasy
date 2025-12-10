@@ -27,11 +27,17 @@ export interface CreatureCapability {
     paths?: string;
 }
 
+export interface CreaturePath {
+    id: string;
+    rank: number;
+}
+
 export interface Creature {
     name: Field[];
     appearance: Field[];
     description: Field[];
     creature_family: Field[];
+    family_id?: string;
     environment: Field[];
     archetype: Field[];
     boss_type: Field[];
@@ -51,7 +57,7 @@ export interface Creature {
     dmg_reduction: Field[];
     init: Field[];
     attacks: CreatureAttackField[];
-    paths: Field[];
+    paths: CreaturePath[];
     special_capabilities: Field[];
     capabilities: CreatureCapability[];
     picture: (Field & { src?: string; alt?: string; width?: string; height?: string; creature_token_url?: string })[];

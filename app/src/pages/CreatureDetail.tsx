@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import creaturesData from '../data/creatures.json';
 import familiesData from '../data/families.json';
+import voiesData from '../data/voies.json';
 import type { Creature } from '../types';
 import { getCreatureName, getCreatureLevel, getCreatureCategory, getCreatureFamily, getCreatureArchetype, getCreatureEnvironment, getCreatureSize } from '../utils/creature';
 import { ArrowLeft, Shield, Sword, Heart } from 'lucide-react';
@@ -174,6 +175,39 @@ export const CreatureDetail: React.FC = () => {
                                             </div>
                                         </div>
                                     ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Voies (Paths) */}
+                        {creature.paths?.length > 0 && (
+                            <div>
+                                <h3 className="text-xl font-display font-bold text-primary-400 mb-4 flex items-center gap-2">
+                                    <span className="w-1 h-6 bg-primary-500 rounded-full"></span> Voies & Rangs
+                                </h3>
+                                <div className="flex flex-wrap gap-3">
+                                    {creature.paths.map((path: any, i) => {
+                                        // Handle both legacy (HTML value) and new (id/rank)
+                                        if (path.value) {
+                                            // Legacy render
+                                            return (
+                                                <div key={i} className="bg-stone-900/40 px-4 py-2 rounded-xl border border-white/5 text-stone-300"
+                                                    dangerouslySetInnerHTML={{ __html: path.value }}
+                                                />
+                                            );
+                                        }
+
+                                        // New Structured Render
+                                        const voie = voiesData.find(v => v.id === path.id);
+                                        return (
+                                            <div key={i} className="flex items-center gap-3 bg-stone-900/60 pl-4 pr-3 py-2 rounded-xl border border-primary-500/20 hover:border-primary-500/50 transition-colors group">
+                                                <span className="font-display font-bold text-primary-200">{voie?.name || path.id}</span>
+                                                <span className="bg-primary-950/80 text-primary-400 text-xs font-bold px-2 py-1 rounded border border-primary-500/20 group-hover:bg-primary-500 group-hover:text-primary-950 transition-colors">
+                                                    Rang {path.rank}
+                                                </span>
+                                            </div>
+                                        );
+                                    })}
                                 </div>
                             </div>
                         )}

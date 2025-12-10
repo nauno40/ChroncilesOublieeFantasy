@@ -3771,16 +3771,6 @@
     "active": true
   },
   {
-    "id": "fauchage",
-    "name": "Fauchage",
-    "rank": 1,
-    "description": "Sur 15 à 20 au test d’attaque, si l’attaque est réussie, la victime doit réussir au choix un test de FOR ou de DEX difficulté [10+Mod. de FOR de la créature] ou être Renversée. La créature retranche 2 à tous les DM subis (RD 2) avec des armes (contact ou distance). Les sorts font des DM normaux.",
-    "paths": "Voie du colosse",
-    "profileId": null,
-    "voieId": "voie_du_colosse",
-    "active": false
-  },
-  {
     "id": "imparable",
     "name": "Imparable",
     "rank": 1,
@@ -3791,7 +3781,7 @@
     "active": true
   },
   {
-    "id": "riposte",
+    "id": "riposte_champion",
     "name": "Riposte",
     "rank": 2,
     "description": "Le champion peut effectuer une attaque en action gratuite contre chaque adversaire qui l’attaque à l’exception de celui qu’il a lui-même choisit d’attaquer à son tour.",
@@ -3801,7 +3791,7 @@
     "active": true
   },
   {
-    "id": "vol_rapide",
+    "id": "vol_rapide_2",
     "name": "Vol rapide",
     "rank": 1,
     "description": "La créature obtient une action de mouvement supplémentaire par tour lorsqu’elle est en vol. Au premier tour de combat, la créature obtient un bonus de +5 en attaque et +1d6 aux DM si elle est en vol et attaque une créature au sol.",
@@ -3811,7 +3801,7 @@
     "active": true
   },
   {
-    "id": "embuscade",
+    "id": "embuscade_2",
     "name": "Embuscade",
     "rank": 1,
     "description": "Au premier tour de combat, si l’environnement permet à la créature de se dissimuler, la cible doit faire un test de SAG difficulté [15 + Mod. de DEX] ou être Surprise. Si elle attaque avec succès une cible surprise, la créature inflige +1d6 aux DM et toute créature dont la FOR est inférieure à la sienne est Renversée. La créature obtient un bonus de +5 à tous les tests de discrétion et en Init.",
@@ -3821,7 +3811,7 @@
     "active": true
   },
   {
-    "id": "agripper",
+    "id": "agripper_2",
     "name": "Agripper",
     "rank": 2,
     "description": "Sur un résultat de 15-20 au d20 en attaque, la créature agrippe sa proie et ne la lâche plus. Elle obtient un bonus de +5 en attaque et +1d6 aux DM contre la cible qu’elle agrippe et celle-ci est Immobilisée si elle est de taille inférieure. La victime peut essayer de se libérer au prix d’une action de mouvement en réussissant un test de FOR opposé.",
@@ -3831,7 +3821,7 @@
     "active": true
   },
   {
-    "id": "emporter_dans_les_airs",
+    "id": "emporter_dans_les_airs_2",
     "name": "Emporter dans les airs",
     "rank": 3,
     "description": "La créature peut emporter dans les airs une victime agrippée de taille inférieure à la sienne au prix d’une action de mouvement. Au premier tour, si la victime se libère (test de FOR opposé), elle subit, 5d6 DM de chute. Au tour suivant, si la créature décide de prendre de l’altitude, les DM passent à 10d6.",
@@ -3841,7 +3831,7 @@
     "active": true
   },
   {
-    "id": "devorer",
+    "id": "devorer_2",
     "name": "Dévorer",
     "rank": 2,
     "description": "Lorsque la créature réussit une attaque avec un résultat de 15-20 au d20, elle saisit sa proie entre ses crocs ou ses griffes et lui inflige immédiatement une attaque gratuite supplémentaire. Si la FOR de la cible est inférieure ou égale au prédateur, elle est de plus Renversée et Immobilisée. Pour se libérer, la victime doit réussir un test de FOR opposé lors de son tour et cela lui demande une action de mouvement (et une autre pour se relever si elle a réussi).",
@@ -3861,7 +3851,7 @@
     "active": true
   },
   {
-    "id": "sens_afftes",
+    "id": "sens_afftes_2",
     "name": "Sens affûtés",
     "rank": 1,
     "description": "Pour chaque Rang dans cette Voie, le Rôdeur gagne un bonus de +2 à tous ses tests de SAG destinés à simuler la perception (vue, ouïe, vigilance, etc.). De plus, il ajoute son Mod. de SAG aux dégâts qu’il inflige à l’arc et à son Initiative.",
@@ -3891,7 +3881,7 @@
     "active": false
   },
   {
-    "id": "chasseur_emerite",
+    "id": "chasseur_emerite_2",
     "name": "Chasseur émérite",
     "rank": 1,
     "description": "Le Rôdeur obtient un bonus de +2 en attaque et aux DM lorsqu’il combat des animaux et un bonus de +2 par Rang dans cette Voie pour pister ou retrouver des traces.",
@@ -3921,7 +3911,7 @@
     "active": true
   },
   {
-    "id": "interchangeables",
+    "id": "interchangeables_2",
     "name": "Interchangeables",
     "rank": 1,
     "description": "Tant que la créature et ses alliées sont plus nombreuses que la cible, elles se relaient pour esquiver ses attaques et elles obtiennent un bonus de +5 en DEF. Si plusieurs créatures semblables sont au contact du PJ, le MJ a toute latitude pour infliger les DM d’une attaque sur la créature de son choix, le personnage ne sait jamais laquelle il blesse.",
@@ -3951,7 +3941,7 @@
     "active": true
   },
   {
-    "id": "gober",
+    "id": "gober_2",
     "name": "Gober",
     "rank": 3,
     "description": "Lorsqu’elle utilise sa capacité Dévorer, la créature peut avaler toute entière une cible d’au moins 1 taille en dessous de la sienne. La victime doit faire un test de FOR opposé, en cas d’échec elle passe directement dans l’estomac du monstre. Un personnage avalé subit 3d6 DM d’asphyxie et d’acide chaque tour. Il peut attaquer avec une arme pas plus grande qu’une dague en réussissant un test de FOR difficulté 15 à chaque tour. L’attaque se fait avec une pénalité de -5 en attaque et les DM sont divisés par 2.",
@@ -3961,7 +3951,7 @@
     "active": true
   },
   {
-    "id": "corps_enflamme",
+    "id": "corps_enflamme_2",
     "name": "Corps enflammé",
     "rank": 2,
     "description": "La créature est nimbée d’une aura de feu ou peut la faire surgir à volonté. Elle inflige +1d6 DM de feu par attaque de contact réussie. Une créature qui l’attaque au contact subit 1d6 DM pour chaque attaque réussie. Si une victime est saisie ou agrippée par la créature, elle subit à chaque tour +1d6 de feu supplémentaire. Lorsqu’elle est au contact d’une source de feu importante, la créature régénère 5 PV par tour.",
@@ -3971,7 +3961,7 @@
     "active": true
   },
   {
-    "id": "explosion_finale",
+    "id": "explosion_finale_2",
     "name": "Explosion finale",
     "rank": 3,
     "description": "Lorsqu’elle trépasse, la créature explose violemment en infligeant [NC] d6 DM de feu dans un rayon qui dépend de sa taille. Petite : 3 m, moyenne 5 m, grande 10 m, énorme 20 m, colossale 30 m. Un test de DEX difficulté 13 permet de diviser les DM par 2. La difficulté passe à 18 pour les créatures en combat au contact au moment de l’explosion. La capacité Corps enflammé inflige désormais 2d6 DM (au lieu de 1d6).",
@@ -4061,7 +4051,7 @@
     "active": true
   },
   {
-    "id": "balayage",
+    "id": "balayage_2",
     "name": "Balayage",
     "rank": 2,
     "description": "La créature utilise sa grande taille pour affecter plusieurs créatures face à elle d’un seul coup de patte/arme. Si plusieurs cibles sont présentes face à elle, son attaque affecte deux créatures (dans un arc de 180°). Faire un seul test d’attaque et le comparer à la DEF de chaque cible. Sa résistance aux DM passe à 4 (RD 4).",
@@ -4071,7 +4061,7 @@
     "active": false
   },
   {
-    "id": "projection",
+    "id": "projection_2",
     "name": "Projection",
     "rank": 3,
     "description": "Sur 15 à 20 au test d’attaque, la victime est projetée à [1d6+1] mètres de là (plus ou moins selon la taille des protagonistes) et subit +3d6 DM supplémentaires. Elle doit réussir un test de CON de difficulté 15 ou être Étourdie. A chaque tour elle peut tenter un nouveau test de CON pour retrouver ses esprits. Sa résistance aux DM passe à 6 (RD 6).",
@@ -4081,7 +4071,7 @@
     "active": true
   },
   {
-    "id": "enrager",
+    "id": "enrager_2",
     "name": "Enrager",
     "rank": 2,
     "description": "Lorsqu’elle reçoit un coup critique ou si ses PV passent sous la moitié, la créature devient enragée. Elle ignore les pénalités de douleur ou la peur, augmente de +5 son score d’attaque au contact et ses DM de +1d6. Elle peut encore agir un tour complet après avoir atteint 0 PV.",
@@ -4151,7 +4141,7 @@
     "active": true
   },
   {
-    "id": "capitaine",
+    "id": "capitaine_2",
     "name": "Capitaine",
     "rank": 2,
     "description": "Le capitaine donne un bonus de +2 en Initiative, en attaque et aux DM à toutes les créatures sous ses ordres à portée de vue. De plus il bénéficie d’une attaque supplémentaire à chaque tour lorsqu’il utilise une action limitée.",
@@ -4171,7 +4161,7 @@
     "active": true
   },
   {
-    "id": "instinct_de_survie",
+    "id": "instinct_de_survie_2",
     "name": "Instinct de survie",
     "rank": 1,
     "description": "La créature est passée maître dans l’art de se faufiler et de se mettre à couvert. Une fois par tour, au moment de son choix, le PNJ peut utiliser une action de mouvement supplémentaire pour se déplacer. Si un effet ou une créature le paralyse, le ralenti ou restreint ses mouvements, il a droit à un test d’INT ou de DEX au choix difficulté 10 pour s’en débarrasser une fois par tour. Il gagne +5 en DEF lorsqu’il lui reste moins de [NCx5] PV.",
@@ -4181,7 +4171,7 @@
     "active": true
   },
   {
-    "id": "chair_a_canon",
+    "id": "chair_a_canon_2",
     "name": "Chair à canon",
     "rank": 2,
     "description": "Une fois par tour, le PNJ peut décider qu’une attaque qui le visait touche à la place un de ses sous-fifres situé à moins de 3 m et venu s’interposer (ou derrière lequel il s’est mis à couvert). Le PNJ gagne un bonus de +5 en DEF tant que des sous-fifres sont positionnés à moins de 3 mètres de lui.",
@@ -4241,7 +4231,7 @@
     "active": true
   },
   {
-    "id": "attaque_en_traitre",
+    "id": "attaque_en_traitre_2",
     "name": "Attaque en traître",
     "rank": 2,
     "description": "Si la créature attaque en même temps qu’un allié (elle peut volontairement retarder son Initiative), de dos ou par surprise, elle réalise une Attaque sournoise avec un bonus de +5 en attaque et +2d6 aux DM.",
@@ -4251,7 +4241,7 @@
     "active": true
   },
   {
-    "id": "sergent",
+    "id": "sergent_2",
     "name": "Sergent",
     "rank": 1,
     "description": "Une fois par tour, le sergent peut donner une action supplémentaire à n’importe quel allié sous ses ordres à porté de vue (attaque ou mouvement). Une fois par combat, une attaque qui aurait dû amener le sergent à 0 PV est ignorée.",
@@ -4441,7 +4431,7 @@
     "active": true
   },
   {
-    "id": "6eme_sens",
+    "id": "6eme_sens_2",
     "name": "6ème sens",
     "rank": 1,
     "description": "L’Ensorceleur sait toujours légèrement en avance ce qui va arriver. Il gagne un bonus de +1 par Rang dans la Voie en Initiative et en DEF, ainsi qu’un bonus de +2 par Rang à tous les tests pour éviter d’être surpris.",
@@ -4471,7 +4461,7 @@
     "active": true
   },
   {
-    "id": "parole_divine",
+    "id": "parole_divine_2",
     "name": "Parole divine",
     "rank": 1,
     "description": "Pour chaque rang dans cette Voie, le Prêtre obtient un bonus de +2 aux tests de CHA visant à convaincre ou convertir son auditoire.",
@@ -4511,7 +4501,7 @@
     "active": true
   },
   {
-    "id": "arme_benie",
+    "id": "arme_benie_2",
     "name": "Arme bénie",
     "rank": 1,
     "description": "Le Prêtre bénit son arme sacrée. S’il obtient un résultat de « 1 » sur son dé de DM, il relance le dé et garde le second résultat. Les DM de l’arme sont considérés comme magiques.",
@@ -4521,7 +4511,7 @@
     "active": false
   },
   {
-    "id": "bouclier_de_la_foi",
+    "id": "bouclier_de_la_foi_2",
     "name": "Bouclier de la foi",
     "rank": 2,
     "description": "Le Prêtre porte le symbole de sa foi sur son bouclier, ce qui lui confère un bonus supplémentaire de +1 en DEF. Ce bonus passe à +2 au Rang 4 de la Voie.",
@@ -4601,7 +4591,7 @@
     "active": false
   },
   {
-    "id": "langage_des_animaux",
+    "id": "langage_des_animaux_2",
     "name": "Langage des animaux",
     "rank": 1,
     "description": "Le Druide peut communiquer avec les animaux qui, en général, se comportent avec lui de manière amicale. Il gagne un bonus de +2 par rang à tous les tests destinés à influencer un animal. La communication reste primitive et limitée à l’intelligence de l’animal et à son point de vue (prédateur, proie, etc.).",
@@ -4621,7 +4611,7 @@
     "active": true
   },
   {
-    "id": "le_guetteur",
+    "id": "le_guetteur_2",
     "name": "Le guetteur",
     "rank": 3,
     "description": "Le Druide reçoit un oiseau de proie comme compagnon animal. Il possède un lien télépathique avec lui et peut percevoir par ses sens avec un bonus de +5 aux tests basés sur la perception. Aigle : DEF 15, PV [il les partage avec ceux de son maître]. Attaque de contact = [attaque magique du druide], DM 1d4.",
@@ -4761,7 +4751,7 @@
     "active": true
   },
   {
-    "id": "proteger_un_allie",
+    "id": "proteger_un_allie_2",
     "name": "Protéger un allié",
     "rank": 1,
     "description": "Le Guerrier accorde le Mod. de DEF de son bouclier à un compagnon de son choix qui se trouve juste à côté de lui (il conserve ce bonus pour lui-même aussi). Il peut changer de compagnon à chaque tour durant sa phase d’Initiative. C’est une action gratuite.",
@@ -4781,7 +4771,7 @@
     "active": true
   },
   {
-    "id": "sans_peur",
+    "id": "sans_peur_2",
     "name": "Sans peur",
     "rank": 1,
     "description": "Le Chevalier est immunisé aux attaques de peur et il offre un bonus de [2 + Mod. de CHA] à tous ses alliés contre ce type d’effet.",
@@ -4791,7 +4781,7 @@
     "active": false
   },
   {
-    "id": "intercepter",
+    "id": "intercepter_2",
     "name": "Intercepter",
     "rank": 2,
     "description": "Une fois par tour, le Chevalier peut encaisser un coup à la place d’un allié à ses cotés. Il utilise sa DEF plutôt que celle de la cible initiale et retranche aux DM son rang dans la voie.",
@@ -4801,7 +4791,7 @@
     "active": true
   },
   {
-    "id": "piqres_d_insecte",
+    "id": "piqres_d_insecte_2",
     "name": "Piqûres d'insecte",
     "rank": 2,
     "description": "Lorsqu’il porte une armure lourde (demi-plaque ou plus), le Chevalier réduit les DM subis par les attaques à distances d’un montant égal au rang atteint dans cette voie.",
@@ -4811,7 +4801,7 @@
     "active": false
   },
   {
-    "id": "robustesse",
+    "id": "robustesse_2",
     "name": "Robustesse",
     "rank": 1,
     "description": "En prenant cette capacité, le Guerrier gagne 3 PV supplémentaires au Rang 1, puis 3 PV de plus au Rang 3 de cette Voie et enfin 3 PV au Rang 5.",
@@ -4821,7 +4811,7 @@
     "active": false
   },
   {
-    "id": "armure_naturelle",
+    "id": "armure_naturelle_2",
     "name": "Armure naturelle",
     "rank": 2,
     "description": "Le Guerrier a endurci son corps. Il bénéficie d’un bonus de +2 à la DEF. Ce bonus passe à +4 lorsqu’il atteint le rang 4 de la voie.",
@@ -4851,7 +4841,7 @@
     "active": true
   },
   {
-    "id": "assassinat",
+    "id": "assassinat_2",
     "name": "Assassinat",
     "rank": 3,
     "description": "Au premier tour de combat, si la cible est Surprise, une Attaque mortelle réussie l’oblige à réussir un test de CON difficulté 15 ou tomber à 0 PV.",

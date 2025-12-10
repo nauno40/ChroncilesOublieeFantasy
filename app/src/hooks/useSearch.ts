@@ -8,7 +8,7 @@ export function useSearch<T>(
     const [searchTerm, setSearchTerm] = useState(initialTerm);
 
     const filteredItems = useMemo(() => {
-        if (!searchTerm) return items;
+        if (!searchTerm) return [...items]; // Return a shallow copy to ensure referential change if items changed
         return items.filter(item => searchFn(item, searchTerm));
     }, [items, searchTerm, searchFn]);
 

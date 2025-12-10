@@ -40,7 +40,36 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = ({
         if (stored) {
             try {
                 const parsed = JSON.parse(stored);
-                setState(prev => ({ ...prev, ...parsed }));
+
+                // Validate position to ensure it's within viewport
+                const viewportWidth = window.innerWidth;
+                const viewportHeight = window.innerHeight;
+
+                let { x, y, width, height } = parsed;
+
+                // Ensure dimensions are valid
+                if (!width) width = defaultSize.width;
+                if (!height) height = defaultSize.height;
+
+                // Check if window is completely off-screen
+                const isOffScreen =
+                    x > viewportWidth - 50 ||
+                    y > viewportHeight - 50 ||
+                    x + parseFloat(width.toString()) < 50 ||
+                    y < 0;
+
+                if (isOffScreen) {
+                    console.log(`Window ${id} was off-screen, resetting position.`);
+                    // Reset to default if off-screen
+                    setState({
+                        x: defaultPosition.x,
+                        y: defaultPosition.y,
+                        width: defaultSize.width,
+                        height: defaultSize.height,
+                    });
+                } else {
+                    setState(prev => ({ ...prev, ...parsed }));
+                }
             } catch (e) {
                 console.error("Failed to parse window state", e);
             }

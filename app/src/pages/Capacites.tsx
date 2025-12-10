@@ -4,7 +4,6 @@ import profilesData from '../data/profiles.json';
 import voiesData from '../data/voies.json';
 import type { Capacity, Profile, Voie } from '../types/normalized';
 import { PageContainer, PageHeader, Card, Badge, FilterPanel } from '../components/common';
-import { useSearch } from '../hooks';
 
 const capacites = capacitesData as Capacity[];
 const profiles = profilesData as Profile[];
@@ -15,9 +14,12 @@ export const Capacites: React.FC = () => {
     const [selectedProfile, setSelectedProfile] = useState<string>('all');
     const [selectedVoie, setSelectedVoie] = useState<string>('all');
 
-    // Filter capacites based on selected filters
-    const filteredByFilters = useMemo(() => {
+    const [searchTerm, setSearchTerm] = useState('');
+
+    // Filter capacites based on selected filters and search term
+    const filteredItems = useMemo(() => {
         return capacites.filter(capacite => {
+            // Apply Filters
             if (selectedRank !== 'all' && capacite.rank !== parseInt(selectedRank)) {
                 return false;
             }
@@ -27,14 +29,15 @@ export const Capacites: React.FC = () => {
             if (selectedVoie !== 'all' && capacite.voieId !== selectedVoie) {
                 return false;
             }
+
+            // Apply Search
+            if (searchTerm && !capacite.name.toLowerCase().includes(searchTerm.toLowerCase())) {
+                return false;
+            }
+
             return true;
         });
-    }, [selectedRank, selectedProfile, selectedVoie]);
-
-    const { searchTerm, setSearchTerm, filteredItems } = useSearch(
-        filteredByFilters,
-        (capacite, term) => capacite.name.toLowerCase().includes(term.toLowerCase())
-    );
+    }, [selectedRank, selectedProfile, selectedVoie, searchTerm]);
 
     // Get unique profiles and voies that have capacites
     const availableProfiles = useMemo(() => {
@@ -45,11 +48,18 @@ export const Capacites: React.FC = () => {
     }, []);
 
     const availableVoies = useMemo(() => {
-        const voieIds = new Set(capacites.map(c => c.voieId).filter(Boolean));
-        return voies
-            .filter(v => voieIds.has(v.id))
+        let filteredVoies = voies;
+
+        // Filter by selected profile if applicable
+        if (selectedProfile !== 'all') {
+            filteredVoies = filteredVoies.filter(v => v.profileId === selectedProfile);
+        }
+
+        const activeVoieIds = new Set(capacites.map(c => c.voieId).filter(Boolean));
+        return filteredVoies
+            .filter(v => activeVoieIds.has(v.id))
             .sort((a, b) => a.name.localeCompare(b.name));
-    }, []);
+    }, [selectedProfile]);
 
     const activeFiltersCount = [selectedRank, selectedProfile, selectedVoie].filter(f => f !== 'all').length;
 
@@ -96,7 +106,10 @@ export const Capacites: React.FC = () => {
                         </label>
                         <select
                             value={selectedProfile}
-                            onChange={(e) => setSelectedProfile(e.target.value)}
+                            onChange={(e) => {
+                                setSelectedProfile(e.target.value);
+                                setSelectedVoie('all'); // Reset voie when profile changes
+                            }}
                             className="w-full px-3 py-2 bg-stone-900/50 border border-stone-700 rounded-lg text-stone-200 focus:border-primary-500 focus:outline-none transition-colors"
                         >
                             <option value="all">Toutes les classes</option>

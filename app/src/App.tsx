@@ -21,6 +21,7 @@ import { Provisions } from './pages/Provisions';
 import { Dice } from './pages/Dice';
 import { States } from './pages/States';
 import { Rules } from './pages/Rules';
+import { SoundboardPage } from './pages/SoundboardPage';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
           <Route path="campaign/:id" element={<CampaignDetail />} />
           <Route path="tools" element={<Tools />} />
           <Route path="tools/tracker" element={<CombatTracker />} />
+          <Route path="tools/soundboard" element={<SoundboardPage />} />
           <Route path="races" element={<Races />} />
           <Route path="races/:id" element={<RaceDetail />} />
           <Route path="classes" element={<Classes />} />

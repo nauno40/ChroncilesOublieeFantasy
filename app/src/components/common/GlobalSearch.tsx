@@ -10,7 +10,7 @@ import capacitesData from '../../data/capacites.json';
 import profilesData from '../../data/profiles.json';
 import racesData from '../../data/races.json';
 import voiesData from '../../data/voies.json';
-import rulesData from '../../data/Rules.json';
+import rulesData from '../../data/rulesIndex.json';
 import statesData from '../../data/states.json';
 import weaponsData from '../../data/weapons.json';
 import armorsData from '../../data/armors.json';
@@ -126,9 +126,10 @@ export const GlobalSearch: React.FC<GlobalSearchProps> = ({ isOpen, onClose }) =
         }));
 
         safeAdd(rulesData, 'rule', (r) => ({
-            id: `rule-${r.title}`,
+            id: `rule-${r.id}`,
             label: r.title,
-            url: '/rules'
+            subLabel: r.description,
+            url: r.url
         }));
 
         safeAdd(statesData, 'state', s => ({

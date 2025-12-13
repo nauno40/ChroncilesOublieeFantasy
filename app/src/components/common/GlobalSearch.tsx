@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, Command, X, ChevronRight, type LucideIcon, Ghost, Sparkles, BookOpen, User, Users, Shield, Sword, AlertCircle, Backpack } from 'lucide-react';
+import { Search, Command, X, ChevronRight, type LucideIcon, Ghost, Sparkles, BookOpen, User, Users, AlertCircle, Backpack } from 'lucide-react';
 import { createPortal } from 'react-dom';
 
 // Import data

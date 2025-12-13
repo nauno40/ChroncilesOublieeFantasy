@@ -14,13 +14,67 @@
     {
         "id": "base-carac",
         "title": "Caractéristiques & Modificateurs",
-        "description": "Force, Dextérité, Constitution, Intelligence, Sagesse, Charisme",
-        "url": "/rules#caracteristiques"
+        "description": "Attaque (Contact/Dist/Magique), Limitée (Charge/Sort), Mouvement, Gratuite",
+        "url": "/rules#types-actions"
+    },
+    {
+        "id": "combat-modificateurs",
+        "title": "Modificateurs de Combat",
+        "description": "Portée, Couverture, Visibilité, Tir en mêlée, Taille",
+        "url": "/rules#modificateurs-combat"
+    },
+    {
+        "id": "combat-etats",
+        "title": "États Préjudiciables",
+        "description": "Aveuglé, Affaibli, Étourdi, Immobilisé, Paralysé, Ralenti, Renversé, Surpris",
+        "url": "/rules#modificateurs-combat"
+    },
+    {
+        "id": "combat-tactique",
+        "title": "Options Tactiques",
+        "description": "Défense Totale/Partielle, Attaque Assurée/Violente, Soutenir, Riposte",
+        "url": "/rules#options-tactiques"
+    },
+    {
+        "id": "combat-manoeuvres",
+        "title": "Manœuvres de Combat",
+        "description": "Renverser, Désarmer, Pousser, Bloquer, Aveugler, Distraire, Étourdir",
+        "url": "/rules#options-tactiques"
+    },
+    {
+        "id": "base-rd",
+        "title": "Réduction des Dommages (RD)",
+        "description": "Réduction des Dommages (Sources, Cumul), Résistance (/2), Dommages Temporaires",
+        "url": "/rules#sante-dommages"
     },
     {
         "id": "base-chance",
         "title": "Points de Chance",
         "description": "Utilisation des PC, Réussite automatique, Récupération",
+        "url": "/rules#points-chance"
+    },
+    {
+        "id": "base-oppose",
+        "title": "Tests Opposés",
+        "description": "Comparaison de résultats, Égalité, Critique",
+        "url": "/rules#types-tests"
+    },
+    {
+        "id": "base-competence",
+        "title": "Compétences & Bonus",
+        "description": "Calcul des bonus, Cumul (Profil, Peuple, Prestige), Plafond (+15)",
+        "url": "/rules#types-tests"
+    },
+    {
+        "id": "base-coop",
+        "title": "Coopération & Séries",
+        "description": "Aider un allié (+2), Réussites cumulées, Prendre son temps (x5, x20)",
+        "url": "/rules#mecaniques-avancees"
+    },
+    {
+        "id": "base-chance-test",
+        "title": "Test de Chance",
+        "description": "1d6 (JSL) + PC. Hasard pur (Positif/Négatif).",
         "url": "/rules#points-chance"
     },
     {
@@ -56,14 +110,26 @@
     {
         "id": "magie-lancer",
         "title": "Lancer un Sort",
-        "description": "Test d'attaque magique, Portée, Durée, Aire d'effet",
+        "description": "Test d'attaque magique, Portée, Durée, Aire d'effet, Incantation",
         "url": "/rules#lancer-sort"
     },
     {
         "id": "magie-mana",
         "title": "Mana (PM)",
-        "description": "Coût des sorts, Points de Mana, Récupération de mana",
+        "description": "Coût des sorts, Points de Mana, Récupération de mana (Grimoire, Repos)",
         "url": "/rules#mana"
+    },
+    {
+        "id": "magie-brulure",
+        "title": "Brûlure de Mana",
+        "description": "Lancer un sort sans PM en sacrifiant des PV (Dé de récupération)",
+        "url": "/rules#regles-speciales-magie"
+    },
+    {
+        "id": "magie-concentration",
+        "title": "Concentration Accrue",
+        "description": "Réduire le coût en PM d'un sort en prenant plus de temps (Action Limitée)",
+        "url": "/rules#lancer-sort"
     },
     {
         "id": "env-dangers",

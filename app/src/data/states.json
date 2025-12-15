@@ -1,50 +1,50 @@
 [
-  {
-    "id": "affaibli",
-    "name": "Affaibli",
-    "description": "d12 pour tous les tests au lieu du d20",
-    "image": "achilles-heel.svg"
-  },
-  {
-    "id": "aveugle",
-    "name": "Aveuglé",
-    "description": "Init. -5, Att. contact -5, DEF -5, Att. dist. -10",
-    "image": "sight-disabled.svg"
-  },
-  {
-    "id": "etourdi",
-    "name": "Étourdi",
-    "description": "Aucune action possible, DEF -5",
-    "image": "stoned-skull.svg"
-  },
-  {
-    "id": "immobilise",
-    "name": "Immobilisé",
-    "description": "d12 pour tous les tests au lieu du d20, pas de déplacement",
-    "image": "weight-crush.svg"
-  },
-  {
-    "id": "paralyse",
-    "name": "Paralysé",
-    "description": "Aucune action possible, en cas d’attaque : touché automatiquement et subit un coup critique",
-    "image": "handcuffed.svg"
-  },
-  {
-    "id": "ralenti",
-    "name": "Ralenti",
-    "description": "Une seule action par tour (action d’attaque ou de mouvement)",
-    "image": "tortoise.svg"
-  },
-  {
-    "id": "renverse",
-    "name": "Renversé",
-    "description": "Att. -5, DEF -5, nécessite une action de mouvement pour se relever",
-    "image": "falling.svg"
-  },
-  {
-    "id": "surpris",
-    "name": "Surpris",
-    "description": "Pas d’action, DEF -5 au 1er tour de combat",
-    "image": "surprised.svg"
-  }
+    {
+        "id": "affaibli",
+        "name": "Affaibli",
+        "description": "d12 pour tous les tests au lieu du d20",
+        "image": "achilles-heel.svg"
+    },
+    {
+        "id": "aveugle",
+        "name": "Aveuglé",
+        "description": "Init. -5, Att. contact -5, DEF -5, Att. dist. -10",
+        "image": "sight-disabled.svg"
+    },
+    {
+        "id": "etourdi",
+        "name": "Étourdi",
+        "description": "Aucune action possible, DEF -5",
+        "image": "stoned-skull.svg"
+    },
+    {
+        "id": "immobilise",
+        "name": "Immobilisé",
+        "description": "d12 pour tous les tests au lieu du d20, pas de déplacement",
+        "image": "weight-crush.svg"
+    },
+    {
+        "id": "paralyse",
+        "name": "Paralysé",
+        "description": "Aucune action possible, en cas d’attaque : touché automatiquement et subit un coup critique",
+        "image": "handcuffed.svg"
+    },
+    {
+        "id": "ralenti",
+        "name": "Ralenti",
+        "description": "Une seule action par tour (action d’attaque ou de mouvement)",
+        "image": "tortoise.svg"
+    },
+    {
+        "id": "renverse",
+        "name": "Renversé",
+        "description": "Att. -5, DEF -5, nécessite une action de mouvement pour se relever",
+        "image": "falling.svg"
+    },
+    {
+        "id": "surpris",
+        "name": "Surpris",
+        "description": "Pas d’action, DEF -5 au 1er tour de combat",
+        "image": "surprised.svg"
+    }
 ]

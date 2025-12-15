@@ -324,8 +324,8 @@
     "profileId": "chevalier"
   },
   {
-    "id": "voie_du_champ_de_bataille",
-    "name": "Voie du champ de bataille",
+    "id": "voie_du_mercenaire",
+    "name": "Voie du mercenaire",
     "type": "Personnage",
     "profileId": "arquebusier"
   },

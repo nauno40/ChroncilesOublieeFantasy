@@ -132,52 +132,82 @@
         "url": "/rules#lancer-sort"
     },
     {
-        "id": "env-dangers",
-        "title": "Dangers de l'Environnement",
-        "description": "Chute, Feu, Asphyxie, Froid, Maladie",
-        "url": "/rules#dangers"
+        "id": "env-lumiere",
+        "title": "Lumière & Vision",
+        "description": "Lumière vive, Pénombre (-2), Obscurité (-5/Aveuglé), Vision dans le noir, Sources de lumière",
+        "url": "/rules#lumiere-vision"
+    },
+    {
+        "id": "env-chute",
+        "title": "Chute & Asphyxie",
+        "description": "Dégâts de chute (1d6/3m), Acrobatie, Noyade, Retenir sa respiration",
+        "url": "/rules#chute-asphyxie"
+    },
+    {
+        "id": "env-elements",
+        "title": "Feu, Acide & Environnement",
+        "description": "Dégâts de feu/acide par round, Températures extrêmes (Froid/Chaud), Fatigue",
+        "url": "/rules#feu-acide"
     },
     {
         "id": "env-objets",
-        "title": "Solidité des Objets",
-        "description": "Briser un objet, Points de structure, Solidité",
-        "url": "/rules#objets"
-    },
-    {
-        "id": "env-lumiere",
-        "title": "Lumière & Visibilité",
-        "description": "Combat dans le noir, Vision dans le noir, Torche",
-        "url": "/rules#lumiere"
+        "title": "Briser des Objets",
+        "description": "Solidité des matériaux, Dureté (RD), Points de Structure, Casser une arme",
+        "url": "/rules#briser-objets"
     },
     {
         "id": "av-voyage",
         "title": "Voyage & Survie",
-        "description": "Rythme de voyage, Nourriture, Eau, Bivouac",
+        "description": "Voyage hivernal, Progression, Bivouac, Récupération en voyage",
         "url": "/rules#voyage"
     },
     {
-        "id": "av-poisons",
-        "title": "Poisons & Pièges",
-        "description": "Intoxication, Venin, Détection des pièges",
-        "url": "/rules#poisons"
+        "id": "av-rencontres",
+        "title": "Rencontres",
+        "description": "Fréquence des rencontres, Distance de détection, Surprise",
+        "url": "/rules#rencontres"
+    },
+    {
+        "id": "av-obstacles",
+        "title": "Obstacles & Pièges",
+        "description": "Saut, Grand Froid, Forcer une porte, Pièges, Poisons",
+        "url": "/rules#obstacles"
+    },
+    {
+        "id": "av-montures",
+        "title": "Montures",
+        "description": "Combat monté, Dressage, Profils de chevaux, Charge montée",
+        "url": "/rules#montures"
+    },
+    {
+        "id": "obj-consommables",
+        "title": "Potions & Parchemins",
+        "description": "Potion de soin, Potion de mana, Lecture de parchemin, Invisibilité",
+        "url": "/rules#consommables"
     },
     {
         "id": "obj-armes",
-        "title": "Armes Magiques",
-        "description": "Bonus magique, Propriétés spéciales (Feu, Glace...)",
+        "title": "Armes Magiques & Sceptres",
+        "description": "Bonus d'attaque/DM, Sceptres pour mages, Propriétés spéciales, Projectiles",
         "url": "/rules#armes-magiques"
     },
     {
-        "id": "obj-potions",
-        "title": "Potions & Parchemins",
-        "description": "Potion de soin, Potion de mana, Lecture de parchemin",
-        "url": "/rules#objets-divers"
+        "id": "obj-defensifs",
+        "title": "Armures & Boucliers",
+        "description": "Bonus de défense, Propriétés d'armure, Capes, Anneaux de protection",
+        "url": "/rules#objets-defensifs"
     },
     {
-        "id": "obj-prestige",
-        "title": "Objets Prestigieux",
-        "description": "Objets évolutifs, Débloquer des niveaux d'objet",
-        "url": "/rules#objets-magiques"
+        "id": "obj-pouvoir",
+        "title": "Objets de Pouvoir",
+        "description": "Objets reproduisant des sorts, Grimoires, Génération aléatoire",
+        "url": "/rules#objets-pouvoir"
+    },
+    {
+        "id": "obj-divers",
+        "title": "Objets de Puissance & Divers",
+        "description": "Ceinture de force, Diadème d'intelligence, Augmentation de caractéristiques",
+        "url": "/rules#objets-divers"
     },
     {
         "id": "opp-nc",
@@ -198,6 +228,12 @@
         "url": "/rules#bestiaire"
     },
     {
+        "id": "opp-creation",
+        "title": "Création de Créatures",
+        "description": "Table de progression par NC, Boss, Statistiques de base",
+        "url": "/rules#creation-creatures"
+    },
+    {
         "id": "mj-role",
         "title": "Le Meneur de Jeu (MJ)",
         "description": "Rôle, Responsabilités, Arbitrage",
@@ -208,5 +244,17 @@
         "title": "Déroulement de Session",
         "description": "Préparation, Session 0, Rythme de partie",
         "url": "/rules#deroulement-session"
+    },
+    {
+        "id": "mj-progression",
+        "title": "Progression & Récompenses",
+        "description": "Gain de niveau, Richesse par niveau, Points de Chance",
+        "url": "/rules#progression-recompenses"
+    },
+    {
+        "id": "conversion-guide",
+        "title": "Conversion COF1 vers COF2",
+        "description": "Caractéristiques (DEX/AGI), PV/Vigueur, Créatures (+Att/DM/PV), Médreï",
+        "url": "/rules#conversion-guide"
     }
 ]

@@ -86,35 +86,140 @@ export const Rules: React.FC = () => {
                         <h2 className="text-3xl text-primary-400 mb-2 font-display border-b-2 border-primary-900/50 pb-2">Introduction & Univers</h2>
 
 
-                        <div className="grid md:grid-cols-2 gap-8 mb-8">
-                            {/* PRESENTATION JDR */}
-                            <div className="glass-panel p-6 rounded-xl border-l-4 border-l-primary-500">
-                                <h3 className="text-xl font-bold mb-4 text-stone-200">Qu'est-ce que le Jeu de Rôle ?</h3>
-                                <p className="text-sm text-stone-300 mb-4">Un jeu de coopération basé sur le dialogue.</p>
-                                <ul className="space-y-3 text-sm text-stone-300">
-                                    <li className="flex gap-2">
-                                        <span className="font-bold text-primary-300 min-w-[30px]">MJ</span>
-                                        <span>Meneur de Jeu : Raconte l'aventure, joue les monstres/PNJ, arbitre les règles.</span>
-                                    </li>
-                                    <li className="flex gap-2">
-                                        <span className="font-bold text-primary-300 min-w-[30px]">PJ</span>
-                                        <span>Joueurs : Incarnent des héros, prennent des décisions, coopèrent.</span>
-                                    </li>
-                                </ul>
-                            </div>
 
-                            {/* SYSTEME & DES */}
-                            <div className="glass-panel p-6 rounded-xl border-l-4 border-l-primary-500">
-                                <h3 className="text-xl font-bold mb-4 text-stone-200">Système de Jeu</h3>
-                                <div className="mb-4">
-                                    <strong className="block text-primary-300 text-sm mb-1">Les Dés</strong>
-                                    <p className="text-sm text-stone-300">Notation <strong>XdY+Z</strong> (ex: 2d6+3). <br />Dé principal : <strong>d20</strong>.<br />d3 simulé avec d6/2.</p>
+                        {/* INGREDIENTS DU JEU */}
+                        <div id="ingredients" className="glass-panel p-8 rounded-xl border-l-4 border-l-primary-500 mb-8">
+                            <h3 className="text-2xl font-bold mb-6 text-stone-200 border-b border-white/10 pb-2 font-display">Les Ingrédients du Jeu</h3>
+                            <p className="text-stone-300 mb-4">Pour jouer à Chroniques Oubliées Fantasy, vous avez besoin :</p>
+                            <ul className="grid md:grid-cols-2 gap-2 text-sm text-stone-300 mb-8 list-disc ml-5">
+                                <li>D’un <strong>Meneur de Jeu (MJ)</strong>.</li>
+                                <li>D’un <strong>groupe de joueurs</strong> (1 à 5, idéalement 4).</li>
+                                <li>De <strong>personnages</strong> (fiches de PJ).</li>
+                                <li>Des <strong>règles du jeu</strong>.</li>
+                                <li>D’un <strong>scénario d’aventure</strong>.</li>
+                                <li>De <strong>dés</strong>, crayons, gommes et papier.</li>
+                            </ul>
+
+                            <div className="grid md:grid-cols-2 gap-12">
+                                <div className="space-y-6">
+                                    {/* PERSONNAGES */}
+                                    <div>
+                                        <h4 className="font-bold text-xl text-primary-200 mb-3 flex items-center gap-2">
+                                            <span className="w-2 h-2 rounded-full bg-primary-500"></span>
+                                            Les Personnages
+                                        </h4>
+                                        <p className="text-sm text-stone-400 mb-3">Définis par une identité et des paramètres de jeu :</p>
+
+                                        <div className="space-y-4">
+                                            <div className="bg-stone-900/40 p-3 rounded border border-white/5">
+                                                <strong className="text-primary-300 block mb-1">Caractéristiques</strong>
+                                                <p className="text-xs text-stone-300 mb-2">Inné et acquis. Indicateur des capacités physiques et mentales (-2 à +5).</p>
+                                                <div className="flex flex-col gap-1.5 text-[10px] text-stone-400 mt-2">
+                                                    <div><strong className="text-primary-300">FOR (Force) :</strong> Puissance musculaire, dégâts au contact.</div>
+                                                    <div><strong className="text-primary-300">AGI (Agilité) :</strong> Réflexes, souplesse, tir, initiative.</div>
+                                                    <div><strong className="text-primary-300">CON (Constitution) :</strong> Santé, endurance, résistance poison.</div>
+                                                    <div><strong className="text-primary-300">INT (Intelligence) :</strong> Mémoire, raisonnement, savoir.</div>
+                                                    <div><strong className="text-primary-300">PER (Perception) :</strong> 5 sens, intuition, vigilance.</div>
+                                                    <div><strong className="text-primary-300">VOL (Volonté) :</strong> Résistance mentale, courage, concentration.</div>
+                                                    <div><strong className="text-primary-300">CHA (Charisme) :</strong> Influence, persuasion, commandement.</div>
+                                                </div>
+                                            </div>
+
+                                            <div className="grid grid-cols-2 gap-3 text-xs">
+                                                <div className="bg-stone-900/40 p-2 rounded border border-white/5">
+                                                    <strong className="text-primary-300 block">Peuple</strong>
+                                                    <span className="text-stone-400">Humain, Elfe, Nain, etc.</span>
+                                                </div>
+                                                <div className="bg-stone-900/40 p-2 rounded border border-white/5">
+                                                    <strong className="text-primary-300 block">Profil</strong>
+                                                    <span className="text-stone-400">Archétype héroïque (Guerrier, Mage...).</span>
+                                                </div>
+                                            </div>
+
+                                            <div className="bg-stone-900/40 p-3 rounded border border-white/5">
+                                                <strong className="text-primary-300 block mb-1">Voies & Capacités</strong>
+                                                <p className="text-xs text-stone-300 mb-2">Chaque profil a 5 Voies, composées de 5 Capacités (Rangs 1 à 5). La règle spécifique de la capacité prime sur la règle générale.</p>
+                                                <div className="text-[10px] space-y-1 text-stone-400 border-t border-white/5 pt-1 mt-1">
+                                                    <div className="flex justify-between"><span>* 1/combat</span> <span>Repos rapide (30 min)</span></div>
+                                                    <div className="flex justify-between"><span>* 1/jour</span> <span>Repos complet (8 h)</span></div>
+                                                </div>
+                                            </div>
+
+                                            <div className="bg-stone-900/40 p-3 rounded border border-white/5">
+                                                <strong className="text-primary-300 block mb-1">Points de Vigueur (PV)</strong>
+                                                <p className="text-xs text-stone-300 mb-2">Énergie vitale et capacité à éviter les coups (pas juste la santé).</p>
+                                                <ul className="text-[10px] text-stone-400 list-disc ml-3">
+                                                    <li><strong>40 PV :</strong> Combattant expert (encaisse, esquive).</li>
+                                                    <li><strong>6 PV :</strong> Coup mortel direct.</li>
+                                                    <li><strong>0 PV :</strong> Inconscience et risque de mort.</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div id="caracteristiques">
-                                    <strong className="block text-primary-300 text-sm mb-1">Caractéristiques (-2 à +5)</strong>
-                                    <div className="grid grid-cols-4 gap-2 text-xs text-stone-400 font-mono mt-1">
-                                        <span>FOR</span><span>DEX</span><span>CON</span><span>INT</span>
-                                        <span>PER</span><span>VOL</span><span>CHA</span>
+
+                                <div className="space-y-6">
+                                    {/* DES */}
+                                    <div>
+                                        <h4 className="font-bold text-xl text-primary-200 mb-3 flex items-center gap-2">
+                                            <span className="w-2 h-2 rounded-full bg-primary-500"></span>
+                                            Les Dés & Mécaniques
+                                        </h4>
+
+                                        <div className="bg-stone-900/40 p-4 rounded-xl border border-white/5 mb-4">
+                                            <div className="grid grid-cols-6 gap-2 text-center text-xs font-bold text-stone-400 mb-4">
+                                                <div className="p-2 bg-black/20 rounded">d4</div>
+                                                <div className="p-2 bg-black/20 rounded">d6</div>
+                                                <div className="p-2 bg-black/20 rounded">d8</div>
+                                                <div className="p-2 bg-black/20 rounded">d10</div>
+                                                <div className="p-2 bg-black/20 rounded">d12</div>
+                                                <div className="p-2 bg-primary-900/30 text-primary-300 ring-1 ring-primary-500/50 rounded">d20</div>
+                                            </div>
+                                            <div className="bg-primary-950/30 p-3 rounded border border-primary-500/20 text-sm">
+                                                <strong className="text-primary-300 block mb-1">Lecture : "3d6 + 4"</strong>
+                                                <ul className="text-stone-400 list-disc ml-4 space-y-1 text-xs">
+                                                    <li>Lancer 3 dés à 6 faces.</li>
+                                                    <li>Additionner les résultats.</li>
+                                                    <li>Ajouter 4 au total.</li>
+                                                    <li><em>(Ex: 3+5+2 = 10, +4 = 14).</em></li>
+                                                </ul>
+                                            </div>
+                                            <p className="text-[10px] text-stone-500 mt-2 italic text-center">Note : Le "d3" est un d6 divisé par 2 (arrondi sup).</p>
+                                        </div>
+
+                                        <div className="space-y-3">
+                                            <div className="flex justify-between items-center text-sm p-2 bg-stone-900/30 rounded border border-white/5">
+                                                <span className="font-bold text-primary-300">PC (Chance)</span>
+                                                <span className="text-stone-400 text-xs text-right">Faveur du destin,<br />Joker pour survivre.</span>
+                                            </div>
+                                            <div className="flex justify-between items-center text-sm p-2 bg-stone-900/30 rounded border border-white/5">
+                                                <span className="font-bold text-blue-300">PM (Mana)</span>
+                                                <span className="text-stone-400 text-xs text-right">Énergie magique<br />pour les sorts.</span>
+                                            </div>
+                                            <div className="flex justify-between items-center text-sm p-2 bg-stone-900/30 rounded border border-white/5">
+                                                <span className="font-bold text-amber-300">DR (Récup)</span>
+                                                <span className="text-stone-400 text-xs text-right">Second souffle<br />après le combat.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* ACCESSOIRES */}
+                                    <div>
+                                        <h4 className="font-bold text-xl text-primary-200 mb-3 flex items-center gap-2">
+                                            <span className="w-2 h-2 rounded-full bg-primary-500"></span>
+                                            Accessoires & Lexique
+                                        </h4>
+                                        <div className="text-xs text-stone-300 space-y-2">
+                                            <p><strong>Écran du MJ :</strong> Cache les notes et résume les tables.</p>
+                                            <p><strong>VTT (Virtual Table Top) :</strong> Table virtuelle pour jouer en ligne (tokens, plans).</p>
+
+                                            <div className="mt-4 pt-3 border-t border-white/10 grid grid-cols-2 gap-2">
+                                                <div><strong className="text-stone-400">PJ :</strong> Personnage Joueur</div>
+                                                <div><strong className="text-stone-400">PNJ :</strong> Perso. Non-Joueur (MJ)</div>
+                                                <div><strong className="text-stone-400">Campagne :</strong> Saga d'aventures</div>
+                                                <div><strong className="text-stone-400">Roleplay :</strong> Interprétation</div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -363,12 +468,12 @@ export const Rules: React.FC = () => {
                                 <div>
                                     <h4 className="font-bold text-lg text-primary-300 mb-2">1. La Surprise</h4>
                                     <div className="bg-stone-900/50 p-3 rounded border border-white/10 text-sm mb-3">
-                                        <strong>Détection :</strong> Test de PER (Vigilance) vs DEX (Discrétion).
+                                        <strong>Détection :</strong> Test de PER (Vigilance) vs AGI (Discrétion).
                                     </div>
                                     <ul className="list-disc ml-5 text-sm text-stone-300 space-y-1">
                                         <li>Pas d'action durant le round de surprise.</li>
                                         <li><strong>-5 en DEF</strong>.</li>
-                                        <li>Perte du bonus de DEX ou de bouclier à la DEF.</li>
+                                        <li>Perte du bonus d'AGI ou de bouclier à la DEF.</li>
                                     </ul>
                                 </div>
                                 <div>
@@ -598,14 +703,13 @@ export const Rules: React.FC = () => {
                                             <strong>Inconscient :</strong> Perte de 1 DR immédiatement.
                                             <div className="text-xs text-stone-400 mt-1">
                                                 <strong>Mort :</strong> Si pas de soins sous 1 heure (ou achevé).<br />
-                                                <strong>Premiers Soins :</strong> Test INT (Médecine) Diff 10 &rarr; Réveil 1 min (1d4 PV).<br />
-                                                <em>Diff +5 si coup critique ou 0 DR.</em>
+                                                <strong>Stabilisation :</strong> Test de SAG diff 10 (ou soins magiques).
                                             </div>
                                         </div>
                                     </div>
+                                    {/* 0 PV Block End */}
                                 </div>
                             </div>
-
                             {/* 3. RECUPERATION */}
                             <div>
                                 <h4 className="font-bold text-lg text-red-300 mb-4">3. Se Soigner (Le Repos)</h4>
@@ -740,8 +844,8 @@ export const Rules: React.FC = () => {
                                     <h4 className="font-bold text-primary-300 mb-2">Sorts de Zone (Tirs amis)</h4>
                                     <p className="text-sm text-stone-300 mb-2">Difficile d'éviter les alliés au corps-à-corps.</p>
                                     <ul className="list-disc ml-5 space-y-1 text-xs text-stone-300">
-                                        <li><strong>Choix 1 :</strong> Cible prioritaire. Alliés touchés mais +5 au test de DEX (dommages /2).</li>
-                                        <li><strong>Choix 2 :</strong> Épargner alliés (0 DM). La cible a dommages /2 si échec DEX, 0 si réussite.</li>
+                                        <li><strong>Choix 1 :</strong> Cible prioritaire. Alliés touchés mais +5 au test d'AGI (dommages /2).</li>
+                                        <li><strong>Choix 2 :</strong> Épargner alliés (0 DM). La cible a dommages /2 si échec AGI, 0 si réussite.</li>
                                     </ul>
                                 </div>
                                 <div>
@@ -778,61 +882,111 @@ export const Rules: React.FC = () => {
                     {/* CHAPITRE 4 : ENVIRONNEMENT */}
                     {/* ============================== */}
                     <section id="environnement" className="mb-24">
-                        <h2 className="text-3xl text-green-400 mb-8 font-display border-b-2 border-green-900/50 pb-2">Chapitre 4 : Dangers et Environnement</h2>
+                        <h2 className="text-3xl text-cyan-400 mb-8 font-display border-b-2 border-cyan-900/50 pb-2">Chapitre 4 : Environnement</h2>
 
-                        <div id="dangers" className="glass-panel p-6 rounded-xl mb-8 border-l-4 border-l-green-600">
-                            <h3 className="text-2xl font-bold mb-4 text-stone-200 border-b border-white/10 pb-2 font-display">Dangers Naturels</h3>
+                        <div className="grid md:grid-cols-2 gap-8">
+                            {/* LUMIERE & VISION */}
+                            <div id="lumiere-vision" className="glass-panel p-6 rounded-xl border-l-4 border-l-cyan-500">
+                                <h3 className="text-xl font-bold mb-4 text-stone-200 border-b border-white/10 pb-2 font-display">Lumière & Vision</h3>
+                                <p className="text-sm text-stone-300 mb-4">Les malus s'appliquent aux tests de PER (Vigilance) et aux attaques à distance.</p>
 
-                            <div className="space-y-6">
-                                <div>
-                                    <h4 className="font-bold text-lg text-primary-200 border-l-4 border-red-500 pl-2 mb-2">Chute</h4>
-                                    <p className="text-sm text-stone-300"><strong>1d6 DM par tranche de 3 mètres</strong>. Maximum 20d6. (Un test d'Acrobatie peut réduire les dégâts).</p>
+                                <div className="space-y-3">
+                                    <div className="bg-stone-900/50 p-3 rounded border border-white/10 flex justify-between items-center">
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-2 h-2 rounded-full bg-yellow-200 shadow-[0_0_10px_rgba(253,224,71,0.8)]"></div>
+                                            <span className="font-bold text-stone-200">Lumière vive</span>
+                                        </div>
+                                        <span className="text-xs font-mono text-stone-400">Pas de malus</span>
+                                    </div>
+                                    <div className="bg-stone-900/50 p-3 rounded border border-white/10 flex justify-between items-center">
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-2 h-2 rounded-full bg-yellow-700/50"></div>
+                                            <span className="font-bold text-stone-300">Pénombre</span>
+                                        </div>
+                                        <span className="text-xs font-mono text-cyan-400 font-bold">-2 Attaque Dist. / PER</span>
+                                    </div>
+                                    <div className="bg-stone-900/50 p-3 rounded border border-white/10 flex justify-between items-center">
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-2 h-2 rounded-full bg-black border border-stone-700"></div>
+                                            <span className="font-bold text-stone-400">Obscurité</span>
+                                        </div>
+                                        <span className="text-xs font-mono text-cyan-400 font-bold">-5 Attaque / PER (Aveuglé)</span>
+                                    </div>
                                 </div>
-                                <div>
-                                    <h4 className="font-bold text-lg text-primary-200 border-l-4 border-orange-500 pl-2 mb-2">Feu et Acide</h4>
-                                    <p className="text-sm text-stone-300"><strong>1d6 DM par tour</strong> pour un feu normal (torche, vêtements en feu). Le personnage doit passer un tour complet à s'éteindre pour arrêter les dégâts. Lave ou feu magique intense : 10d6 ou plus.</p>
+                                <p className="text-xs text-stone-500 mt-3 italic">Note : La Vision dans le noir ignore la pénombre et l'obscurité (portée 18m, noir & blanc).</p>
+                            </div>
+
+                            {/* CHUTE & ASPHYXIE */}
+                            <div id="chute-asphyxie" className="glass-panel p-6 rounded-xl border-l-4 border-l-slate-500">
+                                <h3 className="text-xl font-bold mb-4 text-stone-200 border-b border-white/10 pb-2 font-display">Chute & Asphyxie</h3>
+
+                                <div className="mb-4">
+                                    <strong className="text-slate-300 block mb-1 text-sm">Chute</strong>
+                                    <div className="bg-stone-900/50 p-3 rounded border border-white/10 text-sm">
+                                        <p className="mb-2"><strong>1d6 DM par tranche de 3m.</strong> (Max 20d6).</p>
+                                        <p className="text-xs text-stone-400">Test d'AGI (Athlétisme) ou Acrobatie DD 15 pour réduire de 3m (1d6) la hauteur effective.</p>
+                                    </div>
                                 </div>
+
                                 <div>
-                                    <h4 className="font-bold text-lg text-primary-200 border-l-4 border-blue-500 pl-2 mb-2">Asphyxie et Noyade</h4>
-                                    <p className="text-sm text-stone-300">Un personnage peut retenir son souffle pendant <strong>[CON] minutes</strong> (minimum 30 sec en combat). Ensuite : Test de CON difficulté 10 (+1 par tour). Échec = 0 PV et mort au bout de [CON] rounds.</p>
+                                    <strong className="text-slate-300 block mb-1 text-sm">Asphyxie (Noyade)</strong>
+                                    <div className="bg-stone-900/50 p-3 rounded border border-white/10 text-sm">
+                                        <ul className="list-disc ml-4 space-y-1 text-xs text-stone-300">
+                                            <li>Retenir souffle : <strong>[MOD CON x 2] minutes</strong> (min 30s).</li>
+                                            <li>Au delà : <strong>Test de CON diff 10</strong>.</li>
+                                            <li>Échec : Inconscient, 0 PV.</li>
+                                            <li>Après 1 min inconscient : Mort.</li>
+                                            <li>Difficulté augmente de +1 par test supplémentaire.</li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div id="lumiere" className="glass-panel p-6 rounded-xl mb-8 border-l-4 border-l-green-600">
-                            <h3 className="text-2xl font-bold mb-4 text-stone-200 border-b border-white/10 pb-2 font-display">Lumière et Visibilité</h3>
-                            <ul className="list-disc ml-6 space-y-2 text-sm text-stone-300">
-                                <li><strong>Pénombre :</strong> Pas de malus au combat, mais malus aux tests de Perception visuelle.</li>
-                                <li><strong>Obscurité totale :</strong> Personnages aveuglés. (Voir état <em>Aveuglé</em>). Déplacement difficile (x2).</li>
-                                <li><strong>Sources de lumière :</strong>
-                                    <ul className="list-disc ml-6 mt-1 text-stone-400">
-                                        <li>Torche : Rayon de 9m. Durée 1h.</li>
-                                        <li>Lanterne : Rayon de 15m. Durée 6h (avec une flasque d'huile).</li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
+                        {/* ELEMENTS & BRIZ D'OBJETS */}
+                        <div className="grid md:grid-cols-2 gap-8 mt-8">
+                            <div id="feu-acide" className="glass-panel p-6 rounded-xl border-l-4 border-l-orange-500">
+                                <h3 className="text-xl font-bold mb-4 text-stone-200 border-b border-white/10 pb-2 font-display">Feu, Acide & Températures</h3>
 
-                        <div id="objets" className="glass-panel p-6 rounded-xl mb-8 border-l-4 border-l-green-600">
-                            <h3 className="text-2xl font-bold mb-4 text-stone-200 border-b border-white/10 pb-2 font-display">Briser des objets</h3>
-                            <p className="text-sm mb-4 text-stone-300">Les objets ont une <strong>Résistance aux Dommages (RD)</strong> et des <strong>PV</strong>.</p>
-                            <div className="overflow-x-auto">
-                                <table className="w-full text-sm text-left">
-                                    <thead>
-                                        <tr className="bg-stone-900/50 text-primary-300">
-                                            <th className="p-3 border border-white/10">Matériau</th>
-                                            <th className="p-3 border border-white/10">RD</th>
-                                            <th className="p-3 border border-white/10">PV (épaisseur 2-5cm)</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className="text-stone-300">
-                                        <tr className="even:bg-white/5"><td className="p-3 border border-white/10">Verre, Glace</td><td className="p-3 border border-white/10">0</td><td className="p-3 border border-white/10">1-2</td></tr>
-                                        <tr className="even:bg-white/5"><td className="p-3 border border-white/10">Bois simple</td><td className="p-3 border border-white/10">5</td><td className="p-3 border border-white/10">5-10</td></tr>
-                                        <tr className="even:bg-white/5"><td className="p-3 border border-white/10">Bois renforcé / Pierre</td><td className="p-3 border border-white/10">10</td><td className="p-3 border border-white/10">20-40</td></tr>
-                                        <tr className="even:bg-white/5"><td className="p-3 border border-white/10">Fer, Acier</td><td className="p-3 border border-white/10">15</td><td className="p-3 border border-white/10">30-60</td></tr>
-                                        <tr className="even:bg-white/5"><td className="p-3 border border-white/10">Mithral / Adamantium</td><td className="p-3 border border-white/10">20+</td><td className="p-3 border border-white/10">80+</td></tr>
-                                    </tbody>
-                                </table>
+                                <div className="space-y-4 text-sm text-stone-300">
+                                    <div>
+                                        <strong className="text-orange-300">Feu & Acide (Par round)</strong>
+                                        <ul className="grid grid-cols-2 gap-2 mt-1">
+                                            <li className="bg-stone-900/30 p-2 rounded"><span className="text-stone-500 text-xs block">Torche / Fiole d'acide</span> 1d6 DM</li>
+                                            <li className="bg-stone-900/30 p-2 rounded"><span className="text-stone-500 text-xs block">Feu de camp / Bain acide</span> 2d6 DM</li>
+                                            <li className="bg-stone-900/30 p-2 rounded"><span className="text-stone-500 text-xs block">Incendie / Lave</span> 10d6 DM</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <strong className="text-blue-300">Températures Extrêmes</strong>
+                                        <p className="text-xs text-stone-400 mt-1">
+                                            Test de CON (Endurance) diff 15 toutes les heures (froid) ou minutes (chaleur extrême).
+                                            <br />Échec : 1d6 DM (ignore RD) + Fatigue.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="briser-objets" className="glass-panel p-6 rounded-xl border-l-4 border-l-stone-500">
+                                <h3 className="text-xl font-bold mb-4 text-stone-200 border-b border-white/10 pb-2 font-display">Briser des Objets</h3>
+                                <p className="text-sm text-stone-300 mb-3">Pour détruire une porte, un coffre ou une arme.</p>
+
+                                <div className="grid grid-cols-2 gap-4 text-sm mb-4">
+                                    <div className="bg-stone-900/50 p-2 rounded text-center">
+                                        <strong className="block text-primary-200 text-xs uppercase mb-1">Dureté (RD)</strong>
+                                        <span className="text-stone-400 text-xs">Réduit les DM subis.</span>
+                                        <div className="font-mono text-stone-200 font-bold mt-1">Bois 5, Pierre 10, Fer 15</div>
+                                    </div>
+                                    <div className="bg-stone-900/50 p-2 rounded text-center">
+                                        <strong className="block text-primary-200 text-xs uppercase mb-1">Résistance (PV)</strong>
+                                        <span className="text-stone-400 text-xs">Points de structure.</span>
+                                        <div className="font-mono text-stone-200 font-bold mt-1">Porte 20, Coffre 10, Mur 50+</div>
+                                    </div>
+                                </div>
+
+                                <div className="bg-red-900/20 p-2 rounded border border-red-500/20 text-xs text-red-200">
+                                    <strong>Armes :</strong> Attaquer une arme tenue = Malus -5 Attaque. Si DM &gt; Dureté, l'arme casse.
+                                </div>
                             </div>
                         </div>
                     </section>
@@ -906,6 +1060,40 @@ export const Rules: React.FC = () => {
                             </div>
                         </div>
 
+                        {/* RENCONTRES */}
+                        <div id="rencontres" className="glass-panel p-6 rounded-xl mb-8 border-l-4 border-l-amber-600">
+                            <h3 className="text-2xl font-bold mb-6 text-stone-200 border-b border-white/10 pb-2 font-display">Rencontres Aléatoires</h3>
+
+                            <div className="grid md:grid-cols-2 gap-8">
+                                <div>
+                                    <h4 className="font-bold text-lg mb-2 text-primary-300">Fréquence</h4>
+                                    <p className="text-sm text-stone-300 mb-3">Le MJ lance <strong>1d20</strong> à intervalles réguliers (selon densité de population/danger).</p>
+                                    <div className="bg-stone-900/50 p-3 rounded border border-white/10 text-sm">
+                                        <ul className="space-y-1 text-stone-300">
+                                            <li className="flex justify-between"><span>Zones peuplées / Routes</span> <span className="text-stone-500 font-mono">15-20</span></li>
+                                            <li className="flex justify-between"><span>Terres sauvages</span> <span className="text-stone-500 font-mono">17-20</span></li>
+                                            <li className="flex justify-between"><span>Zones dangereuses</span> <span className="text-stone-500 font-mono">19-20</span></li>
+                                            <li className="flex justify-between"><span>Donjon / Ruines</span> <span className="text-stone-500 font-mono">16-20 (toutes les heures)</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 className="font-bold text-lg mb-2 text-primary-300">Distance de Rencontre</h4>
+                                    <p className="text-sm text-stone-300 mb-3">Détermine à quelle distance les groupes se repèrent (Test de PER opposé).</p>
+                                    <div className="bg-stone-900/50 p-3 rounded border border-white/10 text-sm">
+                                        <ul className="space-y-1 text-stone-300">
+                                            <li className="flex justify-between"><span>Plaine / Désert</span> <span className="text-stone-500 font-mono">4d6 x 10 m</span></li>
+                                            <li className="flex justify-between"><span>Forêt clairsemée / Collines</span> <span className="text-stone-500 font-mono">2d6 x 10 m</span></li>
+                                            <li className="flex justify-between"><span>Forêt dense / Jungle</span> <span className="text-stone-500 font-mono">2d6 m</span></li>
+                                            <li className="flex justify-between"><span>Intérieur /  Brouillard</span> <span className="text-stone-500 font-mono">1d6 x 3 m</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
                         {/* OBSTACLES */}
                         <div id="obstacles" className="glass-panel p-6 rounded-xl mb-8 border-l-4 border-l-amber-600">
                             <h3 className="text-2xl font-bold mb-6 text-stone-200 border-b border-white/10 pb-2 font-display">Obstacles Physiques</h3>
@@ -945,6 +1133,34 @@ export const Rules: React.FC = () => {
                                         <tr className="even:bg-white/5"><td className="p-3 border border-white/10">Porte blindée / Mur pierre</td><td className="p-3 border border-white/10">30</td><td className="p-3 border border-white/10">15-20</td></tr>
                                     </tbody>
                                 </table>
+                            </div>
+                        </div>
+
+                        {/* MONTURES */}
+                        <div id="montures" className="glass-panel p-6 rounded-xl mb-8 border-l-4 border-l-amber-600">
+                            <h3 className="text-xl font-bold mb-4 text-stone-200 border-b border-white/10 pb-2 font-display">Montures & Combat Monté</h3>
+
+                            <div className="grid md:grid-cols-2 gap-8">
+                                <div>
+                                    <h4 className="font-bold text-lg mb-2 text-primary-300">Combat Monté</h4>
+                                    <ul className="list-disc ml-4 text-sm text-stone-300 space-y-2">
+                                        <li><strong>Attaque :</strong> Le cavalier utilise ses propres scores d'attaque. Si la monture attaque aussi, elle agit à l'initiative du cavalier.</li>
+                                        <li><strong>Charge montée :</strong> Action complète. Déplacement en ligne droite (min 10m). +2 Attaque, +2d6 DM (si lance de cavalerie) ou +2 DM (autre arme). -5 DEF au tour suivant.</li>
+                                        <li><strong>Tir monté :</strong> Malus -2 (si monture en mouvement double) ou -5 (galop).</li>
+                                        <li><strong>Chute :</strong> Si le cavalier ou la monture tombe (renversé, mort de la monture), le cavalier subit 1d6 DM (Test d'Acrobatie DD 15 pour annuler).</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 className="font-bold text-lg mb-2 text-primary-300">Dressage</h4>
+                                    <p className="text-sm text-stone-300 mb-2">Diriger une monture au combat nécessite un dressage (cheval de guerre). Sinon : Action de Mouvement pour contrôler (Test de CHA/Dressage diff 15).</p>
+                                    <div className="bg-stone-900/50 p-3 rounded border border-white/10 text-sm mt-3">
+                                        <strong className="block text-primary-200 mb-1">Profil Cheveaux</strong>
+                                        <ul className="space-y-1 text-xs text-stone-400">
+                                            <li><strong>Cheval léger :</strong> NC 1/2, PV 15, DEF 13, Sabots +2 (1d4+3).</li>
+                                            <li><strong>Cheval de guerre :</strong> NC 2, PV 30, DEF 15, Sabots +5 (1d6+4).</li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -1045,6 +1261,43 @@ export const Rules: React.FC = () => {
                     <section id="objets-magiques" className="mb-24">
                         <h2 className="text-3xl text-purple-400 mb-8 font-display border-b-2 border-purple-900/50 pb-2">Chapitre 6 : Objets Magiques</h2>
 
+
+
+                        {/* CONSOMMABLES */}
+                        <div id="consommables" className="glass-panel p-6 rounded-xl mb-8 border-l-4 border-l-green-600">
+                            <h3 className="text-2xl font-bold mb-6 text-stone-200 border-b border-white/10 pb-2 font-display">Potions & Parchemins</h3>
+
+                            <div className="grid md:grid-cols-2 gap-8">
+                                <div>
+                                    <h4 className="font-bold text-lg mb-2 text-green-300">Potions</h4>
+                                    <p className="text-sm text-stone-300 mb-2">Boire une potion est une <strong>Action de Mouvement</strong> (ou Gratuite si tenue en main). Elle est détruite après usage.</p>
+
+                                    <div className="overflow-x-auto mt-2">
+                                        <table className="w-full text-xs text-left">
+                                            <thead className="text-green-200 bg-green-900/20">
+                                                <tr><th className="p-2 border border-white/10">Type</th><th className="p-2 border border-white/10">Effet</th><th className="p-2 border border-white/10">Niveau</th></tr>
+                                            </thead>
+                                            <tbody className="text-stone-300">
+                                                <tr className="even:bg-white/5"><td className="p-2 border border-white/10 font-bold">Soins légers</td><td className="p-2 border border-white/10">Rend 1d8+1 PV</td><td className="p-2 border border-white/10 text-center">1</td></tr>
+                                                <tr className="even:bg-white/5"><td className="p-2 border border-white/10 font-bold">Soins modérés</td><td className="p-2 border border-white/10">Rend 2d8+3 PV</td><td className="p-2 border border-white/10 text-center">3</td></tr>
+                                                <tr className="even:bg-white/5"><td className="p-2 border border-white/10 font-bold">Soins graves</td><td className="p-2 border border-white/10">Rend 3d8+5 PV</td><td className="p-2 border border-white/10 text-center">5</td></tr>
+                                                <tr className="even:bg-white/5"><td className="p-2 border border-white/10 font-bold">Mana</td><td className="p-2 border border-white/10">Rend 1d6 PM</td><td className="p-2 border border-white/10 text-center">2</td></tr>
+                                                <tr className="even:bg-white/5"><td className="p-2 border border-white/10 font-bold">Invisibilité</td><td className="p-2 border border-white/10">Comme le sort</td><td className="p-2 border border-white/10 text-center">2</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 className="font-bold text-lg mb-2 text-green-300">Parchemins</h4>
+                                    <p className="text-sm text-stone-300 mb-2">Lire un parchemin est une <strong>Action Limitée</strong> (sauf sort rapide). Le parchemin tombe en poussière après usage.</p>
+                                    <ul className="list-disc ml-4 text-sm text-stone-300 space-y-2">
+                                        <li><strong>Utilisateur :</strong> N'importe qui si le sort est de niveau 1 ou 2. Sinon, lanceur de sorts uniquement (test d'INT diff 10 + Niv Sort si non connu).</li>
+                                        <li><strong>Effet :</strong> Lance le sort inscrit au niveau indiqué. Ne coûte pas de PM.</li>
+                                        <li><strong>Coût :</strong> Niv du sort x 50 po (environ).</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
 
                         {/* ARMES MAGIQUES */}
                         <div id="armes-magiques" className="glass-panel p-6 rounded-xl mb-8 border-l-4 border-l-purple-600">
@@ -1469,7 +1722,7 @@ export const Rules: React.FC = () => {
                                         </div>
                                         <p className="text-xs text-stone-400 mb-2">Non-vivant, Moyenne</p>
                                         <div className="text-sm text-stone-300 space-y-1">
-                                            <p><strong>Carac :</strong> FOR +1, DEX +1, CON +1, INT -4, SAG -1, CHA -4</p>
+                                            <p><strong>Carac :</strong> FOR +4, AGI +2, CON +4, INT -2, PER +1, CHA -2</p>
                                             <p><strong>Combat :</strong> DEF 13, PV 9, Init 9</p>
                                             <p><strong>Attaque :</strong> Épée +4 (DM 1d6+1)</p>
                                             <p className="text-xs italic mt-2 text-stone-400">Capacités : Sans esprit (Immu mental), Résistance DM (1/2 sauf contondant), Réduction froid (5).</p>
@@ -1483,7 +1736,7 @@ export const Rules: React.FC = () => {
                                         </div>
                                         <p className="text-xs text-stone-400 mb-2">Non-vivant, Grande</p>
                                         <div className="text-sm text-stone-300 space-y-1">
-                                            <p><strong>Carac :</strong> FOR +6, DEX +1, CON +6, INT -4, SAG -2, CHA -4</p>
+                                            <p><strong>Carac :</strong> FOR +6, AGI +1, CON +6, INT -4, PER -2, CHA -4</p>
                                             <p><strong>Combat :</strong> DEF 18, PV 60, Init 9</p>
                                             <p><strong>Attaque :</strong> Massue à 2 mains +9 (DM 2d8+6)</p>
                                         </div>
@@ -1499,7 +1752,7 @@ export const Rules: React.FC = () => {
                                         </div>
                                         <p className="text-xs text-stone-400 mb-2">Non-vivant</p>
                                         <div className="text-sm text-stone-300 space-y-1">
-                                            <p><strong>Carac :</strong> FOR +5, DEX +4*, CON +5*, INT +4, SAG +4*, CHA +4</p>
+                                            <p><strong>Carac :</strong> FOR +5, AGI +4*, CON +5*, INT +4, PER +4*, CHA +4</p>
                                             <p><strong>Combat :</strong> DEF 20, PV 70, Init 17</p>
                                             <p><strong>Attaque :</strong> Griffes/Morsure (2 att) +11 (1d8+5 + absorp)</p>
                                             <p className="text-xs italic mt-2 text-stone-400">Capacités : Absorption (5 PV), Immortel (Brumes), Forme Gazeuse, Pattes d'araignée, Regard envoûtant (Diff 15), RD 10 (sauf argent/feu).</p>
@@ -1526,24 +1779,72 @@ export const Rules: React.FC = () => {
                         <div id="creation-creatures" className="glass-panel p-6 rounded-xl mb-8 border-l-4 border-l-purple-500">
                             <h3 className="text-2xl font-bold mb-6 text-stone-200 border-b border-white/10 pb-2 font-display">Création de Créatures</h3>
 
-                            <div className="mb-6">
-                                <h4 className="font-bold text-primary-200 mb-2">Profils de Combat par NC (Approximatif)</h4>
+                            <div className="grid md:grid-cols-2 gap-8 mb-6">
+                                <div>
+                                    <h4 className="font-bold text-primary-200 mb-2 border-b border-primary-500/30 pb-1">1. Statistiques de Base</h4>
+                                    <p className="text-sm text-stone-300 mb-2">Pour créer un monstre équilibré, utilisez ces formules basées sur le Niveau de Créature (NC).</p>
+                                    <ul className="space-y-2 text-sm text-stone-300">
+                                        <li className="flex justify-between items-center bg-stone-900/40 p-2 rounded"><span>Mod. Carac principal</span> <span className="font-mono text-purple-300 underline decoration-dotted" title="NC+3 jusqu'au Niv 10, puis +1/2 Niv">+3 à +15</span></li>
+                                        <li className="flex justify-between items-center bg-stone-900/40 p-2 rounded"><span>Attaque (Contact/Dist)</span> <span className="font-mono text-purple-300">NC + Mod. (+3 min)</span></li>
+                                        <li className="flex justify-between items-center bg-stone-900/40 p-2 rounded"><span>Dégâts Moyens</span> <span className="font-mono text-purple-300">NC x 3 (environ)</span></li>
+                                        <li className="flex justify-between items-center bg-stone-900/40 p-2 rounded"><span>Défense</span> <span className="font-mono text-purple-300">12 + NC</span></li>
+                                        <li className="flex justify-between items-center bg-stone-900/40 p-2 rounded"><span>Difficulté des Sorts</span> <span className="font-mono text-purple-300">10 + NC</span></li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 className="font-bold text-primary-200 mb-2 border-b border-primary-500/30 pb-1">2. Boss & Puissance</h4>
+                                    <p className="text-sm text-stone-300 mb-3">Un boss est conçu pour affronter seul (ou avec peu d'aides) un groupe de 4 aventuriers.</p>
+                                    <div className="space-y-3">
+                                        <div className="bg-purple-900/20 p-2 rounded border border-purple-500/20">
+                                            <strong className="text-purple-300 text-sm block">Boss (NC équivalent au Niv PJs)</strong>
+                                            <ul className="text-xs text-stone-400 list-disc ml-4">
+                                                <li><strong>PV :</strong> Multipliés par 3 à 5 (selon difficulté).</li>
+                                                <li><strong>Initiative :</strong> 2 tours d'Init (ex: 20 et 10). Agit 2 fois par round.</li>
+                                                <li><strong>Sauvegardes :</strong> Lance 2 dés et garde le meilleur.</li>
+                                            </ul>
+                                        </div>
+                                        <div className="bg-stone-900/20 p-2 rounded border border-white/10">
+                                            <strong className="text-stone-300 text-sm block">Sbires (Minions)</strong>
+                                            <p className="text-xs text-stone-400">PV réduits (meurent en 1-2 coups). NC inférieur de 3 à 5 niveaux.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="mb-2">
+                                <h4 className="font-bold text-primary-200 mb-2">Table de Progression Rapide (Standard)</h4>
                                 <div className="overflow-x-auto">
                                     <table className="w-full text-xs text-left">
                                         <thead className="bg-stone-900/50 text-stone-400">
                                             <tr>
-                                                <th className="p-2">NC</th>
-                                                <th className="p-2">Défense</th>
-                                                <th className="p-2">PV Moyens</th>
-                                                <th className="p-2">Attaque</th>
-                                                <th className="p-2">Dégâts Moyens</th>
+                                                <th className="p-2 border border-white/10">NC</th>
+                                                <th className="p-2 border border-white/10">Attaque</th>
+                                                <th className="p-2 border border-white/10">DM Moyens</th>
+                                                <th className="p-2 border border-white/10">Défense</th>
+                                                <th className="p-2 border border-white/10">PV Moyens</th>
                                             </tr>
                                         </thead>
                                         <tbody className="text-stone-300">
-                                            <tr className="border-t border-white/5"><td>1</td><td>15</td><td>15</td><td>+4</td><td>1d6+3</td></tr>
-                                            <tr className="border-t border-white/5"><td>5</td><td>21</td><td>90</td><td>+11</td><td>2d10+12</td></tr>
-                                            <tr className="border-t border-white/5"><td>10</td><td>28</td><td>200</td><td>+16</td><td>4d10+20</td></tr>
-                                            <tr className="border-t border-white/5"><td>20</td><td>33</td><td>400</td><td>+20</td><td>4d12+46</td></tr>
+                                            {[
+                                                [1, "+4", "6 (1d6+3)", 13, 15],
+                                                [2, "+5", "9 (1d8+4)", 14, 25],
+                                                [3, "+7", "12 (2d6+5)", 15, 35],
+                                                [4, "+9", "15 (2d8+6)", 16, 50],
+                                                [5, "+11", "18 (3d6+7)", 17, 65],
+                                                [8, "+15", "27 (4d8+9)", 20, 110],
+                                                [10, "+18", "33 (5d8+10)", 22, 140],
+                                                [12, "+21", "39 (6d8+12)", 24, 170],
+                                                [15, "+25", "48 (8d8+12)", 27, 220],
+                                                [20, "+32", "65 (10d10+10)", 32, 400],
+                                            ].map(([nc, att, dm, def, pv]) => (
+                                                <tr key={nc} className="even:bg-white/5 border-t border-white/5">
+                                                    <td className="p-2 border-r border-white/10 font-bold">{nc}</td>
+                                                    <td className="p-2 border-r border-white/10 text-center">{att}</td>
+                                                    <td className="p-2 border-r border-white/10">{dm}</td>
+                                                    <td className="p-2 border-r border-white/10 text-center">{def}</td>
+                                                    <td className="p-2 text-center">{pv}</td>
+                                                </tr>
+                                            ))}
                                         </tbody>
                                     </table>
                                 </div>
@@ -1665,8 +1966,116 @@ export const Rules: React.FC = () => {
                                 Attribuer une valeur fixe (<strong>10</strong>) au jet de dé du PNJ, ou faire le jet caché pour le PJ.
                             </div>
                         </div>
+
+                        {/* PROGRESSION */}
+                        <div id="progression-recompenses" className="glass-panel p-6 rounded-xl mb-8 border-l-4 border-l-amber-500">
+                            <h3 className="text-2xl font-bold mb-6 text-stone-200 border-b border-white/10 pb-2 font-display">Progression & Récompenses</h3>
+
+                            <div className="grid md:grid-cols-2 gap-8">
+                                <div>
+                                    <h4 className="font-bold text-amber-200 mb-2">Gain de Niveau</h4>
+                                    <p className="text-sm text-stone-300 mb-2">Le MJ décide quand les PJ montent de niveau. (Pas de compte d'XP fastidieux).</p>
+                                    <div className="bg-stone-900/50 p-3 rounded border border-white/10 text-sm">
+                                        <ul className="space-y-1 text-stone-300">
+                                            <li><strong>Rythme rapide :</strong> 1 niveau par séance de 4h.</li>
+                                            <li><strong>Rythme moyen :</strong> 1 niveau toutes les 2-3 séances.</li>
+                                            <li><strong>Niv 1 à 5 :</strong> Progression rapide recommandée pour atteindre la spécialisation.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 className="font-bold text-amber-200 mb-2">Trésors & Équipement</h4>
+                                    <p className="text-sm text-stone-300 mb-2">Récompenser les PJ avec de l'or et des objets magiques.</p>
+                                    <div className="bg-stone-900/50 p-3 rounded border border-white/10 text-sm text-stone-300">
+                                        <p className="mb-1"><strong>Niveau de richesse :</strong> Au niveau L, un personnage devrait posséder pour environ <strong>L x 100 po</strong> d'équipement (dont objets magiques).</p>
+                                        <p><em>Exemple Niv 5 :</em> Équipement total ~500 po (ex: Armure plaques, Arme +1, un accessoire).</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="mt-6">
+                                <h4 className="font-bold text-amber-200 mb-2">Points de Chance (PC)</h4>
+                                <p className="text-sm text-stone-300 mb-2">Les PC sont une ressource précieuse pour réussir les actions héroïques.</p>
+                                <ul className="list-disc ml-5 text-sm text-stone-300">
+                                    <li><strong>Début de partie :</strong> Max de PC.</li>
+                                    <li><strong>Gain de niveau :</strong> Récupèrent tous leurs PC.</li>
+                                    <li><strong>Récompense exceptionnelle :</strong> Le MJ peut rendre 1 PC pour une action d'éclat ou un bon roleplay.</li>
+                                </ul>
+                            </div>
+                        </div>
                     </section>
 
+                    {/* ============================== */}
+                    {/* ANNEXE : GUIDE DE CONVERSION */}
+                    {/* ============================== */}
+                    <section id="conversion-guide" className="mb-24">
+                        <h2 className="text-3xl text-stone-400 mb-2 font-display border-b-2 border-stone-800 pb-2">Annexe : Guide de Conversion COF1 {'>'} COF2</h2>
+
+                        <div className="glass-panel p-6 rounded-xl mb-8 border-l-4 border-l-stone-500">
+                            <h3 className="text-2xl font-bold mb-6 text-stone-200 border-b border-white/10 pb-2 font-display">Principes Généraux</h3>
+                            <p className="text-sm text-stone-300 mb-4">L'impact est mineur. Les aventures COF1 sont jouables en COF2 avec des ajustements légers.</p>
+
+                            <div className="grid md:grid-cols-2 gap-6 text-sm text-stone-300 mb-6">
+                                <div className="space-y-3">
+                                    <div className="bg-stone-900/50 p-3 rounded border border-white/10">
+                                        <strong className="block text-primary-300 mb-1">Caractéristiques</strong>
+                                        <ul className="list-disc ml-4 space-y-1">
+                                            <li><strong>DEX</strong> devient <strong>AGI</strong> (Agilité).</li>
+                                            <li><strong>SAG</strong> devient <strong>PER</strong> (Perception).</li>
+                                            <li><strong>VOL</strong> (Volonté) est <strong>AJOUTÉE</strong>. <span className="text-stone-500 italic">(-4 peureux à +6 inflexible).</span></li>
+                                        </ul>
+                                    </div>
+                                    <div className="bg-stone-900/50 p-3 rounded border border-white/10">
+                                        <strong className="block text-primary-300 mb-1">Terminologie</strong>
+                                        <ul className="list-disc ml-4 space-y-1">
+                                            <li><strong>PV</strong> (Points de Vie) devient <strong>PV</strong> (Points de Vigueur).</li>
+                                            <li><strong>Difficulté :</strong> Identique. Aucune conversion.</li>
+                                            <li><strong>Initiative :</strong> Légèrement plus faible en COF2. (Conserver tel quel possible).</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div className="bg-stone-900/50 p-3 rounded border border-white/10">
+                                    <strong className="block text-primary-300 mb-2">Conversion des Créatures</strong>
+                                    <p className="mb-2">Pour chaque Rang de voie (ou pouvoir équivalent) :</p>
+                                    <ul className="list-disc ml-4 space-y-1 mb-3">
+                                        <li><strong>+1 Attaque</strong></li>
+                                        <li><strong>+2 DM</strong> (ou converti en une Attaque supplémentaire si DM élevés).</li>
+                                        <li><strong>+10 PV</strong></li>
+                                    </ul>
+                                    <div className="mt-2 pt-2 border-t border-white/5">
+                                        <strong className="block text-primary-300 mb-1">Ajustement final par NC</strong>
+                                        <div className="grid grid-cols-4 gap-1 text-xs text-center">
+                                            <div className="bg-stone-800 p-1 rounded">NC 5-6 <br /><strong>-1 Att</strong></div>
+                                            <div className="bg-stone-800 p-1 rounded">NC 9-10 <br /><strong>-3 Att</strong></div>
+                                            <div className="bg-stone-800 p-1 rounded">NC 13-14 <br /><strong>-5 Att</strong></div>
+                                            <div className="bg-stone-800 p-1 rounded">NC 19-20 <br /><strong>-8 Att</strong></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="bg-stone-900/30 p-4 rounded border border-white/5">
+                                <h4 className="font-bold text-stone-200 mb-2">Exemple : Médreï ar Maëdra (Anathazerïn)</h4>
+                                <div className="grid md:grid-cols-2 gap-4 text-xs text-stone-400">
+                                    <div>
+                                        <strong className="block text-red-400 mb-1">COF 1 (Original)</strong>
+                                        NC 14, FOR +8, DEX +4, CON +8, INT +6, SAG +5, CHA +5<br />
+                                        DEF 28, PV 130<br />
+                                        Att : +17 (1d6+5 venin)<br />
+                                        Att : +17 (1d6+10 épée)
+                                    </div>
+                                    <div>
+                                        <strong className="block text-green-400 mb-1">COF 2 (Converti)</strong>
+                                        NC 14, FOR +8, <span className="text-white">AGI</span> +4, CON +8, INT +6, <span className="text-white">PER</span> +5, CHA +5, <span className="text-white">VOL +6</span><br />
+                                        DEF 28, <span className="text-white">PV 190</span> (+60)<br />
+                                        Att : <span className="text-white">+18</span> (1d6+5 venin)<br />
+                                        Att : <span className="text-white">+18 (2 attaques)</span> (1d6+10 épée)
+                                    </div>
+                                </div>
+                                <p className="mt-2 text-xs italic text-stone-500">Note : 6 rangs de voies (+6 Att, +60 PV, +12 DM). Les +12 DM sont convertis en une attaque supplémentaire. Ajustement NC 14 (-5 Att). Total Att : +17 +6 -5 = +18.</p>
+                            </div>
+                        </div>
+                    </section>
                 </div >
             </main >
         </div >

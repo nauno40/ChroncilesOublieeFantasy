@@ -45,6 +45,9 @@ export interface Profile {
     imageUrl: string;
     magicModifier: string | null;
     voies: string[]; // Array of voie IDs
+    vigorPoints?: number;
+    recoveryDie?: string;
+    luckPoints?: number;
 }
 
 export interface Voie {
@@ -250,11 +253,12 @@ export interface Creature {
     category: Field[];
     size: Field[];
     str_mod: Field[];
-    dex_mod: Field[];
+    agi_mod: Field[];
     con_mod: Field[];
     int_mod: Field[];
-    wis_mod: Field[];
+    per_mod: Field[];
     cha_mod: Field[];
+    vol_mod: Field[];
     sup_abilities: Field[];
     defense: Field[];
     health_point: Field[];

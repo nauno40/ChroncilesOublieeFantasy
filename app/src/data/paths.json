@@ -140,7 +140,7 @@
         "spell3": "Déplacement magique (L)",
         "spell4": "",
         "spell5": "",
-        "Note": "Les créatures dotées de cette voie obtiennent au choix l’INT, la SAG ou le CHA en Carac. Supérieure."
+        "Note": "Les créatures dotées de cette voie obtiennent au choix l’INT, la PER ou le CHA en Carac. Supérieure."
     },
     {
         "Voie": "Voie de la magie de guérison",
@@ -151,7 +151,7 @@
         "spell3": "Soutenir (L)",
         "spell4": "",
         "spell5": "",
-        "Note": "Les créatures dotées de cette voie obtiennent au choix l’INT, la SAG ou le CHA en Carac. Supérieure."
+        "Note": "Les créatures dotées de cette voie obtiennent au choix l’INT, la PER ou le CHA en Carac. Supérieure."
     },
     {
         "Voie": "Voie de la magie des arcanes",
@@ -195,7 +195,7 @@
         "spell3": "Injonction mortelle (L)",
         "spell4": "",
         "spell5": "",
-        "Note": "Les créatures dotées de cette voie obtiennent au choix l’INT, la SAG ou le CHA en Carac. Supérieure. Elles sont capables de voir dans le noir."
+        "Note": "Les créatures dotées de cette voie obtiennent au choix l’INT, la PER ou le CHA en Carac. Supérieure. Elles sont capables de voir dans le noir."
     },
     {
         "Voie": "Voie de la magie protectrice",
@@ -238,7 +238,7 @@
         "spell2": "Transe de guérison",
         "spell3": "Maîtrise du ki",
         "spell4": "Projection mentale (L)",
-        "spell5": "Sagesse héroïque",
+        "spell5": "Perception héroïque",
         "Note": ""
     },
     {
@@ -304,7 +304,7 @@
         "spell2": "Destruction des morts-vivants (L) *",
         "spell3": "Sanctuaire (L) *",
         "spell4": "Intervention divine",
-        "spell5": "Sagesse héroïque",
+        "spell5": "Perception héroïque",
         "Note": ""
     },
     {
@@ -503,7 +503,7 @@
         "spell3": "Emporter dans les airs",
         "spell4": "",
         "spell5": "",
-        "Note": "Les créatures dotées de cette capacité obtiennent la SAG en Carac. Supérieure (indiqué par un *)."
+        "Note": "Les créatures dotées de cette capacité obtiennent la PER en Carac. Supérieure (indiqué par un *)."
     },
     {
         "Voie": "Voie des élixirs",
@@ -668,7 +668,7 @@
         "spell3": "Symétrie",
         "spell4": "Double peine",
         "spell5": "Combat à deux armes parfait",
-        "Note": "Avec autorisation du MJ, la Voie du combat à deux armes peut aussi être choisie par un joueur pour un personnage dont le Profil est Guerrier dès sa création en remplacement d'une Voie de son choix. Toutefois, dans ce cas, les capacités de rang 1 et 5 deviennent des capacités limitées. Autres Profils possibles : tous sauf la famille des lanceurs de sort. Requis : Mod. de DEX de +1 minimum."
+        "Note": "Avec autorisation du MJ, la Voie du combat à deux armes peut aussi être choisie par un joueur pour un personnage dont le Profil est Guerrier dès sa création en remplacement d'une Voie de son choix. Toutefois, dans ce cas, les capacités de rang 1 et 5 deviennent des capacités limitées. Autres Profils possibles : tous sauf la famille des lanceurs de sort. Requis : Mod. de AGI de +1 minimum."
     },
     {
         "Voie": "Voie du compagnon animal",
@@ -921,7 +921,7 @@
         "spell3": "Gober",
         "spell4": "",
         "spell5": "",
-        "Note": "Les créatures dotées de cette voie obtiennent la DEX et la SAG en Carac. Supérieure (indiqué par un *)."
+        "Note": "Les créatures dotées de cette voie obtiennent la AGI et la PER en Carac. Supérieure (indiqué par un *)."
     },
     {
         "Voie": "Voie du primitif",
@@ -942,7 +942,7 @@
         "spell2": "Forêt vivante (L) *",
         "spell3": "Régénération (L) *",
         "spell4": "Forme d’arbre (L) *",
-        "spell5": "Sagesse héroïque",
+        "spell5": "Perception héroïque",
         "Note": ""
     },
     {

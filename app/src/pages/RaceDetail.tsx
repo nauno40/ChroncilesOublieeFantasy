@@ -1,10 +1,14 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import racesData from '../data/races.json';
-import type { Race } from '../types/normalized';
+import voiesData from '../data/voies.json';
+import capacitesData from '../data/capacites.json';
+import type { Race, Voie, Capacity } from '../types/normalized';
 import { ArrowLeft } from 'lucide-react';
 
 const races = racesData as Race[];
+const voies = voiesData as Voie[];
+const capacites = capacitesData as Capacity[];
 
 // Map French race names to English image filenames
 const getRaceImageName = (raceName: string): string => {
@@ -31,6 +35,12 @@ export const RaceDetail: React.FC = () => {
     }
 
     const raceImageName = getRaceImageName(race.name);
+
+    // Dynamic Capacities Logic
+    const raceVoie = race.voieId ? voies.find(v => v.id === race.voieId) : null;
+    const raceCapacities = raceVoie
+        ? capacites.filter(c => c.voieId === raceVoie.id).sort((a, b) => (a.rank || 0) - (b.rank || 0))
+        : [];
 
     return (
         <div className="max-w-4xl mx-auto space-y-6 animate-fade-in pb-12">
@@ -139,12 +149,27 @@ export const RaceDetail: React.FC = () => {
                     </div>
 
                     {/* Capacités raciales */}
-                    {race.abilities && (
+                    {(race.abilities || raceCapacities.length > 0) && (
                         <div className="glass-panel p-6 rounded-xl border-white/5 bg-primary-950/20">
                             <h3 className="text-xl font-display font-bold text-primary-300 mb-4 border-b border-primary-500/20 pb-2">
-                                Capacités raciales
+                                Capacités raciales {raceVoie ? `(${raceVoie.name})` : ''}
                             </h3>
-                            <p className="text-stone-300 leading-relaxed whitespace-pre-line">{race.abilities}</p>
+
+                            {raceCapacities.length > 0 ? (
+                                <div className="space-y-4">
+                                    {raceCapacities.map((cap) => (
+                                        <div key={cap.id} className="relative pl-4 border-l-2 border-primary-500/30">
+                                            <div className="flex items-baseline gap-2 mb-1">
+                                                <span className="text-xs font-bold text-primary-400 uppercase tracking-wider">Rang {cap.rank}</span>
+                                                <h4 className="font-bold text-stone-200">{cap.name}</h4>
+                                            </div>
+                                            <p className="text-stone-300 text-sm leading-relaxed">{cap.description}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            ) : (
+                                <p className="text-stone-300 leading-relaxed whitespace-pre-line">{race.abilities}</p>
+                            )}
                         </div>
                     )}
 

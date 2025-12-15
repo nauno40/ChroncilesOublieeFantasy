@@ -2,173 +2,175 @@
     {
         "id": "demielfe",
         "name": "Demi-elfe",
-        "description": "Le Demi-elfe a hérité des qualités de ses deux parents (humain et Elfe). Il est généralement traité avec condescendance parmi les Elfes et est considéré comme un Elfe parmi les humains.",
-        "detailedDescription": "Le Demi-elfe a hérité des qualités de ses deux parents (humain et Elfe). Il est généralement traité avec condescendance parmi les Elfes et est considéré comme un Elfe parmi les humains.",
-        "publicPerception": "Les Demi-elfes sont des artistes hors-pair dotés d'une grande sensibilité. Toutefois, attention car ils sont beaux parleurs et manipulateurs : cachez vos filles et vos femmes, ils ont brisé plus d'un cœur et corrompu bien des dames de réputation vertueuse.",
-        "abilities": "Sang mêlé : le Demi-elfe choisit l'une des deux Capacités suivantes.\n\nInstinct de survie (humain) : Lorsqu’une attaque devrait amener le personnage à 0 PV, les DM qu’elle inflige sont divisés par 2 (minimum 1).\n\nLumière des étoiles (Elfe) : Pour un Haut-elfe, l’obscurité de la nuit sous la lumière des étoiles n’est que de la pénombre, où seuls les petits détails lui échappent.",
+        "description": "Le demi-elfe a hérité des qualités de ses deux parents (humain et elfe). Il est généralement traité avec condescendance parmi les elfes et perçu comme un elfe parmi les humains.",
+        "detailedDescription": "Dans les Terres d’Osgild. Ce n’est pas une surprise, mais les demi-elfes sont plus nombreux à proximité des lieux habités par les elfes, notamment à la lisière de la grande forêt de Hautesylve. Néanmoins, les elfes hauts sont trop fiers et arrogants, et les unions mixtes se terminent souvent en exil volontaire vers le bois de Myrviel, suffisamment accueillant pour qu’une famille s’y établisse, et suffisamment proche de Hautesylve pour que le parent elfe reste en contact avec les siens. Ainsi, la principauté d’Arly abrite la plus grande concentration de demi-elfe. Outre Myrviel, les demi-elfes sont particulièrement communs dans la forêt de Bois dormant où les sang-mêlé ont plus souvent un héritage elfe sylvain. Les demi-elfes sont bien acceptés dans les nations humaines où, au pire, on les confond avec des elfes, mais en dehors de la principauté d’Arly, ils restent considérés comme des gens d’exception, à raison. Le protectorat de Fer est une exception notoire, sa politique raciste envers les peuples non humains étant particulièrement exacerbée envers ceux qu’elle appelle les sangs impurs.",
+        "publicPerception": "Interpréter un demi-elfe. Le caractère et les aspirations d’un demi-elfe dépendent surtout de son éducation. Vous devez déterminer lequel de vos deux parents était un elfe et s’il s’agissait d’un elfe haut ou d’un elfe sylvain. Vos deux parents vous ont-ils élevé ensemble ? Si c’est le cas, vous avez probablement une vision éclairée et tolérante des différentes cultures. Mais si ce n’est pas le cas, vous avez peut-être hérité de quelques préjugés, voire d’un certain ressentiment pour la culture qui vous a renié. Toutefois, presque tous les demi-elfes ont un point commun : ils sont souvent d'une nature poétique, voire mélancolique. En effet, il n'est pas facile de voir les ravages que cause une si grande différence d'espérance de vie entre vos deux parents, et entre vos parents et vous-même. Cela pousse inévitablement le jeune demi-elfe à se poser des questions existentielles sur l'amour, la vie et la mort. Pour cette raison, alors que les elfes détestent généralement la nécromancie, c'est une spécialité qui n'est pas rare chez les sang-mêlé. Cette fragilité intérieure associée à la dualité de culture fait aussi des demi-elfes des bardes d'exception.",
+        "abilities": "Le demi-elfe ne possède pas de voie de peuple dédiée, selon l’héritage culturel et le lieu de l’éducation de son personnage, le joueur devra choisir entre la voie de l’humain ou une des voies de peuple d’elfe (elfe sylvain ou elfe haut).",
         "startingAge": 20,
         "lifeExpectancy": 150,
-        "characteristics": "-2 CON, +2 SAG",
+        "characteristics": "+1 PER ou CHA, -1 FOR ou CON",
         "physicalTraits": "Grâce naturelle, oreilles légèrement pointues, pilosité faible.",
-        "typicalNames": "Les noms des personnages Demi-elfes reflètent souvent leur double nature et ils se composent d’un prénom elfique et d’un nom humain. Plus rarement l’inverse, car les Elfes n’acceptent pas qu’une créature avec une durée de vie aussi brève porte le nom de leur lignée.",
+        "typicalNames": "Les noms des personnages demi-elfes reflètent souvent leur double nature et ils se composent d’un prénom elfique et d’un nom de famille humain. L’inverse est plus rare car les elfes n’acceptent pas qu’une créature avec une durée de vie aussi brève porte le nom de leur lignée.",
         "size": {
             "min": "1.50 m",
             "max": "1.90 m"
         },
         "weight": {
-            "min": "40.00 kg",
-            "max": "80.00 kg"
+            "min": "40 kg",
+            "max": "80 kg"
         }
     },
     {
         "id": "demiorque",
-        "name": "Demi-orque",
-        "description": "Le Demi-orque est de grande taille. Issu de l’union souvent forcée d’une humaine et d’un Orque, il possède une force physique hors du commun. Il est généralement méprisé par les autres races, en particulier par les Nains et les Elfes.",
-        "detailedDescription": "Le Demi-orque est de grande taille. Issu de l’union souvent forcée d’une humaine et d’un Orque, il possède une force physique hors du commun. Il est généralement méprisé par les autres races, en particulier par les Nains et les Elfes.",
-        "publicPerception": "Les Demi-orques sont violents, sales et stupides, ils en veulent au monde entier de leur ignoble naissance et mieux vaut les éviter",
-        "abilities": "Vision dans le noir : dans le noir total, le Demi-orque voit comme dans la pénombre jusqu’à 30 m.",
+        "name": "Demi-orc",
+        "description": "Le demi-orc est de grande taille. Il possède une force physique hors du commun, et est généralement méprisé par les autres peuples, en particulier par les nains et les elfes.",
+        "detailedDescription": "Dans les Terres d’Osgild. Cela peut paraître évident, mais on trouve généralement des demi-orcs là où les humains et les orcs partagent une frontière, souvent de façon musclée. De nombreux sang-mêlé survivent du côté des monts Vierges, là où les tribus barbares combattent ceux du désert des Morteroches. La vie de demi-orc n’est pas facile : dans le meilleur des cas les préjugés et la méfiance sont de mise, dans le pire c’est de la haine. Toutefois, localement, il existe des régions où la tolérance est plus élevée. C’est le cas de la principauté d’Arly, sous le règne éclairé du prince Thomar d’Arly, et en particulier de la région de Clairval. Bien que cette région ait eu des conflits difficiles avec les orcs, la petite baronnie a donné naissance à un demi-orc du nom de Krush, dont la trajectoire éclatante a permis au peuple d’Arly de revoir ses préjugés et aux sang-mêlé d’avoir un héros auquel s’identifier. Plus à l’est, à la suite de l’invasion du pays de Dorn par les géants et les orcs, nombre de jeunes demi-orcs ont vu le jour. Traités en paria depuis la libération, ils se sont dispersés à travers les marches du Piémont. Enfin, loin au sud-est, la forêt de Luir-An-Doral abrite elle aussi de nombreuses tribus d’orcs et d’humains qui luttent également pour la survie. Ces tribus primitives n’ont pas de préjugés raciaux et les jeunes métisses sont bien acceptés des deux côtés. Ce n’est que lorsqu’ils quittent la jungle qu’ils découvrent les préjugés dont ils sont victimes.",
+        "publicPerception": "Interpréter un demi-orc. Comme pour le demi-elfe, le caractère et les préjugés des demi-orcs dépendent beaucoup des conditions de leur éducation. Toutefois, contrairement à ce cousin « de bonne famille », il est bien rare qu’un enfant demi-orc ait eu la chance de bénéficier des soins d’un couple aimant et sans histoire. Les demi-orcs sont, plus souvent qu'à leur tour, élevés dans la misère par une mère seule, reniée même par sa propre famille, quand ils ne sont pas tout simplement déposés devant les portes d'un orphelinat ou d'un temple. Pour cette raison, on trouve presque autant de prêtres demi-orcs que de guerriers ou de voleurs. Lorsqu'ils sont recueillis par un ordre religieux, ils deviennent généralement d'une loyauté sans faille pour leur nouvelle famille et d'un zèle qui confine au fanatisme. Pour les autres, souvent rejetés et victimes de racisme, les demi-orcs apprennent rapidement à user de leur talent pour la violence afin de survivre. Dans tous les cas, vous savez que vous devez vous montrer fort et impitoyable, car, à la moindre faiblesse, les « braves gens » se jetteront sur vous avec la bienveillance d'une bande de hyènes affamées. Alors vous avez appris à savourer la peur que vous allumez dans leur regard, lorsque vous découvrez vos crocs dans un rictus provocateur.",
+        "abilities": "Voie du Demi-orc : Impressionnant, Talent pour la violence, Critique brutal, Attaque sanglante (L), Colosse...",
         "startingAge": 15,
         "lifeExpectancy": 60,
-        "characteristics": "+2 FOR, -2 INT, -2 CHA",
-        "physicalTraits": "Grand et athlétique. Peau grisâtre ou verdâtre, mâchoire large, front bas, petits yeux.",
-        "typicalNames": "Les Demi-orques utilisent des prénoms humains, à moins qu’ils aient été élevés chez les Orques. Certains se choisissent aussi un prénom orque à l’âge adulte, en réaction à l’ostracisme dont ils sont victimes. Les noms orques sont courts et gutturaux, privilégiez les lettres R, G et K, évitez une voyelle douce comme le E et préférez le O.",
+        "characteristics": "+1 FOR ou CON et -1 CHA ou INT",
+        "physicalTraits": "Grand et athlétique. Peau verdâtre qui tend parfois vers un vert plus franc, mâchoire large, front bas, petits yeux.",
+        "typicalNames": "Les demi-orcs utilisent des prénoms humains, à moins qu’ils aient été élevés chez les orcs. Certains se choisissent aussi un prénom orc à l’âge adulte, en réaction à l’ostracisme dont ils sont victimes. Les noms orcs sont courts et gutturaux, privilégiez les lettres R, G et K, évitez une voyelle douce comme le E et préférez le O.\n\nLes noms féminins sont généralement les mêmes que les noms masculins mais avec la lettre A en plus à la fin.\n\nMasculin: Aog, Bargul, Carok, Drog, Erok, Farg, Gorog, Hurl, Jorgul, Krok, Krush, Lugn, Mog, Norok, Rork, Urdu, etc.\nFéminin: Aoga, Bargula, Caroka, Droga, Eroka, Farga, Goroga, Hurla, Jorgula, Kroka, Krusha, Lugna, Moga, Noroka, Rorka, Urdua, etc.",
         "size": {
             "min": "1.70 m",
             "max": "2.10 m"
         },
         "weight": {
-            "min": "70.00 kg",
-            "max": "150.00 kg"
+            "min": "70 kg",
+            "max": "150 kg"
         },
         "voieId": "voie_du_demiorque"
     },
     {
         "id": "elfe_haut",
-        "name": "Elfe, haut",
-        "description": "Le Haut-elfe est un être féerique qui vit extrêmement longtemps. Il est méprisant envers les Nains et arrogant envers les autres races. Proche de la nature, il maîtrise aussi bien les arts de la magie que ceux de la guerre.",
-        "detailedDescription": "Le Haut-elfe est un être féerique qui vit extrêmement longtemps. Il est méprisant envers les Nains et arrogant envers les autres races. Proche de la nature, il maîtrise aussi bien les arts de la magie que ceux de la guerre.",
-        "publicPerception": "Les Elfes se croient supérieurs à tous les autres, ce sont de puissants magiciens mais leur cœur est sans pitié. Ils obéissent à de très anciennes règles et à des serments incompréhensibles pour les Races à l’espérance de vie ordinaire.",
-        "abilities": "Lumière des étoiles : pour un Haut-elfe, l’obscurité de la nuit sous la lumière des étoiles n’est que de la pénombre, où seuls les petits détails lui échappent.",
+        "name": "Elfe haut",
+        "description": "L’elfe haut est un être féérique qui vit extrêmement longtemps et dont le niveau de civilisation et de culture se révèle généralement supérieur à celui des autres peuples. Proche de la nature, il maîtrise aussi bien les arts de la magie que ceux de la guerre.",
+        "detailedDescription": "Dans les Terres d’Osgild. La seule grande nation des elfes est le royaume de Hautesylve, mais le peuple qui s’est autoproclamé le plus noble et le plus ancien du Mitan ne se mélange pas facilement aux autres. Quelques elfes hauts se sont aussi établis dans d’autres forêts, par exemple Bois dormant, en principauté d’Arly, où ils forment souvent des communautés aristocratiques parmi une population d’elfes sylvains. Les elfes hauts sont donc assez peu nombreux à parcourir les Terres d’Osgild et, lorsqu’ils le font, ils ont souvent une bonne raison. Les elfes hauts entretiennent une relation paradoxale avec les nains. En tant que peuple ancien, les nains méritent nécessairement davantage de respect que les jeunes et turbulents humains. Pourtant, les relations sont tendues. Leur amour de l’or, des souterrains et de la bière, leurs manières, jugées détestables par les elfes de bonne éducation, tout cela ne suffit pas à expliquer cette inimitié. Il y a entre les deux peuples des blessures anciennes, des conflits territoriaux liés à une époque révolue. Mais les Premiers-nés vivent longtemps et ont la mémoire longue. Par exemple, ils se souviennent encore que la forêt Sombre est un lieu maudit où ils ont mené une terrible bataille contre le Roi-Sorcier de Tor-Angul, il y a sept mille ans. Une information que les humains ont oubliée depuis longtemps.",
+        "publicPerception": "Interpréter un elfe haut. Essayez de garder une certaine distance avec les autres personnages, une certaine hauteur de vue. Vous êtes réservé et vous ne montrez pas facilement vos sentiments profonds. La plupart des elfes hauts ont une haute probité morale et une haute opinion d'eux-mêmes. Ils détestent la corruption, la vulgarité et la violence et ils ont un grand respect pour la vie. Ce sont des êtres civilisés et cultivés, bien plus que n'importe quel autre peuple, et cela les rend parfois arrogants. Les elfes aiment la beauté, les arts, les vêtements de luxe et les matériaux nobles, ils attachent sans doute trop d'importance aux apparences. Ils sont souvent méprisants envers les nains qu'ils jugent avides et sans finesse.",
+        "abilities": "Voie de l'Elfe Haut : Lumière intérieure, Force d'âme, Talent pour la magie, Immortel, Supériorité elfique...",
         "startingAge": 80,
         "lifeExpectancy": 450,
-        "characteristics": "-2 FOR, +2 CHA",
-        "physicalTraits": "Svelte et gracieux. Oreilles pointues, yeux en amandes (verts, violets), cheveux parfois blancs, argent ou or, pilosité absente.",
-        "typicalNames": "Les Hauts-elfes privilégient les noms aux sonorités douces mais complexes. L, W, N et M sont les consonnes dominantes et les voyelles sont souvent doubles (ië, aë). Les noms féminins finissent par -wen, -wë, -ië, -aël ou –aëlle. Ceux des hommes par des terminaisons aux sonorités plus tranchées comme -dir, -dur, -dor ou -dil.",
+        "characteristics": "+1 INT ou CHA, -1 FOR",
+        "physicalTraits": "Élancé, svelte et gracieux. Jeunesse éternelle. Oreilles pointues, yeux en amandes (verts, violets), cheveux parfois blancs, argent ou or.",
+        "typicalNames": "Les elfes hauts privilégient les noms aux sonorités douces mais complexes. L, W, N et M sont les consonnes dominantes et les voyelles sont souvent doubles (ië, aë). Les noms féminins finissent par -wen, -wë, -ië, -aël ou -aëlle. Ceux des hommes par des terminaisons aux sonorités plus tranchées comme -dir, -dur, -dor ou -dil.\n\nMasculin: Arwendil, Caëldwendir, Eldwyndor, Elberenhdir, Elendur, Gilgalendil, Irwildur, Laurelith, Linaëndir, Laendoril, Nennendir, etc.\nFéminin: Elberenh, Elidhwen, Ellenúviel, Laurelinn, Linaëwen, Laendorië, Maelwë, Maerwen, Nennenvaël, Ninwelotë, Tintaëlle, etc.",
         "size": {
             "min": "1.50 m",
             "max": "1.80 m"
         },
         "weight": {
-            "min": "40.00 kg",
-            "max": "70.00 kg"
-        }
+            "min": "40 kg",
+            "max": "70 kg"
+        },
+        "voieId": "voie_du_hautelfe"
     },
     {
         "id": "elfe_sylvain",
-        "name": "Elfe, sylvain",
-        "description": "L’Elfe sylvain est issu d’une culture différente de celle des Hauts-elfes. Légèrement plus petits, ils vivent au plus profond des forêts, s’abritant dans les arbres et vivant simplement de la chasse et de la cueillette. Moins arrogants que leurs cousins Hauts-elfes, ils sont cependant beaucoup plus méfiants. Ils maitrisent particulièrement l’art du camouflage et l’utilisation de l’arc.",
-        "detailedDescription": "L’Elfe sylvain est issu d’une culture différente de celle des Hauts-elfes. Légèrement plus petits, ils vivent au plus profond des forêts, s’abritant dans les arbres et vivant simplement de la chasse et de la cueillette. Moins arrogants que leurs cousins Hauts-elfes, ils sont cependant beaucoup plus méfiants. Ils maitrisent particulièrement l’art du camouflage et l’utilisation de l’arc.",
-        "publicPerception": "Les Elfes sylvains sont de redoutables archers, ils détestent les cités et les gens qui y vivent, ils peuvent tuer d’une flèche dans le dos un paysan juste parce qu'il a coupé le mauvais arbre.",
-        "abilities": "Lumière des étoiles : pour un Elfe sylvain, l’obscurité de la nuit sous la lumière des étoiles n’est que de la pénombre, où seuls les petits détails lui échappent.",
+        "name": "Elfe sylvain",
+        "description": "L’elfe sylvain est issu d’une culture différente de celle des elfes hauts. Légèrement plus petits, ils vivent au plus profond des forêts, s’abritant dans les arbres et vivant simplement de la chasse et de la cueillette. Moins arrogants que leurs cousins hauts elfes, ils sont cependant beaucoup plus méfiants. Ils maîtrisent particulièrement l’art du camouflage et l’utilisation de l’arc.",
+        "detailedDescription": "Dans les Terres d’Osgild. Les elfes sylvains partagent la grande forêt de Hautesylve avec les elfes hauts, mais ils sont beaucoup moins présents que ces derniers au sud et autour de la capitale Syndoril. Ils sont en revanche majoritaires plus au nord, autour du lac Thuléa. Ils s’impliquent beaucoup moins dans la politique que leurs cousins, ils sont plus proches de la nature, moins rêveurs et plus pragmatiques. Les elfes sylvains sont également nombreux dans les forêts du nord de la principauté d’Arly : le bois de Myrviel autour de Clairval ou Bois dormant autour de Myrlune. Ces elfes sont des citoyens de la principauté et un de leurs représentants siège au grand conseil de la nation. Enfin, une importante communauté d’elfes sylvains vit dans la dangereuse forêt de Luir-An-Doral, loin au sud-est, une jungle dont on ne sait que peu de choses. Une origine parfaite pour tout elfe sauvage (barbare). Les elfes sylvains vivent en petites communautés, un peu partout où on peut trouver une forêt. Ainsi un elfe sylvain peut venir d’une contrée lointaine, comme les forêts enneigées du Nord où naissent les elfes du givre à la peau blanche.",
+        "publicPerception": "Interpréter un elfe sylvain. Vous êtes un écologiste dans un monde qui ne connaît pas la signification de ce mot. Pour vous, la nature — plus particulièrement la forêt — est une mère qu’il faut aimer et respecter. Au mieux, vous ne comprenez pas ceux qui détruisent vos très chers arbres, au pire, vous les haïssez. Si les elfes sylvains ne respectaient pas autant la valeur de la vie, le métier de bûcheron serait sans aucun doute le plus dangereux des Terres d’Osgild. Vous partagez avec vos cousins elfes hauts une langue, une culture et un amour des arts et de la beauté, mais vos goûts sont plus simples. En particulier vous préférez les tenues fonctionnelles et les couleurs de la nature, tandis que les elfes hauts aiment le bleu, le blanc, l'or ou l'argent. Vous êtes méfiant vis-à-vis des étrangers, peut-être plus encore que vos cousins, et vous ne cherchez pas à vous en cacher. Pourtant, vous restez moins prompt qu'eux à juger sur les apparences.",
+        "abilities": "Voie de l’Elfe Sylvain : Lumière des étoiles, Enfant de la forêt, Archer émérite, Flèche sanglante (L), Supériorité elfique...",
         "startingAge": 50,
         "lifeExpectancy": 350,
-        "characteristics": "-2 FOR, +2 DEX",
-        "physicalTraits": "Svelte et musclé. Oreilles pointues, yeux en amandes (verts, violets), cheveux sombres, tatouages, pilosité absente.",
-        "typicalNames": "Les Elfes sylvains ont des noms assez similaires aux Hauts-elfes, mais plus simples. Chez les femmes, la dernière consonne ou la dernière voyelle est doublée. Chez les hommes les terminaisons -din, -dor, -ion sont plus privilégiées.",
+        "characteristics": "+1 AGI ou PER, -1 FOR",
+        "physicalTraits": "Menu, svelte. Oreilles pointues, yeux en amandes (verts, violets), cheveux sombres (bruns, noirs, roux), tatouages, pilosité absente.",
+        "typicalNames": "Les elfes des bois ont des noms assez similaires à ceux des elfes hauts, quoique ceux des sylvains soient plus simples. Chez les femmes, la dernière consonne ou la dernière voyelle est doublée. Chez les hommes, les terminaisons –din, -dor, -ion sont privilégiées.\n\nMasculin: Aëdin, Caëndor, Cirion, Doralion, Ealdor, Findalion, Glorfindor, Haëldion, Laurendor, Morwendir, Raëldirion, etc.\nFéminin: Aëldill, Aluinill, Aliann, Dianaë, Eilinelle, Elenwëe, Lúthill, Nínielle, Nolwaënn, Mírielle, Keltienn, etc.",
         "size": {
             "min": "1.40 m",
             "max": "1.70 m"
         },
         "weight": {
-            "min": "30.00 kg",
-            "max": "60.00 kg"
-        }
+            "min": "30 kg",
+            "max": "60 kg"
+        },
+        "voieId": "voie_de_l_elfe_sylvain"
     },
     {
         "id": "gnome",
         "name": "Gnome",
-        "description": "Le Gnome est une créature de petite taille pourvue d’un gros nez, d’une bonne nature et d’une curiosité insatiable pour la magie et les sciences. C’est un compagnon souvent agréable bien qu’un peu original. Les Nains et les Halfelins l’apprécient, tandis que les \"grandes\" races se montrent plutôt indifférentes à leur égard.",
-        "detailedDescription": "Le Gnome est une créature de petite taille pourvue d’un gros nez, d’une bonne nature et d’une curiosité insatiable pour la magie et les sciences. C’est un compagnon souvent agréable bien qu’un peu original. Les Nains et les Halfelins l’apprécient, tandis que les \"grandes\" races se montrent plutôt indifférentes à leur égard.",
-        "publicPerception": "Les Gnomes sont sympathiques mais à moitié fous, méfiez-vous comme de la peste de leurs inventions ou de leurs projets farfelus.",
-        "abilities": "Don étrange : le gnome possède un talent inné pour les sciences, qu’elles soient occultes ou plus ordinaires.\n\nLe joueur choisit une des deux options suivantes :\n\nSoit son personnage gagne un bonus de +5 sur tous les tests d’INT ;\n\tSoit il choisit une capacité de rang 1 d’Ensorceleur. Il peut utiliser ce sort sans pénalité avec une armure allant jusqu’à la chemise de maille.\n",
+        "description": "Le gnome est une créature de petite taille pourvue d’un gros nez, d’une bonne nature et d’une curiosité insatiable pour la magie et les sciences. C’est un compagnon souvent agréable, bien qu’un peu original. Les nains et les halfelins l’apprécient, tandis que les « grandes » personnes se montrent plutôt indifférentes à leur égard.",
+        "detailedDescription": "Dans les Terres d’Osgild. Ce peuple industrieux réside majoritairement dans la principauté d’Arly. La région de Wyks ou le Bois dormant sont de bonnes origines géographiques pour un personnage gnome. Des gnomes sont également installés tout le long des frontières de Hautesylve. De nombreux gnomes ont colonisé les Hauts de Hurleroche (entre Hautesylve et le désert des Morteroches) où se situe leur capitale, une étonnante cité souterraine nommée Hurlevent. Mais l’existence de cette cité est une information assez peu connue des autres peuples, à l’exception des elfes de Hautesylve. Enfin, il existerait au sein de la forêt de Luir-An-Doral des tribus de gnomes belliqueux à la peau sombre et aux coutumes anthropophages qui s’intéresseraient davantage à la nécromancie qu’aux illusions, et plus aux poisons qu’aux sciences.",
+        "publicPerception": "Interpréter un gnome. Vous êtes généralement joyeux, optimiste et enthousiaste et cet état d’esprit positif fait de vous un agréable compagnon. Mais il faut bien cela pour vous supporter, car vous êtes aussi très original, et jamais à court d’idée ou de plans farfelus. De plus, vous avez tendance à n’en faire qu’à votre tête... Essayez de trouver une passion originale, un sujet d’étude improbable ou une collection étrange. Par exemple, un gnome pourrait avoir une passion pour la composition de la terre de surface, et le projet de sa vie pourrait être de recenser tous les terroirs des Terres d’Osgild au sein d’une classification basée sur leur goût en bouche... Vos affinités avec les nains et les halfelins sont très fortes. Vous vous entendez bien avec les elfes et, bien que ceux-ci vous considèrent avec condescendance, vous ne leur en tenez pas rigueur. Car globalement, les gnomes ont très bon caractère et il en faut vraiment beaucoup pour mettre un gnome en colère. D’ailleurs, il se dit que si un gnome devait se venger de son pire ennemi, il le ferait sans doute en blaguant.",
+        "abilities": "Voie du Gnome : Don étrange, Petit pote, Insignifiant, Merveille technologique, Bonne nature...",
         "startingAge": 40,
         "lifeExpectancy": 250,
-        "characteristics": "-2 FOR, +2 INT",
-        "physicalTraits": "Petit et rondouillard. Gros nez, moustaches et rouflaquettes.",
-        "typicalNames": "Les Gnomes aiment les prénoms que les humains jugent désuets. Ils ont aussi un nom de famille compliqué et long, qu’ils accolent toujours à ce prénom. Un habitant de notre monde pourrait trouver que ces noms ont des consonances germaniques et étranges.",
+        "characteristics": "+1 en INT ou PER, -1 en FOR",
+        "physicalTraits": "Petit et rondouillard, gros nez. Moustaches et rouflaquettes pour les gnomes, couettes pour les gnomettes. Oreilles un peu pointues ou grandes et rondes.",
+        "typicalNames": "Les gnomes aiment les prénoms que les humains jugent désuets. Ils ont aussi un nom de famille compliqué et long, qu’ils accolent toujours à ce prénom. Un habitant de notre monde pourrait trouver que ces noms ont des consonances germaniques et étranges.\n\nMasculin: Albert Blumdenplick, Eustache Dimtigballen, Firmin Vondemacht, Isidore Kolerbiltag, Nestor Wurmenship, etc.\nFéminin: Thérèse Aliserwilp, Huguette Uhldimmerstelp, Rose Molkenpulp, Eugénie Bimpbelinedor, etc.",
         "size": {
             "min": "1.00 m",
             "max": "1.20 m"
         },
         "weight": {
-            "min": "30.00 kg",
-            "max": "50.00 kg"
+            "min": "30 kg",
+            "max": "50 kg"
         },
         "voieId": "voie_du_gnome"
     },
     {
         "id": "halfelin",
         "name": "Halfelin",
-        "description": "Le Halfelin est la plus petite des races jouables. Toujours bon vivant, souvent vif, curieux, et parfois farceur, c’est un incompris que les autres Races considèrent souvent comme turbulent, pénible, voire parfois comme un voleur.",
-        "detailedDescription": "Le Halfelin est la plus petite des races jouables. Toujours bon vivant, souvent vif, curieux, et parfois farceur, c’est un incompris que les autres Races considèrent souvent comme turbulent, pénible, voire parfois comme un voleur.",
-        "publicPerception": "Les Halfelins sont inoffensifs et ne pensent qu’à bien manger. Toutefois, ne perdez jamais de vue leurs mains car se sont aussi des voleurs sans scrupules.",
-        "abilities": "Petite taille : le Halfelin obtient un bonus de +1 en DEF et de +2 à tous les tests de discrétion. En revanche, un Halfelin peut seulement utiliser à une main une arme dont les DM sont au maximum égaux à 1d6 (épée courte, masse, etc.). Il lui faut utiliser les 2 mains pour les armes qui infligent 1d8 à 1d10 de DM (épée longue). Enfin il lui est interdit d’utiliser les armes qui infligent plus de 1d10 DM.",
+        "description": "Les halfelins représentent le plus petit des peuples jouables. Toujours bons vivants, souvent vifs, curieux, et parfois farceurs, les halfelins sont des incompris que les autres peuples considèrent souvent comme turbulents, pénibles, si ce n’est comme des voleurs.",
+        "detailedDescription": "Dans les Terres d’Osgild. Bien que souvent regroupés au sein de modestes communautés, les petites gens, comme on les désigne parfois, vivent discrètement et en bonne entente avec les grandes gens. Ils n’ont pas de revendication territoriale et, à vrai dire, personne ne sait, pas même eux, s’ils font partie des peuples anciens ou s’ils ont une origine commune avec les humains... Les halfelins peuvent donc venir des mêmes zones que les humains, mais ils sont plus souvent d’origine rurale que citadine. La plaine entre Clairval et Wyks comporte de très nombreux hameaux et presque tous abritent une ou deux familles de halfelins bien intégrés. Les halfelins possèdent un don naturel pour attirer la sympathie et se faire discrets quand ce n’est pas le cas.",
+        "publicPerception": "Interpréter un halfelin. La plupart des halfelins sont des gens paisibles et sans histoire qui fuient l’incertitude et le danger une fois atteint l’âge de raison. Mais avant cela, les jeunes adultes ont une période de curiosité insatiable et de remise en question de leur mode de vie paisible. Durant cette parenthèse turbulente, ils sont enclins à l’aventure et il est alors fréquent pour le jeune halfelin de s’émanciper de sa parenté. Ainsi, les petites gens se sont approprié la devise « les voyages forment la jeunesse ». À moins que ce ne soit simplement une manière pratique pour les adultes de se débarrasser des jeunes gens agités... C’est généralement durant leurs voyages que les jeunes halfelins, sans fortune ni principes, construisent leur réputation de voleur, alors que la société de leurs parents réprouve totalement ce type de pratique. En tant que jeune halfelin, vous êtes idéaliste et naïf, mais aussi curieux et aventureux, ce qui vous pousse parfois à prendre des risques inconsidérés. Toutefois, les halfelins ont aussi un bon fond qui leur vient de l’amour qu’ils ont reçu durant leur enfance et qui les pousse instinctivement à aider les plus faibles et les plus démunis. Dans la société des halfelins, la nourriture occupe une place centrale et on ne laisse pas quelqu’un en manquer. Enfin, un peu avant leurs trente ans, la plupart des petites gens cessent leur errance et s’installent pour mener une vie paisible. Cependant, il arrive que, de façon très exceptionnelle, certains prennent goût à l’aventure.",
+        "abilities": "Voie du Halfelin : Petite taille, Résistance légendaire, Bon pour le moral, Petit veinard, Vif et bien nourri...",
         "startingAge": 20,
         "lifeExpectancy": 150,
-        "characteristics": "-2 FOR, +2 DEX",
+        "characteristics": "+1 AGI ou VOL, -1 FOR",
         "physicalTraits": "Petit et vif. Pieds poilus, regard espiègle.",
-        "typicalNames": "Les Halfelins mâles utilisent des prénoms courts qui ressemblent à des diminutifs. Les prénoms féminins sont le plus souvent inspirés des fleurs et des fruits. Ils ont généralement un nom en rapport avec leur lieu de naissance : Sur-le-pont, Dubois, Sous-colline, Moulinbas, etc.",
+        "typicalNames": "Les halfelins mâles utilisent des prénoms courts qui ressemblent à des diminutifs. Les prénoms féminins sont le plus souvent inspirés des fleurs et des fruits. Ils ont généralement un nom en rapport avec leur lieu de naissance : Sur-le-pont, Dubois, Sous-colline, Moulinbas, etc.\n\nMasculin: Bill, Bern, Don, Duky, Eckel, Fili, Ged, Gerry, Hek, Hicks, Jack, Karl, Litle, Luky, Mike, Polo, Sam, Titi, etc.\nFéminin: Églantine, Lila, Jacinthe, Marguerite, Muguette, Pâquerette, Prune, Rose, etc.",
         "size": {
             "min": "0.80 m",
             "max": "1.00 m"
         },
         "weight": {
-            "min": "20.00 kg",
-            "max": "30.00 kg"
+            "min": "20 kg",
+            "max": "30 kg"
         },
         "voieId": "voie_du_halfelin"
     },
     {
         "id": "humain",
         "name": "Humain",
-        "description": "L’humain se distingue par sa capacité d’adaptation et son instinct qui le pousse à coloniser tous les territoires qui l’entourent. La Race humaine est la plus représentée et la plus répandue dans les zones dites \"civilisées\".",
-        "detailedDescription": "L’humain se distingue par sa capacité d’adaptation et son instinct qui le pousse à coloniser tous les territoires qui l’entourent. La Race humaine est la plus représentée et la plus répandue dans les zones dites \"civilisées\".",
-        "publicPerception": "Les humains sont de jeunes loups ignorants, ils croissent et se multiplient sans aucun respect pour l’équilibre du monde, leur égoïsme et leur égocentrisme semblent sans limite. Ils mèneront le monde entier à la catastrophe si personne ne les arrête.",
-        "abilities": "Instinct de survie : lorsqu’une attaque devrait amener le personnage à 0 PV, les DM qu’elle inflige sont divisés par 2 (minimum 1).",
+        "description": "L’humain se distingue par sa capacité d’adaptation et son instinct qui le pousse à coloniser tous les territoires qui l’entourent. Le peuple humain est le plus représenté et le plus répandu dans les zones dites civilisées.",
+        "detailedDescription": "Dans les Terres d’Osgild. Les humains sont à la fois le peuple le plus commun et un des plus jeunes des Terres d’Osgild. Ils se vantent d’être les enfants des dieux, tandis que les Premiers-nés (les elfes et les nains) sont les enfants des Puissances (des forces naturelles comme le vent, la terre ou l’air). Les humains occupent toutes les plaines et les terres les plus riches, car l’activité qui les caractérise est l’agriculture. Cette technique pratiquée avec une intensité inconnue des autres peuples leur a permis de se développer rapidement, mais cette croissance nécessite sans cesse d’étendre les surfaces agricoles et provoque souvent des conflits territoriaux. Ce qui vaut aux humains leur réputation de peuple expansionniste et belliqueux. Ainsi toutes les grandes plaines qui s’étendent d’est en ouest sont occupées par des nations humaines, fragments d’un ancien empire brisé, l’empire d’Osgild qui donna son nom à ses terres. Les deux plus grandes nations, celles où se situeront sans doute la plupart des aventures des personnages sont la principauté d’Arly à l’ouest et les marches du Piémont à l’est.",
+        "publicPerception": "Interpréter un humain. Interpréter un humain ne devrait pas poser beaucoup de difficultés, puisque vous en êtes un (jusqu’à preuve du contraire). Les humains sont très différents les uns des autres et permettent une grande liberté d’interprétation. Rappelez-vous simplement que la plupart des humains des Terres d’Osgild sont assez peu cultivés et que votre personnage n’a pas du tout le même niveau de connaissance que vous. Les humains prennent sans compter ce que la nature peut leur offrir, ils considèrent que les dieux leur ont offert le monde pour qu’ils le modèlent à leur guise. Leur vie est courte et frénétique. Ils ont la mémoire courte et ne tirent aucune leçon du passé.",
+        "abilities": "Voie de l’Humain : Diversité, Instinct de survie, Touche-à-tout, Loup parmi les loups, Polyvalence...",
         "startingAge": 18,
         "lifeExpectancy": 100,
-        "characteristics": "",
+        "characteristics": "+1 à la valeur d’une de ses deux plus faibles caractéristiques au choix.",
         "physicalTraits": "Toute la diversité possible à l’exception des couleurs trop exotiques (cheveux violets, etc.).",
-        "typicalNames": "Les humains ont les prénoms et les noms les plus variés qui soient. Vous pouvez vous inspirer d’anciens prénoms médiévaux, scandinaves, francs ou celtiques et les modifier légèrement pour leur donner une consonance plus fantastique. Pour les femmes, les noms de minéraux, de fleurs ou de couleurs peuvent aussi êtres utilisés.",
+        "typicalNames": "Les humains ont les prénoms et les noms les plus variés qu’il soit. Vous pouvez vous inspirer d’anciens prénoms médiévaux, scandinaves, francs ou celtiques et les modifier légèrement pour leur donner une consonance plus fantastique. Pour les femmes, les noms de minéraux, de fleurs ou de couleurs peuvent aussi être utilisés.\n\nMasculin: Adalrik, Arn, Bernulf, Brand, Edwald, Ketil, Ferwin, Gerulf, Godfred, Gunter, Halfdan, Ingvar, Knud, Lothar, Osvald, Roderick, Rurik, Sigfred, Sigmar, Sigvald, Stig, Svenn, Thorsten, etc.\nFéminin: Annia, Alaina, Berthille, Bérénia, Télinne, Koralie, Floraline, Gadrielle, Jocynthe, Kéline, Myrthinne, Marille, Naelwen, Natasha, Odaelle, Prescille, Sorsha, Véronelle, Wendoline, etc.",
         "size": {
             "min": "1.50 m",
             "max": "2.00 m"
         },
         "weight": {
-            "min": "40.00 kg",
-            "max": "120.00 kg"
+            "min": "40 kg",
+            "max": "120 kg"
         },
         "voieId": "voie_de_l_humain"
     },
     {
         "id": "nain",
         "name": "Nain",
-        "description": "Le Nain est petit mais robuste. Célèbre pour sa barbe, il aime les profondeurs de la terre, dont il extrait des métaux et des pierres précieuses. Isolé, il est généralement ouvert et chaleureux, mais la société naine peut paraître sévère car le travail et l’entraînement militaire y sont des obligations.",
-        "detailedDescription": "Le Nain est petit mais robuste. Célèbre pour sa barbe, il aime les profondeurs de la terre, dont il extrait des métaux et des pierres précieuses. Isolé, il est généralement ouvert et chaleureux, mais la société naine peut paraître sévère car le travail et l’entraînement militaire y sont des obligations.",
-        "publicPerception": "Les Nains aiment amasser de l’or et boire de la bière en compagnie d’autres Nains. Ils sont un peu rustres et très susceptibles, un Nain peut se mettre en colère et devenir violent pour des raisons qui semblent étranges voire futiles à un autre peuple…",
-        "abilities": "Vision dans le noir : dans le noir total, le Nain voit comme dans la pénombre jusqu’à 30 m.",
+        "description": "Le nain est petit mais robuste. Célèbre pour sa barbe, il aime les profondeurs de la terre, dont il extrait des métaux et des pierres précieuses. Isolé, il est généralement ouvert et chaleureux, mais la société naine peut paraître sévère, car le travail et l’entraînement militaire y sont des obligations.",
+        "detailedDescription": "Dans les Terres d’Osgild. La principale nation des nains est située dans les monts Argentés, dans la vallée de Kaerimbor, mais on trouve aussi de fortes concentrations du peuple du roc à Xélys (au sud des marches du Piémont) et à Fort Colline, une ville minière entourée de collines d’où l’on extrait tout le fer de la principauté d’Arly. Kaer Glimmerstern est une vaste citée souterraine construite autour d’un joyau de feu légendaire dans le nord des monts Ethernos (au sud-est). Enfin, de petites communautés de nains, appelées clans, sont aussi disséminées un peu partout dans le monde, dès que des montagnes et des mines sont accessibles.",
+        "publicPerception": "Interpréter un nain. Vous pouvez être taciturne ou braillard, mais vous ne faites pas les choses à moitié, et quand vous donnez votre avis, il est franc et massif, tant pis si cela froisse quelque susceptibilité. Vous êtes méfiant de prime abord, mais chaleureux une fois la glace rompue et vous savez entretenir l’amitié autour d’une bière ou deux... ou plus. La demi-mesure n’est pas votre fort. Votre parole est solide comme le roc et vos griefs durs comme l’acier. Vous êtes coriace, courageux, opiniâtre, et un combat ne vous fera jamais reculer. Oui, c’est vrai, vous aimez les joyaux et les métaux précieux, mais surtout parce qu’ils permettent de produire cet artisanat raffiné qui fait la fierté du peuple nain. Dans les Terres d’Osgild, les nains éprouvent une nostalgie viscérale à la simple évocation de Kaer-Undün, leur ancien royaume souterrain des serres du Monde, abandonné aux ténèbres à la suite d’une terrible guerre contre les orcs et les géants, deux peuples qu’ils détestent. Ils entretiennent avec les elfes une relation paradoxale, faite de respect pour un peuple ancien, d’un esprit de compétition entre les deux antiques civilisations et d’une rancœur tenace et si ancienne que tous semblent avoir à peu près oublié son origine, bien qu’elle soit d’une façon ou d’une autre liée à la période à laquelle Kaer-Undün fut perdu.",
+        "abilities": "Voie du Nain : Habitant des tunnels, Haches et marteaux, Résistance à la magie, Fils du roc, Ténacité...",
         "startingAge": 40,
         "lifeExpectancy": 250,
-        "characteristics": "-2 DEX, +2 CON",
-        "physicalTraits": "Robuste et trapu. Pilosité très développée, tresses dans les cheveux et la barbe, bijoux et piercing.",
-        "typicalNames": "Les Nains ont des prénoms courts et percutants, les principales terminaisons sont en –IN, -UN, -IK, ou –IR, mais il en existe d’autres. Suit généralement le nom de leur clan, qu’ils traduisent en langue commune pour mettre en avant l’idée qu’il véhicule. Chez les femmes, la terminaison en –HILD ou -ID est la plus courante.",
+        "characteristics": "+1 en CON ou VOL, -1 en AGI",
+        "physicalTraits": "Robuste et trapu. Pilosité très développée, tresses dans les cheveux et la barbe, bijoux et piercing. Non, les naines n’ont pas de barbe, tout juste un fin duvet avec l’âge.",
+        "typicalNames": "Les nains ont des prénoms courts et percutants, les principales terminaisons sont en -in, -un, -ik, ou -ir, mais il en existe d’autres. Suit généralement le nom de leur clan, qu’ils traduisent en langue commune pour mettre en avant l’idée qu’il véhicule. Chez les femmes, la terminaison en -hild ou -id est la plus courante.\n\nMasculin: Gloin Mâchefer, Krorin Briseroc, Thorin Forgefer, Buldur Tranchetroll, Trorin Cassegranit, Orik Briselame, Durok Écu-de-chêne, Guerann Marteleur, Korik Peau-de-pierre, etc.\nFéminin: Astrid, Arnhild, Berthild, Brynild, Eldrid, Ermenhild, Frida, Gerda, Grimhild, Gudrun, Helga, Hilda, Ingrid, Klothild, Sigrid, Strida etc.",
         "size": {
             "min": "1.15 m",
             "max": "1.35 m"
         },
         "weight": {
-            "min": "50.00 kg",
-            "max": "100.00 kg"
+            "min": "50 kg",
+            "max": "100 kg"
         },
         "voieId": "voie_du_nain"
     }

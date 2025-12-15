@@ -119,14 +119,15 @@ export const CreatureDetail: React.FC = () => {
                 <div className="p-6 md:p-8 space-y-8 bg-gradient-to-b from-stone-900/30 to-transparent">
 
                     {/* Attributes */}
-                    <div className="grid grid-cols-3 md:grid-cols-6 gap-3 mb-8">
+                    <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-7 gap-3 mb-8">
                         {[
                             { label: 'FOR', col: 'str_mod' as const },
-                            { label: 'DEX', col: 'dex_mod' as const },
+                            { label: 'AGI', col: 'agi_mod' as const },
                             { label: 'CON', col: 'con_mod' as const },
                             { label: 'INT', col: 'int_mod' as const },
-                            { label: 'SAG', col: 'wis_mod' as const },
+                            { label: 'PER', col: 'per_mod' as const },
                             { label: 'CHA', col: 'cha_mod' as const },
+                            { label: 'VOL', col: 'vol_mod' as const },
                         ].map(attr => (
                             <div key={attr.label} className="bg-black/20 rounded-lg p-3 border border-white/5 text-center hover:border-primary-500/30 transition-colors">
                                 <div className="text-stone-500 text-[10px] font-bold uppercase tracking-wider mb-1">{attr.label}</div>

@@ -14,9 +14,9 @@ const voies = voiesData as Voie[];
 
 // Map to find items easily
 const allItemsMap = new Map([
-    ...weaponsData.map(w => [w.id, { ...w, tab: 'weapons' }]),
-    ...armorsData.map(a => [a.id, { ...a, tab: 'armors' }]),
-    ...materialsData.map(m => [m.id, { ...m, tab: 'materials' }]),
+    ...weaponsData.map(w => [w.id, { ...w, tab: 'weapons' }] as [string, any]),
+    ...armorsData.map(a => [a.id, { ...a, tab: 'armors' }] as [string, any]),
+    ...materialsData.map(m => [m.id, { ...m, tab: 'materials' }] as [string, any]),
 ]);
 
 const LinkifiedEquipment: React.FC<{ items: any[] }> = ({ items }) => {
@@ -123,22 +123,7 @@ export const ClassDetail: React.FC = () => {
 
                     {/* Caractéristiques de classe */}
                     <div className="grid md:grid-cols-2 gap-4">
-                        {/* Dé de vie */}
-                        {profile.hitDie && (
-                            <div className="glass-panel p-6 rounded-xl border-white/5 bg-primary-950/20 flex flex-col justify-center">
-                                <h4 className="text-sm font-display font-bold text-primary-400 mb-1 uppercase tracking-wider">
-                                    Dé de vie
-                                </h4>
-                                <div className="flex items-center gap-3">
-                                    <div className="p-2 bg-primary-500/20 rounded-lg">
-                                        <svg className="w-6 h-6 text-primary-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-                                        </svg>
-                                    </div>
-                                    <span className="text-2xl font-bold text-white font-mono">{profile.hitDie}</span>
-                                </div>
-                            </div>
-                        )}
+
 
                         {/* Modificateur Magique */}
                         {profile.magicModifier && (
@@ -153,6 +138,57 @@ export const ClassDetail: React.FC = () => {
                                         </svg>
                                     </div>
                                     <span className="text-2xl font-bold text-white font-mono">{profile.magicModifier}</span>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Dé de récupération */}
+                        {profile.recoveryDie && (
+                            <div className="glass-panel p-6 rounded-xl border-white/5 bg-green-950/20 flex flex-col justify-center">
+                                <h4 className="text-sm font-display font-bold text-green-400 mb-1 uppercase tracking-wider">
+                                    Dé de récupération
+                                </h4>
+                                <div className="flex items-center gap-3">
+                                    <div className="p-2 bg-green-500/20 rounded-lg">
+                                        <svg className="w-6 h-6 text-green-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                                        </svg>
+                                    </div>
+                                    <span className="text-2xl font-bold text-white font-mono">{profile.recoveryDie}</span>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Dé de Vigueur */}
+                        {profile.vigorPoints && (
+                            <div className="glass-panel p-6 rounded-xl border-white/5 bg-red-950/20 flex flex-col justify-center">
+                                <h4 className="text-sm font-display font-bold text-red-400 mb-1 uppercase tracking-wider">
+                                    Dé de Vigueur
+                                </h4>
+                                <div className="flex items-center gap-3">
+                                    <div className="p-2 bg-red-500/20 rounded-lg">
+                                        <svg className="w-6 h-6 text-red-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                            <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                        </svg>
+                                    </div>
+                                    <span className="text-2xl font-bold text-white font-mono">{profile.vigorPoints} / niveau</span>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Points de chance */}
+                        {profile.luckPoints && (
+                            <div className="glass-panel p-6 rounded-xl border-white/5 bg-yellow-950/20 flex flex-col justify-center">
+                                <h4 className="text-sm font-display font-bold text-yellow-400 mb-1 uppercase tracking-wider">
+                                    Points de Chance
+                                </h4>
+                                <div className="flex items-center gap-3">
+                                    <div className="p-2 bg-yellow-500/20 rounded-lg">
+                                        <svg className="w-6 h-6 text-yellow-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                                        </svg>
+                                    </div>
+                                    <span className="text-2xl font-bold text-white font-mono">+{profile.luckPoints}</span>
                                 </div>
                             </div>
                         )}

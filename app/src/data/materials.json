@@ -1,85 +1,85 @@
 [
-  {
-    "id": "briquet_a_silex",
-    "name": "Briquet à silex",
-    "price": "1 pa"
-  },
-  {
-    "id": "carquois_20_fleches",
-    "name": "Carquois",
-    "price": "3 pa",
-    "notes": "Contient 20 flèches"
-  },
-  {
-    "id": "corde_15m",
-    "name": "Corde",
-    "price": "2 pa",
-    "notes": "15m"
-  },
-  {
-    "id": "couverture",
-    "name": "Couverture",
-    "price": "1 pa"
-  },
-  {
-    "id": "grappin",
-    "name": "Grappin",
-    "price": "2 pa"
-  },
-  {
-    "id": "huile_duree__6_heures",
-    "name": "Huile",
-    "price": "1 pa",
-    "notes": "Durée : 6 heures"
-  },
-  {
-    "id": "lanterne_a_huile_portee__10_m",
-    "name": "Lanterne à huile",
-    "price": "3 pa",
-    "notes": "Portée : 10 m"
-  },
-  {
-    "id": "materiel_decriture",
-    "name": "Matériel d’écriture",
-    "price": "5 pa"
-  },
-  {
-    "id": "outils_de_crochetage_sans_ces_outils_une_penalite_de_10_est_infligee_au_test_de_dex",
-    "name": "Outils de crochetage",
-    "price": "5 pa",
-    "notes": "Sans ces outils, une pénalité de -10 est infligée au test de DEX"
-  },
-  {
-    "id": "potion_de_soin_soigne_1d8_pv_soumis_a_autorisation_du_mj",
-    "name": "Potion de soin",
-    "price": "10 pa",
-    "notes": "Soigne 1d8 PV Soumis à autorisation du MJ."
-  },
-  {
-    "id": "ration_1_semaine",
-    "name": "Ration de voyage",
-    "price": "4 pa",
-    "notes": "Pour 1 semaine"
-  },
-  {
-    "id": "sac_a_dos",
-    "name": "Sac à dos",
-    "price": "1 pa"
-  },
-  {
-    "id": "torches_nombre__3_duree__1_heure_portee__10_m",
-    "name": "Torche",
-    "price": "1 pa",
-    "notes": "Vendu par lot de 3. Durée : 1 heure Portée : 10 m"
-  },
-  {
-    "id": "instrument_de_musique",
-    "name": "Instrument de musique",
-    "price": "5 pa"
-  },
-  {
-    "id": "grimoire",
-    "name": "Grimoire",
-    "price": "10 pa"
-  }
+    {
+        "id": "briquet_a_silex",
+        "name": "Briquet à silex",
+        "price": "1 pa"
+    },
+    {
+        "id": "carquois_20_fleches",
+        "name": "Carquois",
+        "price": "3 pa",
+        "notes": "Contient 20 flèches"
+    },
+    {
+        "id": "corde_15m",
+        "name": "Corde",
+        "price": "2 pa",
+        "notes": "15m"
+    },
+    {
+        "id": "couverture",
+        "name": "Couverture",
+        "price": "1 pa"
+    },
+    {
+        "id": "grappin",
+        "name": "Grappin",
+        "price": "2 pa"
+    },
+    {
+        "id": "huile_duree__6_heures",
+        "name": "Huile",
+        "price": "1 pa",
+        "notes": "Durée : 6 heures"
+    },
+    {
+        "id": "lanterne_a_huile_portee__10_m",
+        "name": "Lanterne à huile",
+        "price": "3 pa",
+        "notes": "Portée : 10 m"
+    },
+    {
+        "id": "materiel_decriture",
+        "name": "Matériel d’écriture",
+        "price": "5 pa"
+    },
+    {
+        "id": "outils_de_crochetage_sans_ces_outils_une_penalite_de_10_est_infligee_au_test_de_dex",
+        "name": "Outils de crochetage",
+        "price": "5 pa",
+        "notes": "Sans ces outils, une pénalité de -10 est infligée au test de AGI"
+    },
+    {
+        "id": "potion_de_soin_soigne_1d8_pv_soumis_a_autorisation_du_mj",
+        "name": "Potion de soin",
+        "price": "10 pa",
+        "notes": "Soigne 1d8 PV Soumis à autorisation du MJ."
+    },
+    {
+        "id": "ration_1_semaine",
+        "name": "Ration de voyage",
+        "price": "4 pa",
+        "notes": "Pour 1 semaine"
+    },
+    {
+        "id": "sac_a_dos",
+        "name": "Sac à dos",
+        "price": "1 pa"
+    },
+    {
+        "id": "torches_nombre__3_duree__1_heure_portee__10_m",
+        "name": "Torche",
+        "price": "1 pa",
+        "notes": "Vendu par lot de 3. Durée : 1 heure Portée : 10 m"
+    },
+    {
+        "id": "instrument_de_musique",
+        "name": "Instrument de musique",
+        "price": "5 pa"
+    },
+    {
+        "id": "grimoire",
+        "name": "Grimoire",
+        "price": "10 pa"
+    }
 ]

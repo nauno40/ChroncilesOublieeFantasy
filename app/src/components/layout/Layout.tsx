@@ -15,6 +15,8 @@ export const Layout: React.FC = () => {
     const [isSoundboardOpen, toggleSoundboard] = useToggle(false);
     const [isSearchOpen, toggleSearch] = useToggle(false);
 
+    const [openSection, setOpenSection] = React.useState<string | null>(null);
+
     // Keyboard shortcut for search
     React.useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
@@ -28,7 +30,7 @@ export const Layout: React.FC = () => {
         return () => window.removeEventListener('keydown', handleKeyDown);
     }, [toggleSearch]);
 
-    const navItems: NavItem[] = [
+    const navItems: NavItem[] = React.useMemo(() => [
         { path: '/', icon: Home, label: 'Accueil' },
         { path: '/campaign', icon: Users, label: 'Campagne' },
         {
@@ -63,7 +65,23 @@ export const Layout: React.FC = () => {
             ]
         },
         { path: '/tools', icon: Sword, label: 'Outils' },
-    ];
+    ], []);
+
+    // Effect to set initial open section based on URL
+    React.useEffect(() => {
+        const currentItem = navItems.find(item =>
+            item.subItems?.some(sub => location.pathname.startsWith(sub.path)) ||
+            (item.path !== '/' && location.pathname.startsWith(item.path))
+        );
+
+        if (currentItem && !openSection) {
+            setOpenSection(currentItem.path);
+        }
+    }, [location.pathname, navItems]); // Intentionally not including openSection to allow user to close it
+
+    const handleToggleSection = (path: string) => {
+        setOpenSection(prev => prev === path ? null : path);
+    };
 
     return (
         <div className="min-h-screen text-stone-200 font-sans flex flex-col md:flex-row">
@@ -71,7 +89,7 @@ export const Layout: React.FC = () => {
             <header className="md:hidden fixed top-0 left-0 right-0 z-20 p-4 pb-2 bg-gradient-to-b from-stone-950/95 to-transparent backdrop-blur-sm">
                 <div className="glass-panel px-4 py-3 rounded-xl border-primary-500/20 flex justify-between items-center shadow-lg">
                     <h1 className="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-400 to-primary-600 font-display tracking-wider drop-shadow-sm">
-                        CHRONIQUES OUBLIÉES
+                        CHRONIQUES OUBLIÉES FANTASY
                     </h1>
                     <button
                         onClick={toggleSearch}
@@ -87,7 +105,7 @@ export const Layout: React.FC = () => {
                 <div className="glass-panel h-full rounded-2xl border-primary-500/20 flex flex-col shadow-2xl backdrop-blur-xl bg-stone-950/40">
                     <div className="p-6 border-b border-white/5">
                         <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-400 to-primary-600 font-display tracking-wider drop-shadow-sm leading-tight">
-                            CHRONIQUES<br />OUBLIÉES
+                            CHRONIQUES<br />OUBLIÉES<br />FANTASY
                         </h1>
                         <div className="flex items-center justify-between mt-4">
                             <div className="text-[10px] font-mono text-primary-400/60 border border-primary-500/20 px-2 py-0.5 rounded-full inline-block bg-primary-950/30">MJ TOOLKIT</div>
@@ -110,6 +128,8 @@ export const Layout: React.FC = () => {
                                     key={item.path}
                                     item={item}
                                     isActive={isActive}
+                                    isOpen={openSection === item.path}
+                                    onToggle={() => handleToggleSection(item.path)}
                                 />
                             );
                         })}

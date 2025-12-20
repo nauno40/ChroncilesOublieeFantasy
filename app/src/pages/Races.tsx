@@ -10,13 +10,13 @@ const races = racesData as Race[];
 const getRaceImageName = (raceName: string): string => {
     const mapping: Record<string, string> = {
         'Demi-elfe': 'elf_half.png.webp',
-        'Elfe, haut': 'elf_high.png.webp',
-        'Elfe, sylvain': 'elf_wood.png.webp',
+        'Elfe haut': 'elf_high.png.webp',
+        'Elfe sylvain': 'elf_wood.png.webp',
         'Nain': 'dwarf.png.webp',
         'Halfelin': 'halfling.png.webp',
         'Humain': 'human.png.webp',
         'Gnome': 'gnome.png.webp',
-        'Demi-orque': 'orc_half.png.webp'
+        'Demi-orc': 'orc_half.png.webp'
     };
     return mapping[raceName] || `${raceName}.jpg`;
 };

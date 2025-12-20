@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ChevronDown, ChevronRight, type LucideIcon } from 'lucide-react';
 import clsx from 'clsx';
@@ -14,10 +14,11 @@ interface NavItemComponentProps {
     item: NavItem;
     isActive: boolean;
     isMobile?: boolean;
+    isOpen?: boolean;
+    onToggle?: () => void;
 }
 
-export const NavItemComponent: React.FC<NavItemComponentProps> = ({ item, isActive, isMobile = false }) => {
-    const [isOpen, setIsOpen] = useState(false);
+export const NavItemComponent: React.FC<NavItemComponentProps> = ({ item, isActive, isMobile = false, isOpen = false, onToggle }) => {
     const location = useLocation();
     const Icon = item.icon;
 
@@ -52,7 +53,7 @@ export const NavItemComponent: React.FC<NavItemComponentProps> = ({ item, isActi
     return (
         <div>
             <button
-                onClick={() => setIsOpen(!isOpen)}
+                onClick={onToggle}
                 className={clsx(
                     'w-full flex items-center justify-between gap-3 px-4 py-3 rounded-xl transition-all group',
                     isSubItemActive

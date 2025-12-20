@@ -5,19 +5,13 @@ import voiesData from '../data/voies.json';
 import type { Profile, Voie } from '../types/normalized';
 import { ArrowLeft } from 'lucide-react';
 
-import weaponsData from '../data/weapons.json';
-import armorsData from '../data/armors.json';
-import materialsData from '../data/materials.json';
+import { DataService } from '../services/dataService';
 
 const profiles = profilesData as Profile[];
 const voies = voiesData as Voie[];
 
 // Map to find items easily
-const allItemsMap = new Map([
-    ...weaponsData.map(w => [w.id, { ...w, tab: 'weapons' }] as [string, any]),
-    ...armorsData.map(a => [a.id, { ...a, tab: 'armors' }] as [string, any]),
-    ...materialsData.map(m => [m.id, { ...m, tab: 'materials' }] as [string, any]),
-]);
+const allItemsMap = DataService.getAllEquipmentMap();
 
 const LinkifiedEquipment: React.FC<{ items: any[] }> = ({ items }) => {
     return (

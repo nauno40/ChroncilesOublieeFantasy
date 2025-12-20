@@ -1277,8 +1277,8 @@
         "profile_level": [],
         "paths": [
             {
-                "value": null,
-                "format": null
+                "id": "voie_des_creatures_volantes",
+                "rank": 1
             }
         ],
         "special_capabilities": [
@@ -1920,12 +1920,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": null,
@@ -2091,12 +2086,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": null,
@@ -2271,12 +2261,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": null,
@@ -2455,12 +2440,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": "<p><em>Changement de forme :</em> le barghest peut changer de forme par une action de mouvement. Sous forme hybride, il peut attaquer à la fois par morsure et par arme au prix d’une action limitée. Sous forme de loup, il peut couvrir 30 mètres par action de mouvement.</p>\r\n\r\n<p><em>Charme monstre (L) :</em> le barghest peut charmer toute créature maléfique par son aura infernale et ténébreuse jusqu’à un NC de 6 et une INT de 12. Il doit pour cela réussir un test opposé d’INT contre sa cible. En cas de réussite, elle se met à son service aussi longtemps que le barghest ne relâche pas son emprise. Pour cette raison, un barghest est souvent à la tête d’un groupe de créatures maléfiques hétéroclites (gobelins, worgs, ogre, etc.).</p>\r\n\r\n<p><em>Clignotement (L) :</em> pendant [1d6 + 2] tours, le barghest apparait et disparait aléatoirement, le rendant difficile à viser. Tout test d’attaque qui le vise dont le résultat du dé est impair est considéré comme un échec.</p>\r\n\r\n<p><em>Ingestion de cadavre (L) :</em> lorsqu’il tue une créature humanoïde, le barghest peut ouvrir une gueule démesurée et ingérer totalement le cadavre et l’âme du défunt. Il ne reste rien de sa victime et c’est probablement la mort définitive d’un personnage (à utiliser avec modération…). Lorsqu’il a ingéré 10 créatures de cette façon, le NC du Barghest augmente de 1 et il gagne +2 en attaque, +1d6 aux DM et +20 PV. Il grossit d’une trentaine de kilos. Il peut subir cette augmentation jusqu’à trois fois. Les plus gros barghest sont nommés barghest nobles.</p>\r\n\r\n<p><em>Passage sans traces :</em> le barghest ne laisse aucune piste lorsqu’il se déplace sous forme de loup et gagne un bonus de +5 à tous les tests de discrétion.</p>\r\n\r\n<p><em>Téléportation (L) :</em> le barghest disparaît et réapparaît à un autre endroit situé à moins de 120 mètres. Le lieu d’arrivée doit être soit en ligne de vue, soit parfaitement connu par le barghest.</p>\r\n",
@@ -2627,12 +2607,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": "<p><em>Regard pétrifiant :</em> celui qui regarde le Basilic et croise son regard est pétrifié. Un personnage qui n’est pas conscient du danger doit réussir un test de CON difficulté 16 à chaque tour de combat ou être immédiatement transformé en pierre.</p>\r\n",
@@ -3643,12 +3618,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": "<p><em>Dévorer, rang 2 de la Voie du prédateur.</em> <em>Nuage d’encre :</em> le calmar peut émettre un nuage d’encre noire qui aveugle ses poursuivants au prix d’une action de mouvement. Le nuage occupe un volume de 10 mètres de coté considéré comme une zone de ténèbres (noir total) pendant 1d4 tours. Ensuite, la zone s’étend sur 20 mètres et elle est alors considérée comme de la pénombre pendant 1d4 tours supplémentaires.</p>\r\n\r\n<p><em>Propulsion (L) :</em> sous l’eau, le calmar peut se déplacer de 60 mètres par tour en ligne droite au prix d’une action limitée.</p>\r\n",
@@ -4382,12 +4352,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": "<p><em>Poison anesthésiant :</em> la morsure de la chauve-souris géante inocule un poison, la victime doit réussir un test de CON difficulté 12 ou être Affaiblie pendant 1d6 tours. Si elle est affectée une seconde fois par le poison alors qu’elle est déjà sous son effet, elle sombre à la place dans l’inconscience pour 1d6 tours.</p>\r\n",
@@ -4550,12 +4515,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": "<p><em>Monture :</em> la créature double son Mod. de FOR pour porter une charge.</p>\r\n",
@@ -4719,12 +4679,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": "<p><em>Monture :</em> la créature double son Mod. de FOR pour porter une charge.</p>\r\n",
@@ -4897,12 +4852,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": "<p><em>Monture :</em> la créature double son Mod. de FOR pour porter une charge.</p>\r\n",
@@ -5703,12 +5653,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": "<p><em>Vol :</em> la cockatrice peut voler de 20 mètres par action de mouvement.</p>\r\n\r\n<p><em>Pétrification :</em> toute créature victime d’une attaque de bec doit réussir un test de CON difficulté 10 ou être pétrifiée.</p>\r\n",
@@ -6299,12 +6244,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": "<p><em>Camouflage :</em> le cube gélatineux compte sur sa transparence pour capturer les proies. Une créature doit faire un test de PER difficulté 12 lorsqu’elle s’approche du cube gélatineux pour la première fois ou être surprise.</p>\r\n\r\n<p><em>Enveloppement :</em> lorsqu’il réussit une attaque au contact, le cube gélatineux peut faire un test opposé de FOR avec sa proie (celle-ci peut résister si elle souhaite par un test de AGI). Si le cube gélatineux l’emporte, la cible est absorbée dans le corps du monstre où elle subit chaque tour automatiquement des DM. Une fois à l’intérieur, la créature peut tenter de s’échapper à chaque tour par un test de FOR difficulté 15 au prix d’une action limitée (elle ne peut faire aucune autre action).</p>\r\n\r\n<p><em>Lenteur :</em> le cube gélatineux ne se déplace que de 10 mètres par action de mouvement.</p>\r\n\r\n<p><em>Paralysie :</em> toute créature blessée par le cube gélatineux doit réussir un test de CON difficulté 15 ou être <em>paralysée</em> pendant 2d6 tours.</p>\r\n\r\n<p><em>Réduction des DM :</em> le cube gélatineux réduit tous les DM de type contondant ou perçant de 5 points. Il est immunisé au DM d’électricité et d’acide.</p>\r\n",
@@ -9055,12 +8995,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": "<p><em>Détection des pensées (L) :</em> le doppleganger peut détecter les pensées d’une créature distante de moins de 20 mètres en réussissant un test d’attaque magique opposé (PER). En cas de réussite, il lit les pensées superficielles de la créature mais ne peut pas sonder un esprit à la recherche d’un renseignement particulier.</p>\r\n\r\n<p><em>Imitation (L) :</em> le doppleganger peut prendre la forme de tout humanoïde de taille petite ou moyenne qu’il a observé pendant au moins un tour. Il n’imite pas l’équipement de la créature et doit revêtir celui de sa victime s’il veut prendre sa place.</p>\r\n\r\n<p><em>Imitation majeure (L) :</em> certains Doppleganger ont toutefois développé un talent supplémentaire pour l’illusion afin d’imiter rapidement l’équipement de leur victime. Dans ce cas, le doppleganger imite parfaitement sa cible, équipement compris pendant 2d6 minutes. Ce talent est utilisé uniquement dans le cas où un doppleganger est pris de court, le NC de la créature augmente de +1.</p>\r\n\r\n<p><em>Polyvalent :</em> un doppleganger sait utiliser toutes les armes et les armures, sa nature magique lui permet aussi d’utiliser parchemins et autres objets magique comme s’il était capable de lancer des sorts jusqu’au rang 5.</p>\r\n",
@@ -19484,12 +19419,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": null,
@@ -19865,12 +19795,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": "<p><em>Attaque en meute :</em> lorsqu’au moins 2 gobelins attaquent la même cible à ce tour, ils bénéficient d’un bonus de +2 en attaque.</p>\r\n",
@@ -20038,12 +19963,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": "<p><em>Attaque en meute :</em> lorsqu’au moins 2 gobelins attaquent la même cible à ce tour, ils bénéficient d’un bonus de +2 en attaque.</p>\r\n",
@@ -20211,12 +20131,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": "<p><em>Attaque en meute :</em> lorsqu’au moins 2 gobelins attaquent la même cible à ce tour, ils bénéficient d’un bonus de +2 en attaque.</p>\r\n",
@@ -20384,12 +20299,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": null,
@@ -21788,12 +21698,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": "<p><em>Paralysie :</em> une créature blessée par la morsure d’une goule doit réussir un test de CON difficulté 10 ou être <em>paralysée p</em>endant 1d6 tours. Les elfes sont immunisés à cette capacité.</p>\r\n\r\n<p><em>Fièvre des goules :</em> à la fin du combat, si le personnage a été blessé au moins une fois par la morsure d’une goule, il doit réussir un test de CON difficulté 15 ou contracter la maladie. Chaque jour, il subit 1d4 DM retranchés directement à son score de PV maximum (il ne peut plus dépasser ce nouveau score) et doit faire un nouveau test de CON difficulté 15 pour vaincre la maladie. Lorsqu’il arrive à 0 PV, il meurt et se transforme en goule. S’il guérit, les PV perdus peuvent être récupérés normalement.</p>\r\n",
@@ -22529,12 +22434,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": null,
@@ -22927,12 +22827,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": null,
@@ -23301,12 +23196,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": "<p><em>Guérison accélérée :</em> l’hydre guérit de 5 PV par tour sauf contre les DM de feu.</p>\r\n",
@@ -23470,12 +23360,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": "<p><em>Guérison accélérée :</em> l’hydre guérit de 5 PV par tour sauf contre les DM de feu.</p>\r\n",
@@ -23638,12 +23523,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": null,
@@ -23815,12 +23695,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": null,
@@ -23983,12 +23858,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": null,
@@ -24151,12 +24021,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": null,
@@ -24319,12 +24184,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": null,
@@ -24490,12 +24350,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": null,
@@ -25424,12 +25279,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": "<p><em>Célérité :</em> si la licorne ne transporte aucune charge supérieure à 50 kg, elle peut parcourir jusqu’à 30 mètres par actions de mouvement.</p>\r\n\r\n<p><em>Corne magique (L) :</em> si la licorne touche une créature à 0 PV de sa corne, celle-ci récupère 2d6 PV. Si la créature est empoisonnée, elle a immédiatement droit à un test de CON difficulté 10 pour neutraliser les effets du poison.</p>\r\n\r\n<p><em>Déplacement magique</em> (rang 3 de la Voie de la magie de combat) : 60 mètres, toutefois cette capacité ne peut être utilisée que dans les limites de la forêt natale de la licorne.</p>\r\n",
@@ -28023,12 +27873,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": "<p><em>Transformation en rat (L) :</em> un humanoïde infecté se transforme en un rat énorme et sanguinaire dont les Caractéristiques sont indiquées ci-dessus lorsque la pleine lune apparaît ou si une émotion importante le saisit.</p>\r\n\r\n<p><em>Résister :</em> un personnage infecté peut toutefois résister à l’appel de la pleine lune (ou de la transformation) en réussissant un test de PER difficulté 18.</p>\r\n\r\n<p><em>Se souvenir :</em> un personnage peut se souvenir de ses agissements de la nuit en réussissant un test de PER difficulté 18.</p>\r\n",
@@ -28220,12 +28065,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": "<p><em>Transformation en rat (L) :</em> la créature peut se transformer à volonté en rat.</p>\r\n\r\n<p><em>Forme hybride (L) :</em> le personnage adopte une forme qui reflète totalement sa nature duale, mi-rat mi-humanoïde. Il peut à la fois faire des attaques de morsure et utiliser une arme. En termes de jeu, cela lui accorde une attaque de chaque type (rat + humanoïde) par tour en utilisant une action limitée.</p>\r\n\r\n<p><em>Empathie avec les rats :</em> un rat-garou possède un don naturel pour apaiser les rats et parfois même les commander.</p>\r\n",
@@ -28603,12 +28443,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": "<p><em>Venin :</em> la victime doit réussir un test de CON difficulté 12 ou être <em>Affaiblie</em>. Si la victime est déjà Affaiblie par le venin, un échec lors d’une nouvelle morsure, la fait sombrer dans l’inconscience pour 1d6 tours. Un troisième échec signifie 1d6 heures d’inconscience.</p>\r\n\r\n<p><em>Regard pétrifiant :</em> celui qui regarde la méduse et croise son regard est pétrifié. Un personnage qui n’est pas conscient du danger doit réussir un test de CON difficulté 16 à chaque tour de combat ou être immédiatement transformé en pierre. La vieille légende qui laisse entendre que la méduse pourrait être pétrifiée en croisant son propre regard dans le miroir est totalement fausse…</p>\r\n",
@@ -30974,12 +30809,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": "<p>Les nains sombres peuvent utiliser les capacités de Magicien suivante (seulement sur eux-mêmes) : <em>Invisibilité</em> et <em>Agrandissement</em>.</p>\r\n",
@@ -31143,12 +30973,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": null,
@@ -31312,12 +31137,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": "<p><em>Vol : </em>les oiseaux se déplacent en vol de 20 mètres par action de mouvement, ce qui rend la fuite beaucoup plus problématique.</p>\r\n\r\n<p><em>Recouvrir (L) :</em> la nuée peut recouvrir sa proie après avoir réussi une attaque de contact contre sa cible. Dès lors, la cible est distraite, déséquilibrée et victime d’innombrables morsures. La nuée lui inflige automatiquement 1d6 DM par tour et la victime est <em>Affaiblie</em> tant que la nuée n’est pas vaincue.</p>\r\n\r\n<p><em>Cibles multiples :</em> la nuée est constituée de très nombreuses cibles et les attaques conventionnelles lui infligent peu de DM. Les attaques de zone lui infligent des DM normaux mais tous les DM par des armes de contact ou à distance ne lui infligent qu’un seul point de DM par attaque réussie.</p>\r\n",
@@ -31481,12 +31301,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": "<p><em>Vol : </em>les frelons se déplacent en vol de 20 mètres par action de mouvement, ce qui rend la fuite beaucoup plus problématique.</p>\r\n\r\n<p><em>Recouvrir (L) :</em> la nuée peut recouvrir sa proie après avoir réussi une attaque de contact contre sa cible. Dès lors, la cible est distraite, déséquilibrée et victime d’innombrables morsures. La nuée lui inflige automatiquement 1d6 DM par tour et la victime est <em>Affaiblie</em> tant que la nuée n’est pas vaincue.</p>\r\n\r\n<p><em>Cibles multiples :</em> la nuée est constituée de très nombreuses petites cibles et les attaques conventionnelles ne lui infligent aucun DM. Seules les attaques de zone lui infligent des DM normaux. Se jeter à l'eau reste un moyen classique mais efficace pour échapper à la nuée.</p>\r\n",
@@ -31650,12 +31465,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": "<p><em>Lent :</em> la nuée est un adversaire redoutable mais heureusement elle ne se déplace que de 15 mètres par action de mouvement, ce qui permet à la plupart des créatures de lui échapper simplement en courant vite !</p>\r\n\r\n<p><em>Recouvrir (L) :</em> la nuée peut recouvrir sa proie après avoir réussi une attaque de contact contre sa cible. Dès lors, la cible est distraite, déséquilibrée et victime d’innombrables morsures. La nuée lui inflige automatiquement 1d6 DM par tour et la victime est <em>Affaiblie</em> tant que la nuée n’est pas vaincue.</p>\r\n\r\n<p><em>Poison :</em> à chaque tour où elle est blessée par la nuée, la victime doit réussir un test de CON difficulté 10 ou sombrer dans l’inconscience tandis que la nuée continue à la dévorer… <em>Cibles multiples :</em> la nuée est constituée de très nombreuses cibles et les attaques conventionnelles lui infligent peu de DM. Les attaques de zone lui infligent des DM normaux mais tous les DM par des armes de contact ou à distance ne lui infligent qu’un seul point de DM par attaque réussie.</p>\r\n",
@@ -31819,12 +31629,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": "<p><em>Vol : </em>les guêpes se déplacent en vol de 30 mètres par action de mouvement, ce qui rend toute tentative de fuite futile.</p>\r\n\r\n<p><em>Recouvrir (L) :</em> la nuée peut recouvrir sa proie après avoir réussi une attaque de contact contre sa cible. Dès lors, la cible est distraite, déséquilibrée et victime d’innombrables morsures. La nuée lui inflige automatiquement 1d6 DM par tour et la victime est <em>Affaiblie</em> tant que la nuée n’est pas vaincue.</p>\r\n\r\n<p><em>Poison :</em> à chaque tour où elle est blessée par la nuée, la victime doit réussir un test de CON difficulté 10 ou sombrer dans l’inconscience tandis que la nuée continue à la dévorer… <em>Cibles multiples :</em> la nuée est constituée de très nombreuses cibles et les attaques conventionnelles lui infligent peu de DM. Les attaques de zone lui infligent des DM normaux mais tous les DM par des armes de contact ou à distance ne lui infligent qu’un seul point de DM par attaque réussie.</p>\r\n",
@@ -33190,12 +32995,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": "<p><em>Sensible à la lumière :</em> créatures souterraines, les orques détestent la lumière du jour. La lumière du soleil leur inflige une pénalité de -1 en attaque.</p>\r\n",
@@ -33359,12 +33159,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": "<p><em>Sensible à la lumière :</em> créatures souterraines, les orques détestent la lumière du jour. La lumière du soleil leur inflige une pénalité de -1 en attaque.</p>\r\n",
@@ -33537,12 +33332,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": "<p><em>Sensible à la lumière :</em> créatures souterraines, les orques détestent la lumière du jour. La lumière du soleil leur inflige une pénalité de -1 en attaque.</p>\r\n",
@@ -34399,12 +34189,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": null,
@@ -35860,12 +35645,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": "<p><em>Agripper</em> (Voie des créatures volantes rang 2)</p>\r\n",
@@ -36590,12 +36370,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": "<p><em>Maladie :</em> chaque créature mordue par un rat doit faire un test de CON difficulté 12 à la fin du combat. En cas d’échec, elle contracte une maladie dont les symptômes se manifestent après 2d6 heures. La victime est <em>Affaiblie</em> et perd 1d4 PV toutes les 24 heures qui ne peuvent pas être soignés par le repos. Réalisez un nouveau test de CON difficulté 15 chaque jour pour tenter de mettre fin à la maladie. Les PV perdus sont alors récupérés au rythme de 1 PV par jour de repos.</p>\r\n",
@@ -37804,12 +37579,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": "<p><em>Étreinte</em><em> :</em> à chaque fois que le serpent réussit une attaque il peut faire un test de FOR opposé contre sa victime (toutefois celle-ci peut choisir de résister par un test de AGI). En cas de succès, il s’enroule autour d’elle et commence à l’étouffer, infligeant automatiquement 1d6 DM supplémentaire par tour. La victime est <em>Immobilisée</em>. Elle peut tenter de se libérer au prix d’une action de mouvement à chaque tour, en réussissant un test de FOR difficulté 20.</p>\r\n",
@@ -38183,12 +37953,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": "<p><em>Sucer le sang :</em> une strige qui réussit son attaque s’agrippe à sa proie pour lui aspirer le sang et inflige ainsi 1d4 DM par tour. Lorsque la strige a infligé au moins 6 points de DM de cette façon, elle se détache et fuit le combat. Une créature de taille normale est dès lors <em>Affaiblie</em> pour 10 minutes. Lorsqu’elle est fixée à sa proie, la strige possède une DEF de 12.</p>\r\n\r\n<p><em>Vol :</em> La strige vole à une vitesse de 20 mètres par action de mouvement.</p>\r\n",
@@ -38345,12 +38110,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": "<p><em>Résistance aux DM :</em> le Sylvanien retranche 10 points à tous les DM sauf s’il s’agit de feu ou de haches.</p>\r\n",
@@ -40354,12 +40114,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": "<p><em>Réduction des DM :</em> retrancher 5 points à tous les DM infligés au zombi par des armes saufs s’il s’agit d’armes tranchantes comme les épées ou les haches.</p>\r\n\r\n<p><em>Sans esprit :</em> aucune âme n’habite la carcasse morte, le zombi est immunisé à tous les sorts qui affectent l’esprit (INT, PER et CHA).</p>\r\n\r\n<p><em>Lenteur :</em> le zombi voit sa AGI réduite à 8 et il ne se déplace que de 10 mètres par action de mouvement.</p>\r\n\r\n<p><em>Insensible à la douleur :</em> la DEF du zombi est réduite de 4 points par rapport à une créature de son type mais ses PV augmentent de 100% et il gagne +2 en attaque.</p>\r\n",
@@ -40523,12 +40278,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": "<p><em>Réduction des DM :</em> retrancher 5 points à tous les DM infligés au zombi par des armes saufs s’il s’agit d’armes tranchantes comme les épées ou les haches.</p>\r\n\r\n<p><em>Sans esprit :</em> aucune âme n’habite la carcasse morte, le zombi est immunisé à tous les sorts qui affectent l’esprit (INT, PER et CHA).</p>\r\n\r\n<p><em>Lenteur :</em> le zombi voit sa AGI réduite à 8 et il ne se déplace que de 10 mètres par action de mouvement.</p>\r\n\r\n<p><em>Insensible à la douleur :</em> la DEF du zombi est réduite de 4 points par rapport à une créature de son type mais ses PV augmentent de 100% et il gagne +2 en attaque.</p>\r\n",
@@ -40682,12 +40432,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": null,
@@ -40841,12 +40586,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": null,
@@ -41000,12 +40740,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": null,
@@ -41359,12 +41094,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": null,
@@ -42552,12 +42282,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": null,
@@ -42716,12 +42441,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": "<p><em>Attaque en traître</em> (voie de la meute, rang 2)</p>\r\n",
@@ -44217,12 +43937,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": "<p>Déplacement 10 mètres par action de mouvement.</p>\r\n",
@@ -44375,12 +44090,7 @@
         ],
         "profile": [],
         "profile_level": [],
-        "paths": [
-            {
-                "value": null,
-                "format": null
-            }
-        ],
+        "paths": [],
         "special_capabilities": [
             {
                 "value": null,

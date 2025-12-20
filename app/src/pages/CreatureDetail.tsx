@@ -187,7 +187,7 @@ export const CreatureDetail: React.FC = () => {
                                     <span className="w-1 h-6 bg-primary-500 rounded-full"></span> Voies & Rangs
                                 </h3>
                                 <div className="flex flex-wrap gap-3">
-                                    {creature.paths.map((path: any, i) => {
+                                    {creature.paths.filter((p: any) => p.value || p.id).map((path: any, i) => {
                                         // Handle both legacy (HTML value) and new (id/rank)
                                         if (path.value) {
                                             // Legacy render

@@ -1638,15 +1638,6 @@
         "active": true
     },
     {
-        "id": "attaque_sanglante_l",
-        "name": "Attaque sanglante (L)",
-        "description": "Le demi-orc réalise une attaque de contact qui provoque une hémorragie. En plus des DM normaux, l’attaque produit un saignement qui inflige à la victime 1d4 DM à chaque round suivant jusqu’à ce que la cible soit soignée (tout effet de soins ou une action limitée utilisée à cet effet). On ne peut pas cumuler plusieurs effets de saignement.",
-        "profileId": null,
-        "voieId": "voie_du_demiorque",
-        "rank": 4,
-        "active": true
-    },
-    {
         "id": "flou_l_",
         "name": "Flou (L) *",
         "description": "Pendant [1d4 + Mod. d’INT] tours, le corps du Magicien devient flou et tous les DM des attaques de contact ou à distance qu’il encaisse sont divisés par 2.",
@@ -1860,15 +1851,6 @@
         "profileId": null,
         "voieId": "voie_de_l_elfe_sylvain",
         "rank": 1,
-        "active": false
-    },
-    {
-        "id": "archer_emerite",
-        "name": "Archer émérite",
-        "description": "L’elfe sylvain est un maître de l’arc. Il gagne un bonus de +2 en attaque et aux DM avec les arcs longs et courts. De plus, il peut tirer une flèche supplémentaire par tour (sans pénalité) s’il utilise un arc.",
-        "profileId": null,
-        "voieId": "voie_de_l_elfe_sylvain",
-        "rank": 3,
         "active": false
     },
     {
@@ -3141,13 +3123,13 @@
         "active": true
     },
     {
-        "id": "resistance_a_la_magie_350",
+        "id": "resistance_a_la_magie",
         "name": "Résistance à la magie",
-        "description": "Chaque fois que le personnage est la cible d’un sort (sauf un sort de zone), le joueur lance 1d6 : sur un résultat supérieur au rang du sort, il peut en ignorer les effets.",
+        "rank": 3,
+        "description": "Une fois par jour, le nain peut ignorer les effets d’un sort qui le cible (pas un sort de zone). Les créatures dont le niveau (NC) est au moins égal au double du niveau du nain ignorent cette capacité.",
         "profileId": null,
         "voieId": "voie_du_nain",
-        "rank": 4,
-        "active": true
+        "active": false
     },
     {
         "id": "resistance_legendaire",
@@ -3472,15 +3454,6 @@
         "voieId": "voie_de_la_seduction",
         "rank": 4,
         "active": true
-    },
-    {
-        "id": "superiorite_elfique",
-        "name": "Supériorité elfique",
-        "description": "L’elfe augmente ses valeurs de AGI et PER de +2.",
-        "profileId": null,
-        "voieId": "voie_de_l_elfe_sylvain",
-        "rank": 5,
-        "active": false
     },
     {
         "id": "superiorite_elfique_393",
@@ -3818,56 +3791,6 @@
         "active": true
     },
     {
-        "id": "vol_rapide_2",
-        "name": "Vol rapide",
-        "rank": 1,
-        "description": "La créature obtient une action de mouvement supplémentaire par tour lorsqu’elle est en vol. Au premier tour de combat, la créature obtient un bonus de +5 en attaque et +1d6 aux DM si elle est en vol et attaque une créature au sol.",
-        "paths": "Voie des créatures volantes",
-        "profileId": null,
-        "voieId": "voie_des_creatures_volantes",
-        "active": true
-    },
-    {
-        "id": "embuscade_2",
-        "name": "Embuscade",
-        "rank": 1,
-        "description": "Au premier tour de combat, si l’environnement permet à la créature de se dissimuler, la cible doit faire un test de PER difficulté [15 + Mod. de AGI] ou être Surprise. Si elle attaque avec succès une cible surprise, la créature inflige +1d6 aux DM et toute créature dont la FOR est inférieure à la sienne est Renversée. La créature obtient un bonus de +5 à tous les tests de discrétion et en Init.",
-        "paths": "Voie du prédateur",
-        "profileId": null,
-        "voieId": "voie_du_predateur",
-        "active": true
-    },
-    {
-        "id": "agripper_2",
-        "name": "Agripper",
-        "rank": 2,
-        "description": "Sur un résultat de 15-20 au d20 en attaque, la créature agrippe sa proie et ne la lâche plus. Elle obtient un bonus de +5 en attaque et +1d6 aux DM contre la cible qu’elle agrippe et celle-ci est Immobilisée si elle est de taille inférieure. La victime peut essayer de se libérer au prix d’une action de mouvement en réussissant un test de FOR opposé.",
-        "paths": "Voie des créatures volantes",
-        "profileId": null,
-        "voieId": "voie_des_creatures_volantes",
-        "active": true
-    },
-    {
-        "id": "emporter_dans_les_airs_2",
-        "name": "Emporter dans les airs",
-        "rank": 3,
-        "description": "La créature peut emporter dans les airs une victime agrippée de taille inférieure à la sienne au prix d’une action de mouvement. Au premier tour, si la victime se libère (test de FOR opposé), elle subit, 5d6 DM de chute. Au tour suivant, si la créature décide de prendre de l’altitude, les DM passent à 10d6.",
-        "paths": "Voie des créatures volantes",
-        "profileId": null,
-        "voieId": "voie_des_creatures_volantes",
-        "active": true
-    },
-    {
-        "id": "devorer_2",
-        "name": "Dévorer",
-        "rank": 2,
-        "description": "Lorsque la créature réussit une attaque avec un résultat de 15-20 au d20, elle saisit sa proie entre ses crocs ou ses griffes et lui inflige immédiatement une attaque gratuite supplémentaire. Si la FOR de la cible est inférieure ou égale au prédateur, elle est de plus Renversée et Immobilisée. Pour se libérer, la victime doit réussir un test de FOR opposé lors de son tour et cela lui demande une action de mouvement (et une autre pour se relever si elle a réussi).",
-        "paths": "Voie du prédateur",
-        "profileId": null,
-        "voieId": "voie_du_predateur",
-        "active": true
-    },
-    {
         "id": "charge",
         "name": "Charge",
         "rank": 1,
@@ -3876,16 +3799,6 @@
         "profileId": null,
         "voieId": "voie_du_cogneur",
         "active": true
-    },
-    {
-        "id": "sens_afftes_2",
-        "name": "Sens affûtés",
-        "rank": 1,
-        "description": "Pour chaque Rang dans cette Voie, le Rôdeur gagne un bonus de +2 à tous ses tests de PER destinés à simuler la perception (vue, ouïe, vigilance, etc.). De plus, il ajoute son Mod. de PER aux dégâts qu’il inflige à l’arc et à son Initiative.",
-        "paths": "Voie de l’archer",
-        "profileId": null,
-        "voieId": "voie_de_larcher",
-        "active": false
     },
     {
         "id": "tir_aveugle",
@@ -3905,16 +3818,6 @@
         "paths": "Voie de l’archer",
         "profileId": null,
         "voieId": "voie_de_larcher",
-        "active": false
-    },
-    {
-        "id": "chasseur_emerite_2",
-        "name": "Chasseur émérite",
-        "rank": 1,
-        "description": "Le Rôdeur obtient un bonus de +2 en attaque et aux DM lorsqu’il combat des animaux et un bonus de +2 par Rang dans cette Voie pour pister ou retrouver des traces.",
-        "paths": "Voie de l’escarmouche",
-        "profileId": null,
-        "voieId": "voie_de_lescarmouche",
         "active": false
     },
     {
@@ -3938,16 +3841,6 @@
         "active": true
     },
     {
-        "id": "interchangeables_2",
-        "name": "Interchangeables",
-        "rank": 1,
-        "description": "Tant que la créature et ses alliées sont plus nombreuses que la cible, elles se relaient pour esquiver ses attaques et elles obtiennent un bonus de +5 en DEF. Si plusieurs créatures semblables sont au contact du PJ, le MJ a toute latitude pour infliger les DM d’une attaque sur la créature de son choix, le personnage ne sait jamais laquelle il blesse.",
-        "paths": "Voie de la meute",
-        "profileId": null,
-        "voieId": "voie_de_la_meute",
-        "active": true
-    },
-    {
         "id": "protection_contre_les_elements",
         "name": "Protection contre les éléments",
         "rank": 2,
@@ -3962,36 +3855,6 @@
         "name": "Souffle enflammé",
         "rank": 1,
         "description": "Le souffle est une attaque de zone affectant toutes les créatures dans un cône de 10 m de long sur 5 m de large pour une créature moyenne ou grande (énorme 20 x 10 m et colossale 30 x 15 m). L’attaque inflige automatiquement (pas de test d’attaque) [(NC+2) x 1d6] DM (par exemple 6d6 pour NC 4). Les DM sont divisés par 2 si la victime réussit un test de AGI difficulté 13. La créature doit attendre 1d4 tours avant d’utiliser à nouveau son souffle après chaque utilisation. Pour plus de simplicité, lorsque les DM dépassent 6d6 chaque d6 supplémentaire est remplacé par un bonus de +3. Ainsi un dragon NC 14 aura un souffle infligeant [6d6 + 30] DM.",
-        "paths": "Voie des créatures élémentaire [du feu]",
-        "profileId": null,
-        "voieId": "voie_des_creatures_elementaire_du_feu",
-        "active": true
-    },
-    {
-        "id": "gober_2",
-        "name": "Gober",
-        "rank": 3,
-        "description": "Lorsqu’elle utilise sa capacité Dévorer, la créature peut avaler toute entière une cible d’au moins 1 taille en dessous de la sienne. La victime doit faire un test de FOR opposé, en cas d’échec elle passe directement dans l’estomac du monstre. Un personnage avalé subit 3d6 DM d’asphyxie et d’acide chaque tour. Il peut attaquer avec une arme pas plus grande qu’une dague en réussissant un test de FOR difficulté 15 à chaque tour. L’attaque se fait avec une pénalité de -5 en attaque et les DM sont divisés par 2.",
-        "paths": "Voie du prédateur",
-        "profileId": null,
-        "voieId": "voie_du_predateur",
-        "active": true
-    },
-    {
-        "id": "corps_enflamme_2",
-        "name": "Corps enflammé",
-        "rank": 2,
-        "description": "La créature est nimbée d’une aura de feu ou peut la faire surgir à volonté. Elle inflige +1d6 DM de feu par attaque de contact réussie. Une créature qui l’attaque au contact subit 1d6 DM pour chaque attaque réussie. Si une victime est saisie ou agrippée par la créature, elle subit à chaque tour +1d6 de feu supplémentaire. Lorsqu’elle est au contact d’une source de feu importante, la créature régénère 5 PV par tour.",
-        "paths": "Voie des créatures élémentaire [du feu]",
-        "profileId": null,
-        "voieId": "voie_des_creatures_elementaire_du_feu",
-        "active": true
-    },
-    {
-        "id": "explosion_finale_2",
-        "name": "Explosion finale",
-        "rank": 3,
-        "description": "Lorsqu’elle trépasse, la créature explose violemment en infligeant [NC] d6 DM de feu dans un rayon qui dépend de sa taille. Petite : 3 m, moyenne 5 m, grande 10 m, énorme 20 m, colossale 30 m. Un test de AGI difficulté 13 permet de diviser les DM par 2. La difficulté passe à 18 pour les créatures en combat au contact au moment de l’explosion. La capacité Corps enflammé inflige désormais 2d6 DM (au lieu de 1d6).",
         "paths": "Voie des créatures élémentaire [du feu]",
         "profileId": null,
         "voieId": "voie_des_creatures_elementaire_du_feu",
@@ -4078,36 +3941,6 @@
         "active": true
     },
     {
-        "id": "balayage_2",
-        "name": "Balayage",
-        "rank": 2,
-        "description": "La créature utilise sa grande taille pour affecter plusieurs créatures face à elle d’un seul coup de patte/arme. Si plusieurs cibles sont présentes face à elle, son attaque affecte deux créatures (dans un arc de 180°). Faire un seul test d’attaque et le comparer à la DEF de chaque cible. Sa résistance aux DM passe à 4 (RD 4).",
-        "paths": "Voie du colosse",
-        "profileId": null,
-        "voieId": "voie_du_colosse",
-        "active": false
-    },
-    {
-        "id": "projection_2",
-        "name": "Projection",
-        "rank": 3,
-        "description": "Sur 15 à 20 au test d’attaque, la victime est projetée à [1d6+1] mètres de là (plus ou moins selon la taille des protagonistes) et subit +3d6 DM supplémentaires. Elle doit réussir un test de CON de difficulté 15 ou être Étourdie. A chaque tour elle peut tenter un nouveau test de CON pour retrouver ses esprits. Sa résistance aux DM passe à 6 (RD 6).",
-        "paths": "Voie du colosse",
-        "profileId": null,
-        "voieId": "voie_du_colosse",
-        "active": true
-    },
-    {
-        "id": "enrager_2",
-        "name": "Enrager",
-        "rank": 2,
-        "description": "Lorsqu’elle reçoit un coup critique ou si ses PV passent sous la moitié, la créature devient enragée. Elle ignore les pénalités de douleur ou la peur, augmente de +5 son score d’attaque au contact et ses DM de +1d6. Elle peut encore agir un tour complet après avoir atteint 0 PV.",
-        "paths": "Voie du cogneur",
-        "profileId": null,
-        "voieId": "voie_du_cogneur",
-        "active": true
-    },
-    {
         "id": "percuter",
         "name": "Percuter",
         "rank": 3,
@@ -4168,16 +4001,6 @@
         "active": true
     },
     {
-        "id": "capitaine_2",
-        "name": "Capitaine",
-        "rank": 2,
-        "description": "Le capitaine donne un bonus de +2 en Initiative, en attaque et aux DM à toutes les créatures sous ses ordres à portée de vue. De plus il bénéficie d’une attaque supplémentaire à chaque tour lorsqu’il utilise une action limitée.",
-        "paths": "Voie du chef d’armée",
-        "profileId": null,
-        "voieId": "voie_du_chef_darmee",
-        "active": false
-    },
-    {
         "id": "attaque_magique",
         "name": "Attaque magique",
         "rank": 1,
@@ -4185,26 +4008,6 @@
         "paths": "Voie de la magie de combat",
         "profileId": null,
         "voieId": "voie_de_la_magie_de_combat",
-        "active": true
-    },
-    {
-        "id": "instinct_de_survie_2",
-        "name": "Instinct de survie",
-        "rank": 1,
-        "description": "La créature est passée maître dans l’art de se faufiler et de se mettre à couvert. Une fois par tour, au moment de son choix, le PNJ peut utiliser une action de mouvement supplémentaire pour se déplacer. Si un effet ou une créature le paralyse, le ralenti ou restreint ses mouvements, il a droit à un test d’INT ou de AGI au choix difficulté 10 pour s’en débarrasser une fois par tour. Il gagne +5 en DEF lorsqu’il lui reste moins de [NCx5] PV.",
-        "paths": "Voie du PNJ récurrent",
-        "profileId": null,
-        "voieId": "voie_du_pnj_recurrent",
-        "active": true
-    },
-    {
-        "id": "chair_a_canon_2",
-        "name": "Chair à canon",
-        "rank": 2,
-        "description": "Une fois par tour, le PNJ peut décider qu’une attaque qui le visait touche à la place un de ses sous-fifres situé à moins de 3 m et venu s’interposer (ou derrière lequel il s’est mis à couvert). Le PNJ gagne un bonus de +5 en DEF tant que des sous-fifres sont positionnés à moins de 3 mètres de lui.",
-        "paths": "Voie du PNJ récurrent",
-        "profileId": null,
-        "voieId": "voie_du_pnj_recurrent",
         "active": true
     },
     {
@@ -4265,16 +4068,6 @@
         "paths": "Voie de la meute",
         "profileId": null,
         "voieId": "voie_de_la_meute",
-        "active": true
-    },
-    {
-        "id": "sergent_2",
-        "name": "Sergent",
-        "rank": 1,
-        "description": "Une fois par tour, le sergent peut donner une action supplémentaire à n’importe quel allié sous ses ordres à porté de vue (attaque ou mouvement). Une fois par combat, une attaque qui aurait dû amener le sergent à 0 PV est ignorée.",
-        "paths": "Voie du chef d’armée",
-        "profileId": null,
-        "voieId": "voie_du_chef_darmee",
         "active": true
     },
     {
@@ -4458,16 +4251,6 @@
         "active": true
     },
     {
-        "id": "6eme_sens_2",
-        "name": "6ème sens",
-        "rank": 1,
-        "description": "L’Ensorceleur sait toujours légèrement en avance ce qui va arriver. Il gagne un bonus de +1 par Rang dans la Voie en Initiative et en DEF, ainsi qu’un bonus de +2 par Rang à tous les tests pour éviter d’être surpris.",
-        "paths": "Voie de la divination",
-        "profileId": null,
-        "voieId": "voie_de_la_divination",
-        "active": false
-    },
-    {
         "id": "detection_de_l_invisible",
         "name": "Détection de l'invisible",
         "rank": 2,
@@ -4486,16 +4269,6 @@
         "profileId": null,
         "voieId": "voie_de_la_divination",
         "active": true
-    },
-    {
-        "id": "parole_divine_2",
-        "name": "Parole divine",
-        "rank": 1,
-        "description": "Pour chaque rang dans cette Voie, le Prêtre obtient un bonus de +2 aux tests de CHA visant à convaincre ou convertir son auditoire.",
-        "paths": "Voie de la foi",
-        "profileId": null,
-        "voieId": "voie_de_la_foi",
-        "active": false
     },
     {
         "id": "arme_dargent",
@@ -4526,26 +4299,6 @@
         "profileId": null,
         "voieId": "voie_de_la_foi",
         "active": true
-    },
-    {
-        "id": "arme_benie_2",
-        "name": "Arme bénie",
-        "rank": 1,
-        "description": "Le Prêtre bénit son arme sacrée. S’il obtient un résultat de « 1 » sur son dé de DM, il relance le dé et garde le second résultat. Les DM de l’arme sont considérés comme magiques.",
-        "paths": "Voie de la guerre sainte",
-        "profileId": null,
-        "voieId": "voie_de_la_guerre_sainte",
-        "active": false
-    },
-    {
-        "id": "bouclier_de_la_foi_2",
-        "name": "Bouclier de la foi",
-        "rank": 2,
-        "description": "Le Prêtre porte le symbole de sa foi sur son bouclier, ce qui lui confère un bonus supplémentaire de +1 en DEF. Ce bonus passe à +2 au Rang 4 de la Voie.",
-        "paths": "Voie de la guerre sainte",
-        "profileId": null,
-        "voieId": "voie_de_la_guerre_sainte",
-        "active": false
     },
     {
         "id": "marteau_spirituel",
@@ -4618,30 +4371,10 @@
         "active": false
     },
     {
-        "id": "langage_des_animaux_2",
-        "name": "Langage des animaux",
-        "rank": 1,
-        "description": "Le Druide peut communiquer avec les animaux qui, en général, se comportent avec lui de manière amicale. Il gagne un bonus de +2 par rang à tous les tests destinés à influencer un animal. La communication reste primitive et limitée à l’intelligence de l’animal et à son point de vue (prédateur, proie, etc.).",
-        "paths": "Voie des animaux",
-        "profileId": null,
-        "voieId": "voie_des_animaux",
-        "active": false
-    },
-    {
         "id": "nuee_dinsectes",
         "name": "Nuée d’insectes",
         "rank": 2,
         "description": "En réussissant un test d’attaque magique (portée 20 m), le Druide libère sur sa cible une nuée d’insectes volants qui piquent, aveuglent et la suivent pendant [5 + Mod. de PER] tours. La victime subit 1 point de DM par tour et un malus de -2 à toutes ses actions. Les DM de zone détruisent la nuée.",
-        "paths": "Voie des animaux",
-        "profileId": null,
-        "voieId": "voie_des_animaux",
-        "active": true
-    },
-    {
-        "id": "le_guetteur_2",
-        "name": "Le guetteur",
-        "rank": 3,
-        "description": "Le Druide reçoit un oiseau de proie comme compagnon animal. Il possède un lien télépathique avec lui et peut percevoir par ses sens avec un bonus de +5 aux tests basés sur la perception. Aigle : DEF 15, PV [il les partage avec ceux de son maître]. Attaque de contact = [attaque magique du druide], DM 1d4.",
         "paths": "Voie des animaux",
         "profileId": null,
         "voieId": "voie_des_animaux",
@@ -4778,16 +4511,6 @@
         "active": true
     },
     {
-        "id": "proteger_un_allie_2",
-        "name": "Protéger un allié",
-        "rank": 1,
-        "description": "Le Guerrier accorde le Mod. de DEF de son bouclier à un compagnon de son choix qui se trouve juste à côté de lui (il conserve ce bonus pour lui-même aussi). Il peut changer de compagnon à chaque tour durant sa phase d’Initiative. C’est une action gratuite.",
-        "paths": "Voie du bouclier",
-        "profileId": null,
-        "voieId": "voie_du_bouclier",
-        "active": true
-    },
-    {
         "id": "absorber_un_coup",
         "name": "Absorber un coup",
         "rank": 2,
@@ -4796,56 +4519,6 @@
         "profileId": null,
         "voieId": "voie_du_bouclier",
         "active": true
-    },
-    {
-        "id": "sans_peur_2",
-        "name": "Sans peur",
-        "rank": 1,
-        "description": "Le Chevalier est immunisé aux attaques de peur et il offre un bonus de [2 + Mod. de CHA] à tous ses alliés contre ce type d’effet.",
-        "paths": "Voie du meneur d'homme",
-        "profileId": null,
-        "voieId": "voie_du_meneur_d_homme",
-        "active": false
-    },
-    {
-        "id": "intercepter_2",
-        "name": "Intercepter",
-        "rank": 2,
-        "description": "Une fois par tour, le Chevalier peut encaisser un coup à la place d’un allié à ses cotés. Il utilise sa DEF plutôt que celle de la cible initiale et retranche aux DM son rang dans la voie.",
-        "paths": "Voie du meneur d'homme",
-        "profileId": null,
-        "voieId": "voie_du_meneur_d_homme",
-        "active": true
-    },
-    {
-        "id": "piqres_d_insecte_2",
-        "name": "Piqûres d'insecte",
-        "rank": 2,
-        "description": "Lorsqu’il porte une armure lourde (demi-plaque ou plus), le Chevalier réduit les DM subis par les attaques à distances d’un montant égal au rang atteint dans cette voie.",
-        "paths": "Voie du héros",
-        "profileId": null,
-        "voieId": "voie_du_heros",
-        "active": false
-    },
-    {
-        "id": "robustesse_2",
-        "name": "Robustesse",
-        "rank": 1,
-        "description": "En prenant cette capacité, le Guerrier gagne 3 PV supplémentaires au Rang 1, puis 3 PV de plus au Rang 3 de cette Voie et enfin 3 PV au Rang 5.",
-        "paths": "Voie de la résistance",
-        "profileId": null,
-        "voieId": "voie_de_la_resistance",
-        "active": false
-    },
-    {
-        "id": "armure_naturelle_2",
-        "name": "Armure naturelle",
-        "rank": 2,
-        "description": "Le Guerrier a endurci son corps. Il bénéficie d’un bonus de +2 à la DEF. Ce bonus passe à +4 lorsqu’il atteint le rang 4 de la voie.",
-        "paths": "Voie de la résistance",
-        "profileId": null,
-        "voieId": "voie_de_la_resistance",
-        "active": false
     },
     {
         "id": "attaque_mortelle",
@@ -4866,16 +4539,6 @@
         "profileId": null,
         "voieId": "voie_du_tueur",
         "active": true
-    },
-    {
-        "id": "assassinat_2",
-        "name": "Assassinat",
-        "rank": 3,
-        "description": "Au premier tour de combat, si la cible est Surprise, une Attaque mortelle réussie l’oblige à réussir un test de CON difficulté 15 ou tomber à 0 PV.",
-        "paths": "Voie du tueur",
-        "profileId": null,
-        "voieId": "voie_du_tueur",
-        "active": false
     },
     {
         "id": "septieme_sens",
@@ -4942,42 +4605,6 @@
         "active": false
     },
     {
-        "id": "petit_pote",
-        "name": "Petit pote",
-        "rank": 2,
-        "description": "Le gnome est un compagnon sympathique. Il gagne +3 à tous les tests d’interaction sociale (sauf intimidation). Il gagne aussi 1 point de chance.",
-        "profileId": null,
-        "voieId": "voie_du_gnome",
-        "active": false
-    },
-    {
-        "id": "insignifiant",
-        "name": "Insignifiant",
-        "rank": 3,
-        "description": "Le gnome gagne un bonus de +2 en DEF contre les créatures de taille grande ou supérieure. Ce bonus passe à +3 au rang 5.",
-        "profileId": null,
-        "voieId": "voie_du_gnome",
-        "active": true
-    },
-    {
-        "id": "merveille_technologique",
-        "name": "Merveille technologique",
-        "rank": 4,
-        "description": "Le gnome sait utiliser les arbalètes (et les armes à poudre si autorisées), quel que soit son profil. Il ajoute son AGI aux DM qu’il inflige avec ces armes.",
-        "profileId": null,
-        "voieId": "voie_du_gnome",
-        "active": true
-    },
-    {
-        "id": "bonne_nature",
-        "name": "Bonne nature",
-        "rank": 5,
-        "description": "Le gnome augmente ses valeurs de CON et de CHA de +1.",
-        "profileId": null,
-        "voieId": "voie_du_gnome",
-        "active": false
-    },
-    {
         "id": "petite_taille",
         "name": "Petite taille",
         "rank": 1,
@@ -4985,33 +4612,6 @@
         "profileId": null,
         "voieId": "voie_du_halfelin",
         "active": false
-    },
-    {
-        "id": "resistance_legendaire_halfelin",
-        "name": "Résistance légendaire",
-        "rank": 2,
-        "description": "Le halfelin obtient un bonus égal à son rang à tous les tests opposés d’attaque magique effectués pour résister à un sort.",
-        "profileId": null,
-        "voieId": "voie_du_halfelin",
-        "active": false
-    },
-    {
-        "id": "bon_pour_le_moral",
-        "name": "Bon pour le moral",
-        "rank": 3,
-        "description": "Un halfelin qui mange bien est un halfelin heureux. À chaque repas (jusqu’à 4 fois par jour, espacés d'au moins 3h) au cours duquel il boit et mange bien, il récupère 1d4 PV (explose).",
-        "profileId": null,
-        "voieId": "voie_du_halfelin",
-        "active": true
-    },
-    {
-        "id": "petit_veinard",
-        "name": "Petit veinard",
-        "rank": 4,
-        "description": "Le halfelin gagne 1 PC supplémentaire. De plus, il peut esquiver une attaque de son choix par combat (avant d’avoir pris connaissance des DM, mais pas un critique).",
-        "profileId": null,
-        "voieId": "voie_du_halfelin",
-        "active": true
     },
     {
         "id": "vif_et_bien_nourri",
@@ -5027,24 +4627,6 @@
         "name": "Habitant des tunnels",
         "rank": 1,
         "description": "Dans le noir total, le nain voit comme dans la pénombre jusqu’à 30 m. De plus, il obtient un bonus de +3 à tous les tests en rapport avec la pierre, l’architecture, les mines, les passages secrets et les pièges dans la pierre.",
-        "profileId": null,
-        "voieId": "voie_du_nain",
-        "active": false
-    },
-    {
-        "id": "haches_et_marteaux",
-        "name": "Haches et marteaux",
-        "rank": 2,
-        "description": "Le nain gagne +1 en attaque et aux DM avec une hache ou un marteau de guerre. Il sait utiliser ces armes, quel que soit son profil.",
-        "profileId": null,
-        "voieId": "voie_du_nain",
-        "active": true
-    },
-    {
-        "id": "resistance_a_la_magie",
-        "name": "Résistance à la magie",
-        "rank": 3,
-        "description": "Une fois par jour, le nain peut ignorer les effets d’un sort qui le cible (pas un sort de zone). Les créatures dont le niveau (NC) est au moins égal au double du niveau du nain ignorent cette capacité.",
         "profileId": null,
         "voieId": "voie_du_nain",
         "active": false

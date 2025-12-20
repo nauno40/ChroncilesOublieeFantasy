@@ -24,5 +24,14 @@ export const DataService = {
     // Provision helper (combines food and lodging)
     getProvisions: (): (Food | Lodging)[] => {
         return [...getAll<Food>(foodData), ...getAll<Lodging>(lodgingData)];
+    },
+
+    // Consolidated equipment map
+    getAllEquipmentMap: (): Map<string, any> => {
+        const map = new Map<string, any>();
+        getAll<Weapon>(weaponsData).forEach(w => map.set(w.id, { ...w, tab: 'weapons' }));
+        getAll<Armor>(armorsData).forEach(a => map.set(a.id, { ...a, tab: 'armors' }));
+        getAll<Material>(materialsData).forEach(m => map.set(m.id, { ...m, tab: 'materials' }));
+        return map;
     }
 };

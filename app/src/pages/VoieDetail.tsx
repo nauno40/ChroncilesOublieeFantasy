@@ -1,37 +1,48 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import voiesData from '../data/voies.json';
-import capacitesData from '../data/capacites.json';
 import type { Voie, Capacity } from '../types/normalized';
 import { ArrowLeft } from 'lucide-react';
 import { Badge } from '../components/common';
-
-const voies = voiesData as Voie[];
-const capacites = capacitesData as Capacity[];
+import { DataService } from '../services/dataService';
 
 export const VoieDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
-    const voie = voies.find(v => v.id === id);
+    const [voie, setVoie] = useState<Voie | null>(null);
+    const [voieCapacities, setVoieCapacities] = useState<Capacity[]>([]);
+    const [loading, setLoading] = useState(true);
 
-    if (!voie) {
-        return (
-            <div className="max-w-4xl mx-auto p-8">
-                <div className="glass-panel p-8 rounded-2xl text-center">
-                    <h2 className="text-2xl font-display font-bold text-primary-400 mb-4">Voie introuvable</h2>
-                    <p className="text-stone-400 mb-6">La voie demandée n'existe pas.</p>
-                    <Link to="/voies" className="inline-flex items-center text-primary-400 hover:text-primary-300 transition-colors">
-                        <ArrowLeft size={18} className="mr-2" />
-                        Retour aux Voies
-                    </Link>
-                </div>
-            </div>
-        );
-    }
+    useEffect(() => {
+        const fetchData = async () => {
+            if (!id) return;
+            try {
+                // Fetch specific voie and its capabilities
+                const [voieData, capabilities] = await Promise.all([
+                    DataService.getVoieById(id),
+                    DataService.getCapabilitiesByVoie(id)
+                ]);
 
-    // Get all capacities for this voie
-    const voieCapacities = capacites
-        .filter(cap => cap.voieId === voie.id)
-        .sort((a, b) => (a.rank || 0) - (b.rank || 0));
+                // Normalize voie data if needed (similar to list view)
+                const normalizedVoie = {
+                    ...voieData,
+                    profileId: voieData.profileId || ((voieData as any).profile ? String((voieData as any).profile).split('/').pop() : null) || null,
+                    id: String(voieData.id)
+                };
+
+                setVoie(normalizedVoie);
+
+                if (capabilities) {
+                    setVoieCapacities(capabilities.sort((a, b) => (a.rank || 0) - (b.rank || 0)));
+                }
+            } catch (error) {
+                console.error("Failed to fetch voie details", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchData();
+    }, [id]);
+
+    if (loading) return <div className="p-8 text-center text-primary-200">Chargement...</div>;
 
     return (
         <div className="max-w-4xl mx-auto space-y-6 animate-fade-in pb-12">
@@ -46,19 +57,16 @@ export const VoieDetail: React.FC = () => {
 
                 {/* Header */}
                 <div className="bg-stone-900/40 p-8 backdrop-blur-sm">
-                    <h1 className="text-4xl md:text-5xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary-200 to-primary-500 drop-shadow-sm mb-4">
-                        {voie.name}
-                    </h1>
-                    <div className="flex gap-3">
-                        <span className="px-4 py-2 rounded-full bg-primary-500/20 text-primary-300 text-sm font-medium border border-primary-500/30">
-                            {voie.type}
-                        </span>
-                        {voie.profileId && (
-                            <span className="px-4 py-2 rounded-full bg-stone-700/50 text-stone-300 text-sm font-medium border border-stone-600/50">
-                                {voie.profileId}
-                            </span>
-                        )}
-                    </div>
+                    {voie ? (
+                        <>
+                            <h1 className="text-4xl md:text-5xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary-200 to-primary-500 drop-shadow-sm mb-4">
+                                {voie.name}
+                            </h1>
+
+                        </>
+                    ) : (
+                        <div className="text-stone-400">Voie non trouvée</div>
+                    )}
                 </div>
 
                 {/* Capacities */}

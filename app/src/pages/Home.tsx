@@ -1,19 +1,32 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { BookOpen, Swords, Scroll, Skull, ChevronRight, Users, Play } from 'lucide-react';
 import { getCampaigns } from '../utils/campaignService';
-import creaturesData from '../data/creatures.json';
-import voiesData from '../data/voies.json';
-import profilesData from '../data/profiles.json';
+import { DataService } from '../services/dataService';
 
 export const Home: React.FC = () => {
     const navigate = useNavigate();
+    const [stats, setStats] = useState({ creatures: 0, voies: 0, profiles: 0 });
+
+    useEffect(() => {
+        Promise.all([
+            DataService.getCreatures(),
+            DataService.getVoies(),
+            DataService.getProfiles()
+        ]).then(([c, v, p]) => {
+            setStats({
+                creatures: c.length,
+                voies: v.length,
+                profiles: p.length
+            });
+        }).catch(console.error);
+    }, []);
 
     // Load data
     const campaigns = useMemo(() => getCampaigns(), []);
-    const creaturesCount = (creaturesData as any[]).length;
-    const voiesCount = (voiesData as any[]).length;
-    const profilesCount = (profilesData as any[]).length;
+    const creaturesCount = stats.creatures;
+    const voiesCount = stats.voies;
+    const profilesCount = stats.profiles;
 
     // Determine the most recent campaign to resume
     const lastCampaign = useMemo(() => {

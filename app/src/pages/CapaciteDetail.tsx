@@ -1,28 +1,52 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import capacitesData from '../data/capacites.json';
-import profilesData from '../data/profiles.json';
-import voiesData from '../data/voies.json';
 import type { Capacity, Profile, Voie } from '../types/normalized';
 import { ArrowLeft } from 'lucide-react';
 import { Badge } from '../components/common';
-
-const capacites = capacitesData as Capacity[];
-const profiles = profilesData as Profile[];
-const voies = voiesData as Voie[];
+import { DataService } from '../services/dataService';
 
 export const CapaciteDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
-    // Using ID directly
-    const capacite = capacites.find(c => c.id === id);
+    const [capacite, setCapacite] = useState<Capacity | null>(null);
+    const [profile, setProfile] = useState<Profile | null>(null);
+    const [voie, setVoie] = useState<Voie | null>(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            if (!id) return;
+            try {
+                // Fetch the specific capability directly
+                const foundCapacite = await DataService.getCapabilityById(id);
+                setCapacite(foundCapacite);
+
+                // Then fetch related data if relationships exist
+                const [profiles, voies] = await Promise.all([
+                    DataService.getProfiles(),
+                    DataService.getVoies()
+                ]);
+
+                if (foundCapacite) {
+                    const foundProfile = foundCapacite.profileId ? profiles.find(p => String(p.id) === String(foundCapacite.profileId)) : null;
+                    const foundVoie = foundCapacite.voieId ? voies.find(v => String(v.id) === String(foundCapacite.voieId)) : null;
+                    setProfile(foundProfile || null);
+                    setVoie(foundVoie || null);
+                }
+            } catch (error) {
+                console.error("Failed to fetch capacity details", error);
+                setCapacite(null);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchData();
+    }, [id]);
+
+    if (loading) return <div className="p-8 text-center text-primary-200">Chargement...</div>;
 
     if (!capacite) {
         return <div>Capacité introuvable</div>;
     }
-
-    // Find related profile and voie
-    const profile = capacite.profileId ? profiles.find(p => p.id === capacite.profileId) : null;
-    const voie = capacite.voieId ? voies.find(v => v.id === capacite.voieId) : null;
 
     return (
         <div className="max-w-4xl mx-auto space-y-6 animate-fade-in pb-12">

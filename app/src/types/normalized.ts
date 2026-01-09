@@ -5,6 +5,16 @@
 // CHARACTER DATA
 // ============================================================================
 
+export interface RaceModifier {
+    type: 'choice' | 'fixed' | 'logic';
+    value: number;
+    stat?: string;
+    options?: string[];
+    count?: number;
+    logic?: string;
+    description?: string;
+}
+
 export interface Race {
     id: string;
     name: string;
@@ -14,18 +24,18 @@ export interface Race {
     abilities: string;
     startingAge: number;
     lifeExpectancy: number;
-    characteristics: string;
+
+    characteristics?: string;
+    modifiers?: RaceModifier[]; // Array of stat modifiers from API
     physicalTraits: string;
     typicalNames: string;
-    size: {
-        min: string;
-        max: string;
-    };
-    weight: {
-        min: string;
-        max: string;
-    };
+    minHeight: number;
+    maxHeight: number;
+    minWeight: number;
+    maxWeight: number;
     voieId?: string; // Refactored Voie ID
+    roleplay?: string;
+    image?: string;
 }
 
 export interface StartingEquipmentItem {
@@ -34,17 +44,50 @@ export interface StartingEquipmentItem {
     label?: string; // Optional override/choice description
 }
 
-export interface Profile {
-    id: string;
+export interface Family {
+    id: number | string; // API uses number, but keep string compat for safe handling
     name: string;
     description: string;
-    note: string;
+    baseHp: number;
+    recoveryDie: string;
+    luckPoints: number;
+    manaStat: string | null;
+}
+
+export interface Profile {
+    id: number | string;
+    name: string;
+    description: string;
+    note: string | null;
     hitDie: string;
-    weaponsAndArmor: string;
-    startingEquipment: StartingEquipmentItem[];
-    imageUrl: string;
-    magicModifier: string | null;
-    voies: string[]; // Array of voie IDs
+    skillPoints: number;
+
+    // Virtual/Mapped fields for frontend display
+    weaponsAndArmor?: string;
+
+    // Updated startingEquipment to reflect recent backend changes (raw array from JSON)
+    startingEquipment?: any[] | null;
+
+    // New Masteries field
+    masteries?: {
+        armes?: string;
+        armures?: string;
+        boucliers?: string;
+        special?: string;
+        [key: string]: any;
+    } | null;
+
+    imageUrl?: string;
+    magicModifier?: string | null;
+
+    // Relationships
+    voies: string[] | Voie[]; // Array of IRIs or Objects
+    family?: string | Family; // IRI or Object
+
+    // Rich Data
+    lore?: any; // Structured JSON, explicit type would be better if schema is strict
+
+    // Legacy fields optional
     vigorPoints?: number;
     recoveryDie?: string;
     luckPoints?: number;
@@ -53,6 +96,8 @@ export interface Profile {
 export interface Voie {
     id: string;
     name: string;
+    description?: string; // Added description
+    note_speciale?: string | null;
     type: string;
     profileId: string | null; // Reference to profile ID
 }
@@ -64,6 +109,7 @@ export interface Capacity {
     active: boolean;
     profileId: string | null; // Reference to profile ID
     voieId: string | null; // Reference to voie ID
+    voie?: string; // IRI reference from API (e.g. /api/voies/123)
     rank: number | null;
 }
 
@@ -238,35 +284,31 @@ export interface CreaturePath {
     rank: number;
 }
 
+// Simplified Creature interface matching API Platform response
 export interface Creature {
-    id?: string; // Optional if not in JSON but added by utility
-    name: Field[];
-    appearance: Field[];
-    description: Field[];
-    creature_family: Field[];
-    family_id?: string; // Refactored family ID
-    environment: Field[];
-    archetype: Field[];
-    boss_type: Field[];
-    boss_rank: Field[];
-    level: Field[];
-    category: Field[];
-    size: Field[];
-    str_mod: Field[];
-    agi_mod: Field[];
-    con_mod: Field[];
-    int_mod: Field[];
-    per_mod: Field[];
-    cha_mod: Field[];
-    vol_mod: Field[];
-    sup_abilities: Field[];
-    defense: Field[];
-    health_point: Field[];
-    dmg_reduction: Field[];
-    init: Field[];
-    attacks: CreatureAttackField[];
-    paths: CreaturePath[];
-    special_capabilities: Field[];
-    capabilities: CreatureCapability[];
-    picture: Field[];
+    id: number;
+    name: string;
+    description: string;
+    nc: number; // level
+    hp: number;
+    def: number;
+    init: number;
+    stats: {
+        FOR: number;
+        DEX: number;
+        CON: number;
+        INT: number;
+        SAG: number;
+        CHA: number;
+    };
+    family?: {
+        id: number;
+        name: string;
+    };
+    specialAbilities?: {
+        text: string;
+    };
+    attacks?: any[]; // JSON array
+    capabilities?: any[]; // JSON array
+    picture?: string;
 }

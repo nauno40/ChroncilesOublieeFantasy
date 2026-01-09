@@ -10,7 +10,7 @@ import { CombatTracker } from './pages/CombatTracker';
 import { Races } from './pages/Races';
 import { RaceDetail } from './pages/RaceDetail';
 import { Classes } from './pages/Classes';
-import { ClassDetail } from './pages/ClassDetail';
+import ClassDetail from './pages/ClassDetail';
 import { Voies } from './pages/Voies';
 import { VoieDetail } from './pages/VoieDetail';
 import { Capacites } from './pages/Capacites';

@@ -1,0 +1,314 @@
+[
+  {
+    "id": 1,
+    "name": "GOLEM",
+    "description": "Le druide choisit un petit animal (écureuil, corbeau, chat). Il peut utiliser les sens de son familier (voir par ses yeux, entendre ce qu'il entend, etc.) et communiquer avec lui à distance illimitée. Il gagne +2 en DEF lorsque son familier est en vue. Le familier récupère tous les PV perdus après une récupération rapide. S'il est réduit à 0 PV, le familier prend la fuite et réapparaît auprès de son maître 24 h plus tard, complètement soigné. S'il est tué (lors d'un fait de jeu que le MJ juge inévitable), le druide perd 1d4° PV en contre-coup et pourra trouver un autre familier au prochain passage de niveau (pas forcément le même animal).",
+    "nc": 0,
+    "hp": 4,
+    "def": 0,
+    "init": 0,
+    "stats": {
+      "AGI": "+2",
+      "CON": "+4*",
+      "FOR": "+5*",
+      "PER": "+2",
+      "CHA": "+0",
+      "INT": "+2",
+      "VOL": "+4"
+    },
+    "familyId": null,
+    "specialAbilities": []
+  },
+  {
+    "id": 2,
+    "name": "FAMILIER",
+    "description": "Le druide apprivoise une panthère (ou un puma) qui lui obéit au doigt et à l'œil.",
+    "nc": 0,
+    "hp": 0,
+    "def": 0,
+    "init": 0,
+    "stats": {
+      "AGI": ">",
+      "CON": "+3*",
+      "FOR": "0",
+      "PER": "-4",
+      "CHA": "+2*",
+      "INT": "-2",
+      "VOL": "-2"
+    },
+    "familyId": null,
+    "specialAbilities": []
+  },
+  {
+    "id": 3,
+    "name": "PANTHÈRE",
+    "description": "La panthère devient un animal fabuleux ou est remplacée par un félin plus grand (tigre, lion). Le grand félin peut servir de monture au druide et il se déplace de 20 m par action de mouvement. Le druide peut communiquer avec son félin par télépathie et le guérir à distance en dépensant ses propres PV (-1 PV au druide par PV octroyé au félin).",
+    "nc": 0,
+    "hp": 0,
+    "def": 0,
+    "init": 0,
+    "stats": {
+      "AGI": ">",
+      "CON": "+4*",
+      "FOR": "+2",
+      "PER": "+2",
+      "CHA": "+2*",
+      "INT": "-2",
+      "VOL": "-3"
+    },
+    "familyId": null,
+    "specialAbilities": []
+  },
+  {
+    "id": 4,
+    "name": "ANIMAL FABULEUX",
+    "description": "Le druide peut animer un arbre en le touchant. Il combat à son service pendant [niveau du druide] rounds. Il peut animer un seul arbre à la fois.",
+    "nc": 0,
+    "hp": 0,
+    "def": 0,
+    "init": 0,
+    "stats": {
+      "AGI": ">",
+      "CON": "+4*",
+      "FOR": "+5",
+      "PER": "+5",
+      "CHA": "+2*",
+      "INT": "-2",
+      "VOL": "-2"
+    },
+    "familyId": null,
+    "specialAbilities": []
+  },
+  {
+    "id": 5,
+    "name": "ARBRE ANIMÉ",
+    "description": "Le personnage fait l’acquisition d’un familier fantastique. Le familier récupère tous les PV per‑dus après une récupération rapide.",
+    "nc": 0,
+    "hp": 0,
+    "def": 0,
+    "init": 0,
+    "stats": {
+      "AGI": ">",
+      "CON": "-2",
+      "FOR": "+3",
+      "PER": "+3",
+      "CHA": "-2",
+      "INT": "-2",
+      "VOL": "-2"
+    },
+    "familyId": null,
+    "specialAbilities": []
+  },
+  {
+    "id": 6,
+    "name": "FAMILIER",
+    "description": "Le personnage a adopté (ou l'inverse ?) une fée, un farfadet ou un grig. Ce compagnon est affectueux, mais souvent blagueur et parfois irritant ! Il ne suit pas les ordres du PJ, mais il agit dans ce qu'il estime être l'intérêt du PJ et peut accepter différentes missions\n(messager, éclaireur, espion, etc.). Si le compagnon féérique est réduit à 0 PV, il disparaît dans le monde féérique et revient guéri au bout de 24 h.",
+    "nc": 0,
+    "hp": 0,
+    "def": 0,
+    "init": 0,
+    "stats": {},
+    "familyId": null,
+    "specialAbilities": []
+  },
+  {
+    "id": 7,
+    "name": "ÊTRE FÉÉRIQUE",
+    "description": "Le drake atteint sa pleine maturité et augmente ses capacités offensives.",
+    "nc": 0,
+    "hp": 0,
+    "def": 0,
+    "init": 0,
+    "stats": {
+      "AGI": ">",
+      "CON": "+4*",
+      "FOR": "+1",
+      "PER": "-4",
+      "CHA": "+2",
+      "INT": "+2",
+      "VOL": "+0"
+    },
+    "familyId": null,
+    "specialAbilities": []
+  },
+  {
+    "id": 8,
+    "name": "DRAKE",
+    "description": "Une fois par jour, le personnage peut prendre la forme d'un ours pendant [1d6+CON] minutes. Le personnage ne doit pas porter d'armure plus lourde que le cuir renforcé pour utiliser cette capacité.",
+    "nc": 0,
+    "hp": 0,
+    "def": 0,
+    "init": 0,
+    "stats": {
+      "AGI": ">",
+      "CON": "+0",
+      "FOR": "+6*",
+      "PER": "+6",
+      "CHA": "+1",
+      "INT": "-2",
+      "VOL": "+0"
+    },
+    "familyId": null,
+    "specialAbilities": []
+  },
+  {
+    "id": 9,
+    "name": "OURS BRUN",
+    "description": "Le personnage peut prendre une seule forme élémentaire de son choix pendant [5 + INT] minutes. La forme élémentaire lui permet de retrancher 5 points à tous les DM subis (RD 5), elle l'immunise aux DM de la forme choisie et lui octroie les capacités suivantes :\n*   **Feu** : le personnage ajoute +2d4° DM de feu à toutes ses attaques au contact. Une créature qui s'attaque à lui avec des armes naturelles subit 1d4° DM pour chaque attaque réussie.\n*   **Eau** : le personnage guérit toutes ses blessures au rythme de 1d4° PV par round et il peut déformer son corps pour passer dans le moindre interstice.\n*   **Terre** : le personnage obtient un bonus de +3 en FOR (+3 attaque et DM au contact et +3 tests de FOR) et en DEF.\n*   **Air** : le personnage peut voler (à une vitesse de 20 m par action de mouvement), il divise par deux les DM de ses attaques physiques mais pas ceux des sorts) et sa RD passe à 10.",
+    "nc": 4,
+    "hp": 1,
+    "def": 0,
+    "init": 0,
+    "stats": {
+      "AGI": ">",
+      "CON": "+1",
+      "FOR": "+6*",
+      "PER": "+6",
+      "CHA": "+2",
+      "INT": "-2",
+      "VOL": "[INT du personnage]"
+    },
+    "familyId": null,
+    "specialAbilities": []
+  },
+  {
+    "id": 10,
+    "name": "ÉLÉMENTAIRE",
+    "description": "Une fois par jour, le personnage peut se transformer en élémentaire de feu (taille grand), pendant un maximum de CHA minutes. Sous cette forme, il ne peut pas employer d’autres capacités que celles de la voie élémentaire du feu et il ne peut pas parler. S’il est réduit à 0 PV sous cette forme, il reprend sa forme initiale avec les PV qu’il avait au moment de la transformation.",
+    "nc": 1,
+    "hp": 0,
+    "def": 0,
+    "init": 0,
+    "stats": {
+      "AGI": ">",
+      "CON": "CHA",
+      "FOR": "+0",
+      "PER": "INT",
+      "CHA": "+2",
+      "INT": "VOL",
+      "VOL": "+6"
+    },
+    "familyId": null,
+    "specialAbilities": []
+  },
+  {
+    "id": 11,
+    "name": "ÉLÉMENTAIRE DE FEU",
+    "description": "Une fois par jour, le personnage peut se transformer en élémentaire de terre (taille grand), pendant un maximum de CHA minutes. Sous cette forme, il ne peut pas employer d'autres capacités que celles de la voie élémentaire de terre et il ne peut pas parler. S'il est réduit à 0 PV sous cette forme, il reprend sa forme initiale avec les PV qu'il avait au moment de la transformation.",
+    "nc": 0,
+    "hp": 0,
+    "def": 0,
+    "init": 0,
+    "stats": {
+      "AGI": ">",
+      "CON": "+3*",
+      "FOR": "+5",
+      "PER": "+5",
+      "CHA": "[PER du personnage]",
+      "INT": "[CHA du personnage]",
+      "VOL": "[INT du  personnage]"
+    },
+    "familyId": null,
+    "specialAbilities": []
+  },
+  {
+    "id": 12,
+    "name": "ÉLÉMENTAIRE DE TERRE",
+    "description": "Une fois par jour, le personnage peut se transformer en élémentaire d'air (taille grand), pendant un maximum de CHA minutes. Sous cette forme, il ne peut pas employer d'autres capacités que celles de la voie élémentaire de l'air et il ne peut pas parler. S'il est réduit à 0 PV sous cette forme, il reprend sa forme initiale avec les PV qu'il avait au moment de la transformation.",
+    "nc": 0,
+    "hp": 0,
+    "def": 0,
+    "init": 0,
+    "stats": {
+      "AGI": ">",
+      "CON": "+1",
+      "FOR": "+6",
+      "PER": "+6*",
+      "CHA": "mystique",
+      "INT": "mystique",
+      "VOL": "mystique"
+    },
+    "familyId": null,
+    "specialAbilities": []
+  },
+  {
+    "id": 13,
+    "name": "ÉLÉMENTAIRE D'AIR",
+    "description": "Une fois par jour, le personnage peut se transformer en élémentaire d'eau (taille grand), pendant un maximum de CHA minutes. Sous cette forme, il ne peut pas employer d'autres capacités que celles de la voie élémentaire de l'eau et il ne peut pas parler. S'il est réduit à 0 PV sous cette forme, il reprend sa forme initiale avec les PV qu'il avait au moment de la transformation.",
+    "nc": 0,
+    "hp": 0,
+    "def": 0,
+    "init": 0,
+    "stats": {
+      "AGI": ">",
+      "CON": "+5*",
+      "FOR": "+4",
+      "PER": "+4",
+      "CHA": "[mystique]",
+      "INT": "[mystique]",
+      "VOL": "[mystique]"
+    },
+    "familyId": null,
+    "specialAbilities": []
+  },
+  {
+    "id": 14,
+    "name": "ÉLÉMENTAIRE D'EAU",
+    "description": "Le personnage adopte un scorpion ou une araignée géante (au choix du joueur).",
+    "nc": 0,
+    "hp": 0,
+    "def": 0,
+    "init": 0,
+    "stats": {
+      "AGI": ">",
+      "CON": "+3",
+      "FOR": "+5",
+      "PER": "+5",
+      "CHA": "mystique",
+      "INT": "mystique",
+      "VOL": "mystique"
+    },
+    "familyId": null,
+    "specialAbilities": []
+  },
+  {
+    "id": 15,
+    "name": "SCORPION OU ARAIGNÉE",
+    "description": "**Portée.** La portée indique à quelle distance l'arme est efficace. Au-delà, le tireur subit un dé malus sur son test d'attaque à distance. La portée maximale à laquelle l'arme peut être utilisée est égale au double de la distance indiquée.\n**DM.** Les DM des armes d'attaque à distance ne reçoivent pas de bonus de caractéristique du personnage qui les utilise.\n**Types de DM.** Les armes d'attaque à distance ne provoquent que des DM perforants.\nLe type de DM n'a une importance que lorsque les personnages affrontent certaines créatures particulières. Par exemple, les squelettes sont résistants aux DM tranchants et perforants (ils divisent ces DM par deux), tandis qu'ils subissent des DM ordinaires des armes contondantes.\n**Munitions.** Nous vous conseillons de ne pas tenir compte des dépenses de munitions, c'est fastidieux et il est souhaitable de ne pas pénaliser les profils qui combattent à distance.\nDans certains cas exceptionnels, cela peut cependant faire partie des difficultés inhérentes à l'aventure (une exploration de plusieurs semaines en terre sauvage par exemple). Si cela est nécessaire, considérez que la norme est de 20 à 50 projectiles de réserve.\n**Recharger.** Il n'est pas possible de recharger une arbalète ou une arme à poudre si vous avez un adversaire actif (par opposition à incapable d'agir) à votre contact.\nLes armes dont le nom est inscrit en italique font appel à des règles particulières exposées ci-après. Leur utilisation est souvent plus complexe et nous les déconseillons aux joueurs débutants.\n*   **Couteaux de lancer :** inflige seulement 1d3 DM en attaque au contact. Lancer trois couteaux au titre d'un seul test d'attaque est possible. Il s'agit d'une action limitée qui permet l'ajout de l'AGI aux DM.\n*   **Javelot :** un javelot peut être utilisé avec un propulseur, une pièce de bois tenue en main qui permet d'augmenter sa portée. La portée est doublée, mais l'utilisation nécessite une action limitée.\n*   **Lance :** voir épée et lance dans les armes d'attaque au contact.\nLes armes à poudre ne conviennent pas à tous les univers de jeu, elles sont soumises à l'autorisation du MJ.\nPar défaut, même si ce n'est pas précisé dans les autres profils, seul l'arquebusier maîtrise les armes à poudre. Lorsqu'un personnage utilise une arme à poudre sans la maîtriser, non seulement, il subit un dé malus en attaque, mais de plus, s'il obtient 1 ou 2 au d20, la poudre explose de façon imprévue : elle lui inflige 1d4° DM et l'arme ne peut plus être utilisée pour le reste du combat.\n**Charger des armes à poudre à l'avance :** les joueurs comprendront vite qu'ils ont tout intérêt à ce que leurs personnages chargent le plus grand nombre d'armes à poudre possible avant un combat, afin de ne pas avoir à le faire pendant celui-ci. Il faudra rapidement poser une limite à cette tactique de jeu, sous peine de voir fleurir une liste d'armes sans fin. Un arquebusier pourra raisonnablement avoir trois armes chargées en même temps, généralement deux pétoires et un mousquet (plus éventuellement une couleuvre qui ne compte pas dans ce calcul). Plus d'armes surchargent le personnage. Changer d'arme demande une action de mouvement (M).\n**Halfelins et armes à poudre :** si un halfelin utilise une arme à poudre destinée à un humain, il subit un dé malus en attaque. Il peut toutefois tirer sans malus en tenant une pétoire à deux mains ou utiliser des armes de plus petit calibre spécialement fabriquées pour les halfelins (ou parfois les gobelins) dont les dés de DM sont réduits : pétoire 1d8 et mousquet 1d12.\nLes armures sont classées par valeur croissante de DEF, de la moins protectrice à la plus efficace. Par exemple, lorsqu'un profil indique « peut porter jusqu'à la chemise de mailles », cela signifie : du début du tableau jusqu'à cette armure incluse.\n**Armures maîtrisées.** Il n'y a pas de maîtrise d'armure à proprement parler. Un personnage peut toujours enfiler une armure de plaque ou utiliser un bouclier et profiter de son bonus en Défense. Toutefois, les voies de chaque profil sont associées à un type d'armure maximal : si vous utilisez une armure trop lourde, toutes les capacités restreintes à une armure plus légère vous seront interdites.\nAinsi, si un magicien porte une cotte de mailles ou utilise un bouclier, il ne peut plus utiliser ses capacités et ses sorts. Si un rôdeur porte une cotte de mailles, il ne peut plus utiliser les capacités de rôdeur.\n**AGI maximale.** La valeur maximale d'AGI d'un personnage est déterminée par l'armure qu'il porte. Les personnages avec une haute valeur d'AGI n'ont donc aucun intérêt à porter une armure trop lourde.\n> **Exemple :** un personnage avec une AGI de +3 peut porter jusqu'à la cotte de mailles sans subir de limitation, mais toute armure plus encombrante réduit la valeur de son AGI du nombre indiqué. S'il porte une armure de plaque, sa valeur d'AGI est réduite à +2 tant qu'il garde cette armure.\nLa règle est calibrée de façon qu'aucun personnage ne puisse dépasser un bonus de DEF de +8 en cumulant AGI + armure (+10 avec un grand bouclier).\n**Malus d'armure.** Les armures infligent des malus d'encombrement aux tests d'AGI : ajoutez la valeur de DEF de l'armure à la difficulté de tous les tests d'AGI effectués par le personnage. Pour certains tests de survie (CON), vous pouvez aussi imposer ce malus.\nSi vous avez une armure magique, non seulement le bonus de magie n'augmente pas le malus d'encombrement, mais en plus il le réduit (minimum 0).\n> **Exemple :** une chemise de mailles (DEF +4, donc malus d'armure = -4) +3 impose seulement un malus d'armure de -1 (-4 + 3 = -1).\n¹Armure fabriquée sur mesure, seul le chevalier peut la porter grâce à la capacité de rang 3 de la voie de la noblesse.\n* (*) Sans ces outils, une pénalité de -10 est infligée aux tests d'AGI (Crocheter).\n* (°) Les potions de soins ne sont pas forcément magiques, ce sont des remèdes à base de plantes ou de composants rares (qui peuvent être magiques). Un personnage ne peut pas profiter des effets de plus d'une potion de soins par récupération rapide (30 min).\n* ($) Une torche ou une lanterne éclairent dans un rayon de 10 m pendant 1 h pour une torche ou 6 h pour une lanterne (1 dose d'huile).",
+    "nc": 0,
+    "hp": 4,
+    "def": 0,
+    "init": 0,
+    "stats": {
+      "AGI": ">",
+      "CON": "+3*",
+      "FOR": "+5",
+      "PER": "+5",
+      "CHA": "+2",
+      "INT": "-4",
+      "VOL": "-3"
+    },
+    "familyId": null,
+    "specialAbilities": []
+  },
+  {
+    "id": 16,
+    "name": "Cheval de selle :",
+    "description": "Un monde fantastique est une formidable réserve de minéraux, de plantes ou d'organismes étranges aux propriétés magiques et extraordinaires. Mais si la diversité semble quasi infinie et réserve bien des surprises aux voyageurs, il s'avère que chacune de ces merveilles se trouve en toute petite quantité, ce qui en réserve l'accès aux plus érudits, aux plus chanceux ou aux plus riches. Les tentatives de culture ou d'exploitation à grande échelle de ce type de produits se sont toujours soldées par des échecs, aussi restent-ils rares.\nPour acheter un objet, il faut d'abord le trouver et les articles extraordinaires présentés ne courent pas les rues. Il faut de préférence se trouver dans une cité, puis l'acheteur potentiel ira de marchand en contact, de contact en échoppes où il devra faire connaître son intérêt pour l'article qui n'est pas forcément disponible immédiatement... Voici des règles pour gérer tout cela.\nLes objets précieux sont classés en niveau de rareté. Cette nomenclature permet de déterminer la difficulté pour trouver un objet et la taille minimale de l'agglomération où il existe une chance de se le procurer.\n**Taille de l'agglomération :** commencez par vérifier que ni le prix ni la rareté de l'objet ne dépassent la limite de l'agglomération dans laquelle l'objet est recherché. Si l'objet recherché est dans la tranche supérieure de la limite monétaire de la ville (80 %), vous pouvez choisir d'ajouter +5 à la difficulté des tests (voir ci-dessous). Le tableau montre aussi que des objets d'une valeur supérieure à 3 000 po ne peuvent être acquis que dans des conditions particulières.\nLe PJ doit faire **trois tests de CHA (Commerce)** dont la difficulté dépend de la rareté de l'objet (et donc de sa valeur).\nS'il obtient :\n*   **3 succès**, il trouve l'objet au prix habituel (un peu moins cher ou plus rapidement s'il obtient une réussite critique).\n*   **2 succès**, l'objet est disponible, mais à +20 % du prix habituel.\n*   **1 succès**, l'objet n'est pas disponible pour le moment et il ne le sera pas avant 3d10 jours.\n*   **0 succès**, l'objet n'est pas disponible avant très longtemps en ce lieu. Si en plus il obtient un échec critique (ou plusieurs), il s'est probablement fait arnaquer d'une façon ou d'une autre...\n**Durée** : Pour les objets les plus rares, la recherche est un travail de longue haleine, par exemple pour trouver un objet très rare, il faut compter 2d6 jours de recherche. Il faut se renseigner et prendre le temps de trouver les bons contacts, car ce type de marchand n'a pas pignon sur rue et les transactions se font soit de façon illégale soit dans des salons bourgeois à l'ambiance feutrée.\n**Exemple** : une épée longue de qualité qui coûte 112 pa nécessite au moins un bourg pour être trouvée (et 1d6 h de recherche). Si le PJ fait 3 tests de CHA et en réussit seulement 2, elle est disponible au prix de 153 pa.\n**Les échoppes** : lorsqu'on recherche un produit *rare* ou *très rare*, on ne le trouve généralement pas chez le forgeron local. Le négociant qui vend ce type de merchandise ne se trouve pas forcément dans les quartiers commerçants et n'a généralement pas pignon sur rue. On y accède sur recommandation et en montrant son or. Les transactions ont lieu à la cave et les gardes sont tous des pointures, non seulement très bien rémunérés, mais souvent proche depuis longtemps du propriétaire, quand ils n'ont pas carrément des intérêts dans son affaire. Il est de mise de pouvoir vérifier et essayer le matériel lorsque celui-ci le permet.\nVoici trois exemples de matériaux ou d'objets étranges et précieux. Vous pouvez en inventer d'autres, mais vous trouverez aussi davantage de propositions dans les suppléments à venir ou au sein des premiers épisodes de la campagne Calice, le crépuscule des déesses.\n*   Précieux\n*   40 pa\nUn métal bleu sombre, très dur et particulièrement lourd. Les armes de mêlée fabriquées dans ce métal imposent un malus de -1 en attaque, mais le dé de DM augmente d'une catégorie et elles sont presque indestructibles (1d4/1d6/1d8/1d10/1d12). S'ils les DM sont exprimés sous la forme de deux dés, un seul dé augmente (2d4 devient 1d4+1d6, 2d6 devient 1d6+1d8).\nLes projectiles fabriqués dans ce métal voient leur portée divisée par deux. Les armures obtiennent un bonus de +1 en DEF, mais leur pénalité d'armure augmente de +2.\nPour déterminer le prix d'une arme, multipliez la valeur maximale de ses DM par le prix indiqué, puis ajoutez le prix normal de l'arme.\n> **Exemple :** une épée longue (DM 1d8, 6 pa) en durium (40 pa) vaut (8 x 40) + 6 = 326 pa.\nPour déterminer le prix d'une armure, multipliez son bonus de DEF par le double du prix indiqué, puis ajoutez le prix normal de l'armure.\n> **Exemple :** une cotte de mailles en durium vaut (5 x 2 x 40) + 25 = 425 pa.\n*   Exotique\n*   100 pa\nL'hybberium est un métal qui devient glacial au contact de l'air, produisant même du givre. Cette simple chope en métal, en bois, en ivoire ou en terre cuite est doublée en hybberium. L'action du métal permet à votre bière d'être bien fraîche, même en plein désert. Un passage obligé pour tout nain qui se respecte.\n*   Exotique\n*   300 pa\nLe pnoulpe est une sorte de petit poulpe qui a la particularité de transformer l'eau en mélange respirable – et inversement – en quantité suffisante pour assurer la survie d'un être humain en milieu aquatique. En pratique, on place le corps mou de couleur rouge sur les voies respiratoires, les tentacules enserrant la tête, puis on se dépêche d'entrer dans l'eau pour ne pas asphyxier.\nLe pnoulpe est vendu dans un coffret de bois étanche empli d'un liquide qui permet de le conserver en léthargie pendant un mois au maximum (15 x 15 x 30 cm, poids 5 kg). Dès que la boîte est ouverte, il faut le mettre à l'eau, il ne peut plus être à nouveau plongé en léthargie et si on le sort de l'eau, il meurt rapidement.\nComme nous l'avons vu en introduction (voir « Qu'est-ce que le jeu de rôle », page 6), jouer à Chroniques Oubliées Fantasy consiste pour les joueurs à incarner des personnages dans une histoire que leur propose le meneur de jeu (MJ). Ensemble, joueurs et MJ co-créent l'histoire, les premiers en décidant ce que font et disent leurs personnages, et le second en réagissant aux actions et paroles des personnages joueurs (PJ), et en narrant des événements extérieurs aux PJ ainsi que les actions et paroles des personnages non joueurs (PNJ).\nUne partie de jeu de rôle ressemble ainsi, en quelque sorte, à une pièce de théâtre improvisée, les joueurs incarnant les rôles principaux, et le MJ étant à la fois le scénariste, le metteur en scène et l'acteur incarnant tous les autres rôles. Certains dialogues du MJ sont parfois écrits à l'avance, mais ceux des joueurs sont totalement improvisés en réaction à ce que propose le MJ. De même, les actions des PJ sont improvisées en réaction aux situations décrites par le MJ.\nSi les joueurs sont totalement libres de décider ce que leurs personnages disent ou entreprennent, les conséquences de leurs paroles et actions ne leur appartiennent pas et restent à déterminer. C'est pour cela que Chroniques Oubliées Fantasy, comme tout jeu, dispose de règles du jeu.\nDans de nombreuses situations, le bon sens suffit amplement et le MJ pourra agir en arbitre, décidant ce qu'il advient à la suite de la décision d'un joueur.\n> Exemple : Émilie décide que son personnage, une jeune noble, quitte le château de son père pour une balade à cheval en direction de la proche forêt. Émilie précise qu'après avoir franchi le pont levis, la jeune femme éperonne sa monture pour la mettre au trot, heureuse de profiter du beau temps, et peu après, sentant sa monture piaffer de joie, la laisse partir au galop. Comme il fait beau et que le personnage d'Émilie sait parfaitement monter à cheval, Chloé, la MJ, estime qu'il n'y a aucun problème et reprend la description, expliquant que le cheval s'élanse sur un chemin longeant les champs, hennissant de bonheur.\nToutefois, il arrivera toujours des situations dont l'issue est incertaine. Le MJ s'appuiera alors sur les règles et les feuilles de personnages (voir La feuille de personnage, page 355) pour déterminer ce qu'il advient.\n> Exemple : Émilie indique à Chloé que son personnage souhaite traverser la forêt pour arriver plus rapidement à un village où vit sa meilleure amie. Impatiente de la retrouver, elle ne ralentit pas la cadence. Chloé approuve et décrit les arbres qui filent sur les côtés et l'impression de vitesse augmentée par l'étroitesse du chemin forestier... et l'obstacle qui apparaît soudain au détour d'un virage. le cheval n a pas le temps le temps de ralentir et va devoir franchir l arbre tombé en travers de la piste. le personnage d émilie va-t-il être capable de franchir l obstacle avec sa monture? Chloé estime qu il ne lui appartient pas de décider et va donc s en remettre aux règles du jeu.\nLorsqu’un joueur décrit une action entreprise par son personnage, il y a donc deux situations :\n- l’action n’a pas d’enjeu, ou bien elle ne peut que réussir ou échouer : le MJ décide du résultat et décrit immédiatement la suite des événements ;\n- l’action a un enjeu et/ou son résultat est incertain : le MJ a recours à ce qu’on appelle un test.\nDans les deux cas, le MJ et les joueurs vont notamment s’appuyer sur les caractéristiques et capacités des PJ (voir « Création du personnage », page 20).\nDans ce chapitre, nous vous expliquons comment réaliser un test et différencier les deux types de tests qui existent : les tests de caractéristique et les tests d’attaque.\nLe résultat de ces tests n’étant pas toujours favorables aux PJ, nous vous présentons également une mécanique permettant aux joueurs d’agir sur le destin : les points de chance.\nChaque fois qu'un personnage entreprend une action un peu délicate et dont la réussite ou l'échec n'est pas automatique, le MJ a recours à un test, que les joueurs ou lui vont effectuer à l'aide d'un dé à vingt faces (d20). Certaines actions sont vouées à l'échec avant même que le joueur n'ait lancé le moindre dé. Un personnage qui voudrait traverser un mur de pierre ou soulever un éléphant à mains nues n'a aucune chance d'y parvenir. Dans ce cas, le MJ peut mettre en garde le joueur ou laisser son personnage se ridiculiser devant ses compagnons.\n> Exemple : Un personnage barbe habile de ses doigts joue avec sa dague pour se distraire. Saltimbanque, il se reproduit régulièrement en public et ce genre d'exercice est pour lui une seconde nature. Il ne fait pas de test car il n'y a pas d'enjeu et aucune incertitude sur la réussite. En revanche, lorsqu'il se retrouve devant le seigneur local qu'il essaie d'impressionner, la pression peut l'amener à commettre une erreur. Du point de vue technique, il est aussi intéressant de déterminer à quel point le personnage impressionne le seigneur. Dans ce cas, le MJ demandera au joueur d'effectuer un test de caractéristique (voir ci-après Tests de caractéristiques & tests d'attaque).\nPour effectuer un test, le joueur ou le MJ jette un d20 et ajoute au résultat obtenu la valeur de la caractéristique concernée (dans les scénarios vendus dans le commerce, la caractéristique est indiquée ; sinon, il revient au MJ de déterminer celle qui est adaptée à l'action qui nécessite le test). Le MJ peut appliquer toutes sortes de modificateurs en fonction de la situation, et le joueur peut ajouter un bonus à son résultat grâce à certaines capacités de son personnage (voir plus loin, compétences) ou son niveau (voir Test d'attaque, ci-après).\n**L'action est réussie lorsque le résultat final est supérieur ou égal à la difficulté du test.**\n> **Exemple :** Lhagva, le personnage joué par Anaïs, veut sauter par-dessus un précipice. Valentine, la meneuse de jeu, demande à Anaïs d'effectuer un test d'AGI difficulté 15. Elle lance le d20 et obtient un 14. Lhagva a +1 en AGI, donc le résultat final est égal à 14 + 1 = 15. Valentine annonce à Anaïs que son personnage parvient de justesse de l'autre côté !\nSi la difficulté de certains tests est précisée dans les scénarios publiés dans le commerce, les joueurs entreprennent souvent des actions qui n'ont pas été prévues par les auteurs. C'est alors, là encore, au MJ d'estimer la difficulté de l'action. Il en va de même lorsqu'il écrit ses propres scénarios. Pour ce faire, le MJ doit se demander comment il peut qualifier l'action : est-elle facile ? difficile ? Presque impossible à réaliser ? Une fois qu'il a déterminé le qualificatif, il n'a plus qu'à consulter la table des difficultés qui lui indique la valeur chiffrée correspondante.\nd20 + Carac. + modificateur\nSi le résultat est **inférieur à la difficulté**, l'action **échoue**.\nSi le résultat est **supérieur ou égal à la difficulté**, l'action **réussit**.\nDans certaines situations ou du fait de certaines capacités de voie, un test peut bénéficier d'un dé bonus ou subir un dé malus.\n*   **Dé bonus :** lancez un d20 supplémentaire et gardez le plus haut résultat (pas celui de votre choix).\n*   **Dé malus :** lancez un d20 supplémentaire et gardez le plus faible résultat.\n> **Exemple :** Wilibert veut escalader la façade d'un bâtiment. Le MJ lui demande un test d'AGI difficulté 15, mais comme Wilibert est Affaibli (un état préjudiciable), il subit un dé malus. Le joueur lance deux d20 et obtient 13 et 4. Il doit conserver le résultat le plus faible (4). Malgré une valeur de caractéristique de +2, le test est un échec.\nSur un même test, il peut arriver (du fait d'une capacité ou d'une situation particulière) qu'un personnage bénéficie de plusieurs dés bonus d'une part, et/ou subisse plusieurs dés malus d'autre part. Dans ce cas, les règles suivantes s'appliquent :\n*   Il n'est pas possible de cumuler plusieurs dés bonus ou malus. Ainsi, si la situation entraîne plusieurs dés d'un type ou de l'autre, un seul de chaque sera pris en compte.\n*   Le dé malus et le dé bonus s'annulent.\n**Caractéristiques héroïques :** ce sont des capacités de rang 4 (parfois 5) qui permettent d'obtenir un dé bonus. Ce dé ne s'applique qu'aux tests de la caractéristique pas aux tests d'attaque.",
+    "nc": 0,
+    "hp": 0,
+    "def": 0,
+    "init": 0,
+    "stats": {
+      "AGI": ">",
+      "CON": "+0",
+      "FOR": "+4",
+      "PER": "+4",
+      "CHA": "+0",
+      "INT": "-1",
+      "VOL": "-4"
+    },
+    "familyId": null,
+    "specialAbilities": []
+  }
+]

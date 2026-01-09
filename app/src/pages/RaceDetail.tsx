@@ -1,14 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import racesData from '../data/races.json';
-import voiesData from '../data/voies.json';
-import capacitesData from '../data/capacites.json';
 import type { Race, Voie, Capacity } from '../types/normalized';
 import { ArrowLeft } from 'lucide-react';
-
-const races = racesData as Race[];
-const voies = voiesData as Voie[];
-const capacites = capacitesData as Capacity[];
+import { DataService } from '../services/dataService';
 
 // Map French race names to English image filenames
 const getRaceImageName = (raceName: string): string => {
@@ -27,23 +21,64 @@ const getRaceImageName = (raceName: string): string => {
 
 export const RaceDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
-    // Using ID directly
-    const race = races.find(r => r.id === id);
+    const [race, setRace] = useState<Race | null>(null);
+    const [raceVoie, setRaceVoie] = useState<Voie | null>(null);
+    const [raceCapacities, setRaceCapacities] = useState<Capacity[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            if (!id) return;
+            try {
+                // Fetch all and filter client side
+                const [races, voies, capacities] = await Promise.all([
+                    DataService.getRaces(),
+                    DataService.getVoies(),
+                    DataService.getCapabilities()
+                ]);
+
+                console.log('RaceDetail Debug:', {
+                    idToFind: id,
+                    racesIsArray: Array.isArray(races),
+                    racesCount: Array.isArray(races) ? races.length : 'Not Array',
+                    firstRace: Array.isArray(races) && races.length > 0 ? races[0] : null
+                });
+
+                const foundRace = races.find(r => String(r.id) === id);
+                console.log('Found Race:', foundRace);
+
+                setRace(foundRace || null);
+
+                if (foundRace && foundRace.voieId) {
+                    const foundVoie = voies.find(v => String(v.id) === foundRace.voieId);
+                    setRaceVoie(foundVoie || null);
+
+                    if (foundVoie) {
+                        const filteredCapacities = capacities
+                            .filter(c => String(c.voieId) === String(foundVoie.id))
+                            .sort((a, b) => (a.rank || 0) - (b.rank || 0));
+                        setRaceCapacities(filteredCapacities);
+                    }
+                }
+            } catch (error) {
+                console.error("Failed to fetch race details", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchData();
+    }, [id]);
+
+    if (loading) return <div className="p-8 text-center text-primary-200">Chargement...</div>;
 
     if (!race) {
         return <div>Race introuvable</div>;
     }
 
-    const raceImageName = getRaceImageName(race.name);
-
-    // Dynamic Capacities Logic
-    const raceVoie = race.voieId ? voies.find(v => v.id === race.voieId) : null;
-    const raceCapacities = raceVoie
-        ? capacites.filter(c => c.voieId === raceVoie.id).sort((a, b) => (a.rank || 0) - (b.rank || 0))
-        : [];
+    const raceImageName = race.image ? race.image.split('/').pop() : getRaceImageName(race.name);
 
     return (
-        <div className="max-w-4xl mx-auto space-y-6 animate-fade-in pb-12">
+        <div className="max-w-4xl mx-auto space-y-6 pb-12">
             <Link to="/races" className="inline-flex items-center text-stone-400 hover:text-primary-400 transition-colors group mb-2">
                 <ArrowLeft size={18} className="mr-2 group-hover:-translate-x-1 transition-transform" />
                 <span className="font-display font-medium">Retour aux Races</span>
@@ -72,7 +107,7 @@ export const RaceDetail: React.FC = () => {
                         <h1 className="text-4xl md:text-5xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary-200 to-primary-500 drop-shadow-sm mb-4">
                             {race.name}
                         </h1>
-                        <p className="text-stone-400 italic">{race.physicalTraits}</p>
+
                     </div>
                 </div>
 
@@ -88,7 +123,9 @@ export const RaceDetail: React.FC = () => {
                     </div>
                     <div className="text-center md:col-span-2">
                         <div className="text-stone-500 text-xs uppercase tracking-wider mb-1">Taille</div>
-                        <div className="text-2xl font-display font-bold text-primary-400">{race.size.min} - {race.size.max}</div>
+                        <div className="text-2xl font-display font-bold text-primary-400">
+                            {race.minHeight / 100}m - {race.maxHeight / 100}m
+                        </div>
                     </div>
                 </div>
 
@@ -117,7 +154,22 @@ export const RaceDetail: React.FC = () => {
                         <h3 className="text-xl font-display font-bold text-primary-300 mb-3 border-b border-primary-500/20 pb-2">
                             Caractéristiques
                         </h3>
-                        <p className="text-stone-300 font-mono text-lg">{race.characteristics}</p>
+                        {race.characteristics ? (
+                            <p className="text-stone-300 font-mono text-lg">{race.characteristics}</p>
+                        ) : (
+                            <div className="text-stone-300 font-mono text-lg space-y-1">
+                                {race.modifiers?.map((mod, i) => (
+                                    <div key={i}>
+                                        {mod.description
+                                            ? mod.description
+                                            : mod.type === 'choice'
+                                                ? `${mod.value > 0 ? '+' : ''}${mod.value} ${mod.options?.join(' ou ')}`
+                                                : `${mod.value > 0 ? '+' : ''}${mod.value} ${mod.stat}`
+                                        }
+                                    </div>
+                                ))}
+                            </div>
+                        )}
                     </div>
 
                     {/* Desc - Short description */}
@@ -137,6 +189,16 @@ export const RaceDetail: React.FC = () => {
                                 Culture & Réputation
                             </h3>
                             <p className="text-stone-300 leading-relaxed italic">{race.publicPerception}</p>
+                        </div>
+                    )}
+
+                    {/* Roleplay - Interprétation (Desc2 replacement in new logic) */}
+                    {race.roleplay && (
+                        <div className="glass-panel p-6 rounded-xl border-white/5 bg-stone-900/30">
+                            <h3 className="text-xl font-display font-bold text-stone-300 mb-4 border-b border-white/10 pb-2">
+                                Interprétation
+                            </h3>
+                            <p className="text-stone-300 leading-relaxed italic">{race.roleplay}</p>
                         </div>
                     )}
 
@@ -178,14 +240,17 @@ export const RaceDetail: React.FC = () => {
                         <h3 className="text-xl font-display font-bold text-stone-300 mb-4 border-b border-white/10 pb-2">
                             Attributs physiques
                         </h3>
+                        <div className="mb-4">
+                            <p className="text-stone-300 italic"><span className="font-bold not-italic text-primary-400">Traits distinctifs : </span>{race.physicalTraits}</p>
+                        </div>
                         <div className="grid md:grid-cols-2 gap-4 text-stone-300">
                             <div>
                                 <span className="text-stone-500 text-sm">Taille :</span>
-                                <p className="font-semibold">{race.size.min} - {race.size.max}</p>
+                                <p className="font-semibold">{race.minHeight} cm - {race.maxHeight} cm</p>
                             </div>
                             <div>
                                 <span className="text-stone-500 text-sm">Poids :</span>
-                                <p className="font-semibold">{race.weight.min} - {race.weight.max}</p>
+                                <p className="font-semibold">{race.minWeight} kg - {race.maxWeight} kg</p>
                             </div>
                             <div>
                                 <span className="text-stone-500 text-sm">Âge de départ :</span>
@@ -207,6 +272,6 @@ export const RaceDetail: React.FC = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 };

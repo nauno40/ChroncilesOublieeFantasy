@@ -1,0 +1,906 @@
+[
+  {
+    "col1": "1",
+    "col2": "Abnégation",
+    "raw_data": [
+      "1",
+      "Abnégation",
+      "Alcoolique"
+    ]
+  },
+  {
+    "col1": "2",
+    "col2": "Clémence",
+    "raw_data": [
+      "2",
+      "Clémence",
+      "Couard"
+    ]
+  },
+  {
+    "col1": "3",
+    "col2": "Compassion",
+    "raw_data": [
+      "3",
+      "Compassion",
+      "Crédule"
+    ]
+  },
+  {
+    "col1": "4",
+    "col2": "Courage",
+    "raw_data": [
+      "4",
+      "Courage",
+      "Cupide"
+    ]
+  },
+  {
+    "col1": "5",
+    "col2": "Égalité",
+    "raw_data": [
+      "5",
+      "Égalité",
+      "Colérique"
+    ]
+  },
+  {
+    "col1": "6",
+    "col2": "Éducation",
+    "raw_data": [
+      "6",
+      "Éducation",
+      "Distrait"
+    ]
+  },
+  {
+    "col1": "7",
+    "col2": "Fraternité",
+    "raw_data": [
+      "7",
+      "Fraternité",
+      "Dragueur"
+    ]
+  },
+  {
+    "col1": "8",
+    "col2": "Frugalité",
+    "raw_data": [
+      "8",
+      "Frugalité",
+      "Fanfaron"
+    ]
+  },
+  {
+    "col1": "9",
+    "col2": "Générosité",
+    "raw_data": [
+      "9",
+      "Générosité",
+      "Gourmand"
+    ]
+  },
+  {
+    "col1": "10",
+    "col2": "Honnêteté",
+    "raw_data": [
+      "10",
+      "Honnêteté",
+      "Grossier"
+    ]
+  },
+  {
+    "col1": "11",
+    "col2": "Honneur",
+    "raw_data": [
+      "11",
+      "Honneur",
+      "Impatient"
+    ]
+  },
+  {
+    "col1": "12",
+    "col2": "Humilité",
+    "raw_data": [
+      "12",
+      "Humilité",
+      "Indécis"
+    ]
+  },
+  {
+    "col1": "13",
+    "col2": "Justice",
+    "raw_data": [
+      "13",
+      "Justice",
+      "Menteur"
+    ]
+  },
+  {
+    "col1": "14",
+    "col2": "Liberté",
+    "raw_data": [
+      "14",
+      "Liberté",
+      "Orgueilleux"
+    ]
+  },
+  {
+    "col1": "15",
+    "col2": "Loyauté",
+    "raw_data": [
+      "15",
+      "Loyauté",
+      "Paranoïaque"
+    ]
+  },
+  {
+    "col1": "16",
+    "col2": "Pacifisme",
+    "raw_data": [
+      "16",
+      "Pacifisme",
+      "Paresseux"
+    ]
+  },
+  {
+    "col1": "17",
+    "col2": "Protection",
+    "raw_data": [
+      "17",
+      "Protection",
+      "Phobie (au choix)"
+    ]
+  },
+  {
+    "col1": "18",
+    "col2": "Sens du sacrifice",
+    "raw_data": [
+      "18",
+      "Sens du sacrifice",
+      "Timide"
+    ]
+  },
+  {
+    "col1": "19",
+    "col2": "Solidarité",
+    "raw_data": [
+      "19",
+      "Solidarité",
+      "Violent"
+    ]
+  },
+  {
+    "col1": "20",
+    "col2": "Vérité",
+    "raw_data": [
+      "20",
+      "Vérité",
+      "Voleur"
+    ]
+  },
+  {
+    "col1": "1",
+    "col2": "Je ne suis pas celui que je prétends être.",
+    "raw_data": [
+      "1",
+      "Je ne suis pas celui que je prétends être."
+    ]
+  },
+  {
+    "col1": "2",
+    "col2": "Je recherche un membre de ma famille.",
+    "raw_data": [
+      "2",
+      "Je recherche un membre de ma famille."
+    ]
+  },
+  {
+    "col1": "3",
+    "col2": "Je suis victime d'une malédiction.",
+    "raw_data": [
+      "3",
+      "Je suis victime d'une malédiction."
+    ]
+  },
+  {
+    "col1": "4",
+    "col2": "Je suis recherché pour un crime (mais l'ai-je commis ?).",
+    "raw_data": [
+      "4",
+      "Je suis recherché pour un crime (mais l'ai-je commis ?)."
+    ]
+  },
+  {
+    "col1": "5",
+    "col2": "J'ai perdu la mémoire d'une période de ma vie.",
+    "raw_data": [
+      "5",
+      "J'ai perdu la mémoire d'une période de ma vie."
+    ]
+  },
+  {
+    "col1": "6",
+    "col2": "J'ai une phobie que j'ai honte d'avouer.",
+    "raw_data": [
+      "6",
+      "J'ai une phobie que j'ai honte d'avouer."
+    ]
+  },
+  {
+    "col1": "7",
+    "col2": "J'ai une addiction qui me cause du tort.",
+    "raw_data": [
+      "7",
+      "J'ai une addiction qui me cause du tort."
+    ]
+  },
+  {
+    "col1": "8",
+    "col2": "Il y a une chose en particulier qui me fait sortir de mes gonds.",
+    "raw_data": [
+      "8",
+      "Il y a une chose en particulier qui me fait sortir de mes gonds."
+    ]
+  },
+  {
+    "col1": "9",
+    "col2": "Un membre de ma propre famille est devenu un ennemi mortel.",
+    "raw_data": [
+      "9",
+      "Un membre de ma propre famille est devenu un ennemi mortel."
+    ]
+  },
+  {
+    "col1": "10",
+    "col2": "Je mène une double vie.",
+    "raw_data": [
+      "10",
+      "Je mène une double vie."
+    ]
+  },
+  {
+    "col1": "11",
+    "col2": "Je suis déjà mort une fois.",
+    "raw_data": [
+      "11",
+      "Je suis déjà mort une fois."
+    ]
+  },
+  {
+    "col1": "12",
+    "col2": "J'ai d'énormes dettes.",
+    "raw_data": [
+      "12",
+      "J'ai d'énormes dettes."
+    ]
+  },
+  {
+    "col1": "13",
+    "col2": "Ceci n'est pas mon corps (ou deux esprits cohabitent dans mon corps).",
+    "raw_data": [
+      "13",
+      "Ceci n'est pas mon corps (ou deux esprits cohabitent dans mon corps)."
+    ]
+  },
+  {
+    "col1": "14",
+    "col2": "J'ai brisé un serment sacré.",
+    "raw_data": [
+      "14",
+      "J'ai brisé un serment sacré."
+    ]
+  },
+  {
+    "col1": "15",
+    "col2": "Je possède un objet qui ne doit pas tomber entre de mauvaises mains.",
+    "raw_data": [
+      "15",
+      "Je possède un objet qui ne doit pas tomber entre de mauvaises mains."
+    ]
+  },
+  {
+    "col1": "16",
+    "col2": "Je porte un deuil terrible.",
+    "raw_data": [
+      "16",
+      "Je porte un deuil terrible."
+    ]
+  },
+  {
+    "col1": "17",
+    "col2": "J'ai fui une amante ou un amant puissant (socialement).",
+    "raw_data": [
+      "17",
+      "J'ai fui une amante ou un amant puissant (socialement)."
+    ]
+  },
+  {
+    "col1": "18",
+    "col2": "Un terrible cauchemar me hante chaque nuit (est-ce que je m'en souviens ?).",
+    "raw_data": [
+      "18",
+      "Un terrible cauchemar me hante chaque nuit (est-ce que je m'en souviens ?)."
+    ]
+  },
+  {
+    "col1": "19",
+    "col2": "Je n'ai pas réussi à empêcher un grand mal et je porte ce fardeau.",
+    "raw_data": [
+      "19",
+      "Je n'ai pas réussi à empêcher un grand mal et je porte ce fardeau."
+    ]
+  },
+  {
+    "col1": "20",
+    "col2": "Je fais partie d'une organisation secrète (ou je la fuis).",
+    "raw_data": [
+      "20",
+      "Je fais partie d'une organisation secrète (ou je la fuis)."
+    ]
+  },
+  {
+    "col1": "1",
+    "col2": "Toute ma famille est décédée ou m'a renié, mais j'ignore pourquoi.",
+    "raw_data": [
+      "1",
+      "Toute ma famille est décédée ou m'a renié, mais j'ignore pourquoi."
+    ]
+  },
+  {
+    "col1": "2",
+    "col2": "J'ai été recruté pour surveiller/protéger/espionner un autre membre du groupe.",
+    "raw_data": [
+      "2",
+      "J'ai été recruté pour surveiller/protéger/espionner un autre membre du groupe."
+    ]
+  },
+  {
+    "col1": "3",
+    "col2": "On m'a prédit que je causerai une terrible catastrophe.",
+    "raw_data": [
+      "3",
+      "On m'a prédit que je causerai une terrible catastrophe."
+    ]
+  },
+  {
+    "col1": "4",
+    "col2": "Je suis porteur d'une marque de naissance (j'en ignore l'origine et la signification).",
+    "raw_data": [
+      "4",
+      "Je suis porteur d'une marque de naissance (j'en ignore l'origine et la signification)."
+    ]
+  },
+  {
+    "col1": "5",
+    "col2": "Mon enfant/frère/sœur/amour a disparu sans explication.",
+    "raw_data": [
+      "5",
+      "Mon enfant/frère/sœur/amour a disparu sans explication."
+    ]
+  },
+  {
+    "col1": "6",
+    "col2": "Je possède un objet qui est un héritage familial et j'y tiens comme à ma vie.",
+    "raw_data": [
+      "6",
+      "Je possède un objet qui est un héritage familial et j'y tiens comme à ma vie."
+    ]
+  },
+  {
+    "col1": "7",
+    "col2": "J'ai passé un pacte secret avec un démon ou une entité supérieure.",
+    "raw_data": [
+      "7",
+      "J'ai passé un pacte secret avec un démon ou une entité supérieure."
+    ]
+  },
+  {
+    "col1": "8",
+    "col2": "J'ai été trahi et cela a bouleversé ma vie.",
+    "raw_data": [
+      "8",
+      "J'ai été trahi et cela a bouleversé ma vie."
+    ]
+  },
+  {
+    "col1": "9",
+    "col2": "J'ai un handicap, mais je le surmonte à tout prix.",
+    "raw_data": [
+      "9",
+      "J'ai un handicap, mais je le surmonte à tout prix."
+    ]
+  },
+  {
+    "col1": "10",
+    "col2": "Je suis célèbre pour une histoire que je préfère oublier...",
+    "raw_data": [
+      "10",
+      "Je suis célèbre pour une histoire que je préfère oublier..."
+    ]
+  },
+  {
+    "col1": "11",
+    "col2": "Je veux devenir célèbre pour gagner le cœur de quelqu'un.",
+    "raw_data": [
+      "11",
+      "Je veux devenir célèbre pour gagner le cœur de quelqu'un."
+    ]
+  },
+  {
+    "col1": "12",
+    "col2": "Je veux prouver à mon père/ma mère que je vaux mieux que ce qu'il croit.",
+    "raw_data": [
+      "12",
+      "Je veux prouver à mon père/ma mère que je vaux mieux que ce qu'il croit."
+    ]
+  },
+  {
+    "col1": "13",
+    "col2": "J'ai besoin de beaucoup d'argent pour une bonne cause.",
+    "raw_data": [
+      "13",
+      "J'ai besoin de beaucoup d'argent pour une bonne cause."
+    ]
+  },
+  {
+    "col1": "14",
+    "col2": "J'ai un objectif affiché, mais ce n'est pas celui que je cherche à atteindre.",
+    "raw_data": [
+      "14",
+      "J'ai un objectif affiché, mais ce n'est pas celui que je cherche à atteindre."
+    ]
+  },
+  {
+    "col1": "15",
+    "col2": "Je veux devenir puissant pour abattre un tyran/une créature.",
+    "raw_data": [
+      "15",
+      "Je veux devenir puissant pour abattre un tyran/une créature."
+    ]
+  },
+  {
+    "col1": "16",
+    "col2": "J'ai fait quelque chose d'horrible et je tente de me racheter.",
+    "raw_data": [
+      "16",
+      "J'ai fait quelque chose d'horrible et je tente de me racheter."
+    ]
+  },
+  {
+    "col1": "17",
+    "col2": "Je sais comment je vais mourir, je l'ai vu.",
+    "raw_data": [
+      "17",
+      "Je sais comment je vais mourir, je l'ai vu."
+    ]
+  },
+  {
+    "col1": "18",
+    "col2": "Je n'ai aucun secret ou originalité, alors je m'en invente.",
+    "raw_data": [
+      "18",
+      "Je n'ai aucun secret ou originalité, alors je m'en invente."
+    ]
+  },
+  {
+    "col1": "19",
+    "col2": "Je suis le parfait compagnon, mais un jour tous devront ployer le genou devant moi.",
+    "raw_data": [
+      "19",
+      "Je suis le parfait compagnon, mais un jour tous devront ployer le genou devant moi."
+    ]
+  },
+  {
+    "col1": "20",
+    "col2": "Je viens d'un autre monde et tout ce qui m'entoure me semble étrange.",
+    "raw_data": [
+      "20",
+      "Je viens d'un autre monde et tout ce qui m'entoure me semble étrange."
+    ]
+  },
+  {
+    "col1": "Demi-elfe",
+    "col2": "Demi-orc",
+    "raw_data": [
+      "Demi-elfe",
+      "Demi-orc",
+      "Elfe haut",
+      "Elfe sylvain",
+      "Gnome",
+      "Humain",
+      "Nain",
+      "Halfelin"
+    ]
+  },
+  {
+    "col1": "Âge de départ",
+    "col2": "20+",
+    "raw_data": [
+      "Âge de départ",
+      "20+",
+      "15+",
+      "80+",
+      "50+",
+      "40+",
+      "18+",
+      "40+",
+      "20+"
+    ]
+  },
+  {
+    "col1": "Espérance de vie",
+    "col2": "150",
+    "raw_data": [
+      "Espérance de vie",
+      "150",
+      "60",
+      "450",
+      "350",
+      "250",
+      "100",
+      "250",
+      "150"
+    ]
+  },
+  {
+    "col1": "Demi-elfe",
+    "col2": "1,50 m à 1,90 m",
+    "raw_data": [
+      "Demi-elfe",
+      "1,50 m à 1,90 m",
+      "40 à 80 kg"
+    ]
+  },
+  {
+    "col1": "Demi-orc",
+    "col2": "1,70 m à 2,10 m",
+    "raw_data": [
+      "Demi-orc",
+      "1,70 m à 2,10 m",
+      "70 à 150 kg"
+    ]
+  },
+  {
+    "col1": "Elfe haut",
+    "col2": "1,50 m à 1,80 m",
+    "raw_data": [
+      "Elfe haut",
+      "1,50 m à 1,80 m",
+      "40 à 70 kg"
+    ]
+  },
+  {
+    "col1": "Elfe sylvain",
+    "col2": "1,40 m à 1,70 m",
+    "raw_data": [
+      "Elfe sylvain",
+      "1,40 m à 1,70 m",
+      "30 à 60 kg"
+    ]
+  },
+  {
+    "col1": "Gnome",
+    "col2": "1 m à 1,20 m",
+    "raw_data": [
+      "Gnome",
+      "1 m à 1,20 m",
+      "30 à 50 kg"
+    ]
+  },
+  {
+    "col1": "Halfelin",
+    "col2": "80 cm à 1 m",
+    "raw_data": [
+      "Halfelin",
+      "80 cm à 1 m",
+      "20 à 30 kg"
+    ]
+  },
+  {
+    "col1": "Humain",
+    "col2": "1,50 m à 2 m",
+    "raw_data": [
+      "Humain",
+      "1,50 m à 2 m",
+      "40 à 120 kg"
+    ]
+  },
+  {
+    "col1": "Nain",
+    "col2": "1,15 m à 1,35 m",
+    "raw_data": [
+      "Nain",
+      "1,15 m à 1,35 m",
+      "50 à 100 kg"
+    ]
+  },
+  {
+    "col1": "AGI",
+    "col2": "CON",
+    "raw_data": [
+      "AGI",
+      "CON",
+      "FOR",
+      "PER",
+      "CHA",
+      "INT",
+      "VOL"
+    ]
+  },
+  {
+    "col1": "+1",
+    "col2": "+2",
+    "raw_data": [
+      "+1",
+      "+2",
+      "+3",
+      "+1",
+      "-1",
+      "+0",
+      "+1"
+    ]
+  },
+  {
+    "col1": "DR 4d10",
+    "col2": "PC 2",
+    "raw_data": [
+      "DR 4d10",
+      "PC 2"
+    ]
+  },
+  {
+    "col1": "DEF",
+    "col2": "PV",
+    "raw_data": [
+      "DEF",
+      "PV",
+      "INIT"
+    ]
+  },
+  {
+    "col1": "16",
+    "col2": "15",
+    "raw_data": [
+      "16",
+      "15",
+      "14"
+    ]
+  },
+  {
+    "col1": "Attaque au contact",
+    "col2": "Attaque à distance",
+    "raw_data": [
+      "Attaque au contact",
+      "Attaque à distance",
+      "Attaque magique"
+    ]
+  },
+  {
+    "col1": "+4",
+    "col2": "+2",
+    "raw_data": [
+      "+4",
+      "+2",
+      "+2"
+    ]
+  },
+  {
+    "col1": "Épée courbe",
+    "col2": "Javelot (portée 20m)",
+    "raw_data": [
+      "Épée courbe",
+      "Javelot (portée 20m)",
+      "Voie du pourfendeur rang 1 (Réflexes éclair)",
+      "Voie de la rage rang 1 (Cri de guerre)",
+      "Voie de l'humain rang 1 (Diversité)"
+    ]
+  },
+  {
+    "col1": "+4 DM 1d8+3",
+    "col2": "+2 DM 1d6",
+    "raw_data": [
+      "+4 DM 1d8+3",
+      "+2 DM 1d6"
+    ]
+  },
+  {
+    "col1": "AGI",
+    "col2": "CON",
+    "raw_data": [
+      "AGI",
+      "CON",
+      "FOR",
+      "PER",
+      "CHA",
+      "INT",
+      "VOL"
+    ]
+  },
+  {
+    "col1": "+1",
+    "col2": "+1",
+    "raw_data": [
+      "+1",
+      "+1",
+      "-2",
+      "+0",
+      "+4",
+      "+0",
+      "+2"
+    ]
+  },
+  {
+    "col1": "DR 3d6",
+    "col2": "PC 6",
+    "raw_data": [
+      "DR 3d6",
+      "PC 6",
+      "PM 5"
+    ]
+  },
+  {
+    "col1": "DEF",
+    "col2": "PV",
+    "raw_data": [
+      "DEF",
+      "PV",
+      "INIT"
+    ]
+  },
+  {
+    "col1": "12",
+    "col2": "7",
+    "raw_data": [
+      "12",
+      "7",
+      "11"
+    ]
+  },
+  {
+    "col1": "Attaque au contact",
+    "col2": "Attaque à distance",
+    "raw_data": [
+      "Attaque au contact",
+      "Attaque à distance",
+      "Attaque magique"
+    ]
+  },
+  {
+    "col1": "-1",
+    "col2": "+2",
+    "raw_data": [
+      "-1",
+      "+2",
+      "+3"
+    ]
+  },
+  {
+    "col1": "Bâton ferré",
+    "col2": "Voie de l'air rang 1 (Murmure dans le vent)",
+    "raw_data": [
+      "Bâton ferré",
+      "Voie de l'air rang 1 (Murmure dans le vent)",
+      "Voie de l'invocation rang 2 (Choc et Serviteur invisible)",
+      "Voie du mage rang 1 (Lumière intérieure + Occultisme)"
+    ]
+  },
+  {
+    "col1": "Rang",
+    "col2": "1",
+    "raw_data": [
+      "Rang",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8"
+    ]
+  },
+  {
+    "col1": "Niveau requis",
+    "col2": "1",
+    "raw_data": [
+      "Niveau requis",
+      "1",
+      "2*",
+      "3",
+      "5",
+      "7",
+      "9",
+      "11",
+      "13"
+    ]
+  },
+  {
+    "col1": "Famille de profils",
+    "col2": "PV par niveau",
+    "raw_data": [
+      "Famille de profils",
+      "PV par niveau"
+    ]
+  },
+  {
+    "col1": "Aventuriers",
+    "col2": "4 + CON",
+    "raw_data": [
+      "Aventuriers",
+      "4 + CON"
+    ]
+  },
+  {
+    "col1": "Combattants",
+    "col2": "5 + CON",
+    "raw_data": [
+      "Combattants",
+      "5 + CON"
+    ]
+  },
+  {
+    "col1": "Mages",
+    "col2": "3 + CON",
+    "raw_data": [
+      "Mages",
+      "3 + CON"
+    ]
+  },
+  {
+    "col1": "Mystiques",
+    "col2": "4 + CON",
+    "raw_data": [
+      "Mystiques",
+      "4 + CON"
+    ]
+  },
+  {
+    "col1": "Rang",
+    "col2": "4",
+    "raw_data": [
+      "Rang",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8"
+    ]
+  },
+  {
+    "col1": "Niveau requis",
+    "col2": "5",
+    "raw_data": [
+      "Niveau requis",
+      "5",
+      "7",
+      "9",
+      "11",
+      "13"
+    ]
+  },
+  {
+    "col1": "Niveau",
+    "col2": "1-5",
+    "raw_data": [
+      "Niveau",
+      "1-5",
+      "6-8",
+      "9-11",
+      "12-14",
+      "15+"
+    ]
+  },
+  {
+    "col1": "Valeur du dé évolutif",
+    "col2": "d4",
+    "raw_data": [
+      "Valeur du dé évolutif",
+      "d4",
+      "d6",
+      "d8",
+      "d10",
+      "d12"
+    ]
+  }
+]

@@ -1,0 +1,214 @@
+{
+    "classe": {
+        "nom": "Barde",
+        "description_generale": "Le barde est un personnage polyvalent qui utilise la magie et le spectacle pour divertir et parvenir à ses fins. Il est aussi habitué aux ruses qu’à la diplomatie. Ses capacités sont globalement moins tournées vers le combat et davantage vers les interactions douces.",
+        "lore": {
+            "geographie": "Toutes les nations civilisées des Terres d’Osgild, à l’exception du Protectorat de fer, accueillent des bardes.",
+            "elfes": "Les elfes ont un grand amour des arts, de la musique, du chant et de la danse, bien qu’ils pratiquent parfois un art si conceptuel que les humains ont du mal à l’apprécier. Les hauts elfes du royaume de Hautesylve comptent le plus de bardes.",
+            "principaute_arly": "Benastir, Valastir et surtout Ferrance sont des cités versées dans la culture. Le prince Omar d'Arly est un ami des lettres et des arts, finançant d'incroyables festivals.",
+            "nains": "Spécialistes du tambour et de la cornemuse, mais il est assez rare que leurs scaldes se produisent en dehors des cités naines."
+        },
+        "statistiques": {
+            "pv_par_niveau": 4,
+            "profil_type": "Polyvalent / Social"
+        }
+    },
+    "maitrises": {
+        "armes_armures": "Le barde sait manier les armes à une main. Les voies de barde limitent l’armure au cuir renforcé et interdisent l’utilisation du bouclier.",
+        "contraintes": "Il est nécessaire d’avoir une main libre pour utiliser les capacités de bardes (ni arme secondaire ni bouclier)."
+    },
+    "equipement_depart": [
+        {
+            "objet": "Rapière",
+            "stats": "DM 1d6, Crit 19‑20"
+        },
+        {
+            "objet": "Dague",
+            "stats": "DM 1d4"
+        },
+        {
+            "objet": "Instrument de musique"
+        },
+        {
+            "objet": "Armure de cuir",
+            "stats": "DEF +2"
+        }
+    ],
+    "voies": [
+        {
+            "nom": "Voie de l'Escrime",
+            "capacites": [
+                {
+                    "rang": 1,
+                    "nom": "Précision",
+                    "type": "Passif",
+                    "description_textuelle": "Le barde peut remplacer sa FOR par son AGI pour ses tests d’attaque au contact (mais pas aux DM) lorsqu’il emploie une arme légère à une main (les armes légères sont la dague, l’épée courte et la rapière)."
+                },
+                {
+                    "rang": 2,
+                    "nom": "Feinte",
+                    "type": "Action Limitée (L)",
+                    "description_textuelle": "Le barde effectue une attaque fictive pour déséquilibrer son adversaire et réalise ensuite une attaque mortelle. Faites un test opposé de CHA contre la PER de votre adversaire à ce round. Au round suivant, vous obtenez un bonus en attaque égal au double de votre rang dans la voie de l’escrime (+4 au rang 2, par exemple) sur votre première attaque au contact contre cet adversaire et, si votre feinte a réussi, +2d4° aux DM."
+                },
+                {
+                    "rang": 3,
+                    "nom": "Intelligence du combat",
+                    "type": "Action de Mouvement (M)",
+                    "description_textuelle": "Une fois par combat, le barde peut au choix désarmer, renverser ou aveugler pour une durée de 1 round un adversaire dont le NC est inférieur au sien en emportant un test opposé d’INT. S’il a réussi une feinte contre cet adversaire à son tour précédent, il bénéficie d’un bonus de +5 au test d’INT."
+                },
+                {
+                    "rang": 4,
+                    "nom": "Attaque flamboyante",
+                    "type": "Action Limitée (L)",
+                    "description_textuelle": "Le style de combat du barde est flamboyant et surprenant : Il effectue une attaque de contact avec une arme légère et obtient un bonus d’attaque et de DM égal à son CHA (en plus de sa FOR ou de son AGI)."
+                },
+                {
+                    "rang": 5,
+                    "nom": "Botte mortelle",
+                    "type": "Passif",
+                    "description_textuelle": "Lors d’une attaque au contact avec une arme légère, s’il obtient un résultat d’attaque supérieur ou égal à (la DEF de son adversaire + 10 points), le barde obtient un bonus de +2d4° aux DM de son attaque (les dés bonus ne sont jamais multipliés en cas de critique)."
+                }
+            ]
+        },
+        {
+            "nom": "Voie du Musicien",
+            "capacites": [
+                {
+                    "rang": 1,
+                    "nom": "Chant des héros",
+                    "type": "Action Limitée (L) - Sort*",
+                    "description_textuelle": "Le barde peut chanter et inspirer ses compagnons, tous ses alliés à portée de voix et lui obtiennent un bonus de +1 à tous leurs tests pendant un nombre de minutes égal à sa valeur de CHA. Pendant toute la durée du sort, il fredonne (action gratuite qui ne l’empêche pas de lancer d’autres sorts de barde). Le bonus passe à +2 au rang 5. En plus de ce sort, le barde ajoute son rang + 2 aux tests pour jouer d’un instrument de musique ou chanter."
+                },
+                {
+                    "rang": 2,
+                    "nom": "Chant de réconfort",
+                    "type": "Action Limitée (L) - Sort*",
+                    "description_textuelle": "Le barde chante ou joue de la musique pendant toute la durée d’une récupération rapide (30 min). Le barde et ses alliés dans un rayon de 10 m, récupèrent 1d4° PV. Les soins passent à 2d4° au rang 4."
+                },
+                {
+                    "rang": 3,
+                    "nom": "Attaque sonore",
+                    "type": "Action (A) - Sort*",
+                    "description_textuelle": "Le barde pousse un cri dont les effets sont dévastateurs (ou produit un son avec un instrument à cette même fin). Il inflige [2d4° + CHA] DM à toutes les cibles dans un cône de 10 m (de long et de large). Les cibles peuvent diviser les DM par 2 si elles réussissent un test de CON difficulté [10 + CHA du barde]."
+                },
+                {
+                    "rang": 4,
+                    "nom": "Zone de silence",
+                    "type": "Action (A) - Sort*",
+                    "description_textuelle": "Le barde crée une zone de silence fixe de 5 m de diamètre, jusqu’à une portée de 30 m, pendant un nombre de minutes égal à sa valeur de CHA. Tous les sons émis dans cette sphère sont annulés. Dans cette zone, il faut réussir un test d’INT difficulté 10 pour lancer un sort."
+                },
+                {
+                    "rang": 5,
+                    "nom": "Danse irrésistible",
+                    "type": "Action (A) - Sort*",
+                    "description_textuelle": "Le barde joue une gigue endiablée aux effets magiques. S’il réussit un test d’attaque magique opposé contre sa cible (portée 10 m), celle‑ci se met à danser pendant [1d4° + CHA] rounds, elle subit un dé malus aux tests d’attaque et ‑5 en DEF. Si la cible est d’un niveau (NC) supérieur ou égal au barde, elle ne danse qu’un seul round."
+                }
+            ]
+        },
+        {
+            "nom": "Voie du Saltimbanque",
+            "capacites": [
+                {
+                    "rang": 1,
+                    "nom": "Acrobate",
+                    "type": "Passif",
+                    "description_textuelle": "Le barde ajoute son rang + 2 à tous les tests qu’il effectue pour réaliser des acrobaties, tenir en équilibre, faire des sauts ou de l’escalade."
+                },
+                {
+                    "rang": 2,
+                    "nom": "Grâce féline",
+                    "type": "Passif",
+                    "description_textuelle": "Le barde gagne son CHA en Initiative et +1 en DEF (+2 au rang 4). De plus, le barde ajoute son rang + 2 aux tests de danse, de mime ou de jonglerie."
+                },
+                {
+                    "rang": 3,
+                    "nom": "Lanceur de couteau",
+                    "type": "Action Gratuite (G)",
+                    "description_textuelle": "Une fois par round, en plus de ses autres actions, le barde peut lancer un couteau sur une cible à distance (portée 10 m) en réussissant un test d’attaque à distance. Cette attaque occasionne [1d4 + AGI] DM. Il peut exécuter cette action sans pénalité, même s’il est engagé en combat au contact avec un autre adversaire. Les DM passent à 1d4° au rang 5."
+                },
+                {
+                    "rang": 4,
+                    "nom": "Liberté d’action",
+                    "type": "Passif",
+                    "description_textuelle": "Le barde est immunisé à la peur et à tous les sorts qui asservissent l’esprit (possession, charme), il est immunisé aux états ralenti et immobilisé."
+                },
+                {
+                    "rang": 5,
+                    "nom": "Esquive acrobatique",
+                    "type": "Action Gratuite (G)",
+                    "description_textuelle": "Une fois par round, le barde peut réaliser une esquive en réussissant un test d’attaque à distance contre une difficulté égale au résultat obtenu par son adversaire, lors de son attaque. En cas de réussite, le barde ne subit aucun DM. Si cette attaque était un critique, il subit tout de même des DM normaux (il annule donc l’effet critique « dommages doublés »)."
+                }
+            ]
+        },
+        {
+            "nom": "Voie de la Séduction",
+            "capacites": [
+                {
+                    "rang": 1,
+                    "nom": "Charmant",
+                    "type": "Passif",
+                    "description_textuelle": "Le barde ajoute son rang + 2 aux tests effectués pour séduire, convaincre, mentir ou baratiner. Désormais, il peut dépenser 1 point de chance pour améliorer l’action d’un compagnon en vue, ce PC permet d’ajouter [1d4° + CHA] sur le résultat du test (au lieu de +10)."
+                },
+                {
+                    "rang": 2,
+                    "nom": "Dentelles et rapière",
+                    "type": "Passif",
+                    "description_textuelle": "Le barde ne met pas d’armure, cela ne sied point en société. Sa seule armure est la dentelle, sa seule défense, la rapière. Lorsqu’il ne porte aucune armure, le barde ajoute son CHA en DEF (en plus de son AGI), toutefois ce bonus ne peut pas dépasser le rang atteint dans la voie."
+                },
+                {
+                    "rang": 3,
+                    "nom": "Baratineur de génie",
+                    "type": "Action (Sociale)",
+                    "description_textuelle": "Si le barde peut passer 10 minutes avec un humanoïde dont le niveau est inférieur ou égal à 1 (NC 1), il peut dépenser un 1 PC pour le charmer. La cible répond favorablement à vos requêtes dans la limite de ce que ferait un ami et ce lien peut se renforcer avec le temps. Si vous ne partagez pas une langue commune, cela vous coûte 2 PC."
+                },
+                {
+                    "rang": 4,
+                    "nom": "Charisme héroïque",
+                    "type": "Passif",
+                    "description_textuelle": "Le barde augmente sa valeur de CHA de +1. Désormais, il obtient un dé bonus aux tests de CHA. De plus, le barde peut désormais utiliser son CHA au lieu de sa VOL pour calculer le nombre de PM dont il dispose."
+                },
+                {
+                    "rang": 5,
+                    "nom": "Suggestion",
+                    "type": "Action (A) - Sort*",
+                    "description_textuelle": "Le barde peut suggérer une action à une créature en réussissant un test opposé d’attaque magique. En cas de réussite, la créature fera tout son possible pour satisfaire cette demande pendant 1 heure ou jusqu’à avoir réussi. Elle évitera les actions suicidaires (ce qui lui donnerait immédiatement un test d’INT difficulté 10 pour échapper au sort). Le sort ne peut pas affecter une créature de niveau supérieur ou égal à celui du lanceur."
+                }
+            ]
+        },
+        {
+            "nom": "Voie du Vagabond",
+            "capacites": [
+                {
+                    "rang": 1,
+                    "nom": "Rumeurs et légendes",
+                    "type": "Passif",
+                    "description_textuelle": "À force de voyager, le barde possède une culture générale très vaste, il ajoute son rang + 2 aux tests d’INT pour se « souvenir » d’une information historique, politique, géographique ou occulte ou encore pour identifier un objet magique difficulté (25 - (2 x niveau de magie de l’objet))."
+                },
+                {
+                    "rang": 2,
+                    "nom": "Éclectique",
+                    "type": "Passif",
+                    "description_textuelle": "Le barde obtient un bonus de +1 à tous les tests de compétence (absolument tous, de se cacher dans les ombres jusqu’à forger une épée, en passant par traduire une langue ancienne). Ce bonus ne peut se cumuler à aucun autre bonus de compétence sauf celui du rang 1 de la voie de peuple. Il augmente de +1 chaque fois qu’il atteint le rang 4 dans une voie de barde."
+                },
+                {
+                    "rang": 3,
+                    "nom": "Attirail",
+                    "type": "Action (Spéciale)",
+                    "description_textuelle": "Le barde possède toutes sortes de choses dans son sac ou ses poches. En dépensant 1 PC, il peut sortir un objet improbable qu’il avait sur lui, mais qui n’est pas inscrit sur sa fiche de PJ, par exemple un livre de poésie, une bouteille d’un excellent vin, un jouet pour enfant, un os pour le chien, une lettre de recommandation, etc. (pour une valeur maximale de 10 pa). Il peut aussi bricoler un objet avec trois bouts de ficelles et un clou (système D)."
+                },
+                {
+                    "rang": 4,
+                    "nom": "Compréhension des langues",
+                    "type": "Action (A) - Sort*",
+                    "description_textuelle": "Ce sort permet au barde de lire, écrire et parler une langue vivante étrangère. Le sort a une durée maximale de CHA heures, mais il peut aussi être lancé sur un allié au contact et dans ce cas, il ne dure que CHA minutes. À partir du rang 5, il peut aussi déchiffrer une inscription dans une langue morte."
+                },
+                {
+                    "rang": 5,
+                    "nom": "Déguisement",
+                    "type": "Action (A) - Sort*",
+                    "description_textuelle": "Ce sort permet au barde de prendre l’apparence de n’importe quelle humanoïde de taille à peu près équivalente (avec une marge d’environ 50 cm). S’il veut imiter une personne en particulier, il lui faudra réussir un test de CHA difficulté 15 (20 s’il ne la connaît pas mais l’a seulement vue, 10 s’il la connaît très bien). Le sort a une durée maximale de CHA heures, mais il peut aussi être lancé sur un allié au contact et dans ce cas, il ne dure que CHA minutes."
+                }
+            ]
+        }
+    ]
+}

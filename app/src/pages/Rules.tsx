@@ -271,6 +271,14 @@ export const Rules: React.FC = () => {
                                 <div><strong className="text-stone-200">Campagne :</strong> Saga d'aventures</div>
                                 <div><strong className="text-stone-200">Roleplay :</strong> Interprétation</div>
                                 <div><strong className="text-stone-200">Background :</strong> Passé du perso</div>
+                                <div><strong className="text-stone-200">D20 / D6... :</strong> Dés à X faces</div>
+                                <div><strong className="text-stone-200">Mod. :</strong> Modificateur de Carac.</div>
+                                <div><strong className="text-stone-200">PV :</strong> Points de Vie (Santé)</div>
+                                <div><strong className="text-stone-200">PM :</strong> Points de Mana (Magie)</div>
+                                <div><strong className="text-stone-200">DM :</strong> Dommages (Dégâts)</div>
+                                <div><strong className="text-stone-200">DEF :</strong> Défense (Score à battre)</div>
+                                <div><strong className="text-stone-200">SD :</strong> Seuil de Difficulté</div>
+                                <div><strong className="text-stone-200">AOE :</strong> Zone d'effet (Area of Effect)</div>
                             </div>
                         </div>
                     </section>
@@ -289,13 +297,23 @@ export const Rules: React.FC = () => {
                             <div className="flex flex-col md:flex-row gap-4 mb-6">
                                 <div className="bg-stone-900/50 p-4 rounded border border-white/10 flex-1 text-center font-bold text-lg text-primary-200">
                                     <span className="block text-stone-500 text-sm uppercase mb-1">Formule</span>
-                                    d20 + Caractéristique + Modificateurs
+                                    d20 + Mod. Carac. + Modificateurs
                                 </div>
                                 <div className="bg-stone-900/50 p-4 rounded border border-white/10 flex-1 text-center font-bold text-lg text-primary-200">
                                     <span className="block text-stone-500 text-sm uppercase mb-1">Résolution</span>
                                     Si Résultat ≥ Difficulté (SD) : <strong>Réussite</strong><br />
                                     <span className="text-sm font-normal text-stone-400">Sinon : Échec</span>
                                 </div>
+                            </div>
+
+                            <div className="bg-stone-900/40 p-3 rounded border border-white/5 text-sm mb-4">
+                                <strong className="text-primary-300 block mb-1">Exemple :</strong>
+                                <p className="text-stone-300">
+                                    Krush (FOR +3) veut enfoncer une porte (Diff 15).<br />
+                                    Il lance le dé et obtient 11.<br />
+                                    <strong>Total :</strong> 11 (dé) + 3 (FOR) = <strong>14</strong>.<br />
+                                    14 est inférieur à 15 (SD), l'action échoue.
+                                </p>
                             </div>
 
                             <div className="bg-amber-900/20 border border-amber-500/30 p-4 rounded text-amber-100 text-sm mb-4">

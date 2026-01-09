@@ -1,0 +1,218 @@
+{
+    "classe": {
+        "nom": "Arquebusier",
+        "description_generale": "L’arquebusier est un dur à cuire, un mercenaire qui vient généralement d’un pays lointain et maîtrise un style de combat exotique : les armes à feu et les explosifs.",
+        "lore": {
+            "terres_d_osgild": "L’arquebusier est un personnage atypique dans les Terres d’Osgild. Il est toutefois plus commun dans les régions de l’est, où les armes à poudre ont d’abord été importées par le Protectorat de fer, tête de pont d’un vaste empire expansionniste qui a traversé l’océan.",
+            "politique": "Cette nation est en guerre larvée permanente avec tous ses voisins et elle garde jalousement le secret des armes à poudre.",
+            "sud": "Plus au sud, les nains de Kaer Glimmerstern maîtrisent à présent eux aussi la poudre et depuis peu ils s’en sont ouverts à leurs alliés, le royaume de Cobis et le duché de Périk.",
+            "commerce": "Guilde et Port‑Libre, les deux grandes cités commerçantes se sont saisies de l’occasion et font désormais le commerce des armes à poudre, à prix d’or...",
+            "requis_personnage": "Un PJ arquebusier devra donc avoir séjourné dans l’un de ces lieux."
+        },
+        "statistiques": {
+            "pv_par_niveau": 4,
+            "profil_type": "Mercenaire"
+        }
+    },
+    "maitrises": {
+        "armes_armures": "L’arquebusier sait manier toutes les armes de contact à une main, les armes à distance, armes à poudre incluses. Les voies d’arquebusier limitent l’armure à la chemise de mailles et interdisent l’utilisation du bouclier.",
+        "special": "Un arquebusier sait fabriquer sa propre poudre et elle ne risque pas d’exploser malgré lui."
+    },
+    "equipement_depart": [
+        {
+            "objet": "Pétoire",
+            "stats": "DM 1d10, portée 20 m"
+        },
+        {
+            "objet": "Épée longue",
+            "stats": "DM 1d8"
+        },
+        {
+            "objet": "Dague",
+            "stats": "DM 1d4"
+        },
+        {
+            "objet": "Cuir renforcé",
+            "stats": "DEF +3"
+        }
+    ],
+    "voies": [
+        {
+            "nom": "Voie de l'Artilleur",
+            "capacites": [
+                {
+                    "rang": 1,
+                    "nom": "Mécanismes",
+                    "type": "Passif",
+                    "description_textuelle": "L’arquebusier ajoute son rang + 2 à tous les tests visant à réparer ou à comprendre des mécanismes (cela inclut le fait de désamorcer des pièges mécaniques et de manipuler des armes de siège). Il obtient un dé bonus à tous les tests d’attaque avec des armes de siège (baliste, couleuvrine, canon, trébuchet, catapulte, etc.)."
+                },
+                {
+                    "rang": 2,
+                    "nom": "Arme à répétition",
+                    "type": "Passif",
+                    "description_textuelle": "L’arquebusier modifie jusqu’à deux armes de son choix pour les doter de chargeurs. La capacité du chargeur est égale à [2 + INT] et elle augmente de 1 projectile supplémentaire chaque fois que le personnage atteint le rang 3 dans une voie d’arquebusier. Chaque chargeur doit être ensuite rechargé au rythme d’une action limitée (L) par projectile."
+                },
+                {
+                    "rang": 3,
+                    "nom": "Tir de barrage",
+                    "type": "Action Limitée (L)",
+                    "description_textuelle": "L’arquebusier surveille une zone de 20 m de large face à lui. Si une créature se déplace dans cette zone avant son prochain tour, il peut faire une attaque à distance. En cas de succès la victime choisit entre deux possibilités : soit elle subit le double des dommages, soit elle termine son tour et son déplacement à l’endroit de l’attaque et ne subit pas de dommages. L’arquebusier peut effectuer un tir de barrage sur plusieurs créatures durant le round, tant qu’il n’a pas besoin de recharger."
+                },
+                {
+                    "rang": 4,
+                    "nom": "Canon double",
+                    "type": "Passif / Modification",
+                    "description_textuelle": "L’arquebusier peut bricoler ses armes à poudre (mais pas une couleuvrine) pour les doter d’un second canon. Il double le dé de DM de l’arme (mais pas les dés bonus ni les bonus). Il doit recharger chaque canon individuellement (un canon double consomme 2 projectiles). En cas de critique le dé est triplé (au lieu de ×4). Ce type d’arme possède une double détente et il reste possible de décharger un seul canon à la fois."
+                },
+                {
+                    "rang": 5,
+                    "nom": "Couleuvrine",
+                    "type": "Action Limitée (L)",
+                    "description_textuelle": "L’arquebusier obtient une couleuvrine (un petit canon portatif). Sur un test d’attaque à distance réussi (dé bonus), la couleuvrine inflige [5d4° + INT] DM à une portée de 100 m. Il faut ensuite deux rounds (L) pour la recharger. C’est une arme encombrante et il est impossible de transporter plus d’une couleuvrine."
+                }
+            ]
+        },
+        {
+            "nom": "Voie des Explosifs",
+            "note_speciale": "Si le personnage n’est pas arquebusier (profil hybride), obtenir le premier rang dans cette voie lui permet aussi de ne plus avoir de risque d’explosion lorsqu’il utilise une arme à poudre.",
+            "capacites": [
+                {
+                    "rang": 1,
+                    "nom": "Tir de grenaille",
+                    "type": "Action Limitée (L)",
+                    "description_textuelle": "L’arquebusier sait réaliser un mélange de poudre et de grenaille. Quand il charge une arme à poudre, il peut choisir d’utiliser ce mélange à la place d’une munition normale (il doit l’annoncer au moment où il charge). Lorsqu’il tire cette munition (L), il fait un seul test d’attaque contre toutes les cibles lui faisant face dans un cône de 10 m de long et sur 5 m de large. Toutes les cibles dont il atteint la DEF subissent la moitié des DM habituels. De plus, le personnage ajoute son rang + 2 à tous les tests d’artificier (par exemple pour fabriquer et tirer des feux d’artifice)."
+                },
+                {
+                    "rang": 2,
+                    "nom": "Démolition",
+                    "type": "Action (Longue)",
+                    "description_textuelle": "L’arquebusier peut préparer un explosif qui lui permet de démolir facilement des structures. Il lui faut 3 rounds complets pour préparer et poser son explosif. Celui‑ci inflige à la structure [3d4° + INT] DM et ignore la moitié de sa RD (et seulement 2d4° DM dans un rayon de 2 m). Chaque jour, l’arquebusier peut utiliser un nombre de charges explosives égal au rang dans la voie. Ces charges permettent indifféremment d’utiliser les capacités Démolition, Piège explosif ou Boulet explosif."
+                },
+                {
+                    "rang": 3,
+                    "nom": "Poudre puissante",
+                    "type": "Passif",
+                    "description_textuelle": "L’arquebusier sait préparer une poudre plus puissante, il ajoute +10 m à la portée et +1 aux DM des armes à poudre. Le bonus aux DM augmente de +1 à chaque fois que le personnage atteint le rang 5 dans une voie d’arquebusier. De plus, sa poudre est magique et elle permet à ses projectiles d’affecter les créatures immunisées aux armes non magiques."
+                },
+                {
+                    "rang": 4,
+                    "nom": "Piège explosif",
+                    "type": "Action Limitée (L)",
+                    "description_textuelle": "Il faut 1 min à l’arquebusier pour installer un piège qui explose dans un rayon de 5 m en infligeant [5d4° + INT] DM de feu (test d’AGI difficulté 15 pour ne subir que la moitié des DM). Le piège est déclenché à l’intrusion de toute créature dans une zone d’un à deux mètres autour du piège. Une créature peut détecter le piège avec un test d’INT difficulté [15 + INT de l’arquebusier] avant de le déclencher."
+                },
+                {
+                    "rang": 5,
+                    "nom": "Boulet explosif",
+                    "type": "Action Limitée (L)",
+                    "description_textuelle": "L’arquebusier sait fabriquer et lancer de petites boules de métal garnies de poudre et d’une portée de 20 m qui explosent dans un rayon de 5 m en infligeant [4d4° + INT] DM perforants, divisés par 2 pour les victimes qui réussissent un test d’AGI difficulté 10. Ceux qui ratent le test sont de plus aveuglés un round par le flash lumineux de l’explosion."
+                }
+            ]
+        },
+        {
+            "nom": "Voie du Mercenaire",
+            "note_speciale": "À titre exceptionnel, si la voie du mercenaire est choisie pour construire un profil hybride, elle ne donne pas accès à la maîtrise des armes à poudre. En revanche, elle n’interdit pas le port du bouclier.",
+            "capacites": [
+                {
+                    "rang": 1,
+                    "nom": "Pilier de bar",
+                    "type": "Passif",
+                    "description_textuelle": "L’arquebusier obtient un bonus égal à son rang + 2 aux tests d’interaction sociale dans les tavernes ou les auberges (renseignement, négociation, séduction, etc.) ainsi que pour résister aux effets de l’alcool. De plus, il inflige 1d4° DM à mains nues (non létal) et il divise par 2 tous les DM non létaux qu’on lui inflige."
+                },
+                {
+                    "rang": 2,
+                    "nom": "Mort ou vif",
+                    "type": "Action Limitée (L)",
+                    "description_textuelle": "L’arquebusier effectue une attaque au contact ou à distance (avec l’arme en main). Si l’attaque est réussie, il inflige ses DM habituels (mais peut choisir d’infliger des DM temporaires) et il choisit entre désarmer, renverser ou affaiblir (1d4 rounds) un adversaire dont le NC est inférieur au rang atteint dans la voie. Si l’attaque est une réussite critique, il peut choisir de cumuler deux effets."
+                },
+                {
+                    "rang": 3,
+                    "nom": "Combattant aguerri",
+                    "type": "Passif",
+                    "description_textuelle": "L’arquebusier choisit une capacité de rang 1 de son choix de guerrier, de voleur (armure de cuir) ou de rôdeur (armure de cuir renforcé). Il gagne aussi +1 en DEF."
+                },
+                {
+                    "rang": 4,
+                    "nom": "Constitution héroïque",
+                    "type": "Passif",
+                    "description_textuelle": "L’arquebusier augmente sa valeur de CON de +1 et il obtient un dé bonus aux tests de CON."
+                },
+                {
+                    "rang": 5,
+                    "nom": "Combat de masse",
+                    "type": "Passif",
+                    "description_textuelle": "Si le combat implique au moins 10 créatures actives (en comptant l’arquebusier et ses alliés), l’arquebusier obtient, au choix, une action d’attaque ou une action de mouvement supplémentaire à son tour. De plus, l’arquebusier gagne +1 en DEF."
+                }
+            ]
+        },
+        {
+            "nom": "Voie du Pistolero",
+            "capacites": [
+                {
+                    "rang": 1,
+                    "nom": "Plus vite que son ombre",
+                    "type": "Passif",
+                    "description_textuelle": "Si son arme à poudre est chargée et tenue en main, l’arquebusier peut tirer avec un bonus de +5 à son Initiative. De plus, il ne subit plus de dé malus lorsqu’il tire avec une arme à poudre ou une arbalète en étant engagé en combat au contact (sauf avec la couleuvrine)."
+                },
+                {
+                    "rang": 2,
+                    "nom": "Ajuster le tir",
+                    "type": "Passif",
+                    "description_textuelle": "Après avoir raté une attaque à distance, l’arquebusier déclare qu’il s’agissait d’un tir de réglage. Il obtient +5 sur le test de sa prochaine attaque à distance, si son prochain tir vise la même cible avant la fin du prochain round."
+                },
+                {
+                    "rang": 3,
+                    "nom": "Tir double",
+                    "type": "Action Limitée (L)",
+                    "description_textuelle": "L’arquebusier est capable de tirer simultanément avec une pétoire (ou une arbalète de poing) dans chaque main avec un malus de ‑2 à chaque attaque. S’il décharge ses deux armes sur la même cible, il ne subit aucun malus."
+                },
+                {
+                    "rang": 4,
+                    "nom": "Agilité héroïque",
+                    "type": "Passif",
+                    "description_textuelle": "L’arquebusier augmente sa valeur d’AGI de +1 et il obtient un dé bonus aux tests d’AGI."
+                },
+                {
+                    "rang": 5,
+                    "nom": "As de la gâchette",
+                    "type": "Passif",
+                    "description_textuelle": "Lors d’une attaque à distance avec une arme à poudre ou une arbalète, s’il obtient un résultat d’attaque supérieur ou égal à la DEF de son adversaire +10 points, l’arquebusier obtient un bonus de +2d4° aux DM de son attaque."
+                }
+            ]
+        },
+        {
+            "nom": "Voie de la Précision",
+            "capacites": [
+                {
+                    "rang": 1,
+                    "nom": "Joli coup",
+                    "type": "Passif",
+                    "description_textuelle": "L’arquebusier ignore la pénalité appliquée pour une couverture partielle de sa cible (‑2 au test devient aucun malus) et réduit la pénalité pour une couverture importante à ‑2 (au lieu de ‑5)."
+                },
+                {
+                    "rang": 2,
+                    "nom": "Défaut dans la cuirasse",
+                    "type": "Action (A)",
+                    "description_textuelle": "L’arquebusier utilise une action d’attaque pour trouver le point faible de son adversaire et le viser. Au prochain round*, il réalise ses attaques à distance sur cette cible contre une DEF de [10 + AGI de la cible] et il peut ignorer sa résistance aux DM ou sa réduction des DM (sauf si cette dernière est acquise parce que la cible est immatérielle : ombre, fantôme, etc.). *Si l’arquebusier utilise la capacité Combat de masse pour son action d’attaque en début de round, alors la capacité s’applique seulement aux tirs du round en cours."
+                },
+                {
+                    "rang": 3,
+                    "nom": "Tir précis",
+                    "type": "Passif",
+                    "description_textuelle": "L’arquebusier inflige des critiques sur 19‑20 sur ses attaques avec une arme à distance. La plage de critique passe à 18‑20 à partir du rang 5."
+                },
+                {
+                    "rang": 4,
+                    "nom": "Tireur d’élite",
+                    "type": "Action Limitée (L)",
+                    "description_textuelle": "L’arquebusier prend le temps d’ajuster une cible au loin (distance minimum de 10 m). Il double la portée de son arme et ajoute +2d4° aux DM. Il ne peut pas utiliser cette capacité s’il est au contact d’un adversaire ou dans une position instable (par exemple dans un véhicule)."
+                },
+                {
+                    "rang": 5,
+                    "nom": "Tir fatal",
+                    "type": "Action Limitée (L)",
+                    "description_textuelle": "S’il tire sur une créature dont le niveau (NC) est inférieur à la moitié du sien (arrondi au supérieur), l’arquebusier peut faire un test d’INT difficulté [10 + NC de la créature]. En cas de réussite, elle est morte. Dans tous les autres cas, elle subit les DM normaux."
+                }
+            ]
+        }
+    ]
+}

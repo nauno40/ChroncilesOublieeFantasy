@@ -1,18 +1,62 @@
-import React, { useState, useMemo } from 'react';
-import capacitesData from '../data/capacites.json';
-import profilesData from '../data/profiles.json';
-import voiesData from '../data/voies.json';
+import React, { useState, useMemo, useEffect } from 'react';
 import type { Capacity, Profile, Voie } from '../types/normalized';
 import { PageContainer, PageHeader, Card, Badge, FilterPanel } from '../components/common';
-
-const capacites = capacitesData as Capacity[];
-const profiles = profilesData as Profile[];
-const voies = voiesData as Voie[];
+import { DataService } from '../services/dataService';
 
 export const Capacites: React.FC = () => {
+    const [capacites, setCapacites] = useState<Capacity[]>([]);
+    const [profiles, setProfiles] = useState<Profile[]>([]);
+    const [voies, setVoies] = useState<Voie[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        Promise.all([
+            DataService.getCapabilities(),
+            DataService.getProfiles(),
+            DataService.getVoies()
+        ])
+            .then(([c, p, v]) => {
+                // Helper to extract ID from various formats (IRI string, object with id, etc.)
+                const getResourceId = (resource: any): string | null => {
+                    if (!resource) return null;
+                    if (typeof resource === 'object') {
+                        return String(resource.id || resource['@id'] || '');
+                    }
+                    if (typeof resource === 'string') {
+                        // Handle IRI like "/api/profiles/123" or just "123"
+                        return resource.includes('/') ? resource.split('/').pop() || null : resource;
+                    }
+                    return String(resource);
+                };
+
+                // Normalize capabilities data
+                const normalizedCapacites = c.map((item: any) => {
+                    const voieId = item.voieId || getResourceId(item.voie);
+                    const associatedVoie = v.find((voie: any) => String(voie.id) === voieId);
+
+                    // Priority: Explicit profile -> Profile via Voie
+                    let profileId = item.profileId || getResourceId(item.profile);
+                    if (!profileId && associatedVoie) {
+                        profileId = associatedVoie.profileId || getResourceId((associatedVoie as any).profile) || null;
+                    }
+
+                    return {
+                        ...item,
+                        profileId: profileId,
+                        voieId: voieId,
+                        id: String(item.id)
+                    };
+                });
+                setCapacites(normalizedCapacites);
+                setProfiles(p);
+                setVoies(v);
+            })
+            .catch(console.error)
+            .finally(() => setLoading(false));
+    }, []);
+
     const [selectedRank, setSelectedRank] = useState<string>('all');
     const [selectedProfile, setSelectedProfile] = useState<string>('all');
-    const [selectedVoie, setSelectedVoie] = useState<string>('all');
 
     const [searchTerm, setSearchTerm] = useState('');
 
@@ -26,9 +70,6 @@ export const Capacites: React.FC = () => {
             if (selectedProfile !== 'all' && capacite.profileId !== selectedProfile) {
                 return false;
             }
-            if (selectedVoie !== 'all' && capacite.voieId !== selectedVoie) {
-                return false;
-            }
 
             // Apply Search
             if (searchTerm && !capacite.name.toLowerCase().includes(searchTerm.toLowerCase())) {
@@ -37,31 +78,19 @@ export const Capacites: React.FC = () => {
 
             return true;
         });
-    }, [selectedRank, selectedProfile, selectedVoie, searchTerm]);
+    }, [capacites, selectedRank, selectedProfile, searchTerm]);
 
-    // Get unique profiles and voies that have capacites
+    // Get unique profiles that have capacites
     const availableProfiles = useMemo(() => {
         const profileIds = new Set(capacites.map(c => c.profileId).filter(Boolean));
         return profiles
-            .filter(p => profileIds.has(p.id))
+            .filter(p => profileIds.has(String(p.id)))
             .sort((a, b) => a.name.localeCompare(b.name));
-    }, []);
+    }, [capacites, profiles]);
 
-    const availableVoies = useMemo(() => {
-        let filteredVoies = voies;
+    const activeFiltersCount = [selectedRank, selectedProfile].filter(f => f !== 'all').length;
 
-        // Filter by selected profile if applicable
-        if (selectedProfile !== 'all') {
-            filteredVoies = filteredVoies.filter(v => v.profileId === selectedProfile);
-        }
-
-        const activeVoieIds = new Set(capacites.map(c => c.voieId).filter(Boolean));
-        return filteredVoies
-            .filter(v => activeVoieIds.has(v.id))
-            .sort((a, b) => a.name.localeCompare(b.name));
-    }, [selectedProfile]);
-
-    const activeFiltersCount = [selectedRank, selectedProfile, selectedVoie].filter(f => f !== 'all').length;
+    if (loading) return <PageContainer><div className="p-8 text-center text-primary-200">Chargement...</div></PageContainer>;
 
     return (
         <PageContainer>
@@ -78,10 +107,9 @@ export const Capacites: React.FC = () => {
                 onClearFilters={() => {
                     setSelectedRank('all');
                     setSelectedProfile('all');
-                    setSelectedVoie('all');
                 }}
             >
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label className="block text-sm font-medium text-stone-300 mb-2">
                             Rang
@@ -108,29 +136,12 @@ export const Capacites: React.FC = () => {
                             value={selectedProfile}
                             onChange={(e) => {
                                 setSelectedProfile(e.target.value);
-                                setSelectedVoie('all'); // Reset voie when profile changes
                             }}
                             className="w-full px-3 py-2 bg-stone-900/50 border border-stone-700 rounded-lg text-stone-200 focus:border-primary-500 focus:outline-none transition-colors"
                         >
                             <option value="all">Toutes les classes</option>
                             {availableProfiles.map(p => (
-                                <option key={p.id} value={p.id}>{p.name}</option>
-                            ))}
-                        </select>
-                    </div>
-
-                    <div>
-                        <label className="block text-sm font-medium text-stone-300 mb-2">
-                            Voie
-                        </label>
-                        <select
-                            value={selectedVoie}
-                            onChange={(e) => setSelectedVoie(e.target.value)}
-                            className="w-full px-3 py-2 bg-stone-900/50 border border-stone-700 rounded-lg text-stone-200 focus:border-primary-500 focus:outline-none transition-colors"
-                        >
-                            <option value="all">Toutes les voies</option>
-                            {availableVoies.map(v => (
-                                <option key={v.id} value={v.id}>{v.name}</option>
+                                <option key={p.id} value={String(p.id)}>{p.name}</option>
                             ))}
                         </select>
                     </div>
@@ -140,7 +151,7 @@ export const Capacites: React.FC = () => {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {filteredItems.map((capacite) => {
                     // Lookup profile and voie names
-                    const profile = capacite.profileId ? profiles.find(p => p.id === capacite.profileId) : null;
+                    const profile = capacite.profileId ? profiles.find(p => String(p.id) === capacite.profileId) : null;
                     const voie = capacite.voieId ? voies.find(v => v.id === capacite.voieId) : null;
 
                     let displayName = capacite.name;

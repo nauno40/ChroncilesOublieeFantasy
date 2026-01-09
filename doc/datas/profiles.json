@@ -1,0 +1,373 @@
+[
+  {
+    "id": 1,
+    "name": "Arquebusier",
+    "description": "Points de vigueur : 4 par niveau\nL'arquebusier est un dur à cuire, un mercenaire qui vient généralement d'un pays lointain et maîtrise un style de combat exotique : les armes à feu et les explosifs.\nDans les Terres d'Osgild. L'arquebusier est un personnage atypique dans les Terres d'Osgild. Il est toutefois plus commun dans les régions de l'est, où les armes à poudre ont d'abord été importées par le Protectorat de fer, tête de pont d'un vaste empire expansionniste qui a traversé l'océan. Mais cette nation est en guerre larvée permanente avec tous ses voisins et elle garde jalousement le secret des armes à poudre. Plus au sud, les nains de Kaer Glimmerstern maîtrisent à présent eux aussi la poudre et depuis peu ils s'en sont ouverts à leurs alliés, le royaume de Cobis et le duché de Périk. Guilde et Port-Libre, les deux grandes cités commerçantes se sont saisies de l'occasion et font désormais le commerce des armes à poudre, à prix d'or... Un PJ arquebusier devra donc avoir séjourné dans l'un de ces lieux.\nL'arquebusier obtient une couleuvrine (un petit canon portatif). Sur un test d'attaque à distance réussi (dé bonus), la couleuvrine inflige [5d4° + INT] DM à une portée de 100 m. Il faut ensuite deux rounds (L) pour la recharger. C'est une arme encombrante et il est impossible de transporter plus d'une couleuvrine.\nL'arquebusier sait fabriquer et lancer de petites boules de métal garnies de poudre et d'une portée de 20 m qui explosent dans un rayon de 5 m en infligeant [4d4° + INT] DM perforants, divisés par 2 pour les victimes qui réussissent un test d'AGI difficulté 10. Ceux qui ratent le test sont de plus aveuglés un round par le flash lumineux de l'explosion.\nSi le combat implique au moins 10 créatures actives (en comptant l'arquebusier et ses alliés), l'arquebusier obtient, au choix, une action\nd'attaque ou une action de mouvement supplémentaire à son tour. De plus, l'arquebusier gagne +1 en DEF.\n**Note :** à titre exceptionnel, si la voie du mercenaire est choisie pour construire un profil hybride, elle ne donne pas accès à la maîtrise des armes à poudre. En revanche, elle n'interdit pas le port du bouclier.\nLors d'une attaque à distance avec une arme à poudre ou une arbalète, s'il obtient un résultat d'attaque supérieur ou égal à la DEF de son adversaire +10 points, l'arquebusier obtient un bonus de +2d4° aux DM de son attaque.\nS'il tire sur une créature dont le niveau (NC) est inférieur à la moitié du sien (arrondi au supérieur), l'arquebusier peut faire un test d'INT difficulté [10 + NC de la créature]. En cas de réussite, elle est morte. Dans tous les autres cas, elle subit les DM normaux.",
+    "note": "**Équipement de départ** :\nPétoire (DM 1d10, portée 20 m), épée longue (DM 1d8), dague (DM 1d4), cuir renforcé (DEF +3).\nCe personnage utilise des armes à feu et peut être joué dans un cadre équivalent à la Renaissance, mais si votre contexte de jeu ne le permet pas, vous pouvez remplacer la pétoire par une arbalète de poing, le mousquet par une arbalète lourde et la couleuvrine par une baliste... Supprimez la voie des explosifs et remplacez-la par la voie du maître d'armes du profil de guerrier, en la limitant aux arbalètes. Le nom du profil devient alors « Arbalétrier ».",
+    "familyId": null,
+    "hitDie": "",
+    "weaponsAuth": [
+      "L'arquebusier sait manier toutes les armes de contact à une main, les armes à distance, armes à poudre incluses. Un arquebusier sait fabriquer sa propre poudre et elle ne risque pas d'exploser malgré lui (voir la section Équipement)."
+    ],
+    "armorAuth": [
+      "Les voies d'arquebusier limitent l'armure à la chemise de mailles et interdisent l'utilisation du bouclier."
+    ],
+    "startingEquipment": [
+      9,
+      22,
+      25,
+      29,
+      35,
+      36
+    ],
+    "skillPoints": 2,
+    "magicStat": null,
+    "voies": [
+      9,
+      10,
+      11,
+      12,
+      13
+    ]
+  },
+  {
+    "id": 2,
+    "name": "BARDE",
+    "description": "Points de vigueur : 4 par niveau\nLe barde est un personnage polyvalent qui utilise la magie et le spectacle pour divertir et parvenir à ses fins. Il est aussi habitué aux ruses qu'à la diplomatie. Ses capacités sont globalement moins tournées vers le combat et davantage vers les interactions douces.\nDans les Terres d'Osgild : toutes les nations civilisées des Terres d'Osgild, à l'exception du Protectorat de fer, accueillent des bardes. Les elfes ont un grand amour des arts, de la musique, du chant et de la danse, bien qu'ils pratiquent parfois un art si conceptuel que les humains ont du mal à l'apprécier. Il se dit même que les chants elfiques dont la beauté touche le cœur des hommes ne sont en réalité que des comptines pour enfant... Dans la principauté d'Arly, Benastir, Valastir et surtout Ferrance sont des cités particulièrement versées dans la culture. Le prince Thomar d'Arly est un ami des lettres et des arts. Il entretient de nombreux artistes et finance d'incroyables festivals dans la ville portuaire. Les nains quant à eux sont des spécialistes du tambour et de la cornemuse, mais il est assez rare que leurs scaldes se produisent en dehors des cités naines. Malgré tout, ce sont les hauts elfes du royaume de Hautesylve qui comptent le plus de bardes dans leur population.\nLe barde joue une gigue endiablée aux effets magiques. S'il réussit un test d'attaque magique opposé contre sa cible (portée 10 m), celle-ci se met à danser pendant [1d4° + CHA] rounds, elle subit un dé malus aux tests d'attaque et -5 en DEF. Si la cible est d'un niveau (NC) supérieur ou égal au barde, elle ne danse qu'un seul round.\nUne fois par round, le barde peut réaliser une esquive en réussissant un test d'attaque à distance contre une difficulté égale au résultat obtenu par son adversaire, lors de son attaque. En cas de réussite, le barde ne subit aucun DM. Si cette attaque était un critique, il subit tout de même des DM normaux (il annule donc l'effet critique « dommages doublés »).\nLe barde peut suggérer une action à une créature en réussissant un test opposé d'attaque magique. En cas de réussite, la créature fera tout son possible pour satisfaire cette demande pendant 1 heure ou jusqu'à avoir réussi. Elle évitera les actions suicidaires (ce qui lui donnerait immédiatement un test d'INT difficulté 10 pour échapper au sort). Le sort ne peut pas affecter une créature de niveau supérieur ou égal à celui du lanceur.\nCe sort permet au barde de prendre l'apparence de n'importe quelle humanoïde de taille à peu près équivalente (avec une marge d'environ 50cm). S'il veut imiter une personne en particulier, il lui faudra réussir un test de CHA difficulté 15 (20 s'il ne la connaît pas mais l'a seulement vue, 10 s'il la connaît très bien). Le sort a une durée maximale de CHA heures, mais il peut aussi être lancé sur un allié au contact et dans ce cas, il ne dure que CHA minutes.",
+    "note": "Lors d'une attaque au contact avec une arme légère, s'il obtient un résultat d'attaque supérieur ou égal à (la DEF de son adversaire + 10 points), le barde obtient un bonus de +2d4° aux DM de son attaque (les dés bonus ne sont jamais multipliés en cas de critique).",
+    "familyId": null,
+    "hitDie": "",
+    "weaponsAuth": [
+      "Le barde sait manier les armes à une main."
+    ],
+    "armorAuth": [
+      "Les voies de barde limitent l'armure au cuir renforcé et interdisent l'utilisation du bouclier. Il est nécessaire d'avoir une main libre pour utiliser les capacités de bardes (ni arme secondaire ni bouclier)."
+    ],
+    "startingEquipment": [],
+    "skillPoints": 2,
+    "magicStat": null,
+    "voies": [
+      14,
+      15,
+      16,
+      17
+    ]
+  },
+  {
+    "id": 3,
+    "name": "RÔDEUR",
+    "description": "**Points de vigueur:** 4 par niveau\nLe rôdeur est à l'aise dans les forêts ténébreuses, où il traque les animaux dangereux et les créatures monstrueuses ou, au contraire, se fait l'ami des bêtes et le protecteur des lieux sauvages.\nDans les Terres d'Osgild : on trouve des rôdeurs dans tous les lieux naturels sauvages ou dans les villes et les villages à proximité où ils peuvent servir de guide aux marchands ou aux explorateurs. Dans la principauté d'Arly, le bois de Myrviel, le bois Dormant ou celui d'Astréis sont de bons points de départ tout comme les monts Vierges.\nVous obtenez un dé bonus en attaque à distance et vous ajoutez 1d4° aux DM. Au lieu du dé bonus et de +1d4° aux DM, vous pouvez infliger un état préjudiciable de votre choix parmi aveuglé, affaibli, ralenti ou immobilisé pendant 1 round à une cible d'un NC inférieur au vôtre. Vous ne pouvez infliger chaque état préjudiciable qu'une seule fois par combat.\n*Note : Si le MJ le permet, cette voie peut être déclinée pour une autre catégorie d'arme à distance : arbalètes, armes à poudre, etc.*\n*Conseil aux joueurs :* utilisez plutôt *Flèche de mort* contre une cible avec une haute DEF et *Tir rapide* contre des cibles multiples et une faible DEF.\nLorsque le loup attaque la même cible que le rôdeur, il obtient un bonus de 1d4° aux DM. Chaque fois que le rôdeur dépense 1 PV pour soigner son loup, le loup récupère 2 PV. De plus, le rôdeur et son loup augmentent leur DEF de +1 chaque fois que le personnage atteint le rang 5 dans une voie de rôdeur (celle-ci incluse).\nUne fois par combat, lorsqu'il tombe à 0PV, le rôdeur peut récupérer [4d4° + CON] PV au début de son prochain tour. Lorsqu'il se relève, il bénéficie d'un bonus de +5 en DEF pendant 1 round et il se débarrasse de tous les états préjudiciables non permanents qui l'affectent.\nEn milieu naturel, le rôdeur se déplace de 30 m en s'éloignant de ses ennemis. Le joueur fait un test d'AGI difficulté 10, en cas de succès, il disparaît de la vue de ses poursuivants. Il peut s'éloigner ou rester caché sans risque d'être retrouvé ou rattrapé. Si le terrain est découvert (désert, plaine), la difficulté passe à 15.\nSi les deux armes du rôdeur atteignent la même cible lors d'un même tour, le personnage obtient un effet d'enchaînement qui ajoute 1d4° DM à l'une des deux attaques de son choix.",
+    "note": "**Équipement de départ** :\nÉpée longue (DM 1d8), arc court et carquois (DM 1d6, portée 30 m) ou une autre arme de contact (épée courte, hachette, lance), dague (DM 1d4), armure de cuir renforcé (DEF +3).",
+    "familyId": null,
+    "hitDie": "d4 (Vigueur)",
+    "weaponsAuth": [
+      "Le rôdeur sait manier les armes de contact à une main et toutes les armes à distance."
+    ],
+    "armorAuth": [
+      "Les voies de rôdeur limitent l'armure au cuir renforcé et interdisent le port du bouclier."
+    ],
+    "startingEquipment": [
+      8,
+      9,
+      26,
+      29,
+      31,
+      33
+    ],
+    "skillPoints": 2,
+    "magicStat": null,
+    "voies": [
+      18,
+      19,
+      20,
+      21,
+      22
+    ]
+  },
+  {
+    "id": 4,
+    "name": "VOLEUR",
+    "description": "**Points de vigueur:** 4 par niveau\nLe voleur crochète les portes, détecte les pièges et préfère piller les cadavres des ennemis que se salir les mains pendant le combat. Toutefois, s'il doit combattre, il possède un répertoire impressionnant de coups tordus qui font de lui un redoutable adversaire.\nDans les Terres d'Osgild : les voleurs sont très courants partout, ils sont toutefois plus fréquents là où les concentrations de richesses et la misère sont plus importantes, c'est-à-dire dans les grandes villes. Dans la principauté d'Arly, Benastir, Valastir ou Ferrance font l'affaire. Si les aventures débutent loin d'une agglomération, il vous faut alors déterminer pourquoi le jeune délinquant a quitté la cité. Peut-être sa vie était-elle en danger : pour avoir volé la mauvaise personne, parce qu'une puissante organisation du crime a des comptes à régler avec lui ? Il existe en effet des guildes de voleurs très organisées dans certaines cités et il ne fait pas bon empiéter sur leurs plates-bandes. Une épine de plus dans le pied du voleur indépendant qui doit déjà échapper aux forces de l'ordre. C'est pourquoi les tire-laines et autres monte-en-l'air épris de liberté choisissent en général la vie d'aventurier, elle leur permet de changer fréquemment de terrain de chasse sans laisser le temps aux guildes locales de s'intéresser de trop près à leurs activités.\nUne fois par combat, le voleur obtient une réussite critique automatique contre la cible de son choix. Il profite donc d'une réussite automatique, des dommages multipliés par 2 prévus dans ce cas et d'une attaque sournoise (dont les DM ne sont pas doublés).\nAttaquer dans le dos : lorsque le voleur attaque la même créature qu'un allié au contact de cette cible, on considère qu'il peut attaquer celle-ci dans le dos (sauf si la cible peut se placer dos à un obstacle infranchissable).\nIl est possible de réaliser une attaque sournoise à distance, mais pas à portée longue et uniquement contre un adversaire surpris (pas avec la règle d'attaque dans le dos ci-dessus).\nUne fois par combat, le voleur peut, en réussissant une attaque de contact, paralyser un adversaire humanoïde de douleur. La cible ne subit aucun DM, mais elle est immobilisée pendant 1d4 rounds ou, si son NC est inférieur à la moitié du niveau du voleur, elle est paralysée. De plus, le voleur peut désormais utiliser au choix l'attaque sournoise (s'il détient cette capacité) ou infliger +1d4° DM contre tout adversaire immobilisé ou paralysé.\nUne fois par round, lorsqu'un sort qui inflige des DM physiques (feu, froid, projectile magique, etc.) le prend pour cible (y compris un sort de zone ou l'affectant en plus de la personne visée), le voleur peut effectuer un test d'attaque à distance opposé à un test d'attaque magique du lanceur sort. S'il réussit, il échappe au sort. S'il échoue, il subit les DM normaux.\nLe voleur peut utiliser 3 doses de poison par jour sans risque de s'empoisonner lui-même. Une dose permet d'enduire une dague, une flèche ou un carreau pour infliger +2d4° DM supplémentaire et demande un test de CON difficulté (10 + INT du voleur) ou une cible vivante est affaiblie pour le reste du combat. Alternativement, une dose peut être versée dans les aliments pour une personne ; si la cible rate son test de CON, elle sombre dans l'inconscience pour 2d6 min (4d6 min pour 2 doses, etc.).\nVous trouverez dans ce chapitre la description des trois profils de la famille des combattants : barbare, chevalier et guerrier. En cas de conflit, ces profils privilégient la force brute et le combat au contact.\nCes profils partagent les éléments suivants.\n*   Points de vigueur / niveau : 5\n*   Dé de récupération : d10\nRésumé des voies des profils de la famille des combattants",
+    "note": "**Équipement de départ** :\nRapière (DM 1d6, Crit 19-20), 5 dagues (DM 1d4, portée 5 m), outils de crochetage, armure de cuir (DEF +2), une corde de 10 m.",
+    "familyId": null,
+    "hitDie": "d4 (Vigueur)",
+    "weaponsAuth": [
+      "Le voleur sait manier les armes de contact à une main et toutes les armes à distance."
+    ],
+    "armorAuth": [
+      "Les voies de voleur limitent l'armure au cuir simple et interdisent l'utilisation du bouclier."
+    ],
+    "startingEquipment": [
+      21
+    ],
+    "skillPoints": 2,
+    "magicStat": null,
+    "voies": [
+      23,
+      24,
+      25,
+      26,
+      27
+    ]
+  },
+  {
+    "id": 5,
+    "name": "BARBARE",
+    "description": "Points de vigueur : 5 par niveau\nLe barbare est un combattant sauvage issu d'une culture primitive. Il affronte ses ennemis avec rage sans se cacher derrière une lourde armure.\nDans les Terres d'Osgild : les nations des Terres d'Osgild se considèrent toutes comme civilisées, selon leurs propres critères. On trouve toutefois quelques clans de rudes montagnards qui vivent dans les monts Vierges à l'ouest de Clairval et de la forêt de Myrviel. En guerre incessante contre les humanoïdes du désert de Krön, leur mode de vie à la fois guerrier et simple correspond à l'idée que les autres peuples se font des barbares. Un personnage de profil barbare peut également venir de la grande jungle de Luir-An-Doral où vivent de nombreuses tribus primitives d'elfes, d'humains, mais aussi d'orcs. Enfin, les royaumes barbares du nord fournissent une origine lointaine classique.\nLe barbare sait manier toutes les armes au contact, toutes les armes à distance (sauf les arbalètes et les armes d'une technologie trop complexe).\nLes voies de barbare limitent l'armure au cuir renforcé. Le barbare peut en revanche utiliser tous les boucliers.\nLe barbare augmente de 1 point les chances d'obtenir un critique sur les attaques au contact (par exemple 19-20 au lieu de 20). Lorsqu'il obtient un critique sur une attaque au contact,\nen plus des DM doublés, la cible est étourdie pendant 1 round. Enfin, le barbare peut désormais porter une cotte de mailles et utiliser toutes les capacités des voies de barbare auparavant autorisées avec une chemise de mailles.\nLe barbare ne sent plus la douleur et ignore les égratignures, il réduit tous les DM subis de 3 points (RD 3). Une attaque lui inflige toujours au minimum 1 DM.\n* Ce bonus n'est pas un bonus de compétence, mais un bonus de magie qui ne peut donc pas se cumuler à un bonus fourni par un objet magique.\nUne fois par combat, le barbare tourne sur lui-même en assénant des attaques à toutes les cibles au contact. Il inflige automatiquement des DM correspondant à l'arme utilisée (plus tous les bonus habituels) à toutes les cibles dans un rayon de 5 m autour de lui.\nLe barbare guérit à une vitesse presque surnaturelle. Tant que son niveau actuel de PV est compris entre 1 et un tiers de son maximum, il récupère 1d4° PV par heure, de nuit comme de jour.\n* Si le personnage est un profil hybride est qu'il est capable de faire de la magie (il possède au moins une capacité de sort), il subit un dé malus sur ce test opposé. Avoir cédé à la magie le rend moins apte à y résister.\nAu lieu de la Rage du berserk, le barbare peut entrer en Furie du berserk, mais cela consomme deux utilisations de la rage. Cet état est similaire à la rage, mais le barbare ajoute 2d4° aux DM (au lieu de 1d4°) et subit -4 en DEF. La difficulté du test pour mettre prématurément fin à la furie est égale à 20.",
+    "note": "**Équipement de départ** :\nHache à deux mains (DM 2d6) ou Arme à une main (d8) et bouclier (+2 en DEF), 2 javelots (DM 1d6, portée 20 m), dague (DM 1d4), armure de cuir (DEF +2).",
+    "familyId": null,
+    "hitDie": "",
+    "weaponsAuth": [],
+    "armorAuth": [],
+    "startingEquipment": [
+      14,
+      29
+    ],
+    "skillPoints": 2,
+    "magicStat": null,
+    "voies": [
+      28,
+      29,
+      30,
+      31,
+      32
+    ]
+  },
+  {
+    "id": 6,
+    "name": "CHEVALIER",
+    "description": "Points de vigueur : 5 par niveau\nLe chevalier est un noble guerrier errant, monté sur un puissant destrier et protégé par une armure lourde. Il parcourt la campagne en quête de torts à redresser et d'occasions de mettre son courage à l'épreuve.\nDans les Terres d'Osgild : de nombreuses nations humaines peuvent prétendre adoubre des chevaliers en bonne et due forme. D'ouest en est : le comté du Ponant, la principauté d'Arly, les marches du Piémont, le duché de Périk, la baronnie de Bordant et le royaume de Cobis. Parmi celles-ci, seules les trois premières et le royaume de Cobis possèdent un véritable ordre de chevalerie. Toutefois, appartenir à un tel ordre est une charge à temps complet et un personnage sera plus probablement un jeune noble errant, fils cadet d'une famille, condamné à se tailler un domaine ou, au moins une réputation, à la pointe de son épée et à la force de son courage. Les chevaliers sont assez fréquents parmi la noblesse des elfes hauts et chez les nains, mais quasi inexistants chez les autres peuples. Il faudrait donc un historique très particulier pour justifier une telle bizarrerie.\nLe chevalier sait manier toutes les armes de contact, mais il dédaigne les armes à distance qu'il considère comme des armes de couard.\nLes voies de chevalier limitent l'armure à celle de plaque (l'armure de plaque complète nécessite une capacité particulière). Il peut utiliser tous les boucliers.\nLe chevalier obtient une monture puissante (cheval de guerre lourd, ours, félin géant, etc.). Init. [Init. du chevalier], DEF 20, PV [10 + niveau du chevalier × 6], Ruade ou morsure [attaque magique], DM 2d4°+5. La valeur exacte des caractéristiques peut varier selon la créature. Lorsqu'il est en selle, le chevalier peut faire attaquer sa monture une fois par round en action gratuite. À partir du niveau 9, le chevalier peut obtenir une monture volante (pégase, griffon, hippogriffe, etc.) si le MJ l'autorise (il devra vérifier qu'une monture volante n'entre pas en contradiction avec les aventures prévues). Dans ce cas, en vol, la monture couvre une distance de 20 m par action de mouvement, mais ses PV sont seulement égaux à [10 + niveau × 5].\n> #### FIDÈLE MONTURE\n>\n> | AGI | CON | FOR | PER | CHA | INT | VOL |\n> | --- | --- | --- | --- | --- | --- | --- |\n> | +0 | +4* | +5 | +0 | +0 | -2 | +2 |\n>\n> *   Défense [12 + rang]\n> *   Points de vigueur [10 + Niveau × 4]\n> *   Initiative [Init. du chevalier]\n>\n> ### Attaque\n>\n> Ruade +5 • DM 1d4°+5\n>\n> La monture peut être soignée comme un personnage et elle récupère 1d8+4 PV par nuit. Si la fidèle monture meurt, le chevalier en récupère une au niveau suivant.\n> Selon son peuple, un personnage peut obtenir une monture différente ayant les mêmes caractéristiques : yack ou sanglier (nain), cerf ou orignal (elfe).\nUne fois par combat, le chevalier peut donner un coup avec son armure (gantelet, heaume, spallière, etc.) en action gratuite. Il inflige automatiquement [1d4° + FOR] DM, et si la FOR de la cible est inférieure à celle du chevalier, elle est (au choix du chevalier) renversée ou étourdie pour 1 round ou recule de 3 m.\nLe chevalier sait faire face à de nombreux adversaires. Lorsque au moins 3 adversaires l'attaquent au contact à ce round, il obtient une action d'attaque (A) supplémentaire à ce round.\nLe chevalier donne des ordres tactiques pertinents au cœur de la bataille. Une fois par round, il octroie une action supplémentaire gratuite à un allié en vue (une action de mouvement ou une action d'attaque, mais pas une action limitée). Chaque allié ne peut profiter d'un ordre de bataille qu'une seule fois par combat.\nLe chevalier possède les moyens et la culture nécessaires pour obtenir une formation dans n'importe quel domaine qui lui sied. Choisissez une capacité de rang 1 à 3 dans n'importe quel profil issu de la famille des combattants ou des aventuriers (voir page 78). De plus, le chevalier choisit une caractéristique ; désormais, il obtient un dé bonus lors des tests en rapport avec celle-ci.",
+    "note": "**Équipement de départ** :\nÉpée longue (DM 1d8), grand bouclier (DEF +2), lance de cavalerie (DM 2d6), dague (DM 1d4), cotte de mailles (DEF +5).",
+    "familyId": null,
+    "hitDie": "",
+    "weaponsAuth": [],
+    "armorAuth": [],
+    "startingEquipment": [
+      9,
+      29,
+      33,
+      46
+    ],
+    "skillPoints": 2,
+    "magicStat": null,
+    "voies": [
+      33,
+      34,
+      35,
+      36,
+      37
+    ]
+  },
+  {
+    "id": 7,
+    "name": "GUERRIER",
+    "description": "Points de vigueur : 5 par niveau\nLe guerrier est un combattant émérite qui ne craint pas le danger et qui affronte ses ennemis l'arme à la main. De tous les profils de combattant, il est le plus spécialisé et le plus complet dans l'art du combat au corps à corps.\nDans les Terres d'Osgild : le guerrier est sans doute le profil le plus commun de toutes les Terres d'Osgild. Un personnage de ce type peut virtuellement venir de n'importe quelle région du monde (connu et inconnu !). Un guerrier peut avoir été formé au sein d'une armée ou d'une milice ou encore par un mentor. Il peut venir d'une force armée, avoir reçu une éducation martiale ou simplement être un gros bras issu des bas quartiers.\nLe guerrier sait manier toutes les armes de contact et toutes les armes à distance.\nLes voies de guerrier limitent l'armure à la cotte de mailles. Il peut utiliser tous les boucliers.\nLe guerrier peut décider de renvoyer un sort qu'il vient d'absorber grâce à sa capacité Absorber un sort. Au lieu d'être annulé, le sort absorbé est immédiatement retourné contre son expéditeur : le lanceur du sort subit alors les effets de sa propre attaque ! Cet effet ne fonctionne pas contre les sorts de zone.\nLe guerrier peut faire une attaque au contact avec un malus de -2 contre chaque adversaire engagé au contact avec lui (il fait un test d'attaque pour chaque adversaire).\n> **Exemple** : un guerrier peut choisir de se déplacer puis d'utiliser attaque puissante sur une action d'attaque (A). Il subit alors un dé malus en attaque et inflige +2d4° DM. Il peut choisir de faire une double attaque en puissance (seulement s'il connaît aussi la capacité double attaque), ce qui lui demande une action limitée. Il fait alors deux attaques avec un dé malus et -2 en attaque, et chaque attaque réussie inflige +2d4° DM. Enfin, il peut utiliser une action limitée pour faire une seule attaque puissante ; il subit un dé malus et si l'attaque est réussie, il inflige +3d4° DM.\nLe guerrier gagne +1 en DEF et, une fois par combat, lorsqu'il tombe à 0 PV, il peut encore agir un round avant de tomber inconscient. De plus, il ne subit plus de dé malus lorsqu'il est immobilisé et lorsqu'il est étourdi ; il peut encore attaquer, mais avec un dé malus.\nVous trouverez dans ce chapitre la description des quatre profils de la famille des mages : ensorcelleur, forgesort, magicien et sorcier. Ce sont des profils capables d'utiliser la magie profane (par opposition à la magie divine). Ils comptent sur cette magie pour combattre, mais cela leur confère aussi une bien plus grande variété de pouvoirs qu'aux autres personnages.\nCes profils partagent les éléments suivants.\n*   Points de vigueur / niveau : 3\n*   Dé de récupération : d6\n*   +1 capacité de rang 2 à la création du personnage\n*   L'accès à la voie du mage en remplacement de la voie de peuple.\nLes capacités signalées par le symbole * accolé à leur nom sont des sorts (par exemple, Télékinésie*). Un sort suit des règles particulières, comme la dépense de points de mana pour pouvoir être lancé.\nLorsque vous rencontrez la formulation « En plus de ce sort, ... », la suite de la capacité est indépendante du sort. Elle s'applique comme un bonus permanent offert par une capacité, peu importe que le sort soit lancé ou pas.\nPar exemple, « En plus de ce sort, le personnage ajoute +1 en DEF » signifie que la DEF augmente d'un point de façon permanente sans que le sort soit lancé.",
+    "note": "**Équipement de départ** :\nÉpée longue (DM 1d8), épée ou hache à deux mains (DM 2d6), une dague ou une hachette de lancer, un grand bouclier (DEF +2) et chemise de mailles (DEF +4).",
+    "familyId": null,
+    "hitDie": "",
+    "weaponsAuth": [],
+    "armorAuth": [],
+    "startingEquipment": [
+      9,
+      14,
+      29,
+      31,
+      46
+    ],
+    "skillPoints": 2,
+    "magicStat": null,
+    "voies": [
+      38,
+      39,
+      40,
+      41
+    ]
+  },
+  {
+    "id": 8,
+    "name": "ENSORCELEUR",
+    "description": "Points de vigueur : 3 par niveau\nL'ensorceleur tire son pouvoir d'un talent inné pour la magie. Il pratique une magie subtile à base de tromperie et de contrôle, et possède peu de sorts de destruction massive.\nDans les Terres d'Osgild : contrairement aux magiciens, les ensorceleurs peuvent provenir de n'importe quelle zone géographique, car le don surgit au hasard. Selon les sociétés,\nle don peut être considéré comme une bénédiction (chez les elfes par exemple) autant que comme une malédiction (protectorat de Fer). La magie innée est souvent considérée comme la magie du pauvre, car elle ne nécessite aucune éducation pour se développer, toutefois elle traverse toutes les couches de la société. À part quelques cas avérés de pacte avec une entité puissante, l'origine du don reste relativement mystérieuse. Les gnomes, eux-mêmes très sujets à l'apparition du don, ont toutefois avancé des théories farfelues en rapport avec les Pierres du Ciel, de puissantes sources de magie disséminées sur les Terres d'Osgild. Mais l'existence de telles pierres reste à prouver.\nL'ensorceleur sait manier la dague et le bâton ferré. De plus, chaque ensorceleur peut choisir une arme supplémentaire de son choix qu'il a appris à utiliser, sans dépasser 1d6 DM (malgré ses DM de 2d4, l'arbalète légère est aussi une arme éligible).\nLes voies d'ensorceleur interdisent de porter une armure ou d'utiliser un bouclier.\nL'ensorceleur et tout son équipement deviennent translucides et intangibles pendant CHA minutes. Sous cette forme, il peut passer à travers murs et obstacles et ne peut subir aucun DM physiques (même infligés par une arme magique), ni en infliger, ni lancer de sorts. Il n'est pas affecté par la gravité et peut se déplacer dans toutes les directions. Il est stoppé par les barrières magiques et ne peut pas passer à travers les êtres vivants.\nUne fois par combat, au début du round, le joueur peut décider qu’il a eu une vision des dif‑\nférents futurs possibles. Il bénéficie d’un bonus de +10 en attaque, en Défense et à tous les tests de PER pour tout le round, il divise tous les DM subis par 2 et il peut choisir d’agir à n’importe quel moment dans le round, sans considération d’initiative.\nEn réussissant un test opposé d'attaque magique contre une cible de niveau ou NC inférieur au sien (portée 20 m), l'ensorceleur prend contrôle de sa cible pendant CHA minutes. Son propre corps devient inactif et s'écrase au sol. Si la créature meurt pendant la domination, l'ensorceleur réintègre son corps et subit 1d4° DM. Si la cible est d'un niveau trop élevé, il peut la forcer à faire une seule action de son choix (mouvement ou attaque); ensuite, il est éjecté et subit 1d4° DM.\nCe sort invoque les pires terres d'une créature humanoïde vivante et lui fait croire à sa propre mort. L'ensorceleur doit faire un test opposé d'attaque magique contre sa cible (portée 20 m). En cas de succès la victime tombe à 0 PV ou si la cible est de niveau supérieur ou égal à l'ensorceleur, elle est étourdie (-5 DEF et pas d'action) pendant 1 round. Une créature ne peut être la cible de ce sort qu'une fois par jour. Les créatures sans esprit (créatures artificielles, certaines plantes et certains morts-vivants) sont immunisées à ce sort.\nL'ensorceleur crée un mur de force invisible et indestructible (portée 10 m, maximum 5 m de haut et 10 m de long, vertical, sans coudes), ou bien un hémisphère de 3 m de rayon centré sur lui-même, tous les deux immobiles. Le sort dure CHA minutes. Aucune matière ni force ne peut passer à travers le mur de force. En revanche, les attaques mentales ne sont pas stoppées et une porte dimensionnelle (ou une téléportation) permet de le franchir.",
+    "note": "**Équipement de départ** :\nBâton ferré (DM 1d6), dague (DM d4) ou autre arme maîtrisée au choix.\nLa magie est une activité singulière qui exige beaucoup de ceux qui espèrent en maîtriser les mystères, mais elle apporte aussi de grands pouvoirs. Dès le niveau 1, l'ensorceleur peut choisir d'obtenir la voie du mage en remplacement de sa voie de peuple. Vous trouverez les règles qui concernent cette voie en page 60.",
+    "familyId": null,
+    "hitDie": "",
+    "weaponsAuth": [],
+    "armorAuth": [],
+    "startingEquipment": [
+      3,
+      4,
+      29
+    ],
+    "skillPoints": 2,
+    "magicStat": null,
+    "voies": [
+      42,
+      43,
+      44,
+      45,
+      46
+    ]
+  },
+  {
+    "id": 9,
+    "name": "FORGESORT",
+    "description": "Points de vigueur : 3 par niveau\nÀ la fois artisan et enchanteur, artiste et magicien, le forgesort lie les énergies occultes à la matière qu'il façonne pour créer des artefacts magiques ou des breuvages aux propriétés fantastiques. Le forgesort est aussi le seul utilisateur de magie profane à pouvoir porter une armure.\nDans les Terres d'Osgild : les forgesorts forment une caste de magiciens-artisans qu'on ne trouve pas partout, mais qui sont très organisés. Les nains et les gnomes sont plus particulièrement férus de cette école de magie et s'organisent souvent en guilde, à la façon des artisans, tandis que les elfes sont moins enclins à la pratiquer. Les Frères forgeurs forment la guilde de la principauté d'Arly, laquelle a son siège à Fort Colline. Les élèves sont recrutés sur leur seul talent, à la suite d'une série de tests poussés de connaissance et d'artisanat, sans distinction de peuple. Après une formation initiale de sept années, le compagnon doit prendre la route et voyager au loin pour apprendre de nouvelles techniques, rencontrer des maîtres forgesorts à travers le monde et réaliser un chef-d'œuvre : un objet magique original à la fois remarquable pour ses pouvoirs, mais aussi pour la qualité de son artisanat.\nLe forgesort sait manier la dague, le bâton, le marteau et l'arbalète légère.\nLes voies de forgesort limitent l'armure au cuir simple et interdisent d'utiliser un bouclier.\nLa magie est une activité singulière qui exige beaucoup de ceux qui espèrent en maîtriser les mystères, mais elle apporte aussi de grands pouvoirs. Dès le niveau 1, le forgesort peut choisir d'obtenir la voie du mage en remplacement de sa voie de peuple. Vous trouverez les règles qui concernent cette voie en page 60.\nLe forgesort crée un artefact qu’il est le seul à pouvoir utiliser et dont la description est laissée au soin du joueur. L’artefact permet d’utiliser les capacités de rang 5 suivantes chacune une fois par jour au prix d’une action limitée : Téléportation (voie de la magie universelle, magicien), Interruption du temps (voie de la magie protectrice, magicien), Forme éthérée (voie de l’air, ensorceleur), Prescience (voie de la divination, ensorceleur).\nÀ chaque utilisation, le joueur doit lancer 1d6 : sur un résultat de 1 ou 2, l’artefact ne fonctionne pas, le forgesort doit réparer l’artefact lors d’une récupération rapide avant de pouvoir faire une nouvelle tentative de ce pouvoir (il peut tenter d’utiliser les autres pouvoirs normalement).\nLe forgesort apprend à préparer des élixirs parmi Invisibilité, Vol, Accélération (voies de magicien) et Masque du prédateur (voie de druide). Il choisit un nombre d’élixirs égal à sa valeur d’INT (pour un maximum de 4). Ces préparations comptent pour deux élixirs.\nNote : si un personnage choisit une capacité issue de la voie des élixirs par l’intermédiaire d’une autre voie, il acquiert seulement deux élixirs par jour (ou un seul dans le cas d’un élixir majeur). Consommer un élixir n’est pas limité par le type d’armure que porte celui qui le boit.\nLe forgesort est habitué aux travaux et à la chaleur de la forge. Il divise par deux tous les DM de feu subis et augmente sa CON de +1. Désormais, il obtient un dé bonus aux tests de CON. Finalement, il peut ajouter sa valeur de CON au nombre de PM qu’il obtient.\nCe profil est particulièrement adapté aux univers où le développement technologique n'est pas en reste (tendance steampunk). Dans ce genre d'univers, vous pouvez renommer la voie du golem en voie du méca et décrire les effets comme provenant d'objets étranges portés, ingérés ou greffés...\n>\n> *   **Défense** [10 + rang dans la voie]\n> *   **Points de vigueur** [niv. du forgesort × 5]\n> *   **Initiative** [Init. du forgesort]\n>\n> ### Attaque\n>\n> [attaque magique du forgesort] • DM 1d4°+1\n**Soigner un golem**: le golem ne guérit pas naturellement, mais le forgesort peut le réparer au rythme de `[1d6 par rang + INT] PV par heure`.\n**Golem à 0 PV**: si le golem est réduit à 0 PV, il cesse de fonctionner, mais le forgesort peut le réparer.\n**Mort d'un golem**: s'il golem est détruit ou perdu, le forgesort peut en construire un nouveau en `1d6+3 jours (+1d6 jours par amélioration de golem supérieur)`. Un forgesort peut utiliser tous les matériaux à sa disposition dans son environnement, par exemple pierre et bois s'il est dans une forêt.\nEn réalisant un rituel de 10 min, le forgesort inscrit des runes invisibles au sol. Il protège une zone allant jusqu'à 10 m de diamètre pendant 12 h. À chaque fois qu'une créature (de taille au moins très petite) pénètre dans la zone protégée, le sort produit un effet choisi (voir ci-après) au moment où le sort est lancé. Les créatures présentes dans la zone pendant le rituel ne déclenchent pas le sort. Ce sort peut aussi être utilisé sur une porte ou un coffre. Il est automatiquement lancé avec la règle de concentration et coûte seulement 3 PM pour être lancé.\n*   **Alarme**: un puissant gong retentit et la cible est étourdie pendant 1 round à moins de réussir un test de CON difficulté 15.\n*   **Feu**: `[3d4°+INT] DM de feu (un autre élément peut être choisi parmi foudre, froid, acide).",
+    "note": "**Équipement de départ** :\nDague (DM 1d4), bâton ferré (DM 1d6), marteau (DM 1d6).",
+    "familyId": null,
+    "hitDie": "d5 (Vigueur)",
+    "weaponsAuth": [],
+    "armorAuth": [],
+    "startingEquipment": [
+      3,
+      4,
+      18,
+      29
+    ],
+    "skillPoints": 2,
+    "magicStat": null,
+    "voies": [
+      47,
+      48,
+      49,
+      50,
+      51,
+      52
+    ]
+  },
+  {
+    "id": 10,
+    "name": "MAGICIEN",
+    "description": "Points de vigueur : 3 par niveau\nLe magicien est un érudit qui a fait de longues études sur les fondements théoriques de la magie avant d'être capable de lancer ses premiers sorts. Toutefois, ce n'est pas qu'un rat de bibliothèque, il fait aussi appel à la magie pour se débarrasser de ses ennemis et pour aider ses compagnons. Son bien le plus précieux est son grimoire où il a inscrit tous ses sorts.\nDans les Terres d'Osgild : la pratique de la magie profane nécessite une formation complexe généralement enseignée dans une académie. Celle de la principauté d'Arly, située à Ferrance, est dirigée par l'archimage Kerlaft de Rollis, éminence grise du prince Thomar. Ce sont plus souvent les jeunes gens issus de familles fortunées qui peuvent se permettre de telles études. Les jeunes magiciens issus de milieux moins aisés sont généralement repérés par de puissants mages qui les prennent sous leur aile comme apprenti et serviteur en échange de bribes de savoir plus ou moins importantes. En la matière, les maîtres sont tous très différents, certains sont des tyrans, d'autres se montrent plus prévenants mais, en règle générale, tous sont assez peu enclins à partager sans restriction le pouvoir que leur offre leur statut de maître... À part les humains, les elfes forment de puissants magiciens, et les gnomes ont la persévérance et le goût pour la recherche théorique nécessaires à ce profil. En revanche, rencontrer un nain, un halfelin ou un demi-orc magicien est un événement exceptionnel.\nLe magicien sait manier la dague et le bâton.\nLes voies de magicien interdisent de porter une armure ou d'utiliser un bouclier.\nLa magie est une activité singulière qui exige beaucoup de ceux qui espèrent en maîtriser les mystères, mais elle apporte aussi de grands pouvoirs. Dès le niveau 1, le magicien peut choisir d'obtenir la voie du mage en remplacement de sa voie de peuple. Vous trouverez les règles qui concernent cette voie en page 60.\nLe magicien projette un rayon mortel dont la portée est de 20 m et qui annule la cohésion de la matière, ne laissant derrière lui qu'un amas de poussière. Un test d'attaque magique réussi contre la DEF de la cible inflige [5d4°+INT] DM. Si le magicien vise un objet porté par une créature, le test d'attaque subit un dé malus. Les objets magiques sont insensibles à ce sort et les objets normaux (jusqu'à 100 kg) sont réduits en poussière. Une créature réduite à 0 PV par ce sort est proprement désintégrée, ne laissant aucun cadavre derrière elle ! (Ses objets magiques sont épargnés).\nLe magicien projette des traits de foudre sur toutes les cibles de son choix dans un rayon de 10 m autour de lui. Il fait un seul test d'attaque magique et toutes les créatures ciblées dont il atteint la DEF subissent [2d4°+INT] DM d'électricité.\n*Note : Le joueur peut décider de substituer un élément à un autre lors de l'acquisition d'un sort, par exemple*\nMains électriques, Explosion acide et Tempête de glace. Toutefois ce choix est définitif.\nPendant INT minutes, le magicien retranche 5 points à tous les DM subis. Le sort prend fin dès qu'il a absorbé [niveau du magicien x 3] DM. Cette réduction se cumule à celle offerte par la Maîtrise des éléments. Armure de pierre est incompatible avec le sort Déphasage (voie de la magie protectrice), il y met fin immédiatement.\nAprès avoir lancé ce sort, le personnage bénéficie d'INT rounds complets hors du temps durant lesquels il peut utiliser des sorts ou des objets (potions) sur lui-même. Il ne peut interagir avec son environnement, ni se déplacer, seulement utiliser son propre équipement ou ses capacités sur lui-même.\n*   **Défense** [13 + rang dans la voie]\n*   **Points de vigueur** [niveau du magicien]\n*   **Initiative** [Init. du magicien]\nUn familier est une créature trop petite pour attaquer et infliger des dommages.",
+    "note": "**Équipement de départ** :\nBâton ferré (DM 1d6), dague (DM 1d4), grimoire de sorts.",
+    "familyId": null,
+    "hitDie": "",
+    "weaponsAuth": [],
+    "armorAuth": [],
+    "startingEquipment": [
+      3,
+      4,
+      29
+    ],
+    "skillPoints": 2,
+    "magicStat": null,
+    "voies": [
+      53,
+      54,
+      55,
+      56,
+      57,
+      58
+    ]
+  },
+  {
+    "id": 11,
+    "name": "SORCIER",
+    "description": "Points de vigueur : 3 par niveau\nLe sorcier est un lanceur de sorts qui s'intéresse aux forces obscures et au pouvoir de la mort. Parfois nommés nécromanciens ou démonistes, les sorciers sont généralement considérés comme maléfiques et sont peu appréciés. Toutefois, cela dépend des cultures : après tout, est-il plus maléfique de vider un ennemi de son sang que de le découper à coup de hache ou de le carboniser à coup de Explosion de feu ? C'est une des questions que soulève le sorcier ! Interprétez-le de façon subtile afin d'en faire un personnage plutôt sombre ou désespéré, mais pas nécessairement « mauvais ».\nDans les Terres d'Osgild : tout comme la magie profane des magiciens, la magie noire nécessite des études poussées. Cette connaissance peut être tirée d'antiques grimoires, mais souvent elle est obtenue par le biais d'un pacte avec un maître maléfique (prince démon, entité indicible, mort-vivant très ancien, etc.) et dans ce cas, peu importe l'origine sociale du postulant. Pour celui qui n'a pas les moyens de s'offrir de coûteuses études de magie, la tentation est grande de faire appel à un sombre mentor et le ressentiment éventuel contre les riches et les puissants peut être un moteur redoutable. Enfin, il existe des êtres qui n'ont pas choisi la magie noire, mais qui sont nés avec un don pour celle-ci. Cela est généralement le fruit d'un événement tragique qui a corrompu un parent, voire l'enfant lui-même. Dans la plupart des nations humaines, les sombres mages sont tout juste tolérés, tant qu'ils ne troublient pas l'ordre public en ramenant les morts à la vie. Ce que la loi interdit à peu près partout. De leur côté, les elfes et les nains abhorrent la magie noire, si les humains ont oublié, les Premiers-Nés ont encore le souvenir des ravages de la terrible magie du Roi-Sorcier de Tor-Angul et du destin funeste de la forêt Sombre. Héritier de cette période, le Kathang (au sud du mur de Kelt) est réputé pour sa magie noire et cette influence s'étend à travers les jungles de Luir-An-Doral jusque dans le duché de Périk.\nLe sorcier sait manier la dague et le bâton. Les voies de sorcier interdisent de porter une armure ou d'utiliser un bouclier.\nLa magie est une activité singulière qui exige beaucoup de ceux qui espèrent en maîtriser les mystères, mais elle apporte aussi de grands pouvoirs. Dès le niveau 1, le sorcier peut choisir d'obtenir la voie du mage en remplacement de sa voie de peuple. Vous trouverez les règles qui concernent cette voie en page 60.\n*   **Défense** 18\n*   **Points de vigueur** [niveau du sorcier × 5]\n*   **Initiative** [Init. du sorcier]\n**Attaque au contact** : [attaque magique du sorcier] · DM 2d4°+5\nLe sorcier fait mine d'arracher le cœur de sa victime, puis de broyer dans sa main (l'image du cœur de la victime apparaît dans la main du sorcier). Il doit faire un test opposé d'attaque magique contre une cible vivante (portée 20 m) et, en cas de réussite, il inflige [5d4°+INT] DM, la moitié en cas de test raté. Ce sort ne peut affecter une même cible qu'une seule fois par combat.\nUne fois par jour, le sorcier peut invoquer d'innombrables squelettes qui émergent du sol pour attaquer ses ennemis pendant [niveau du sorcier] rounds. Tous les adversaires situés dans un rayon de 10 m autour du sorcier subissent automatiquement 2d4° DM par round. Les squelettes se déplacent avec le sorcier, mais tous les déplacements dans cette zone (même ceux du sorcier) sont divisés par deux.\nEn réussissant un test opposé d'attaque magique (portée 20 m), le sorcier tisse un lien avec sa victime. Pendant INT minutes, la moitié des DM reçus par le sorcier sont également subis par la cible (les DM infligés au sorcier ne sont pas pour autant réduits) et le sorcier peut lui lancer un sort sans la voir (si elle est à portée).\nVous trouverez dans ce chapitre la description des trois profils de la famille des mystiques : druide, moine et prêtre. Ce sont des profils basés sur la spiritualité et les pouvoirs divins, qu'il s'agisse de sorts ou de capacités surnaturelles. Ce sont des profils orientés vers la vie et parfois capables de prodiguer des soins.\nCes profils partagent les éléments suivants.\n*   Points de vigueur / niveau : 4\n*   Dé de récupération : d8\n*   +1 dé de récupération\nLes capacités signalées par le symbole * accolé à leur nom sont des sorts (par exemple, Télékinésie*). Un sort suit des règles particulières, comme la dépense de points de mana pour pouvoir être lancé.\nLorsque vous rencontrez la formulation « En plus de ce sort, ... », la suite de la capacité est indépendante du sort. Elle s'applique comme un bonus permanent offert par une capacité, peu importe que le sort soit lancé ou pas.\nPar exemple, « En plus de ce sort, le personnage ajoute +1 en DEF » signifie que la DEF augmente d'un point de façon permanente sans que le sort soit lancé.",
+    "note": "**Équipement de départ** :\nBâton ferré (DM 1d6), dague (DM 1d4), grimoire de sorts ou parchemins anciens.",
+    "familyId": null,
+    "hitDie": "d10 (Vigueur)",
+    "weaponsAuth": [],
+    "armorAuth": [],
+    "startingEquipment": [
+      3,
+      4,
+      29
+    ],
+    "skillPoints": 2,
+    "magicStat": null,
+    "voies": [
+      59,
+      60,
+      61,
+      62,
+      63,
+      64
+    ]
+  },
+  {
+    "id": 12,
+    "name": "DRUIDE",
+    "description": "Points de vigueur : 4 par niveau\nLe druide est un prêtre de la nature qui défend sa pureté originelle et tire ses pouvoirs de la vie, des animaux et des plantes.\nDans les Terres d'Osgild : généralement un druide veille sur une forêt ou un lieu sauvage et ce n'est pas ce genre d'endroit qui manque dans les Terres d'Osgild. Un jeune druide peut être un autodidacte élevé à l'école de la survie dans une zone sauvage ou alors un initié d'un cercle druidique. Dans la principauté d'Arly, un tel cercle protège le bois d'Astréis et le Bois dor-mant. Chez les elfes, un cercle très puissant veille sur Hautesylve, mais il est exclusivement réservé aux elfes. Les druides doivent leurs pouvoirs aux Puissances, des forces naturelles très anciennes antérieures aux dieux. Les Premiers-Nés (elfes et nains) pratiquaient cette religion animiste avant l'arrivée des hommes. Ils priaient les six Forces de la nature (Esprit, Vent, Terre, Feu, Eau et Mort), les Seigneurs des saisons (Hiver, Automne, Printemps et Été) et enfin les Seigneurs des animaux (Ours, Renard, Corbeau, etc.). Aujourd'hui, les humains appellent ces divinités les Anciens Dieux et leur culte est quasi éteint, seuls les druides les prient encore.\nLe druide sait manier la dague, le bâton noueux (équivalent au bâton ferré), l'épieu, le javelot et l'arc court.\nLes voies de druide limitent l'armure au cuir simple. Il peut utiliser le petit bouclier en bois (DEF +1).\nPendant une durée de PER minutes, le druide peut prendre la forme d'un animal de taille moyenne ou inférieure (minimum une souris) d'une catégorie dont il maîtrise la communication (voir rang 1, à l'exception des animaux fantastiques). Il conserve seulement ses PV, ses valeur d'INT et de VOL, et acquiert les caractéristiques, les attaques, la DEF et les capacités naturelles de la forme choisie (le vol pour un oiseau, la respiration aquatique pour le poisson, etc.). Le druide ne peut ni utiliser\nson équipement ni ses propres capacités sous cette forme. Le druide peut reprendre sa forme humaine lorsqu'il le désire par une action de mouvement (M).\nCette capacité ne peut être utilisée que six fois, et pas plus d'une fois par niveau. Lorsque les PV du druide tombent à 0 ou qu'il meurt, le druide peut choisir d'ignorer ce qui a provoqué la mort ou l'inconscience ! Le MJ et le joueur doivent se mettre d'accord et trouver une raison plausible (ou pas !) pour expliquer la survie du personnage, et le faire réapparaître\nimmédiatement ou un peu plus tard dans l'aventure si nécessaire.\n**En ville :** le compagnon du druide reste un fauve et généralement il ne se sentira pas à l'aise en milieu urbain. Dans la plupart des cas, la bête restera à l'extérieur de l'agglomération et se débrouillera seule en attendant que son maître la réclame.\n**Soigner un compagnon animal :** un compagnon animal peut être soigné par magie et il récupère les PV perdus comme un PJ. Son niveau est égal à celui de son maître.\n**Compagnon animal à 0 PV :** lorsque le compagnon animal tombe à 0 PV, s'il est en milieu naturel considérez qu'il s'enfuit (il revient au bout de 8 h avec tous ses PV). S'il ne peut pas, il doit être soigné comme le serait un personnage.\n**Mort d'un compagnon animal :** le PJ pourra retrouver un nouveau compagnon au passage de niveau suivant. Joueur et MJ doivent se mettre d'accord du moment opportun et cela peut être l'occasion d'une scène de jeu.\nLe druide divise par deux tous les DM « naturels non magiques » : froid, feu, chutes, poisons... mais aussi les DM provoqués par les animaux ou les insectes (même géants). Cette protection s'étend aussi à ses compagnons animaux.\nLe druide peut se transformer en arbre (environ 5 m de hauteur) pendant PER minutes. Il prend les mêmes caractéristiques (à l'exception de l'INT, de la PER et de la VOL) que l'arbre animé (voir plus loin), y compris les PV. Sous cette forme, il ne peut pas parler, mais peut utiliser les sorts des voies du protecteur et des végétaux. À la fin du sort, ou s'il est réduit à 0 PV, il reprend forme humaine et retrouve les PV que le personnage avait au début du sort.\nUne fois par jour, le druide peut pénétrer dans le tronc d'un gros arbre et sortir de celui d'un autre arbre appartenant à la même forêt et situé à une distance maximale de PER × 10 km. À partir du niveau 10 et tous les 4 niveaux supplémentaires, le druide peut emmener une personne avec lui.",
+    "note": "**Équipement de départ** :\nBâton noueux (DM 1d6) ou épieu (DM 1d6 ou 1d10), dague (DM 1d4), arc court (DM 1d6, por-tée 30 m), armure de cuir (DEF +2).\nLes six Puissances Vent, Terre, Feu, Eau, Esprit et Mort existent depuis toujours. Il n'y a ni com-mencement, ni fin, mais un cycle éternel, et nul ne sait ce qui fut avant et ce qui sera après. Les dieux eux-mêmes ne sont arrivés qu'après ; ils font partie du grand cycle, ni plus ni moins. De même qu'ils sont apparus, ils disparaîtront un jour. Aussi puissants soient-ils, ils ne sont pas immortels, tandis que le monde et l'écoulement du temps sont infinis.",
+    "familyId": null,
+    "hitDie": "d5 (Vigueur)",
+    "weaponsAuth": [],
+    "armorAuth": [],
+    "startingEquipment": [
+      3,
+      10,
+      26,
+      29
+    ],
+    "skillPoints": 2,
+    "magicStat": null,
+    "voies": [
+      65,
+      66,
+      67,
+      68,
+      69
+    ]
+  },
+  {
+    "id": 13,
+    "name": "MOINE",
+    "description": "Points de vigueur : 4 par niveau\nLe moine combat à mains nues et utilise le contrôle qu'il a sur son esprit et son corps pour transformer ce dernier en arme de chair. Il peut être issu d'un monastère et pratiquer les arts martiaux, mais vous pouvez aussi développer toutes sortes de combattants à mains nues, depuis un gladiateur formé à la lutte, en passant par un enfant sauvage qui n'a jamais eu d'autre arme que ce que dame nature lui a donné. Toutefois, le profil de moine ne se cantonne pas au combat à mains nues, il couvre tous les combattants acrobates qui réalisent des prouesses martiales. Les capacités de moine peuvent être déclinées avec une arme de prédilection et elles ouvrent alors une infinité de profils hybrides.\nDans les Terres d'Osgild : dans la principauté d'Arly, le seul ordre capable de former des moines est installé à Monastir. Toutefois, l'ordre de Saint Môn est dédié à la garde de la Grande Bibliothèque de la cité et ses disciples ne voyagent pas. En revanche, les maîtres enseignent librement les techniques de combat et de méditation à tous ceux qui ont la volonté de suivre le difficile chemin vers la maîtrise corporelle et l'illumination. Le personnage peut donc être un auditeur libre attiré par la réputation de l'enseignement qu'on y prodigue. Il peut aussi avoir postulé pour entrer dans l'ordre de Saint Môn et avoir échoué. Les elfes de Hautesylve possèdent leur propre ordre monastique, le Tyr'Nan Lwe. Aussi appelés elfes verts, ces elfes ont fait vœu de ne jamais utiliser de métal ou de pierre pour blesser autrui, de ne pas couper de plante vivante et de ne pas porter la peau d'animaux morts. Ils n'utilisent pas non plus de monnaie et vivent de troc ou de mendicité. Ce sont des pacifistes très respectés chez les elfes, mais considérés comme des fous partout ailleurs. Certains ont décidé de parcourir le monde pour diffuser la parole de la vie et former des adeptes parmi les autres peuples. Il existe enfin une intense tradition monastique dans les îles d'Ouister. Installés sur des pics vertigineux battus par les vents de l'océan, ces monastères organisent régulièrement des tournois afin de permettre à leurs disciples de se mesurer et de progresser sur le chemin de la connaissance de soi.\nLe moine sait manier toutes les armes (sauf les armes à poudre), y compris celles à deux mains, mais la plupart des moines n'y font pas appel et sont plus efficaces à mains nues. En effet, tous les moines infligent des DM létaux avec les attaques à mains nues lorsqu'ils le souhaitent.\nLes voies de moine interdisent de porter une armure ou d'utiliser un bouclier.\nLe moine ne mange presque plus, et il peut subsister sans eau et sans sommeil pendant `[5 + VOL]` jour. Il ne subit aucune pénalité durant cette période. De plus, le moine augmente sa CON de +1 et obtient un dé bonus aux tests de CON.\nUne fois par jour, le moine peut choisir de réussir toutes ses attaques automatiquement (pas de critique) et d'esquiver toutes celles qui le prennent pour cible pendant un round. Tout semble aller au ralenti autour de lui... Il peut utiliser cette capacité une fois de plus chaque jour par rang 5 atteint dans une autre voie de moine, mais pas plus d'une fois par combat. De plus le moine augmente définitivement de +1 la valeur de sa plus faible caractéristique (choisir en cas d'égalité).\nUne fois par jour, le moine entre en méditation et projette son esprit hors de son corps pendant [1d4°+VOL] minutes. Il ressemble à un ectoplasme de couleur blanche qui se déplace en volant à la vitesse de 10 m par round. Il peut passer au travers des murs, mais pas des êtres vivants ou des barrières magiques. Le moine ne perçoit le monde que par sa projection mentale, mais ressent les DM qui sont infligés à son corps. Il peut utiliser cette capacité une fois de plus chaque jour par rang 5 atteint dans une autre voie de moine. De plus le moine augmente définitivement de +1 la valeur de sa plus faible caractéristique (choisir en cas d'égalité).\nLe moine peut choisir de s'imposer un dé malus sur une attaque au contact et ajoute +2d4° aux DM. Cette capacité peut aussi être utilisée avec Projection du ki qui est une attaque magique.\nPlutôt que de se battre à mains nues, le moine peut décider d'utiliser une arme de son choix. Dans ce cas, dans les différentes capacités de la voie du moine mentionnant «à mains nues», vous pouvez remplacer «à mains nues» par «avec l'arme de son choix»; et la voie du poing doit alors être renommée en fonction de l'arme choisie (par exemple, voie du bâton ou voie du sabre).\nAttention, dans le cas d'un profil hybride, ces capacités imposent toujours de ne porter aucune armure ni bouclier.\nUne fois par combat, le moine peut rendre son corps intangible le temps de passer au travers d'un mur d'une épaisseur maximal de VOL mètres. Il ne peut rester immatériel qu'un court instant et reprend corps dès qu'il émerge du mur. Si le mur est trop épais, la capacité ne fonctionne pas. De plus le moine augmente définitivement de +1 la valeur de sa plus faible caractéristique (choisir en cas d'égalité).",
+    "note": "**Équipement de départ** :\nBâton (DM 1d6).",
+    "familyId": null,
+    "hitDie": "",
+    "weaponsAuth": [],
+    "armorAuth": [],
+    "startingEquipment": [
+      3
+    ],
+    "skillPoints": 2,
+    "magicStat": null,
+    "voies": [
+      70,
+      71,
+      72,
+      73,
+      74
+    ]
+  },
+  {
+    "id": 14,
+    "name": "PRÊTRE",
+    "description": "Points de vigueur : 4 par niveau\nLe prêtre perçoit la nature divine du monde et les desseins des dieux. Il utilise l'énergie transmise par sa divinité pour mener à bien ses missions avec la force de la foi, mais aussi celle des armes si nécessaire.\nDans les Terres d'Osgild : Vous trouverez page 126 un tableau qui récapitule la liste des armes sacrées et des capacités divines des principales religions officielles des Terres d'Osgild. Les humains considèrent que les dieux sont les créateurs du monde, tandis que les Premiers-nés (elfes et nains) affirment que les dieux sont arrivés bien après la création du monde par les Puissances (air, terre, feu, eau, esprit et mort). Ils appellent parfois les dieux, les nouveaux dieux, ce qui n'est pas du goût de toutes les religions. Toutefois, il n'y a pas de réel conflit, le culte des Puissances étant quasi éteint.\nLe prêtre sait manier les armes contondantes à une main ainsi que le bâton ferré. Les prêtres ont l'interdiction morale de faire couler le sang (!) et n'utilisent donc pas les armes tranchantes ou perçantes pour des raisons religieuses. L'arme sacrée d'un prêtre spécialiste constitue une exception.\nLes voies de prêtre limitent l'armure à la chemise de mailles et permettent d'utiliser le petit bouclier (DEF +1).\nLes prêtres généralistes prient tous les dieux d'un panthéon ou une sélection d'entre eux, le plus souvent tous les dieux protecteurs par opposition aux destructeurs. Les généralistes sont plus courants dans les villages où, lorsqu'un temple existe, il accueille de nombreuses divinités. Il est plus simple pour un joueur de créer un prêtre généraliste, car il suit les règles de base du profil sans modification. La liste des dieux pourra lui servir d'inspiration pour ses prières du quotidien : à chaque action, à chaque moment de vie ou d'aventure peut correspondre un dieu différent.\nLes prêtres spécialistes sont au contraire les hérauts d'un seul dieu et ils portent sa parole, ses idéaux et son dogme à l'exclusion de tout autre. Chaque prêtre spécialiste maîtrise une arme sacrée qui dépend de son dieu et obtient une capacité divine issue d'un autre profil. Elle remplace une capacité du même rang de n'importe quelle voie choisie par le joueur. La capacité divine doit obligatoirement être la première capacité de ce rang choisie par le joueur. Si la capacité est de rang 1, elle doit être choisie à la création du personnage. Si, par exemple, elle est de rang 3, le personnage ne peut pas choisir d'autre capacité de rang 3 tant qu'il n'a pas fait l'acquisition de cette capacité.\nLa foudre frappe toutes les créatures désignées dans un rayon de 10 m autour du prêtre et leur inflige [2d4°+CHA] DM (pas de test d'attaque requis). Ce sort est gourmand en énergie et son coût augmente de +1 PM à chaque utilisation tant que le prêtre n'a pas terminé une récupération rapide.\nUne fois par jour, le prêtre peut prononcer un mot avec la voix de son dieu. Cela dépasse l'entendement des mortels et tous ses ennemis dans un rayon de 10 m sont étourdis pendant 1 round (pas d'action et -5 en DEF).\nLe prêtre fait appel à son dieu pour changer le cours des événements. Une fois par combat, il peut décider qu'un test du MJ ou des joueurs est une réussite ou un échec, même après que les dés ont révélé leur résultat. Il ne peut pas modifier le résultat du test obtenu par une créature d'un NC supérieur à son niveau.\nUne fois par jour, le prêtre peut soigner une créature par point de CHA. Chaque patient (éventuellement lui-même inclus) obtient les mêmes effets qu'un sort de Récupération majeure. Le sort prend 10 min pendant lesquelles tous les patients doivent rester au repos dans un rayon de 5 m autour du prêtre qui se concentre et se nimbe de lumière divine. Ce sort ne peut pas être lancé avec la règle de concentration.\nUne fois par jour, le prêtre peut passer dans une dimension entre les plans d'existence où le temps et l'espace sont déformés pendant un maximum de CHA rounds. Il se déplace dans une sorte de brouillard gris où le paysage défile à toute vitesse. Pour chaque round de Marche des plans, il se déplace en réalité de 10 km. Le lieu de sortie n'est cependant pas très précis et le MJ doit déterminer une position au hasard autour du point visé (à 1d6 km près).",
+    "note": "**Équipement de départ** :\nMasse, marteau de guerre (DM 1d6) ou bâton ferré (DM 1d6, à deux mains), petit bouclier (DEF +1), chemise de mailles (DEF +4).",
+    "familyId": null,
+    "hitDie": "",
+    "weaponsAuth": [],
+    "armorAuth": [],
+    "startingEquipment": [
+      3,
+      4,
+      18,
+      19,
+      45
+    ],
+    "skillPoints": 2,
+    "magicStat": null,
+    "voies": [
+      75,
+      76,
+      77,
+      78,
+      79
+    ]
+  },
+  {
+    "id": 15,
+    "name": "LA GENÈSE D'OSGILD VUE PAR LES HUMAINS",
+    "description": "Au commencement, Ada, la première femme et Ivu, le premier homme, furent créés par les dieux et autorisés à vivre parmi eux, dans un monde parfait. Ils peuplèrent le Paradis de leurs enfants et ils se multiplièrent, donnant naissance à de nombreux peuples. Les Élus régnaien sur les animaux et toutes les autres créatures, mais, aveuglés par l'ambition de ressembler à leurs créateurs, ils essayèrent de s'emparer de l'immortalité. Hélas, dans leur arrogance, ils ne virent que trop tard où les menaient leurs expériences : le néant. Leur échec se solda par une catastrophe cosmique, le Paradis fut anéanti et la vie passa tout près de l'extinction. Les Élus furent expulsés sur le Mitan avec des fragments de néant, Kaer Ouros, les Pierres du Ciel. Les survivants durent apprendre à prier, car ils avaient brisé le lien privilégié avec leurs créateurs. Pire, ils avaient ouvert la porte à la corruption du néant et, désormais, certains dieux n'étaient plus l'incarnation de la bienveillance, mais la personification des valeurs destructrices engendrées par le néant.\nCertains dieux portent parfois des noms différents chez les peuples non humains, par exemple Arshran est appelé Thürdim chez les nains.\n- ¹ arc long ou court au choix\n- ² arme à deux mains, d10 DM\n- ³ arme à deux mains, d8 DM\n- ⁴ semblable à un épieu\n- ⁵ ou rouleau à pâtisserie ou poêle au choix, même DM",
+    "note": "",
+    "familyId": null,
+    "hitDie": "",
+    "weaponsAuth": [],
+    "armorAuth": [],
+    "startingEquipment": [],
+    "skillPoints": 2,
+    "magicStat": null,
+    "voies": []
+  }
+]

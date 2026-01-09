@@ -1,0 +1,6285 @@
+
+
+# CHRONIQUES OUBLIEES FANTASY
+
+## CRÉDITS
+
+**Directeur de la publication** : David Burckle
+**Responsable d'édition** : Marc Sautriot
+**Auteur** : Laurent Bernasconi
+**Édition et textes additionnels** : Marc Sautriot
+**Relecture et corrections** : Olivier Larue
+et Marc Sautriot
+**Direction artistique** : Marianne Bergeonneau
+**Design du logo et de la couverture** : Steve Luga
+**Couverture** : Irina Fidler
+**Illustrations intérieures** : Eduardo Comettant, Aleksa Drageljevic, Irina Fidler, Aurore Folny, Jérémy Forveille, Laura Galiano, Gong Studios, Rémi Jacquot, Chris Knight, Ilina Naydenova, Jessica Nera Bargh, Matheus Schwartz, Aleksa Stajsic et Ömer Tunç
+**Carte** : Patrick Janniaud
+**Planche BD** : Marianne Bergeonneau
+**Design de la maquette** : Amélie Bortuzzo, Laura Hoffmann et Frédéric Lipari
+**Maquette** : Valentin Debret, Laura Hoffmann et Frédéric Lipari
+
+**L'équipe de Black Book Éditions :**
+**Pôle administratif** • David Burckle, Marie Ferreira, Laura Hoffmann et Thierry Przybyla
+**Pôle boutique** • Éric Bernard, Camille Bourgoin, Julien Collas, Jonathan Duvic, Julien Gaillet et Olivier Morgan
+**Pôle communication** • Anthony Bruno et Steve Luga
+**Pôle édition** • Marianne Bergeonneau, Frédéric Lipari, Sélène Meynier, Aurélie Pesséas, Marc Sautriot et Julija Valkuniene
+**Pôle technique** • Alexandre Nizoux et Emmanuel Personne
+
+**Dépôt légal** : Juillet 2024.
+2ᵉ impression Mai 2025. Imprimé en UE.
+**ISBN (souple)** : 978-2-38227-656-3
+**ISBN (deluxe)** : 978-2-38227-485-9
+**ISBN (couv. alternative)** : 978-2-38227-672-3
+**ISBN (collector)** : 978-2-38227-493-4
+**ISBN (pdf)** : 978-2-38227-489-7
+
+© Black Book Éditions, 2024. Chroniques Oubliées Fantasy est une marque déposée par Black Book Éditions. Tous droits réservés.
+
+Édité par Black Book Éditions
+50 rue Jean Zay
+69800 Saint Priest
+FRANCE, www.black-book-editions.fr
+black-book-editions.fr
+
+**Remerciements**
+L'auteur adresse un grand merci à Christophe Klopfert, Jérémy Provost et Poussière pour leurs relectures attentives et leurs suggestions, ce jeu serait indéniablement moins abouti sans leur aide précieuse. Merci à JP Roth, Véro Courseaux, Stéphane Depoli et, last but not least, Léo Depoli d'avoir essuyé les plâtres toutes ces années et subi toutes ces évolutions de règles ad nauseam. Black Book Éditions remercie chaleureusement la communauté de Chroniques Oubliées pour sa fidélité et ses retours toujours bienveillants. Un grand merci à Laurent pour son investissement sans faille, sa persévérance, son énergie, sa passion.
+
+# AVANT-PROPOS
+
+Il y a tout juste dix ans, en juillet 2014, sortait la première édition de Chroniques Oubliées Fantasy (COF). Ce jeu de rôle faisait suite au jeu d'initiation sorti en boîte cinq ans auparavant, puis à une publication des règles complètes sous forme de feuilleton dans les numéros 1 à 3 du magazine *Casus Belli*. Depuis, des milliers de joueurs s'en sont emparés, ont usé les pages de leurs manuels, et surtout, ont joué des centaines d'heures durant, parcourant les Terres d'Osgild avec des campagnes telles *Les Disparus de Clairval*, *Anathazerin* ou encore *Invincible*. L'une des forces de Chroniques Oubliées Fantasy est aussi d'être utilisable avec n'importe quel univers médiéval fantastique, et nul doute que, collectivement, vous avez joué encore plus dans une grande diversité de mondes. C'est là la véritable magie du jeu de rôle !
+
+Depuis plus de dix années donc, les rôlistes ont pu largement pousser le jeu dans ses retranchements, soulever des questionnements, pointer du doigt des manques, et surtout, suggérer des améliorations et de nouvelles règles, ou des variantes. Parce que même si le cœur des règles de COF reste le même, chaque table joue avec ses variantes, ses options préférées. C'est là également une force de ce jeu : novices comme routards y trouvent leur compte, la simplicité des règles permettant à la fois de découvrir le jeu en douceur et d'y ajouter des règles plus pointues.
+
+Toujours est-il que toute cette expérience, tous ces échanges sur les forums, toutes ces suggestions, Laurent Bernasconi, l'auteur du jeu, les a suivis de près. Discutant avec les membres de la communauté, il a peu à peu commencé à noircir les pages. Mois après mois, il a affiné les textes, recueillant jusqu'au dernier moment l'avis de certains fans du jeu. Jusqu'à finir par lâcher son nouveau bébé : *Chroniques Oubliées Fantasy 2e* du nom était là, prêt à servir la communauté rôliste !
+
+Tout en gardant l'esprit d'origine, à savoir la simplicité et l'accessibilité aux nouveaux rôlistes, nous avons, avec Laurent, essayé de gommer les défauts du grand frère, qu'il s'agisse de points de règles ou d'ergonomie du jeu. Ce jeu est désormais le vôtre. Un nouveau chapitre des Chroniques Oubliées peut s'ouvrir. Nous vous souhaitons de longues heures d'aventures palpitantes. Bon jeu !
+
+L'équipe Black Book Éditions, mars 2024
+
+# SOMMAIRE
+
+
+## Introduction
+
+
+
+
+
+
+
+
+
+
+Créer un profil hybride au niveau 1 179
+
+
+## PARTIE I • PRÉPARATION
+
+**Chapitre 1 : Créer son personnage**
+*   **Matériel d'aventurier** 181
+*   **Armes** 181
+*   **Armure** 188
+*   **Autres biens** 190
+*   **Équipement de qualité** 193
+*   **Équipement exotique** 193
+
+## PARTIE II • LES RÈGLES
+
+**Chapitre 1 : Les règles de base**
+*   **Mécanique de Base : le test** 199
+*   **Les tests de caractéristique** 202
+*   **Points de chance** 205
+*   **Test d'attaque** 212
+*   **Options tactiques** 215
+*   **Les dommages** 218
+*   **Les points de vigueur** 220
+*   **Fuite** 222
+*   **Poursuite** 222
+
+**Chapitre 2 : Le combat**
+*   **Préambule : la surprise** 208
+*   **Unité de temps : le round** 209
+*   **Initiative** 209
+*   **Les actions** 210
+*   **L'action de mouvement** 211
+*   **Chapitre 3 : Magie et sorts** 227
+*   **Lancer un sort** 227
+*   **Récupérer les points de mana** 229
+
+## PARTIE III • MENER DES PARTIES DE JEU DE RÔLE
+
+**Chapitre 1 : Les règles de l'aventure**
+*   **Voyager** 232
+*   **Dangers du voyage** 233
+*   **Autres dangers et obstacles** 236
+*   **Enquête et recherche d'indices** 240
+*   **Démarrer la partie** 307
+*   **Séquence de jeu** 309
+*   **En combat** 312
+*   **Fin de partie** 315
+*   **Style de jeu** 316
+
+**Chapitre 2 : Objets magiques**
+*   **Niveau de magie** 242
+*   **Valeur des objets magiques** 242
+*   **Fabriquer des objets magiques** 243
+*   **Nombre et puissance des objets** 244
+*   **Cumul des bonus** 245
+*   **Limiter les objets magiques** 245
+*   **Identifier un objet magique** 246
+*   **Origine d'un objet magique** 246
+*   **Catégories d'objets** 247
+
+**Chapitre 3 : Opposition**
+*   **Mode d'emploi** 259
+*   **Profils de créatures : Humanoïdes** 262
+*   **Profils de créatures : Animaux** 266
+
+**Chapitre 4 : Devenir MJ**
+*   **Avant la première partie** 304
+
+**Chapitre 5 - Scénario La Tour errante**
+*   **Introduction pour le MJ** 319
+*   **Introduction des PJ** 320
+*   **Scène 1 : Coup de foudre** 320
+*   **Scène 2 : Un grand mystère** 321
+*   **Scène 3 : L'appel de la tour** 323
+*   **Scène 4 : Pietro** 325
+*   **Scène 5 : La tour maudite** 326
+*   **Scène 6 : Retour vers le futur** 329
+
+**Chapitre 6 - Scénario Requiem pour Clairval**
+*   **Introduction pour le MJ** 331
+*   **Introduction des PJ** 332
+*   **Scène 1 : Félindra et les zombies** 332
+*   **Scène 2 : Course dans les ténèbres** 334
+*   **Scène 3 : Au pied du mur** 336
+*   **Scène 4 : Grand final** 338
+
+## ANNEXES
+
+*   **Index des sorts par rang** 343
+*   **Personnages prétirés** 348
+
+
+# INTRODUCTION
+
+Bienvenue à toutes et à tous!
+
+Chroniques Oubliées Fantasy (COF) est un jeu de rôle qui permet de vivre des aventures fantastiques entre amis, autour d'une table. Si vous savez déjà ce qu'est le jeu de rôle, alors vous êtes en terrain connu et pouvez passer le paragraphe qui suit. Pour les autres, préparez-vous à vivre un voyage extraordinaire. Suivez le guide !
+
+## QU'EST-CE QUE LE JEU DE RÔLE ?
+
+« Dos à dos avec vos compagnons, prisonniers des profondeurs des mines de Kaer-Undün, la horde des gobelins déferle sur vous, tandis qu'au loin vous entendez le pas lourd d'un troll qui approche... Que faites-vous ? »
+
+C'est à vos amis et vous de décider. Vous battez-vous jusqu'à votre dernier souffle ? Cherchez-vous une issue vers la surface ? Ou échafaudez-vous un plan à la fois subtil et risqué, comme vous laisser capturer pour être mené devant le roi des gobelins ? Le jeu de rôle est un jeu qui ne connaît pas d'autre limite que celle de votre imagination. Comme pour tous les jeux, il y a des règles, bien sûr, mais vous êtes libres de décider de ce que vous ferez.
+
+Lors d'une partie de jeu de rôle (JdR), un groupe de joueurs, dont l'un prend le rôle particulier de meneur de jeu (MJ), partagent ensemble une aventure palpitante. Ils ne jouent pas simplement pour gagner la partie, mais pour passer un bon moment entre amis, en vivant dans la peau de personnages héroïques une aventure extraordinaire digne d'être contée par les bardes !
+
+Le jeu de rôle se joue à plusieurs, autour d'une table. Vous n'avez besoin ni de déguisement, ni d'armes en plastique, ni d'ordinateur, ni d'aucun accessoire compliqué. Seulement d'une dose de bonne humeur et d'imagination, de quelques
+
+
+
+dés, de feuilles de personnage, de crayons et de gommes ! C'est pour ces différentes raisons que chez les Anglo-saxons, on qualifie parfois le JdR de « jeu de rôle sur table » (tabletop roleplaying game) ou encore de « jeu de rôle avec crayons et papier » (pen and paper rpg).
+
+Si vous ne savez pas comment se déroule un jeu de rôle, vous pouvez retrouver une partie filmée en vidéo sur la chaîne YouTube de *Black Book Éditions*, accessible directement à partir de notre page internet, sur laquelle vous retrouverez également des informations sur Chroniques Oubliées Fantasy ainsi que les différents produits de la gamme et des ressources numériques :
+Retrouvez toutes ces liens et informations ici :
+
+www.black-book-editions.fr/COF2
+
+## Des joueurs et un meneur de jeu
+
+Le jeu de rôle est un jeu de société qui se pratique au minimum à deux. Idéalement, une partie regroupera quatre à six joueurs (idéalement cinq). Comme nous venons de le voir, l'un d'eux doit endosser le rôle particulier de meneur de jeu (MJ) tandis que les autres, simplement appelés joueurs, incarnent les héros de l'histoire : les personnages joueurs (PJ).
+
+**Le meneur de jeu.** Garant du bon déroulement de la partie, le MJ assure plusieurs fonctions :
+
+*   il **décrit les situations** aux joueurs ;
+*   il **joue le rôle** de tous les personnages du jeu hormis ceux des joueurs ;
+*   il **s'assure du bon déroulement de l'aventure** (lui seul a lu le scénario avant la partie) ;
+
+*   il fait **office d'arbitre**. En cas de litige sur les règles de jeu et sur la façon dont progresse l'histoire, c'est lui qui prend les décisions finales qui s'imposent.
+
+Le MJ n'a cependant pas tous les pouvoirs, et il est important de préciser qu'il n'est pas l'adversaire des joueurs. Il est un conteur dont le but est de permettre à tout le monde de passer un bon moment et de s'amuser.
+
+**Les joueurs.** Chaque joueur joue le rôle d'un personnage dont il décide librement ce qu'il fait et dit. Lorsqu'il interprète le PJ, le joueur a plusieurs possibilités : il peut parler de son personnage à la troisième personne (« Lhagva parle au gobelin »), à la première personne (« Je parle au gobelin »), ou comme s'il était son personnage (« Eh toi, le gobelin ! Que fais-tu là ? »). Aucune méthode n'est meilleure qu'une autre : suivez votre instinct et n'hésitez pas à passer de l'une à l'autre. **C'est l'aspect « rôle » du jeu de rôle.**
+
+Chaque joueur décide librement des actions de son personnage, mais il n'est jamais assuré qu'elles vont réussir comme il le souhaite. Le personnage est défini par des **caractéristiques** (Force, Agilité, Intelligence, etc.) et des **capacités** (Double attaque, Explosion de feu, Discrétion, etc.) indiquées sur sa feuille de personnage. Ces éléments vont permettre, grâce aux règles du jeu, de déterminer comment les choses se déroulent. **C'est l'aspect « jeu » du jeu de rôle.**
+
+## Comment joue-t-on ?
+
+Une fois que chaque joueur a son personnage, le MJ peut commencer à raconter une histoire, qu'il a lue dans un livre de Chroniques Oubliées Fantasy ou dont il a écrit au préalable la trame et les seconds rôles principaux. Le MJ pourrait, par exemple, commencer son histoire comme ceci :
+
+« Vous êtes en route pour le village de Fonduval pour répondre à une petite annonce affichée dans la ville voisine : "Recherche aventuriers courageux pour
+
+VALENTINE ET SES AMIS PLONGÉS DANS UNE PARTIE DE JEU DE RÔLE
+
+# UNE PARTIE DE JEU DE RÔLE
+## LÉO JOUE SKODJA
+
+ANAÏS JOUE LAGIVHA
+
+## ILONA JOUE WILIBERT
+SALIM JOUE IONAS
+
+VOUS APPROCHEZ DE FONDUVAL, MAIS SUR VOTRE GAUCHE VOUS VOYEZ UN INCENDIE ...
+
+VALENTINE EST LA MJ, ELLE ANIME LA PARTIE
+
+C'EST LOUCHE CE FEU, EST-CE QUE MON PERSONNAGE VOIT OU ENTEND QUELQUE CHOSE ?
+
+FAIS MOI UN TEST DE PERCEPTION ...
+
+20 NAT!!!
+
+EH BIEN ... A TRAVERS LES FLAMMES, TU DISTINGUES UNE SILHOUETTE ...
+
+QUE FAITES VOUS ?
+
+vaincre le sorcier Drogon. Forte récom- pense". Alors que vous marchez sur la route qui mène à Fonduval, vous arrivez à un croisement. Votre objectif se situe droit devant, mais à votre gauche un panneau indique le village de Borduval et une épaisse colonne de fumée noire s'élève au loin, justement dans cette direction. Que faites-vous ? »
+
+Les joueurs se retrouvent face à deux choix : poursuivre leur route vers Fonduval ou aller voir ce qu'il se passe en direction de Borduval. Ils devront se mettre d'accord pour poursuivre ensemble, car l'union fait la force. Retenez comme première règle que le jeu de rôle est avant tout **un jeu de coopération**.
+
+Une fois la décision des joueurs prise, le MJ reprend l'histoire et raconte aux joueurs ce qui arrive à leurs personnages. Ainsi, MJ et joueurs développent ensemble une aventure unique au fil de la partie selon leurs décisions. Souvent, lorsque les personnages décident de réaliser une action (par exemple, monter à cheval ou bien lire un livre), le meneur peut décider ce qu'il advient en se basant sur les caractéristiques et capacités des personnages évoquées au paragraphe précédent, ainsi que sur le contexte. Parfois, en revanche, le MJ estimera qu'il ne peut pas trancher (par exemple, si un héros essaie d'attraper un malfrat ou doit se défendre contre une horrible créature) et fera appel à un « test ».
+
+Les PJ rencontreront peut-être des villageois en fuite ou les créatures étranges qui les ont attaqués. Ces personnages secondaires seront tous joués par le meneur de jeu. C'est la raison pour laquelle on les appelle les « personnages non joueurs » (PNJ).
+
+Les PJ exploreront des lieux exotiques ou dangereux, des régions sauvages, résoudront des énigmes et combattront des adversaires afin d'accomplir leur mission. D'aventure en aventure, ils progresseront et pourront devenir des héros réputés. Ce qu'il y a de bien
+
+# RÈGLE DE JEU ESSENTIELLE :
+## LE TEST
+
+Lorsqu'un personnage réalise une action dont l'issue est incertaine, le meneur de jeu va demander au joueur d'effectuer un test, qui est la mécanique de base des règles du jeu de COF.
+
+Un test consiste à lancer un dé, à ajouter au nombre obtenu un modificateur (qui est une valeur provenant d'une caractéristique et éventuellement d'une capacité du personnage), et à comparer le résultat à une valeur fixe appelée difficulté. Si le résultat du test est supérieur ou égal à la difficulté, l'action entreprise réussit. En revanche, si le résultat est inférieur à la difficulté, elle échoue ou est modérée par un événement négatif (voir la partie II, chapitre « Les règles de base », page 199, pour plus de détail).
+
+**Par exemple :** Marmor le guerrier saute d'un balcon pour atterrir dans un chariot de paille qui passe en contrebas. Pour savoir s'il y parvient, il lance un dé, obtient un 8 et ajoute sa valeur d'Agilité, qui est de +3. Le résultat total est de 11, qui est supérieur à la difficulté, que le meneur de jeu avait fixé à 10. Marmor atterrit effectivement dans la paille, semant ses poursuivants.
+
+avec le jeu de rôle, c'est que ça ne s'arrête jamais vraiment. Après avoir terminé une aventure, les personnages pourront en vivre des dizaines d'autres. Les joueurs pourront les jouer à nouveau, un peu plus forts, face à des défis un peu plus difficiles dans chaque nouvelle aventure.
+
+## Lancez-vous !
+
+Dans l'idéal, nous vous conseillons de commencer en tant que joueur plutôt que meneur de jeu. Mais s'il n'y a pas de meneur de jeu dans votre entourage, que vous n'avez jamais joué et que vous souhaitez devenir meneur de jeu... lancez-vous !
+
+Si vous en avez la possibilité, vous pouvez essayer d'aller voir une partie se jouer dans une association qui pratique ce loisir, dans un magasin spécialisé près de chez vous ou tout simplement en vidéo sur internet.
+
+Enfin, pour mener le jeu, vous trouverez aussi des conseils utiles dans le chapitre « Devenir MJ », page 304.
+
+## LES INGRÉDIENTS DU JEU
+
+Récapitulons. Pour jouer à Chroniques Oubliées Fantasy, vous avez besoin :
+
+*   d'un **meneur de jeu** (ou MJ);
+*   d'un groupe de **joueurs** (un à cinq, idéalement quatre pour débuter);
+*   de personnages (voir le chapitre « Création de personnage », page 20);
+*   des règles du jeu (voir le chapitre « Les règles », p. 198);
+*   d'un scénario d'aventure;
+*   de dés, de crayons à papier, de gommes, d'une table et de chaises, pour être bien installés.
+
+**Constitution (CON), Force (FOR), Perception (PER), Charisme (CHA), Intelligence (INT) et Volonté (VOL). Leur valeur est généralement comprise entre -2 et +5.
+
+## Peuple
+
+Chaque personnage appartient à un peuple : demi-elfe, demi-orc, elfe haut, elfe sylvain, gnome, halfelin, humain et nain.
+
+## Profils
+
+En termes de jeu, l'occupation principale du personnage s'appelle un profil. Ce n'est pas un métier comme celui de n'importe quel quidam (boulanger, érudit, etc.), mais plutôt un archétype pour un personnage hors-norme destiné à vivre la vie trépidante de héros.
+
+Le profil détermine le rôle du personnage, sa fonction dans le groupe, ce dont il est capable ainsi que les compétences et les capacités qu'il va acquérir avec l'expérience. Les profils sont répartis en quatre familles (aventuriers, combattants, mages et mystiques) que vous retrouverez dans la première partie de cet ouvrage, à partir de la page 22.
+
+## Les personnages
+
+Les personnages sont définis par une identité, une description et un certain nombre de paramètres propres au jeu : les caractéristiques, les profils, les voies, les capacités, les points de vigueur... Nous vous présentons ci-après ces différents éléments dont vous aurez besoin pour jouer.
+
+## Caractéristiques
+
+Les caractéristiques (Carac.) représentent à la fois l'inné et l'acquis d'un personnage. Elles sont un indicateur de ses capacités physiques et mentales, mais aussi des compétences qu'il a apprises. Chaque personnage est défini par sept caractéristiques : Agilité (AGI),
+
+## Voies
+
+Pour chaque profil de personnage, il existe cinq voies, qui définissent en quelque sorte les compétences, pouvoirs et autres spécificités qui lui sont propres. Vous les trouverez dans le chapitre consacré à la famille à laquelle il appartient (voir page 29 et suivantes).
+
+Chaque voie est composée de cinq capacités, dont le rang indique la puissance (par ordre croissant).
+
+## Capacités
+
+Les capacités forment le cœur du système de Chroniques oubliées, elles correspondent aux compétences spécifiques, attaques spéciales, pouvoirs, sorts etc. dont dispose le personnage. Chaque capacité est une règle particulière et
+
+
+le texte décrivant la capacité (voir les chapitres consacrés aux familles de profils) prime sur la règle générale. Si rien n'est précisé, la règle générale s'applique.
+
+Les capacités signalées par le symbole \* accolé à leur nom sont des sorts (par exemple, Télékinésie\*).
+
+**Fréquence des capacités.** Sauf mention contraire, les capacités peuvent être utilisées aussi souvent que le joueur le souhaite. Les deux exceptions les plus fréquentes sont les suivantes :
+
+*   une capacité qui indique *une fois par combat* nécessite de terminer une récupération rapide (30 min de repos) pour pouvoir à nouveau être utilisée. *Une fois par combat* est une simplification qui évite d'alourdir le texte, pour autant la capacité peut être utilisée hors combat;
+*   une capacité qui indique *une fois par jour* nécessite de terminer une récupération complète (8 h de repos) pour pouvoir être utilisée à nouveau.
+
+## Points de vigueur
+
+Tous les personnages possèdent des points de vigueur (**PV**). Ce nombre représente leur énergie, leur capacité à éviter les dangers. Le nombre de PV varie pour représenter l'état de santé et de fatigue du personnage, mais aussi l'énergie qu'il lui reste pour éviter encore les coups. Plus les PV baissent, plus vous êtes en danger (voir le chapitre « Le combat », page 208).
+
+Une haute valeur de PV correspond à un combattant expérimenté. Ainsi pour un personnage qui possède 40 PV, un coup d'épée qui fait perdre 8 PV représente un coup qui a été en grande partie esquivé ou dévié et encaissé, à peine une estafilade superficielle, alors que pour un personnage qui ne possède que 6 PV, il s'agit d'un coup mortel en pleine poitrine.
+
+Un personnage à qui il ne reste qu'un seul PV est littéralement épuisé et victime de multiples contusions et coupures. S'il perd un seul PV de plus, il sombre dans l'inconscience avec le risque de périr de ses blessures.
+
+## Dé de récupération
+
+Les dés de récupération (**DR**) constituent la capacité du personnage à récupérer, à reprendre son souffle (voir le chapitre « Le combat », page 30).
+
+## Points de chance
+
+Les points de chance (**PC**) indiquent bien sûr à quel point un personnage est chanceux, mais peuvent
+aussi signifier à quel point il bénéficie de la faveur des dieux ou du destin (voir le chapitre « Les règles de base », page 198).
+
+## Points de mana
+
+Le mana est une énergie particulière inscrite dans le tissu même du monde et de l'univers. C'est grâce au mana que certains personnages peuvent lancer des sorts, qu'ils soient magiciens, sorciers, prêtres ou druides. Les points de mana (**PM**) représentent la capacité des PJ à lancer des sorts (voir le chapitre « Magie et sorts », page 227).
+
+## Initiative, valeur d'attaque, Défense
+
+Lorsque survient un combat (ce qui arrive malheureusement trop souvent dans la vie d'un héros), l'Initiative (**Init.**) permet de déterminer la vitesse de réaction et le moment où un personnage agit. La valeur d'attaque et la Défense (**DEF**), quant à elles, représentent bien sûr sa capacité à porter des attaques contre un ennemi et à résister aux siennes (voir le chapitre « Le combat », page 208).
+
+## Les dés
+
+Le dé classique, connu de tous, caractérisé par sa forme cubique et ses six faces numérotées, n'est pas le seul dé utilisé par les règles de Chroniques Oubliées Fantasy. Nous allons utiliser pas moins de six types différents de dés aux formes fascinantes dont le nombre de faces va de 4 à 20 !
+
+*   Dé à 4 faces (d4)
+*   Dé à 6 faces (d6)
+*   Dé à 8 faces (d8)
+*   Dé à 10 faces (d10)
+*   Dé à 12 faces (d12)
+*   Dé à 20 faces (d20)
+
+De plus, vous trouverez parfois dans COF la mention à un **d3**. Il s'agit là en réalité d'un dé dont on divise le résultat par deux, en arrondissant le résultat à l'entier supérieur. Plus simplement, considérez qu'un résultat de 1 ou 2 vaut 1, 3 ou 4 vaut 2 et 5 ou 6 vaut 3.
+
+## UTILISER LES DÉS
+
+Dans les règles, on vous demandera parfois de lancer 1d8+2. Dans ce cas, lancez un dé à 8 faces, lisez le résultat obtenu et ajoutez-y 2.
+> **Exemple :** si vous obtenez 5 au dé, le résultat final est de 7.
+
+Si vous lisez 3d6+4, lancez trois fois le dé à 6 faces (ou simultanément trois dés à 6 faces si vous en possédez suffisamment), faites la somme des résultats obtenus et ajoutez-y 4.
+> **Exemple :** si vous obtenez successivement 3, 5 et 2 aux dés, le résultat final est de 14.
+
+Pour débuter, prévoyez au minimum deux exemplaires de chaque type de dés : un jeu complet pour les joueurs et un autre pour le
+meneur de jeu. Par la suite, si vous jouez régulièrement, il est préférable que chaque joueur possède son propre set de dés. Le meneur, quant à lui, pourra trouver utile de posséder plusieurs sets de dés, surtout plusieurs d20, pour gérer plus rapidement les actions de combat lorsqu'il incarne plusieurs personnages en même temps.
+
+En effet, le d20 est le dé le plus utilisé à COF, car il sert pour effectuer les tests qui sont au cœur de la mécanique du jeu.
+
+Ces dés sont disponibles dans toutes les boutiques de jeux ainsi que sur le site internet de *Black Book Éditions* (www.black-book-edition.fr).
+
+Le Set de dés officiel de COF contient également un deuxième d10 indiquant les dizaines, utilisé dans d'autres variantes du jeu de rôle.
+
+## Les accessoires
+
+Si des feuilles blanches, des gommes et des crayons à papier (non fournis) sont les seuls outils indispensables pour jouer, il existe cependant quelques autres accessoires très pratiques, comme une surface de jeu effaçable à sec ou des pions cartonnés pour représenter les personnages et les monstres du jeu. N'hésitez pas à aller faire un tour en boutique pour trouver votre bonheur.
+
+**L'écran du MJ.** Cet écran cartonné permet au MJ de cacher les pages de l'aventure et ses jets de dés, et de consulter les tables de jeu importantes qui sont regroupées derrière l'illustration.
+
+**Les VTT.** Rien à voir avec le vélo, en jeu de rôle, VTT signifie *Virtual Table Top* ou encore table virtuelle. Il s'agit d'une autre organisation du jeu où le MJ et chaque joueur sont derrière leur écran d'ordinateur, mais jouent comme s'ils étaient assis autour de la même table grâce à la magie de l'internet. Une table virtuelle est donc un logiciel (ou une application) qui vous permet de relier les joueurs et le MJ qui jouent « en ligne », et de gérer la table de jeu : lancer les dés, utiliser les règles, sonoriser la partie, présenter des illustrations ou des plans, utiliser des tokens (pions) pour gérer les déplacements des PJ et des adversaires sur une battlemap (plan) lors des combats, etc. Elle permet une expérience de jeu proche du jeu de rôle sur table et n'a donc rien à voir non plus avec un jeu vidéo massivement multijoueur (MMORPG).
+
+Un dé à 20 faces
+
+## PETIT LEXIQUE RÔLISTE
+
+*   **Background** : terme anglais désignant le passé d'un personnage ou le contexte général de l'univers de jeu ou d'un lieu.
+*   **Campagne** : suite d'aventures formant une même saga.
+*   **JdR** : jeu de rôle
+*   **MJ** : meneur de jeu
+*   **PJ** : personnage joueur
+*   **PNJ** : personnage non joueur. Tous les personnages joués par le MJ.
+*   **Roleplay (ou RP)** : terme anglais signifiant « interprétation ». Le roleplay est la manière d'incarner son personnage à la table de jeu.
+*   **Rôliste** : nom désignant un joueur de jeu de rôle.
+
+# FANTASY
+
+Comme son nom l'indique, Chroniques Oubliées Fantasy est un jeu de rôle de fantasy (médiéval fantastique en français), c'est-à-dire qu'il s'inspire des grandes références du genre telles que Conan le barbare, Le Seigneur des anneaux, Les Chroniques de Narnia ou encore Le Trône de Fer. Toutefois, si vous n'avez pas déjà choisi votre univers préféré, nous vous proposons aussi dans ces pages un cadre de jeu optionnel : les **Terres d'Osgild** (voir un peu plus loin).
+
+Un monde médiéval fantastique est à la fois semblable à notre monde et très différent.
+
+*   Il est semblable au nôtre parce que la plupart des règles de la physique et de la biologie s'y appliquent normalement : la pesanteur, le cycle du jour et de la nuit, la nécessité de respirer, de boire ou de manger. Si rien n'est précisé ou si vous avez un doute, par défaut, le monde fonctionne comme le nôtre.
+*   Il est un peu différent du nôtre, car il possède un niveau de technologie proche de celui du moyen-âge. Mais pas un moyen-âge historique, un Moyen Âge idéalisé et très étendu où se mêlagent allègrement différentes périodes. Ce monde est un endroit relativement vierge où l'homme ne domine pas encore les éléments, où l'aventure peut se trouver au bout du champ, où le moindre voyage peut être une expédition en soi.
+*   Il est très différent du nôtre parce que la magie et les dieux existent. La magie peut être très puissante, voire destructrice, mais le commun des mortels n'y a pas accès. Les prêtres sont les détenteurs de magie les plus courants. Les magiciens sont plus rares et leurs pouvoirs sont considérables.
+*   Des créatures étranges peuplent ce monde : des monstres et des personnages de conte de fées comme les trolls, les griffons ou encore les terribles dragons. Chroniques Oubliées Fantasy vous permet d'incarner un personnage issu d'un peuple fantastique comme un elfe, un gnome, un nain ou encore un demi-orc. Ces êtres sont connus et globalement acceptés par la société humaine ; toutefois, ils restent des individus exotiques et les préjugés à leur encontre sont nombreux. Notez que selon le choix du cadre de jeu, cet aspect, tout comme la présence de magie, peut-être plus ou moins développé.
+
+*   Les personnages sont des héros avec un grand «H». Dès le départ, le parti est pris d'en faire des personnes aux talents supérieurs à la moyenne, dotées d'un potentiel de progression important. Assez rapidement, un personnage de COF sera capable de vaincre à lui seul un groupe entier de gobelins, d'affronter un géant et de résister à des attaques qui tueraient à coup sûr le commun des mortels. Mais rappelez-vous que de grands pouvoirs appellent de grands devoirs...
+
+# LES TERRES D'OSGILD
+
+Les Terres d'Osgild sont l'univers qui sert de cadre de jeu officiel de Chroniques Oubliées Fantasy. Rien ne vous oblige à l'utiliser, mais cela vous facilitera la tâche si vous souhaitez jouer les aventures spécifiquement éditées pour ce jeu sans avoir besoin de faire la moindre modification de contexte.
+
+Si vous êtes meneur de jeu, vous trouverez une description détaillée de ce cadre de jeu dans le supplément *Atlas d'Osgild & règles optionnelles*.
+
+Si vous êtes joueur, n'hésitez pas à jeter un œil aux paragraphes qui suivent, ils présentent les informations de base que tout habitant de ce monde peut connaître. Sinon, votre MJ pourra toujours vous donner ces informations au cours des parties.
+
+## Présentation
+
+Les Terres d'Osgild ne sont qu'une petite portion d'un continent plus vaste. Cette région mesure environ 1 500 km d'est en ouest pour 1 000 km du nord au sud, et elle est encadrée par deux étendues maritimes : la mer Mauve à l'est et l'océan Pélurique à l'ouest.
+
+# Terres d'Osgild
+
+**Legend:**
+*   🏰 Capital
+*   🏭 Ville
+*   🏛️ Ville indépendante
+*   🏗️ Village
+*   🏳️ Porte/rase
+
+0 30 60 150 200 km
+
+# CRÉATION DU PERSONNAGE
+
+Pour pouvoir se lancer dans une partie de Chroniques Oubliées Fantasy, il est indispensable que chaque joueur dispose d'un personnage joueur (PJ). S'il n'a encore jamais joué, il y a deux possibilités : utiliser un personnage déjà prêt à jouer (ou « prétiré », dans le jargon rôliste), ou bien créer un personnage en utilisant les règles fournies dans ce chapitre.
+
+*   Si votre temps est limité ou si ça vous semble plus confortable pour une première expérience, nous fournissons à la fin de cet ouvrage des PJ prétirés, qui vous permettront de débuter directement la partie. Vous pourrez recopier ces PJ sur la feuille de personnage vierge fournie en fin d'ouvrage ou télécharger gratuitement leurs feuilles sur www.black-book-editions.fr. Une fois que vous aurez choisi votre personnage, il ne vous restera plus qu'à lui apporter la touche finale en vous rendant au point 15 de ce chapitre, afin de choisir éventuellement des langues connues, un idéal héroïque ou un travers.
+*   Si vous avez un peu de temps ou si vous en avez envie (même en étant débutant), créer vous-même un PJ permet de définir le héros correspondant le plus à vos aspirations. Ce chapitre va vous expliquer comment procéder. Notez que la création d'un PJ se fait idéalement en collaboration entre le joueur concerné et le meneur de jeu (MJ).
+
+Comme nous allons le voir dans les paragraphes qui suivent, un personnage est défini par un certain nombre d'éléments qu'il convient d'inscrire sur une feuille de personnage (n'hésitez pas à photocopier pour cela la feuille vierge fournie en fin d'ouvrage ou disponible sur le site internet www.black-book-editions.fr).
+
+## 1 • RÔLE
+
+La première chose à déterminer est le rôle que vous voulez jouer. Avant de traiter votre personnage du point de vue des règles, il vous faut commencer par l'imaginer, par le rêver. Essayez de vous faire une image mentale de votre futur alter ego.
+
+**CHRONIQUES OUBLIEES**
+
+## FANTASY
+
+
+## LA CRÉATION DE PERSONNAGE (RÉSUMÉ)
+
+Après avoir réfléchi au personnage que vous voulez jouer, voici les différentes étapes à suivre pour lui donner corps.
+
+1.  Rôle (page 20)
+2.  Profil (page 22)
+3.  Peuple (page 25)
+4. Caractéristiques (page 26)
+5. Voies et capacités (page 29)
+6. Points de vigueur (page 30)
+7. Dé de récupération (page 30)
+8. Points de chance (page 30) 
+9.  Points de mana (page 31)
+10. Initiative (page 31)
+11. Équipement (page 31)
+12. Défense (page 31)
+13. Valeurs d'attaque (page 32)
+14. Dommages (page 32)
+15. Touche finale (page 33).
+
+Vous ressemble-t-il ou est-il tout votre contraire ? Est-ce une guerrière aux muscles d'acier ou un magicien chétif doté de grands pouvoirs ? Quel rôle avez-vous envie de tenir au sein de votre équipe de héros en herbe ? Un combattant sans peur ? Une lanceuse de sorts ? Un mystique habité par la foi ? Une aventurière polyvalente ? Un voleur pernicieux ? Souhaitez-vous plutôt jouer une naine bourrue ou un gracieux elfe ? À moins qu'un humain ne vous semble moins caricatural à interpréter...
+
+Si vous manquez d'idées, il est souvent plus aisé de partir d'une illustration. Elle peut être choisie dans cet ouvrage, mais Internet fourmille de propositions grandioses et inspirantes. Ce peut être un très bon point de départ. Et si vous n'avez pas plus d'idées que ça au départ, ce n'est pas grave du tout : vous pouvez très bien commencer avec un concept vague (un guerrier, une magicienne...), le reste viendra au fur et à mesure de la création du personnage, voire plus tard, en cours d'aventure.
+
+Enfin, il est toujours bon de tenir compte des autres joueurs. L'idéal est que les joueurs soient réunis pour créer leurs personnages de façon à créer un groupe équilibré. Ils auront moins de difficultés à surmonter les défis qui leur seront proposés si les personnages sont complémentaires plutôt que concurrents, et chacun pourra briller à son tour. La diversité est une force, qu'on se le dise !
+
+Tout au long de cet ouvrage, nous baserons nos exemples sur les personnages créés par notre table de jeu, composée comme suit :
+
+*   Anaïs jouera **Lhagva, fille de Nuala** et elle décide que ce sera une puissante combattante qui ne connaît pas la peur ;
+*   Salim veut avoir des pouvoirs magiques et jouer un lanceur de sorts ; son personnage se nomme **Ionas Melenwë** ;
+*   Léo veut jouer un personnage féminin proche de la nature, elle se nommera **Skodja** ;
+*   Ilona interprètera **Wilibert Sûreté**, un personnage discret, un tantinet filou ;
+*   Quant à notre meneuse de jeu, elle se prénomme Valentine.
+
+Dans ce chapitre, nos explications sur les règles de création de personnage seront illustrées par les différentes étapes de création de Lhagva et de Ionas.
+
+## 2 • PROFIL
+
+Vous trouverez ci-après une brève présentation des quatre familles de profils et des quatorze profils de COF qui y sont associés.
+
+*   Chaque famille détermine les points de **vigueur (PV)** et éventuellement les **points de chance (PC)** et les **dés de récupération (DR)** associés (voir les points 6, « Points de
+vigueur », 7, « Dé de récupération », et 8, « Points de chance »).
+
+Chaque profil indique entre crochets quelles sont les **caractéristiques** les plus utiles au personnage par ordre d'importance et donne accès à des **capacités** réparties dans cinq **voies** (voir le point 5, « Voies et capacités ») et détermine l'équipement que le personnage peut utiliser (voir le point 11, « Équipement »).
+
+Commencez par choisir une famille de profils (aventuriers, combattants, mages et mystiques) avant de choisir en son sein le profil qui correspond le mieux à l'idée que vous avez de votre futur personnage. Ce sera le **profil principal** du personnage, qui représente son occupation d'origine. Plus tard, votre héros pourra éventuellement sortir de cette formation initiale si vous le souhaitez et faire l'acquisition de capacités et de voies en dehors de ce profil (voir le chapitre « Progression & niveaux », page 38).
+
+**Niveau.** À la création, chaque personnage débute au **niveau 1** de son profil (inscrivez 1 sur la ligne niveau de la fiche de héros).
+
+**Aventuriers**
+
+La famille des aventuriers regroupe tous ceux qui sont taillés pour l'aventure avec un grand A, le voyage et l'exploration et, dans une certaine mesure, le combat. Ce sont des personnages polyvalents et des débrouillards professionnels.
+
+Les aventuriers partagent une vigueur intermédiaire (**4 PV**) et la maîtrise d'une liste intermédiaire d'armes. Ils portent des armures légères (cuir ou cuir renforcé) et leur caractéristique commune est l'Agilité.
+
+Les aventuriers débutent avec **1 point de chance (PC) de plus** que les autres personnages.
+
+*   **Arquebusier** : un spécialiste de l'usage des armes à feu et des explosifs, souvent mercenaire [Agilité, Intelligence, Constitution] ; voir page 62.
+*   **Barde** : un artiste polyvalent capable d'utiliser la rapière autant que la magie [Charisme, Agilité, Volonté] ; voir page 66.
+*   **Rôdeur** : un spécialiste de la survie en milieu naturel, ami des animaux et archer hors pair [Agilité, Perception, Constitution] ; voir page 70.
+*   **Voleur** : un filou agile et sournois taillé pour l'infiltration ou la criminalité [Agilité, Intelligence, Charisme] ; voir page 74.
+
+## Combattants
+
+La famille des combattants regroupe tous ceux qui sont taillés pour le combat et l'art de la guerre. Les combattants partagent une vigueur élevée (**5 PV**) et la maîtrise de très nombreuses armes. Ils portent des armures lourdes (cotte de mailles ou armure de plaque, même si le barbare est plus limité). Leur caractéristique commune est la Force.
+
+*   **Barbare** : un guerrier sauvage issu d'une culture primitive capable d'entrer en rage [Force, Constitution, Agilité] ; voir page 79.
+*   **Chevalier** : un héros en armure rutilante qui chevauche une monture magique [Force, Charisme, Constitution] ; voir page 83.
+*   **Guerrier** : un spécialiste du combat au corps à corps, un soldat d'élite [Force, Constitution, Agilité] ; voir page 87.
+
+**Exemple** : Anaïs veut un personnage brutal et pas trop civilisé et a décidé que son personnage, Lhagva, serait une barbare. Ses caractéristiques les plus importantes sont donc la Force et la Constitution ; nous devons le garder à l'esprit lors de l'étape suivante.
+
+
+
+## Mages
+
+La famille des mages regroupe tous ceux qui emploient la magie profane (par opposition à la magie divine des mystiques). Ils sont peu nombreux dans la société et détiennent entre leurs mains un pouvoir extraordinaire et dangereux.
+
+Les mages partagent une vigueur faible (**3 PV**), ils ne portent aucune armure (à l'exception du forgesort) et maîtrisent très peu d'armes. Leur caractéristique commune est l'Intelligence (remplacée par le Charisme pour l'ensorceleur).
+
+Les mages débutent avec **1 capacité de rang 2** en plus des capacités de rang 1 acquises par les autres personnages (voir le point 5, « Voies et capacités »).
+
+*   **Ensorcelleur** : un magicien charismatique qui emploie une magie subtile [Charisme, Volonté, Agilité] ; voir page 92.
+*   **Forgesort** : un magicien et artisan qui crée des élixirs ou inscrit des runes [Intelligence, Volonté, Constitution] ; voir page 97.
+*   **Magicien** : un intellectuel qui pratique une magie académique efficace et directe [Intelligence, Volonté, Agilité] ; voir page 102.
+
+
+## Mystiques
+
+La famille des mystiques regroupe tous ceux qui ont une vie spirituelle intense. Ils ont en commun la méditation et la prière ainsi que des capacités qui défient les lois naturelles habituelles, notamment en ce qui concerne la récupération. Ils bénéficient d'une combinaison de capacités magiques et de capacités de combat intermédiaires, et leur caractéristique commune est la Volonté (VOL), généralement associée à une autre caractéristique mentale.
+
+Comme les Aventuriers, les mystiques gagnent des PV intermédiaires (**4 PV**).
+
+Les mystiques débutent avec **1 dé de récupération (DR) de plus** que les autres personnages.
+
+*   **Druide** : un protecteur de la nature et un magicien des forces naturelles [Perception, Volonté, Constitution ou Agilité] ; voir page 113.
+*   **Moine** : un ascète qui endurcit son corps, son esprit et maîtrise le combat à mains nues [Volonté, Perception, Agilité] ; voir page 118.
+*   **Prêtre** : le bras armé d'une religion capable de soigner ceux qui en ont besoin comme d'occire les infidèles [Charisme, Volonté, Force] ; voir page 122.
+
+## PROFILS HYBRIDES
+
+Si vous êtes un joueur averti ou si vous avez en tête un concept original de personnage qui ne correspond à aucun des profils standard, il est possible de mélanger les voies de plusieurs profils pour obtenir un profil hybride (voir le chapitre « Profils hybrides », page 176). Si cette option vous intéresse, discutez-en avec votre MJ.
+
+### LES FAMILLES DE PROFIL EN RÉSUMÉ
+
+*   **Aventurier** : 4 PV et 1 PC supplémentaire
+*   **Combattant** : 5 PV
+*   **Mage** : 3 PV et 1 capacité de rang 2 supplémentaire
+*   **Mystique** : 4 PV et +1 DR supplémentaire
+
+*   **Sorcier** : un adepte de la magie noire qui contrôle les morts et les démons [Intelligence, Volonté, Constitution] ; voir page 107.
+
+*Exemple* : Salim souhaite jouer un lanceur de sorts, mais pas un érudit, plutôt un contemplatif et un artiste. Il a décidé que lonas sera un ensorceleur, le CHA sera donc sa caractéristique la plus importante (suivi de la VOL et de l'AGI).
+
+## 3 • PEUPLES
+
+Choisissez le peuple de votre personnage parmi l'un des huit peuples de base (voir leurs descriptions au chapitre « Peuples »).
+
+*   **Demi-elfe** : un être entre deux cultures, souvent d'une grande sensibilité (profils typiques : barde, prêtre) ; voir page 45.
+*   **Demi-orc** : une force de la nature en butte aux préjugés (profils typiques : barbare, guerrier) ; voir page 46.
+*   **Elfe haut** : un peuple d'intellectuels et d'artistes (profils typiques : barde, magicien, ensorceleur) ; voir page 48.
+*   **Elfe sylvain** : le peuple de la forêt, vif et en alerte (profils typiques : druide, rôdeur). ; voir page 50.
+*   **Gnome** : un petit peuple passé maître dans les sciences (profils typiques : forgesort, arquebusier) ; voir page 52.
+*   **Halfelin** : un petit peuple discret, mais plein d'astuce et de courage (profils typiques : voleur, rôdeur) ; voir page 54.
+*   **Humain** : le peuple le plus polyvalent (profils typiques : tous) ; voir page 57.
+*   **Nain** : un peuple bourru, idéaliste et résistant (profils typiques : guerrier, prêtre) ; voir page 58.
+
+Le choix du peuple peut être influencé par celui du profil, de façon que le personnage profite de ses points forts, comme un demi-orc barbare ou un elfe sylvain rôdeur. Mais il est aussi possible d'en prendre le contrepied, comme un halfelin barbare ou un demi-orc barde. Des choix plus originaux vous permettent de ne pas jouer un archétype de personnage déjà vu et revu.
+
+Le peuple choisi a deux conséquences mécaniques sur le personnage (toutes deux précisées dans le paragraphe dédié au peuple, dans le chapitre « Peuples ») :
+
+*   modification de deux valeurs de caractéristiques (une seule pour les humains ; voir ci-après, au point 4, « Caractéristiques »);
+*   ajout d'une voie de peuple (voir ci-après, au point 5, « Voies et capacités »).
+> **Exemple :** Anais décide que son personnage barbare sera une humaine, tandis que Salim choisit un elfe haut, déjà parce que c'est classe, mais aussi parce qu'il a repéré que cela lui donnerait un bonus supplémentaire de CHA, la caractéristique la plus importante pour un ensorceleur.
+
+## 4 • CARACTÉRISTIQUES
+
+Le personnage est défini par sept caractéristiques (quatre physiques, et trois mentales) que l'on associe à certains types d'action. À la création, chaque caractéristique a une valeur comprise entre -2 à +5 (voir ci-après).
+
+## Les quatre caractéristiques physiques
+
+*   **L'Agilité (AGI)** évalue la coordination générale, la vitesse, la souplesse, les réflexes et la dextérité.
+    *Actions type : faire des acrobaties, tenir en équilibre, grimper, sauter, sprinter, se déplacer en silence, crocheter, chaparder. Esquiver une attaque et attaquer à distance.*
+
+*   **La Constitution (CON)** représente la santé, la vitalité, la résistance et l'endurance.
+    *Actions type : résister aux éléments, à la fatigue, aux poisons, aux privations, courir longtemps. Encaisser des blessures.*
+
+*   **La Force (FOR)** mesure la puissance physique et musculaire. Elle est directement reliée au gabarit.
+    *Actions type : gagner un bras de fer, soulever, tordre, lancer un objet lourd, immobiliser un adversaire. Attaquer au contact et infliger des blessures.*
+
+*   **La Perception (PER)** représente les cinq sens, mais aussi l'intuition et la capacité à percevoir les émotions des autres. Elle permet d'analyser son environnement rapidement et donc de réagir vite. La PER détermine aussi l'ordre d'action en combat.
+    *Actions type : être vigilant, observer, entendre, détecter, repérer, pister, deviner, ressentir, faire preuve de psychologie et de spiritualité. Utiliser la magie druidique.*
+
+
+## Les trois caractéristiques mentales
+
+*   **Le Charisme (CHA)** traduit la force de persuasion, la personnalité, les capacités de séduction, mais aussi la destinée du personnage. Les points de chance découlent du CHA.
+
+    Actions type : bluffer, mentir, négocier, séduire, intimider, convaincre. Utiliser la magie innée ou divine (barde, ensorcelleur, prêtre).
+
+*   **L'Intelligence (INT)** représente l'érudition générale, la mémoire, les capacités d'apprentissage et de raisonnement. Un personnage avec une INT négative ne sait ni lire, ni écrire.
+
+    Actions type : raisonner, comprendre, connaître, apprendre, se souvenir, chercher, trouver une information (livre). Utiliser la magie profane (magicien, forgesort, sorcier).
+
+*   **La Volonté (VOL)** correspond à la force de caractère, au courage, ainsi qu'à l'énergie interne. Elle détermine l'attaque magique et les points de mana, et est donc primordiale pour les lanceurs de sorts.
+
+    Actions type : résister à la magie ou à la peur.
+
+Dans Chroniques Oubliées Fantasy, contrairement à d'autres jeux de rôle, les caractéristiques ne représentent pas seulement l'inné, mais aussi l'acquis. Ainsi, elles représentent les compétences générales du personnage tant que celui-ci n'a pas acquis un entraînement particulier : courir et sauter (AGI), détecter et observer (PER) ou convaincre (CHA), etc. En complément, un personnage peut acquérir des capacités (voir le point 5, « Voies et capacités », ci-après) qui correspondent à des compétences spécialisées le distinguant du commun des mortels.
+
+## Valeur de base des caractéristiques
+
+À la création d'un personnage, commencez par choisir l'une des trois séries de valeurs suivantes (polyvalent, expert, spécialiste) selon ce qui correspond le mieux à l'image que vous vous faites du personnage. L'échelle des valeurs de caractéristiques ci-dessous vous permet de vous faire une idée de la valeur d'une caractéristique à travers des mots.
+
+### Échelle des valeurs de caractéristiques
+
+| Valeur | Description |
+| --- | --- |
+| -3 | Catastrophique |
+| -2 | Très faible |
+| -1 | Faible, sous la moyenne pour un humain |
+| 0 | Moyen pour un humain |
+| +1 | Supérieur à la moyenne pour un humain |
+| +2 | Bon |
+| +3 | Très bon |
+| +4 | Excellent, maximum pour un humain à la création |
+| +5 | Extraordinaire, maximum pour un héros non humain à la création |
+
+Répartissez les sept valeurs de la série choisie dans les différentes caractéristiques dans l'ordre que vous souhaitez. Rappelez-vous toutefois que chaque profil est associé à trois caractéristiques ; il est vivement conseillé de leur affecter vos trois meilleures valeurs.
+
+*   **Polyvalent** +2, +2, +2, +1, +1, +0, -1
+*   **Expert** +3, +2, +1, +1, +0, +0, -1
+*   **Spécialiste** +4, +2, +1, +0, +0, -1, -1
+
+**Magie.** Si vous voulez que votre personnage pratique la magie, veillez à mettre au moins une valeur de +1 dans la caractéristique de magie correspondante (INT pour les sorts de magicien, de forgesort et de sorcier, CHA pour les sorts d'ensorceleur, de barde et prêtre, PER pour les sorts de druide).
+> **Exemple:** Salim choisit la série de l'expert. Pour utiliser la magie, il doit privilégier le charisme (CHA) et la volonté (VOL), il assigne donc au CHA la valeur de +3. S'il veut lancer de nombreux sorts, il lui faut aussi une bonne Volonté (VOL), il assigne +2 en VOL. Il assigne enfin +1 en AGI et +1 en CON, car
+on a toujours besoin d'un peu plus de vigueur pour résister aux dangers de la vie de héros! Pour le -1 il choisit la FOR, car il ne compte pas combattre au corps à corps.
+
+## Modificateur de peuple
+
+Une fois les valeurs de base des caractéristiques attribuées, il convient de les ajuster en appliquant des modificateurs liés au peuple du personnage (voir la table « Modificateur de peuple »). Dans certains cas, vous aurez à choisir entre deux caractéristiques.
+
+## Modificateur de peuple
+
+| Peuple | Ajustement à la valeur | Peuple | Ajustement à la valeur |
+| --- | --- | --- | --- |
+| Demi-elfe | +1 PER ou CHA, -1 FOR ou CON | Gnome | +1 INT ou PER, -1 FOR |
+|  | +1 FOR |  |  |
+| Demi-orc | ou CON, -1 CHA ou INT | Halfelin | +1 AGI ou VOL, -1 FOR |
+| Elfe haut | +1 INT ou CHA, -1 FOR | Humain | +1 à une des deux plus faibles carac. |
+| Elfe sylvain | +1 AGI ou PER, -1 FOR | Nain | +1 CON ou VOL, -1 AGI |
+> **Exemple :** Ionas perd 1 point en FOR (ce qui fait un total de -2 ! Il choisit d'augmenter son CHA de +1, ce qui donne finalement le profil suivant : AGI +1, CON +1, FOR -2, PER +0, CHA +4, INT +0, VOL +2.
+Lhagva gagne +1 à une de ses deux plus faibles caractéristiques au choix. Elle peut donc choisir de compenser son malus de CHA ou gagner +1 dans une caractéristique pour le moment à +0. Cela lui plaît d'avoir un défaut et de se comporter comme un ours, elle décide donc de conserver son -1 en CHA et elle préfère mettre +1 en PER afin d'être vigilante, car elle a grandi dans une nature sauvage et dangereuse.
+Finalement, elle obtient : AGI +1, CON +2, FOR +3, PER +1, CHA -1, INT +0, VOL +1.
+
+## MÉTHODE RAPIDE POUR LES DÉBUTANTS
+
+Si vous êtes débutant et que vous hésitez, nous vous conseillons la méthode suivante, gage d'efficacité et de sécurité pour obtenir un personnage cohérent.
+
+Choisissez la série de valeurs du personnage **expert** et assignez les trois plus hautes valeurs aux trois caractéristiques importantes indiquées pour votre profil au point 2, « Profil ». Assignez ensuite le dernier +1 et le -1, selon l'idée que vous vous faites de votre personnage. Les deux dernières caractéristiques reçoivent la valeur 0.
+> **Exemple :** Lhagva est une barbare, les trois caractéristiques indiquées sont [Force, Constitution, Agilité]. Cela donne : FOR +3, CON +2, AGI +1. La joueuse de Lhagva décide de mettre le dernier +1 en VOL, car Lhagva est courageuse ! Elle décide d'assigner -1 en CHA car Lhagva n'est pas très causante.
+
+## L'ÉQUITÉ EST DIFFÉRENTE DE L'ÉGALITÉ
+
+Alors que la somme des valeurs d'un personnage polyvalent atteint +7, vous remarquerez qu'elle baisse pour les experts (+6) et les spécialistes (+5). La logique derrière cette répartition est double : d'une part la spécialisation à haut niveau est généralement très gourmande en ressource. D'autre part, du point de vue des règles, une très haute valeur dans une spécialité est beaucoup plus efficace que de multiples valeurs moyennes. Cette répartition a donc été pensée pour équilibrer les différents types de personnages. Vous trouverez des méthodes alternatives de répartition des valeurs des caractéristiques dans l'Atlas d'Osgild & règles optionnelles.
+
+## 5 • VOIES ET CAPACITÉS
+
+À sa création, votre personnage se voit attribuer trois voies, dans lesquelles il obtient automatiquement la capacité de rang 1.
+
+*   Choisissez **deux voies** parmi les cinq du profil de votre personnage (voir les chapitres « Famille des aventuriers », « Famille des combattants », « Famille des mages » et « Familles des mystiques », à partir de la page 61).
+*   Votre personnage reçoit automatiquement une troisième voie, **la voie de peuple** associée au peuple que vous avez choisi.
+
+Notez-les sur votre feuille de personnage (ou cochez les cases correspondantes si vous utilisez la feuille de personnage spécifique au profil que vous avez choisi).
+> **Exemple :** Lhagva possède automatiquement la capacité de rang 1 de la voie de l’humain (Diversité). De plus, après avoir pris connaissance des cinq voies auxquelles son profil donne accès, Anaïs choisit la voie du pourfendeur et la voie de la rage, deux voies résolument tournées vers la baston. Elle fait l’acquisition des deux capacités de rang 1 correspondantes : Réflexes éclair (voie du pourfendeur) et Cri de guerre (voie de la rage).
+
+## Mages
+
+En plus de leurs deux capacités de rang 1, les personnages issus de la famille des mages peuvent choisir entre :
+
+*   obtenir **une capacité de rang 2 de leur choix** dans l’une des deux voies de profil qu’ils ont choisie ;
+*   obtenir **le rang 2 de la voie du mage**.
+
+**Voie du mage.** Les profils issus de la famille des mages peuvent choisir la voie du mage en remplacement de leur voie de peuple (voir page 60 et chaque profil de la famille des mages).
+
+Le personnage qui choisit la voie du mage bénéficie toutefois des effets du rang 1 de la voie de peuple correspondant à son peuple (il peut le cocher sur sa feuille de personnage), mais il ne pourra pas acquérir les rangs suivants de cette voie.
+
+Il est possible d’obtenir le rang 2 de la voie du mage, **Maîtrise de la magie**, dès le niveau 1 si le joueur le souhaite, en investissant le point de capacité supplémentaire des mages.
+> **Exemple :** Salim décide que son ensorceleur se consacre tout entier à son art et pour cela il sacrifie les connaissances traditionnelles des elfes. Il choisit donc de remplacer sa voie de peuple par la voie du mage, et il obtient automatiquement
+et gratuitement le rang 1 de cette voie.
+Exceptionnellement, au rang 1, il bénéficie tout de même des effets de la capacité du rang 1 de sa voie de peuple, comme cela est indiqué dans la voie du mage ; il obtient donc à la fois la Lumière des étoiles, mais aussi Occultisme (un bonus égal au rang + 2 en connaissances de la magie).
+
+Pour ses deux autres voies, Salim choisit la voie de l'air et la voie de l'invocation pour avoir au moins un sort d'attaque dès le premier niveau (Choc).
+
+En tant que mage, il lui reste à choisir une capacité de rang 2 parmi :
+*   Sous tension (voie de l'air);
+*   Serviteur invisible (voie de l'invocation);
+*   Maîtrise de la magie (voie du mage).
+
+Finalement, il choisit Serviteur invisible comme capacité de rang 2 pour son côté polyvalent.
+
+## 6 • POINTS DE VIGUEUR (PV)
+
+Au niveau 1, un personnage dispose d'un nombre de points de vigueur égal à la somme de sa valeur de CON et du double des PV de base de sa famille de profil.
+
+Parfois, une capacité peut venir modifier cette valeur.
+
+**PV = (2 x PV de la famille) + CON**
+
+| Famille de profils | PV au niveau 1 |
+| --- | --- |
+| Aventuriers | 8 + CON |
+| Combattants | 10 + CON |
+| Mages | 6 + CON |
+| Mystiques | 8 + CON |
+> Exemple : Lhagva possède +2 en CON et son profil de barbare appartient à la famille des combattants, qui a 5 PV de base. Au niveau 1, elle a donc (2 x 5) + 2 = 12 PV.
+
+Ionas appartient à la famille des mages et possède +1 en CON, il a donc (3 x 2) + 1 = 7 PV.
+
+## 7 • DÉ DE RÉCUPÉRATION (DR)
+
+Au niveau 1, chaque personnage reçoit **[2 + CON]** DR dont le type dépend de sa famille (voir ci-après).
+
+Attention : les mystiques reçoivent 1 DR de plus que les autres profils à la création, soit **[3 + CON]** DR.
+
+Cas particulier : un PJ ayant -2 en CON n'a pas de dé de récupération ($2 - 2 = 0$). Il ne peut donc pas régénérer ses PV en prenant une récupération rapide, mais seulement avec une récupération complète. Il doit alors toujours lancer le dé de récupération (il n'obtient pas le résultat maximal sur le dé).
+
+Le type du DR dépend de la famille du profil du PJ.
+
+*   Aventuriers : d8
+*   Combattants : d10
+*   Mages : d6
+*   Mystiques : d8
+> Exemple : Lhagva possède une CON de +2, elle a donc 4 DR. Comme elle est une barbare, son type de DR est le d10. Sur sa feuille de personnage, Anaïs indique donc : « DR : 4 d10 ».
+
+Ionas ayant quant à lui +1 en CON, Salim note sur la feuille de son PJ : « DR : 3 d6 ».
+
+## 8 • POINTS DE CHANCE (PC)
+
+Chaque personnage reçoit **[2 + CHA]** points de chance (PC).
+
+Attention : les PJ de la famille des aventuriers gagnent 1 PC de plus que les autres profils.
+> Exemple : avec son CHA de -1, Lhagva possède seulement $2 - 1 = 1$ PC. Toutefois, en tant qu'humaine (voie de l'humain), elle gagne 1 PC supplémentaire pour un total de 2 PC.
+
+Avec +4 en CHA, Ionas obtient quant à lui 6 PC.
+
+
+
+## 9 • POINTS DE MANA (PM)
+
+Pour avoir des points de mana, un personnage doit avoir au moins une capacité signalée par un \* (c'est-à-dire un sort).
+
+Lorsque c'est le cas, le PJ dispose d'un nombre de points de mana égal à la somme de sa VOL et du nombre de sorts appris.
+
+**Total de points de mana = VOL + Nbre de sorts**
+> **Exemple :** Salim a choisi de donner à lonas trois capacités qui sont des sorts (Murmure dans le vent, Choc et Serviteur invisible), et sa valeur de VOL est de +2. Il dispose donc de 5 points de mana pour lancer ses sorts.
+
+De son côté, au niveau 1, Lhagva ne connaît aucun sort ; elle n'a donc aucun point de mana.
+
+Chaque personnage reçoit aussi un équipement indiqué dans son profil.
+
+Si vous souhaitez un objet particulier pour votre personnage, discutez-en avec le MJ. Vous devrez probablement sacrifier un autre objet de valeur similaire, sinon, il faudra que votre personnage attende de trouver un trésor ou fasse quelques économies. Reportez-vous au chapitre « Équipement », page 181 pour plus de détails sur les différents objets.
+
+**Armure :** les armures sont classées par ordre croissant de valeur de protection (et de limitation de l'AGI). Lorsqu'un profil indique par exemple « peut porter jusqu'à la chemise de mailles », cela signifie que le personnage peut porter toutes les armures dont le bonus de Défense est inférieur ou égal à celui de la chemise de mailles. Dans cet exemple, cela correspond à cuir, cuir renforcé et enfin chemise de mailles.
+> **Exemple :** Lhagva obtient l'équipement standard d'un barbare. Elle préfère une arme à une main et un bouclier à une arme à deux mains.
+
+lonas pourrait maîtriser une arme supplémentaire, mais cela ne correspond pas à l'idée que Salim se fait de son personnage. Il négocie donc avec le MJ de ne pas avoir d'arme supplémentaire en échange de vêtements luxueux.
+
+## 10 • INITIATIVE
+
+À la création du personnage, son Initiative est égale à [10 + PER].
+> **Exemple :** Avec une Perception de +1, Lhagva a une Initiative de 11 (10 + 1). Toutefois la capacité Réflexes éclair (rang 1 de la voie du pourfendeur) augmente cette valeur de +3. Son Initiative finale est donc égale à 14.
+
+lonas n'a pas de bonus de Perception, mais sa capacité Murmure dans le vent lui octroie un bonus de +1. Son initiative est donc égale à 11.
+
+## 11 • ÉQUIPEMENT
+
+Votre personnage débute avec un sac d'aventurier qui contient :
+
+*   une couverture,
+*   une torche,
+*   un briquet à silex,
+*   une outre,
+*   une gamelle,
+*   une bourse de 2d6 pa.
+
+## 12 • DÉFENSE
+
+La DEF d'un personnage est égale à : **10 + AGI + éventuels modificateurs de capacités et d'armure** (voir le chapitre « Équipement », page 181).
+> **Exemple :** Lhagva porte une armure de cuir (DEF +2) et un bouclier (DEF +2), et son Agilité est de +1. Sa Défense est donc de 10 + 2 + 2 + 1 = 15. De plus sa capacité Réflexes éclair de la voie du pourfendeur lui donne un bonus supplémentaire de +1 pour un total final de 16.
+
+lonas, lui, ne porte aucune armure et son bonus d'agilité est égal à +1. De plus, sa capacité Murmure dans le vent lui octroie un bonus de +1 en Défense, ce qui lui permet d'avoir finalement une Défense de 12.
+
+
+## 13 • VALEURS D'ATTAQUE
+
+Les valeurs d'attaque d'un personnage dépendent de son niveau et des caractéristiques liées aux types d'attaque :
+
+*   Attaque au contact = niveau + FOR
+*   Attaque à distance = niveau + AGI
+*   Attaque magique = niveau + VOL
+
+Ainsi, au niveau 1, les valeurs d'attaque sont les suivantes :
+
+*   Attaque au contact = 1 + FOR
+*   Attaque à distance = 1 + AGI
+*   Attaque magique = 1 + VOL
+> Exemple : Lhagva est un personnage de niveau 1. Sa valeur d'attaque au contact est donc de +4 (niveau +1 et FOR +3) et sa valeur d'attaque à distance de +2 (niveau 1 et AGI +1). Sa valeur d'attaque magique est égale à +2 (niveau 1 et VOL +1).
+
+Ionas possède un total de -1 en attaque au contact (niveau 1 et -2 en FOR), de +2 en attaque à distance (niveau 1 et +1 en AGI) et enfin de +3 en attaque magique (niveau 1 et +2 en VOL).
+
+## 14 • DOMMAGES (DM)
+
+Les DM de chaque arme sont indiqués au chapitre « Équipement », et ceux des sorts sont précisés dans la description des capacités concernées.
+
+Par principe :
+
+*   la FOR s'ajoute aux DM des armes de contact;
+*   aucune valeur n'est ajoutée aux DM des armes à distance;
+*   lorsqu'une attaque magique bénéficie d'un bonus aux DM, cela est précisé dans la description de la capacité.
+
+Dans tous les cas, certaines capacités peuvent venir modifier cette règle générale (par exemple, ajouter la PER en attaque à distance pour simuler un bonus de perception).
+> Exemple : Lhagva utilise un cimeterre (une épée courbe que son peuple des steppes du nord utilise et qui inflige des dommages égaux à une épée longue). Avec cette arme, elle inflige 1d8+3 DM (1d8 pour une épée longue, +3 de FOR).
+
+Salim décide que Ionas se battra au bâton, mais seulement en dernier recours! En effet, il inflige 1d6-2 DM avec cette arme. Son sort de Choc est bien plus efficace, puisqu'il inflige 1d4+CHA soit 1d4+4 DM avec, en plus, la possibilité de renverser un adversaire !
+
+## 15 • TOUCHE FINALE
+
+Il ne vous reste plus qu'à donner un nom et un peu d'épaisseur à votre personnage pour vous lancer à l'aventure et le faire entrer dans la légende. Vous pouvez le créer en partant de zéro ou l'imaginer en vous inspirant de personnages connus de BD, de films ou de romans. Les quelques questions suivantes sont là pour vous aider :
+
+Votre personnage est-il grand ou petit ? Maigre ou gros ? De quelle couleur sont ses cheveux, ses yeux et sa peau ? A-t-il des signes distinctifs (tatouages, cicatrices, etc.) ? Quel est son caractère ? Est-il plutôt honnête ? Solitaire ? Timide ? Curieux ?
+
+## Idéal et travers
+
+Si vous n'avez pas d'idée ou si le MJ le souhaite, vous pouvez déterminer un idéal héroïque et un travers au hasard, en lançant un d20 et en consultant le résultat dans les listes ci-dessous. Cela vous donnera une sorte de boussole pour interpréter votre personnage afin de conserver un comportement à peu près cohérent d'une partie à l'autre.
+
+Si vous jouez une campagne dont le prérequis implique des héros avec des idéaux positifs, le meneur de jeu pourra vous indiquer de déterminer deux idéaux héroïques (ou éventuellement deux travers si c'est l'inverse).
+
+Enfin si vous tirez aléatoirement un idéal ou un travers qui ne correspond pas à votre envie de jouer ou à votre idée du personnage, n'hésitez pas à relancer.
+
+**Personnages prêtirés :** si vous utilisez des personnages prêtirés tels que lonas ou Lhagva, vous pouvez constater que nous n'avons pas déterminé d'idéal héroïque ni de travers. En effet, cela nous semble une décision très personnelle qui influencera votre façon d'interpréter le personnage. Nous laissons donc ce choix à votre discrétion. Vous pouvez le noter au dos de la fiche de PJ ou dans un petit carnet où vous noterez aussi toutes vos aventures. À ce sujet, la tenue d'un petit journal de bord est vivement conseillée, si vous voulez vous rappeler l'avancée de vos aventures d'une session de jeu à l'autre. Tout particulièrement si vous jouez une campagne sur un rythme distendu.
+
+| d20 | Idéaux héroïques | Travers |
+| --- | --- | --- |
+| 1 | Abnégation | Alcoolique |
+| 2 | Clémence | Couard |
+| 3 | Compassion | Crédule |
+| 4 | Courage | Cupide |
+| 5 | Égalité | Colérique |
+| 6 | Éducation | Distrait |
+| 7 | Fraternité | Dragueur |
+| 8 | Frugalité | Fanfaron |
+| 9 | Générosité | Gourmand |
+| 10 | Honnêteté | Grossier |
+| 11 | Honneur | Impatient |
+| 12 | Humilité | Indécis |
+| 13 | Justice | Menteur |
+| 14 | Liberté | Orgueilleux |
+| 15 | Loyauté | Paranoïaque |
+| 16 | Pacifisme | Paresseux |
+| 17 | Protection | Phobie (au choix) |
+| 18 | Sens du sacrifice | Timide |
+| 19 | Solidarité | Violent |
+| 20 | Vérité | Voleur |
+
+## Interprétation des traits
+
+Ces traits vous permettent de déterminer la façon dont votre personnage devrait réagir dans les situations où vous hésitez sur la posture à adopter. Ils apportent également une certaine cohérence dans le comportement des PJ sur la durée, d'une aventure à l'autre.
+
+Si votre interprétation d'un trait est particulièrement appropriée et qu'elle respecte les critères évoqués ci-après, votre MJ pourra vous récompenser par la récupération d'un **point de chance**.
+
+Attention toutefois, les traits ne doivent pas remplacer votre libre arbitre ni servir de prétexte à un comportement trop caricatural ; il ne doit
+ni saboter une aventure ni gâcher le plaisir des autres joueurs. Rappelez-vous toujours que ce n'est pas parce que ça vous amuse que ça amuse tout le monde...
+
+Lorsqu'un trait entre en conflit avec un événement de jeu, essayez de mettre ce conflit au service de l'aventure plutôt que de choisir une interprétation radicale qui mette tout le groupe dans le pétrin. De même si un trait entre en conflit avec l'interprétation d'un autre joueur, chaque joueur doit être capable de compromis afin que la joute (verbale ou active) soit consentie par les deux parties et que son issue corresponde à un consensus ludique. Notre conseil : n'hésitez pas à surjouer la scène, mais toujours au second degré et dans la bonne humeur. Vous jouez un rôle, ces conflits doivent absolument rester entre les personnages et ne pas s'étendre aux joueurs !
+
+Ces conseils sont d'ailleurs valables de façon plus générale. La notion de distanciation est très importante en jeu de rôle : si votre personnage est maltraité, blessé ou tué, cela ne doit pas vous affecter personnellement. Cela va sans dire, mais nous préférons tout de même le rappeler : n'oubliez jamais que ce n'est qu'un jeu ; mais même dans un jeu, vous devez tenir compte de la sensibilité des autres joueurs.
+
+## Origine et historique
+
+Simultanément, vous pouvez déterminer l'historique et la provenance géographique de votre PJ :
+
+D'où vient-il ? Qu'a-t-il fait durant sa jeunesse ?
+Quel événement l'a poussé à quitter son foyer ?
+Quel est son but (devenir riche, puissant, célèbre, rendre justice, servir sa nation, répandre ses idées, percer des mystères, réparer une humiliation...) ?
+
+Pour répondre à ces questions, vous aurez besoin de l'aide du MJ, car vous devrez vous adapter au cadre de jeu, c'est-à-dire le monde dans lequel le personnage va évoluer. Si votre meneur de jeu a choisi le cadre de jeu optionnel de Chroniques Oubliées Fantasy, vous trouverez dans les chapitres suivants (en particulier les chapitres 3 à 7) des paragraphes intitulés « Dans les
+
+| d20 | Secret intime |
+| --- | --- |
+| 1 | Je ne suis pas celui que je prétends être. |
+| 2 | Je recherche un membre de ma famille. |
+| 3 | Je suis victime d'une malédiction. |
+| 4 | Je suis recherché pour un crime (mais l'ai-je commis ?). |
+| 5 | J'ai perdu la mémoire d'une période de ma vie. |
+| 6 | J'ai une phobie que j'ai honte d'avouer. |
+| 7 | J'ai une addiction qui me cause du tort. |
+| 8 | Il y a une chose en particulier qui me fait sortir de mes gonds. |
+| 9 | Un membre de ma propre famille est devenu un ennemi mortel. |
+| 10 | Je mène une double vie. |
+| 11 | Je suis déjà mort une fois. |
+| 12 | J'ai d'énormes dettes. |
+| 13 | Ceci n'est pas mon corps (ou deux esprits cohabitent dans mon corps). |
+| 14 | J'ai brisé un serment sacré. |
+| 15 | Je possède un objet qui ne doit pas tomber entre de mauvaises mains. |
+| 16 | Je porte un deuil terrible. |
+| 17 | J'ai fui une amante ou un amant puissant (socialement). |
+| 18 | Un terrible cauchemar me hante chaque nuit (est-ce que je m'en souviens ?). |
+| 19 | Je n'ai pas réussi à empêcher un grand mal et je porte ce fardeau. |
+| 20 | Je fais partie d'une organisation secrète (ou je la fuis). |
+
+Terres d'Osgild », qui vous seront d'une aide précieuse pour enracer votre personnage dans le monde où il va vivre ses aventures. Vous trouverez de tels paragraphes pour chaque peuple et pour chaque profil.
+
+Vous n'êtes pas obligé d'imaginer ou d'écrire un historique détaillé. Pour le moment, vous pouvez le laisser dans l'ombre et si vous le souhaitez, vous pourrez construire cette histoire plus tard en accord avec votre MJ, par exemple sous forme
+de flash-back afin d'intégrer votre PJ au cadre de jeu ou de lui trouver une motivation supplémentaire dans les aventures en cours. Toutefois, ne prévoyez pas trop de détails, cela ne cadrera peut-être pas du tout avec ce que votre MJ va vous proposer plus tard.
+
+Pour le moment, si vous n'avez pas particulièrement d'idée et que vous avez besoin d'un petit coup de pouce, n'hésitez pas à utiliser la table des secrets intimes ci-après : lancez un d20 sur chacune des colonnes et choisissez l'un des secrets obtenus ; si aucun des choix ne vous convient, rien ne vous oblige à avoir un secret intime. Vous pouvez également lire ces deux listes et choisir un secret qui correspond à l'idée que vous vous faites de votre personnage. Parlez-en aussi avec votre MJ afin de savoir si cela ne risque pas d'entrer en contradiction avec le cadre de jeu ou les aventures qu'il a prévu de vous proposer.
+
+Ces éléments d'histoire personnelle ont volontairement été rédigés de façon très ouverte, ainsi chaque ligne peut cacher toute une histoire étonnante qu'il vous reste à développer.
+
+## Âge du personnage
+
+Vous trouverez ci-dessous l'âge moyen de début de carrière des personnages. Cette valeur sert surtout à donner un ordre d'idée pour les peuples non humains, mais vous êtes libre de créer un personnage un peu plus jeune ou nettement plus vieux. L'espérance de vie est indiquée pour un individu ayant vécu dans des conditions optimales, la moyenne dans les sociétés humaines par exemple est souvent de la moitié de cet âge.
+
+## Taille et poids
+
+Ces quelques valeurs doivent vous permettre d'imaginer plus facilement les mensurations des personnages nouvellement créés.
+
+
+
+### Table des secrets intimes (2)
+
+| d20 | Secret intime |
+| --- | --- |
+| 1 | Toute ma famille est décédée ou m'a renié, mais j'ignore pourquoi. |
+| 2 | J'ai été recruté pour surveiller/protéger/espionner un autre membre du groupe. |
+| 3 | On m'a prédit que je causerai une terrible catastrophe. |
+| 4 | Je suis porteur d'une marque de naissance (j'en ignore l'origine et la signification). |
+| 5 | Mon enfant/frère/sœur/amour a disparu sans explication. |
+| 6 | Je possède un objet qui est un héritage familial et j'y tiens comme à ma vie. |
+| 7 | J'ai passé un pacte secret avec un démon ou une entité supérieure. |
+| 8 | J'ai été trahi et cela a bouleversé ma vie. |
+| 9 | J'ai un handicap, mais je le surmonte à tout prix. |
+| 10 | Je suis célèbre pour une histoire que je préfère oublier... |
+| 11 | Je veux devenir célèbre pour gagner le cœur de quelqu'un. |
+| 12 | Je veux prouver à mon père/ma mère que je vaux mieux que ce qu'il croit. |
+| 13 | J'ai besoin de beaucoup d'argent pour une bonne cause. |
+| 14 | J'ai un objectif affiché, mais ce n'est pas celui que je cherche à atteindre. |
+| 15 | Je veux devenir puissant pour abattre un tyran/une créature. |
+| 16 | J'ai fait quelque chose d'horrible et je tente de me racheter. |
+| 17 | Je sais comment je vais mourir, je l'ai vu. |
+| 18 | Je n'ai aucun secret ou originalité, alors je m'en invente. |
+| 19 | Je suis le parfait compagnon, mais un jour tous devront ployer le genou devant moi. |
+| 20 | Je viens d'un autre monde et tout ce qui m'entoure me semble étrange. |
+
+## Âge et espérance de vie du personnage
+
+|  | Demi-elfe | Demi-orc | Elfe haut | Elfe sylvain | Gnome | Humain | Nain | Halfelin |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Âge de départ | 20+ | 15+ | 80+ | 50+ | 40+ | 18+ | 40+ | 20+ |
+| Espérance de vie | 150 | 60 | 450 | 350 | 250 | 100 | 250 | 150 |
+
+## Langues maîtrisées
+
+Chaque personnage débute en sachant parler la langue officielle de la région où débutent les aventures (généralement la langue humaine locale) en plus de la langue de son peuple ou de son ethnie.
+
+*   Un personnage avec une **Intelligence de +0** sait déchiffrer sa langue maternelle de façon hésitante.
+*   Un personnage avec une valeur **d'Intelligence négative** ne sait pas lire. S'il veut apprendre à lire par la suite, il devra sacrifier 1 point de capacité à cet effet ou augmenter sa valeur d'Intelligence. Il sait parler la langue de son peuple, plus la langue commune des humains.
+*   Un personnage avec une valeur **d'INT de -2** ne parle que la langue de son peuple (souvent un patois dans le cas d'un humain) et à peine quelques mots dans la langue humaine officielle.
+*   Un personnage avec une valeur **d'Intelligence positive** peut parler, lire et écrire une langue supplémentaire **par point d'Intelligence**. Selon l'historique du personnage, il peut les connaître dès le départ ou les apprendre par la suite durant ses aventures s'il n'a pas encore appris toutes les langues étrangères que son Intelligence lui permet.
+> Exemple : Lhagva et lonas ont une Intelligence de +0 et ne connaissent donc pas de langues supplémentaires. Toutefois, en temps qu'elfe haut, lonas sait parler le sylvestre et le commun.
+
+## Taille et poids du personnage
+
+| Peuple | Taille moyenne | Poids moyen |
+| --- | --- | --- |
+| Demi-elfe | 1,50 m à 1,90 m | 40 à 80 kg |
+| Demi-orc | 1,70 m à 2,10 m | 70 à 150 kg |
+| Elfe haut | 1,50 m à 1,80 m | 40 à 70 kg |
+| Elfe sylvain | 1,40 m à 1,70 m | 30 à 60 kg |
+| Gnome | 1 m à 1,20 m | 30 à 50 kg |
+| Halfelin | 80 cm à 1 m | 20 à 30 kg |
+| Humain | 1,50 m à 2 m | 40 à 120 kg |
+| Nain | 1,15 m à 1,35 m | 50 à 100 kg |
+
+## LISTES DES LANGUES
+
+*   Commun (humains, halfelins)
+*   Sylvestre (elfes, fées, dryades, sylvaniens)
+*   Runique (gnomes, nains, de nombreux géants, créatures élémentaires de la terre)
+*   Noir parlé (orcs et goblinoïdes, trolls, ogres, de nombreuses créatures maléfiques)
+*   Draconique (dragons, kobolds, hommes-lézards)
+*   Abyssal (démon, créatures élémentaires du feu)
+*   Célestien (anges et créatures des plans supérieurs, créatures élémentaires de l'air)
+*   Argotien* (voleurs)
+*   Profond (créatures souterraines, dont les elfes des profondeurs)
+*   Aquarien (créatures sous-marines, créatures élémentaires de l'eau)
+
+\* L'argotien est l'argot des voleurs et une langue des signes ; il compte pour deux langues si le profil principal du PJ n'est pas voleur ou barde.
+
+
+
+## Talent secondaire
+
+Si votre MJ vous y autorise, vous pouvez remplacer une langue par un talent secondaire ou un loisir. Un talent secondaire ne procure aucun bonus en combat, il ne doit pas être confondu avec un métier. Il apporte un bonus de +3 sur les tests concernés (considéré comme un bonus de voie de peuple dans le cadre d'un cumul).
+> *Exemple : jouer d'un instrument de musique au choix, jouer aux échecs ou aux cartes, calligraphie, cuisine, etc.*
+
+## La touche finale
+
+Enfin, n'oubliez pas que, souvent, une illustration vaut mieux que de longues descriptions : affichée en première page de votre fiche de personnage, elle vous inspirera plus sûrement que tous les mots que vous auriez pu écrire.
+
+À l'issue de la création de personnage, voici les fiches de personnage de Lhagva et Ionas.
+
+## Lhagva, barbare niveau I
+
+**HUMAINE**
+
+| AGI | CON | FOR | PER | CHA | INT | VOL |
+|---|---|---|---|---|---|---|
+| +1 | +2 | +3 | +1 | -1 | +0 | +1 |
+
+| DR 4d10 | PC 2 |
+|---|---|
+
+| DEF | PV | INIT |
+|---|---|---|
+| 16 | 15 | 14 |
+
+| Attaque au contact | Attaque à distance | Attaque magique |
+|---|---|---|
+| +4 | +2 | +2 |
+
+| Épée courbe | Javelot (portée 20m) | Voie du pourfendeur rang 1 (Réflexes éclair) | Voie de la rage rang 1 (Cri de guerre) | Voie de l'humain rang 1 (Diversité) |
+|---|---|---|---|---|
+| +4 DM 1d8+3 | +2 DM 1d6 | | | |
+
+**Équipement** : armure de cuir, bouclier, Cimenterre, dague, javelots (x2)
+
+## Ionas, ensorcelleur niveau I
+
+**ELFE HAUT**
+
+| AGI | CON | FOR | PER | CHA | INT | VOL |
+|---|---|---|---|---|---|---|
+| +1 | +1 | -2 | +0 | +4 | +0 | +2 |
+
+| DR 3d6 | PC 6 | PM 5 |
+|---|---|---|
+
+| DEF | PV | INIT |
+|---|---|---|
+| 12 | 7 | 11 |
+
+| Attaque au contact | Attaque à distance | Attaque magique |
+|---|---|---|
+| -1 | +2 | +3 |
+
+| Bâton ferré | Voie de l'air rang 1 (Murmure dans le vent) | Voie de l'invocation rang 2 (Choc et Serviteur invisible) | Voie du mage rang 1 (Lumière intérieure + Occultisme) |
+|---|---|---|---|
+| -1 DM 1d6-2 | | | |
+
+**Équipement** : Bâton ferré, vêtement luxueux, dague.
+
+
+# PROGRESSION & NIVEAUX
+
+Au fil de ses aventures, un personnage apprend et devient plus performant, plus fort, plus puissant. Ses progrès et l'expérience qu'il acquiert se mesurent par le passage de niveaux. À sa création, un personnage est au niveau 1. Par la suite, au fil des aventures, il va pouvoir gagner des niveaux, qui vont lui apporter de meilleures capacités.
+
+On considère généralement qu'un personnage peut passer au niveau supérieur dans deux situations.
+*   Lorsqu'il a terminé une aventure.
+*   Lorsqu'il a franchi une étape importante dans une campagne.
+
+À chaque passage de niveau, le personnage :
+*   augmente ses **PV** selon son profil (voir tableau);
+*   augmente toutes ses **valeurs d'attaque** de +1 (jusqu'au niveau 10);
+*   gagne **2 points de capacité**;
+*   augmente ses **PM** (s'il dispose de sorts).
+
+De plus, à partir du niveau 6 et tous les 3 niveaux, son dé évolutif (d4°) augmente de la façon suivante : d4 devient d6 au niveau 6, puis d8 au niveau 9, etc.
+
+Temps d'apprentissage « réaliste ». Par souci de réalisme, certains MJ souhaitent que les personnages disposent d'un temps d'apprentissage pour acquérir de nouvelles capacités entre deux aventures :
+*   un mois environ par rang en solitaire ;
+*   une semaine par rang avec un maître.
+
+Il revient au MJ de ménager des pauses dans la chronologie de sa campagne afin d'obtenir un rythme cohérent, de sorte que plusieurs années devraient être nécessaires pour qu'un héros passe du niveau 1 au niveau 12 !
+
+## POINTS DE VIGUEUR
+
+À chaque passage de niveau, un personnage gagne un nombre de points de vigueur qui dépend de sa famille de profils. On y ajoute la valeur de Constitution.
+
+```
+Exemple : au niveau 1, Lhagva possède 12 PV. Lorsqu'elle passe au niveau 2, elle gagne 7 PV supplémentaires (5 pour sa famille de profils, +2 pour sa CON), pour un total de 19 PV.
+```
+
+## Changement de valeur de Constitution :
+si, durant le jeu, la valeur de Constitution d'un personnage change, ses points de vigueur changent rétroactivement pour chaque niveau déjà acquis, que ce soit en plus ou en moins.
+
+```
+Exemple : en passant au niveau 8, Lhagva choisit la capacité Constitution héroïque (voie du pagné) et augmente sa valeur de CON de +1. Cela lui permet de gagner immédiatement 8 PV supplémentaires (+1 par niveau déjà acquis).
+```
+
+Il n'est pas possible de mettre de côté des points de capacités, ils doivent être immédiatement dépensés.
+
+L'obtention des nouvelles capacités doit respecter les règles suivantes :
+
+*   les capacités de **rang 1 et 2** coûtent chacune **1 point** de capacité ;
+*   les capacités de **rang 3 et plus** coûtent chacune **2 points** de capacité ;
+*   pour choisir une capacité de rang supérieur à 1, le personnage doit déjà avoir acquis toutes les capacités de rang inférieur de cette voie ;
+*   le personnage doit avoir atteint le niveau minimal fixé par le tableau suivant :
+
+| Rang | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Niveau requis | 1 | 2* | 3 | 5 | 7 | 9 | 11 | 13 |
+
+NB : Les capacités de rang 6 à 8 sont réservées aux voies de prestige (voir ci-après).
+
+*Capacité supplémentaire de mage : La capacité supplémentaire reçue par les mages au niveau 1 est une exception au niveau requis pour obtenir une capacité de rang 2. Toutefois, cette exception ne se prolonge pas au-delà du niveau 2 : les mages n'ont pas accès à une capacité de rang 3 avant les autres personnages.
+
+## VALEURS D'ATTAQUE
+
+Au niveau 1, la valeur de base des différentes attaques est égale à +1, ensuite elle augmente de +1 à chaque niveau. Toutefois, elle cesse d'augmenter à partir du niveau 10. Le personnage a atteint son niveau maximal de compétence en attaque.
+
+```
+Exemple : au niveau 7, Lhagva possède une valeur d'attaque au contact de +10 (7 pour son niveau plus 3 pour sa FOR).
+```
+
+## CAPACITÉS ET VOIES
+
+À chaque passage de niveau, le personnage gagne **2 points de capacité supplémentaires**.
+
+## Gain de PV par niveau
+
+| Famille de profils | PV par niveau |
+| --- | --- |
+| Aventuriers | 4 + CON |
+| Combattants | 5 + CON |
+| Mages | 3 + CON |
+| Mystiques | 4 + CON |
+
+Voie de peuple : au niveau 1, le premier rang de la voie de peuple est gratuit pour tous les personnages. Les rangs suivants sont acquis selon la règle générale en dépensant des points de capacités. Certaines capacités de peuple vous permettent de choisir une capacité dans une autre voie. Si vous choisissez une capacité dans une voie de votre propre profil (par exemple, un demi-orc guerrier), cochez cette capacité et considérez-la comme déjà acquise dans la voie, notamment pour déterminer si vous pouvez choisir les capacités de rang plus élevé par la suite. Bien entendu, vous ne bénéficiez des bonus qu'elle apporte qu'une seule fois !
+
+```
+Exemple 1 : Au niveau 1, Lhagva possède les capacités suivantes : voie du pourfendeur (rang 1) voie de la rage (rang 1), voie de l'humain (rang 1). Lorsqu'elle passe au niveau 2, elle peut dépenser un point de capacité pour obtenir le rang 2 dans deux de ces trois voies. Elle ne peut pas atteindre le rang 3, parce qu'il faudrait 3 points de capacité (1 point pour le rang 2 et 2 points pour le rang 3), mais aussi parce qu'elle n'a pas encore atteint le niveau 3. Elle peut aussi décider d'investir 1 point ou les 2 dans une nouvelle voie (voir plus loin). Pour plus de simplicité, nous décidons que Lhagva obtient le rang 2 dans chaque voie de son profil (voie du pourfendeur et voie de la rage).
+```
+
+```
+Exemple 2 : lonas passe au niveau 2, il gagne donc 2 points de capacité, mais ne peut pas encore dépasser le rang 2 dans ses voies. C'est donc tout naturellement qu'il choisit le rang 2 de la voie de l'air (Sous tension) et de la voie du mage (Maîtrise de la magie). Ces deux nouveaux sorts vont aussi lui permettre de gagner 2 points de mana (+2 PM). Avec ces points de capacité, lonas aurait aussi pu acquérir une nouvelle voie jusqu'au rang 2.
+```
+
+```
+Exemple 3 : lonas veut faire l'acquisition de la capacité Arme de mana (rang 3 de la voie de l'invocation). Pour cela, il doit dépenser 2 points de capacité (le coût pour une capacité de rang 3) et remplir les deux conditions suivantes : avoir déjà acquis les capacités de rang 1 et 2 de la voie de l'invocation (Choc et Serviteur invisible) et avoir atteint le niveau 3.
+```
+
+Point de capacité orphelin : il peut arriver qu'un PJ ait acquis toutes les capacités possibles de rang 1 et 2 sauf une. Au changement de niveau, en achetant la dernière capacité de rang 2 avec un point de capacité, il lui serait alors impossible de dépenser son second point de capacité (puisqu'il ne peut plus qu'acheter des capacités qui coûtent deux points). Dans ce cas exceptionnel, il peut échanger le point de capacité orphelin au choix contre : **1 point de chance** ou **1 dé de récupération** ou **2 points de vigueur** ou **2 points de mana supplémentaires.**
+
+# Choix des capacités
+
+Le choix de vos capacités va définir l'orientation de votre personnage et cela aura une influence sur le jeu. La grande liberté de progression qu'offre COF est un atout, mais c'est un avantage à double tranchant. Vous ne pouvez pas tout avoir et être bon partout.
+
+Par exemple, si vous ne choisissez aucune capacité orientée vers le combat, il faudra ensuite l'assumer en jeu. Ce n'est absolument pas grave, vous brillerez à d'autres moments de la partie, mais pas en combat. Cela doit être un choix conscient, pas une expérience désagréable à découvrir en jeu.
+
+Discutez-en aussi avec votre meneur de jeu, il pourra vous indiquer le type d'aventure qu'il veut faire jouer (plus ou moins basé sur les combats, les interactions sociales, l'enquête, l'exploration) afin que vous ne vous retrouviez pas avec un personnage inadapté. Et puis cela est aussi un moyen d'attirer son attention sur vos envies afin qu'il en tienne compte en préparant la prochaine aventure.
+
+Enfin, si vous êtes débutant, le MJ connaît peut-être mieux les règles de jeu. Il pourra vous conseiller et vous expliquer pourquoi telle ou telle idée ne fonctionne pas ou au contraire est efficace.
+
+# Appel à une autre capacité
+
+Parfois une capacité d'une voie, nommons-la voie A, vous propose de choisir une capacité issue d'une autre voie, appelée B. La capacité choisie de la voie B devient une capacité de la voie A comme n'importe quelle autre. S'il s'agit d'une capacité qui évolue selon le rang atteint dans la voie, c'est bien le rang dans la voie A qui est utilisé. Un personnage ne peut pas choisir deux fois la même capacité par deux voies différentes.
+
+> **Exemple :** un elfe qui obtient la capacité de peuple de rang 2, Enfant de la forêt, peut choisir une capacité de rang 1 de n'importe quelle voie de druide ou de rôdeur. S'il choisit vitesse du félin (voie du fauve), il ajoute son rang + 2 aux tests de course, d'escalade ou de saut. Il s'agit alors du rang atteint dans la voie de peuple (soit +4, à ce
+moment-là). Comme la capacité indique que le personnage gagne +2 en DEF au rang 5, il s'agit là aussi du rang atteint dans la voie de peuple.
+
+**Poupées russes :** lorsqu'une capacité permet de choisir une autre capacité (comme dans l'exemple ci-dessus), il n'est pas possible de choisir une capacité qui permet elle-même de faire appel à une autre capacité. Les montages à tiroirs dignes d'une banque d'affaires de droit anglo-saxon ne sont pas autorisés à COF.
+
+**Armures autorisées :** lorsqu'une capacité d'une voie A vous permet de choisir une capacité d'une voie B, ce sont les limitations d'armure qui correspondent à la capacité de la voie B qui s'appliquent. Lorsqu'il existe des exceptions, elles sont indiquées dans le texte de la capacité de la voie A.
+
+**Sorts :** si la capacité appelée est un sort, la caractéristique de magie utilisée est celle du profil dont est issu le sort (par exemple, un chevalier qui apprend une capacité de druide utilisera sa Perception) et le coût du sort en points de mana est toujours calculé à partir du rang habituel du sort (par exemple, si une capacité de rang 5 vous permet d'apprendre un sort de rang 1, alors il coûte toujours 1 PM). Apprendre un sort, même par une autre capacité, rapporte toujours 1 point de mana au personnage.
+
+**Nouvelles voies**
+
+Dès le niveau 2, le joueur peut dépenser les points de capacité pour :
+
+*   obtenir de nouvelles capacités dans les voies qu'il a choisies au niveau 1 ;
+*   ouvrir de nouvelles voies parmi les cinq voies de son profil principal ;
+ouvrir de nouvelles voies issues d'un autre profil : création d'un profil hybride.
+
+Avec des joueurs débutants, nous vous conseillons de privilégier l'obtention de nouvelles capacités issues des voies déjà acquises, puis des autres voies du même profil. Ces deux options suivent les règles de base indiquées auparavant. Les nouvelles voies issues du profil principal du personnage peuvent être
+ouvertes à n'importe quel niveau sans événement de jeu particulier.
+
+En revanche, le MJ pourra demander un événement de jeu particulier pour déclencher l'ouverture d'une voie en dehors du profil principal, par exemple une formation avec l'aide d'un mentor. L'orientation vers un profil hybride peut aussi se faire naturellement à la suite d'événements de la vie du personnage (il est adoubé chevalier, il adhère à une guilde de voleurs, etc.).
+
+La gestion des profils hybride est exposée au chapitre « Profils hybrides », page 176.
+
+Au total, un personnage ne peut jamais posséder plus de six voies, plus la voie de peuple.
+
+# Voies de prestige
+
+À partir du niveau 5, un personnage peut choisir une voie de prestige. Les voies de prestige sont des voies puissantes qui permettent à un personnage de se spécialiser dans un aspect particulier. Un PJ ne peut donc prendre qu'une seule voie de prestige dans toute sa carrière.
+
+Il existe des voies de prestige spécifiques à chaque famille de profils (aventuriers, combattants, mystiques et mages) ainsi que des voies de prestige génériques. Un personnage peut choisir sa voie de prestige soit dans la liste de la famille qui correspond à son profil principal, soit dans les voies de prestige générique (voir chapitre « Voies de prestige », page 128).
+
+Chaque voie de prestige :
+
+*   est constituée de cinq rangs, échelonnés du rang 4 jusqu'au rang 8. Le niveau requis pour obtenir chaque rang est indiqué dans la table « Voies de prestige – niveau requis » ci-dessous ;
+*   octroie son propre bonus de vigueur, qui est utilisé lorsqu'un personnage choisit une capacité de cette voie lors d'un changement de niveau ;
+
+*   impose les mêmes limitations d'armure que le profil principal du personnage sauf s'il en est spécifié autrement.
+
+| Rang | 4 | 5 | 6 | 7 | 8 |
+| --- | --- | --- | --- | --- | --- |
+| Niveau requis | 5 | 7 | 9 | 11 | 13 |
+
+## Prérequis
+
+Certaines voies de prestige peuvent nécessiter la possession au préalable d'une capacité particulière, mais nous avons volontairement choisi de limiter autant que possible ce type de limitation. En général, la seule condition d'accès est un prérequis d'interprétation. Il correspond à une action que le personnage doit avoir effectuée ou à un événement qu'il a vécu (parfois de façon répétée). Dans ce cas, le MJ a le dernier mot pour décider si les actions du PJ sont suffisantes pour ouvrir l'accès à la voie de prestige et le joueur doit faire l'effort d'interprétation nécessaire pour y parvenir.
+
+# POINTS DE MANA
+
+Les points de mana n'augmentent pas automatiquement lorsqu'un PJ gagne un niveau.
+
+En revanche, un PJ recevant 1 PM par capacité de sort connue, il acquiert automatiquement 1 PM par nouveau sort appris lors du changement de niveau.
+
+**Total des PM = nombre de capacités de sorts + VOL**
+> **Exemple :** Un personnage qui a VOL +2 et connaît trois sorts (il dispose donc de 2 + 3 = 5 PM) passe au niveau supérieur. Avec ses points de capacité, il décide d'acquérir les deux premiers rangs d'une voie, qui sont tous deux des sorts. Il obtient ainsi 2 PM qui viennent s'ajouter aux précédents, ce qui porte son total à 7 PM après le changement de niveau.
+
+# D4°, LES DÉS ÉVOLUTIFS
+
+Les textes décrivant les capacités mentionnent souvent le « d4° ». Le petit symbole « ° » accolé à « d4 » indique que le dé est évolutif avec l'expérience du personnage. C'est-à-dire que la capacité s'améliore au niveau 6, puis tous les trois niveaux à partir de là.
+
+Le d4 devient donc un d6 au niveau 6. Puis, tous les trois niveaux suivants, il devient d8, puis d10 et enfin d12.
+
+Sur la fiche de personnage, une case vous permet d'indiquer la valeur exacte du dé évolutif en fonction de votre niveau.
+
+**Exemple 1 :** La capacité *Explosion de feu* inflige 4d4° DM. Au niveau 6, un magicien infligent 4d6 DM avec ce sort.
+
+**Exemple 2 :** Un guerrier de niveau 13 qui utilise une attaque puissante (rang 3 de la voie du combat, +2d4° DM) obtient un bonus de +2d10 aux DM.
+
+## Niveau d'acquisition des dés évolutifs
+
+| Niveau | 1-5 | 6-8 | 9-11 | 12-14 | 15+ |
+| --- | --- | --- | --- | --- | --- |
+| Valeur du dé évolutif | d4 | d6 | d8 | d10 | d12 |
+
+# CHANGEMENT D'ORIENTATION
+
+Parfois après quelques niveaux, un joueur peut se rendre compte qu'il a fait fausse route. Par exemple, un magicien voudrait infliger davantage de dommages et regrette de ne pas avoir investi dans l'*Explosion de feu*. Toutefois, s'il n'a choisi aucune capacité de la voie de la destruction, il lui faudrait gagner trois niveaux pour atteindre cette capacité. La règle du changement d'orientation lui permet d'aller plus vite en abandonnant certaines capacités.
+
+À chaque passage de niveau, le personnage peut « oublier » une capacité et la remplacer par une autre en suivant les règles normales de progression des voies. Un personnage ayant au moins +2 en INT peut oublier et remplacer jusqu'à deux capacités par niveau.
+
+Il n'est pas possible d'oublier une capacité acquise automatiquement et gratuitement (voie de peuple). Bien entendu si un personnage a atteint le rang 5 dans une voie, il ne peut pas oublier le rang 3. Il doit oublier le rang 5 puis le rang 4 et enfin le rang 3 ; il est impossible de construire des voies à trous.
+
+Enfin, il n'est pas possible d'oublier sa jeunesse, c'est-à-dire d'oublier toutes les capacités du profil principal du PJ. Un personnage doit donc toujours conserver les deux capacités de rang 1 qu'il a acquises au niveau 1.
+
+
+
+# PEUPLES
+
+## CARACTÉRISTIQUES ET INTERPRÉTATION
+
+Huit peuples différents sont détaillés dans ce chapitre. Ce sont les peuples les plus communs et les plus évidents à interpréter dans un monde fantastique générique. Il en existe bien d'autres, que nous serons amenés à vous présenter dans des ouvrages ultérieurs.
+
+Chaque culture vous est présentée à travers un rapide aperçu, suivi de conseils d'interprétation. Ces conseils sont volontairement un peu caricaturaux et ne doivent pas vous empêcher d'imaginer un personnage plus nuancé ; évidemment chaque individu peut différer sur plusieurs points de ce portrait type. Toutefois rappelez-vous que ces éléments indiquent la façon dont les autres peuples, mais aussi vos propres compatriotes, s'attendent à vous voir agir. Dans les Terres d'Osgild, les humains sont connus pour leur versatilité et, par opposition, les peuples non humains forment des cultures beaucoup plus homogènes et prévisibles.
+
+Pour chaque peuple, un paragraphe intitulé « Dans les Terres d'Osgild » présente quelques éléments issus du contexte proposé par défaut pour Chroniques Oubliées Fantasy (voir « Introduction », page 6). Ces quelques informations sont destinées à faciliter l'implantation du personnage et son origine géographique. Si votre MJ n'utilise pas les Terres d'Osgild comme cadre de jeu, ignorez ces paragraphes.
+
+### Peuple et stéréotypes
+
+Par défaut, les peuples non humains bénéficient de bonus de compétence très typés : les elfes des bois sont en harmonie avec la nature, les nains avec le roc, etc. C'est un parti pris assumé afin de donner une coloration spécifique à chaque peuple et une saveur particulière au monde qui nous semble pertinente en fantasy, l'idée n'étant pas de faire une transposition de notre monde moderne.
+
+Toutefois, si cette vision des choses ne vous convient pas ou si vous voulez tout simplement jouer un nain ou un elfe qui a vécu dans une cité humaine, alors rien ne vous empêche de remplacer les bonus de compétence de votre personnage par ceux de la voie de l'humain, en fonction du lieu où il a passé sa jeunesse ou du métier qu'il a exercé.
+
+
+
+# DEMI-ELFE
+
+Le demi-elfe a hérité des qualités de ses deux parents (humain et elfe). Il est généralement traité avec condescendance parmi les elfes et perçu comme un elfe parmi les humains.
+
+**Dans les Terres d'Osgild.** Ce n'est pas une surprise, mais les demi-elfes sont plus nombreux à proximité des lieux habités par les elfes, notamment à la lisière de la grande forêt de Hautesylve. Néanmoins, les elfes hauts sont trop fiers et arrogants, et les unions mixtes se terminent souvent en exil volontaire vers le bois de Myrviel, suffisamment accueillant pour qu'une famille s'y établisse, et suffisamment proche de Hautesylve pour que le parent elfe reste en contact avec les siens. Ainsi, la principauté d'Arly abrite la plus grande concentration de demi-elfe. Outre Myrviel, les demi-elfes sont particulièrement communs dans la forêt de Bois dormant où les sang-mêlé ont plus souvent un héritage elfe sylvain.
+
+Les demi-elfes sont bien acceptés dans les nations humaines où, au pire, on les confond avec des elfes, mais en dehors de la principauté d'Arly, ils restent considérés comme des gens d'exception, à raison. Le protectorat de Fer est une exception notoire, sa politique raciste envers les peuples non humains étant particulièrement exacerbée envers ceux qu'elle appelle les sangs impurs.
+
+## Interpréter un demi-elfe
+
+Le caractère et les aspirations d'un demi-elfe dépendent surtout de son éducation. Vous devez déterminer lequel de vos deux parents était un elfe et s'il s'agissait d'un elfe haut ou d'un elfe sylvain. Vos deux parents vous ont-ils élevé ensemble ? Si c'est le cas, vous avez probablement une vision éclairée et tolérante des différentes cultures. Mais si ce n'est pas le cas, vous avez peut-être hérité de quelques préjugés, voire d'un certain ressentiment pour la culture qui vous a renié.
+
+Toutefois, presque tous les demi-elfes ont un point commun : ils sont souvent d'une nature poétique, voire mélancolique. En effet, il n'est pas facile de voir les ravages que cause une si grande différence d'espérance de vie entre vos deux parents, et entre vos parents et vous-même. Cela pousse inévitablement le jeune demi-elfe à se poser des questions existentielles sur l'amour, la vie et la mort. Pour cette raison, alors que les elfes détestent généralement la nécromancie, c'est une spécialité qui n'est pas rare chez les sang-mêlé. Cette fragilité intérieure associée à la dualité de culture fait aussi des demi-elfes des bardes d'exception.
+
+## Noms typiques
+
+Les noms des personnages demi-elfes reflètent souvent leur double nature et ils se composent d'un prénom elfique et d'un nom de famille humain (voir pages et 56). L'inverse est plus rare car les elfes n'acceptent pas qu'une créature avec une durée de vie aussi brève porte le nom de leur lignée.
+
+## Repères
+
+- Âge de départ : 20+
+- Espérance de vie : 150 ans
+- Taille : 1,50 m à 1,90 m
+- Poids : 40 à 80 kg
+- Traits : grâce naturelle, oreilles légèrement pointues, pilosité faible.
+
+## Caractéristiques
+
++1 PER ou CHA, -1 FOR ou CON
+
+## VOIE DU DEMI-ELFE
+
+Le demi-elfe ne possède pas de voie de peuple dédiée, selon l'héritage culturel et le lieu de l'éducation de son personnage, le joueur devra choisir entre la voie de l'humain ou une des voies de peuple d'elfe (elfe sylvain ou elfe haut).
+
+# DEMI-ORC
+
+Le demi-orc est de grande taille. Il possède une force physique hors du commun, et est généralement méprisé par les autres peuples, en particulier par les nains et les elfes.
+
+Dans les Terres d'Osgild. Cela peut paraître évident, mais on trouve généralement des demi-orcs là où les humains et les orcs partagent une frontière, souvent de façon musclée. De nombreux sang-mêlé survivent du côté des monts Vierges, là où les tribus barbares combattent ceux du désert des Morteroches. La vie de demi-orc n'est pas facile : dans le meilleur des cas les préjugés et la méfiance sont de mise, dans le pire c'est de la haine. Toutefois, localement, il existe des régions où la tolérance est plus élevée. C'est le cas de la principauté d'Arly, sous le règne éclairé du prince Thomar d'Arly, et en particulier de la région de Clairval. Bien que cette région ait eu des conflits difficiles avec les orcs, la petite baronnie a donné naissance à un demi-orc du nom de Krush, dont la trajectoire éclatante a permis au peuple d'Arly de revoir ses préjugés et aux sang-mêlé d'avoir un héros auquel s'identifier.
+
+Plus à l'est, à la suite de l'invasion du pays de Dorn par les géants et les orcs, nombre de jeunes demi-orcs ont vu le jour. Traités en paria depuis la libération, ils se sont dispersés à travers les marches du Piémont. Enfin, loin au sud-est, la forêt de Luir-An-Doral abrite elle aussi de nombreuses tribus d'orcs et d'humains qui luttent également pour la survie. Ces tribus primitives n'ont pas de préjugés raciaux et les jeunes métisses sont bien acceptés des deux côtés. Ce n'est que lorsqu'ils quittent la jungle qu'ils découvrent les préjugés dont ils sont victimes.
+
+## Interpréter un demi-orc
+
+Comme pour le demi-elfe, le caractère et les préjugés des demi-orcs dépendent beaucoup des conditions de leur éducation. Toutefois, contrairement à ce cousin « de bonne famille », il est bien rare qu'un enfant demi-orc ait eu la chance de bénéficier des soins d'un couple aimant et sans histoire. Les demi-orcs sont, plus souvent qu'à leur tour, élevés dans la misère par une mère seule, reniée même par sa propre famille, quand ils ne sont pas tout simplement déposés devant les portes d'un orphelinat ou d'un temple. Pour cette raison, on trouve presque autant de prêtres demi-orcs que de guerriers ou de voleurs. Lorsqu'ils sont recueillis par un ordre religieux, ils deviennent généralement d'une loyauté sans faille pour leur nouvelle famille et d'un zèle qui confine au fanatisme. Pour les autres, souvent rejetés et victimes de racisme, les demi-orcs apprennent rapidement à user de leur talent pour la violence afin de survivre.
+
+Dans tous les cas, vous savez que vous devez vous montrer fort et impitoyable, car, à la moindre faiblesse, les « braves gens » se jeteront sur vous avec la bienveillance d'une bande de hyènes affamées. Alors vous avez appris à savourer la peur que vous allumez dans leur regard, lorsque vous découvrez vos crocs dans un rictus provocateur.
+
+## Noms typiques
+
+Les demi-orcs utilisent des prénoms humains, à moins qu'ils aient été élevés chez les orcs. Certains se choisissent aussi un prénom orc à l'âge adulte, en réaction à l'ostracisme dont ils sont victimes.
+
+Les noms orcs sont courts et gutturaux, privilégiez les lettres R, G et K, évitez une voyelle douce comme le E et préférez le O.
+
+Les noms féminins sont généralement les mêmes que les noms masculins mais avec la lettre A en plus à la fin
+
+**Masculin.** Aog, Bargul, Carok, Drog, Erok, Farg, Gorog, Hurl, Jorgul, Krok, Krush, Lugn, Mog, Norok, Rork, Urdu, etc.
+
+**Féminin.** Aoga, Bargula, Caroka, Droga, Eroka, Farga, Goroga, Hurla, Jorgula, Kroka, Krusha, Lugna, Moga, Noroka, Rorka, Urdua, etc.
+
+## Repères
+
+- Âge de départ : 15+
+- Espérance de vie : 60 ans
+- Taille : 1,70 m à 2,10 m
+- Poids : 70 à 150 kg
+- Traits : grand et athlétique. Peau verdâtre qui tend parfois vers un vert plus franc, mâchoire large, front bas, petits yeux.
+
+## Caractéristiques
+
++1 FOR ou CON et -1 CHA ou INT
+
+## VOIE DU DEMI-ORC
+
+ **1. Impressionnant :**
+    Le demi-orc gagne un bonus de +3 à tous les tests d'intimidation. De plus, dans le noir total, le demi-orc voit comme dans la pénombre jusqu'à 30 m.
+
+ **2. Talent pour la violence :**
+    Le joueur choisit une capacité de rang 1 de n'importe quelle voie de barbare ou de guerrier.
+
+ **3. Critique brutal :**
+    Le demi-orc augmente de 1 point la zone de critique sur une attaque au contact (19-20 au d20) et ajoute +1d4° aux DM en cas de critique.
+
+ **4. Attaque sanglante (L) :**
+    Le demi-orc réalise une attaque de contact qui provoque une hémorragie. En plus des DM normaux, l'attaque produit un saignement qui inflige à la victime 1d4° DM à chaque round suivant jusqu'à ce que la cible soit soignée (tout effet de soins ou une action limitée utilisée à cet effet). On ne peut pas cumuler plusieurs effets de saignement.
+
+ **5. Colosse :**
+    Le demi-orc augmente ses valeurs de FOR et de CON de +1.
+
+# ELFE HAUT
+
+L'elfe haut est un être féérique qui vit extrêmement longtemps et dont le niveau de civilisation et de culture se révèle généralement supérieur à celui des autres peuples. Proche de la nature, il maîtrise aussi bien les arts de la magie que ceux de la guerre.
+
+**Dans les Terres d'Osgild.** La seule grande nation des elfes est le royaume de Hautesylve, mais le peuple qui s'est autoproclamé le plus noble et le plus ancien du Mitan ne se mélange pas facilement aux autres. Quelques elfes hauts se sont aussi établis dans d'autres forêts, par exemple Bois dormant, en principauté d'Arly, où ils forment souvent des communautés aristocratiques parmi une population d'elfes sylvains. Les elfes hauts sont donc assez peu nombreux à parcourir les Terres d'Osgild et, lorsqu'ils le font, ils ont souvent une bonne raison.
+
+Les elfes hauts entretiennent une relation paradoxale avec les nains. En tant que peuple ancien, les nains méritent nécessairement davantage de respect que les jeunes et turbulents humains. Pourtant, les relations sont tendues. Leur amour de l'or, des souterrains et de la bière, leurs manières, jugées détestables par les elfes de bonne éducation, tout cela ne suffit pas à expliquer cette inimitié. Il y a entre les deux peuples des blessures anciennes, des conflits territoriaux liés à une époque révolue. Mais les Premiers-nés vivent longtemps et ont la mémoire longue. Par exemple, ils se souviennent encore que la forêt Sombre est un lieu maudit où ils ont mené une terrible bataille contre le Roi-Sorcier de Tor-Angul, il y a sept mille ans. Une information que les humains ont oubliée depuis longtemps.
+
+## Interpréter un elfe haut
+
+Essayez de garder une certaine distance avec les autres personnages, une certaine hauteur de vue. Vous êtes réservé et vous ne montrez pas facilement vos sentiments profonds. La plupart des elfes hauts ont une haute probité morale et une haute opinion d'eux-mêmes. Ils détestent la corruption, la vulgarité et la violence et ils ont un grand respect pour la vie. Ce sont des êtres civilisés et cultivés, bien plus que n'importe quel autre peuple, et cela les rend parfois arrogants. Les elfes aiment la beauté, les arts, les vêtements de luxe et les matériaux nobles, ils attachent sans doute trop d'importance aux apparences. Ils sont souvent méprisants envers les nains qu'ils jugent avides et sans finesse.
+
+## Noms typiques
+
+Les elfes hauts privilégient les noms aux sonorités douces mais complexes. L, W, N et M sont les consonnes dominantes et les voyelles sont souvent doubles (iê, aë). Les noms féminins finissent par -wen, -wë, -iê, -ael ou -aëlle. Ceux des hommes par des terminaisons aux sonorités plus tranchées comme -dir, -dur, -dor ou -dil.
+
+**Masculin.** Arwendil, Caëldwendir, Eldwyndor, Elberenhdìr, Elendur, Gilgalendìl, Irwildur, Laurelith, Linaëndìr, Laendoril, Nennendir, etc.
+**Féminin.** Elberenh, Elidhwen, Ellenúviel, Laurelinn, Linaëwen, Laendorië, Maelwë, Maerwen, Nennenvaël, Ninwelotë, Tintaëlle, etc.
+
+## Repères
+
+- Âge de départ : 80+
+- Espérance de vie : 450 ans
+- Taille : 1,50 m à 1,80 m
+- Poids : 40 à 70 kg
+
+Traits : élancé, svelte et gracieux. Jeunesse éternelle. Oreilles pointues, yeux en amandes (verts, violets), cheveux parfois blancs, argent ou or.
+
+## Caractéristiques
++1 INT ou CHA, -1 FOR
+
+## VOIE DE L'ELFE HAUT
+
+### 1. Lumière intérieure :
+Pour un elfe, l'obscurité de la nuit sous la lumière des étoiles est considérée comme de la pénombre. De plus, il gagne un bonus de +3 à tous les tests d'érudition (INT) et artistiques (CHA).
+
+### 2. Force d'âme :
+L'elfe est immunisé à la peur et au sommeil magique. De plus, il obtient un bonus égal à son rang lorsqu'il doit faire un test opposé d'attaque magique pour résister à un sort.
+
+### 3. Talent pour la magie :
+Le joueur choisit une capacité de rang 1 de n'importe quelle voie de magicien ou d'ensorceleur. Il peut utiliser cette capacité en armure sans pénalité (mais pas une capacité qui offre un bonus de DEF). À la place, il peut choisir une capacité de rang 2, mais ne doit alors pas porter d'armure pour lancer le sort.
+
+### 4. Immortel :
+L'elfe n'a besoin que de la moitié du repos, de la nourriture ou de la boisson d'un humain normal pour être en pleine forme. Il est immunisé aux effets des poisons et des maladies.
+
+### 5. Supériorité elfique :
+L'elfe augmente sa valeur de VOL de +1 et sa valeur d'INT ou de CHA de +1.
+
+# ELFE SYLVAIN
+
+L'elfe sylvain est issu d'une culture différente de celle des elfes hauts. Légèrement plus petits, ils vivent au plus profond des forêts, s'abritant dans les arbres et vivant simplement de la chasse et de la cueillette. Moins arrogants que leurs cousins hauts elfes, ils sont cependant beaucoup plus méfiants. Ils maîtrisent particulièrement l'art du camouflage et l'utilisation de l'arc.
+
+Dans les Terres d'Osgild. Les elfes sylvains partagent la grande forêt de Hautesylve avec les elfes hauts, mais ils sont beaucoup moins présents que ces derniers au sud et autour de la capitale Syndoril. Ils sont en revanche majoritaires plus au nord, autour du lac Thuléa. Ils s'impliquent beaucoup moins dans la politique que leurs cousins, ils sont plus proches de la nature, moins rêveurs et plus pragmatiques. Les elfes sylvains sont également nombreux dans les forêts du nord de la principauté d'Arly : le bois de Myrviel autour de Clairval ou Bois dormant autour de Myrlune. Ces elfes sont des citoyens de la principauté et un de leurs représentants siège au grand conseil de la nation. Enfin, une importante communauté d'elfes sylvains vit dans la dangereuse forêt de Luir-An-Doral, loin au sud-est, une jungle dont on ne sait que peu de choses. Une origine parfaite pour tout elfe sauvage (barbare). Les elfes sylvains vivent en petites communautés, un peu partout où on peut trouver une forêt. Ainsi un elfe sylvain peut venir d'une contrée lointaine, comme les forêts enneigées du Nord où naissent les elfes du givre à la peau blanche.
+
+## Interpréter un elfe sylvain
+
+Vous êtes un écologiste dans un monde qui ne connaît pas la signification de ce mot. Pour vous, la nature — plus particulièrement la forêt — est une mère qu'il faut aimer et respecter. Au mieux, vous ne comprenez pas ceux qui détruisent vos très chers arbres, au pire, vous les haïssez. Si les elfes sylvains ne respectaient pas autant la valeur de la vie, le métier de bûcheron serait sans aucun doute le plus dangereux des Terres d'Osgild. Vous partagez avec vos cousins elfes hauts une langue, une culture et un amour des arts et de la beauté, mais vos goûts sont plus simples. En particulier vous préférez les tenues fonctionnelles et les couleurs de la nature, tandis que les elfes hauts aiment le bleu, le blanc, l'or ou l'argent. Vous êtes méfiant vis-à-vis des étrangers, peut-être plus encore que vos cousins, et vous ne cherchez pas à vous en cacher. Pourtant, vous restez moins prompt qu'eux à juger sur les apparences.
+
+## Noms typiques
+
+Les elfes des bois ont des noms assez similaires à ceux des elfes hauts, quoique ceux des sylvains soient plus simples. Chez les femmes, la dernière consonne ou la dernière voyelle est doublée. Chez les hommes, les terminaisons -din, -dor, -ion sont privilégiées.
+
+**Masculin.** Aëdin, Caëndor, Cirion, Doralion, Ealdor, Findalion, Glorfindor, Haëldion, Laurendor, Morwendir, Raëldirion, etc.
+**Féminin.** Aëldill, Aluinill, Aliann, Dianaë, Eilinelle, Elenwëe, Lúthill, Nínielle, Nolwaënn, Mírielle, Keltienn, etc.
+
+## Repères
+
+- Âge de départ : 50+
+- Espérance de vie : 350 ans
+- Taille : 1,40 m à 1,70 m
+- Poids : 30 à 60 kg
+- Traits : menu, svelte. Oreilles pointues, yeux en amandes (verts, violets), cheveux sombres (bruns, noirs, roux), tatouages, pilosité absente.
+
+## Caractéristiques
+
++1 AGI ou PER, -1 FOR
+
+## VOIE DE L'ELFE SYLVAIN
+
+### 1. Lumière des étoiles :
+
+Pour un elfe sylvain, l'obscurité de la nuit sous la lumière des étoiles est considérée comme de la pénombre. De plus, l'elfe gagne un bonus de +3 à tous les tests de survie en forêt (escalade, discrétion, chasse, etc.).
+
+### 2. Enfant de la forêt :
+
+Le joueur choisit une capacité de rang 1 de n'importe quelle voie de druide ou de rôdeur. Il peut utiliser cette capacité en armure jusqu'à l'armure de cuir renforcé sans pénalité.
+
+### 3. Archer émérite :
+
+L'elfe augmente de 1 la zone de critique lorsqu'il utilise un arc (19-20 au d20) et ajoute +1d4° aux DM en cas de critique. Il sait utiliser les arcs courts, quel que soit son profil.
+
+### 4. Flèche sanglante (L) :
+
+L'elfe fait une attaque à distance qui provoque une hémorragie. En plus des DM normaux, la flèche produit un effet de saignement qui inflige à la victime 1d4° DM à chaque round suivant jusqu'à ce que la cible soit soignée (tout effet de soins ou une action limitée utilisée à cet effet). On ne peut cumuler plusieurs effets de saignement.
+
+### 5. Supériorité elfique :
+
+L'elfe augmente ses valeurs d'AGI et PER de +1.
+
+# GNOME
+
+Le gnome est une créature de petite taille pourvue d'un gros nez, d'une bonne nature et d'une curiosité insatiable pour la magie et les sciences. C'est un compagnon souvent agréable, bien qu'un peu original. Les nains et les halfelins l'apprécient, tandis que les « grandes » personnes se montrent plutôt indifférentes à leur égard.
+
+Dans les Terres d'Osgild. Ce peuple industrious réside majoritairement dans la principauté d'Arly. La région de Wyks ou le Bois dormant sont de bonnes origines géographiques pour un personnage gnome. Des gnomes sont également installés tout le long des frontières de Hautesylve. De nombreux gnomes ont colonisé les Hauts de Hurleroche (entre Hautesylve et le désert des Morteroches) où se situe leur capitale, une étonnante cité souterraine nommée Hurlevent. Mais l'existence de cette cité est une information assez peu connue des autres peuples, à l'exception des elfes de Hautesylve.
+Enfin, il existerait au sein de la forêt de Luir-An-Doral des tribus de gnomes belliqueux à la peau sombre et aux coutumes anthropophages qui s'intéresseraient davantage à la nécromancie qu'aux illusions, et plus aux poisons qu'aux sciences.
+
+## Interpréter un gnome
+
+Vous êtes généralement joyeux, optimiste et enthousiaste et cet état d'esprit positif fait de vous un agréable compagnon. Mais il faut bien cela pour vous supporter, car vous êtes aussi très original, et jamais à court d'idée ou de plans farfelus. De plus, vous avez tendance à n'en faire qu'à votre tête... Essayez de trouver une passion originale, un sujet d'étude improbable ou une collection étrange. Par exemple, un gnome pourrait avoir une passion pour la composition de la terre de surface, et le projet de sa vie pourrait être de recenser tous les terroirs des Terres d'Osgild au sein d'une classification basée sur leur goût en bouche... Vos affinités avec les nains et les halfelins sont très fortes. Vous vous entendez bien avec les elfes et, bien que ceux-ci vous considèrent avec condescendance, vous ne leur en tenez pas rigueur. Car globalement, les gnomes ont très bon caractère et il en faut vraiment beaucoup pour mettre un gnome en colère. D'ailleurs, il se dit que si un gnome devait se venger de son pire ennemi, il le ferait sans doute en blaguant.
+
+
+
+## Noms typiques
+
+Les gnomes aiment les prénoms que les humains jugent désuets. Ils ont aussi un nom de famille compliqué et long, qu'ils accolent toujours à ce prénom. Un habitant de notre monde pourrait trouver que ces noms ont des consonances germaniques et étranges.
+
+**Masculin.** Albert Blumdenplick, Eustache Dimtigballen, Firmin Vondemacht, Isidore Kolerbiltag, Nestor Wurmenship, etc.
+**Féminin.** Thérèse Aliserwilp, Huguette Uhldimmerstelp, Rose Molkenpulp, Eugénie Bimpbelinedor, etc.
+
+## Repères
+
+- Âge de départ : 40+
+- Espérance de vie : 250 ans
+- Taille : 1 m à 1,20 m
+- Poids : 30 à 50 kg
+- Traits : Petit et rondouillard, gros nez. Moustaches et rouflaquettes pour les gnomes, couettes pour les gnomettes. Oreilles un peu pointues ou grandes et rondes.
+
+## Caractéristiques
+
++1 en INT ou PER, -1 en FOR
+
+### VOIE DU GNOME
+
+#### 1. Don étrange :
+
+Le gnome possède un talent inné pour les sciences, qu'elles soient occultes ou plus ordinaires. Il gagne un bonus de +3 à tous les tests scientifiques (INT) et il choisit une capacité de rang 1 d'ensorceleur. S'il porte une armure, il ne peut pas utiliser ce sort plus d'une fois par jour (il doit payer le coût en PM de façon normale). Dans le noir total, le gnome voit comme dans la pénombre jusqu'à 10 m.
+
+### 2. Petit pote :
+
+Le gnome est un compagnon sympathique et difficile à considérer comme dangereux ou malintentionné. Il gagne +3 à tous les tests d'interaction sociale sauf pour intimider. Il gagne aussi 1 point de chance.
+
+### 3. Insignifiant :
+
+Le gnome sait comment échapper aux attaques des grandes créatures comme les géants. Il gagne un bonus de +2 en DEF contre les créatures de taille grande ou supérieure. Ce bonus passe à +3 au rang 5.
+
+### 4. Merveille technologique :
+
+Le gnome sait utiliser les arbalètes (et les armes à poudre si votre MJ autorise leur usage), quel que soit son profil. Il ajoute son AGI aux DM qu'il inflige avec ces armes.
+
+### 5. Bonne nature :
+
+Le gnome augmente ses valeurs de CON et de CHA de +1.
+
+# HALFELIN
+
+Les halfelins représentent le plus petit des peuples jouables. Toujours bons vivants, souvent vifs, curieux, et parfois farceurs, les halfelins sont des incompris que les autres peuples considèrent souvent comme turbulents, pénibles, si ce n'est comme des voleurs.
+
+**Dans les Terres d'Osgild.** Bien que souvent regroupés au sein de modestes communautés, les petites gens, comme on les désigne parfois, vivent discrètement et en bonne entente avec les grandes gens. Ils n'ont pas de revendication territoriale et, à vrai dire, personne ne sait, pas même eux, s'ils font partie des peuples anciens ou s'ils ont une origine commune avec les humains... Les halfelins peuvent donc venir des mêmes zones que les humains, mais ils sont plus souvent d'origine rurale que citadine. La plaine entre Clairval et Wyks comporte de très nombreux hameaux et presque tous abritent une ou deux familles de halfelins bien intégrés. Les halfelins possèdent un don naturel pour attirer la sympathie et se faire discrets quand ce n'est pas le cas.
+
+## Interpréter un halfelin
+
+La plupart des halfelins sont des gens paisibles et sans histoire qui fuient l'incertitude et le danger une fois atteint l'âge de raison. Mais avant cela, les jeunes adultes ont une période de curiosité insatiable et de remise en question de leur mode de vie paisible. Durant cette parenthèse turbulente, ils sont enclins à l'aventure et il est alors fréquent pour le jeune halfelin de s'émanciper de sa parenté. Ainsi, les petites gens se sont approprié la devise « les voyages forment la jeunesse ». À moins que ce ne soit simplement une manière pratique pour les adultes de se débarrasser des jeunes gens agités... C'est généralement durant leurs voyages que les jeunes halfelins, sans fortune ni principes, construisent leur réputation de voleur, alors que la société de leurs parents réprouve totalement ce type de pratique.
+
+En tant que jeune halfelin, vous êtes idéaliste et naïf, mais aussi curieux et aventureux, ce qui vous pousse parfois à prendre des risques inconsidérés. Toutefois, les halfelins ont aussi un bon fond qui leur vient de l'amour qu'ils ont reçu durant leur enfance et qui les pousse instinctivement à aider les plus faibles et les plus démunis. Dans la société des halfelins, la nourriture occupe une place centrale et on ne laisse pas quelqu'un en manquer. Enfin, un peu avant leurs trente ans, la plupart des petites gens cessent leur errance et s'installent pour mener une vie paisible. Cependant, il arrive que, de façon très exceptionnelle, certains prennent goût à l'aventure.
+
+## Noms typiques
+
+Les halfelins mâles utilisent des prénoms courts qui ressemblent à des diminutifs. Les prénoms féminins sont le plus souvent inspirés des fleurs et des fruits. Ils ont généralement un nom en rapport avec leur lieu de naissance : Sur-le-pont, Dubois, Sous-colline, Moulinbas, etc.
+
+
+
+**MASCULIN.** Bill, Bern, Don, Duky, Eckel, Fili, Ged, Gerry, Hek, Hicks, Jack, Karl, Litle, Luky, Mike, Polo, Sam, Titi, etc.
+**FÉMININ.** Églantine, Lila, Jacinthe, Marguerite, Muguette, Pâquerette, Prune, Rose, etc.
+
+## Repères
+
+- Âge de départ : 20+
+- Espérance de vie : 150 ans
+- Taille : 80 cm à 1 m
+- Poids : 20 à 30 kg
+- Traits : petit et vif. Pieds poilus, regard espiègle.
+
+## Caractéristiques
+
++1 AGI ou VOL, -1 FOR
+
+## VOIE DU HALFELIN
+
+### 1. Petite taille :
+Le halfelin obtient un bonus de +1 en DEF et de +3 à tous les tests de discrétion ainsi qu'à tous les tests effectués pour subtiliser quelque chose (pickpocket, vol à l'étalage, etc.). En revanche, un halfelin ne peut pas utiliser à une main une arme dont les DM dépassent 1d6 (épée courte, masse, etc., mais pas rapière). Il lui faut utiliser les deux mains pour les armes qui infligent 1d8 à 1d10 de DM (épée longue) et il lui est interdit d'utiliser les armes qui infligent plus de 1d10 DM. Il ne peut pas utiliser d'arc long ni d'arbalète lourde.
+
+### 2. Résistance légendaire :
+Le halfelin obtient un bonus égal à son rang à tous les tests opposés d'attaque magique effectués pour résister à un sort.
+
+### 3. Bon pour le moral :
+Un halfelin qui mange bien est un halfelin heureux. À chaque repas (jusqu'à 4 fois par jour,
+espacés d'au moins 3 h) au cours duquel le personnage boit et mange des mets de qualité et en quantité, il récupère 1d4° PV.
+
+### 4. Petit veinard :
+
+Le halfelin gagne 1 PC supplémentaire. De plus, il peut esquiver une attaque de son choix par combat (avant d'avoir pris connaissance des DM, mais pas un critique).
+
+### 5. Vif et bien nourri :
+
+Le halfelin augmente ses valeurs d'AGI et de CON de +1.
+
+# HUMAIN
+
+L'humain se distingue par sa capacité d'adaptation et son instinct qui le pousse à coloniser tous les territoires qui l'entourent. Le peuple humain est le plus représenté et le plus répandu dans les zones dites civilisées.
+
+**Dans les Terres d'Osgild.** Les humains sont à la fois le peuple le plus commun et un des plus jeunes des Terres d'Osgild. Ils se vantent d'être les enfants des dieux, tandis que les Premiers-nés (les elfes et les nains) sont les enfants des Puissances (des forces naturelles comme le vent, la terre ou l'air). Les humains occupent toutes les plaines et les terres les plus riches, car l'activité qui les caractérise est l'agriculture. Cette technique pratiquée avec une intensité inconnue des autres peuples leur a permis de se développer rapidement, mais cette croissance nécessite sans cesse d'étendre les surfaces agricoles et provoque souvent des conflits territoriaux. Ce qui vaut aux humains leur réputation de peuple expansionniste et belliqueux. Ainsi toutes les grandes plaines qui s'étendent d'est en ouest sont occupées par des nations humaines, fragments d'un ancien empire brisé, l'empire d'Osgild qui donna son nom à ses terres. Les deux plus grandes nations, celles où se situeront sans doute la plupart des aventures des personnages sont la principauté d'Arly à l'ouest et les marches du Piémont à l'est.
+
+## Interpréter un humain
+
+Interpréter un humain ne devrait pas poser beaucoup de difficultés, puisque vous en êtes un (jusqu'à preuve du contraire). Les humains sont très différents les uns des autres et permettent une grande liberté d'interprétation. Rappelez-vous simplement que la plupart des humains des Terres d'Osgild sont assez peu cultivés et que votre personnage n'a pas du tout le même niveau de connaissance que vous. Les humains prennent sans compter ce que la nature peut leur offrir, ils considèrent que les dieux leur ont offert le monde pour qu'ils le modèlent à leur guise. Leur vie est courte et frénétique. Ils ont la mémoire courte et ne tirent aucune leçon du passé.
+
+## Noms typiques
+
+Les humains ont les prénoms et les noms les plus variés qu'il soit. Vous pouvez vous inspirer d'anciens prénoms médiévaux, scandinaves, francs ou celtiques et les modifier légèrement pour leur donner une consonance plus fantastique. Pour les femmes, les noms de minéraux, de fleurs ou de couleurs peuvent aussi être utilisés.
+
+**Masculin.** Adalrik, Arn, Bernulf, Brand, Edwald, Ketil, Ferwin, Gerulf, Godfred, Gunter, Halfdan, Ingvar, Knud, Lothar, Osvald, Roderick, Rurik, Sigfred, Sigmar, Sigvald, Stig, Svenn, Thorsten, etc.
+**Féminin.** Annia, Alaina, Berthille, Bérénia, Téline, Koralie, Floraline, Gadrielle, Jocynthe, Kéline, Myrthinne, Marille, Naelwen, Natasha, Odælle, Prescille, Sorsha, Véronelle, Wendoline, etc.
+
+## Repères
+
+- Âge de départ : 18+
+- Espérance de vie : 100 ans
+- Taille : 1,50 m à 2 m
+- Poids : 40 à 120 kg
+- Traits : toute la diversité possible à l'exception des couleurs trop exotiques (cheveux violets, etc.).
+
+
+## Caractéristiques
+
+Un personnage humain gagne +1 à la valeur d'une de ses deux plus faibles caractéristiques au choix.
+
+## VOIE DE L'HUMAIN
+
+### 1. Diversité :
+
+Un humain obtient un bonus de +3 aux tests de deux domaines associés à son origine géographique ou sociale (voir ci-dessous). De plus, il gagne 1 PC supplémentaire.
+
+### 2. Instinct de survie :
+
+Une fois par combat, lorsqu'une attaque devrait amener l'humain à 0 PV, les DM qu'elle inflige sont divisés par 2 (minimum 1). Après avoir bénéficié de cette capacité, l'humain gagne pour le reste du combat un bonus de +2 en DEF.
+
+### 3. Touche-à-tout :
+
+Le personnage obtient une capacité de rang 1 ou 2 de n'importe quel profil au choix du joueur. Si la capacité est de rang 2 ou accorde un bonus de DEF, il doit respecter les limitations d'armure.
+
+### 4. Loup parmi les loups :
+
+Une fois par round, l'humain gagne +1d4° aux DM qu'il inflige lorsqu'il combat un adversaire humanoïde de taille moyenne. Ce bonus ne s'applique qu'aux DM initiaux d'une attaque, pas aux DM sur la durée.
+
+### 5. Polyvalence :
+
+Le personnage augmente sa caractéristique la plus faible de +1 et sa Volonté de +1.
+
+Origine géographique ou sociale (choisissez ou lancez un d6) :
+
+*   1 : Montagnard (escalade et résistance au froid).
+*   2 : Citadin (commerce et résistance aux maladies).
+*   3 : Campagnard (météorologie et équitation).
+*   4 : Riverain (natation et navigation).
+*   5 : Sauvage (chasser et pister).
+*   6 : Nomade (orientation et résistance à la chaleur ou au froid).
+
+Le MJ peut en inventer d'autres selon les cultures présentes dans son univers de jeu (troglodyte, marais, etc.). Éventuellement, le joueur peut remplacer un des bonus d'origine géographique par un bonus en relation avec son origine sociale ou un gagne-pain de son choix (serrurier, forgeron, scribe, maçon, chasseur, cuisinier, acrobate, pickpocket, bibliothécaire, étudiant, etc.). Le gagne-pain ne peut pas être un profil et le bonus obtenu ne s'applique jamais à des tests de combat.
+> **Exemple :** Un citadin étudiant en magie pourrait obtenir un bonus de +3 aux tests de commerce et +3 aux tests d'érudition occulte, même si son personnage est finalement devenu guerrier.
+
+# NAIN
+
+Le nain est petit mais robuste. Célèbre pour sa barbe, il aime les profondeurs de la terre, dont il extrait des métaux et des pierres précieuses. Isolé, il est généralement ouvert et chaleureux, mais la société naine peut paraître sévère, car le travail et l'entraînement militaire y sont des obligations.
+
+**Dans les Terres d'Osgild.** La principale nation des nains est située dans les monts Argentés, dans la vallée de Kaerimbor, mais on trouve aussi de fortes concentrations du peuple du roc à Xélys (au sud des marches du Piémont) et à Fort Colline, une ville minière entourée de collines d'où l'on extrait tout le fer de la principauté d'Arly. Kaer Glimmerstern est une vaste citée souterraine construite autour d'un joyau de feu légendaire dans le nord des monts Ethernos (au sud-est). Enfin, de petites communautés de nains, appelées clans, sont aussi disséminées un peu partout dans le monde, dès que des montagnes et des mines sont accessibles.
+
+## Interpréter un nain
+
+Vous pouvez être taciturne ou braillard, mais vous ne faites pas les choses à moitié, et quand vous donnez votre avis, il est franc et massif, tant pis si cela froisse quelque susceptibilité. Vous êtes méfiant de prime abord, mais chaleureux une fois la glace rompue et vous savez entretenir l'amitié autour d'une bière ou deux... ou plus. La demi-mesure n'est pas votre fort. Votre parole est solide comme le roc et vos griefs durs comme l'acier. Vous êtes coriace, courageux, opiniâtre, et un combat ne vous fera jamais reculer. Oui, c'est vrai, vous aimez les joyaux et les métaux précieux, mais surtout parce qu'ils permettent de produire cet artisanat raffiné qui fait la fierté du peuple nain.
+
+Dans les Terres d'Osgild, les nains éprouvent une nostalgie viscérale à la simple évocation de Kaer-Undün, leur ancien royaume souterrain des serres du Monde, abandonné aux ténèbres à la suite d'une terrible guerre contre les orcs et les géants, deux peuples qu'ils détestent. Ils entretiennent avec les elfes une relation paradoxale, faite de respect pour un peuple ancien, d'un esprit de compétition entre les deux antiques civilisations et d'une rancoeur tenace et si ancienne que tous semblent avoir à peu près oublié son origine, bien qu'elle soit d'une façon ou d'une autre liée à la période à laquelle Kaer-Undün fut perdu.
+
+## Noms typiques
+
+Les nains ont des prénoms courts et percutants, les principales terminaisons sont en -in, -un, -ik, ou -ir, mais il en existe d'autres. Suit généralement le nom de leur clan, qu'ils traduisent en langue commune pour mettre en avant l'idée qu'il véhicule.
+
+Chez les femmes, la terminaison en -hild ou -id est la plus courante.
+
+**Masculin.** Gloin Mâchefer, Krorin Briseroc, Thorin Forgefer, Buldur Tranchetroll, Trorin Cassegranit, Orik Briselame, Durok Écu-de-chêne, Guerann Marteleur, Korik Peau-de-pierre, etc.
+
+**Féminin.** Astrid, Arnhild, Berthild, Brynild, Eldrid, Ermenhild, Frida, Gerda, Grimhild, Gudrun, Helga, Hilda, Ingrid, Klothild, Sigrid, Strida etc.
+
+## Repères
+
+- Âge de départ : 40+
+- Espérance de vie : 250 ans
+- Taille : 1,15 m à 1,35 m
+- Poids : 50 à 100 kg
+- Traits : robuste et trapu. Pilosité très développée, tresses dans les cheveux et la barbe, bijoux et piercing. Non, les naines n'ont pas de barbe, tout juste un fin duvet avec l'âge.
+
+## Caractéristiques
++1 en CON ou VOL, -1 en AGI
+
+## VOIE DU NAIN
+
+### 1. Habitant des tunnels :
+
+Dans le noir total, le nain voit comme dans la pénombre jusqu'à 30 m. De plus, il obtient un bonus de +3 à tous les tests en rapport avec la pierre, l'architecture ou les mines ainsi qu'avec les passages secrets et les pièges dans les murs et les parois rocheuses.
+
+### 2. Haches et marteaux :
+
+Le nain gagne un bonus de +1 en attaque et aux DM lorsqu'il utilise une hache ou un marteau de guerre. Il sait utiliser ces armes, quel que soit son profil.
+
+### 3. Résistance à la magie :
+
+Une fois par jour, le nain peut choisir d'ignorer les effets d'un sort qui le prend pour cible (mais pas un sort de zone). Les créatures dont le niveau (NC) est au moins égal au double du nain ignorent cette capacité.
+
+### 4. Fils du roc :
+
+Le nain réduit tous les DM subis de 2 points (mais il subit toujours au moins 1 DM par attaque reçue). La réduction passe à 3 au niveau 10. Elle est cumulable avec d'autres sources de réduction des DM comme la peau d'acier du barbare.
+
+### 5. Ténacité :
+Le nain augmente ses valeurs de CON et de VOL de +1.
+
+# MAGE
+
+Les mages ne sont pas un peuple, un mage est simplement un personnage qui a choisi un profil de la famille des mages. Un préjugé populaire affirme pourtant que les mages forment une caste à part. Ce n'est pas totalement faux car, si la magie est une ressource puissante, elle demande aussi un investissement considérable pour être maîtrisée. Peu importe les origines de celui qui emprunte cette voie, il doit tout sacrifier pour se consacrer entièrement aux arts occultes.
+
+Un personnage de la famille des mages (ensorceleur, forgesort, magicien, sorcier) peut choisir de remplacer sa voie de peuple par la voie du mage. Il renonce à ses racines en échange d'un plus grand pouvoir occulte. Il ne conserve que la capacité de rang 1 de sa voie de peuple, acquise dès la création du personnage. Ce choix doit être fait avant d'obtenir le rang 2 de la voie de peuple et il est définitif. Désormais, le personnage ne peut plus obtenir de nouvelles capacités de sa voie de peuple.
+
+Si vous comptez jouer un mage pur (c'est-à-dire que vous ne songez pas à un profil hybride d'une autre famille que les mages), nous vous conseillons de choisir cette voie qui améliore à la fois la polyvalence et la puissance de feu à haut niveau.
+
+## VOIE DU MAGE
+
+Cette voie remplace la voie de peuple du personnage, elle occupe le même emplacement sur la fiche de personnage et son premier rang est gratuit comme n'importe quelle voie de peuple.
+
+### 1. Capacité de peuple + occultisme :
+Le mage conserve sa capacité de peuple de rang 1. De plus, il ajoute son rang + 2 aux tests de connaissance et d'érudition en rapport avec la magie.
+
+### 2. Maîtrise de la magie (L)* :
+Le mage peut détecter la présence de magie (y compris la présence d'objets magiques) dans un rayon de 10 m. Un test d'INT difficulté [10 + rang du sort] permet de déterminer la fonction générale de l'enchantement. Il peut aussi tenter de dissiper un sort non permanent d'un rang maximal égal à ceux qu'il est capable de lancer en emportant un test opposé d'attaque magique contre l'auteur du sort.
+
+### 3. Tour de magie (G)* :
+Le mage peut réaliser un tour de magie (portée 10 m) par round en action gratuite sans dépenser aucun PM. Par exemple, fermer une porte à distance, éteindre ou allumer une bougie en claquant des doigts. Il ne peut réaliser aucune action qui nécessite une valeur de caractéristique supérieure à 0 (par exemple, s'il faut au moins +1 ou un test de FOR pour pousser une porte lourde, ce sort ne permet pas de la fermer). Cette capacité ne peut produire aucun DM direct. De plus, le mage gagne +1 en DEF et +2 PM (en plus de celui gagné avec cette capacité ; au total, en apprenant ce sort, le mage acquiert donc 3 PM d'un coup).
+
+### 4. Esprit supérieur :
+Le mage augmente son INT et sa VOL de +1. Désormais, il obtient un dé bonus aux tests d'INT.
+
+### 5. Tempête de mana :
+Lorsqu'il lance un sort, le mage peut augmenter les DM de +1d4° (en cas de DM sur la durée, une seule fois) en payant +1 PM pour un sort à cible unique ou +3 PM pour un sort de zone (Explosion de feu, Foudre, etc.).
+
+
+# FAMILLE DES AVENTURIERS
+
+Vous trouverez dans ce chapitre la description des quatre profils de la famille des aventuriers : arquebusier, barde, rôdeur et voleur. Ce sont des profils polyvalents dont les capacités de combat sont basées sur la ruse ou le combat à distance plutôt que sur la force brute.
+
+Ces profils partagent les éléments suivants.
+*   Points de vigueur / niveau : 4
+*   Dé de récupération : d8
+*   +1 point de chance
+
+Résumé des voies des profils de la famille des aventuriers
+
+| Arquebusier | Barde | Rôdeur | Voleur |
+| --- | --- | --- | --- |
+| Voie de l'artilleur | Voie de l'escrime | Voie de l'archer | Voie de l'assassin |
+| Voie des explosifs | Voie du musicien | Voie du compagnon animal | Voie de l'aventurier |
+| Voie du mercenaire | Voie du saltimbanque | Voie de la survie | Voie du déplacement |
+| Voie du pistolero | Voie de la séduction | Voie du traqueur | Voie du roublard |
+| Voie de la précision | Voie du vagabond | Voie du combat à deux armes | Voie du spadassin |
+
+# ARQUEBUSIER
+
+Points de vigueur : 4 par niveau
+
+L'arquebusier est un dur à cuire, un mercenaire qui vient généralement d'un pays lointain et maîtrise un style de combat exotique : les armes à feu et les explosifs.
+
+Dans les Terres d'Osgild. L'arquebusier est un personnage atypique dans les Terres d'Osgild. Il est toutefois plus commun dans les régions de l'est, où les armes à poudre ont d'abord été importées par le Protectorat de fer, tête de pont d'un vaste empire expansionniste qui a traversé l'océan. Mais cette nation est en guerre larvée permanente avec tous ses voisins et elle garde jalousement le secret des armes à poudre. Plus au sud, les nains de Kaer Glimmerstern maîtrisent à présent eux aussi la poudre et depuis peu ils s'en sont ouverts à leurs alliés, le royaume de Cobis et le duché de Périk. Guilde et Port-Libre, les deux grandes cités commerçantes se sont saisies de l'occasion et font désormais le commerce des armes à poudre, à prix d'or... Un PJ arquebusier devra donc avoir séjourné dans l'un de ces lieux.
+
+## Armes & armures maîtrisées
+
+L'arquebusier sait manier toutes les armes de contact à une main, les armes à distance, armes à poudre incluses. Un arquebusier sait fabriquer sa propre poudre et elle ne risque pas d'exploser malgré lui (voir la section Équipement).
+
+Les voies d'arquebusier limitent l'armure à la chemise de mailles et interdisent l'utilisation du bouclier.
+
+## Équipement de départ
+
+Pétoire (DM 1d10, portée 20 m), épée longue (DM 1d8), dague (DM 1d4), cuir renforcé (DEF +3).
+## POUDRE OU PAS POUDRE ?
+
+Ce personnage utilise des armes à feu et peut être joué dans un cadre équivalent à la Renaissance, mais si votre contexte de jeu ne le permet pas, vous pouvez remplacer la pétoire par une arbalète de poing, le mousquet par une arbalète lourde et la couleuvrine par une baliste... Supprimez la voie des explosifs et remplacez-la par la voie du maître d'armes du profil de guerrier, en la limitant aux arbalètes. Le nom du profil devient alors « Arbalétrier ».
+
+## VOIE DE L'ARTILLEUR
+
+### 1. Mécanismes :
+
+L'arquebusier ajoute son rang + 2 à tous les tests visant à réparer ou à comprendre des mécanismes (cela inclut le fait de désamorcer des pièges mécaniques et de manipuler des armes de siège). Il obtient un dé bonus à tous les tests d'attaque avec des armes de siège (baliste, couleuvrine, canon, trébuchet, catapulte, etc.).
+
+### 2. Arme à répétition :
+
+L'arquebusier modifie jusqu'à deux armes de son choix pour les doter de chargeurs. La capacité du chargeur est égale à [2 + INT] et elle augmente de 1 projectile supplémentaire chaque fois que le personnage atteint le rang 3 dans une voie d'arquebusier. Chaque chargeur doit être ensuite rechargé au rythme d'une action limitée (L) par projectile.
+
+### 3. Tir de barrage (L) :
+
+L'arquebusier surveille une zone de 20 m de large face à lui. Si une créature se déplace dans cette zone avant son prochain tour, il peut faire une attaque à distance. En cas de succès la victime choisit entre deux possibilités : soit elle subit le double des dommages, soit elle termine son tour et son déplacement à l'endroit de l'attaque et ne subit pas de dommages. L'arquebusier peut effectuer un tir de barrage sur plusieurs créatures durant le round, tant qu'il n'a pas besoin de recharger.
+
+### 4. Canon double :
+
+L'arquebusier peut bricoler ses armes à poudre (mais pas une couleuvrine) pour les doter d'un second canon. Il double le dé de DM de l'arme (mais pas les dés bonus ni les bonus). Il doit recharger chaque canon individuellement (un canon double consomme 2 projectiles). En cas de critique le dé est triplé (au lieu de x4). Ce type d'arme possède une double détente et il reste possible de décharger un seul canon à la fois.
+
+### 5. Couleuvrine (L) :
+
+L'arquebusier obtient une couleuvrine (un petit canon portatif). Sur un test d'attaque à distance réussi (dé bonus), la couleuvrine inflige [5d4° + INT] DM à une portée de 100 m. Il faut ensuite deux rounds (L) pour la recharger. C'est une arme encombrante et il est impossible de transporter plus d'une couleuvrine.
+
+## VOIE DES EXPLOSIFS
+
+Si le personnage n'est pas arquebusier (profil hybride), obtenir le premier rang dans cette voie lui permet aussi de ne plus avoir de risque d'explosion lorsqu'il utilise une arme à poudre (voir les règles spécifiques des armes à poudre à la section Équipement).
+
+### 1. Tir de grenaille (L) :
+
+L'arquebusier sait réaliser un mélange de poudre et de grenaille. Quand il charge une arme à poudre, il peut choisir d'utiliser ce mélange à la place d'une munition normale (il doit l'annoncer au moment où il charge). Lorsqu'il tire cette munition (L), il fait un seul test d'attaque contre toutes les cibles lui faisant face dans un cône de 10 m de long et sur 5 m de large. Toutes les cibles dont il atteint la DEF subissent la moitié des DM habituels. De plus, le personnage ajoute son rang + 2 à tous les tests d'artificier (par exemple pour fabriquer et tirer des feux d'artifice).
+
+### 2. Démolition :
+
+L'arquebusier peut préparer un explosif qui lui permet de démolir facilement des structures. Il lui faut 3 rounds complets pour préparer et poser son explosif. Celui-ci inflige à la structure [3d4° + INT] DM et ignore la moitié de sa RD (et seulement 2d4° DM dans un rayon de 2 m). Chaque jour, l'arquebusier peut utiliser un nombre de charges explosives égal au rang dans la voie. Ces charges permettent indifféremment d'utiliser les capacités **Démolition**, **Piège explosif** ou **Boulet explosif**.
+
+### 3. Poudre puissante :
+
+L'arquebusier sait préparer une poudre plus puissante, il ajoute +10 m à la portée et +1 aux DM des armes à poudre. Le bonus aux DM augmente de +1 à chaque fois que le personnage atteint le rang 5 dans une voie d'arquebusier. De plus, sa poudre est magique et elle permet à ses projectiles d'affecter les créatures immunisées aux armes non magiques.
+
+### 4. Piège explosif (L) :
+
+Il faut 1 min à l'arquebusier pour installer un piège qui explose dans un rayon de 5 m en infligeant [5d4° + INT] DM de feu (test d'AGI difficulté 15 pour ne subir que la moitié des DM). Le piège est déclenché à l'intrusion de toute créature dans une zone d'un à deux mètres autour du piège. Une créature peut détecter le piège avec un test d'INT difficulté [15 + INT de l'arquebusier] avant de le déclencher.
+
+### 5. Boulet explosif (L) :
+
+L'arquebusier sait fabriquer et lancer de petites boules de métal garnies de poudre et d'une portée de 20 m qui explosent dans un rayon de 5 m en infligeant [4d4° + INT] DM perforants, divisés par 2 pour les victimes qui réussissent un test d'AGI difficulté 10. Ceux qui ratent le test sont de plus aveuglés un round par le flash lumineux de l'explosion.
+
+
+## VOIE DU MERCENAIRE
+
+### 1. Pilier de bar :
+L'arquebusier obtient un bonus égal à son rang + 2 aux tests d'interaction sociale dans les tavernes ou les auberges (renseignement, négociation, séduction, etc.) ainsi que pour résister aux effets de l'alcool. De plus, il inflige 1d4° DM à mains nues (non léthal) et il divise par 2 tous les DM non létaux qu'on lui inflige.
+
+### 2. Mort ou vif (L) :
+L'arquebusier effectue une attaque au contact ou à distance (avec l'arme en main). Si l'attaque est réussie, il inflige ses DM habituels (mais peut choisir d'infliger des DM temporaires) et il choisit entre désarmer, renverser ou affaiblir (1d4 rounds) un adversaire dont le NC est inférieur au rang atteint dans la voie. Si l'attaque est une réussite critique, il peut choisir de cumuler deux effets.
+
+### 3. Combattant aguerri :
+L'arquebusier choisit une capacité de rang 1 de son choix de guerrier, de voleur (armure de cuir) ou de rôdeur (armure de cuir renforcé). Il gagne aussi +1 en DEF.
+
+### 4. Constitution héroïque :
+L'arquebusier augmente sa valeur de CON de +1 et il obtient un dé bonus aux tests de CON.
+
+### 5. Combat de masse :
+Si le combat implique au moins 10 créatures actives (en comptant l'arquebusier et ses alliés), l'arquebusier obtient, au choix, une action
+d'attaque ou une action de mouvement supplémentaire à son tour. De plus, l'arquebusier gagne +1 en DEF.
+
+**Note :** à titre exceptionnel, si la voie du mercenaire est choisie pour construire un profil hybride, elle ne donne pas accès à la maîtrise des armes à poudre. En revanche, elle n'interdit pas le port du bouclier.
+
+## VOIE DU PISTOLERO
+
+### 1. Plus vite que son ombre :
+
+Si son arme à poudre est chargée et tenue en main, l'arquebusier peut tirer avec un bonus de +5 à son Initiative. De plus, il ne subit plus de dé *malus* lorsqu'il tire avec une arme à poudre ou une arbalète en étant engagé en combat au contact (sauf avec la couleuvrine).
+
+### 2. Ajuster le tir :
+
+Après avoir raté une attaque à distance, l'arquebusier déclare qu'il s'agissait d'un tir de réglage. Il obtient +5 sur le test de sa prochaine attaque à distance, si son prochain tir vise la même cible avant la fin du prochain round.
+
+### 3. Tir double (L) :
+
+L'arquebusier est capable de tirer simultanément avec une pétoire (ou une arbalète de poing) dans chaque main avec un malus de -2 à chaque attaque. S'il décharge ses deux armes sur la même cible, il ne subit aucun malus.
+
+### 4. Agilité héroïque :
+
+L'arquebusier augmente sa valeur d'AGI de +1 et il obtient un dé *bonus* aux tests d'AGI.
+
+### 5. As de la gâchette :
+
+Lors d'une attaque à distance avec une arme à poudre ou une arbalète, s'il obtient un résultat d'attaque supérieur ou égal à la DEF de son adversaire +10 points, l'arquebusier obtient un bonus de +2d4° aux DM de son attaque.
+
+## VOIE DE LA PRÉCISION
+
+### 1. Joli coup :
+
+L'arquebusier ignore la pénalité appliquée pour une couverture partielle de sa cible (-2 au test devient aucun malus) et réduit la pénalité pour une couverture importante à -2 (au lieu de -5).
+
+### 2. Défaut dans la cuirasse (A) :
+
+L'arquebusier utilise une action d'attaque pour trouver le point faible de son adversaire et le viser. Au prochain round*, il réalise ses attaques à distance sur cette cible contre une DEF de [10 + AGI de la cible] et il peut ignorer sa résistance aux DM ou sa réduction des DM (sauf si cette dernière est acquise parce que la cible est immatérielle : ombre, fantôme, etc.).
+
+* Si l'arquebusier utilise la capacité Combat de masse pour son action d'attaque en début de round, alors la capacité s'applique seulement aux tirs du round en cours.
+
+### 3. Tir précis :
+
+L'arquebusier inflige des critiques sur 19-20 sur ses attaques avec une arme à distance. La plage de critique passe à 18-20 à partir du rang 5.
+
+### 4. Tireur d'élite (L) :
+
+L'arquebusier prend le temps d'ajuster une cible au loin (distance minimum de 10 m). Il double la portée de son arme et ajoute +2d4° aux DM. Il ne peut pas utiliser cette capacité s'il est au contact d'un adversaire ou dans une position instable (par exemple dans un véhicule).
+
+### 5. Tir fatal (L) :
+
+S'il tire sur une créature dont le niveau (NC) est inférieur à la moitié du sien (arrondi au supérieur), l'arquebusier peut faire un test d'INT difficulté [10 + NC de la créature]. En cas de réussite, elle est morte. Dans tous les autres cas, elle subit les DM normaux.
+
+# BARDE
+
+Points de vigueur : 4 par niveau
+
+Le barde est un personnage polyvalent qui utilise la magie et le spectacle pour divertir et parvenir à ses fins. Il est aussi habitué aux ruses qu'à la diplomatie. Ses capacités sont globalement moins tournées vers le combat et davantage vers les interactions douces.
+
+Dans les Terres d'Osgild : toutes les nations civilisées des Terres d'Osgild, à l'exception du Protectorat de fer, accueillent des bardes. Les elfes ont un grand amour des arts, de la musique, du chant et de la danse, bien qu'ils pratiquent parfois un art si conceptuel que les humains ont du mal à l'apprécier. Il se dit même que les chants elfiques dont la beauté touche le cœur des hommes ne sont en réalité que des comptines pour enfant... Dans la principauté d'Arly, Benastir, Valastir et surtout Ferrance sont des cités particulièrement versées dans la culture. Le prince Thomar d'Arly est un ami des lettres et des arts. Il entretient de nombreux artistes et finance d'incroyables festivals dans la ville portuaire. Les nains quant à eux sont des spécialistes du tambour et de la cornemuse, mais il est assez rare que leurs scaldes se produisent en dehors des cités naines. Malgré tout, ce sont les hauts elfes du royaume de Hautesylve qui comptent le plus de bardes dans leur population.
+
+## Armes & armures maîtrisées
+
+Le barde sait manier les armes à une main.
+Les voies de barde limitent l'armure au cuir renforcé et interdisent l'utilisation du bouclier. Il est nécessaire d'avoir une main libre pour utiliser les capacités de bardes (ni arme secondaire ni bouclier).
+
+## Équipement de départ
+
+Rapière (DM 1d6, Crit 19-20), dague (DM 1d4), instrument de musique, armure de cuir (DEF +2).
+
+### VOIE DE L'ESCRIME
+
+#### 1. Précision :
+
+Le barde peut remplacer sa FOR par son AGI pour ses tests d'attaque au contact (mais pas aux DM) lorsqu'il emploie une arme légère à une main (les armes légères sont la dague, l'épée courte et la rapière).
+
+#### 2. Feinte (L) :
+
+Le barde effectue une attaque fictive pour déséquilibrer son adversaire et réalise ensuite une attaque mortelle. Faites un test opposé de CHA contre la PER de votre adversaire à ce round.
+Au round suivant, vous obtenez un bonus en attaque égal au double de votre rang dans la voie de l'escrime (+4 au rang 2, par exemple) sur votre première attaque au contact contre cet adversaire et, si votre feinte a réussi, +2d4° aux DM.
+
+### 3. Intelligence du combat (M):
+Une fois par combat, le barde peut au choix désarmer, renverser ou aveugler pour une durée de 1 round un adversaire dont le NC est inférieur au sien en emportant un test opposé d'INT. S'il a réussi une feinte contre cet adversaire à son tour précédent, il bénéficie d'un bonus de +5 au test d'INT.
+
+### 4. Attaque flamboyante (L):
+Le style de combat du barde est flamboyant et surprenant :
+Il effectue une attaque de contact avec une arme légère et obtient un bonus d'attaque et de DM égal à son CHA (en plus de sa FOR ou de son AGI).
+
+### 5. Botte mortelle:
+Lors d'une attaque au contact avec une arme légère, s'il obtient un résultat d'attaque supérieur ou égal à (la DEF de son adversaire + 10 points), le barde obtient un bonus de +2d4° aux DM de son attaque (les dés bonus ne sont jamais multipliés en cas de critique).
+
+
+## VOIE DU MUSICIEN
+
+### 1. Chant des héros (L):
+Le barde peut chanter et inspirer ses compagnons, tous ses alliés à portée de voix et lui obtiennent un bonus de +1 à tous leurs tests pendant un nombre de minutes égal à sa valeur de CHA. Pendant toute la durée du sort, il fredonne (action gratuite qui ne l'empêche pas de lancer d'autres sorts de barde). Le bonus passe à +2 au rang 5. En plus de ce sort, le barde ajoute son
+rang + 2 aux tests pour jouer d'un instrument de musique ou chanter.
+
+### 2. Chant de réconfort (L):
+Le barde chante ou joue de la musique pendant toute la durée d'une récupération rapide (30 min). Le barde et ses alliés dans un rayon de 10 m, récupèrent 1d4° PV. Les soins passent à 2d4° au rang 4.
+
+### 3. Attaque sonore (A):
+Le barde pousse un cri dont les effets sont dévastateurs (ou produit un son avec un instrument à cette même fin). Il inflige [2d4° + CHA] DM à toutes les cibles dans un cône de 10 m (de long et de large). Les cibles peuvent diviser les DM par 2 si elles réussissent un test de CON difficulté [10 + CHA du barde].
+
+### 4. Zone de silence (A):
+Le barde crée une zone de silence fixe de 5 m de diamètre, jusqu'à une portée de 30 m, pendant un nombre de minutes égal à sa valeur de CHA. Tous les sons émis dans cette sphère sont annulés. Dans cette zone, il faut réussir un test d'INT difficulté 10 pour lancer un sort.
+
+### 5. Danse irrésistible (A):
+Le barde joue une gigue endiablée aux effets magiques. S'il réussit un test d'attaque magique opposé contre sa cible (portée 10 m), celle-ci se met à danser pendant [1d4° + CHA] rounds, elle subit un dé malus aux tests d'attaque et -5 en DEF. Si la cible est d'un niveau (NC) supérieur ou égal au barde, elle ne danse qu'un seul round.
+
+
+## VOIE DU SALTIMBANQUE
+
+### 1. Acrobat:
+Le barde ajoute son rang + 2 à tous les tests qu'il effectue pour réaliser des acrobaties, tenir en équilibre, faire des sauts ou de l'escalade.
+
+### 2. Grâce féline :
+
+Le barde gagne son CHA en Initiative et +1 en DEF (+2 au rang 4). De plus, le barde ajoute son rang + 2 aux tests de danse, de mime ou de jonglerie.
+
+### 3. Lanceur de couteau (G) :
+
+Une fois par round, en plus de ses autres actions, le barde peut lancer un couteau sur une cible à distance (portée 10 m) en réussissant un test d'attaque à distance. Cette attaque occasionne [1d4 + AGI] DM. Il peut exécuter cette action sans pénalité, même s'il est engagé en combat au contact avec un autre adversaire. Les DM passent à 1d4° au rang 5.
+
+### 4. Liberté d'action :
+
+Le barde est immunisé à la peur et à tous les sorts qui asservissent l'esprit (possession, charme), il est immunisé aux états *ralenti* et *immobilisé*.
+
+### 5. Esquive acrobatique (G) :
+
+Une fois par round, le barde peut réaliser une esquive en réussissant un test d'attaque à distance contre une difficulté égale au résultat obtenu par son adversaire, lors de son attaque. En cas de réussite, le barde ne subit aucun DM. Si cette attaque était un critique, il subit tout de même des DM normaux (il annule donc l'effet critique « dommages doublés »).
+
+## VOIE DE LA SÉDUCTION
+
+### 1. Charmant :
+
+Le barde ajoute son rang + 2 aux tests effectués pour séduire, convaincre, mentir ou baratiner. Désormais, il peut dépenser 1 point de chance pour améliorer l'action d'un compagnon en vue, ce PC permet d'ajouter [1d4° + CHA] sur le résultat du test (au lieu de +10).
+
+### 2. Dentelles et rapière :
+
+Le barde ne met pas d'armure, cela ne sied point en société. Sa seule armure est la dentelle, sa seule défense, la rapière. Lorsqu'il ne porte aucune armure, le barde ajoute son CHA en DEF (en plus de son AGI), toutefois ce bonus ne peut pas dépasser le rang atteint dans la voie.
+
+### 3. Baratineur de génie :
+
+Si le barde peut passer 10 minutes avec un humanoïde dont le niveau est inférieur ou égal à 1 (NC 1), il peut dépenser un 1 PC pour le charmer. La cible répond favorablement à vos requêtes dans la limite de ce que ferait un ami et ce lien peut se renforcer avec le temps. Si vous ne partagez pas une langue commune, cela vous coûte 2 PC.
+
+### 4. Charisme héroïque :
+
+Le barde augmente sa valeur de CHA de +1. Désormais, il obtient un dé bonus aux tests de CHA. De plus, le barde peut désormais utiliser son CHA au lieu de sa VOL pour calculer le nombre de PM dont il dispose.
+
+### 5. Suggestion (A)* :
+
+Le barde peut suggérer une action à une créature en réussissant un test opposé d'attaque magique. En cas de réussite, la créature fera tout son possible pour satisfaire cette demande pendant 1 heure ou jusqu'à avoir réussi. Elle évitera les actions suicidaires (ce qui lui donnerait immédiatement un test d'INT difficulté 10 pour échapper au sort). Le sort ne peut pas affecter une créature de niveau supérieur ou égal à celui du lanceur.
+
+## VOIE DU VAGABOND
+
+### 1. Rumeurs et légendes :
+
+À force de voyager, le barde possède une culture générale très vaste, il ajoute son rang + 2 aux tests d'INT pour se « souvenir » d'une information historique, politique, géographique ou occulte ou encore pour identifier un objet magique difficulté (25 – (2 x niveau de magie de l'objet)).
+
+### 2. Éclectique :
+
+Le barde obtient un bonus de +1 à tous les tests de compétence (absolument tous, de se cacher dans les ombres jusqu'à forger une épée, en passant par traduire une langue ancienne). Ce bonus ne peut se cumuler à aucun autre bonus de compétence sauf celui du rang 1 de la voie de peuple. Il augmente de +1 chaque fois qu'il atteint le rang 4 dans une voie de barde.
+
+### 3. Attirail :
+
+Le barde possède toutes sortes de choses dans son sac ou ses poches. En dépensant 1 PC, il peut sortir un objet improbable qu'il avait sur lui, mais qui n'est pas inscrit sur sa fiche de PJ, par exemple un livre de poésie, une bouteille d'un excellent vin, un jouet pour enfant, un os pour le chien, une lettre de recommandation, etc. (pour une valeur maximale de 10 pa). Il peut aussi bricoler un objet avec trois bouts de ficelles et un clou (système D).
+
+### 4. Compréhension des langues (A)* :
+
+Ce sort permet au barde de lire, écrire et parler une langue vivante étrangère. Le sort a une durée maximale de CHA heures, mais il peut aussi être lancé sur un allié au contact et dans ce cas, il ne dure que CHA minutes. À partir du rang 5, il peut aussi déchiffrer une inscription dans une langue morte.
+
+### 5. Déguisement (A)* :
+
+Ce sort permet au barde de prendre l'apparence de n'importe quelle humanoïde de taille à peu près équivalente (avec une marge d'environ 50cm). S'il veut imiter une personne en particulier, il lui faudra réussir un test de CHA difficulté 15 (20 s'il ne la connaît pas mais l'a seulement vue, 10 s'il la connaît très bien). Le sort a une durée maximale de CHA heures, mais il peut aussi être lancé sur un allié au contact et dans ce cas, il ne dure que CHA minutes.
+
+# RÔDEUR
+
+**Points de vigueur:** 4 par niveau
+
+Le rôdeur est à l'aise dans les forêts ténébreuses, où il traque les animaux dangereux et les créatures monstrueuses ou, au contraire, se fait l'ami des bêtes et le protecteur des lieux sauvages.
+
+Dans les Terres d'Osgild : on trouve des rôdeurs dans tous les lieux naturels sauvages ou dans les villes et les villages à proximité où ils peuvent servir de guide aux marchands ou aux explorateurs. Dans la principauté d'Arly, le bois de Myrviel, le bois Dormant ou celui d'Astréis sont de bons points de départ tout comme les monts Vierges.
+
+## Armes & armures maîtrisées
+
+Le rôdeur sait manier les armes de contact à une main et toutes les armes à distance.
+Les voies de rôdeur limitent l'armure au cuir renforcé et interdisent le port du bouclier.
+
+## Équipement de départ
+
+Épée longue (DM 1d8), arc court et carquois (DM 1d6, portée 30 m) ou une autre arme de contact (épée courte, hachette, lance), dague (DM 1d4), armure de cuir renforcé (DEF +3).
+
+## VOIE DE L'ARCHER
+
+### 1. Archer émérite :
+
+Le rôdeur ajoute sa PER aux DM qu'il inflige à l'arc et +1 par rang dans la voie en initiative. Le joueur peut souhaiter une variante de cette capacité s'appliquant aux armes de jet (dague, hachette, javelot) plutôt qu'à l'arc (rebaptisez-la voie du lancer). Dans ce cas, le PJ ajoute sa FOR aux DM qu'il inflige et double la portée de jet (pas de bonus d'Init.). Par ailleurs, toutes les capacités de la voie qui suivent s'appliquent aux armes de jet plutôt qu'à l'arc.
+
+### 2. Tir chirurgical :
+
+Le rôdeur peut tirer sur une cible engagée en mêlée sans pénalité (mais pas sur une cible à couvert). Il ne risque jamais de toucher un allié, même en cas d'échec critique.
+
+### 3. Dans le mille :
+
+Pour une attaque à distance, le rôdeur peut choisir de s'imposer un dé malus en attaque. Si elle est réussie, il ajoute 2d4° aux DM. Cette capacité peut être utilisée avec Tir rapide ou Flèche de mort par exemple. Transformez cette capacité en action limitée (L) pour obtenir +3d4° aux DM au lieu de 2d4°.
+
+### 4. Tir rapide (L) :
+
+Le rôdeur peut faire deux attaques à distance pendant son tour avec un malus de -2.
+
+### 5. Flèche de mort (L) :
+
+Vous obtenez un dé bonus en attaque à distance et vous ajoutez 1d4° aux DM. Au lieu du dé bonus et de +1d4° aux DM, vous pouvez infliger un état préjudiciable de votre choix parmi aveuglé, affaibli, ralenti ou immobilisé pendant 1 round à une cible d'un NC inférieur au vôtre. Vous ne pouvez infliger chaque état préjudiciable qu'une seule fois par combat.
+
+*Note : Si le MJ le permet, cette voie peut être déclinée pour une autre catégorie d'arme à distance : arbalètes, armes à poudre, etc.*
+
+*Conseil aux joueurs :* utilisez plutôt *Flèche de mort* contre une cible avec une haute DEF et *Tir rapide* contre des cibles multiples et une faible DEF.
+
+## VOIE DU COMPAGNON ANIMAL
+
+> **GÉRER UN COMPAGNON ANIMAL**
+> 
+> **En ville :** le loup du rôdeur n'est pas très à l'aise en milieu urbain. Généralement, il préfère rester à l'extérieur de l'agglomération et se débrouiller seul en attendant que son maître le réclame. Toutefois le joueur peut décider que son personnage adopte un très gros chien plutôt qu'un loup ; dans ce cas, les aventures urbaines ne poseront aucun problème. En revanche, le chien voudra suivre son maître partout.
+> 
+> **Soigner un compagnon animal :** un compagnon animal peut être soigné par magie et récupère tous les PV perdus après une récupération complète.
+> 
+> **Compagnon animal à 0 PV :** lorsque le compagnon animal tombe à 0 PV, s'il est en milieu naturel considérez qu'il s'enfuit (il revient au bout de 8 h avec tous ses PV). S'il ne peut pas, il doit être soigné comme le serait un personnage.
+> 
+> **Mort d'un compagnon animal :** le PJ pourra retrouver un nouveau compagnon au passage de niveau suivant. Joueur et MJ doivent se mettre d'accord quant au moment opportun et cela peut faire l'objet d'une scène de jeu.
+> 
+> **Montreur d'ours :** alternativement, le MJ peut autoriser le joueur à adopter un autre animal et modifier la voie en conséquence. Par exemple, un montreur d'ours pourrait bénéficier des modifications suivantes : au rang 2, remplacer le bonus aux tests pour pister et de surprise par un bonus en intimidation et en spectacle. Retrancher 2 en DEF et ajouter +2 en FOR (et donc +2 aux DM) du compagnon.
+
+### 1. Le loup :
+
+Le rôdeur obtient un loup pour compagnon animal. En combat, le loup attaque en même temps que le rôdeur. Le loup comprend des ordres simples comme : garde, reste, apporte, attaque, etc.
+
+> **LOUP**
+>
+> **CRÉATURE VIVANTE**
+>
+>| AGI | CON | FOR | PER | CHA | INT | VOL |
+>| --- | --- | --- | --- | --- | --- | --- |
+>| +1 | +1* | +2 | +2*  | -2 | -3 | +2 |
+>
+>*Défense [12 + rang dans la voie]*
+>
+>*Points de vigueur [niv. du rôdeur × 4]*
+>
+>*Initiative [Init. du rôdeur]*
+>
+>**Attaque au contact**
+>[attaque magique du rôdeur] **DM** 1d4+2
+>
+>\*Le loup obtient un dé bonus sur ses tests.
+
+
+### 2. Travail d'équipe :
+
+Lorsque le loup et le rôdeur sont au contact, le loup obtient un dé bonus en attaque et le rôdeur obtient un dé bonus aux tests effectués pour pister ou pour éviter d'être surpris (Vigilance).
+
+### 3. Lien empathique (L) :
+
+Le rôdeur peut communiquer avec son loup par télépathie et le guérir à distance en dépensant ses propres PV (1 PV du rôdeur pour 1 PV octroyé au loup, sans limitation de quantité) au prix d'une action limitée.
+
+### 4. Loup alpha :
+
+Le loup du rôdeur devient un spécimen particulièrement puissant.
+
+> **MÂLE ALPHA**
+>
+>| CON +3* | FOR +5 |
+>
+>*Défense 18*
+>
+>*Points de vigueur [Niveau × 5]*
+>
+>*DM 1d4°+5*
+
+### 5. Tactiques de meute :
+
+Lorsque le loup attaque la même cible que le rôdeur, il obtient un bonus de 1d4° aux DM. Chaque fois que le rôdeur dépense 1 PV pour soigner son loup, le loup récupère 2 PV. De plus, le rôdeur et son loup augmentent leur DEF de +1 chaque fois que le personnage atteint le rang 5 dans une voie de rôdeur (celle-ci incluse).
+
+## VOIE DE LA SURVIE
+
+### 1. Survie :
+
+Le rôdeur ajoute son rang + 2 à tous les tests d'escalade et de survie en milieu naturel (s'orienter, trouver un abri et de la nourriture, etc.) dont les tests de récupération effectués chaque nuit. Lorsqu'il dort en milieu naturel, s'il dépense 1 dé de récupération (DR), il guérit 1d4° PV supplémentaire (en plus de [DR max + ½ niveau]).
+
+### 2. Nature nourricière :
+
+Une fois par jour, si le rôdeur passe 1d6 h en milieu naturel sauvage (pas dans un champ), il trouve de quoi nourrir une personne par rang pour une journée et, s'il réussit un test de PER (Survie) difficulté 10, il trouve des plantes médicinales pour soigner 1d4° PV par rang. Les plantes doivent être utilisées immédiatement (10 min de préparation et autant pour faire effet) et les dés peuvent être répartis sur plusieurs patients.
+
+### 3. Grand pas (G) :
+
+En milieu naturel, le rôdeur obtient +1 en DEF (ce bonus passe à +2 au rang 5) et 10 m de déplacement en action gratuite (à son tour de jeu). Enfin, il n'est pas gêné par les terrains difficiles naturels, mais il n'obtient pas alors de déplacement supplémentaire.
+
+### 4. Constitution héroïque :
+
+Le rôdeur augmente sa valeur de CON de +1. Désormais, il obtient un dé bonus aux tests de CON.
+
+### 5. Increvable (L) :
+
+Une fois par combat, lorsqu'il tombe à 0PV, le rôdeur peut récupérer [4d4° + CON] PV au début de son prochain tour. Lorsqu'il se relève, il bénéficie d'un bonus de +5 en DEF pendant 1 round et il se débarrasse de tous les états préjudiciables non permanents qui l'affectent.
+
+## VOIE DU TRAQUEUR
+
+### 1. Éclaireur :
+
+En milieu naturel, le rôdeur ajoute son rang + 2 à ses tests de discrétion et de vigilance ainsi qu'aux tests pour pister. De plus, le rôdeur peut remplacer le bonus de +1 PC de la famille des aventuriers par un bonus de +1 DR si le joueur le souhaite.
+
+### 2. Attaque éclair (L) :
+
+Le rôdeur peut effectuer une attaque au contact très rapide. Il ajoute son AGI en attaque et aux DM pour cette attaque. À partir du rang 5, cette attaque peut être associée à 10 m de déplacement.
+
+### 3. Chasseur émérite :
+
+Le rôdeur obtient +1d4° aux DM de ses attaques au contact ou à distance lorsqu'il combat des animaux (même géants). Chaque fois qu'il atteint le rang 5 dans une voie de rôdeur, il peut choisir un ennemi juré contre lequel il obtient le même avantage parmi les goblinoïdes, les géants, les dragons, les morts-vivants, les insectes*, les démons.
+* arthropodes inclus.
+
+### 4. Perception héroïque :
+Le rôdeur augmente sa valeur de PER de +1. Désormais, il obtient un dé bonus aux tests de PER.
+
+### 5. Repli (L) :
+En milieu naturel, le rôdeur se déplace de 30 m en s'éloignant de ses ennemis. Le joueur fait un test d'AGI difficulté 10, en cas de succès, il disparaît de la vue de ses poursuivants. Il peut s'éloigner ou rester caché sans risque d'être retrouvé ou rattrapé. Si le terrain est découvert (désert, plaine), la difficulté passe à 15.
+
+## VOIE DU COMBAT À DEUX ARMES
+
+Les capacités de cette voie nécessitent toutes l'usage d'une arme dans chaque main (à l'exception de Combattant héroïque). Cette voie est une exception aux règles sur les profils hybrides, un personnage peut l'utiliser en portant toutes les armures autorisées pas son profil principal. Les capacités de cette voie fonctionnent avec des armes de contact, mais aussi avec des armes de lancer.
+
+### 1. Attaque à suivre (G) :
+Une fois par round, lorsqu'il rate une attaque de sa main principale, le rôdeur peut porter une attaque en action gratuite de son autre main avec une arme parmi dague (dague de lancer), hachette (hache de lancer) ou épée courte. S'il utilise une arme à une main en dehors de cette liste, il subit un dé malus sur cette attaque.
+
+### 2. Parade croisée :
+Le rôdeur obtient un bonus de +1 en DEF lorsqu’il combat avec une arme dans chaque main. Ce bonus passe à +2 au rang 5 de la voie. Au début de son tour, s'il renonce à toute attaque de la main secondaire, il double ce bonus jusqu'à son prochain tour.
+
+### 3. Droite - gauche (G) :
+Une fois par round, lorsqu'il attaque de sa main principale, le rôdeur obtient aussi une attaque de sa main secondaire en action gratuite. Si la cible n'est pas la même que celle de la main principale, il subit un dé malus au test. Cette capacité se substitue à Attaque à suivre.
+
+### 4. Combattant héroïque :
+Le rôdeur augmente sa valeur d'AGI de +1 et obtient un dé bonus aux tests d'AGI (lancer deux d20 et conserver le plus haut résultat). Plutôt qu'augmenter son AGI, le personnage peut choisir d'augmenter sa valeur de FOR de +1 (pas de dé bonus aux tests) et peut désormais attaquer avec la même arme dans la main secondaire sans subir de dé malus (par exemple deux épées longues).
+
+### 5. Double peine :
+Si les deux armes du rôdeur atteignent la même cible lors d'un même tour, le personnage obtient un effet d'enchaînement qui ajoute 1d4° DM à l'une des deux attaques de son choix.
+
+
+# VOLEUR
+
+**Points de vigueur:** 4 par niveau
+
+Le voleur crochète les portes, détecte les pièges et préfère piller les cadavres des ennemis que se salir les mains pendant le combat. Toutefois, s'il doit combattre, il possède un répertoire impressionnant de coups tordus qui font de lui un redoutable adversaire.
+
+Dans les Terres d'Osgild : les voleurs sont très courants partout, ils sont toutefois plus fréquents là où les concentrations de richesses et la misère sont plus importantes, c'est-à-dire dans les grandes villes. Dans la principauté d'Arly, Benastir, Valastir ou Ferrance font l'affaire. Si les aventures débutent loin d'une agglomération, il vous faut alors déterminer pourquoi le jeune délinquant a quitté la cité. Peut-être sa vie était-elle en danger : pour avoir volé la mauvaise personne, parce qu'une puissante organisation du crime a des comptes à régler avec lui ? Il existe en effet des guildes de voleurs très organisées dans certaines cités et il ne fait pas bon empiéter sur leurs plates-bandes. Une épine de plus dans le pied du voleur indépendant qui doit déjà échapper aux forces de l'ordre. C'est pourquoi les tire-laines et autres monte-en-l'air épris de liberté choisissent en général la vie d'aventurier, elle leur permet de changer fréquemment de terrain de chasse sans laisser le temps aux guildes locales de s'intéresser de trop près à leurs activités.
+
+## Armes & armures maîtrisées
+
+Le voleur sait manier les armes de contact à une main et toutes les armes à distance.
+Les voies de voleur limitent l'armure au cuir simple et interdisent l'utilisation du bouclier.
+
+## Équipement de départ
+
+Rapière (DM 1d6, Crit 19-20), 5 dagues (DM 1d4, portée 5 m), outils de crochetage, armure de cuir (DEF +2), une corde de 10 m.
+
+## VOIE DE L'ASSASSIN
+
+### 1. Discrétion :
+
+Le voleur ajoute son rang + 2 à tous les tests de discrétion, de déguisement ou pour cacher une arme sur lui. Il apprend le langage silencieux à base de signe des voleurs (argotien) et enfin il obtient un dé bonus en attaque lorsqu'il attaque un adversaire surpris.
+
+### 2. Attaque sournoise (L) :
+
+Une fois par round, quand il attaque un adversaire surpris ou qui lui tourne le dos** avec une arme légère, le voleur inflige +2d4° DM supplémentaires. Les DM infligés par cette capacité augmentent de 1d4° à chaque fois qu'il atteint le rang 4 dans une voie de voleur (pour un maximum de 7d4°). Cette capacité nécessite l'utilisation d'une arme légère (dague, éventuellement lancée, épée courte, rapière) dans tous les autres cas, le bonus aux DM est divisé par deux (cela comprend les armes à distance).
+
+### 3. Attaque par surprise (A) :
+Contre un adversaire surpris, le voleur peut réaliser une attaque sournoise en utilisant une action d'attaque plutôt qu'une action limitée et il augmente les DM de son attaque sournoise de 2d4°.
+
+### 4. Disparition (M) :
+Une fois par combat, le voleur peut disparaître dans un flash lumineux et un nuage de fumée. Aucun adversaire ne peut l'attaquer pendant qu'il a disparu, mais il peut subir des DM de zone. Il ne réapparaît qu'au début de son prochain tour à une distance maximale de 20 m de sa position initiale. À ce moment, si le voleur a l'initiative, il peut réaliser une attaque sournoise.
+
+### 5. Ouverture mortelle (L) :
+Une fois par combat, le voleur obtient une réussite critique automatique contre la cible de son choix. Il profite donc d'une réussite automatique, des dommages multipliés par 2 prévus dans ce cas et d'une attaque sournoise (dont les DM ne sont pas doublés).
+Attaquer dans le dos : lorsque le voleur attaque la même créature qu'un allié au contact de cette cible, on considère qu'il peut attaquer celle-ci dans le dos (sauf si la cible peut se placer dos à un obstacle infranchissable).
+Il est possible de réaliser une attaque sournoise à distance, mais pas à portée longue et uniquement contre un adversaire surpris (pas avec la règle d'attaque dans le dos ci-dessus).
+
+## VOIE DE L'AVENTURIER
+
+### 1. Baratin :
+Le voleur ajoute son rang + 2 aux tests destinés à baratiner, séduire, négocier, mentir ou pour trouver un objet au marché noir. De plus, il devient capable d'utiliser les parchemins ou les baguettes magiques en réussissant un test d'attaque magique (L) contre une difficulté de (10 + (2 x rang du sort inscrit)). En cas d'échec, le sort n'est pas lancé et le voleur peut faire une nouvelle tentative.
+
+### 2. Provocation (L) :
+Le voleur maîtrise l'art de se rendre désagréable, voire insupportable. S'il emporte un test opposé de CHA contre INT d'un adversaire humanoïde à moins de 10 m, il force la cible à l'attaquer à son prochain tour. À ce moment-là, si le voleur est au contact, il peut riposter par une attaque de contact gratuite pour laquelle il bénéficie au choix d'une attaque sournoise ou d'un bonus de 1d4° aux DM.
+
+### 3. Souplesse du félin :
+Le voleur possède une démarche et une façon de se déplacer à la fois élégante, féline et souple. Il ajoute +2 en DEF et en Initiative. Ce bonus passe à +3 au rang 5. Il lui faut seulement une action de mouvement pour se relever.
+
+### 4. Charisme héroïque :
+Le voleur augmente sa valeur de CHA de +1. Désormais, il obtient un dé bonus aux tests de CHA.
+
+### 5. Attaque paralysante (L) :
+Une fois par combat, le voleur peut, en réussissant une attaque de contact, paralyser un adversaire humanoïde de douleur. La cible ne subit aucun DM, mais elle est immobilisée pendant 1d4 rounds ou, si son NC est inférieur à la moitié du niveau du voleur, elle est paralysée. De plus, le voleur peut désormais utiliser au choix l'attaque sournoise (s'il détient cette capacité) ou infliger +1d4° DM contre tout adversaire immobilisé ou paralysé.
+
+## VOIE DU DÉPLACEMENT
+
+### 1. Agile :
+Le voleur ajoute son rang + 2 à tous tests liés à un déplacement (esquive, saut, course, équilibre, escalade, se glisser entre des barreaux ou échapper à une créature qui l'agrippe). De plus, il bénéficie d'un bonus de +1 en DEF et en Initiative. Ce bonus passe à +2 au rang 3 et +3 au rang 5.
+
+### 2. Réflexes félines :
+
+Le voleur divise par 2 tous les DM de chute. De plus, une fois par combat, il obtient une action de mouvement supplémentaire à son tour. Au rang 5, il peut réaliser cet exploit 2 fois par combat (mais pas plus d'une fois par round).
+
+### 3. Acrobacies (G) :
+
+Une fois par round, si le voleur réussit un test d'AGI difficulté 15, il peut effectuer une acrobatie pour franchir un obstacle (qui peut être un adversaire) ou attaquer dans le dos un adversaire au contact. Il peut alors au choix utiliser l'attaque sournoise ou infliger +1d4° DM.
+
+### 4. Agilité héroïque :
+
+Le voleur augmente sa valeur d'AGI de +1. Désormais, il obtient un dé bonus aux tests d'AGI.
+
+### 5. Esquive de la magie (G) :
+
+Une fois par round, lorsqu'un sort qui inflige des DM physiques (feu, froid, projectile magique, etc.) le prend pour cible (y compris un sort de zone ou l'affectant en plus de la personne visée), le voleur peut effectuer un test d'attaque à distance opposé à un test d'attaque magique du lanceur sort. S'il réussit, il échappe au sort. S'il échoue, il subit les DM normaux.
+
+## VOIE DU ROUBLARD
+
+### 1. Doigts agiles :
+
+Le voleur ajoute son rang + 2 aux tests liés à la précision manuelle (crocheter une serrure, désamorcer un piège, pickpocket...) ainsi qu'aux tests pour évaluer un objet précieux (joyaux, bijoux, etc.). De plus il obtient +1 aux DM des attaques à distance avec les dagues et couteaux. Ce bonus passe à +2 au rang 3 de la voie et +3 au rang 5.
+
+### 2. Aux aguets :
+
+Le voleur ajoute son rang + 2 aux tests effectués pour fouiller une pièce à la recherche d'un trésor, détecter un piège (même magique), un passage secret ou même une embuscade (Vigilance). De plus, il divise par 2 les DM infligés par des pièges.
+
+### 3. Feindre la mort (G) :
+
+Une fois par combat, le voleur peut feindre la mort après avoir reçu une blessure (même à 0 PV). Il peut ainsi passer pour mort aussi longtemps qu'il le souhaite et un test d'INT difficulté 20 est nécessaire pour révéler la supercherie. Lorsqu'il décide de se relever (action gratuite), le voleur récupère immédiatement 1d4° PV et s'il est au contact d'un adversaire, celui-ci est surpris. Un adversaire qui a déjà été victime de cette stratégie du voleur lors d'un précédent combat ne se laisse pas surprendre une seconde fois (sauf si son INT est de -4).
+
+### 4. Expert en criminalité :
+
+Le voleur obtient un dé bonus sur tous les tests de recherche d'indice (Trouver une preuve [PER], Faire une déduction [INT] et Obtenir un aveu [CHA]) ainsi que pour tous les tests réalisés pour brouiller des pistes, réaliser de faux indices ou de faux documents. De plus, lorsqu'il est dans un lieu, s'il dépense 1 PC, le MJ devra lui donner un indice qui lui a échappé jusque-là. S'il n'y a pas d'indice, le PC n'est pas dépensé.
+
+### 5. Maître du poison :
+
+Le voleur peut utiliser 3 doses de poison par jour sans risque de s'empoisonner lui-même. Une dose permet d'enduire une dague, une flèche ou un carreau pour infliger +2d4° DM supplémentaire et demande un test de CON difficulté (10 + INT du voleur) ou une cible vivante est affaiblie pour le reste du combat. Alternativement, une dose peut être versée dans les aliments pour une personne ; si la cible rate son test de CON, elle sombre dans l'inconscience pour 2d6 min (4d6 min pour 2 doses, etc.).
+
+## VOIE DU SPADASSIN
+
+### 1. Attaque en finesse :
+
+Le voleur ajoute son AGI à son Init. et peut remplacer sa FOR par son AGI pour ses tests d'attaque au contact (mais pas aux DM) lorsqu'il utilise une arme légère à une main (dague, épée courte ou rapière). Enfin, il obtient un bonus égal à son rang + 2 aux tests d'intimidation.
+
+### 2. Esquive fatale (G) :
+
+Une fois par combat, le voleur peut esquiver une attaque et s'arranger pour que celle-ci affecte un autre adversaire à son contact. Comparez le test d'attaque à la DEF de la nouvelle cible pour savoir si celle-ci subit des DM. Cette capacité ne peut pas être utilisée si le voleur n'a qu'un seul adversaire au contact et jamais contre une réussite critique (un critique touche toujours sa cible).
+
+### 3. Frappe chirurgicale :
+
+Par sa science de l'escrime (et de la fourberie), le voleur augmente ses chances de faire des coups critiques avec une arme légère de 2 points (ainsi, au lieu de 20, le critique standard est obtenu entre 18 et 20). Toutefois, la valeur minimale requise pour obtenir un critique ne peut être inférieure à 16 (voir page 213).
+
+### 4. Ambidextrie (G) :
+
+Avec sa main gauche, le voleur peut effectuer une attaque au contact gratuite avec une dague ou une épée courte à chaque round. Cette attaque ne peut pas bénéficier des avantages d'une attaque sournoise.
+
+### 5. Botte secrète :
+
+Lorsque le voleur obtient un critique sur le dé d'une attaque au contact de sa main principale avec une arme légère (mais pas sur une ouverture mortelle), il inflige à sa cible un état préjudiciable au choix parmi affaibli, aveuglé, étourdi, immobilisé ou ralenti pendant 1 round. Vous ne pouvez infliger chaque état préjudiciable qu'une seule fois par combat. Alternativement, le voleur peut choisir que l'attaque devienne une attaque sournoise dont les DM s'ajoutent au critique (au lieu d'infliger un état préjudiciable).
+
+
+# FAMILLE DES COMBATTANTS
+
+Vous trouverez dans ce chapitre la description des trois profils de la famille des combattants : barbare, chevalier et guerrier. En cas de conflit, ces profils privilégient la force brute et le combat au contact.
+
+Ces profils partagent les éléments suivants.
+*   Points de vigueur / niveau : 5
+*   Dé de récupération : d10
+
+Résumé des voies des profils de la famille des combattants
+
+| Barbare | Chevalier | Guerrier |
+| --- | --- | --- |
+| Voie de la brute | Voie du cavalier | Voie du bouclier |
+| Voie du pagne | Voie de la guerre | Voie du combat |
+| Voie du pourfendeur | Voie du preux | Voie du maître d'armes |
+| Voie du primitif | Voie du meneur d'homme | Voie de la résistance |
+| Voie de la rage | Voie de la noblesse | Voie du soldat |
+
+# BARBARE
+
+Points de vigueur : 5 par niveau
+
+Le barbare est un combattant sauvage issu d'une culture primitive. Il affronte ses ennemis avec rage sans se cacher derrière une lourde armure.
+
+Dans les Terres d'Osgild : les nations des Terres d'Osgild se considèrent toutes comme civilisées, selon leurs propres critères. On trouve toutefois quelques clans de rudes montagnards qui vivent dans les monts Vierges à l'ouest de Clairval et de la forêt de Myrviel. En guerre incessante contre les humanoïdes du désert de Krön, leur mode de vie à la fois guerrier et simple correspond à l'idée que les autres peuples se font des barbares. Un personnage de profil barbare peut également venir de la grande jungle de Luir-An-Doral où vivent de nombreuses tribus primitives d'elfes, d'humains, mais aussi d'orcs. Enfin, les royaumes barbares du nord fournissent une origine lointaine classique.
+
+## Armes & armures
+
+Le barbare sait manier toutes les armes au contact, toutes les armes à distance (sauf les arbalètes et les armes d'une technologie trop complexe).
+
+Les voies de barbare limitent l'armure au cuir renforcé. Le barbare peut en revanche utiliser tous les boucliers.
+
+## Équipement de départ
+
+Hache à deux mains (DM 2d6) ou Arme à une main (d8) et bouclier (+2 en DEF), 2 javelots (DM 1d6, portée 20 m), dague (DM 1d4), armure de cuir (DEF +2).
+
+## VOIE DE LA BRUTE
+
+### 1. Argument de taille :
+
+Le barbare ajoute sa FOR à son maximum de PV ainsi qu'à ses tests de CHA et à ceux de ses alliés au contact pour les tests de négociation, de persuasion ou d'intimidation. Allez savoir pourquoi, sa simple présence donne de la force aux arguments de ses alliés...
+
+### 2. Tour de force (G) :
+
+Le barbare peut temporairement décupler ses ressources physiques pour faire usage d'une force prodigieuse. Il obtient un bonus de +10 sur un test de FOR (pas un jet de DM ou un test d'attaque), mais cela lui coûte 1d4° PV (à décider avant de lancer les dés). Enfin, le barbare peut désormais porter une chemise de mailles et utiliser toutes les capacités des voies de barbare auparavant autorisées avec une armure de cuir renforcé.
+
+### 3. Attaque brutale (L) :
+
+Le barbare effectue une puissante attaque au contact qui inflige +1d4° aux DM. À la place, il peut choisir de s'imposer un malus de -3 au test d'attaque
+pour obtenir +2d4° aux DM. Sur une attaque brutale réussie, il peut sacrifier 1d4° DM pour faire reculer de 3 m un adversaire de NC inférieur au rang atteint dans la voie, ou sacrifier 2d4° DM pour le renverser.
+
+### 4. Force héroïque :
+Le barbare augmente sa FOR de +1. Désormais, il obtient un dé bonus aux tests de FOR.
+
+### 5. Briseur d'os :
+Le barbare augmente de 1 point les chances d'obtenir un critique sur les attaques au contact (par exemple 19-20 au lieu de 20). Lorsqu'il obtient un critique sur une attaque au contact,
+en plus des DM doublés, la cible est étourdie pendant 1 round. Enfin, le barbare peut désormais porter une cotte de mailles et utiliser toutes les capacités des voies de barbare auparavant autorisées avec une chemise de mailles.
+
+## VOIE DU PAGNE
+
+### 1. Vigueur :
+Le barbare est un athlète capable de prouesses physiques extraordinaires, il ajoute son rang + 2 aux tests de course, de saut ou d'escalade. De plus, il gagne 1 PV supplémentaire par rang atteint dans la voie.
+
+### 2. Peau de pierre :
+Le barbare est particulièrement endurci, il encaisse les coups plutôt que de les esquiver. Il peut choisir de remplacer son AGI par sa CON pour calculer sa DEF (la limitation du bonus maximal en fonction de l'armure portée s'applique toujours, mais cette fois elle s'applique à la CON). Autrement (si son AGI est supérieure ou égale à sa CON), il reçoit +1 en DEF et ce bonus passe à +2 au rang 4.
+
+### 3. Tatouages :
+Le barbare possède un tatouage magique* qui améliore ses performances physiques ou mentales. Au choix :
+- Taureau (+3 aux tests de FOR) 
+- Ours (+3 aux tests de CON) 
+- Panthère (+3 aux tests d'AGI) 
+- Chouette (+3 aux tests de PER) 
+- Loup (+3 aux tests de CHA) 
+- Renard (+3 aux tests d'INT) 
+- Serpent (+3 aux tests de VOL). 
+
+De plus, lorsqu'il subit l'état étourdi, il est seulement ralenti.
+
+### 4. Constitution héroïque :
+Le barbare augmente sa valeur de CON de +1 et obtient un dé bonus aux tests de CON.
+
+### 5. Peau d'acier :
+
+Le barbare ne sent plus la douleur et ignore les égratignures, il réduit tous les DM subis de 3 points (RD 3). Une attaque lui inflige toujours au minimum 1 DM.
+* Ce bonus n'est pas un bonus de compétence, mais un bonus de magie qui ne peut donc pas se cumuler à un bonus fourni par un objet magique.
+
+## VOIE DU POURFENDEUR
+
+### 1. Réflexes éclair : 
+Le barbare ajoute son rang + 2 à tous les tests d’AGI destinés à esquiver (Explosion de feu, souffle, pièges, etc.). De plus, il gagne +3 en Init. et +1 en DEF. Le bonus de DEF passe à +2 au rang 5.
+
+### 2. Charge (L) : 
+Le barbare se déplace en ligne droite entre 5 m et 10 m et effectue une attaque au contact avec un dé bonus et +1d4° aux DM. Il ne peut pas lancé une charge s’il est au contact d’un adversaire.
+
+### 3. Enchaînement : 
+Chaque fois que le barbare réduit un adversaire à 0 PV avec une attaque de contact, il bénéfie d’une action d’attaque gratuite sur un autre adversaire à son contact. Enchaînement ne peut pas être cumulé à un déchaînement d’acier ou une attaque tourbillon.
+
+### 4. Déchaînement d’acier (L) : 
+Le barbare parcourt 10 m en ligne droite en dépassant autant d’ennemis qu’il le souhaite. Il porte une attaque avec un malus de ‑2 à chaque adversaire sur son passage. Il doit traverser l’espace occupé par ceux‑ci pour porter un coup, mais il ne peut terminer son déplacement à un endroit occupé par un ennemi.
+
+### 5. Attaque tourbillon (L) :
+
+Une fois par combat, le barbare tourne sur lui-même en assénant des attaques à toutes les cibles au contact. Il inflige automatiquement des DM correspondant à l'arme utilisée (plus tous les bonus habituels) à toutes les cibles dans un rayon de 5 m autour de lui.
+
+## VOIE DU PRIMITIF
+
+### 1. Proche de la nature :
+
+Le barbare ajoute son rang + 2 à ses tests de survie (dont les tests de récupération) et de discrétion en milieu naturel. De plus, il gagne 1 PV supplémentaire.
+
+### 2. Armure de vent :
+
+Lorsqu'il ne porte aucune armure, le barbare peut se relever par une action de mouvement et il obtient +2 en DEF. Ce bonus passe à +3 au rang 5. S'il porte une armure, il gagne seulement +1 en DEF.
+
+### 3. Vigilance :
+
+Le barbare possède des sens très affûtés, il est difficile de le surprendre, il ajoute son rang + 2 à tous les tests effectués pour détecter les pièges mécaniques, magiques (ses poils se hérissent) ou les embuscades. Il devient immunisé aux Attaques sournoises d'un voleur ou à toute capacité similaire d'une créature de niveau inférieur au sien.
+
+### 4. Résistance à la magie (G) :
+
+Le barbare devient capable de résister à la magie. Lorsqu'il est la cible d'un sort, une fois par round, il peut faire un test d'attaque magique\* opposé à celui du sort (si le sort n'en demande pas, faites-en tout de même un à cette occasion). En cas de réussite, il n'en subit pas les effets.
+
+### 5. Vitalité débordante :
+
+Le barbare guérit à une vitesse presque surnaturelle. Tant que son niveau actuel de PV est compris entre 1 et un tiers de son maximum, il récupère 1d4° PV par heure, de nuit comme de jour.
+* Si le personnage est un profil hybride est qu'il est capable de faire de la magie (il possède au moins une capacité de sort), il subit un dé malus sur ce test opposé. Avoir cédé à la magie le rend moins apte à y résister.
+
+## VOIE DE LA RAGE
+
+### RAGE ET AUTRES CAPACITÉS
+
+La rage du barbare est basée sur une explosion de colère primitive et elle ne s'accorde avec aucune capacité qui nécessite maîtrise et concentration. Pour cette raison, il est impossible de lancer un sort en état de rage, mais il est aussi impossible d'utiliser certaines capacités comme l'Attaque sournoise du voleur. Les capacités issues des voies suivantes ne sont pas cumulables avec la rage (ou la furie) du barbare :
+* Voie du maître d'armes du guerrier
+* Voie de l'escrime du barde
+* Voie de la maîtrise, voie de la méditation de moine
+* Voie du spadassin, voie de l'assassin du voleur
+La liste exacte des cumuls est laissée à la discrétion du MJ, mais le nom d'une capacité est souvent un bon indice. Par exemple, Attaque puissante ou Attaque brutale sont des cumuls possibles évidents.
+
+une fois de plus par jour pour chaque capacité de rang 4 qu'il atteint dans une voie de barbare.
+
+### 1. Cri de guerre (G) :
+
+Une fois par combat, le barbare pousse un hurlement qui effraie ses adversaires dans un rayon de 10 m. Les adversaires dont la FOR est inférieure à celle du barbare subissent un dé malus à leurs tests d'attaque au contact durant leur prochain tour. De plus, le barbare est sans peur, il ajoute son rang + 2 à tous les tests de VOL destinés à résister à la peur.
+
+### 2. Défier la mort :
+
+Une fois par combat, lorsque le barbare subit des DM d'une attaque qui devrait l'amener à 0 PV, il peut réaliser un test de CON difficulté 10. En cas de réussite, il conserve 1 PV. S'il est enragé, la réussite est automatique.
+
+### 3. Rage du berserk (L) :
+
+Une fois par jour, le barbare entre dans une rage berserk pour le reste du combat, ce qui le rend particulièrement dangereux. Il obtient +1d4° DM sur ses attaques au contact, mais il subit -2 en DEF et ne peut fuir de son propre gré ou attaquer à distance. Enfin, il obtient un dé bonus pour tous les tests de VOL. S'il veut stopper la rage avant d'avoir éliminé tous les ennemis sur le terrain, le barbare doit réussir un test de VOL difficulté 15 (un seul essai, à la fin de son tour). S'il devient inconscient, la rage cesse. Le personnage peut entrer en rage
+
+### 4. Même pas mal :
+
+Une fois par combat, le barbare peut ignorer les DM d'un coup critique (il ne subit aucun DM) et il peut alors immédiatement entrer en Rage par une action gratuite.
+
+### 5. Furie du berserk (L) :
+
+Au lieu de la Rage du berserk, le barbare peut entrer en Furie du berserk, mais cela consomme deux utilisations de la rage. Cet état est similaire à la rage, mais le barbare ajoute 2d4° aux DM (au lieu de 1d4°) et subit -4 en DEF. La difficulté du test pour mettre prématurément fin à la furie est égale à 20.
+
+# CHEVALIER
+
+Points de vigueur : 5 par niveau
+
+Le chevalier est un noble guerrier errant, monté sur un puissant destrier et protégé par une armure lourde. Il parcourt la campagne en quête de torts à redresser et d'occasions de mettre son courage à l'épreuve.
+
+Dans les Terres d'Osgild : de nombreuses nations humaines peuvent prétendre adoubre des chevaliers en bonne et due forme. D'ouest en est : le comté du Ponant, la principauté d'Arly, les marches du Piémont, le duché de Périk, la baronnie de Bordant et le royaume de Cobis. Parmi celles-ci, seules les trois premières et le royaume de Cobis possèdent un véritable ordre de chevalerie. Toutefois, appartenir à un tel ordre est une charge à temps complet et un personnage sera plus probablement un jeune noble errant, fils cadet d'une famille, condamné à se tailler un domaine ou, au moins une réputation, à la pointe de son épée et à la force de son courage. Les chevaliers sont assez fréquents parmi la noblesse des elfes hauts et chez les nains, mais quasi inexistants chez les autres peuples. Il faudrait donc un historique très particulier pour justifier une telle bizarrerie.
+
+## Armes & armures
+
+Le chevalier sait manier toutes les armes de contact, mais il dédaigne les armes à distance qu'il considère comme des armes de couard.
+
+Les voies de chevalier limitent l'armure à celle de plaque (l'armure de plaque complète nécessite une capacité particulière). Il peut utiliser tous les boucliers.
+
+## Équipement de départ
+
+Épée longue (DM 1d8), grand bouclier (DEF +2), lance de cavalerie (DM 2d6), dague (DM 1d4), cotte de mailles (DEF +5).
+
+## VOIE DU CAVALIER
+
+### 1. Fidèle monture :
+
+Le chevalier possède une fidèle monture (voir page suivante), un cheval de guerre bien dressé qui comprend les ordres simples. À cheval, il peut ajouter un déplacement de 10 m avant ou après une action normale (par exemple, parcourir 10 m et réaliser une action limitée). La monture n'attaque que si elle est elle-même attaquée au contact par une créature. De plus, le chevalier ajoute son rang + 2 aux tests d'équitation et de dressage.
+
+### 2. Cavalier émérite :
+
+Lorsqu'il est en selle, le chevalier gagne un bonus de +1 aux DM de ses attaques au contact, et sa monture obtient une DEF égale à celle du chevalier. Monter ou descendre de cheval est désormais une action gratuite. Le bonus aux DM passe à +2 au rang 5.
+
+### 3. Charge (L) :
+
+À cheval, le chevalier peut effectuer un déplacement de 10 à 20 m en ligne droite et faire une attaque de contact placée au moment de son choix. Le joueur obtient un dé bonus au test d'attaque et ajoute 1d4° aux DM. Si une créature s'interpose pour bloquer la charge du chevalier, elle doit réussir un test de FOR difficulté 20 ou être contrainte de céder le passage en subissant 1d4° DM. Si elle réussit ce test, la Charge est bloquée et le tour du chevalier se termine.
+
+### 4. Monture magique :
+
+Le chevalier obtient une monture magique, qui peut apparaître et disparaître depuis un autre plan à volonté. Il peut l'invoquer à tout moment (c'est une action limitée) et elle apparaît alors pour se mettre à son service. Lorsqu'il la laisse au moins une heure dans son plan d'origine, elle guérit l'ensemble de ses PV.
+
+### 5. Monture fantastique :
+
+Le chevalier obtient une monture puissante (cheval de guerre lourd, ours, félin géant, etc.). Init. [Init. du chevalier], DEF 20, PV [10 + niveau du chevalier × 6], Ruade ou morsure [attaque magique], DM 2d4°+5. La valeur exacte des caractéristiques peut varier selon la créature. Lorsqu'il est en selle, le chevalier peut faire attaquer sa monture une fois par round en action gratuite. À partir du niveau 9, le chevalier peut obtenir une monture volante (pégase, griffon, hippogriffe, etc.) si le MJ l'autorise (il devra vérifier qu'une monture volante n'entre pas en contradiction avec les aventures prévues). Dans ce cas, en vol, la monture couvre une distance de 20 m par action de mouvement, mais ses PV sont seulement égaux à [10 + niveau × 5].
+
+> #### FIDÈLE MONTURE
+> 
+> | AGI | CON | FOR | PER | CHA | INT | VOL |
+> | --- | --- | --- | --- | --- | --- | --- |
+> | +0 | +4* | +5 | +0 | +0 | -2 | +2 |
+> 
+> *   Défense [12 + rang]
+> *   Points de vigueur [10 + Niveau × 4]
+> *   Initiative [Init. du chevalier]
+> 
+> ### Attaque
+> 
+> Ruade +5 • DM 1d4°+5
+> 
+> La monture peut être soignée comme un personnage et elle récupère 1d8+4 PV par nuit. Si la fidèle monture meurt, le chevalier en récupère une au niveau suivant.
+> Selon son peuple, un personnage peut obtenir une monture différente ayant les mêmes caractéristiques : yack ou sanglier (nain), cerf ou orignal (elfe).
+
+## VOIE DE LA GUERRE
+
+### 1. Armure sur mesure :
+
+L'armure du chevalier est parfaitement ajustée, aussi il n'ajoute que la moitié de sa DEF à la difficulté des tests pour lesquels l'armure inflige une pénalité. De plus, lorsqu'il porte une armure lourde (plaque ou plaque complète), il obtient un bonus de +1 en DEF à chaque fois qu'il atteint le rang 5 dans une voie de chevalier.
+
+### 2. Encaisser un coup (M) :
+
+Le chevalier se place de façon à dévier un coup sur son armure. Jusqu'à son tour au round suivant, il peut retrancher la valeur de DEF de son armure (bonus de magie inclus si elle est enchantée) aux DM d'une seule attaque au contact qu'il subit (minimum 1 DM). Au rang 5, il peut ajouter son bonus de bouclier (là aussi, bonus de magie inclus et cumulable au bonus d'armure). Le chevalier ne peut pas être étourdi ou renversé par une attaque qu'il a décidé d'encaisser.
+
+### 3. Frappe du justicier (L) :
+
+Lorsque le chevalier réalise cette attaque au contact, si le test d'attaque est un échec, il inflige tout de même ½ DM à sa cible. Un résultat de 1 au d20 n'inflige aucun DM.
+
+### 4. Force héroïque :
+
+Le chevalier augmente sa FOR de +1. Désormais, il obtient un dé bonus aux tests de FOR.
+
+### 5. Mon armure est une arme (G) :
+
+Une fois par combat, le chevalier peut donner un coup avec son armure (gantelet, heaume, spallière, etc.) en action gratuite. Il inflige automatiquement [1d4° + FOR] DM, et si la FOR de la cible est inférieure à celle du chevalier, elle est (au choix du chevalier) renversée ou étourdie pour 1 round ou recule de 3 m.
+
+
+## VOIE DU PREUX
+
+### 1. Ignorer la douleur (G) :
+
+Une fois par combat, le chevalier peut noter à part les DM subis par une attaque (mais pas un critique). Il ne subira les DM que lorsque le combat sera terminé. De plus le héros gagne un bonus égal à rang + 2 pour haranguer et convaincre les foules (au moins 15 individus).
+
+### 2. Piqûres d'insectes :
+
+Le chevalier obtient une réduction des DM (RD) des attaques à distance (arcs, arbalètes, lances, etc.) qui dépend de l'armure qu'il porte. Armure de plaques (complète ou non) RD 3, armure intermédiaire (Chemise ou cotte de mailles) RD 2, armure de cuir (simple ou renforcée) RD 1. Les DM infligés par une attaque sont toujours au minimum d'un point.
+
+### 3. Laissez-le-moi :
+
+Le chevalier met un point d'honneur à combattre le leader ennemi. Lorsqu'il peut aisément être identifié dans un groupe d'au moins 4 créatures, le chevalier lui inflige +1d4° DM par attaque au contact. Chaque fois que le chevalier inflige des DM à une créature de cette façon, la créature doit réussir un test d'INT difficulté 15 ou elle ne peut pas attaquer d'autre adversaire que lui à son prochain tour.
+
+### 4. Charisme héroïque :
+
+Le chevalier augmente son CHA de +1. Désormais, il obtient un dé bonus aux tests de CHA.
+
+### 5. Seul contre tous :
+
+Le chevalier sait faire face à de nombreux adversaires. Lorsque au moins 3 adversaires l'attaquent au contact à ce round, il obtient une action d'attaque (A) supplémentaire à ce round.
+
+## VOIE DU MENEUR D'HOMMES
+
+### 1. Sans peur :
+
+Le chevalier est immunisé aux effets de peur et il offre un bonus égal à son CHA aux tests de tous ses alliés contre ce type d'effet. De plus, le chevalier ajoute son rang + 2 aux tests de stratégie et de tactique militaire ou pour commander une troupe.
+
+### 2. Intercepter (G) :
+
+Une fois par round, le chevalier peut encaisser une attaque au contact ou à distance à la place d'un allié à son contact. Il utilise sa DEF plutôt que celle de la cible initiale et retranche son rang dans la voie aux DM (en cas de synergie avec la capacité *Piqûres d'insectes* ou *encaisser un coup*, la réduction des DM se cumule). Le joueur doit annoncer son intention d'intercepter avant de connaître le résultat de l'attaque.
+
+### 3. Exemplaire (G) :
+Une fois par round, le chevalier donne un dé bonus à un allié qui attaque un adversaire à son contact. Le dé bonus doit être attribué avant de lancer les dés.
+
+### 4. Charge fantastique (G) :
+Une fois par combat, lorsque le chevalier déclare l'utilisation de cette capacité, tous ses alliés en vue et lui obtiennent 10 m de déplacement supplémentaire au début de leur tour puis un dé bonus et +1d4° DM à toutes leurs attaques. Ne se cumule ni avec exemplaire ni avec ordre de bataille.
+
+### 5. Ordre de bataille (G) :
+Le chevalier donne des ordres tactiques pertinents au cœur de la bataille. Une fois par round, il octroie une action supplémentaire gratuite à un allié en vue (une action de mouvement ou une action d'attaque, mais pas une action limitée). Chaque allié ne peut profiter d'un ordre de bataille qu'une seule fois par combat.
+
+## VOIE DE LA NOBLESSE
+
+### 1. Éduqué :
+Le chevalier sait lire et écrire, et apprend à parler une langue supplémentaire. De plus, il ajoute son rang + 2 à tous les tests d'histoire, d'héraldique et de géographie ainsi qu'aux tests pour savoir se comporter dans la haute société.
+
+### 2. Écuyer :
+Le chevalier dispose d'un écuyer à son service (*Init.* [chevalier], **DEF** [10 + rang], **PV** [niveau × 4], **Att** [attaque magique], **DM** 1d4°+1). Il est absolument loyal à son maître, il s'occupe de sa monture et de son équipement, prépare le campement, panse les blessures, etc. Grâce à l'écuyer, les armes du chevalier sont parfaitement affûtées et il augmente de 1 point les chances d'obtenir un critique sur les attaques au contact (par exemple, 19-20 au lieu de 20). De plus, le chevalier, sa monture et jusqu'à CHA alliés récupèrent 1d4° PV supplémentaires après chaque récupération complète s'ils profitent des services de l'écuyer. Si l'écuyer vient à mourir, le chevalier en prendra un autre à son service au niveau suivant.
+
+### 3. Autorité naturelle :
+Le chevalier ajoute son rang + 2 aux tests réalisés pour donner des ordres ou intimider. De plus, le noble chevalier reçoit la formation nécessaire au port de l'armure de plaque complète (DEF +7). Désormais, il peut utiliser toutes les capacités des voies de chevalier\* en portant cette armure.
+\* Pour un profil hybride de combattant, cette capacité permet d'augmenter le niveau d'armure d'un cran pour toutes les autres voies de combattant : jusqu'à l'armure de plaque pour les voies de guerrier et jusqu'à la chemise de mailles pour les voies de barbare.
+
+### 4. Massacer la piétaille :
+Le chevalier ajoute +1d4° aux DM contre la piétaille. S'il y a au moins 4 créatures aux statistiques semblables impliquées dans le combat, elles sont assimilées à de la piétaille (même si leur nombre est par la suite réduit à moins de 4 au cours du combat). Les cavaliers ne sont jamais considérés comme de la piétaille.
+
+### 5. Formation d'élite :
+Le chevalier possède les moyens et la culture nécessaires pour obtenir une formation dans n'importe quel domaine qui lui sied. Choisissez une capacité de rang 1 à 3 dans n'importe quel profil issu de la famille des combattants ou des aventuriers (voir page 78). De plus, le chevalier choisit une caractéristique ; désormais, il obtient un dé bonus lors des tests en rapport avec celle-ci.
+
+# GUERRIER
+
+Points de vigueur : 5 par niveau
+
+Le guerrier est un combattant émérite qui ne craint pas le danger et qui affronte ses ennemis l'arme à la main. De tous les profils de combattant, il est le plus spécialisé et le plus complet dans l'art du combat au corps à corps.
+
+Dans les Terres d'Osgild : le guerrier est sans doute le profil le plus commun de toutes les Terres d'Osgild. Un personnage de ce type peut virtuellement venir de n'importe quelle région du monde (connu et inconnu !). Un guerrier peut avoir été formé au sein d'une armée ou d'une milice ou encore par un mentor. Il peut venir d'une force armée, avoir reçu une éducation martiale ou simplement être un gros bras issu des bas quartiers.
+
+## Armes & armures
+
+Le guerrier sait manier toutes les armes de contact et toutes les armes à distance.
+Les voies de guerrier limitent l'armure à la cotte de mailles. Il peut utiliser tous les boucliers.
+
+## Équipement de départ
+
+Épée longue (DM 1d8), épée ou hache à deux mains (DM 2d6), une dague ou une hachette de lancer, un grand bouclier (DEF +2) et chemise de mailles (DEF +4).
+
+## VOIE DU BOUCLIER
+
+Pour utiliser les capacités suivantes, le guerrier doit obligatoirement manier un bouclier.
+
+### 1. Protéger un allié (G) :
+
+S'il n'est pas surpris, le guerrier peut accorder un bonus de DEF de +2 à un allié à son contact contre une attaque par round. Il doit annoncer son intention avant de connaître le résultat de l'attaque. De plus, vous ajoutez votre rang + 2 à tous les tests destinés à éviter d'être surpris.
+
+### 2. Parer un coup (M) :
+
+Le guerrier utilise une action de mouvement pour se mettre en posture défensive. Il peut alors essayer de parer une attaque à tout moment avant son prochain tour. Il doit faire un test d'attaque au contact (il peut remplacer la FOR par l'AGI pour ce test) en opposition au test de l'attaque au contact ou à distance réussie par son adversaire. S'il l'emporte, l'attaque adverse est bloquée par le bouclier. Il ne subit aucun DM sauf si la créature est de taille énorme ou colossale, auquel cas, il subit tout de même la moitié des DM. À partir du rang 5, le guerrier peut utiliser cette capacité en action gratuite (toujours une fois par round), mais dans ce cas, il subit un dé malus au test opposé.
+
+### 3. Défense au bouclier :
+
+Le guerrier obtient un bonus de +1 en DEF lorsqu'il manie un bouclier. Ce bonus passe à +2 au rang 5. De plus, lorsqu'il tient son bouclier en main, il retranche son rang à tous les DM des attaques de zone (sorts d'Explosion de feu, mains brûlantes, foudre, etc. et aux souffles) sauf s'il est surpris.
+
+### 4. Absorber un sort :
+
+Lorsqu'il s'est préparé à parer un coup, le guerrier peut décider à la place d'absorber un sort. S'il réussit un test d'attaque au contact (il peut remplacer la FOR par l'AGI pour ce test) opposé à un test d'attaque magique du lanceur de sort, le sort est absorbé par le bouclier et n'a aucun effet sur le guerrier (mais s'il s'agit d'un sort de zone, les autres cibles sont affectées normalement).
+
+### 5. Renvoi de sort (G) :
+
+Le guerrier peut décider de renvoyer un sort qu'il vient d'absorber grâce à sa capacité Absorber un sort. Au lieu d'être annulé, le sort absorbé est immédiatement retourné contre son expéditeur : le lanceur du sort subit alors les effets de sa propre attaque ! Cet effet ne fonctionne pas contre les sorts de zone.
+
+## VOIE DU COMBAT
+
+### 1. Vivacité :
+
+Le guerrier gagne +3 en Initiative et aux tests d'AGI ou de FOR pour éviter d'être immobilisé ou renversé. De plus, une fois par combat, il obtient une action de mouvement supplémentaire à son tour.
+
+### 2. Manœuvre :
+
+Le guerrier obtient un dé bonus lorsqu'il exécute une manœuvre en combat.
+
+### 3. Attaque puissante :
+
+Le guerrier peut choisir de s'imposer un dé malus sur une attaque au contact et il ajoute +2d4° aux DM. Cette capacité peut être utilisée avec Double attaque, Attaque circulaire ou Attaque parfaite (voir exemple). Transformez cette capacité en action limitée (L) pour obtenir +3d4° aux DM au lieu de +2d4°.
+
+### 4. Double attaque (L) :
+
+Le guerrier fait deux attaques au contact durant son tour avec un malus de -2.
+
+### 5. Attaque circulaire (L) :
+
+Le guerrier peut faire une attaque au contact avec un malus de -2 contre chaque adversaire engagé au contact avec lui (il fait un test d'attaque pour chaque adversaire).
+
+> **Exemple** : un guerrier peut choisir de se déplacer puis d'utiliser attaque puissante sur une action d'attaque (A). Il subit alors un dé malus en attaque et inflige +2d4° DM. Il peut choisir de faire une double attaque en puissance (seulement s'il connaît aussi la capacité double attaque), ce qui lui demande une action limitée. Il fait alors deux attaques avec un dé malus et -2 en attaque, et chaque attaque réussie inflige +2d4° DM. Enfin, il peut utiliser une action limitée pour faire une seule attaque puissante ; il subit un dé malus et si l'attaque est réussie, il inflige +3d4° DM.
+
+
+## VOIE DU MAÎTRE D'ARMES
+
+### 1. Armes de prédilection :
+
+Le guerrier choisit une catégorie d'armes de prédilection parmi épées, haches, mains nues, masses, lances (épieu, lance, pique) et enfin armes de jet (dague de lancer, javelot, etc.), et il gagne +1 en attaque lorsqu'il l'utilise une arme de cette catégorie. De plus, vous ajoutez votre rang + 2 à tous les tests destinés à estimer la valeur d'une arme ou la réputation martiale d'un adversaire.
+
+### 2. Science du critique :
+
+Le guerrier augmente de 1 point les chances d'obtenir un critique sur les attaques effectuées avec une arme de prédilection (par exemple, 19-20 au lieu de 20).
+
+### 3. Spécialisation :
+
+Lorsque le guerrier emploie une arme de prédilection, il gagne un bonus de +1 DM. Chaque fois que le personnage atteint le rang 5 dans une voie de guerrier, il peut choisir une nouvelle catégorie d'arme de prédilection (il gagne les avantages des rangs 1 à 3) ou décider d'augmenter de +1 le bonus aux DM d'une catégorie qu'il connaît déjà (pour un maximum de +6 pour un guerrier ayant atteint le rang 5 dans les cinq voies).
+
+### 4. Attaque parfaite (L) :
+
+Vous obtenez un dé bonus en attaque au contact (ou à distance pour une arme de lancer) et ajoutez +1d4° DM. Vous devez utiliser une arme de prédilection. Éventuellement, le guerrier peut choisir de ne pas infliger les DM de son attaque parfaite pour désarmer une cible dont le NC est inférieur à son bonus de DM de spécialisation.
+
+### 5. Riposte (G) :
+
+Lorsqu'un adversaire rate une attaque de contact contre lui, le personnage obtient immédiatement une attaque au contact contre cet adversaire. Le personnage ne peut obtenir qu'une seule attaque supplémentaire de cette façon à chaque round et si plusieurs adversaires le ratent, il choisit contre lequel il effectue la riposte.
+
+**VOIE DE LA RÉSISTANCE**
+
+### 1. Robustesse :
+
+Le guerrier augmente sa valeur maximale de PV de rang + 2. De plus, vous ajoutez votre rang + 2 à tous les tests destinés à résister aux efforts physiques, à la chaleur ou au froid (conditions naturelles).
+
+### 2. Résilient :
+
+Désormais, il suffit de 10 min au guerrier pour bénéficier des effets d'une récupération rapide (au lieu de 30 min) et cela passe à 5 min au rang 4 de la voie. De plus, le guerrier obtient un bonus égal au rang atteint dans la voie pour tous les tests destinés à résister aux états étourdi et affaibli.
+
+### 3. Armure lourde :
+
+Au choix le guerrier gagne +1 en DEF ou il apprend à porter l'armure de plaque (DEF +6) et désormais, il peut utiliser toutes les capacités de guerrier avec cette armure*.
+
+*   Dans le cas d'un profil hybride, le personnage apprend à utiliser une armure d'une catégorie au-dessus de celles autorisées par son profil principal et il peut désormais utiliser toutes les capacités de ce profil avec cette armure. Par exemple, un barbare qui choisit cette capacité peut désormais entrer en rage en portant une chemise de mailles.
+
+### 4. Constitution héroïque :
+
+Le guerrier augmente sa CON de +1. Désormais, il obtient un dé bonus aux tests de CON.
+
+### 5. Dur à cuire :
+
+Le guerrier gagne +1 en DEF et, une fois par combat, lorsqu'il tombe à 0 PV, il peut encore agir un round avant de tomber inconscient. De plus, il ne subit plus de dé malus lorsqu'il est immobilisé et lorsqu'il est étourdi ; il peut encore attaquer, mais avec un dé malus.
+
+## VOIE DU SOLDAT
+
+### 1. Teigneux (G) :
+
+Une fois par round, si une créature à votre contact tente de s'éloigner de vous, vous obtenez une attaque au contact en action gratuite contre elle. De plus vous ajoutez votre rang + 2 aux tests destinés à résister à l'alcool et à la privation de nourriture ou de sommeil.
+
+### 2. Prouesse (G) :
+
+Le guerrier réussit souvent des exploits physiques hors-norme. Une fois par round, vous pouvez sacrifier 1d4° PV pour obtenir +5 sur un test de FOR ou de CON. Vous pouvez annoncer l'utilisation de cette capacité après avoir pris connaissance du résultat du test de caractéristique.
+
+### 3. Piqûre de rappel (G) :
+
+Vous n'admettez pas qu'un adversaire vous ignore. Une fois par round, si un adversaire à votre contact attaque une autre créature que vous, vous obtenez une attaque en action gratuite contre lui. Si l'INT de cet adversaire est négative et que vous lui infligez des DM sur cette attaque, il vous prend automatiquement pour cible lors de sa prochaine attaque.
+
+### 4. Force héroïque :
+
+Le guerrier augmente sa FOR de +1. Désormais, il obtient un dé bonus aux tests de FOR.
+
+### 5. Rempart :
+
+Vous pouvez désormais utiliser Teigneux contre un nombre d'adversaires égal à votre AGI + 2 à chaque round. Si vous réussissez cette attaque, le déplacement de votre adversaire est stoppé à l'endroit où vous l'avez attaqué. De plus vous gagnez +1 en DEF.
+
+
+# FAMILLE DES MAGES
+
+
+Vous trouverez dans ce chapitre la description des quatre profils de la famille des mages : ensorcelleur, forgesort, magicien et sorcier. Ce sont des profils capables d'utiliser la magie profane (par opposition à la magie divine). Ils comptent sur cette magie pour combattre, mais cela leur confère aussi une bien plus grande variété de pouvoirs qu'aux autres personnages.
+Ces profils partagent les éléments suivants.
+
+*   Points de vigueur / niveau : 3
+*   Dé de récupération : d6
+*   +1 capacité de rang 2 à la création du personnage
+*   L'accès à la voie du mage en remplacement de la voie de peuple.
+
+## SORTS (CAPACITÉS *)
+
+Les capacités signalées par le symbole * accolé à leur nom sont des sorts (par exemple, Télékinésie*). Un sort suit des règles particulières, comme la dépense de points de mana pour pouvoir être lancé.
+Lorsque vous rencontrez la formulation « En plus de ce sort, ... », la suite de la capacité est indépendante du sort. Elle s'applique comme un bonus permanent offert par une capacité, peu importe que le sort soit lancé ou pas.
+Par exemple, « En plus de ce sort, le personnage ajoute +1 en DEF » signifie que la DEF augmente d'un point de façon permanente sans que le sort soit lancé.
+
+### Résumé des voies des profils de la famille des mages
+
+| Ensoceleur | Forgesort | Magicien | Sorcier |
+| --- | --- | --- | --- |
+| Voie de l'air | Voie des artefacts | Voie de la magie des arcanes | Voie du démon |
+| Voie de la divination | Voie des élixirs | Voie de la magie destructrice | Voie de la mort |
+| Voie de l'envoûteur | Voie du métal | Voie de la magie élémentaire | Voie de l'outre-tombe |
+| Voie des illusions | Voie du golem | Voie de la magie protectrice | Voie du sang |
+| Voie de l'invocation | Voie des runes | Voie de la magie universelle | Voie de la sombre magie |
+
+# ENSORCELEUR
+
+Points de vigueur : 3 par niveau
+
+L'ensorceleur tire son pouvoir d'un talent inné pour la magie. Il pratique une magie subtile à base de tromperie et de contrôle, et possède peu de sorts de destruction massive.
+
+Dans les Terres d'Osgild : contrairement aux magiciens, les ensorceleurs peuvent provenir de n'importe quelle zone géographique, car le don surgit au hasard. Selon les sociétés,
+le don peut être considéré comme une bénédiction (chez les elfes par exemple) autant que comme une malédiction (protectorat de Fer). La magie innée est souvent considérée comme la magie du pauvre, car elle ne nécessite aucune éducation pour se développer, toutefois elle traverse toutes les couches de la société. À part quelques cas avérés de pacte avec une entité puissante, l'origine du don reste relativement mystérieuse. Les gnomes, eux-mêmes très sujets à l'apparition du don, ont toutefois avancé des théories farfelues en rapport avec les Pierres du Ciel, de puissantes sources de magie disséminées sur les Terres d'Osgild. Mais l'existence de telles pierres reste à prouver.
+
+## Armes & armures
+
+L'ensorceleur sait manier la dague et le bâton ferré. De plus, chaque ensorceleur peut choisir une arme supplémentaire de son choix qu'il a appris à utiliser, sans dépasser 1d6 DM (malgré ses DM de 2d4, l'arbalète légère est aussi une arme éligible).
+
+Les voies d'ensorceleur interdisent de porter une armure ou d'utiliser un bouclier.
+
+## Équipement de départ
+
+Bâton ferré (DM 1d6), dague (DM d4) ou autre arme maîtrisée au choix.
+
+### VOIE DU MAGE
+
+La magie est une activité singulière qui exige beaucoup de ceux qui espèrent en maîtriser les mystères, mais elle apporte aussi de grands pouvoirs. Dès le niveau 1, l'ensorceleur peut choisir d'obtenir la voie du mage en remplacement de sa voie de peuple. Vous trouverez les règles qui concernent cette voie en page 60.
+
+## VOIE DE L'AIR
+
+### 1. Murmures dans le vent (G)* :
+
+L'ensorceleur chuchote un message d'une dizaine de mots qui voyage jusqu'à son destinataire. Il peut entendre sa réponse immédiatement. La portée est de CHA × 100 m et le personnage doit connaître la cible ou la voir. En plus de ce sort, l'ensorceleur gagne un bonus permanent de +1 en Init. et en DEF, car parfois une bourrasque venue de nulle part vient gêner son attaquant, dévier un projectile ou lui permettre d'entendre un adversaire.
+
+### 2. Sous tension (M)* :
+
+L'ensorceleur se charge d'énergie électrique pour CHA minutes. Pendant toute la durée du sort, une créature qui le blesse par une attaque de contact ou le touche reçoit une décharge infligeant 1d4° DM. De plus, il peut utiliser une action d'attaque à chaque round pour délivrer une décharge électrique (test d'attaque magique contre DEF de la cible, portée 10 m) infligeant [1d4°+CHA] DM (aucun coût de mana).
+
+### 3. Télékinésie (A)* :
+
+L'ensorceleur peut déplacer dans les airs un objet inerte (qui n'est pas tenu par un adversaire) ou une cible volontaire (par exemple lui-même) dont le poids n'excède pas 50 kg par rang, à une portée de 20 m et pendant CHA minutes. L'objet peut être maintenu en l'air ou déplacé de 5 m par action de mouvement. Il est possible de faire tomber un objet sur une cible surprise (test d'attaque magique, DM 1d6 par tranche de 50 kg).
+
+### 4. Foudre (A)* :
+
+L'ensorceleur produit un éclair sur une ligne de 10 m. Toutes les créatures sur la trajectoire subissent [4d4°+CHA] DM ou seulement la moitié pour celles qui réussissent un test d'AGI difficulté [10 + CHA].
+
+
+### 5. Forme éthérée (L)* :
+
+L'ensorceleur et tout son équipement deviennent translucides et intangibles pendant CHA minutes. Sous cette forme, il peut passer à travers murs et obstacles et ne peut subir aucun DM physiques (même infligés par une arme magique), ni en infliger, ni lancer de sorts. Il n'est pas affecté par la gravité et peut se déplacer dans toutes les directions. Il est stoppé par les barrières magiques et ne peut pas passer à travers les êtres vivants.
+
+
+## VOIE DE LA DIVINATION
+
+### 1. Divination (L)* :
+
+S'il emporte un test opposé d'attaque magique contre une créature de NC inférieur à son niveau (portée 10 m), l'ensorceleur divine son nom d'usage, son métier et quelques autres renseignements, tous de notoriété publique (si la cible agit sous couverture, ce sont les informations qui concernent la couverture que l'ensorceleur apprend). Si la cible du sort est volontaire et qu'il lit les lignes de sa main, il n'y a pas besoin de test et l'ensorceleur peut utiliser ce sort sur une créature de NC supérieur ou égal à son niveau. En plus de ce sort, l'ensorceleur gagne +1 en Init. et en DEF. Ce bonus augmente de +1 au rang 3 de la voie et de +1 chaque fois que le personnage atteint le rang 5 dans une voie d'ensorceleur.
+
+### 2. Détection de l'invisible (L)* :
+
+Pendant CHA minutes, l'ensorceleur détecte les créatures invisibles (le sort révèle une silhouette, mais pas l'apparence exacte de la créature) ou cachées à moins de 20 m et si un sort de Clairvoyance affecte l'endroit. Aveuglé (par magie ou dans l'obscurité), ce sort lui permet de détecter les créatures présentes (et donc d'attaquer sans malus), mais pas de distinguer son environnement.
+
+### 3. Clairvoyance (A)* :
+
+L’ensorceleur peut voir et entendre à distance ce qui se passe dans un lieu qu’il connaît (pas de limite de portée) ou juste derrière une porte qu’il touche pendant CHA rounds (action limitée à chaque round). Les créatures présentes ont droit à un test de PER difficulté [12 + CHA de l’ensorceleur] : en cas de réussite, elles se sentent observées.
+
+### 4. Perception héroïque : 
+
+L’ensorceleur augmente sa valeur de PER de +1. Désormais, il obtient un dé bonus aux tests de
+PER, et il ajoute sa PER au nombre de PM dont il bénéficie.
+
+### 5. Prescience : 
+Une fois par combat, au début du round, le joueur peut décider qu’il a eu une vision des dif‑
+férents futurs possibles. Il bénéficie d’un bonus de +10 en attaque, en Défense et à tous les tests de PER pour tout le round, il divise tous les DM subis par 2 et il peut choisir d’agir à n’importe quel moment dans le round, sans considération d’initiative.
+
+## 4 VOIE DE L'ENVOÛTEUR
+
+Note : si une victime résiste à un sort de cette voie, elle y est immunisée pendant 24 h.
+
+### 1. Injonction (A)* :
+
+L'ensorceleur donne un ordre simple (mais pas suicidaire) de deux ou trois mots que la cible doit pouvoir comprendre. S'il réussit un test opposé d'attaque magique contre une cible à une portée de 20 m, la victime doit exécuter l'ordre pendant son prochain tour. En plus de ce sort, l'ensorceleur ajoute son rang + 2 aux tests de persuasion ou de séduction.
+
+### 2. Sommeil (L)* :
+
+Une fois par combat, l'ensorceleur vise une zone de 10 m de diamètre à une portée maximale de 20 m. Le sort affecte jusqu'à [1d4° + CHA] créatures vivantes de NC inférieur à 1. Le sort affecte les créatures de NC inférieur à 2 au rang 4 puis à 3 au rang 5. Les créatures perdent conscience pendant CHA minutes. Il est possible de les réveiller en les cognant violemment (action d'attaque, 1 DM).
+
+### 3. Confusion (A)* :
+
+En réussissant un test opposé d'attaque magique contre sa cible (portée 20 m), l'ensorceleur désoriente sa victime pendant CHA rounds. Au tour de la victime, celui qui l'incarne lance 1d6 : sur **1-3** la victime n'agit pas, sur **4-6** elle attaque la créature la plus proche (au hasard). À la fin de son tour, elle peut mettre fin au sort prématurément en réussissant un **test de VOL difficulté [12 + CHA de l'ensorceleur]**.
+
+### 4. Amitié (L)* :
+
+Si l'ensorceleur réussit un test opposé d'attaque magique (portée 10 m) contre une cible humanoïde de niveau ou NC inférieur au sien, celle-ci se comporte comme un ami de longue date tant qu'elle n'est pas attaquée. La victime peut résister au sort avec un test de VOL difficulté [10 + CHA de l'ensorceleur] une fois par jour après chaque récupération complète. Si la cible est d'un niveau au moins égal au niveau du lanceur de sort, ce dernier obtient seulement un dé bonus à tous les tests de CHA qu'il effectue contre la victime pendant 10 min.
+
+### 5. Domination (A)* :
+
+En réussissant un test opposé d'attaque magique contre une cible de niveau ou NC inférieur au sien (portée 20 m), l'ensorceleur prend contrôle de sa cible pendant CHA minutes. Son propre corps devient inactif et s'écrase au sol. Si la créature meurt pendant la domination, l'ensorceleur réintègre son corps et subit 1d4° DM. Si la cible est d'un niveau trop élevé, il peut la forcer à faire une seule action de son choix (mouvement ou attaque); ensuite, il est éjecté et subit 1d4° DM.
+
+## VOIE DES ILLUSIONS
+
+### 1. Mirage (L)* :
+
+L'ensorceleur crée une illusion visuelle et sonore immobile d'une durée de CHA minutes. Le volume maximal de l'illusion est de 2 m de côté par rang dans la voie (portée 50 m). À partir du rang 4, l'illusion peut être animée, mais dans ce cas sa durée est exprimée en rounds. En plus de ce sort, l'ensorceleur ajoute son rang + 2 aux tests de supercherie ou à tout test qui lui servirait à mentir.
+
+### 2. Image décalée (M)* :
+
+L'ensorceleur crée des images décalées qui se superposent à sa silhouette pendant [1d4 + CHA] rounds. Lorsqu'une attaque au contact ou à distance le touche, l'ensorceleur lance 1d6 : sur 5-6, il ne subit pas les DM.
+
+### 3. Sort illusoire (A)* :
+
+L'ensorceleur lance un sort d'attaque qui n'est qu'une illusion. Il inflige [3d4°+CHA] DM contre une seule cible ou [2d4°+CHA] DM contre un maximum de cibles égal au rang atteint. Le joueur peut décrire la nature du sort à sa guise (une Explosion de feu, une nuée de criquets, une lance de glace, etc.), son imagination demeurant sa seule limite. Chaque cible peut faire un test de PER difficulté [10 + CHA de l'ensorceleur] pour ne subir aucun DM. Les créatures sans esprit (créatures artificielles, certaines plantes et morts-vivants) sont immunisées à ce sort. Les PV perdus de cette façon se récupèrent normalement.
+
+### 4. Imitation (A)* :
+
+Pendant CHA minutes, l'ensorceleur peut prendre l'apparence d'une créature de taille proche de la sienne (+ ou - 50 cm) qu'il voit au moment de l'incantation. Une créature qui touche l'ensorceleur se rend compte que quelque chose ne va pas et a le droit à un test d'INT difficulté [10 + CHA de l'ensorceleur] pour voir à travers l'illusion.
+
+### 5. Exécution mentale (A):
+Ce sort invoque les pires terres d'une créature humanoïde vivante et lui fait croire à sa propre mort. L'ensorceleur doit faire un test opposé d'attaque magique contre sa cible (portée 20 m). En cas de succès la victime tombe à 0 PV ou si la cible est de niveau supérieur ou égal à l'ensorceleur, elle est étourdie (-5 DEF et pas d'action) pendant 1 round. Une créature ne peut être la cible de ce sort qu'une fois par jour. Les créatures sans esprit (créatures artificielles, certaines plantes et certains morts-vivants) sont immunisées à ce sort.
+
+## VOIE DE L'INVOCATION
+
+### 1. Choc (A):
+Si l'ensorceleur réussit un test d'attaque magique réussi contre la DEF de son adversaire situé à une portée de 20 m, il lui inflige [1d4° + CHA] DM. Si la cible a un NC inférieur au rang atteint par l'ensorceleur dans la voie, elle doit réussir un **test de FOR difficulté 10** pour ne pas être renversée.
+
+### 2. Serviteur invisible (L):
+Ce sort crée une force invisible pendant CHA minutes. Le serviteur peut effectuer à distance des tâches simples ne nécessitant pas de test de réussite avec une AGI et une INT de +0 et une FOR égale au CHA de l'ensorceleur (portée 20 m). Il peut par exemple rapporter un objet ou actionner un levier, voire faire la vaisselle. Le serviteur invisible se déplace à la même vitesse que l'ensorceleur, ne pèse rien, ne parle pas, n'a pas vraiment d'existence et peut se déplacer dans toutes les directions. Concevez-le davantage comme une force qui obéit aux injonctions télépathiques de son créateur que comme une créature. Il n'attaque pas et ne peut pas être combattu, mais il peut être dissipé grâce au sort de maîtrise de la magie.
+
+### 3. Arme de mana (A):
+Le sort crée une lame d'énergie lumineuse pendant [rang] rounds. Dès le premier round et à chaque round suivant, l'ensorceleur peut lui ordonner d'attaquer une cible de son choix à portée (action gratuite, portée 20 m). La lame doit réussir un test d'attaque magique contre la DEF de l'adversaire. Elle inflige [1d4° + CHA] DM en cas de réussite. L'ensorceleur ne peut maintenir actif qu'un seul sort d'arme de mana à la fois.
+
+### 4. Porte dimensionnelle (A):
+L'ensorceleur se téléporte lui-même et jusqu'à un allié par point de CHA à une distance maximale de 60 m. Le lieu d'arrivée doit être en vue.
+
+### 5. Mur de mana (A):
+L'ensorceleur crée un mur de force invisible et indestructible (portée 10 m, maximum 5 m de haut et 10 m de long, vertical, sans coudes), ou bien un hémisphère de 3 m de rayon centré sur lui-même, tous les deux immobiles. Le sort dure CHA minutes. Aucune matière ni force ne peut passer à travers le mur de force. En revanche, les attaques mentales ne sont pas stoppées et une porte dimensionnelle (ou une téléportation) permet de le franchir.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# FORGESORT
+
+Points de vigueur : 3 par niveau
+
+À la fois artisan et enchanteur, artiste et magicien, le forgesort lie les énergies occultes à la matière qu'il façonne pour créer des artefacts magiques ou des breuvages aux propriétés fantastiques. Le forgesort est aussi le seul utilisateur de magie profane à pouvoir porter une armure.
+
+Dans les Terres d'Osgild : les forgesorts forment une caste de magiciens-artisans qu'on ne trouve pas partout, mais qui sont très organisés. Les nains et les gnomes sont plus particulièrement férus de cette école de magie et s'organisent souvent en guilde, à la façon des artisans, tandis que les elfes sont moins enclins à la pratiquer. Les Frères forgeurs forment la guilde de la principauté d'Arly, laquelle a son siège à Fort Colline. Les élèves sont recrutés sur leur seul talent, à la suite d'une série de tests poussés de connaissance et d'artisanat, sans distinction de peuple. Après une formation initiale de sept années, le compagnon doit prendre la route et voyager au loin pour apprendre de nouvelles techniques, rencontrer des maîtres forgesorts à travers le monde et réaliser un chef-d'œuvre : un objet magique original à la fois remarquable pour ses pouvoirs, mais aussi pour la qualité de son artisanat.
+
+## Armes & armures
+
+Le forgesort sait manier la dague, le bâton, le marteau et l'arbalète légère.
+
+Les voies de forgesort limitent l'armure au cuir simple et interdisent d'utiliser un bouclier.
+
+## Équipement de départ
+
+Dague (DM 1d4), bâton ferré (DM 1d6), marteau (DM 1d6).
+
+## VOIE DU MAGE
+
+La magie est une activité singulière qui exige beaucoup de ceux qui espèrent en maîtriser les mystères, mais elle apporte aussi de grands pouvoirs. Dès le niveau 1, le forgesort peut choisir d'obtenir la voie du mage en remplacement de sa voie de peuple. Vous trouverez les règles qui concernent cette voie en page 60.
+
+## VOIE DES ARTEFACTS
+
+### 1. Bâton de mage :
+
+Lorsqu'il utilise son bâton, le forgesort inflige [1d4+INT] DM magiques. À partir du rang 3, au prix d'une action limitée, il peut utiliser sa valeur d'attaque magique pour une attaque au contact et il inflige [2d4+INT] DM dans un éclair d'énergie ! Si le forgesort fait l'acquisition d'un bâton magique, les bonus de celui-ci s'ajouteront normalement à l'attaque et aux DM (de même pour le bonus de feu de la voie du métal).
+
+### 2. Ouverture - fermeture (M)* :
+
+Le forgesort peut ouvrir une porte fermée à clef en la touchant, il doit réussir un test d'attaque magique contre la difficulté pour la crocheter. Il peut aussi sceller une porte ou un coffre pour INT minutes. Seul un mot de commande qu'il choisit permet d'ouvrir l'objet. Celui-ci peut toujours être brisé par la force, mais il bénéficie d'un bonus de +5 en solidité et en RD pour toute la durée du sort. À partir du rang 4, le forgesort peut rendre ce sort permanent en sacrifiant une gemme d'une valeur de 100 pa et en prolongeant l'incantation par un rituel de 10 min.
+
+### 3. Sac sans fond :
+
+Le forgesort possède un sac magique dans lequel il peut entreposer 50 kg de matériel par rang dans la voie, tandis que le sac semble toujours peser un kilogramme. Le sac ne fonctionne pas si on tente d'y mettre une créature vivante. Le sac est de plus capable de fournir au forgesort les objets qu'il désire. Une fois par heure, il peut en retirer un ou plusieurs objets dont la valeur totale ne dépasse pas 25 pa, le poids 50 kg, la circonférence 1 m et le volume 1 m3. Ces objets ont hélas la propriété de disparaître au bout d'une heure. De ce fait, la nourriture magique retirée du sac ne nourrit pas vraiment celui qui la consomme.
+
+### 4. Frappe des arcanes (A)* :
+
+Le forgesort frappe le sol de son bâton et provoque une onde dévastatrice dans un rayon de 10 m autour de lui. Toutes les créatures dans la zone subissent automatiquement [3d4°+INT] DM et doivent réussir un test de FOR difficulté [10 + INT] pour ne pas être renversées.
+
+### 5. Artefact étrange (L) :
+
+Le forgesort crée un artefact qu’il est le seul à pouvoir utiliser et dont la description est laissée au soin du joueur. L’artefact permet d’utiliser les capacités de rang 5 suivantes chacune une fois par jour au prix d’une action limitée : Téléportation (voie de la magie universelle, magicien), Interruption du temps (voie de la magie protectrice, magicien), Forme éthérée (voie de l’air, ensorceleur), Prescience (voie de la divination, ensorceleur). 
+À chaque utilisation, le joueur doit lancer 1d6 : sur un résultat de 1 ou 2, l’artefact ne fonctionne pas, le forgesort doit réparer l’artefact lors d’une récupération rapide avant de pouvoir faire une nouvelle tentative de ce pouvoir (il peut tenter d’utiliser les autres pouvoirs normalement).
+
+## VOIE DES ÉLIXIRS
+
+Chaque jour, le forgesort peut créer et utiliser (sur lui-même ou un allié vivant) un élixir par rang acquis dans cette voie. Il ajoute un élixir supplémentaire à chaque fois qu'il atteint le rang 3 dans une voie de forgesort (celle-ci incluse). Il doit préparer les élixirs le matin après sa période de récupération complète, et cela lui prend environ une demi-heure. Boire un élixir est une action limitée. Les élixirs qui ne sont pas utilisés le jour même sont perdus.
+
+### 1. Fortifiant (L) :
+
+Un breuvage qui guérit immédiatement 1d4° PV et permet de gagner un dé bonus aux trois prochains tests effectués dans une période de 30 min. En plus de cette recette, grâce à ses études, le forgesort ajoute son rang + 2 aux tests d'alchimie et de chimie ou pour identifier une potion (test difficulté 10 + rang du sort).
+
+### 2. Feu grégeois (L) :
+
+Le forgesort lance la fiole à une distance maximale de 10 m (réussite automatique). Le contenu explose dans un rayon de 3 m en infligeant 2d4° DM. Un test d'AGI difficulté [10 + INT du forgesort] réussi permet aux victimes de diviser les DM par deux. Les DM passent à 3d4° au rang 4 et 4d4° au rang 5.
+
+### 3. Élixir de guérison (L) :
+
+Le forgesort peut préparer un élixir qui soigne [2d4°+INT] PV au bout d'une minute ou guérit un empoisonnement de manière instantanée.
+
+### 4. Élixirs mineurs (L) :
+
+Le forgesort apprend à préparer des élixirs parmi Forme gazeuse, Maîtrise des éléments, Chute ralentie (voies de magicien) et Masque mortuaire (voie de sorcier). Il choisit un nombre d'élixirs égal à sa valeur d'INT (pour un maximum de 4).
+
+### 5. Élixirs majeurs (L) :
+
+Le forgesort apprend à préparer des élixirs parmi Invisibilité, Vol, Accélération (voies de magicien) et Masque du prédateur (voie de druide). Il choisit un nombre d’élixirs égal à sa valeur d’INT (pour un maximum de 4). Ces préparations comptent pour deux élixirs.
+Note : si un personnage choisit une capacité issue de la voie des élixirs par l’intermédiaire d’une autre voie, il acquiert seulement deux élixirs par jour (ou un seul dans le cas d’un élixir majeur). Consommer un élixir n’est pas limité par le type d’armure que porte celui qui le boit.
+
+
+## VOIE DU MÉTAL
+
+### 1. Morsure de la forge (M)* :
+Au prix d’une action de mouvement, le forgesort peut enflammer son bâton ou son marteau pendant INT minutes et ajoute +2 DM de feu sur les attaques au contact réalisées avec cette arme. Ce bonus augmente de +1 chaque fois que le personnage atteint le rang 4 dans une voie de forgesort. L’arme s’éteint immédiatement s’il la lâche. En plus de ce sort, le forgesort ajoute son rang + 2 aux tests d’orfèvrerie ou de forge.
+
+### 2. Métal brûlant (M)* :
+Le forgesort doit réussir un test opposé d’attaque magique (portée 20 m) pour faire chauffer un objet métallique porté par sa cible pendant [1d4+INT] rounds. S’il s’agit d’une arme, elle inflige 1 DM par round à son porteur et un malus de ‑2 aux tests d’attaque. S’il s’agit d’une armure, elle inflige 1d4° DM par round à son porteur (au tour du forgesort). La victime peut se débarrasser précipitamment de son armure au prix d’une action limitée (elle perd le bonus de DEF associé ; dans le cas d’un adversaire, le MJ devra évaluer ce montant).
+
+### 3. Magnétisme (A)* :
+Le forgesort contrôle le magnétisme autour de lui pendant INT minutes. Il obtient un bonus de +2 en DEF contre les attaques des armes métalliques (au contact ou à distance). De plus, il divise par deux les DM de tous les projectiles à pointes métalliques (flèches, carreaux, armes de lancer, etc.).
+
+### 4. Métal hurlant (A)* :
+Sur un test opposé d’attaque magique réussi (portée 10 m), le forgesort déforme une pièce d’équipement métallique portée par sa cible. Une arme devient inutilisable et bonne pour le rebut, une armure impose l’utilisation d’un dé malus à tous les tests d’attaque et d’AGI de son porteur.
+La victime peut se débarrasser de son armure au prix d’une action limitée. Si l’objet est magique, le sort ne fait effet que pendant un seul round (et ne peut pas être renouvelé). Appliqué à une structure (par exemple, une porte blindée), ce sort inflige 3d4° DM en divisant par deux sa RD.
+
+### 5. Endurer :
+Le forgesort est habitué aux travaux et à la chaleur de la forge. Il divise par deux tous les DM de feu subis et augmente sa CON de +1. Désormais, il obtient un dé bonus aux tests de CON. Finalement, il peut ajouter sa valeur de CON au nombre de PM qu’il obtient.
+
+### SCIENCE, PAS SCIENCE ?
+
+Ce profil est particulièrement adapté aux univers où le développement technologique n'est pas en reste (tendance steampunk). Dans ce genre d'univers, vous pouvez renommer la voie du golem en voie du méca et décrire les effets comme provenant d'objets étranges portés, ingérés ou greffés...
+
+
+## VOIE DU GOLEM
+
+### 1. Grosse tête :
+
+Le forgesort remplace la force brutale par un peu de réflexion. Il peut effectuer un test d'INT au lieu d'un test de FOR (par exemple, il utilise un levier pour déplacer une lourde charge). De plus, au niveau où il acquiert cette capacité, il peut ajouter son INT à ses PV au lieu de la CON. Il ajoute son rang + 2 à tous les tests de bricolage ou de science.
+
+### 2. Golem :
+
+Le golem est une créature humanoïde fabriquée par le forgesort pour lui servir de serviteur et de garde du corps. Il comprend des ordres simples, comme suivre, attaquer, monter la garde, mais il est incapable d'actions complexes ou nécessitant une motricité fine (comme de la couture par exemple !).
+
+### 3. Protecteur (G) :
+
+Une fois par round, s'il est au contact d'un personnage, le golem peut s'interposer et subir les DM d'une attaque à sa place.
+
+### 4. Statuette (A)* :
+
+Le forgesort transforme son golem en statuette d'une douzaine de centimètres de haut, recouverte de runes. Sous forme de statuette, le golem ne peut pas agir, mais il bénéficie d'une RD 10. À tout moment, le forgesort peut utiliser une action de mouvement pour jeter la figurine au sol et lui rendre sa taille normale et toutes ses fonctions.
+
+### 5. Golem supérieur :
+
+Le forgesort peut améliorer son golem en choisissant une option parmi les suivantes. Le joueur peut choisir une option différente supplémentaire à chaque fois qu'il atteint le rang 5 dans une voie de forgesort.
+
+*   **Armure** : +5 en DEF
+*   **Forme de félin** : +3 en AGI et en DEF, dé bonus en AGI
+*   **Baliste** : portée 20 m, [1d4°+AGI] DM
+*   **Grande taille** : +2 PV par niveau et +1 en FOR et DM
+*   **Vol** : des « sauts » de 40 m en action limitée
+*   **Cerveau amélioré** : +2 en INT, PER et CHA, doué de parole
+*   **Puissant** : +2 en FOR et aux DM, dé bonus en FOR
+*   **Arme à deux mains** : +1d4° aux DM au contact
+
+> #### GOLEM
+> 
+> ### CRÉATURE NON VIVANTE
+> 
+> | AGI | CON | FOR | PER | CHA | INT | VOL |
+> | --- | --- | --- | --- | --- | --- | --- |
+> | -1 | +10 | +1 | -3 | -4 | -3 | +4 |
+> 
+> *   **Défense** [10 + rang dans la voie]
+> *   **Points de vigueur** [niv. du forgesort × 5]
+> *   **Initiative** [Init. du forgesort]
+> 
+> ### Attaque
+> 
+> [attaque magique du forgesort] • DM 1d4°+1
+
+### PARTICULARITÉS LIÉES AU GOLEM
+
+**Soigner un golem**: le golem ne guérit pas naturellement, mais le forgesort peut le réparer au rythme de `[1d6 par rang + INT] PV par heure`.
+**Golem à 0 PV**: si le golem est réduit à 0 PV, il cesse de fonctionner, mais le forgesort peut le réparer.
+**Mort d'un golem**: s'il golem est détruit ou perdu, le forgesort peut en construire un nouveau en `1d6+3 jours (+1d6 jours par amélioration de golem supérieur)`. Un forgesort peut utiliser tous les matériaux à sa disposition dans son environnement, par exemple pierre et bois s'il est dans une forêt.
+
+## VOIE DES RUNES
+
+Un personnage ne peut porter qu'une seule rune de chaque type sur lui-même ou son équipement à la fois. Si l'équipement change de main ou si le sort est utilisé, la rune est dissipée. Une fois la rune dissipée, il est possible de relancer le sort.
+
+### 1. Runes de défense:
+
+Le forgesort inscrit des runes de protection sur l'ensemble de son équipement et parfois jusque sur sa peau. Il obtient un bonus de +2 en DEF. Ce bonus augmente de +1 au rang 3 puis au rang 5. S'il possède un golem, il peut inscrire les runes sur celui-ci avec le même effet.
+
+#### PROFIL HYBRIDE
+
+Exceptionnellement, un profil hybride peut utiliser cette capacité avec une armure qu'il est capable de porter, supérieure à l'armure de cuir, bien que, dans ce cas, le bonus de DEF soit alors divisé par deux (`+1 en DEF au rang 1, +2 au rang 4`). Bien que cette capacité ne soit pas considérée comme un sort, elle requiert au moins +1 en INT pour être apprise, comme toutes les runes de forgesort.
+
+### 2. Rune de puissance (L)*:
+
+Le forgesort enchante une arme pour 24 h. Une fois par combat, celle-ci peut d'infliger les DM maximaux sur une attaque au contact ou à distance. Les dés bonus ne sont pas maximisés (attaque sournoise ou puissante, rage, etc.). Le joueur doit annoncer l'utilisation de la rune avant de lancer les dés de DM.
+
+### 3. Rune de protection (A)*:
+
+Le forgesort enchante une armure (ou des vêtements) pour 24 h. Une fois par jour, celle-ci permet d'ignorer les dommages d'une attaque que le personnage subit (au contact, magique ou à distance). Si l'attaque est un critique, le personnage subit tout de même les DM normaux (non-critique). Pour activer la rune, le personnage doit être conscient et ne pas être surpris (action gratuite). Le joueur doit activer la rune avant de connaître le montant des DM.
+
+### 4. Rune d'énergie (A)*:
+
+Le forgesort enchante un bijou pour une durée de 24 h. Une fois par combat, celui-ci permet d'obtenir un `d20 bonus` sur un test de son choix déterminé au moment où l'effet est utilisé : test d'attaque ou de caractéristique.
+
+### 5. Rune de garde*:
+
+En réalisant un rituel de 10 min, le forgesort inscrit des runes invisibles au sol. Il protège une zone allant jusqu'à 10 m de diamètre pendant 12 h. À chaque fois qu'une créature (de taille au moins très petite) pénètre dans la zone protégée, le sort produit un effet choisi (voir ci-après) au moment où le sort est lancé. Les créatures présentes dans la zone pendant le rituel ne déclenchent pas le sort. Ce sort peut aussi être utilisé sur une porte ou un coffre. Il est automatiquement lancé avec la règle de concentration et coûte seulement 3 PM pour être lancé.
+
+*   **Alarme**: un puissant gong retentit et la cible est étourdie pendant 1 round à moins de réussir un test de CON difficulté 15.
+*   **Feu**: `[3d4°+INT] DM de feu (un autre élément peut être choisi parmi foudre, froid, acide).
+
+
+# MAGICIEN
+
+Points de vigueur : 3 par niveau
+
+Le magicien est un érudit qui a fait de longues études sur les fondements théoriques de la magie avant d'être capable de lancer ses premiers sorts. Toutefois, ce n'est pas qu'un rat de bibliothèque, il fait aussi appel à la magie pour se débarrasser de ses ennemis et pour aider ses compagnons. Son bien le plus précieux est son grimoire où il a inscrit tous ses sorts.
+
+Dans les Terres d'Osgild : la pratique de la magie profane nécessite une formation complexe généralement enseignée dans une académie. Celle de la principauté d'Arly, située à Ferrance, est dirigée par l'archimage Kerlaft de Rollis, éminence grise du prince Thomar. Ce sont plus souvent les jeunes gens issus de familles fortunées qui peuvent se permettre de telles études. Les jeunes magiciens issus de milieux moins aisés sont généralement repérés par de puissants mages qui les prennent sous leur aile comme apprenti et serviteur en échange de bribes de savoir plus ou moins importantes. En la matière, les maîtres sont tous très différents, certains sont des tyrans, d'autres se montrent plus prévenants mais, en règle générale, tous sont assez peu enclins à partager sans restriction le pouvoir que leur offre leur statut de maître... À part les humains, les elfes forment de puissants magiciens, et les gnomes ont la persévérance et le goût pour la recherche théorique nécessaires à ce profil. En revanche, rencontrer un nain, un halfelin ou un demi-orc magicien est un événement exceptionnel.
+
+## Armes & armures
+
+Le magicien sait manier la dague et le bâton.
+Les voies de magicien interdisent de porter une armure ou d'utiliser un bouclier.
+
+## Équipement de départ
+
+Bâton ferré (DM 1d6), dague (DM 1d4), grimoire de sorts.
+
+## VOIE DU MAGE
+
+La magie est une activité singulière qui exige beaucoup de ceux qui espèrent en maîtriser les mystères, mais elle apporte aussi de grands pouvoirs. Dès le niveau 1, le magicien peut choisir d'obtenir la voie du mage en remplacement de sa voie de peuple. Vous trouverez les règles qui concernent cette voie en page 60.
+
+## VOIE DE LA MAGIE DES ARCANES
+
+### 1. Projectile de mana (A)* :
+
+Le magicien choisit une cible visible située à moins de 30 m et lance sur elle un projectile d'énergie ésotérique pure, déformant la trame de la réalité. La cible subit automatiquement 1d4° DM. Si le joueur obtient le résultat maximal sur son dé de dommages, il peut le relancer et ajouter le nouveau résultat (une seule fois). Les DM du projectile de mana augmentent de +1 chaque fois que le personnage atteint le rang 4 dans une voie de magicien jusqu'à un maximum égal à sa valeur d'INT.
+
+### 2. Lévitation (M)* :
+
+Le magicien peut se déplacer verticalement de 5 m par action de mouvement vers le haut ou de 10 m vers le bas pendant INT minutes. Rester en vol stationnaire à la même hauteur demande une action de mouvement.
+
+### 3. Forme gazeuse (A)* :
+
+Le magicien prend la consistance d'un gaz pendant 1 min. Il se déplace au ras du sol (s'il chute, il le fait au ralenti) à une vitesse de 5 m par action de mouvement (M). Il peut s'introduire par les plus petits interstices (comme sous une porte), mais ne peut utiliser aucune capacité. Sous cette forme, les armes ordinaires ne lui infligent aucun DM, mais la magie et les armes magiques l'affectent normalement.
+
+### 4. Accélération (A)* :
+
+Le magicien voit son métabolisme s'accélérer pendant [1d4°+ INT] rounds. Il reçoit immédiatement une action de mouvement supplémentaire, puis une action de mouvement supplémentaire à chaque round. À son tour, il peut choisir de sacrifier cette action de mouvement pour obtenir au choix +3 en DEF pendant un round ou -1 PM sur le lancement d'un sort à ce round. Il est possible de cumuler cette réduction de -1 PM avec une Concentration (L) (voir le chapitre « La magie », page 227). Par exemple, une Désintégration lancée de cette façon coûtera 5 – 2 – 1 = 2 PM.
+
+### 5. Désintégration (A)* :
+
+Le magicien projette un rayon mortel dont la portée est de 20 m et qui annule la cohésion de la matière, ne laissant derrière lui qu'un amas de poussière. Un test d'attaque magique réussi contre la DEF de la cible inflige [5d4°+INT] DM. Si le magicien vise un objet porté par une créature, le test d'attaque subit un dé malus. Les objets magiques sont insensibles à ce sort et les objets normaux (jusqu'à 100 kg) sont réduits en poussière. Une créature réduite à 0 PV par ce sort est proprement désintégrée, ne laissant aucun cadavre derrière elle ! (Ses objets magiques sont épargnés).
+
+## VOIE DE LA MAGIE DESTRUCTRICE
+
+### 1. Arc de feu (A)* :
+
+Des flammes jaillissent des doigts tendus du magicien. Jusqu'à 3 cibles au contact subissent [1d4°+INT] DM, les cibles peuvent faire un test d'AGI difficulté [10 + INT] pour ne subir que la moitié des DM. Les DM passent à 2d4° au rang 4.
+
+### 2. Saper les forces (A)* :
+
+Le magicien choisit une cible vivante située à une distance maximum de 10 m. S'il réussit un test opposé d'attaque magique, la cible subit un malus de -2 à ses tests de FOR, d'attaque
+au contact et aux DM, jusqu'à la fin du combat.
+Le sort n'est pas cumulable plusieurs fois sur la même cible.
+
+### 3. Flèche de feu (A):
+
+Le magicien choisit une cible située à moins de 30 m. Si son attaque magique réussit (contre DEF), la cible subit [3d4°+INT] DM. Chaque round de combat suivant, le feu inflige 1d6 DM supplémentaires. Sur un résultat de 1 ou 2, le sort prend fin. Les DM sur la durée ne sont pas cumulables si le sort est lancé plusieurs fois.
+
+### 4. Explosion de feu (A):
+
+Le magicien choisit un point situé à moins de 30 m. Toutes les créatures (y compris le magicien et ses compagnons) se trouvant dans un rayon de 5 m autour de ce point subissent [4d4°+INT] DM et peuvent effectuer un test d'AGI difficulté [10 + INT] pour ne subir que la moitié des DM.
+
+### 5. Appel de la foudre (A):
+
+Le magicien projette des traits de foudre sur toutes les cibles de son choix dans un rayon de 10 m autour de lui. Il fait un seul test d'attaque magique et toutes les créatures ciblées dont il atteint la DEF subissent [2d4°+INT] DM d'électricité.
+
+*Note : Le joueur peut décider de substituer un élément à un autre lors de l'acquisition d'un sort, par exemple*
+
+Mains électriques, Explosion acide et Tempête de glace. Toutefois ce choix est définitif.
+
+## VOIE DE LA MAGIE ÉLÉMENTAIRE
+
+### 1. Asphyxie (A):
+
+Si le magicien réussit un test opposé d'attaque magique (avec une portée de 20 m), la créature ciblée est privée d'air. La victime étouffe progressivement et subit 1d4° DM par round pendant INT rounds. Les créatures qui ne respirent pas (morts-vivants, créatures artificielles) sont immunisées à ce sort. En revanche, les réductions de dommages (voie du colosse, par exemple) ne s'appliquent pas.
+
+### 2. Maîtrise des éléments (M):
+
+Le magicien retranche son rang + 2 à tous les DM de feu, de froid, d'électricité ou d'acide subis pendant INT minutes. De plus, pendant la durée du sort, lorsqu'il lance un sort d'un élément, le magicien peut échanger un élément contre un autre (par exemple, une explosion de froid ou une flèche acide).
+
+### 3. Arme élémentaire (A) ou (L):
+
+Le magicien peut enchanter, en la touchant, une arme au contact ou à distance pour INT minutes. S'il s'agit de son arme, l'incantation est une action d'attaque (A); si elle appartient à autrui, c'est une action limitée (L).
+Si l'arme change de main, le sort prend fin. L'arme inflige +1d4° DM de feu, de froid, d'électricité ou d'acide en plus des DM habituels. Le magicien doit choisir l'élément au moment de l'incantation. Tant qu'il tient l'arme élémentaire en main, les sorts basés sur cet élément lui coûtent 1 PM de moins pour être lancés (par exemple, Mains brûlantes ou Explosion de feu s'il a enflammé son bâton). Ce sort ne fait aucun effet sur une arme qui bénéficie déjà d'un bonus élémentaire aux DM.
+
+### 4. Respiration aquatique (A)* :
+
+Le magicien peut respirer sous l'eau pendant 10 minutes. Cette capacité peut être étendue à un compagnon par point d'INT.
+
+### 5. Armure de pierre (A)* :
+
+Pendant INT minutes, le magicien retranche 5 points à tous les DM subis. Le sort prend fin dès qu'il a absorbé [niveau du magicien x 3] DM. Cette réduction se cumule à celle offerte par la Maîtrise des éléments. Armure de pierre est incompatible avec le sort Déphasage (voie de la magie protectrice), il y met fin immédiatement.
+
+## VOIE DE LA MAGIE PROTECTRICE
+
+### 1. Armure de mana (M)* :
+
+Le magicien fait apparaître une protection magique chatoyante qui recouvre son corps et produit des étincelles à chaque fois qu'il encaisse un coup. Pendant INT minutes, la DEF du magicien augmente de +3. Cette valeur passe à +4 lorsque le personnage atteint le rang 3 dans la voie et augmente de +1 supplémentaire chaque fois que le personnage atteint le rang 5 dans une voie de magicien (ou dans la voie du mage). Ce sort ne se cumule jamais à une armure (il est considéré comme une armure).
+
+### 2. Chute ralentie (G)* :
+
+Le magicien peut désigner un nombre de cibles maximal (dont lui-même) égal à son INT à une portée de 10 m, même en dehors de son tour. Les cibles peuvent chuter de n'importe quelle hauteur sans subir de dommages. En cas de chute inattendue, le magicien doit faire un test d'INT difficulté 15 pour chacun de ses compagnons afin d'avoir le temps de lancer le sort (réussite automatique sur lui-même).
+
+### 3. Déphasage (A)* :
+
+Pendant [1d4°+INT] rounds, le corps du magicien se désincarne par intermittence, son image se brouille et tous les DM des attaques de contact ou à distance qu'il subit et qu'il inflige sont divisés par 2. Les DM des sorts ne sont pas réduits. Un personnage sous l'effet d'un sort d'armure de pierre ne peut se déphaser.
+
+### 4. Cercle de protection (A)* :
+
+Le magicien peut tracer un cercle sur le sol (environ 2 m de diamètre) afin de se protéger et d'inclure à sa protection un nombre de personnes égal à son INT. Une fois par round, lorsqu'un sort prend pour cible un personnage protégé, le magicien fait un test d'attaque magique opposé avec l'auteur du sort. Si le test est réussi, le sort adverse est annulé et n'a aucun effet. De plus, toutes les créatures invoquées (élémentaires, démons) et les morts-vivants qui veulent attaquer une créature dans le cercle subissent un **dé malus** en attaque. Si le magicien sort du cercle, le sort est dissipé.
+
+### 5. Interruption du temps (A)* :
+
+Après avoir lancé ce sort, le personnage bénéficie d'INT rounds complets hors du temps durant lesquels il peut utiliser des sorts ou des objets (potions) sur lui-même. Il ne peut interagir avec son environnement, ni se déplacer, seulement utiliser son propre équipement ou ses capacités sur lui-même.
+
+## VOIE DE LA MAGIE UNIVERSELLE
+
+### 1. Lumière (L)* :
+
+Le magicien désigne un objet à moins de 10 m. Celui-ci produit de la lumière dans un rayon de 10 m pendant INT heures. Cette source de lumière n'émet pas de chaleur. Une fois par combat, le magicien peut lancer ce sort sur les yeux d'une créature dont le NC ne dépasse pas le rang atteint dans la voie. S'il réussit un test opposé d'attaque magique, elle est aveuglée pendant 1 round.
+
+### 2. Familiar (A)* :
+
+Le magicien choisit un petit animal (écureuil, corbeau, chat, dragonnet). Il peut utiliser les sens de son familier (voir par ses yeux, entendre ce qu'il entend, etc.) et communiquer avec lui à distance illimitée. Il gagne +2 en Initiative et en DEF lorsque son familier est en vue.
+S'il est réduit à 0 PV, le familier disparaît dans un nuage de fumée et le personnage perd 1d4° PV en contre-coup. Toutefois, le maître pourra à nouveau invoquer son familier dès qu'il aura terminé une récupération complète (c'est toujours le même animal qui apparaît). Le familier récupère tous les PV perdus après une récupération rapide.
+
+### 3. Invisibilité (A)* ou (L)* :
+
+Le magicien se rend invisible pendant [1d4°+INT] minutes. Une fois invisible, personne ne peut plus détecter sa présence ou lui porter d'attaque directe. Si le magicien attaque, il redevient visible. À partir du rang 5, le magicien peut lancer ce sort sur un allié au prix d'une action limitée.
+
+### 4. Vol (A)* :
+
+Le magicien peut voler pendant [2d4°+INT] minutes. Sa vitesse de déplacement est la même qu'au sol. Il peut rester en vol stationnaire s'il le désire et cela est une action gratuite.
+
+### 5. Téléportation (L)* :
+
+Une fois par jour, le magicien disparaît et réapparait à un autre endroit situé à moins de (niveau x INT) kilomètres. Le lieu d'arrivée doit être soit en vue, soit parfaitement connu par le magicien. Le magicien peut emmener avec lui un allié à partir du niveau 10, un deuxième au niveau 13, un troisième au niveau 16 et enfin un quatrième au niveau 19.
+
+### FAMILIER
+
+| AGI | CON | FOR | PER | CHA | INT | VOL |
+| --- | --- | --- | --- | --- | --- | --- |
+| +3* |  0  | -4  | +2  | -2  | -2  | +2  |
+
+*   **Défense** [13 + rang dans la voie]
+*   **Points de vigueur** [niveau du magicien]
+*   **Initiative** [Init. du magicien]
+
+Un familier est une créature trop petite pour attaquer et infliger des dommages.
+
+# SORCIER
+
+Points de vigueur : 3 par niveau
+
+Le sorcier est un lanceur de sorts qui s'intéresse aux forces obscures et au pouvoir de la mort. Parfois nommés nécromanciens ou démonistes, les sorciers sont généralement considérés comme maléfiques et sont peu appréciés. Toutefois, cela dépend des cultures : après tout, est-il plus maléfique de vider un ennemi de son sang que de le découper à coup de hache ou de le carboniser à coup de Explosion de feu ? C'est une des questions que soulève le sorcier ! Interprétez-le de façon subtile afin d'en faire un personnage plutôt sombre ou désespéré, mais pas nécessairement « mauvais ».
+
+Dans les Terres d'Osgild : tout comme la magie profane des magiciens, la magie noire nécessite des études poussées. Cette connaissance peut être tirée d'antiques grimoires, mais souvent elle est obtenue par le biais d'un pacte avec un maître maléfique (prince démon, entité indicible, mort-vivant très ancien, etc.) et dans ce cas, peu importe l'origine sociale du postulant. Pour celui qui n'a pas les moyens de s'offrir de coûteuses études de magie, la tentation est grande de faire appel à un sombre mentor et le ressentiment éventuel contre les riches et les puissants peut être un moteur redoutable. Enfin, il existe des êtres qui n'ont pas choisi la magie noire, mais qui sont nés avec un don pour celle-ci. Cela est généralement le fruit d'un événement tragique qui a corrompu un parent, voire l'enfant lui-même. Dans la plupart des nations humaines, les sombres mages sont tout juste tolérés, tant qu'ils ne troublient pas l'ordre public en ramenant les morts à la vie. Ce que la loi interdit à peu près partout. De leur côté, les elfes et les nains abhorrent la magie noire, si les humains ont oublié, les Premiers-Nés ont encore le souvenir des ravages de la terrible magie du Roi-Sorcier de Tor-Angul et du destin funeste de la forêt Sombre. Héritier de cette période, le Kathang (au sud du mur de Kelt) est réputé pour sa magie noire et cette influence s'étend à travers les jungles de Luir-An-Doral jusque dans le duché de Périk.
+
+## Armes & armures
+
+Le sorcier sait manier la dague et le bâton. Les voies de sorcier interdisent de porter une armure ou d'utiliser un bouclier.
+
+## Équipement de départ
+
+Bâton ferré (DM 1d6), dague (DM 1d4), grimoire de sorts ou parchemins anciens.
+
+## VOIE DU MAGE
+
+La magie est une activité singulière qui exige beaucoup de ceux qui espèrent en maîtriser les mystères, mais elle apporte aussi de grands pouvoirs. Dès le niveau 1, le sorcier peut choisir d'obtenir la voie du mage en remplacement de sa voie de peuple. Vous trouverez les règles qui concernent cette voie en page 60.
+
+## VOIE DU DÉMON
+
+### 1. Malédiction (M) ou (L)* :
+
+Le sorcier effectue un test opposé d'attaque magique contre une cible à moins de 20 m. En cas de succès, si l'incantation était une action de mouvement (M), la victime subit un dé malus à son prochain test. Si l'incantation était une action limitée (L), le dé malus s'applique à ses 3 prochains tests. Dans tous les cas, la cible ne peut subir les effets de ce sort qu'une fois par combat.
+
+### 2. Beauté de la succube (L)* :
+
+Le sorcier acquiert une beauté fascinante pour INT minutes. Il gagne un dé bonus aux tests de CHA ainsi qu'une attaque de contact nécessitant un test d'attaque magique (contre DEF, action d'attaque), qui inflige [1d4°+INT] DM. Le sorcier récupère autant de PV (sans dépasser son maximum de PV) que la cible en a perdu.
+
+### 3. Pacte démoniaque (G) :
+
+Le sorcier sacrifie 1d4° PV et gagne immédiatement +INT sur le résultat d'un d20 qu'il vient de lancer ou en DEF contre une attaque (avant de savoir si une attaque touche). De plus, il ajoute désormais sa VOL au nombre de dés de récupération (DR) qu'il possède.
+
+### 4. Aspect du démon (A)* :
+
+Le sorcier prend l'apparence d'un démon ailé pendant INT minutes. Il gagne un dé bonus en attaque au contact et +5 en DEF et à tous les tests physiques (FOR, AGI, CON), mais il ne peut pas utiliser d'arme (ni les arts martiaux). Il peut faire deux attaques de griffes à [1d4°+INT] DM à chaque tour, en action limitée (une seule en action d'attaque) et il peut voler de 10 m par action de mouvement.
+
+Note : Ne se cumule pas avec la Beauté de la succube.
+
+### 5. Invocation d'un démon (L)* :
+
+En sacrifiant 1d4° PV, le sorcier invoque un démon à son service pour INT minutes. Ce démon possède l'apparence d'un humanoïde musclé d'environ 2,30 m doté d'une épée et d'ailes de chauve-souris. Le démon divise par deux tous les DM non magiques subis, les sorts et les armes magiques lui infligent des DM normaux. Il est capable de voler à une vitesse équivalente à un déplacement normal. Lorsque le sorcier atteint le niveau 15, le démon devient capable d'attaquer deux fois à son tour, au prix d'une action limitée.
+
+### DÉMON
+
+|  | AGI | CON | FOR | PER | CHA | INT | VOL |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+|  | +2 | +4* | +5* | +2 | +0 | +2 | +4 |
+
+
+*   **Défense** 18
+*   **Points de vigueur** [niveau du sorcier × 5]
+*   **Initiative** [Init. du sorcier]
+
+**Attaque au contact** : [attaque magique du sorcier] · DM 2d4°+5
+
+## VOIE DE LA MORT
+
+Les sorts de cette voie n'affectent pas les créatures non vivantes (golem, élémentaires, morts-vivants...).
+
+### 1. Siphon des âmes :
+
+Une fois par round, lorsqu'une créature humaine vivante meurt à moins de 20 m du sorcier, il récupère NC PV (arrondis à 1 pour NC ½). À partir du rang 3, si la créature est de NC supérieur à 4, il peut choisir de récupérer 1 PM au lieu des PV.
+
+### 2. Masque mortuaire (M)* :
+
+Le sorcier prend l'apparence de la mort pendant INT minutes. Il est alors considéré non-vivant et devient immunisé à la plupart des pouvoirs des morts-vivants (drain de vigueur et affaiblissement, paralysie de la goule, etc.). De plus, ceux-ci le prennent pour l'un des leurs. Il divise par deux tous les DM de froid. Il ne peut pas bénéficier de soins tant qu'il est sous l'effet de ce sort.
+
+Note : Les créatures non vivantes sont infatigables, ne respirent pas et sont immunisées aux maladies, aux poisons et à la plupart des attaques qui demandent un test de CON. Elles voient dans le noir comme dans de la pénombre à une distance de 30 m.
+
+### 3. Baiser du vampire (A)* :
+
+Ce sort nécessite la réussite d'un test opposé d'attaque magique (portée 30 m). La victime subit [2d4°+INT] DM et le sorcier récupère autant de PV (sans dépasser son maximum de PV).
+
+### 4. Peur (A) ou (L)* :
+
+Le sorcier effectue un test opposé d'attaque magique contre une cible (portée 20 m). S'il l'emporte, la victime fuit aussi loin du sorcier que possible pendant INT rounds (il lui faut généralement autant de temps pour revenir !). Les créatures dont le NC est supérieur ou égal au niveau du sorcier ne fuient qu'un seul round. Le sorcier peut choisir de lancer ce sort en action limitée et toutes les créatures à son contact sont affectées (faire un test d'attaque magique par adversaire).
+
+### 5. Briser les coeurs (A)* :
+
+Le sorcier fait mine d'arracher le cœur de sa victime, puis de broyer dans sa main (l'image du cœur de la victime apparaît dans la main du sorcier). Il doit faire un test opposé d'attaque magique contre une cible vivante (portée 20 m) et, en cas de réussite, il inflige [5d4°+INT] DM, la moitié en cas de test raté. Ce sort ne peut affecter une même cible qu'une seule fois par combat.
+
+
+## VOIE DE L'OUTRE-TOMBE
+
+### 1. Un pied dans la tombe (A)* :
+
+Le sorcier désigne une cible vivante à portée (10 m) et doit réussir un test opposé d'attaque magique. En cas de succès, la cible ressent une douleur intense à l'emplacement du cœur, elle subit [1d4°+INT] DM et, si elle rate un test de CON difficulté 10, l'état *ralenti* durant 1 round.
+
+### 2. Armure d'os :
+
+Le sorcier peut désormais porter une armure d'os (souvent camouflée sous une robe) qui lui offre un bonus de +3 en DEF et n'empêche pas l'utilisation des capacités de sorcier. Son bonus de DEF augmente de +1 chaque fois que le personnage atteint le rang 4 dans une voie de sorcier. Le sorcier doit confectionner cette armure lui-même à partir d'ossements et l'entretenir par magie 10 min chaque jour. L'armure d'os n'inflige aucun malus d'AGI.
+
+### 3. Animation des morts (L)* :
+
+Le sorcier anime le cadavre d'un humanoïde de taille moyenne, décédé depuis moins d'INT jours. Le zombie comprend les ordres « Attaquer », « Suivre », « Garder » et « Pas bouger ». Le sorcier peut contrôler un seul zombie, plus un zombie chaque fois qu'il atteint le rang 5 dans une voie de sorcier. Un zombie réduit à 0 PV tombe en poussière.
+
+### ZOMBIE
+
+| AGI -1 | CON +1 | FOR +2 | PER -2 |
+| --- | --- | --- | --- |
+| CHA -4 | INT -4 | VOL +6 |  |
+
+*   **Défense** 10
+*   **Points de vigueur** [10 + niveau]
+*   **Initiative** 8
+
+**Attaque au contact**
+[attaque magique du sorcier] • **DM** 1d4°+2
+Le zombie se déplace de 5 m par action de mouvement.
+
+### 4. Ensevelissement (L)* :
+
+Une fois par combat, si le sorcier réussit un test opposé d'attaque magique (portée 20 m), des mains squelettiques surgissent sous les pieds d'une cible de taille moyenne ou inférieure et l'enterrent vivante. Tant qu'elle est ensevelie, elle subit 2d4° DM par round, ne peut agir ni être la cible d'attaques extérieures. À son tour, elle peut tenter de sortir de terre en réussissant un test de FOR ou d'AGI (au choix de la cible) difficulté 15 au prix d'une action limitée. Si elle tombe à 0 PV, elle reste enterrée et décède au tour suivant. Chaque personne qui creuse pour l'aider lui octroie un bonus de +2 sur son test (maximum +10).
+
+### 5. Armée des morts (L)* :
+
+Une fois par jour, le sorcier peut invoquer d'innombrables squelettes qui émergent du sol pour attaquer ses ennemis pendant [niveau du sorcier] rounds. Tous les adversaires situés dans un rayon de 10 m autour du sorcier subissent automatiquement 2d4° DM par round. Les squelettes se déplacent avec le sorcier, mais tous les déplacements dans cette zone (même ceux du sorcier) sont divisés par deux.
+
+
+## VOIE DU SANG
+
+### 1. Saignements (A)* :
+
+Le sorcier doit réussir un test d'attaque magique (portée 10 m) contre une difficulté de [10 + CON de la cible]. Du sang s'écoule de la bouche, du nez, des oreilles et même des yeux de la victime, qui subit 1d4° DM par round pendant INT rounds.
+
+### 2. Sang mordant (M)* :
+
+Pendant INT minutes, le sang du sorcier se transforme en un acide qui gicle lorsqu'il subit une blessure. Chaque fois qu'un ennemi au contact le blesse, ce dernier subit 1d4° DM d'acide.
+
+### 3. Exsangue :
+
+Le corps du sorcier devient cadavérique. Il gagne +2 en DEF et ce bonus passe à +3 au rang 5 (Si le personnage porte une armure autre qu'une armure d'os de sorcier, le bonus est réduit de 1 point, donc +1 DEF et +2 DEF au rang 5). De plus, lorsqu'il tombe à 0 PV, il peut continuer à agir normalement tant qu'il n'a pas atteint -CON PV.
+
+### 4. Rituel de sang (A)*:
+
+Le sorcier s'ouvre les veines et sacrifie 1d4° PV pour cibler une créature vivante (portée 20 m), la victime saigne à la moindre blessure. Tous les DM infligés à la cible par des armes tranchantes ou perçantes (griffes et crocs inclus) augmentent de +1d4° pendant INT rounds.
+
+### 5. Lien de sang (A)*:
+
+En réussissant un test opposé d'attaque magique (portée 20 m), le sorcier tisse un lien avec sa victime. Pendant INT minutes, la moitié des DM reçus par le sorcier sont également subis par la cible (les DM infligés au sorcier ne sont pas pour autant réduits) et le sorcier peut lui lancer un sort sans la voir (si elle est à portée).
+
+
+## VOIE DE LA SOMBRE MAGIE
+
+### 1. Ténèbres (L)*:
+
+Le sorcier invoque une zone fixe de ténèbres magiques, de 10 m de diamètre, à une portée de 20 m pour une durée d'INT minutes. Toutes les créatures, même celles capables de voir dans le noir, sont aveuglées dans cette zone. En plus de ce sort, le sorcier ajoute son rang + 2 à tous les tests d'INT basés sur les savoirs sombres (démon, morts-vivants, rituels impies, etc.).
+
+### 2. Reptation (M)*:
+
+Pendant INT minutes, le sorcier peut ramper de 5 m par action de mouvement sur les murs et les plafonds. Il peut lancer des sorts dans cette posture.
+
+### 3. Strangulation (A)*:
+
+En réussissant un test opposé d'attaque magique (portée 20 m), le sorcier étouffe une créature vivante. La victime subit un dé malus à tous ses tests et [1d4°+INT] DM par round tant que le sorcier maintient sa concentration par une action de mouvement et la dépense de 1 PM par round. Si la victime sort de la portée du sort, il prend fin.
+
+
+### 4. Manteau d'ombre (L)*:
+
+Le sorcier s'enveloppe d'ombre pendant INT minutes. Il gagne un dé bonus à tous les tests de discrétion et il impose un dé malus à tous les tests d'attaque à distance qui le prennent pour cible. S'il tombe à 0 PV pendant la durée du sort, il peut choisir de disparaître dans son ombre et de réapparaître à 1d6 km dans la direction de son choix avec 1d4° PV, 1d6 min plus tard (une dissipation de la magie (Maîtrise de la magie, voie du mage) lancée sur la zone où le sorcier a disparu dans son ombre avant sa réapparition au loin fait apparaître son corps et annule l'effet). Ceci met fin au sort et interdit de le lancer de nouveau avant le prochain crépuscule.
+
+### 5. Pacte ténébreux:
+
+Le sorcier augmente sa CON de +1. Désormais, il obtient un dé bonus aux tests de CON et voit dans le noir comme s'il s'agissait de pénombre. De plus, lorsqu'il lance un sort, il peut sacrifier 1d4° PV pour ajouter +2d4° aux DM de ce sort. S'il s'agit d'un sort dont les DM durent de round en round (comme strangulation), il peut sacrifier 1d4° PV chaque round.
+
+
+# FAMILLE DES MYSTIQUES
+
+Vous trouverez dans ce chapitre la description des trois profils de la famille des mystiques : druide, moine et prêtre. Ce sont des profils basés sur la spiritualité et les pouvoirs divins, qu'il s'agisse de sorts ou de capacités surnaturelles. Ce sont des profils orientés vers la vie et parfois capables de prodiguer des soins.
+Ces profils partagent les éléments suivants.
+
+*   Points de vigueur / niveau : 4
+*   Dé de récupération : d8
+*   +1 dé de récupération
+
+## SORTS (CAPACITÉS *)
+
+Les capacités signalées par le symbole * accolé à leur nom sont des sorts (par exemple, Télékinésie*). Un sort suit des règles particulières, comme la dépense de points de mana pour pouvoir être lancé.
+Lorsque vous rencontrez la formulation « En plus de ce sort, ... », la suite de la capacité est indépendante du sort. Elle s'applique comme un bonus permanent offert par une capacité, peu importe que le sort soit lancé ou pas.
+Par exemple, « En plus de ce sort, le personnage ajoute +1 en DEF » signifie que la DEF augmente d'un point de façon permanente sans que le sort soit lancé.
+
+### Résumé des voies des profils de la famille des mystiques
+
+| Druide | Moine | Prêtre |
+| --- | --- | --- |
+| Voie des animaux | Voie de l'énergie vitale | Voie de la foi |
+| Voie du fauve | Voie de la maîtrise | Voie de la guerre sainte |
+| Voie de la nature | Voie de la méditation | Voie de la prière |
+| Voie du protecteur | Voie du poing | Voie des soins |
+| Voie des végétaux | Voie du vent | Voie de la spiritualité |
+
+# DRUIDE
+
+Points de vigueur : 4 par niveau
+
+Le druide est un prêtre de la nature qui défend sa pureté originelle et tire ses pouvoirs de la vie, des animaux et des plantes.
+
+Dans les Terres d'Osgild : généralement un druide veille sur une forêt ou un lieu sauvage et ce n'est pas ce genre d'endroit qui manque dans les Terres d'Osgild. Un jeune druide peut être un autodidacte élevé à l'école de la survie dans une zone sauvage ou alors un initié d'un cercle druidique. Dans la principauté d'Arly, un tel cercle protège le bois d'Astréis et le Bois dor-mant. Chez les elfes, un cercle très puissant veille sur Hautesylve, mais il est exclusivement réservé aux elfes. Les druides doivent leurs pouvoirs aux Puissances, des forces naturelles très anciennes antérieures aux dieux. Les Premiers-Nés (elfes et nains) pratiquaient cette religion animiste avant l'arrivée des hommes. Ils priaient les six Forces de la nature (Esprit, Vent, Terre, Feu, Eau et Mort), les Seigneurs des saisons (Hiver, Automne, Printemps et Été) et enfin les Seigneurs des animaux (Ours, Renard, Corbeau, etc.). Aujourd'hui, les humains appellent ces divinités les Anciens Dieux et leur culte est quasi éteint, seuls les druides les prient encore.
+
+## Armes & armures
+
+Le druide sait manier la dague, le bâton noueux (équivalent au bâton ferré), l'épieu, le javelot et l'arc court.
+
+Les voies de druide limitent l'armure au cuir simple. Il peut utiliser le petit bouclier en bois (DEF +1).
+
+## Équipement de départ
+
+Bâton noueux (DM 1d6) ou épieu (DM 1d6 ou 1d10), dague (DM 1d4), arc court (DM 1d6, por-tée 30 m), armure de cuir (DEF +2).
+
+## LA GENÈSE VUE PAR LES DRUIDES
+
+Les six Puissances Vent, Terre, Feu, Eau, Esprit et Mort existent depuis toujours. Il n'y a ni com-mencement, ni fin, mais un cycle éternel, et nul ne sait ce qui fut avant et ce qui sera après. Les dieux eux-mêmes ne sont arrivés qu'après ; ils font partie du grand cycle, ni plus ni moins. De même qu'ils sont apparus, ils disparaîtront un jour. Aussi puissants soient-ils, ils ne sont pas immortels, tandis que le monde et l'écoulement du temps sont infinis.
+
+## VOIE DES ANIMAUX
+
+### 1. Langage des animaux :
+
+Le druide sait communiquer avec les mammifères. La communication reste primitive et limitée à l'intelligence de l'animal et à son point de vue (prédateur, proie, etc.). De plus, il ajoute son rang + 2 à tous les tests destinés à influencer un animal avec lequel il peut communiquer. Chaque fois que le personnage atteint le rang 4 dans une voie de druide, il apprend à communiquer avec une nouvelle catégorie d'animaux de son choix : les oiseaux, les reptiles (et les amphibiens), les poissons (et les mollusques) ou les arthropodes (insectes, araignées, scorpions, etc.) et enfin les animaux fantastiques (griffon, pégase, etc.).
+
+### 2. Petit compagnon :
+
+Le druide choisit un petit animal (écureuil, corbeau, chat). Il peut utiliser les sens de son familier (voir par ses yeux, entendre ce qu'il entend, etc.) et communiquer avec lui à distance illimitée. Il gagne +2 en DEF lorsque son familier est en vue. Le familier récupère tous les PV perdus après une récupération rapide. S'il est réduit à 0 PV, le familier prend la fuite et réapparaît auprès de son maître 24 h plus tard, complètement soigné. S'il est tué (lors d'un fait de jeu que le MJ juge inévitable), le druide perd 1d4° PV en contre-coup et pourra trouver un autre familier au prochain passage de niveau (pas forcément le même animal).
+
+> ### FAMILIER
+> 
+> | AGI | CON | FOR | PER | INT | CHA | VOL |
+> | --- | --- | --- | --- | --- | --- | --- |
+> | +3* | 0 | -4 | +2* | -2 | -2 | +2 |
+> 
+> *   **Défense** [13 + rang dans la voie]
+> *   **Points de vigueur** [niveau du druide × 2]
+> *   **Initiative** [init. du druide]
+> 
+> Un familier est une créature trop petite pour attaquer et infliger > des dommages.
+> 
+> Note : Petit compagnon est une version non magique du Familiar du magicien (voie de la magie universelle). Si un personnage décide de faire l'acquisition de ces deux capacités, le bonus de DEF ne se cumule pas.
+
+### 3. Nuée d'insectes (A)* :
+
+En réussissant un test d'attaque magique contre la DEF de sa cible (portée 20 m), le druide libère sur celle-ci une nuée d'insectes volants qui piquent, aveuglent et la suivent pendant [3 + PER] rounds. La victime subit 1 DM par round et un malus de -2 à tous les tests. Les DM de zone détruisent la nuée.
+
+### 4. Masque du prédateur (A)* :
+
+Pendant PER minutes, le druide prend les traits d'un fauve ou d'un loup. Il gagne +2 en Initiative, en DEF, en attaque et aux DM au contact et peut voir dans la nuit (comme un elfe).
+
+### QU'EST-CE QU'UN ANIMAL ?
+
+Dans le cadre de la forme animale du druide, tout animal qui vit sur notre planète Terre est un animal. Si votre monde comporte des animaux fantastiques (griffon, pégase, etc.), ils sont a priori exclus. Tout animal bénéficiant d'une capacité surnaturelle est exclu aussi. Enfin, il est important de se placer du point de vue du druide plutôt que de celui du joueur. Un druide des forêts tempérées qui n'a jamais vu de singe ne peut pas adopter cette forme. Vous trouverez une liste des profils des animaux les plus courants au chapitre « Adversité ».
+
+### 5. Forme animale (A)* :
+
+Pendant une durée de PER minutes, le druide peut prendre la forme d'un animal de taille moyenne ou inférieure (minimum une souris) d'une catégorie dont il maîtrise la communication (voir rang 1, à l'exception des animaux fantastiques). Il conserve seulement ses PV, ses valeur d'INT et de VOL, et acquiert les caractéristiques, les attaques, la DEF et les capacités naturelles de la forme choisie (le vol pour un oiseau, la respiration aquatique pour le poisson, etc.). Le druide ne peut ni utiliser
+son équipement ni ses propres capacités sous cette forme. Le druide peut reprendre sa forme humaine lorsqu'il le désire par une action de mouvement (M).
+
+## VOIE DU FAUVE
+
+### 1. Vitesse du félin :
+
+Le druide ajoute son rang + 2 aux tests de course, d'escalade ou de saut. De plus, il gagne +3 en Initiative et +1 en DEF. Le bonus de DEF passe à +2 au rang 3 et +3 au rang 5.
+
+### 2. Panthère :
+
+Le druide apprivoise une panthère (ou un puma) qui lui obéit au doigt et à l'œil.
+
+> #### PANTHÈRE
+>
+> | AGI | CON | FOR | PER | CHA | INT | VOL |
+> | --- | --- | --- | --- | --- | --- | --- |
+> | +4* | +2 | +2 | +2* | -2 | -3 | +2 |
+> 
+> *   **Défense** [13 + rang dans la voie]
+> *   **Points de vigueur** [niveau du druide × 4]
+> *   **Initiative** [Init. du druide]
+> 
+> **Attaque au contact** : [attaque magique] • **DM** 1d4+2
+
+### 3. Attaque bondissante (L) :
+
+Le druide ou son félin parcourt de 5 à 10 m et bénéficie d'un dé bonus au test d'attaque et de +1d4° aux DM contre sa cible. Il ne peut pas effectuer d'attaque bondissante s'il est au contact d'un adversaire.
+
+### 4. Grand félin :
+
+La panthère devient un animal fabuleux ou est remplacée par un félin plus grand (tigre, lion). Le grand félin peut servir de monture au druide et il se déplace de 20 m par action de mouvement. Le druide peut communiquer avec son félin par télépathie et le guérir à distance en dépensant ses propres PV (-1 PV au druide par PV octroyé au félin).
+
+> #### ANIMAL FABULEUX
+>
+> | AGI | CON | FOR | PER | CHA | INT | VOL |
+> | --- | --- | --- | --- | --- | --- | --- |
+> | +4* | +5 | +5 | +2* | -2 | -2 | +4 |
+>
+> *   **Défense** [15 + rang]
+> *   **Points de vigueur** [niveau du druide × 5]
+> *   **Initiative** [Init. du druide]
+>
+> **Attaque au contact** : [attaque magique] • **DM** 1d4°+5
+
+### 5. Les sept vies du chat :
+
+Cette capacité ne peut être utilisée que six fois, et pas plus d'une fois par niveau. Lorsque les PV du druide tombent à 0 ou qu'il meurt, le druide peut choisir d'ignorer ce qui a provoqué la mort ou l'inconscience ! Le MJ et le joueur doivent se mettre d'accord et trouver une raison plausible (ou pas !) pour expliquer la survie du personnage, et le faire réapparaître
+immédiatement ou un peu plus tard dans l'aventure si nécessaire.
+
+### GÉRER UN COMPAGNON ANIMAL
+
+**En ville :** le compagnon du druide reste un fauve et généralement il ne se sentira pas à l'aise en milieu urbain. Dans la plupart des cas, la bête restera à l'extérieur de l'agglomération et se débrouillera seule en attendant que son maître la réclame.
+
+**Soigner un compagnon animal :** un compagnon animal peut être soigné par magie et il récupère les PV perdus comme un PJ. Son niveau est égal à celui de son maître.
+
+**Compagnon animal à 0 PV :** lorsque le compagnon animal tombe à 0 PV, s'il est en milieu naturel considérez qu'il s'enfuit (il revient au bout de 8 h avec tous ses PV). S'il ne peut pas, il doit être soigné comme le serait un personnage.
+
+**Mort d'un compagnon animal :** le PJ pourra retrouver un nouveau compagnon au passage de niveau suivant. Joueur et MJ doivent se mettre d'accord du moment opportun et cela peut être l'occasion d'une scène de jeu.
+
+## VOIE DE LA NATURE
+
+### 1. Maître de la survie :
+
+En milieu naturel, le druide ajoute son rang + 2 à tous les tests de survie (s'orienter, trouver un abri et de la nourriture, éviter les dangers, etc.) dont les tests de récupération effectués chaque nuit. Lorsqu'il dort en milieu naturel, s'il utilise 1 DR, il guérit 1d4° PV supplémentaire.
+
+### 2. Terrains difficiles :
+
+Le druide ne subit aucune pénalité de déplacement en terrain difficile (natation, neige, boue, broussailles, pente abrupte, etc.). Il obtient un bonus de +3 en initiative, et +1 en attaque et en DEF lors d'un combat dans ces conditions.
+
+### 3. Bâton de druide (L) :
+
+Le druide combat avec les deux extrémités de son bâton de bois noueux (ou de son épieu). Lorsqu'il utilise cette capacité, il effectue deux attaques de contact pour lesquelles il peut remplacer sa FOR par son AGI en attaque s'il le souhaite. Il inflige [1d4°+FOR ou AGI au choix] DM par attaque (plus d'éventuels bonus si l'arme est magique) et il gagne +2 en DEF pendant 1 round.
+
+### 4. Constitution héroïque :
+
+Le druide augmente sa CON de +1. Désormais, il obtient un dé bonus aux tests de CON.
+
+### 5. Résistant :
+
+Le druide divise par deux tous les DM « naturels non magiques » : froid, feu, chutes, poisons... mais aussi les DM provoqués par les animaux ou les insectes (même géants). Cette protection s'étend aussi à ses compagnons animaux.
+
+## VOIE DU PROTECTEUR
+
+### 1. Baies magiques (L)* :
+
+Le druide doit se trouver devant un buisson ou un arbre vivant. Son incantation fait pousser PER fruits qu'il peut cueillir. Chaque fruit offre l'équivalent d'un repas et rend [1d4°+rang] PV après 1 min à celui qui le consomme. Les effets de ces fruits ne fonctionnent qu'une fois par jour et par personnage. En plus de ce sort, le druide ajoute son rang + 2 à tous les tests de vigilance et de discrétion en pleine nature.
+
+### 2. Forêt vivante* :
+
+Après un rituel de 30 min, la forêt s'éveille dans un rayon de 1 km par rang et devient une alliée du druide pendant 24 h. Dans ce périmètre, les ennemis du druide sont désorientés et gênés par les branches et les racines. Ils divisent leur déplacement par deux et subissent un dé malus à tous les tests de survie, d'orientation, de perception ou de discrétion. Le druide peut lancer ce sort une seule fois par jour.
+
+Si deux druides essaient d'influencer la forêt, c'est celui dont le niveau est le plus élevé qui l'emporte.
+
+### 3. Régénération* :
+
+Une cible touchée par le druide récupère [3d4°+PER] PV par un rituel de 10 min (la cible et le druide doivent rester au calme). À partir du rang 5, ce sort permet aussi de faire repousser les membres ou les parties du corps amputées. Une cible peut bénéficier de ce sort seulement une fois par jour.
+
+### 4. Perception héroïque :
+
+Le druide augmente sa PER de +1. Désormais, il obtient un dé bonus aux tests de PER. De plus, il ajoute désormais sa PER pour calculer ses PM (en plus de sa VOL).
+
+### 5. Forme d'arbre (A)* :
+
+Le druide peut se transformer en arbre (environ 5 m de hauteur) pendant PER minutes. Il prend les mêmes caractéristiques (à l'exception de l'INT, de la PER et de la VOL) que l'arbre animé (voir plus loin), y compris les PV. Sous cette forme, il ne peut pas parler, mais peut utiliser les sorts des voies du protecteur et des végétaux. À la fin du sort, ou s'il est réduit à 0 PV, il reprend forme humaine et retrouve les PV que le personnage avait au début du sort.
+
+## VOIE DES VÉGÉTAUX
+
+### 1. Peau d'écorce (M)* :
+
+La peau du druide prend la consistance de l'écorce. Il bénéficie d'un bonus à la DEF égal à +2 pendant PER minutes. Ce bonus augmente de +1 aux rangs 3 et 5. Les effets du sort ne sont pas cumulables au bonus d'une armure métallique ou d'un autre sort de protection qui ajoute un bonus de DEF (à l'exception du Masque du prédateur). En plus de ce sort, le druide ajoute son rang + 2 aux tests pour identifier les plantes et connaître leurs propriétés.
+
+### 2. Prison végétale (L)* :
+
+Le druide peut commander à la végétation de pousser et bloquer ses ennemis (mais pas ses alliés) dans une zone de 10 m de diamètre (portée 20 m) pendant PER minutes. Les cibles sont immobilisées. À son tour, une créature peut se libérer (action d'attaque) avec un test de FOR difficulté [10+ PER du druide]. En cas de réussite, elle n'est plus affectée par le sort pour le reste du combat.
+
+### 3. Flèche vivante (A)* :
+
+En une action, le druide enchante une flèche et la tire (il doit tenir un arc en main). Cette flèche a pour particularité de prendre racine dans la plaie et de devenir un arbuste. S'il réussit un test d'attaque à distance, il inflige les DM habituels de son attaque, et au round suivant, la flèche inflige 3d4° DM supplémentaires. Si la victime est réduite à 0 PV par ce sort, un jeune arbuste pousse sur son cadavre.
+
+### 4. Animation d'un arbre (L)* :
+
+Le druide peut animer un arbre en le touchant. Il combat à son service pendant [niveau du druide] rounds. Il peut animer un seul arbre à la fois.
+
+> #### ARBRE ANIMÉ
+> 
+> | AGI | CON | FOR | PER | CHA | INT | VOL |
+> | --- | --- | --- | --- | --- | --- | --- |
+> | -2 | +3 | +3 | -2 | -2 | -2 | +0 |
+> 
+> 
+> *   **Défense** [10 + rang]
+> *   **Points de vigueur** [Niveau × 5]
+> *   **Initiative** 8
+> 
+> **Attaque de contact** : [attaque magique] • **DM** 1d4°+3
+> 
+>**Déplacement** : 5 m par action de mouvement.
+
+### 5. Porte végétale (A)* :
+
+Une fois par jour, le druide peut pénétrer dans le tronc d'un gros arbre et sortir de celui d'un autre arbre appartenant à la même forêt et situé à une distance maximale de PER × 10 km. À partir du niveau 10 et tous les 4 niveaux supplémentaires, le druide peut emmener une personne avec lui.
+
+# MOINE
+
+Points de vigueur : 4 par niveau
+
+Le moine combat à mains nues et utilise le contrôle qu'il a sur son esprit et son corps pour transformer ce dernier en arme de chair. Il peut être issu d'un monastère et pratiquer les arts martiaux, mais vous pouvez aussi développer toutes sortes de combattants à mains nues, depuis un gladiateur formé à la lutte, en passant par un enfant sauvage qui n'a jamais eu d'autre arme que ce que dame nature lui a donné. Toutefois, le profil de moine ne se cantonne pas au combat à mains nues, il couvre tous les combattants acrobates qui réalisent des prouesses martiales. Les capacités de moine peuvent être déclinées avec une arme de prédilection et elles ouvrent alors une infinité de profils hybrides.
+
+Dans les Terres d'Osgild : dans la principauté d'Arly, le seul ordre capable de former des moines est installé à Monastir. Toutefois, l'ordre de Saint Môn est dédié à la garde de la Grande Bibliothèque de la cité et ses disciples ne voyagent pas. En revanche, les maîtres enseignent librement les techniques de combat et de méditation à tous ceux qui ont la volonté de suivre le difficile chemin vers la maîtrise corporelle et l'illumination. Le personnage peut donc être un auditeur libre attiré par la réputation de l'enseignement qu'on y prodigue. Il peut aussi avoir postulé pour entrer dans l'ordre de Saint Môn et avoir échoué. Les elfes de Hautesylve possèdent leur propre ordre monastique, le Tyr'Nan Lwe. Aussi appelés elfes verts, ces elfes ont fait vœu de ne jamais utiliser de métal ou de pierre pour blesser autrui, de ne pas couper de plante vivante et de ne pas porter la peau d'animaux morts. Ils n'utilisent pas non plus de monnaie et vivent de troc ou de mendicité. Ce sont des pacifistes très respectés chez les elfes, mais considérés comme des fous partout ailleurs. Certains ont décidé de parcourir le monde pour diffuser la parole de la vie et former des adeptes parmi les autres peuples. Il existe enfin une intense tradition monastique dans les îles d'Ouister. Installés sur des pics vertigineux battus par les vents de l'océan, ces monastères organisent régulièrement des tournois afin de permettre à leurs disciples de se mesurer et de progresser sur le chemin de la connaissance de soi.
+
+## Armes & armures
+
+Le moine sait manier toutes les armes (sauf les armes à poudre), y compris celles à deux mains, mais la plupart des moines n'y font pas appel et sont plus efficaces à mains nues. En effet, tous les moines infligent des DM létaux avec les attaques à mains nues lorsqu'ils le souhaitent.
+
+Les voies de moine interdisent de porter une armure ou d'utiliser un bouclier.
+
+## Équipement de départ
+
+Bâton (DM 1d6).
+
+## VOIE DE L'ÉNERGIE VITALE
+
+### 1. Mains d'énergie (L) :
+
+Par un effort de concentration, le moine peut rendre ses mains intangibles. Au prix d'une action limitée, à son tour, il peut faire une attaque à mains nues avec un bonus en attaque égal au rang + 2. De plus, même lorsqu'il n'utilise pas *Mains d'énergie*, toutes les attaques à mains nues du moine sont considérées comme magiques et il peut choisir de remplacer sa FOR aux DM par sa VOL.
+
+### 2. Projection du ki (L) :
+
+Le moine projette une vague de force avec son corps et son esprit à une distance maximale de 20 m. Un test d'attaque magique réussi lui permet d'infliger `[1d4°+ VOL] DM`. Les DM passent à `[2d4°+ VOL]` au rang 4.
+
+### 3. Invulnérable :
+
+Le moine ne reçoit que la moitié des DM de toutes les sources « élémentaires » :
+Feu, froid, foudre, acide... ainsi que des poisons ou des maladies. À partir du rang 5, il ne reçoit plus aucun DM ni effet des poisons et des maladies.
+
+### 4. Pression mortelle (M) :
+
+Le moine frappe les points par lesquels circule l'énergie vitale d'une créature vivante. En touchant un point précis, il libère ensuite des effets dévastateurs. Lorsqu'il combat à mains nues, le joueur peut choisir de ne pas infliger immédiatement les DM de ses attaques, il les comptabilise à part et ajoute `+1d4°` aux DM de chaque attaque. À tout moment dans l'heure qui suit, il peut annoncer une *Pression mortelle*. Il doit alors réussir un test d'attaque au contact contre la DEF de la cible (action limitée), ce qui libère instantanément la totalité des DM infligés jusqu'alors. À partir du niveau 10, le moine n'a plus besoin de toucher sa cible pour déclencher cet effet ; dans ce cas, il remplace le test d'attaque au contact par un test opposé d'attaque magique, mais n'a droit qu'à un seul essai.
+
+### 5. Ascétisme :
+
+Le moine ne mange presque plus, et il peut subsister sans eau et sans sommeil pendant `[5 + VOL]` jour. Il ne subit aucune pénalité durant cette période. De plus, le moine augmente sa CON de +1 et obtient un dé bonus aux tests de CON.
+
+## VOIE DE LA MAÎTRISE
+
+### 1. Agilité du singe :
+
+Le moine ajoute son rang + 2 à tous ses tests pour effectuer des acrobaties ou esquiver et il gagne +2 en DEF. Ce bonus passe à +3 au rang 4. Se relever (si le personnage est renversé) devient une action gratuite.
+
+### 2. Griffes du tigre :
+
+Désormais, lorsque le moine obtient un résultat de 1 au dé de DM à mains nues, il le remplace par le résultat maximal du dé. De plus le moine peut choisir d'infliger des DM tranchants ou perforants lorsqu'il combat à mains nues au lieu de DM contondants.
+
+### 3. Morsure du serpent :
+
+Lorsqu'il attaque à mains nues, le moine augmente de 1 point les chances d'obtenir un critique sur les attaques au contact (par exemple, 19-20 au lieu de 20). De plus, ses coups critiques portés à mains nues sont désormais si douloureux que la cible est affaiblie pendant 1 round.
+
+### 4. Fureur du dragon (L) :
+
+Une fois par combat, le moine peut effectuer une attaque tournoyante qui inflige automatiquement `[3d4°+FOR] DM` à tous les adversaires au contact et oblige ceux-ci à réussir un test de FOR difficulté 10 pour ne pas être renversés.
+
+### 5. Moment de perfection :
+
+Une fois par jour, le moine peut choisir de réussir toutes ses attaques automatiquement (pas de critique) et d'esquiver toutes celles qui le prennent pour cible pendant un round. Tout semble aller au ralenti autour de lui... Il peut utiliser cette capacité une fois de plus chaque jour par rang 5 atteint dans une autre voie de moine, mais pas plus d'une fois par combat. De plus le moine augmente définitivement de +1 la valeur de sa plus faible caractéristique (choisir en cas d'égalité).
+
+## VOIE DE LA MÉDITATION
+
+### 1. Pacifisme :
+
+Tant que le moine n'a réalisé aucune action offensive dans un combat, il bénéficie d'un bonus de +5 en DEF et divise par deux tous les DM subis par des attaques. De plus, il obtient un bonus égal à son rang + 2 à tous les tests d'empathie (pour analyser l'état émotionnel d'un interlocuteur) ou à ceux effectués pour apaiser un auditoire ou le convaincre de ne pas avoir recours à la violence.
+
+### 2. Transe de guérison :
+
+Le moine peut méditer pendant 10 min et récupérer ainsi [1d4°+VOL] PV. Les soins augmentent de +1d4° chaque fois que le personnage atteint le rang 4 dans une voie de moine. Il doit terminer une récupération rapide avant de pouvoir à nouveau utiliser cette capacité et il ne peut pas l'utiliser plus de trois fois par jour.
+
+### 3. Maîtrise du ki :
+
+Le moine utilise sa force mentale pour augmenter son efficacité en combat. Il ajoute sa VOL à son Initiative et à ses PV. De plus, il gagne +2 en DEF (ce bonus passe à +3 au rang 5).
+
+### 4. Volonté héroïque :
+
+Le moine augmente sa VOL de +1. Désormais, il obtient un dé bonus aux tests de VOL.
+
+### 5. Projection mentale (L) :
+
+Une fois par jour, le moine entre en méditation et projette son esprit hors de son corps pendant [1d4°+VOL] minutes. Il ressemble à un ectoplasme de couleur blanche qui se déplace en volant à la vitesse de 10 m par round. Il peut passer au travers des murs, mais pas des êtres vivants ou des barrières magiques. Le moine ne perçoit le monde que par sa projection mentale, mais ressent les DM qui sont infligés à son corps. Il peut utiliser cette capacité une fois de plus chaque jour par rang 5 atteint dans une autre voie de moine. De plus le moine augmente définitivement de +1 la valeur de sa plus faible caractéristique (choisir en cas d'égalité).
+
+
+## VOIE DU POING
+
+### 1. Poings de fer :
+
+Lorsqu'il combat à mains nues, le moine peut (s'il le souhaite) remplacer sa FOR par son AGI pour ses tests d'attaque au contact et il inflige [1d6+FOR] DM létaux (Voir « DM temporaires » page 219). Ces DM augmentent à chaque rang suivant : 1d8 au rang 2, 1d10 au rang 3, 1d12 au rang 4 et enfin 2d6 au rang 5.
+
+### 2. Peau de fer :
+
+Le moine gagne un bonus de +2 en DEF et il divise tous les DM temporaires subis par deux. Le bonus de DEF passe à +3 au rang 5.
+
+### 3. Parade de projectiles (G) :
+
+Le moine peut dévier un projectile (flèche, javelot...) une fois par round (sauf si le test d'attaque est un critique ou si l'attaque vient d'une arme à poudre).
+
+### 4. Déluge de coups (L) :
+
+À son tour, le moine peut effectuer deux attaques au contact sur des cibles de son choix.
+
+### 5. Puissance du ki :
+
+Le moine peut choisir de s'imposer un dé malus sur une attaque au contact et ajoute +2d4° aux DM. Cette capacité peut aussi être utilisée avec Projection du ki qui est une attaque magique.
+
+### MAINS NUES OU ARMES
+
+Plutôt que de se battre à mains nues, le moine peut décider d'utiliser une arme de son choix. Dans ce cas, dans les différentes capacités de la voie du moine mentionnant «à mains nues», vous pouvez remplacer «à mains nues» par «avec l'arme de son choix»; et la voie du poing doit alors être renommée en fonction de l'arme choisie (par exemple, voie du bâton ou voie du sabre).
+Attention, dans le cas d'un profil hybride, ces capacités imposent toujours de ne porter aucune armure ni bouclier.
+
+## VOIE DU VENT
+
+### 1. Pas du vent :
+
+Le moine peut se déplacer avant et après avoir attaqué (mais il couvre toujours une distance normale, il divise son mouvement en deux). De plus, il gagne +3 en Initiative et son rang + 2 à tous les tests de saut, de course ou d'escalade.
+
+### 2. Course du vent :
+
+Le moine se déplace à une vitesse surhumaine, il gagne +1 en DEF et une action de mouvement lui permet de couvrir 15 m. Au rang 5, le bonus de DEF passe à +2 et l'action de mouvement lui permet de couvrir 20 m.
+
+### 3. Course des airs :
+
+Le moine défie les lois de la pesanteur et peut se déplacer sur des surfaces qui ne devraient pas supporter son poids. Il peut se déplacer sur l'eau, la neige, le feuillage des arbres ou courir sur un mur vertical. Il doit commencer et terminer son déplacement sur une surface normale. Il n'est plus ralenti par les terrains difficiles et il est désormais immunisé à l'état immobilisé.
+
+### 4. Agilité héroïque :
+
+Le moine augmente son AGI de +1. Désormais, il obtient un dé bonus aux tests d'AGI.
+
+### 5. Passe-muraille (L) :
+
+Une fois par combat, le moine peut rendre son corps intangible le temps de passer au travers d'un mur d'une épaisseur maximal de VOL mètres. Il ne peut rester immatériel qu'un court instant et reprend corps dès qu'il émerge du mur. Si le mur est trop épais, la capacité ne fonctionne pas. De plus le moine augmente définitivement de +1 la valeur de sa plus faible caractéristique (choisir en cas d'égalité).
+
+# PRÊTRE
+
+Points de vigueur : 4 par niveau
+
+Le prêtre perçoit la nature divine du monde et les desseins des dieux. Il utilise l'énergie transmise par sa divinité pour mener à bien ses missions avec la force de la foi, mais aussi celle des armes si nécessaire.
+
+Dans les Terres d'Osgild : Vous trouverez page 126 un tableau qui récapitule la liste des armes sacrées et des capacités divines des principales religions officielles des Terres d'Osgild. Les humains considèrent que les dieux sont les créateurs du monde, tandis que les Premiers-nés (elfes et nains) affirment que les dieux sont arrivés bien après la création du monde par les Puissances (air, terre, feu, eau, esprit et mort). Ils appellent parfois les dieux, les nouveaux dieux, ce qui n'est pas du goût de toutes les religions. Toutefois, il n'y a pas de réel conflit, le culte des Puissances étant quasi éteint.
+
+## Armes & armures
+
+Le prêtre sait manier les armes contondantes à une main ainsi que le bâton ferré. Les prêtres ont l'interdiction morale de faire couler le sang (!) et n'utilisent donc pas les armes tranchantes ou perçantes pour des raisons religieuses. L'arme sacrée d'un prêtre spécialiste constitue une exception.
+
+Les voies de prêtre limitent l'armure à la chemise de mailles et permettent d'utiliser le petit bouclier (DEF +1).
+
+## GÉNÉRALISTE ET SPÉCIALISTE
+
+Les prêtres généralistes prient tous les dieux d'un panthéon ou une sélection d'entre eux, le plus souvent tous les dieux protecteurs par opposition aux destructeurs. Les généralistes sont plus courants dans les villages où, lorsqu'un temple existe, il accueille de nombreuses divinités. Il est plus simple pour un joueur de créer un prêtre généraliste, car il suit les règles de base du profil sans modification. La liste des dieux pourra lui servir d'inspiration pour ses prières du quotidien : à chaque action, à chaque moment de vie ou d'aventure peut correspondre un dieu différent.
+
+Les prêtres spécialistes sont au contraire les hérauts d'un seul dieu et ils portent sa parole, ses idéaux et son dogme à l'exclusion de tout autre. Chaque prêtre spécialiste maîtrise une arme sacrée qui dépend de son dieu et obtient une capacité divine issue d'un autre profil. Elle remplace une capacité du même rang de n'importe quelle voie choisie par le joueur. La capacité divine doit obligatoirement être la première capacité de ce rang choisie par le joueur. Si la capacité est de rang 1, elle doit être choisie à la création du personnage. Si, par exemple, elle est de rang 3, le personnage ne peut pas choisir d'autre capacité de rang 3 tant qu'il n'a pas fait l'acquisition de cette capacité.
+
+## Équipement de départ
+
+Masse, marteau de guerre (DM 1d6) ou bâton ferré (DM 1d6, à deux mains), petit bouclier (DEF +1), chemise de mailles (DEF +4).
+
+## VOIE DE LA FOI
+
+### 1. Prédicateur :
+
+Le prêtre ajoute son rang + 2 aux tests visant à convaincre ou convertir son auditoire. De plus, une fois par jour, il récupère 1 PC s'il réussit à convertir une créature (ou un groupe) à sa religion ou à convaincre une créature peu encline à le faire à suivre ses préceptes.
+
+### 2. Miracle mineur (A)* :
+
+Le prêtre réalise un petit miracle. Par exemple, purifier de l'eau croupie pour qu'elle devienne buvable ou des aliments avariés (mais il ne peut pas en créer), apaiser une douleur mineure (qui n'entraîne pas de malus) ou même une douleur majeure pendant un seul round, soigner une maladie bénigne (rhume, grippe, etc.). Ce sort permet aussi de rendre 1d4° PV à une créature à 0 PV.
+
+### 3. Arme de lumière (M)* ou (L)* :
+Ce sort permet d'enchanter l'arme du prêtre pour une durée de CHA minutes. Elle produit de la lumière dans un rayon de 5 m et contre les démons et les morts-vivants, elle offre un dé bonus en attaque et ajoute +1d4° aux DM. À partir du rang 5, le prêtre peut utiliser ce sort sur l'arme d'un allié au prix d'une action limitée ou, s'il utilise le sort sur son arme personnelle, infliger +2d4° DM (au lieu de 1d4°). Le sort prend immédiatement fin si l'arme quitte les mains du prêtre.
+
+### 4. Ailes célestes (A)* :
+Des ailes divines poussent dans le dos du prêtre, qui peut voler à une vitesse équivalente à son déplacement normal pendant CHA minutes. Rester en vol stationnaire avec les ailes célestes est une action de mouvement.
+
+### 5. Foudres divines (A)* :
+La foudre frappe toutes les créatures désignées dans un rayon de 10 m autour du prêtre et leur inflige [2d4°+CHA] DM (pas de test d'attaque requis). Ce sort est gourmand en énergie et son coût augmente de +1 PM à chaque utilisation tant que le prêtre n'a pas terminé une récupération rapide.
+
+## VOIE DE LA GUERRE SAINTE
+
+### 1. Arme béniie (A)* :
+Le prêtre effectue un court rituel et son arme est béniie pour une durée de 24 h. Lorsqu'il obtient un résultat de 1 sur son dé de DM, il relance le dé et garde le second résultat. Les DM de l'arme sont considérés comme magiques. L'arme n'est plus béniie si une autre créature l'utilise.
+
+### 2. Bouclier de la foi :
+Le prêtre porte le symbole de sa foi sur son bouclier, ce qui lui confère un bonus supplémentaire de +1 en DEF lorsqu'il l'utilise. Ce bonus passe à +2 au rang 5. Comme pourl'arme béni, le symbole de la foi n'est d'aucune utilité si le bouclier est utilisé par quelqu'un d'autre.
+
+### 3. Châtiment divin (L) :
+Le prêtre effectue une attaque de contact avec un dé bonus et ajoute son CHA aux dommages. De plus, lorsqu'il utilise cette capacité, le prêtre peut dépenser 1 PM pour ajouter +1d4° aux DM d'une attaque au contact qui touche. Au rang 5, il peut dépenser 2 PM pour ajouter +2d4°.
+
+### 4. Marteau de la foi (A)* :
+Le prêtre effectue un test d'attaque magique contre la DEF se sa cible (portée de 30 m). Un projectile d'énergie de la forme de l'arme du prêtre va percuter la cible, lui infligeant [2d4°+CHA] DM en cas de réussite. Si l'arme du prêtre est magique, il peut ajouter son bonus au test d'attaque et aux DM. Les DM du marteau de la foi augmentent de +1 chaque fois que le personnage atteint le rang 4 dans une autre voie de prêtre.
+
+### 5. Mot de pouvoir (A)*:
+Une fois par jour, le prêtre peut prononcer un mot avec la voix de son dieu. Cela dépasse l'entendement des mortels et tous ses ennemis dans un rayon de 10 m sont étourdis pendant 1 round (pas d'action et -5 en DEF).
+
+## VOIE DE LA PRIÈRE
+
+### 1. Bénédiction (L)*:
+Le prêtre entonne un chant pour encourager ses compagnons en vue. Ses alliés et lui bénéficient d'un bonus de +1 à tous leurs tests de caractéristique et d'attaque pendant CHA minutes. Ce bonus passe à +2 au rang 5. De plus, le prêtre obtient un bonus égal à son rang + 2 à tous les tests de théologie ou de cosmologie.
+
+### 2. Sanctuaire (L)*:
+Pendant 1 min (10 rounds), tous les adversaires qui veulent attaquer le prêtre doivent réussir un test d'INT difficulté [10 + CHA du prêtre]. S'ils échouent, ils ne peuvent pas l'attaquer pour la durée du sort. Ceux dont le niveau est inférieur à la moitié de celui du prêtre sont automatiquement affectés (pas de test d'INT). Si le prêtre commet une action offensive, le sort prend fin immédiatement et il ne peut plus être lancé avant de prendre une récupération rapide.
+
+### 3. Destruction du mal (A)*:
+Tous les morts-vivants et les démons dans un rayon de 10 m autour du prêtre subissent automatiquement [2d4°+CHA] DM. Les DM passent à 3d4° au rang 5.
+
+### 4. Volonté héroïque:
+Le prêtre augmente sa VOL de +1. Désormais, il obtient un dé bonus aux tests de VOL.
+
+### 5. Intervention divine (G):
+Le prêtre fait appel à son dieu pour changer le cours des événements. Une fois par combat, il peut décider qu'un test du MJ ou des joueurs est une réussite ou un échec, même après que les dés ont révélé leur résultat. Il ne peut pas modifier le résultat du test obtenu par une créature d'un NC supérieur à son niveau.
+
+## VOIE DES SOINS
+
+### 1. Récupération mineure (A)*:
+Le prêtre peut apposer les mains sur un allié au contact (ou sur lui-même) pour le soigner. Le patient récupère [1d4°+CHA du prêtre] PV. Ce sort peut être lancé une fois par jour par rang atteint dans la voie, plus une fois supplémentaire chaque fois que le personnage atteint le rang 3 dans une autre voie de prêtre. En plus de ce sort, le prêtre ajoute son rang + 2 à tous les tests de médecine et de premiers soins.
+
+### 2. Vigueur divine (L)*:
+La cible au contact est guérie d'un poison ou d'une maladie. Si l'infection est surnaturelle, un test d'attaque magique opposé est nécessaire.
+
+### 3. Récupération majeure (L)* :
+
+Le prêtre peut soigner une cible (ou lui-même) à une portée de 20 m ; elle récupère immédiatement [3d4°+CHA du prêtre] PV. Le montant des soins prodigues augmente de 1d4° chaque fois que le personnage atteint le rang 5 dans une voie de prêtre.
+
+### 4. Phénix :
+
+Une fois par jour, lorsque le personnage tombe à 0 PV, il se relève, nimbé d'une aura de lumière. Il produit alors une onde d'énergie positive qui restitue [2d4°+CHA du prêtre] PV à tous ses alliés dans un rayon de 20 m, et il récupère lui-même le double de PV.
+
+### 5. Rétablissement* :
+
+Une fois par jour, le prêtre peut soigner une créature par point de CHA. Chaque patient (éventuellement lui-même inclus) obtient les mêmes effets qu'un sort de Récupération majeure. Le sort prend 10 min pendant lesquelles tous les patients doivent rester au repos dans un rayon de 5 m autour du prêtre qui se concentre et se nimbe de lumière divine. Ce sort ne peut pas être lancé avec la règle de concentration.
+
+## VOIE DE LA SPIRITUALITÉ
+
+### 1. Vêtements sacrés :
+
+La tenue religieuse du prêtre est bénie et le protège. Lorsqu'il ne porte aucune armure (bouclier autorisé), il obtient un dé bonus à tous les tests pour résister à un contrôle mental (injonction, charme, domination...) et +2 en DEF. Ce bonus passe à +3 au rang 3 et +4 au rang 5. Éventuellement, si le prêtre prie une divinité guerrière, il peut choisir d'obtenir la maîtrise de la cotte de mailles (DEF +5) et l'autorisation d'utiliser les capacités des voies de prêtre avec cette armure (dans le cas d'un profil hybride, la maîtrise de la chemise de mailles est un prérequis pour bénéficier de cette variante).
+
+### 2. Augure (L)* :
+
+Le prêtre entre en contact avec les forces de l'au-delà et demande un avis sur les conséquences d'une action (par exemple « quelles seront les conséquences si j'ouvre cette porte ? »). Il doit faire un test de CHA difficulté 10. En cas de succès, il reçoit une réponse déterminée par le MJ parmi : bénéfique, incertain, risqué ou préjudiciable. Le MJ essaie de donner la réponse la plus utile possible au scénario.
+
+### 3. Délivrance (L)* :
+
+En touchant sa cible, le prêtre annule les pénalités infligées par les sorts, les malédictions et les capacités spéciales (peur, douleur, affaiblissement, poisons, pétrification, etc., et les états étourdi, paralysé, ralenti ou immobilisé), mais pas les mutilations ou les amputations. Si la pénalité était permanente, le MJ peut requérir un test d'attaque magique opposé et imposer un éventuel malus selon la force de l'effet.
+
+### 4. Charisme héroïque :
+
+Le prêtre augmente son CHA de +1. Désormais, il obtient un dé bonus aux tests de CHA.
+
+### 5. Marche des plans (L)* :
+
+Une fois par jour, le prêtre peut passer dans une dimension entre les plans d'existence où le temps et l'espace sont déformés pendant un maximum de CHA rounds. Il se déplace dans une sorte de brouillard gris où le paysage défile à toute vitesse. Pour chaque round de Marche des plans, il se déplace en réalité de 10 km. Le lieu de sortie n'est cependant pas très précis et le MJ doit déterminer une position au hasard autour du point visé (à 1d6 km près).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# LA GENÈSE D'OSGILD VUE PAR LES HUMAINS
+
+Au commencement, Ada, la première femme et Ivu, le premier homme, furent créés par les dieux et autorisés à vivre parmi eux, dans un monde parfait. Ils peuplèrent le Paradis de leurs enfants et ils se multiplièrent, donnant naissance à de nombreux peuples. Les Élus régnaien sur les animaux et toutes les autres créatures, mais, aveuglés par l'ambition de ressembler à leurs créateurs, ils essayèrent de s'emparer de l'immortalité. Hélas, dans leur arrogance, ils ne virent que trop tard où les menaient leurs expériences : le néant. Leur échec se solda par une catastrophe cosmique, le Paradis fut anéanti et la vie passa tout près de l'extinction. Les Élus furent expulsés sur le Mitan avec des fragments de néant, Kaer Ouros, les Pierres du Ciel. Les survivants durent apprendre à prier, car ils avaient brisé le lien privilégié avec leurs créateurs. Pire, ils avaient ouvert la porte à la corruption du néant et, désormais, certains dieux n'étaient plus l'incarnation de la bienveillance, mais la personification des valeurs destructrices engendrées par le néant.
+
+Certains dieux portent parfois des noms différents chez les peuples non humains, par exemple Arshran est appelé Thürdim chez les nains.
+
+## Principales religions d'Osgild
+
+| Divinité et domaine | Symbole | Arme sacrée | Capacité divine |
+| --- | --- | --- | --- |
+| Arcanna, déesse de la magie blanche | une étoile | bâton | maîtrise de la magie (voie du mage) |
+| Arshran, dieu du feu et des forgerons | une enclume | marteau | morsure de la forge(voie du métal – forgesort) |
+| Arwendée,déesse de la chasse et des archers | une flèche | arc¹ | archer émérite(voie de l'archer – rôdeur) |
+| Aurilla, déesse de la chance et des aventuriers | un dé | épée courte | charmant(voie de la séduction – barde) |
+| Axënder, dieu du devoir et de l'honneur | un heaume | épée longue | sans peur(voie du meneur d'hommes – chevalier) |
+| Basile,dieu de la gourmandise et de la nourriture | un chou | gourdin | nature nourricière(voie de la survie – rôdeur) |
+| Cérès, dieu de l'agriculture et du travail | un épi de blé | faux² | robustesse(voie de la résistance – guerrier) |
+| Dénora,déesse de la compassion et de la guérison | une main | bâton | baies magiques(voie du protecteur – druide) |
+| Ellona,déesse de la perception et de la vérité | un œil | arc court | détecton de l'invisible(voie de la divination – ensorceleur) |
+| Forthur,dieu du courage et des exploits | un poing | épée à deux mains | tour de force(voie de la brute – barbare) |
+| Gaëlm, dieu des arts et des artistes | une lyre | rapière | chant de réconfort(voie du musicien – barde) |
+| Gorom, dieu de la pierre et des architectes | un marteau | marteau | peau de pierre(voie du pagne – barbare) |
+| Guardal, dieu de la loyauté et des gardiens | un bouclier | masse | protéger un allié (voie du bouclier – guerrier) |
+| Hellion, dieu des voleurs et du pillage | une cape | épée courte | doigts agiles (voie du roublard – voleur) |
+| Irrion, dieu de l'ordre et de la noblesse | une épée | épée longue | autorité naturelle (voie de la noblesse – chevalier) |
+| Jeweln, dieu des souterrains et des mineurs | une pioche | pioche³ | démolition (voie des explosifs – arquebusier) |
+| Linnarré, déesse de la mer et des marins | un coquillage | trident⁴ | respiration aquatique (voie de la magie élémentaire – magicien) |
+| Mélenna, déesse des forêts et des animaux | un arbre | arc¹ | nature nourricière voie de la survie – rôdeur) |
+| Méphistère, dieu de l'ombre et des secrets | un masque | dague | discrétion (voie de l'assassin – voleur) |
+| Mirandia, déesse du sommeil et des rêves | une demi-lune | bâton | sommeil (voie de l'envoûteur – ensorceleur) |
+| Möndovaël, dieu des nomades et du voyage | une botte | bâton | survie (voie de la survie – rôdeur) |
+| Morn, dieu de la mort et du passage dans l'au-delà | une faux | faux² | masque mortuaire (voie de la mort – sorcier) |
+| Orbis, dieu du commerce et des marchands | une pièce d'or | arbalète légère | sac sans fond (voie des artefacts – forgesort) |
+| Oumaros, dieu de l'air et des cieux | un nuage | arc¹ | lévitation (voie des arcanes – magicien) |
+| Perinde, déesse de la fertilité et des mères | une femme enceinte | bâton | prison végétale (voie des végétaux – prêtre) |
+| Sélenne, déesse de la paix et de la liberté | un oiseau blanc | mains nues | poings de fer (voie du poing – moine) |
+| Solar, dieu de la lumière et du savoir | le soleil | masse | lumière (voie de la magie universelle – magicien) |
+| Suelle, déesse de la beauté et de l'amour | un cœur | bâton | beauté de la succube (voie du démon – sorcier) |
+| Trenner, dieu du temps et des ancêtres | un sablier | bâton | rumeurs et légendes (voie du vagabond – barde) |
+| Tulsadüm, dieu de la jungle et des reptiles | un serpent qui se mord la queue | arc court | terrains difficiles (voie de la nature – druide) |
+| Tyriolith, dieu du combat contre le chaos et du feu purificateur | une flamme | masse | feu grégeois 3/jours (voie des élixirs – forgesort) |
+| Vorona, déesse de la justice et de la loi | une balance | épée longue | sans peur (voie du meneur d'hommes – chevalier) |
+
+- ¹ arc long ou court au choix
+- ² arme à deux mains, d10 DM
+- ³ arme à deux mains, d8 DM
+- ⁴ semblable à un épieu
+- ⁵ ou rouleau à pâtisserie ou poêle au choix, même DM
+
+
+# VOIES DE PRESTIGE
+
+Comme indiqué au chapitre « Progression & niveaux », page 38, à partir du niveau 5, un personnage peut choisir une voie de prestige (et une seule), qui représente un aboutissement, une spécialisation ou un concept original. Elle doit correspondre à une évolution logique du personnage ou à la rencontre d’un maître à la suite de ses aventures.
+
+Il existe des voies de prestige spécifiques à chaque famille de profils (aventuriers, combattants, mystiques et mages) ainsi que des voies de prestige génériques. Chaque voie de prestige comprend cinq capacités dont les rangs sont répartis de 4 à 8.
+
+Tableau récapitulatif des voies de prestige
+
+| Voies d'aventurier | Voies de combattant | Voies de mage | Voies de mystique | Voies génériques |
+| --- | --- | --- | --- | --- |
+| Voie de l'archer arcanique | Voie de l'arme liée | Voie de l'archimage | Voie de l'armure sacrée | Voie de l'expert |
+| Voie du casse-cou | Voie des armes à deux mains | Voie des couleurs | Voie du changeforme | Voie du spécialiste |
+| Voie du chasseur de prime | Voie de l'ours | Voie des cristaux | Voie du combat mystique | Voie du lycanthrope |
+| Voie du duelliste | Voie du combat du mal | Voie de l'élémentaliste | Voie élémentaire de l'air | Voie du sang-dragon |
+| Voie de l'espion | Voie du combattant des tunnels | Voie du gel | Voie élémentaire de l'eau | Voie du familier fantastique |
+| Voie du flibustier | Voie du colosse | Voie de l'invocation majeure | Voie élémentaire du feu |  |
+| Voie du héros | Voie du chevalier dragon | Voie du mage de guerre | Voie élémentaire de la terre |  |
+| Voie du maître des poisons | Voie du danseur de guerre | Voie de la magie de l'esprit | Voie du guérisseur |  |
+| Voie des ombres | Voie de l'écorcheur | Voie de la magie des mots | Voie du maître de la nature |  |
+| Voie du pacte féérique | Voie du guerrier-mage | Voie de la magie du temps | Voie des saisons |  |
+| Voie du touche à tout | Voie du porteur de bouclier | Voie du maître des sorts | Voie du templier |  |
+| Voie du tueur à gages | Voie du tueur de géants | Voie de la vision | Voie des vermines |  |
+
+## VOIES GÉNÉRIQUES
+
+Ces cinq voies peuvent être choisies par n'importe quel profil. Elles ne sont pas classées par ordre alphabétique, mais présentent d'abord deux voies qui permettent de renforcer les capacités du personnage dans son propre profil ou sa famille de profils, puis deux exemples de voies qui peuvent convenir à tout type de profils.
+
+## VOIE DE L'EXPERT
+
+La voie de l'expert se décline en quatre variantes selon la famille du profil. Les points de vigueur obtenus correspondent à la famille du profil. Le personnage doit toujours respecter les restrictions d'armure imposées par les voies dont sont issues les capacités choisies.
+
+**Note :** Cette voie n'est pas accessible aux profils hybrides qui ont choisi des voies issues d'une autre famille de profils que celle du profil principal. La voie de l'expert permet d'élargir les capacités du personnage à l'ensemble des profils de sa famille. C'est un choix tout aussi intéressant que le profil hybride, tant que le joueur ne cherche pas de capacité hors de sa famille de profils et qu'il n'est pas pressé d'en faire l'acquisition. En revanche, elle présente l'avantage de permettre d'aller chercher des capacités dans de nombreux profils de la famille.
+
+**Prérequis :** avoir acquis le rang 2 dans au moins trois voies issues du même profil. Aucune voie en dehors de la famille du profil principal.
+
+### 4. Capacité de néophyte :
+Choisissez une capacité de rang 1 de n’importe quelle voie issue d’un profil de votre famille.
+
+### 5. Capacité d’initié :
+Choisissez une capacité de rang 2 de n’importe quelle voie issue d’un profil de votre famille.
+
+### 6. Capacité de professionnel :
+Choisissez une capacité de rang 3 de n'importe quelle voie issue d'un profil de votre famille.
+
+### 7. Capacité d'expert :
+Choisissez une capacité de rang 4 de n'importe quelle voie issue d'un profil de votre famille.
+
+### 8. Capacité de maître :
+Choisissez une capacité de rang 5 de n'importe quelle voie issue d'un profil de votre famille.
+Attention : chacune des capacités choisies doit provenir d'une voie différente de la même famille de profils.
+
+## VOIE DU SPÉCIALISTE
+
+La voie du spécialiste n'étend pas le domaine de compétence du personnage, mais lui permet d'améliorer certaines capacités ou compétences en apportant des bonus à ce qu'il sait déjà faire. Cette voie permet au personnage de devenir très efficace sur un type particulier d'action, généralement orienté vers le combat.
+
+Les points de vigueur obtenus correspondent au profil principal du personnage.
+
+**Prérequis :** avoir acquis le rang 4 dans la voie à laquelle s'appliquera la voie du spécialiste (expertise, capacité signature, capacité supérieure et capacité fabuleuse). Cette voie doit être issue du profil principal du personnage.
+
+### 4. Expertise :
+Lorsqu'il acquiert cette capacité, le personnage peut choisir entre deux propositions. Soit il gagne un bonus de +1 en attaque lorsqu'il utilise une capacité à définir. Soit il obtient un bonus de +5 sur une compétence acquise par une capacité (par exemple, discrétion).
+
+### 5. Capacité fabuleuse :
+Le joueur choisit une capacité limitée que son personnage connaît. Désormais, il lui suffit d'une
+action d'attaque pour l'utiliser. S'il s'agit d'un sort (*), il peut choisir un sort en action d'attaque (A) et bénéficier de la concentration (L) sur ce sort sans prendre une action limitée.
+
+### 6. Caractéristique fabuleuse :
+
+Le joueur augmente d'un point la valeur de la plus haute caractéristique de son personnage. De plus, lorsqu'il obtient un résultat de 1 sur un test sur cette caractéristique, il peut relancer le dé une fois (il garde le nouveau résultat).
+
+### 7. Capacité supérieure :
+
+Le joueur choisit une capacité que connaît son personnage. Lorsqu'il utilise cette capacité, il ajoute +1d4° aux DM produits une fois par round (sur une seule attaque si la capacité permet plusieurs attaques).
+
+### 8. Capacité signature :
+
+Le joueur choisit une capacité (A), (M) ou (L) que connaît son personnage. Une fois par combat, il peut utiliser cette capacité en plus de ses actions normales à son tour (sauf s'il est surpris), sans dépasser les limitations normalement imposées par la capacité (par exemple, une seule fois par round, ou une seule fois par combat, etc.). Si la capacité est un sort, il doit payer le coût normal de points de mana.
+
+## VOIE DU LYCANTHROPE
+
+Malédiction ou super pouvoir ? La lycanthropie fait peur ou fascine et cela se retrouve aussi parmi les joueurs. Voici la voie qu'il vous faut si vous êtes de ceux qui aspirent à cette romance noire ou tout simplement si votre héros préféré s'est fait mordre par la Bête et que vous devez à présent en supporter les conséquences.
+
+Cette voie peut être ouverte à n'importe quel profil si le personnage a été mordu par un lycanthrope. Dans ce dernier cas, reportez-vous à l'en-cadré grand méchant loup.
+Le personnage obtient 5 PV par niveau.
+
+### GRAND MÉCHANT LOUP
+
+Les indications présentées dans cet enca-dré s'appliquent seulement à un PJ qui devient lycanthrope à la suite de la morsure d'un loup-garou. Le PJ ne contrôle rien et se trans-forme en bête maléfique, haineuse et affamée à chaque pleine lune et chaque fois qu'il reçoit un critique ou subit une situation trop frustrante (durée 1d6 h). Lorsqu'il reprend forme humaine, il ne se rappelle rien des exactions qu'il a com-mises. À l'inverse, il ne peut pas se transformer volontairement.
+
+La seule solution pour apprendre à se contrô-ler consiste à faire l'acquisition de la voie du lyc-anthrope. Dès qu'il acquiert le premier rang de la voie du lycanthrope, il apprend à se transformer volon-tairement. De plus, il peut alors résister à chaque transformation involontaire en réussissant un test de VOL difficulté [15 – rang]. S'il se transforme involontairement, à la fin de celle-ci, il peut tenter de se rappeler ce qu'il a fait durant la transforma-tion en réussissant un test d'INT difficulté 10.
+
+Comme la voie de lycanthropie est une voie de prestige, cela signifie que le PJ doit effectivement attendre le niveau 5 pour avoir une chance de contrôler sa maladie. À l'inverse, si le personnage est de plus haut niveau et qu'il possède déjà une voie de prestige, il devra désapprendre cette voie. Il est impossible d'avoir deux voies de pres-tige, aussi il perd immédiatement toutes les capa-cités de l'ancienne voie dès qu'il acquiert la voie du lycanthrope. Il peut transférer les capacités de l'ancienne voie de prestige vers la voie du lycan-thrope au rythme de deux capacités par niveau.
+
+### 4. Forme hybride (L) :
+
+Au prix d'une action limitée, le person-nage peut se transformer en forme hybride, mi-homme, mi-loup pendant 1 min. Il doit terminer une récupération rapide avant de pouvoir à nouveau utiliser cette capacité. Sous cette forme, il ne peut pas lancer de sort ou utiliser d'arme pour attaquer à dis-tance, en revanche il obtient une attaque
+de morsure (Attaque au contact) qui inflige [1d4°+FOR] DM en action gratuite une fois par round. Il reprend immédiatement sa forme normale s'il tombe à 0 PV.
+
+### 5. Transformation en loup (L) :
+Le personnage peut prendre la forme d'un loup pendant une durée maximale de 1 h par rang chaque jour. Le personnage conserve toutes ses caractéristiques sauf celles ci-dessous, ainsi que sa valeur d'attaque au contact habituelle.
+
+> **LOUP**
+> | FOR | AGI |
+> | --- | --- |
+> | +3 | +1 |
+> 
+> *   **Défense** [12 + rang]
+> *   **Initiative** 15
+> 
+> **DM** 1d4+3
+> Bonus de +5 aux tests basés sur la PER. Sous cette forme, il réduit de 5 les DM qui lui sont infligés par des armes qui ne sont pas en argent, et il gagne un bonus de +5 à tous les tests de poursuite et pour pister une trace.
+
+### 6. Éventration :
+Désormais, lorsqu'il obtient 15-20 sur son attaque de morsure, le lycanthrope ajoute 1d4° aux DM de sa morsure (sous forme de loup ou d'hybride).
+
+### 7. Résistance surnaturelle :
+Désormais le lycanthrope réduit de 5 tous les DM qui lui sont infligés par des armes qui ne sont pas en argent lorsqu'il est sous forme hybride. Cette réduction des DM ne peut pas être cumulée à une autre forme de RD.
+
+### 8. Forme puissante :
+Le lycanthrope augmente sa FOR de +2 lorsqu'il est sous forme de loup ou d'hybride (il gagne +2 en attaque au contact et aux DM sur toutes ses attaques basées sur la force).
+
+## VOIE DU SANG-DRAGON
+
+Les dragons les plus puissants sont capables de prendre forme humaine et parfois, pour des raisons qui leur sont propres, certains d'entre eux se sont assurés d'avoir une descendance parmi les hommes ou les elfes. Cet héritage peut sommeiller durant plusieurs générations et ressurgir sans explication, mais, aussi lointain qu'il soit, lorsque le sang du dragon se révèle, sa magie reste toujours aussi puissante.
+
+Le personnage obtient 5 PV par niveau.
+Prérequis : cette voie de prestige peut donner lieu à une aventure particulière ou à la découverte d'éléments cachés de l'histoire de la lignée du personnage.
+
+### 4. Ascendance draconique :
+Choisissez une couleur de dragon pour l'ascendance de votre personnage. Il obtient une réduction des DM de 5 (qui passe à 10 au rang 8 de la voie), correspondant au type d'énergie utilisé par le souffle du dragon. De plus, le personnage devient capable de voir dans le noir total comme si c'était de la pénombre jusqu'à 20 m.
+
+### 5. Griffes du dragon (L) :
+Une fois par combat, le personnage voit ses muscles se développer de façon spectaculaire pendant [rang] rounds tandis que des griffes poussent subitement au bout de ses doigts. Pendant toute la durée de la transformation, il obtient un bonus de +2 en FOR (attaque et DM) et une attaque de contact de griffes par round en action gratuite (G) infligeant [1d6°+FOR] DM.
+
+### 6. Souffle du dragon (L) :
+Une fois par combat, le personnage peut produire un souffle létal correspondant à son ascendance. Ce souffle couvre une zone conique de 5 m de long sur 5 m de large à son extrémité et inflige 5d4° DM. Les victimes peuvent diviser les DM par 2 à condition de réussir un test d'AGI difficulté [8 + rang].
+
+### 7. Ailes de dragon (L) :
+
+Une fois par combat, le personnage déploie des ailes de dragon pendant CON minutes (minimum 1 min). Ces ailes lui permettent de se déplacer en vol à une vitesse de 15 m par action de mouvement. Faire du surplace est une action de mouvement.
+
+### 8. Écailles de dragon :
+
+Le corps du personnage se renforce et se couvre d'écailles lorsqu'il reçoit des blessures graves. Lorsque le personnage passe sous la moitié de ses PV, il gagne une réduction des DM de 5 face à tous les types de dommages.
+
+### ASCENDANCE DÉMONIAQUE
+
+Il est possible de décliner cette voie avec d'autres types d'ascendance, par exemple, ascendance démoniaque. Dans ce cas, la résistance du rang 4 s'applique au choix à l'acide ou au feu. Le souffle du dragon est remplacé par la capacité de couvrir son arme d'acide ou de l'enflammer pour infliger +1d4°DM supplémentaire par attaque pendant [rang] rounds. Au rang 8, l'armure naturelle se traduit par des caractéristiques démoniaques (cornes, queue, pupilles verticales, etc.) et la résistance aux armes qui ne sont pas bénies contre les démons.
+
+## VOIE DU FAMILIER FANTASTIQUE
+
+Cette voie permet à n'importe quel héros de faire l'acquisition d'un compagnon original qui apporte quelques pouvoirs particuliers. Au fond, avoir un petit compagnon, c'est bon pour le moral.
+
+Cette voie est accessible à tout personnage qui s'est attaché les services d'un familiier. Le MJ peut aussi souhaiter organiser la rencontre du héros avec son compagnon lors de l'aventure suivante, dès lors que le joueur a investi les points pour faire l'acquisition du rang 1 de la voie. Chaque familiier apporte des pouvoirs magiques à son maître.
+Le personnage obtient 4 PV par niveau.
+
+**Capacité Familiar :** si le personnage possède déjà la capacité *Familiar*, le familiier fantastique peut être une nouvelle créature (pseudo-dragon, lézard voltaïque, fée, etc.) qui remplace l'ancienne ou une évolution du familier précédent (chat ailé, rat mort-vivant, etc.). Les avantages de la capacité *Familiar* s'appliquent désormais au *Familiier fantastique* (+2 Init. et DEF lorsque le familiier est en vue). La capacité reste un sort : le *Familiier fantastique* disparaît dans un nuage de fumée s'il est réduit à 0 PV, mais le maître peut l'invoquer à nouveau dès qu'il aura terminé une récupération complète.
+
+**Pas de capacité Familiar :** dans ce cas, la capacité n'est pas un sort. Si le familiier est réduit à 0 PV, il s'enfuit aussi loin que possible, s'il le peut, et ne reviendra qu'après la prochaine récupération complète prise par le personnage. Si la fuite est impossible, il tombe au sol, inconscient. Si sa mort est inéluctable, le personnage pourra récupérer un nouveau familiier au niveau suivant.
+
+### EXCEPTION DE NIVEAU
+
+Comme vous pouvez le constater, la voie du familier fantastique est une exception aux règles générales des voies de prestige. Ses rangs sont répartis de 3 à 7 au lieu de 4 à 8. Ce qui signifie que le premier rang de la voie peut être acquis dès le niveau 3, les autres rangs étant acquis aux niveaux habituels correspondant à chaque rang d'une voie de prestige.
+
+### 3. Familier fantastique (A) : 
+Le personnage fait l’acquisition d’un familier fantastique. Le familier récupère tous les PV per‑dus après une récupération rapide.
+
+> #### FAMILIER
+> 
+> #### TAILLE MINUSCULE
+> 
+> | AGI +3* | CON +2 | FOR -4 | PER +2 |
+> | --- | --- | --- | --- |
+> | CHA -2 | INT +1 | VOL +2 |  |
+> 
+> *   **Défense** [14 + rang dans la voie]
+> *   **Points de vigueur** [niv.du personnage × 2]
+> *   **Initiative** [Init. du personnage]
+> 
+> Le personnage peut utiliser les sens de son familiier (voir par ses yeux, entendre ce qu'il entend, etc.) et communiquer avec lui à distance illimitée. Vous trouverez les caractéristiques spéciales de ces créatures plus loin.
+
+
+### 4. Pouvoir mineur :
+
+Le familier confère au personnage un pouvoir magique indiqué dans sa description.
+
+### 5. Résistance :
+
+Le familier obtient une RD de 1 par rang face à tous les types de DM. De plus, le personnage apprend un sort de rang 1 ou 2 de son choix d'un profil indiqué dans la description du familier. Il peut utiliser ce sort deux fois par jour dans le cas d'un rang 1 et une seule fois dans le cas d'un rang 2.
+
+### 6. Inséparables (M) :
+
+Le personnage rappelle son familier à son contact par magie. Le familier est téléporté sur son maître au prix d'une action de mouvement. De plus le familier confère au personnage 1 PC supplémentaire.
+
+### 7. Pouvoir supérieur :
+
+Le familier confère au personnage un second pouvoir magique indiqué dans sa description, ainsi qu'un bonus de +1 sur la valeur de caractéristique indiquée dans la description du familier.
+
+
+### LES FAMILIERS FANTASTIQUES
+
+Plutôt que de décortiquer cette liste à la recherche d'une optimisation de pouvoirs, nous vous conseillons de privilégier la spontanéité et l'envie. Votre choix devrait plutôt se faire en fonction du caractère du personnage.
+
+Les mentions R4, R5 et R7 figurant pour chaque familier font références aux capacités de rang 4, 5 et 7 de la voie du familier fantastique.
+
+
+### ANIMAL CÉLESTE
+
+Un familier ordinaire auquel des ailes ont poussé. Celles-ci symbolisent son élévation spirituelle. Le familier obtient la faculté de parler et la capacité de voler sur une distance de 20 m par action de mouvement.
+
+- R4 - Pouvoir mineur : Compréhension des langues (rang 4, voie du vagabond, barde), 1 fois par jour, seulement à l'oral, pas à l'écrit.
+- R5 - Profil de magie associé : prêtre
+- R7 - Pouvoir supérieur : Prescience (rang 5, voie de la divination, ensorcelleur), une fois par jour. Caractéristique : CHA.
+
+### ANIMAL MORT-VIVANT
+
+Le personnage obtient la version morte-vivante d'un familier ordinaire (rat, chat, corbeau, etc.). Ce peut être un nouveau familier ou son ancien familier passé de vie à trépas et fidèle par-delà la mort. Le familier acquiert le type « non-vivant » et tous les avantages qui en découlent (voir les créatures). Il obtient une attaque qui draine la force vitale des créatures vivantes (attaque = attaque magique du personnage), l'attaque inflige 1d4° DM et permet au magicien ou au familier de récupérer 1 PV par attaque réussie.
+
+- R4 - Pouvoir mineur : Le personnage obtient la capacité Siphon des âmes (rang 1, voie de la mort, sorcier). S'il possède déjà cette capacité, il double son effet.
+- R5 - Profil de magie associé : sorcier
+- R7 - Pouvoir supérieur : Le personnage obtient la capacité Exsangue (rang 3, voie du sang de sorcier). S'il possède déjà cette capacité, le personnage ne subit plus de pénalité à ses tests lorsqu'il est à 0 PV. Caractéristique : CON.
+
+### ARAIGNÉE GÉANTE
+
+Une araignée de la taille d'un familier normal, c'est-à-dire un monstre d'environ 30 cm de diamètre pattes comprises ! L'araignée possède une attaque (attaque = attaque magique du personnage) qui inflige 1 DM et oblige la victime à faire un test de CON difficulté [10 + rang atteint dans la voie]. En cas d'échec, la cible subit 1d4° DM de poison. Elle est capable de grimper aux murs.
+
+- R4 - Pouvoir mineur : Toile (L). Une fois par combat, le personnage peut projeter des toiles gluantes du bout de ses doigts sur une cible à une distance maximale de 5 m. Cette action lui demande la réussite d'un test d'attaque magique contre la DEF de la cible. La victime de cette attaque est immobilisée par la toile pour 1d6 rounds. À son tour, la victime peut tenter un test de FOR difficulté 12 pour se libérer par une action de mouvement (M). Une réussite lui restitue sa complète liberté d'action.
+- R5 - Profil de magie associé : sorcier
+- R7 - Pouvoir supérieur : Poison. Une fois par round, une attaque que le personnage effectue avec une arme tranchante ou perforante inflige +1d4° DM supplémentaires de poison. Caractéristique : AGI.
+
+### DIABLOTIN
+
+Cette créature a tout du démon miniature : ailes de chauve-souris, queue fourchue et surtout caractère pervers et cruel. Heureusement, le diablotin est aussi un couard et obéit à son maître dès lors que celui-ci se montre suffisamment persuasif... Ce qui ne l'empêche pas de passer son temps à lui suggérer les actions les plus dépravées possibles. Le diablotin vole à une vitesse de 10 m par action de mouvement et est doué de parole.
+
+- R4 - Pouvoir mineur : Le diablotin devient capable de se transformer en animal (de taille très petite) de son choix (corbeau, chouette, serpent, chat, chien, singe ou même saumon). Cela lui demande une action de mouvement pour changer de forme. Une fois transformé, il acquiert tous les modes de locomotion de l'animal imité.
+- R5 - Profil de magie associé : sorcier
+- R7 - Pouvoir supérieur : Le personnage obtient la capacité Pacte démoniaque (rang 3, voie du démon, sorcier). Si le personnage possède déjà cette capacité, il divise par 2 les DM subis (arrondi au supérieur). Caractéristique : INT.
+
+### DRAGON FÉÉRIQUE
+
+Le dragon féérique est un cousin du pseudo-dragon que l'on reconnaît facilement à ses grandes ailes colorées de papillon. Les dragons féériques sont d'un naturel farceur et priset les sorts d'illusion. Le dragon féérique vole à une vitesse de 10 m par action de mouvement. Il est capable de communiquer par télépathie avec toutes les créatures comprenant le langage commun ou le sylvestre (le langage de la forêt) jusqu'à une portée de 20 m.
+
+- R4 - Pouvoir mineur : Le personnage obtient le sort Image décalée (rang 2, voie des illusions, ensorcelleur), 2 fois par jour.
+- R5 - Profil de magie associé : ensorcelleur
+- R7 - Pouvoir supérieur : Le personnage obtient le sort Mirage (rang 1, voie des Illusions, ensorcelleur), 1 fois par combat. Caractéristique : CHA.
+
+### FÉE OU LUTIN
+
+Le personnage adopte un lutin (30 cm) ou une fée (15 cm). Ce sont des créatures espiègles et farceuses (CHA +2) dont le MJ pourra parfois prendre le contrôle pour jouer des tours pendables aux alliés du personnage, et pourquoi pas au personnage lui-même. Fée et lutin possèdent la capacité de se rendre invisible à volonté. La fée peut voler (10m par action de mouvement) et le lutin est capable de se téléporter sur une distance de 10 m par action de mouvement.
+
+- R4 - Pouvoir mineur : 2 fois par jour, le personnage peut se rendre invisible comme avec la capacité de magicien (rang 3, voie de la magie universelle).
+- R5 - Profil de magie associé : ensorceleur
+- R7 - Pouvoir supérieur. Une fois par jour, le personnage peut basculer dans le monde invisible et s'y déplacer pour en ressortir là où il le souhaite. Ce pouvoir fonctionne exactement comme la capacité Marche des plans de la voie de la spiritualité du profil de prêtre. Caractéristique : AGI.
+
+### GRIG
+
+Le buste humanoïde de cet esprit follet de 45 cm de haut surmonte un bas-ventre et des pattes inférieures semblables au corps d'une sauterelle. Tête brûlée veillant à la protection des zones naturelles, le Grig n'a peur de rien et prend souvent des risques inconsidérés. Le Grig aime jouer du violon et, une fois par jour, il peut reproduire avec cet instrument les effets d'un sort de Danse irrésistible (rang 5 de la voie du musicien, barde).
+
+- R4 - Pouvoir mineur : Prison végétale comme la capacité de rang 2 de la voie des végétaux du druide, 2 fois par jour.
+- R5 - Profil de magie associé : druide
+- R7 - Pouvoir supérieur : Nuée d'insectes (rang 3 de la voie des animaux, druide), 3 fois par jour. Caractéristique : AGI.
+
+### LÉZARD VOLTAÏQUE
+
+Plus grand que les autres créatures proposées (FOR -2), ce familier pèse une dizaine de kilogrammes et fait la taille d'un petit chien, un animal dont il partage le tempérament joueur et affectueux. Ce gros lézard de couleur bleu ou verte possède deux cornes qui produisent des arcs électriques. Le lézard voltaïque est immunisé aux DM d'électricité et il peut délivrer une décharge étourdissante à ses ennemis. Cette attaque de contact (attaque magique du personnage] inflige 1d4° DM et contraint à réussir un test de CON difficulté 10 pour ne pas être affaibli durant 1 tour.
+
+- R4 - Pouvoir mineur. Le personnage obtient la capacité Sous tension (rang 1, voie de l'air, ensorceleur), 2 fois par jour.
+- R5 - Profil de magie associé : magicien
+- R7 - Pouvoir supérieur : Le personnage obtient la capacité Foudre (rang 4, voie de l'air, ensorceleur), 2 fois par jour. Caractéristique : INT.
+
+### MINIMOI
+
+À partir d'un petit morceau de sa chair, le personnage se dote d'une réplique miniature de sa personne. Cette réplique peut être créée à la suite d'une péripétie jouée ou subie par le personnage. Le familier est l'exacte copie de son maître, mais il mesure environ 30 cm. Son caractère et son attitude tendent à caricaturer les défauts et les qualités du personnage (en les accentuant ou au contraire en prenant le contre-pied). Lorsqu'ils sont au contact l'un de l'autre, le personnage peut guérir le minimoi en lui transférant ses propres PV.
+
+Caractéristiques : le minimoi a FOR -3 et AGI [AGI du personnage + 2]; toutes ses autres caractéristiques sont égales à celles du personnage - 2.
+
+- R4 - Pouvoir mineur : Imitation. Le personnage obtient la capacité Imitation (rang 4, voie des illusions, ensorceleur) qu'il peut utiliser une fois par jour.
+- R5 - Profil de magie associé : Le profil principal du personnage. Même si le personnage n'est pas un lanceur de sort, le personnage choisit tout de même une capacité de son propre profil principal.
+- R7 - Pouvoir supérieur : Clone. Une fois par jour, par une action limitée, le minimoi peut grandir jusqu'à prendre une taille normale et devenir le double exact du personnage pendant INT rounds. Les deux personnages ont exactement les mêmes caractéristiques, le joueur les fait agir une fois par round de façon indépendante. Toutefois, ils partagent une unique réserve de PM (celle du PJ) et tous les sorts lancés par le familier sont déduits des PM du personnage. Durant sa transformation, le familier perd sa RD (il conserve ses PV habituels). Caractéristique : CHA.
+
+### PANTIN OU POUPÉE
+
+Le personnage obtient un familier artificiel, qui peut être une poupée de chiffon, une merveille de miniaturisation et d'engrenages, ou encore une statuette s'animant par magie. Le pantin ou la poupée peut être un ancien familier transformé ou une nouvelle créature. Le familier acquiert le type « non-vivant » et tous les avantages qui en découlent. Le pantin possède une RD 5. Celle-ci s'ajoute à celle obtenue à partir du rang 6.
+
+- R4 - Pouvoir mineur : Le personnage obtient la capacité Serviteur invisible (rang 2, voie de l'invocation, ensorceleur), 3 fois par jour.
+- R5 - Profil de magie associé : forgesort
+- R7 - Pouvoir supérieur : Le personnage obtient la capacité Peau de pierre (rang 5, voie de la magie élémentaire, magicien) qu'il peut utiliser une fois par jour. Caractéristique : CON.
+
+### PSEUDO-DRAGON
+
+Le pseudo-dragon est un petit lézard ailé de 30 cm environ pourvu d'une longue queue de 60 cm qui se termine par un dard empoisonné. Le pseudo-dragon vole à une vitesse de 10 m par action de mouvement. Il est capable de communiquer par télépathie avec toutes les créatures comprenant le langage commun ou celui de la forêt (le sylvestre) à une portée de 20 m.
+
+Il attaque avec la valeur d'attaque magique du personnage et, en cas de réussite, son poison oblige la victime à réussir un test de CON difficulté 10 ou à s'endormir pendant 2d6 min. Les créatures de NC supérieur à 1 sont immunisées à ce poison.
+
+- R4 - Pouvoir mineur : Télépathie. Le personnage peut communiquer par télépathie à une distance de 50 m avec toutes les créatures douées de conscience avec lesquelles il partage un langage commun.
+- R5 - Profil de magie associé : ensorceleur
+- R7 - Pouvoir supérieur : Le personnage obtient la capacité Sommeil (rang 2, voie de l'envoûteur, ensorceleur), une fois par combat. Caractéristique : CHA.
+
+### STIQUE
+
+La stique est une affreuse petite créature de couleur verte de 30 cm de haut, croisement entre un moustique géant et une chauve-souris pourvue de quatre ailes. Elle possède six pattes barbelées lui permettant de s'accrocher férocelement à ses victimes pour leur sucer le sang. Son exosquelette est excessivement dur et très difficile à briser sans blesser ces dernières au passage.
+
+Une stique attaque avec la valeur d'attaque magique du personnage. Si elle réussit son attaque, elle s'agrippe à sa proie pour lui aspirer le sang et inflige ainsi 1d4° DM par round. La stique vole à une vitesse de 10 m par action de mouvement.
+
+- R4 - Pouvoir mineur : Le personnage obtient la capacité Saignement (rang 1, voie du sang, sorcier), 3 fois par jour.
+- R5 - Profil de magie associé : sorcier
+- R7 - Pouvoir supérieur. Le personnage obtient la capacité Rituel de sang (rang 4, voie du sang, sorcier), 1 fois par combat. Caractéristique : CON.
+
+## VOIE D'AVENTURIER
+
+## VOIE DE L'ARCHER ARCANIQUE
+
+La magie mystérieuse et terrible de cette voie de prestige fait de votre archer ou de votre arbalétrier un chasseur implacable dont les traits deviennent mortels et impossibles à esquiver.
+
+Les capacités issues de cette voie peuvent être déclinées pour un arc ou pour une arbalète.
+
+### 4. Flèche magique :
+
+Le personnage enchante ses flèches. S'il obtient un résultat de 1 sur son dé de DM, il remplace ce résultat par le maximum du dé (exemple, 1 sur le d8 devient 8). Cet effet ne s'applique pas aux dés bonus. Les DM de ses flèches sont considérés comme magiques.
+
+### 5. Flèche intangible (L) :
+
+Le personnage enchante sa flèche pour lui permettre de passer au travers des obstacles physiques et des protections. Le joueur réalise un test d'attaque normal, mais remplace la DEF par 10 + AGI de la cible pour fixer sa difficulté. De surcroît, il ignore toutes les pénalités de couverture. S'il sait précisément où se situe sa cible, il peut même tirer à travers un mur ou une porte.
+
+### 6. Flèche chercheuse (L) :
+
+Une fois par jour, l'archer arcanique peut enchanter une flèche afin qu'elle trouve sa cible de façon infaillible. Pour utiliser ce pouvoir, l'archer arcanique doit avoir blessé ou vu directement la créature ciblée moins de 10 rounds (1 min) plus tôt. Il tire ensuite sa flèche en l'air et celle-ci voyage aussi loin que nécessaire (y compris à travers les plans) pour trouver sa cible. L'archer arcanique fait un test d'attaque normal et obtient un bonus de +2d4° aux DM.
+
+### 7. Flèche élémentaire (L) :
+
+Une fois par combat, le personnage enchante ses flèches et choisit une source de DM parmi poison, feu, froid, foudre et acide. Pendant tout le combat, il ajoute +1d4° aux DM de chacune des flèches qu'il tire. Ce bonus aux DM ne peut pas se cumuler à un autre bonus magique élémentaire (arc de feu, sort élémentaire, etc.).
+
+### 8. Flèche tueuse (L) :
+
+Le personnage fabrique et enchante une flèche particulière pour un ennemi unique dont il possède une relique (morceau de peau, griffe, poils, etc.). Il lui faut une journée complète pour créer la flèche et il ne peut en posséder plus d’une à un moment donné (ni pour la même cible ni pour une autre). Lorsqu’il utilise sa flèche contre l’ennemi désigné, il touche automatiquement. Si la cible est d’un niveau inférieur au sien, elle est immédiatement réduite à 0 PV,
+sinon elle a droit à un test de CON difficulté [10 + rang]. En cas de réussite, la flèche est tout de même un critique automatique.
+
+
+## VOIE DE L'ESPION
+
+Tout savoir, écouter aux portes ou se faufler dans une foule, le métier d'espion est riche en moments de tension et en jeux de pouvoir...
+
+### 4. Secrets d'alcôves :
+
+Le personnage obtient un bonus de +5 pour tous les tests visant à trouver ou obtenir des informations secrètes ou sensibles, et +5 à tous les tests de perception auditive (PER). De plus, il est capable de suivre une conversation en lisant sur les lèvres en réussissant un test de PER dont la difficulté est égale à la distance entre sa cible et lui en mètres. Il obtient un bonus égal à son rang pour ce test.
+
+### 5. À la garde :
+
+Le personnage développe un sixième sens qui lui assure un coup d'avance sur les gardes et autres forces adverses. Le MJ doit prévenir le joueur 1d4 rounds complets avant que des PNJ n'interviennent sur le lieu où il opère. Il doit aussi indiquer la direction d'où provient la menace. Cette capacité n'est d'aucune utilité contre une embuscade (des adversaire cachés et préparés à l'arrivée des PJ).
+
+### 6. Mémoire eidétique :
+
+Le personnage a une parfaite mémoire de tout ce qu'il a vu et entendu. Si le joueur le demande,
+le MJ doit lui rappeler tous les détails relatifs à un lieu qu'il a visité ou à une conversation qu'il a entendue. De plus, le personnage gagne un bonus de +5 à tous ses tests de connaissance (INT) et de recherche d'indice basé sur l'INT.
+
+### 7. Caméléon :
+
+Le personnage peut repérer des lieux, suivre des gens, infiltrer des endroits réservés (avec le costume adapté) sans aucun jet de dé tant qu'il n'entreprend aucune action qui pourrait sérieusement attirer l'attention sur lui. Au prix d'une action de mouvement et en réussissant un test de CHA difficulté 10, il disparaît dans une foule et échappe à d'éventuels poursuivants. Autrement, s'il attaque au round suivant, il obtient un dé bonus et peut effectuer une Attaque sournoise s'il dispose de cette capacité. La difficulté du test de CHA initial peut être modulée selon la densité de la foule.
+
+### 8. Réseau :
+
+Grâce à son réseau de connaissances ou par l'intermédiaire d'autres espions, le personnage peut obtenir de nombreux avantages. Un test réussi de CHA difficulté 10 lui suffit pour obtenir une entrevue avec n'importe quel personnage puissant à tout moment. Une fois par aventure, cela lui permet d'obtenir un service, par exemple une lettre de recommandation, un renseignement réservé à l'élite, des billets pour un bal privé ou même une escorte armée pour l'aider à se rendre dans un endroit dangereux.
+
+## VOIE DU CASSE-COU
+
+Avec cette voie, votre personnage sera toujours partant pour tenter les actions les plus risquées !
+
+### 4. Au pied du mur :
+
+Lorsque le personnage possède un nombre de PV inférieur ou égal à son niveau, il gagne un dé bonus à tous ses tests (attaque, caractéristique, etc).
+
+### 5. Mouche du coche :
+Le personnage est toujours en mouvement, il gagne +1 en DEF, puis +1 supplémentaire au rang 7. De plus, s'il sacrifie une action de mouvement, il gagne +2 en DEF supplémentaire jusqu'à son prochain tour.
+
+### 6. L'amour du risque :
+Rien de tel qu'une question de vie ou de mort pour vous motiver ! Lorsqu'il réalise une action dans un lieu dangereux (par exemple, au bord d'un précipice ou d'un lac de lave), le personnage gagne un dé bonus à tous ses tests (attaque, caractéristique, etc.). Ce bonus s'applique également aux tests réalisés pour résister à la peur (permanent).
+
+### 7. Poussée d'adrénaline :
+Une fois par round, en dépensant 1d4 PV, le personnage gagne une action de mouvement supplémentaire à son tour.
+
+### 8. Attaque kamikaze (L) :
+Le personnage saute sur sa cible et l'agrippe pour la larder de coups au corps à corps. La cible doit être de taille supérieure à la sienne. Le personnage réalise un test opposé d'AGI contre la créature. En cas d'échec, le personnage se retrouve renversé. En cas de réussite, il est perché sur la créature ce qui lui offre les bonus suivants selon la taille de la cible :
+
+*   **Grande** : +2 Att et DEF, +1d4° DM
+*   **Énorme** : +3 Att et DEF, +1d4° DM
+*   **Colossale** : +4 Att et DEF, +1d4° DM
+
+Pour se débarrasser de lui, la créature doit utiliser une action d'attaque et l'emporter lors d'un test opposé d'AGI.
+
+## VOIE DES OMBRES
+
+Le maître des ombres est un adversaire redoutable, capable de s'infiltrer n'importe où, de surgir en un instant et de disparaître tout aussi vite. Il est de l'étoffe dont on fait les histoires pour faire peur aux enfants.
+
+### 4. Vision des ombres :
+Le personnage tisse un lien avec le demi-plan des ombres. Ses yeux deviennent violets et, désormais, il voit dans le noir même total comme s'il s'agissait de pénombre. Lorsqu'il est dans la pénombre (mais pas dans le noir), il obtient un bonus de +5 à ses tests de discrétion et de PER basés sur la vue, et il ne souffre d'aucune pénalité en attaque.
+
+### 5. Caméléon (L) :
+Tant que le personnage reste immobile, il est totalement invisible.
+
+### 6. Ombre mouvante (M)** :
+Une fois par combat, le personnage peut disparaître dans les ombres et ne réapparaître qu'au début de son prochain tour. Aucun adversaire ne peut l'attaquer pendant qu'il a disparu dans les ombres, mais il peut subir des DM de zone. Le personnage réapparait à une distance maximale de 20 m de sa position initiale. S'il attaque, il obtient un dé bonus et peut effectuer une Attaque sournoise s'il dispose de cette capacité.
+
+### 7. Cape d'ombre (L)** :
+Une fois par jour, le personnage s'enveloppe d'ombre pendant CHA minutes. Il gagne un dé bonus à tous les tests de discrétion et impose un dé malus à tous les tests d'attaque à distance qui le prennent pour cible. S'il tombe à 0 PV pendant la durée de la capacité, il peut choisir de disparaître dans son ombre et de réapparaître à 1d6 km dans la direction de son choix avec 1d4° PV, 1d6 minutes plus tard.
+
+### 8. Passe-muraille :
+Désormais lorsqu'il utilise la capacité ombre mouvante, le personnage peut passer à travers un mur ou un obstacle. Il doit toujours se fondre dans une ombre et réapparaître dans une autre.
+
+**Si le personnage connaît déjà la capacité Disparition grâce à la voie de l'assassin du voleur, il peut désormais l'utiliser aussi souvent qu'il le veut.**
+
+**Si le personnage connaît déjà la capacité Manteau d'ombre grâce à la voie de la sombre magie de sorcier, il peut désormais l'utiliser une fois par combat.**
+
+## VOIE DU CHASSEUR DE PRIME
+
+Le chasseur de prime est un traqueur implacable et nul ne peut l'arrêter lorsqu'il a choisi sa cible.
+
+### 4. Marque du chasseur (L):
+Le personnage désigne une proie soit en la voyant, soit en étant mandaté pour la traquer. Il obtient un bonus de +5 à tous les tests de compétence qu'il réalise pour la retrouver (pistage, renseignement, discrétion, etc.) et +1d4° aux DM contre elle. Le personnage doit attendre d'avoir terminé une récupération complète avant de changer de proie. Il ne peut marquer plus d'une proie à la fois.
+
+### 5. Assommer (L):
+Sur un test d'attaque au contact réussi avec une arme contondante ou le pommeau d'une épée (dague, etc.), si la cible est de niveau (ou NC) inférieur au niveau du personnage et qu'elle porte la marque du chasseur, elle est assommée pour 1d4° min. Sinon, elle est étourdie pour un round. La cible ne peut subir cet effet qu'une seule fois par combat.
+
+### 6. Traqueur infatigable :
+Tant que vous traquez une créature que vous avez marquée, vous divisez par deux le temps nécessaire à une récupération (rapide ou complète). De plus, chaque jour durant lequel vous traquez la même proie, vous gagnez un bonus cumulatif de +1 en attaque et aux DM sur la première attaque que vous lui portez, pour un maximum égal à votre rang.
+
+### 7. Attaque invalidante (L):
+Vous portez une attaque qui a pour but de saper la volonté et les forces de votre adversaire. En cas de réussite, en plus des DM habituels, l'attaque inflige un malus cumulatif de -1 à tous les tests et aux DM infligés par la cible pour le reste du combat, jusqu'à un cumul maximal de -3.
+
+### 8. Instinct du Traqueur (L):
+En se concentrant 1 min, le chasseur de prime peut déterminer dans quelle direction approximative se trouve la cible de sa marque du chasseur. Si la créature ciblée s'approche à moins de 50 m, le personnage en est averti par un frisson dans le dos ou les poils de la nuque qui se hérissent...
+
+## VOIE DU DUELLISTE
+
+Jetez votre gant, provoquez en duel ce fat qui a manqué de courtoisie, montrez votre valeur face au comte de Perthuis... Les adeptes du bel art de l'escrime aiment à se défier et à se mesurer à leur adversaire seul à seul.
+
+### 4. Vive attaque :
+Lorsqu'il utilise une dague, une épée courte, longue ou une rapière sur les attaques de sa main principale (ou encore sur une vivelame tenue à deux mains), le personnage peut ajouter son AGI en attaque au contact ou aux DM (au choix, mais pas les deux en même temps, sauf s'il dispose d'une autre capacité qui lui permet, par exemple attaque en finesse) au lieu de sa FOR.
+
+### 5. Défi (L):
+Une fois par combat, le personnage peut défier une cible humanoïde de son choix (portée 20 m). Il obtient +1d6 aux DM de chaque attaque au contact pour le reste du combat contre cette cible. S'il attaque une autre cible, le défi prend fin.
+
+### 6. Juste toi et moi :
+À chaque round durant lequel il attaque la cible qu'il a défiée, le personnage obtient un bonus +2 en DEF contre toutes les attaques provenant d'autres adversaires.
+
+### 7. Duel mental :
+Au début de son tour, le personnage peut faire un test opposé d'INT contre un adversaire qu'il a défié.
+S'il l'emporte, il obtient un dé bonus sur une attaque de son choix contre cet adversaire d'ici la fin du round (à annoncer avant de lancer le dé).
+Si l'adversaire l'emporte d'au moins 10 points, c'est lui qui bénéficie d'un dé bonus en attaque.
+
+### 8. Botte mortelle :
+Chaque fois que le personnage réussit une attaque contre l'adversaire qu'il a défié, en plus des DM habituels, il gagne 1 point de préparation sur cette créature (ceci est une action gratuite). Au moment de son choix, il peut utiliser une action limitée pour exécuter sa botte mortelle. S'il réus- sit son attaque, il ajoute +1d4° DM par point de préparation. Il ne peut tenter qu'une seule botte mortelle par combat, les points sont dépensés que l'attaque soit un succès ou un échec.
+
+## VOIE DU FLIBUSTIER
+
+Pirate, corsaire ou bandit des mers, le flibus- tier est un combattant impitoyable qui sait faire parler la poudre autant que le sabre.
+
+### 4. Pied marin :
+Le personnage gagne un bonus de +5 sur tous les tests d'AGI réalisés sur un bateau ou sur d'autres supports mobiles (ce qui comprend les chariots, les cordages, les ponts de corde). Il ajoute son rang à tous les tests relatifs à la nata- tion et à la navigation.
+
+### 5. Coup de crosse (G) :
+Une fois par round, le personnage peut, au moment de son choix, accom- plir une attaque au contact gratuite avec la crosse d'une pétrole qu'il tient en main. Il subit un dé malus pour le test d'attaque et inflige [1d4°+FOR] DM. Si ce n'est pas déjà le cas, il acquiert la maîtrise des armes à poudre.
+
+### 6. À l'abordage :
+
+Le personnage sait s'élançer vers ses ennemis et mettre du cœur dans sa première attaque au contact lors d'un combat. Cette première attaque bénéficie d'un dé bonus en attaque et de +1d4° aux DM. Il obtient aussi cet effet à chaque fois qu'il peut se précipiter sur un adversaire depuis un contre-haut (balcon, lustre, table, etc.).
+
+### 7. Sabre au poing (A) :
+
+Au prix d'une action d'attaque, le personnage peut tirer avec une arme à poudre d'une main (même à bout portant sans malus) et porter une attaque de contact avec une seconde arme (tenue dans son autre main), sans pénalités.
+
+### 8. Pas de quartier (G) :
+
+Pour le flibustier, il s'agit de vaincre ou mourir. Sa férocité est légendaire : il peut tenter une action d'attaque gratuite contre toute créature à son contact qui tente de s'éloigner de lui. Pour cette attaque, il obtient un dé bonus en attaque et +1d4° aux DM. Il obtient les mêmes bonus à toutes ses attaques lorsqu'il lui reste moins de [niveau] PV.
+
+## VOIE DU HÉROS
+
+Cette voie est destinée aux héros, aux vrais, ceux qui ne reculent jamais et défient la mort avec un sourire provocateur !
+
+### 4. Destin héroïque :
+
+Le personnage gagne 1 PC. Il gagne un PC supplémentaire au rang 6 et un dernier au rang 8. De plus, une fois par combat, vous pouvez donner un bonus de +1d4° à un compagnon en vue sur un test de votre choix.
+
+### 5. Homme/femme de la situation :
+
+Une fois par aventure, vous pouvez demander au MJ de vous donner une idée lumineuse ou de vous indiquer la moins mauvaise solution pour rattraper une situation ou limiter les dégâts.
+
+### 6. Héros célèbre :
+
+Votre réputation de héros vous précède et vous ouvre bien des portes. Vous obtenez un dé bonus à tous vos tests d'interaction sociale et on vous accueille partout à bras ouverts, même dans des cercles très fermés. Si vous avez besoin de quelque chose, les gens font tout leur possible pour vous le fournir. Choisissez entre « héros du peuple » et « héros du royaume » : vous gagnez ces avantages seulement dans le milieu correspondant (le peuple ou les dirigeants). À partir du rang 8, vous êtes à la fois le héros du peuple et celui du royaume !
+
+### 7. Ténacité :
+
+Lorsque vous ratez un test d'attaque contre une créature, vous bénéficiez d'un dé bonus à votre prochain essai si vous utilisez la même action (même capacité). Ce bonus persiste tant que vous ratez, mais disparaît dès que l'attaque est réussie.
+
+### 8. Meneur d'hommes (L) :
+
+Une fois par jour, le personnage peut haranguer ses compagnons, les motiver et les conseiller pour attaquer un adversaire particulier. Tous ses alliés bénéficient d'un dé bonus une fois par round pour toute la scène à venir (un combat, un bal ou une réception, une scène de meurtre à étudier, etc.).
+
+## VOIE DU MAÎTRE DES POISONS
+
+Le poison est l'arme des lâches dit-on parfois. Il faut être un âne habillé de métal pour se persuader de telles sornettes ; pour vous, c'est une arme efficace réservée à une élite d'individus intelligents et sans scrupules...
+
+### 4. Connaissance du poison :
+Le personnage peut effectuer un test d'INT difficulté 10 pour reconnaître, identifier ou détecter un poison. Il n'a plus besoin de test d'INT pour réussir à appliquer un poison sur une arme.
+
+### 5. Poison rapide :
+Le personnage sait fabriquer du poison « rapide » en petite quantité. Avant chaque combat, ses armes (trois au maximum) sont enduites de ce poison. La première attaque réussie provoque 3d4° DM supplémentaires. Si la victime réussit un test de CON difficulté [10 + INT], elle ne subit que la moitié des DM.
+
+### 6. Poison affaiblissant :
+Le voleur peut remplacer le poison rapide par un poison affaiblissant, les effets ne sont appliqués que sur la première attaque réussie avec cette arme. Si la victime rate un test de CON difficulté 12, elle est affaiblie pour le reste du combat (voir états préjudiciables).
+
+### 7. Résistance au poison :
+À force de manipuler les poisons, le personnage a développé des immunités. Lorsqu'il est empoisonné, faites un test de CON difficulté 10. En cas de succès, il ne subit aucun effet ; s'il rate, il subit la moitié des DM.
+
+### 8. Poisons virulents :
+Le personnage sait fabriquer en petites quantités les poisons « lent » et « mortel » (voir page 238), il peut en utiliser [1 + INT] doses par jour (cumul des deux sortes de poisons). La difficulté de résistance à ces poisons est de [12 + INT].
+
+## VOIE DU PACTE FÉÉRIQUE
+
+Vous avez toujours eu une affinité avec la nature, la forêt et les animaux. Vous avez passé un pacte avec les êtres de la forêt et juré de les protéger.
+
+### 4. Amitié avec les animaux (L) :
+Le personnage possède une affinité surnaturelle avec les animaux. Au prix d'une action limitée, il peut faire un test opposé d'attaque magique contre un animal ordinaire. S'il l'emporte, l'animal est apaisé et il peut lui ordonner de partir. Si l'animal possède un maître, le test d'attaque magique doit être réalisé à la fois contre l'animal et contre le maître. Cette capacité ne fonctionne pas contre les animaux magiques ou corrompus, mais elle affecte les animaux géants.
+
+### 5. Invisibilité (L) :
+Le personnage apprend des fées la possibilité de laisser son image dans le royaume caché. Il se rend invisible pendant [1d6+CHA] minutes. Une fois qu'il est invisible, personne ne peut plus détecter sa présence ou lui porter d'attaque. Si le personnage attaque ou utilise une capacité limitée, il redevient visible. Le personnage doit terminer une récupération rapide avant de pouvoir à nouveau utiliser cette capacité.
+
+### 6. Compagnon féérique :
+Le personnage a adopté (ou l'inverse ?) une fée, un farfadet ou un grig. Ce compagnon est affectueux, mais souvent blagueur et parfois irritant ! Il ne suit pas les ordres du PJ, mais il agit dans ce qu'il estime être l'intérêt du PJ et peut accepter différentes missions
+
+(messager, éclaireur, espion, etc.). Si le compagnon féérique est réduit à 0 PV, il disparaît dans le monde féérique et revient guéri au bout de 24 h.
+
+> #### ÊTRE FÉÉRIQUE
+> 
+> | AGI +4* | CON* +1 | FOR -4 | PER +2 |CHA +2 | INT +0 | VOL +2 |
+> | --- | --- | --- | --- | --- | --- | --- |
+> | +4* | +1 | -4 | +2 | +2 | +0 | +2 |
+> 
+> *   **Défense** [12 + rang]
+> *   **Points de vigueur** [Niveau × 2]
+> *   **Initiative** 14
+> 
+> **Attaque au contact**
+> [dague] ou **à distance** [arc] = [attaque magique du PJ] • DM 1d4° > (ce sont des DM de poison).
+> 
+> Un être féérique peut se rendre invisible au prix d'une action > limitée.
+> **Fée**: vol 15 m par action de mouvement.
+> **Farfadet**: téléportation de 15 m en action de mouvement.
+> **Grig** (un être au corps de cricket): bonds de 15 m en action de mouvement.
+
+### 7. Pas brumeux (M):
+Une fois par round, le personnage peut utiliser une action de mouvement et sacrifier 1 PV pour faire un pas dans le monde féérique. Il en ressort à une distance de 20 m au maximum. Il peut franchir de cette façon n'importe quel obstacle (même un mur de force), mais il doit obligatoirement voir l'endroit où il va réapparaître.
+
+### 8. Pays des songes (L):
+Une fois par jour, en milieu naturel, le personnage franchit un portail étrange (un cercle de champignons, l'entrée d'une grotte, entre les racines d'un arbre, etc.) et disparaît dans le monde féérique. Le portail disparaît à sa suite. Il en ressort 3d6 h plus tard au même endroit ou dans un rayon de 20 km avec ses PV à leur maximum.
+
+## VOIE DU TOUCHE À TOUT
+
+Cette voie est destinée à celui qui recherche la polyvalence ultime et veut profiter d'une liberté totale dans le choix de ses capacités.
+
+### 4. Domaine de l'aventure :
+Le personnage choisit une capacité de rang 1 ou 2 issue d'une voie d'aventurier.
+
+### 5. Domaine de la guerre :
+Le personnage choisit une capacité de rang 1 ou 2 issue d'une voie de combattant.
+
+### 6. Domaine du mystique :
+Le personnage choisit une capacité de rang 1 ou 2 issue d'une voie de mystique. S'il s'agit d'un sort, il peut le lancer même si sa caractéristique de magie est égale à +0.
+
+### 7. Domaine de la magie :
+Le personnage choisit une capacité de rang 1 ou 2 issue d'une voie de mage. S'il s'agit d'un sort, il peut le lancer même si sa caractéristique de magie est égale à +0.
+
+### 8. Ultra polyvalent :
+Le personnage augmente la valeur de ses deux plus faibles caractéristiques de +1. En cas d'égalité, il choisit.
+
+## VOIE DU TUEUR À GAGES
+
+Une voie pour faire le sale boulot, tout simplement.
+
+### 4. Faire taire (M) :
+
+En réussissant un test d'attaque au contact, le personnage porte une frappe sèche au larynx d'un adversaire humanoïde : il lui inflige 1d4° DM et la cible est rendue muette. À la fin de son tour à chaque round suivant, elle peut faire un test de CON difficulté [10 + rang] pour retrouver l'usage de la parole (et pouvoir appeler à l'aide, par exemple). Un lanceur de sort muet subit un dé *malus* à ses tests d'attaque magique (ou il peut choisir d'utiliser la magie discrète, règle de concentration).
+
+### 5. Brise genou (M) :
+
+En réussissant un test d'attaque au contact, le personnage porte un coup puissant dans le genou d'une créature humanoïde. Il inflige 1d4° DM et la cible est *invalide* pour le reste du combat. Si la cible est d'un NC supérieur ou égal au rang atteint dans la voie, elle peut faire un test de CON difficulté [10 + rang] chaque round à la fin de son tour pour se débarrasser de cet effet (elle y est ensuite immunisée pour le reste du combat).
+
+### 6. Ne me tourne pas le dos (G) :
+
+Une fois par round, si une créature quitte le contact du personnage**, le personnage peut lui porter une Attaque sournoise. S'il ne dispose pas de cette capacité, il ajoute tout de même +1d4° aux DM s'il réussit cette attaque.
+
+### 7. Égorger (A) :
+
+Si le personnage réussit une attaque contre une créature humanoïde *surprise* dont le NC est inférieur à 4, elle meurt immédiatement. Si le personnage connaît l'Attaque sournoise, le NC augmente de +1 par dé d'attaque sournoise. Sinon cette attaque inflige des DM normaux.
+
+### 8. Un simple regard (G) :
+
+Le personnage a atteint le stade ou un simple regard suffit à dissuader son adversaire de tenter quelque chose. S'il réussit un test opposé d'attaque magique contre une ou plusieurs cibles humanoïdes à une portée de 10 m, elles renoncent à l'attaquer. En cas d'échec, il ne peut plus tenter cette capacité contre ces cibles durant ce combat. Si la cible est d'un NC supérieur au niveau du personnage, l'effet ne dure qu'un seul round. Le personnage obtient un dé bonus à toutes les tentatives d'intimidation ou de persuasion après l'utilisation réussie d'un simple regard. L'effet de la capacité cesse immédiatement s'il attaque la cible et il ne peut plus utiliser la capacité contre elle pour ce combat. Les créatures sans esprit ou d'une intelligence animale sont immunisées à cette capacité.
+
+**Une cible peut battre en retraite prudemment, en utilisant une action limitée pour ne se déplacer que de l'équivalent d'une action de mouvement. Ce type de manœuvre n'est généralement utilisé que par ceux qui ont été témoins du destin de celui qui tourne le dos au PJ.**
+
+## VOIES DE COMBATTANT
+
+## VOIE DES ARMES À DEUX MAINS
+
+Au même titre que d'autres armes, une arme à deux mains permet au guerrier de développer un style de combat bien particulier afin d'exploiter pleinement ses avantages : une allonge supérieure et une force d'impact destructrice.
+
+Les capacités issues de cette voie ne fonctionnent pas avec les armes qui infligent des DM non létaux ou seulement 1d6 DM.
+
+### 4. Frappe massive (L) :
+
+Le personnage fait une attaque au contact et inflige ses DM maximaux en cas de réussite (les dés bonus ne sont pas maximisés). De plus, la cible doit réussir un test opposé de FOR ou être renversée (rendement décroissant sur le test de FOR : la cible bénéficie d'un bonus cumulatif de +5 à son test pour chaque nouvelle tentative durant le même combat). Si la cible est de taille énorme ou colossale, elle obtient un dé bonus au test de FOR.
+
+### 5. Gros monstre, grosse arme :
+
+Contre les créatures de taille grande et supérieure, les DM des armes à deux mains augmentent d'une catégorie d12 et 2d6 passent à 2d8, 1d8 et 1d10 passent à 1d12 (uniquement pour les armes tenues à deux mains), 2d8 passent à 2d10.
+
+### 6. Tenir à distance :
+
+Lorsque le personnage tient une arme à deux mains, il gagne un bonus de +1 en DEF. Ce bonus passe à +2 au rang 8.
+
+### 7. Critique destructeur :
+
+Le personnage abaisse son seuil de critique avec toutes les armes à deux mains de 1 point. De plus, lorsqu'il obtient un critique avec une arme à deux mains, le combattant obtient +2d4° aux DM en plus des effets du critique.
+
+### 8. Décapitation :
+
+Lorsque vous obtenez le résultat maximal sur un dé de DM d'une attaque au contact avec une arme à deux mains (par exemple 6 sur l'un des d6 de l'épée à deux mains), si la cible possède un NC inférieur ou égal à 5, elle est décapitée (ou même tranchée en deux) et morte. Si vous obtenez le résultat maximal sur les deux dés de DM (impossible donc si vous lancez un seul dé de DM !), le personnage décapite une cible d'un NC inférieur à son niveau. Une capacité qui lui permet d'obtenir automatiquement les DM maximaux (comme *Frappe massive*) ne permet pas de déclencher cet effet.
+
+## VOIE DE L'ARME LIÉE
+
+Certains héros tissent un lien particulier avec leur arme favorite. Cette compagne de tous les jours devient leur allié la plus fidèle et un lien magique les unit progressivement.
+
+Le personnage choisit une arme et se lie avec l'objet par un rituel informel qui dure 2d6 jours. Une fois par niveau, le personnage peut créer un lien avec une nouvelle arme, mais le lien qui le liait à la précédente disparaît.
+
+### 4. Fidèle :
+
+L'arme est considérée comme magique et octroie au PJ un dé bonus en attaque une fois par combat. Si l'arme est en vue et à moins de 10 m (ou sa portée dans le cas d'une arme de lancer), il peut la faire revenir dans sa main en action gratuite. Si l'arme est saisie par une autre créature, il doit emporter un test opposé de CHA contre la FOR de son adversaire pour la faire revenir dans sa main. Si elle n'est pas en vue, il sait toujours dans quelle direction elle se trouve.
+
+### 5. Alliée loyale :
+
+Une fois par combat, lorsqu'il obtient 1 au test d'attaque avec son arme, le joueur peut le remplacer par la valeur 20.
+
+### 6. Arme dansante (M) :
+
+Une fois par combat, le personnage peut demander à son arme de combattre pour lui. Elle attaque pendant [rang] rounds en utilisant la valeur d'attaque magique du PJ et en infligeant ses DM de base (plus un éventuel bonus de magie si l'arme est enchantée). S'il sombre dans l'inconscience, l'arme continue à veiller sur lui et à attaquer tous les ennemis qui approchent de son corps, tant que la durée totale de la capacité n'est pas atteinte. Ensuite elle devient inerte et tombe au sol.
+
+### 7. Aura élémentaire (A) :
+
+Une fois par combat, le personnage imprègne son arme d'une aura élémentaire pendant CON minutes. Cette aura lui offre un bonus de +1d4° aux DM qui prennent la forme de feu, d'acide, de froid ou d'électricité. L'élément choisi reste toujours le même. Ce bonus aux DM ne peut pas se cumuler à un autre bonus magique élémentaire (arc de feu, sort élémentaire, etc.).
+
+### 8. Milles lames (L) :
+
+Une fois par jour, le personnage fait couler son propre sang sur son arme : il sacrifie 2d4° PV et invoque les soeurs spirituelles de son arme. Pendant 5 rounds, tous les adversaires du personnage dans un rayon de 10 m autour de lui sont frappés par une arme translucide semblable à la sienne et subissent automatiquement 1d4° DM.
+
+## VOIE DU CHEVALIER DRAGON
+
+L'ordre des chevaliers dragons est une unité mythique et grandiose réservée à l'élite de la chevalerie d'un puissant empire. La voie présentée ci-dessous a été conçue à partir des symboles liés au dragon rouge, mais elle peut évidemment être déclinée pour d'autres couleurs.
+
+Pour choisir cette voie, il faut avoir acquis la capacité Monture fantastique (rang 5 de la voie du cavalier) et choisi un drake au niveau 9 (une sorte de lézard volant, cousin mineur du dragon). De fait, à moins d'une autorisation très spécifique du MJ, cette voie ne sera ouverte qu'à haut niveau (9 à 13).
+
+### 4. Ordre du chevalier dragon :
+
+Le cavalier rejoint l'ordre des chevaliers dragons avec le grade d'apprenti. Lorsqu'il porte les insignes de son ordre ou chevauche son drake, il gagne un bonus de +5 pour tous les tests de persuasion et d'intimidation. De plus, son drake obtient une réduction des DM contre le feu de 10.
+
+### 5. Résistance au feu :
+
+Le cavalier est désormais un membre à part entière de l'ordre des chevaliers Dragon. Il a appris à résister aux flammes les plus féroces et il retranche 5 à tous les DM de feu subis (RD [feu] 5). Cette réduction passe à 10 une fois atteint le rang 7.
+
+### 6. Épée de feu (M) :
+
+Le cavalier peut enflammer son épée pour [5 + CHA] rounds. Elle inflige dès lors +1d4° DM de feu.
+
+### 7. Monture puissante :
+
+Le drake atteint sa pleine maturité et augmente ses capacités offensives.
+
+> #### DRAKE
+> | AGI | CON | FOR | PER | INT | CHA | VOL |
+> |---|---|---|---|---|---|---|
+> | +0 | +6* | +6 | +1 | -2 | +0 | +2 |
+> 
+> *   **Défense** 22
+> *   **Points de vigueur** [10 + niveau × 6]
+> *   **Initiative** [Init. du personnage]
+> 
+> **Attaque**
+> [attaque magique] • **DM** 2d4°+6
+
+### 8. Souffle enflammé (A) :
+
+Le drake est désormais capable de cracher du feu au prix d'une action d'attaque une fois par combat. Toutes les cibles situées dans un cône de 10 m de long sur 10 m de large, subissent 8d4° DM de feu, ou la moitié seulement si elles réussissent un test d'AGI difficulté 12.
+
+
+## VOIE DU COMBATTANT DES TUNNELS
+
+Le combattant des tunnels est le spécialiste de la survie dans l'outre-monde, le monde souterrain, mais c'est aussi et surtout un combattant redoutable parfaitement formé à éliminer les dangereuses hordes goblinoïdes qui pullulent sous terre.
+
+### 4. Infravision :
+
+Le combattant devient capable de voir dans le noir à une distance de 10 m (ou il augmente la portée de celle-ci de 10 m). De plus, il obtient +5 à tous les tests de survie et d'orientation en milieu souterrain.
+
+### 5. Combat confiné :
+
+Lorsque l'espace est réduit, le combattant des tunnels ne subit plus de dé malus en attaque avec une arme plus longue qu'une dague. Il peut utiliser une arme à deux mains avec un dé malus. De plus, puisqu'il peut rarement esquiver, le combattant améliore ses techniques de parade, il gagne +1 en DEF et ce bonus passe à +2 au rang 7, tant qu'il tient une arme en main. Ce bonus s'applique même en dehors d'un combat en milieu confiné.
+
+### 6. Briseur de hordes (G) :
+
+Une fois par round, le personnage inflige automatiquement 1d4° DM à chaque adversaire à son contact dont le NC est inférieur ou égal à la moitié de son propre niveau (il doit pouvoir agir et avoir une arme en main).
+
+### 7. Tueur de nuées :
+
+Le combattant des tunnels inflige +1d4° DM aux créatures de tailles Petite ou inférieures (striges, kobolds, etc.). Ce bonus s'applique aussi aux DM qu'il inflige aux nuées.
+
+### 8. Briseur de voûte :
+
+Une fois par combat, dans une cavité de moins de 6 m de hauteur, le combattant des tunnels peut frapper le sol ou un mur pour faire s'écrouler la voûte sur ses adversaires. Tous les adversaires dans une zone de 10 × 10 m face à lui subissent 4d4° DM à cause des rochers qui tombent du plafond. La zone affectée devient un terrain difficile et les créatures réduites à 0 PV sont ensevelies sous l'éboulis.
+
+
+## VOIE DU COMBAT DU MAL
+
+Cette voie est destinée au pourfendeur de créatures maléfiques, chasseur de sorcière et autre inquisiteur. Elle peut aussi convenir à un barbare qui aurait une haine viscérale de la corruption.
+
+### 4. Juste courroux (G):
+
+Chaque fois que le personnage est victime d'une *Attaque sournoise* (voie de l'assassin, profil de voleur) ou d'une *Attaque mortelle* (capacité de créature), il peut riposter par une attaque au contact en action gratuite.
+
+### 5. Épée de lumière (M):
+
+L'arme du personnage brille d'une lumière magique équivalente à une torche pour le reste du combat. Elle occasionne +1d4° DM supplémentaire aux morts-vivants, aux créatures démoniaques ou aux animaux corrompus par le mal. Alternativement, si cette voie est choisie par un barbare qui déteste la magie, la lame ne brille pas et les DM supplémentaires sont juste le fruit de sa hargne.
+
+### 6. Sentir la corruption (L):
+
+Le personnage se concentre et détecte si une source maléfique est présente dans un rayon de 20 m autour de lui. Il ne peut ni déterminer sa localisation, ni sa nature. Les sources maléfiques possibles sont les démons, les morts-vivants, les animaux corrompus, les artefacts maléfiques, les lieux maudits.
+
+### 7. Frappe suppressive (L):
+
+En plus d'infliger des DM normaux, cette attaque oblige la cible à faire un test opposé d'attaque magique contre le personnage. En cas d'échec, elle ne peut utiliser aucun pouvoir magique à son prochain tour.
+
+### 8. Résister à la corruption :
+
+Une fois par combat, le personnage résiste totalement à un sort ou un effet magique de son choix. De plus, il est immunisé aux effets de corruption : drain, affaiblissement, pourriture, empoisonnement ou maladie provoqués par les morts-vivants, les démons ou les animaux maléfiques ou corrompus.
+
+## VOIE DU COLOSSE
+
+À force d'entraînement, le personnage développe une force prodigieuse et des muscles énormes. Il augmente son poids d'au moins 10 kg par rang atteint dans la voie, tout en muscle.
+Il est nécessaire d'avoir au moins +3 en Force pour choisir cette voie.
+
+### 4. Stature de géant :
+
+Le colosse est considéré comme faisant une taille de plus que sa taille réelle (grande au lieu de moyenne, par exemple) pour déterminer s'il peut être affecté par les capacités spéciales des créatures et des adversaires (fauchage, agriper, etc.). De plus il inflige 1d6 DM à mains nues.
+
+### 5. Résistance colossale :
+
+Le colosse gagne immédiatement 5 PV supplémentaires, auxquels il ajoute sa CON.
+
+### 6. Force du titan :
+
+Le colosse augmente sa valeur de FOR de +1.
+
+### 7. Poigne de fer :
+
+Le colosse peut utiliser une arme à deux mains à une seule main (épée ou hache à deux mains). À deux mains, il peut utiliser une arme prévue pour une créature de taille grande qui inflige 2d8 DM au lieu de 2d6.
+
+### 8. Attaque monumentale (L):
+
+Une fois par combat, le colosse rassemble toute sa puissance pour porter une attaque absolument dévastatrice en dépensant toute la rage accumulée jusque-là. L'attaque obtient un bonus de +5 pour toucher et un bonus aux DM de +1d4%/round de combat contre cette créature. Si la cible a un NC inférieur au niveau du colosse, elle est immédiatement *affaiblie* pour 1 round pour chaque round de combat. Pour le bonus au dégât comme pour l'état *affaibli*, on comptabilise tous les rounds précédents durant lesquels le personnage a attaqué la créature au moins une fois (maximum 5 rounds).
+
+## VOIE DU DANSEUR DE GUERRE
+
+Populaire chez certaines tribus d'elfes sauvages ou de nomades du désert, ce style de combat inhabituel est constitué de pas de danse et d'acrobaties. Le combattant masque ses mouvements, ce qui le rend difficile à cerner et surprenant.
+
+Pour pouvoir utiliser les capacités de cette voie, le personnage ne doit pas porter d'armure plus encombrante qu'une chemise de mailles.
+
+### 4. Vent des lames:
+
+Le personnage peut utiliser son AGI au choix en attaque au contact ou aux DM (mais pas les deux, sauf capacité l'y autorisant) au lieu de sa FOR lorsqu'il utilise une dague, une épée (courte, longue, sabre ou vivelame) ou une lance. Dans le cas d'une arme à une main, il ne peut bénéficier de ce bonus que sur sa main principale.
+
+### 5. Pirouettes:
+
+Les pas de danse rendent le personnage insaisissable. Il gagne +1 en DEF et ce bonus passe à +2 au rang 8. De plus, le personnage gagne un bonus de +5 aux tests de danse et d'acrobaties.
+
+### 6. Attaque en mouvement (G):
+
+À chaque fois qu'il réalise une action limitée pour porter une attaque au contact, le personnage peut personnage peut en plus se déplacer de 10 m avant ou après.
+
+### 7. Danse des lames (L):
+
+Le personnage réalise un pas de danse et entre en transe pour le reste du combat. Pendant la *Danse des lames*, il peut réaliser une attaque gratuite supplémentaire à son tour chaque round bien qu'elle subisse un dé *malus*. Le personnage peut mettre fin à la transe au moment où il le veut, mais il ne peut recommencer avant le prochain combat. Toutefois, s'il reçoit les DM d'une attaque critique, la transe est stoppée net.
+
+### 8. Volte-face:
+
+Pour chaque round où le PJ attaque une cible différente de celle du round précédent, il obtient un dé *bonus* en attaque et un bonus de +1d4° aux DM sur sa première attaque.
+
+## VOIE DE L'ÉCORCHEUR
+
+Chevalier noir, barbare tendance gore ou simplement guerrier sadique, le combattant qui choisit la voie de l'écorcheur soigne son apparence intimidante, toutefois ce n'est que secondaire : ce qu'il aime, c'est le goût du sang.
+
+### 4. Armes dentelées:
+
+Les armes et les lames du personnage sont dentelées, elles possèdent des formes torturées destinées à provoquer des blessures sanglantes. Le personnage obtient un bonus de +5 à tous ses tests d'intimidation. De plus, lors d'une attaque réussie, il provoque un effet de saignement qui inflige 1 DM par round à la victime pour le reste du combat. Pour stopper cette hémorragie, la victime doit recevoir des soins ou prendre une action limitée et réussir un test d'AGI difficulté 10. Cet effet de saignement passe à 2 DM au rang 8 de la voie. Il ne se cumule pas.
+
+### 5. Armure à pointes:
+
+L'armure et le bouclier du guerrier sont décorés de piques et de lames afin de blesser les créatures qui l'attaquent. À chaque fois qu'une créature attaque au contact le personnage avec des armes naturelles (mains nues, griffes crocs) et qu'elle touche au moins une Défense de 10, elle subit 1d4 DM. Ces DM passent à 1d4° au rang 7.
+
+### 6. Blessures affreuses :
+
+Les blessures infligées par les attaques au contact du personnage sont très longues à guérir. Les effets de soins ou de régénération sont divisés par 2 lorsqu'il s'agit de guérir ces DM.
+
+### 7. Hémorragie interne :
+
+Lorsque le personnage inflige un critique, la victime subit 1d4° DM supplémentaires à chaque round suivant pendant 3 rounds.
+
+### 8. Impitoyable :
+
+Lorsque l'écorcheur rate une attaque, il inflige tout de même 1d4° DM à sa cible (de même nature que les DM habituels de son attaque).
+
+## VOIE DU GUERRIER-MAGE
+
+Cette voie permet de lancer des sorts en armures, elle peut s'avérer très utile pour un concept de chevalier de la mort (chevalier-sorcier). **Exceptionnellement**, cette voie donne seulement 4 PV par niveau. Il est nécessaire d'avoir acquis au moins une voie de combattant et une voie de mage.
+
+### 4. Magie en armure :
+
+Le personnage peut lancer des sorts de magie profane en armure. Le bonus de DEF total des protections portées doit être inférieur ou égal au rang - 2. Par exemple, au rang 4, le personnage peut lancer des sorts en armure de cuir, et au rang 8, il peut porter une armure de plaque. Lorsqu'il respecte cette limitation, il est dispensé du surcoût de mana pour lancer un sort en armure (voir Profils hybrides, page 176). Les bonus magiques des armures ne comptent pas dans le calcul de cette limitation. Cette capacité ne permet pas d'apprendre à utiliser des armures.
+
+### 5. Rituel de combat :
+
+Parmi les sorts infligeant des DM que connaît le personnage, il en choisit un qui lui coûte désormais 1 PM de moins à lancer.
+
+### 6. Déflexion arcanique (G) :
+
+Le combattant dépense 1 PM pour obtenir +2 en DEF contre une attaque. Il peut annoncer cette action après avoir pris connaissance du résultat de l'attaque, de façon à la faire échouer. Il ne peut pas dépenser plus d'un PM par attaque, mais peut utiliser cette capacité plusieurs fois dans le round. À partir du rang 9, il peut dépenser 3 PM pour obtenir +5 en DEF.
+
+### 7. Magie de combat :
+
+Lorsqu'il utilise la Concentration (L) pour lancer un sort de rang 1 à 3, le combattant peut choisir de faire une attaque au contact gratuite au lieu de réduire son coût.
+
+### 8. Frappe des arcanes (G) :
+
+Le personnage insuffle sa puissance magique dans une attaque au contact : il dépense 1 PM pour obtenir un dé bonus et +1d4° aux DM sur cette attaque.
+
+
+## VOIE DE L'OURS
+
+Les guerriers-ours adoptent la philosophie, les techniques de combat et parfois même la forme de leur animal totemique.
+
+### 4. Caractère d'ours :
+
+Le personnage gagne un bonus de +5 à tous les tests d'intimidation. Une fois par combat, il peut pousser un terrible grondement en action gratuite. Tous les adversaires à son contact de NC inférieur à son niveau doivent réussir un test de VOL difficulté [6 + rang] ou s'enfuir en courant pendant 1d4 rounds.
+
+### 5. Hibernation :
+
+Le personnage peut dormir sans interruption jusqu'à 2 jours par rang. Durant cette période, il n'a besoin ni d'eau ni de nourriture et ne souffre pas plus du froid que de la chaleur ; il récupère normalement de ses blessures. Après avoir dormi plusieurs jours de suite, le personnage est capable de rester le même nombre de jours sans dormir.
+
+### 6. Métamorphose (L) :
+
+Une fois par jour, le personnage peut prendre la forme d'un ours pendant [1d6+CON] minutes. Le personnage ne doit pas porter d'armure plus lourde que le cuir renforcé pour utiliser cette capacité.
+
+> #### OURS BRUN
+> 
+> TAILLE GRANDE
+> 
+> | AGI | CON | FOR | PER | CHA | INT | VOL |
+> | --- | --- | --- | --- | --- | --- | --- |
+> | +1 | +6* | +6 | +2 | -2 | [INT du personnage] | [VOL du personnage + 2] |
+> 
+> *   **Défense** [12 + rang]
+> *   **Points de vigueur** [rang × 5]
+> *   **Initiative** 11
+> 
+> **Attaque**
+> 
+> Morsure et griffes attaque magique du personnage • **DM** 2d4+6
+> 
+> Le personnage conserve sa propre INT, mais il a tendance à réagir comme l'animal qu'il est devenu et ne peut plus utiliser ses capacités de profil. Si le personnage est réduit à 0 PV sous cette forme, il reprend forme humaine au début de son prochain tour par une action de mouvement et retrouve les PV qu'il avait avant la transformation.
+
+chacun des tours suivants, tant que l'étreinte est maintenue, le personnage inflige à nouveau des DM sans avoir à réaliser son test d'attaque. Cette capacité peut être utilisée sous forme d'ours.
+
+### 7. Étreinte de l'ours (L) :
+
+Une fois par combat, le personnage peut se saisir d'un adversaire dont la FOR est inférieure à la sienne et l'écraser entre ses bras puissants. Sur un test d'attaque au contact réussi, le personnage inflige [2d4°+ FOR] DM à sa cible et elle est immobilisée entre ses bras. À son tour, la victime peut tenter de se libérer avec un test de FOR en opposition ; en cas d'échec, elle ne peut faire aucune action. À chacun des tours suivants, tant que l'étreinte est maintenue, le personnage inflige à nouveau des DM sans avoir à réaliser son test d'attaque. Cette capacité peut être utilisée sous forme d'ours.
+
+### 8. Métamorphose supérieure (L) :
+
+Les plus puissants guerriers-ours peuvent prendre la forme d'un ours une fois par combat (nécessite de terminer une récupération rapide). Ces métamorphoses durent chaque fois jusqu'à [1d6+CON] heures.
+
+
+## VOIE DU PORTEUR DE BOUCLIER
+
+Cette voie permet de devenir un expert du bouclier. Un guerrier ayant complété la voie du bouclier ou un chevalier celle de la guerre pourront trouver là une spécialisation toujours plus pointue dans le domaine défensif.
+
+### 4. Parade au bouclier (G) :
+
+Une fois par combat, le personnage peut parer une attaque au contact ou à distance qui le touche avec son bouclier (action gratuite). Il ne subit aucun DM sauf s'il s'agit d'un critique (il ne peut pas le parer).
+
+### 5. Attaque au bouclier (G) :
+
+Une fois par round, le personnage peut faire une attaque gratuite au bouclier. Il subit un dé *malus* en attaque et il inflige [1d4°+FOR] DM.
+
+### 6. Bousculade :
+
+Lorsque le personnage réussit son attaque au bouclier, il peut choisir de faire reculer sa cible de 2 m. Si la cible est d'une taille supérieure à la sienne, il doit emporter un test opposé de FOR. De plus, le personnage augmente de +1 la DEF apportée par son bouclier. Ce bonus passe à +2 au rang 8 de la voie.
+
+### 7. Dévier les coups (G) :
+
+Une fois par round, en action gratuite, le personnage retranche la valeur de DEF de son bouclier (bonus de magie inclus) aux DM subis d'une attaque au contact ou à distance, sauf s'il est surpris.
+
+### 8. Lancer de bouclier (A):
+
+Le personnage peut lancer son bouclier à une portée de 20 m par une action d'attaque s'il réussit un test d'attaque à distance, il inflige les DM d'une Attaque au bouclier et la cible doit faire un test de FOR difficulté [10 + FOR du personnage] ou être renversée. Tant que le bouclier est à moins de 20 m du personnage, il peut le faire revenir à son bras (et l'équiper) par une action de mouvement (M).
+
+## VOIE DU TUEUR DE GÉANTS
+
+Célèbres parmi les nains, les tueurs de géants sont une caste à part, des têtes brûlées qui se sont spécialisées dans les combats contre cet ennemi ancestral dans les montagnes. Avec le temps, cette pratique extrême a été adoptée par d'autres peuples.
+
+### 4. Profil bas :
+
+Que ce soit pour approcher ou pour éviter les grandes créatures, le tueur de géants sait se faire tout petit. Il obtient un bonus de +5 à tous les tests de discrétion destinés à échapper à la perception des créatures de taille grande et supérieure.
+
+### 5. Ventre mou :
+
+Le personnage sait se placer de façon à atteindre les parties molles ou vitales en passant sous les grandes créatures. Il ignore la RD des créatures lorsqu'elle est basée sur leur taille.
+
+### 6. Réduire la distance :
+
+Le personnage est passé maître dans l'art de réduire la distance pour gêner les créatures avec une grande allonge. Il obtient +1 en DEF contre les créatures de taille grande, +2 contre les créatures énormes et +3 contre les créatures colossales.
+
+### 7. Pieds d'argile (L):
+
+Le tueur de géants réalise une attaque aux jambes contre une créature de taille grande ou supérieure. En cas de réussite, il inflige ½ DM, mais la créature est ralenti au prochain round et invalide pour tout le reste du combat. En cas de réussite avec une marge d'au moins 10 points, la cible est de plus renversée ! Une cible ne peut subir ces effets plus d'une fois par combat (ralenti et invalide).
+
+### 8. Tueur de géants :
+
+Le personnage est habitué à combattre les géants et les énormes créatures. Il obtient +1d6 DM contre les créatures de taille grande, +1d4° DM contre les créatures de taille énorme et +2d4° DM contre celles de taille colossale. Si votre PJ n'est pas un nain, c'est sans doute parce qu'il est capable de sauter sur sa victime pour atteindre des points vitaux. S'il s'agit d'un nain, c'est plutôt parce que sa victime a posé genoux à terre !
+
+ 
+
+## VOIES DE MAGE
+
+Les sorts des voies de mage sont tous indexés sur l'Intelligence. Toutefois, si un ensorceleur (ou un barde) choisit une de ces voies, il utilisera son Charisme.
+
+## VOIE DE L'ARCHIMAGE
+
+La voie de l'archimage est la voie par défaut des plus grands magiciens, elle est le prolongement direct de la voie de la magie universelle et leur ouvre un éventail de pouvoirs défensifs et offensifs importants.
+
+### 4. Sceptre défensif :
+
+Le bâton du mage est un outil de défense complet, il lui sert aussi bien à parer efficacement en mêlée qu'à se protéger des sorts adverses. Lorsqu'il tient son bâton en main, le personnage gagne un bonus de +1 en DEF et à tous les tests opposés de magie effectués pour résister à des sorts. Ce bonus passe à +2 au rang 6 et +3 au rang 8.
+
+### 5. Bâton magique :
+
+Le personnage choisit un sort de rang 1 de la famille des mages. Il est lié à son bâton et il peut l'utiliser au prix d'une action de mouvement sans dépense de mana. À partir du rang 7, il peut ajouter un sort de rang 2 qui ne coûte pas non plus de point de mana.
+
+### 6. Paralysie (L)* :
+
+Le lanceur de sort paralyse autant de créatures qu'il le peut (cf. ci-après) dans un rayon de 10 m autour de lui pendant [1d4° + INT] rounds. Il doit maintenir sa concentration par une action de mouvement pendant toute la durée du sort. Il peut affecter autant de créatures qu'il souhaite tant que la somme de leurs NC ne dépasse pas son niveau. Les créatures de NC 4 ou plus peuvent se libérer du sort en réussissant un test de CON difficulté 15, une tentative par round (G).
+
+### 7. Barrière magique (L)* :
+
+Une fois par jour, le lanceur de sort trace une ligne imaginaire de son bâton, qui constitue une frontière invisible que nul ne saurait franchir sans son autorisation. Toute créature qui tente de passer ressent une forte contrainte à rebrousser chemin ; si elle tente de forcer le passage, elle doit réaliser un test opposé d'attaque magique contre le personnage. En cas d'échec, elle subit [5d4° + INT] DM et ne peut faire de nouvelle tentative avant une heure. En cas de succès, elle parvient à franchir la limite et ne subit que la moitié des DM. La frontière mesure un maximum de 20 m de long (sans limite de hauteur) et sa durée est de 24 h.
+
+### 8. Métamorphose d'autrui (A)* :
+
+Le lanceur de sort doit réussir un test opposé d'attaque magique contre une cible à une portée de 20 m. Il la transforme en un animal de taille petite ou inférieure de son choix (grenouille et mouton sont les favoris des magiciens). La créature possède 1 PV (grenouille) ou 2 PV (mouton), et si elle est réduite à 0 PV, elle retrouve sa forme initiale et doit faire un **test de CON difficulté 10**. En cas d'échec, elle meurt. La durée du sort dépend du NC de la cible :
+
+*   NC 0 à 1 : permanent
+*   NC 2 : 24 h
+*   NC 3 : 1d6 h
+*   NC 4 : 1d6 minutes
+*   NC 5+ : 1d6 rounds
+*   NC égal ou supérieur au mage : 1 round
+
+Une créature ne peut pas être la cible de ce sort (réussi ou raté) plus d'une fois par combat.
+
+## VOIE DU CHAOS
+
+Parfois aussi appelée voie de l'arc-en-ciel, cette voie manipule une énergie étrange et subtile dont les couleurs de l'arc-en-ciel ne sont que la manifestation d'une magie instable et étrange.
+
+### 4. Arc-en-ciel (A)* :
+
+Un rayon de lumière arc-en-ciel jaillit de la main du personnage et sur un test opposé d'attaque magique réussi, il percutte une cible à une portée de 10 m. Les effets du sort dépendent du niveau de la cible (ou NC pour une créature).
+
+*   NC 1 ou moins : inconscient 1d6 rounds.
+*   NC 2 ou 3 : aveuglé 1d6 rounds.
+*   NC 4 et plus : affaibli 1d6 rounds.
+
+Aucune créature d'un niveau supérieur ou égal au magicien ne peut être affectée par le sort.
+
+### 5. Mur arc-en-ciel (A)* :
+
+Le sort crée un mur opaque de couleurs chatoyantes et changeantes. Le personnage invoque au choix un mur rectiligne qui mesure jusqu'à 5 m de haut et 3 m de long par rang ou un mur circulaire d'un diamètre maximal égal au rang, dans les deux cas pour une durée d'INT minutes. Si une créature d'un NC inférieur au niveau du personnage tente de traverser le mur, elle est violemment repoussée de 2d4° mètres en arrière et elle subit autant de DM. Une créature de niveau supérieur ou égal doit réussir un test d'INT difficulté [10 + INT du personnage] pour le franchir ou subir le même effet que les autres en cas d'échec. Le magicien peut passer à travers le mur comme s'il n'existait pas. Le mur stoppe toutes les attaques magiques et les projectiles lancés à travers disparaissent simplement (une arme magique réapparaît à la fin du sort à l'endroit où elle a disparu).
+
+### 6. Pont arc-en-ciel (A)* :
+
+Le personnage crée un pont arc-en-ciel pendant INT heures entre deux points situés en vue (la distance peut mesurer plusieurs kilomètres). Les alliés du magicien peuvent l'emprunter comme un pont normal, mais la distance séparant les deux arches est parcourue instantanément. Les autres créatures doivent faire un test d'INT difficulté [10 + INT du mage]. En cas d'échec, déterminez l'effet aléatoirement en lançant 1d6.
+
+*   1-2 : La créature est projetée en l'air et subit 3d4° DM de chute.
+*   3-4 : la créature est projetée dans le temps et réapparaît 1d4° min plus tard.
+*   5-6 : la créature est projetée dans l'espace et elle réapparaît à 1d4° km dans une direction aléatoire.
+
+### 7. Explosion multicolore (A)* :
+
+L'explosion produit les mêmes effets que l'arc-en-ciel dans une zone de 10 m de diamètre à une portée de 30 m.
+
+### 8. Sphère multicolore (A)*:
+
+Le magicien invoque une sphère immobile de lumières chatoyantes de 5 m de diamètre autour de lui, pour une durée d'INT heures. Aucun sort ne peut traverser la sphère (dans un sens comme dans l'autre) et les créatures subissent un effet qui dépend de leur NC.
+
+*   **NC inférieur à la moitié du niveau du personnage**: téléportation à une distance de 2d4° × 100 km dans une direction aléatoire.
+*   **NC inférieur au niveau du personnage**: téléportation à une distance de 2d4° km.
+*   **NC supérieur ou égal au niveau du personnage**: comme le précédent, mais la créature peut résister et réussir à entrer dans la sphère en réussissant un test d'INT difficulté [10 + INT du personnage].
+
+Le lieu où la créature est téléportée doit être sans danger direct (ni dans un endroit solide ni dans les flammes, etc.). Le magicien peut entrer et sortir à volonté de la sphère ainsi que toute personne qu'il autorise à passer.
+
+
+## VOIE DES CRISTAUX
+
+Le personnage a appris l'art de la taille et de l'harmonisation des cristaux magiques.
+
+Pour fonctionner, un cristal doit être lancé près de la tête du personnage, il se met alors à tourner rapidement autour de celle-ci. Activer ou désactiver un cristal correspond à une action limitée. Le personnage peut activer ou désactiver un cristal qu'il a fabriqué à n'importe quelle distance par une action limitée. Fabriquer un cristal demande 1d6 jours de travail et la dépense de 500 pa.
+
+### 4. Premier cristal:
+
+Le personnage apprend à créer le cristal de son choix. Il peut le porter où le confier à la personne de son choix. Il ne peut activer qu'un seul cristal à la fois.
+
+### 5. Second cristal:
+
+Le personnage apprend à créer un cristal de son choix. Il peut activer les effets de 2 cristaux simultanément, mais pas plusieurs fois le même sur une personne.
+
+### 6. Troisième cristal:
+
+Le personnage apprend à créer deux nouveaux cristaux de son choix. Il peut activer les effets de 3 cristaux simultanément, mais pas plusieurs fois le même sur une personne.
+
+### 7. Quatrième cristal:
+
+Le personnage apprend à créer deux nouveaux cristaux de son choix. Il peut activer les effets de 4 cristaux simultanément, mais pas plusieurs fois le même sur une personne.
+
+### 8. Cinquième cristal:
+
+Le personnage apprend à créer trois nouveaux cristaux de son choix. Il peut activer les effets de 5 cristaux simultanément, mais pas plusieurs fois le même sur une personne.
+
+| Couleur | Forme | Effet |
+| --- | --- | --- |
+| Blanc laiteux | Fuseau | Régénération (1 PV/h) |
+| Bleu incandescent | Sphère | Bonus de +1 en PER |
+| Bleu nuit | Rhombe | Bonus de +5 en Init. |
+| Bleu pâle | Rhombe | Bonus de +1 en FOR |
+| Irisé | Fuseau | Permet de survivre sans respirer |
+| Noir fumé | Prisme | Résistance au feu et au froid 10 points |
+| Orange | Fuseau | Résistance acide et électricité 10 points |
+| Violet | Sphère | Bonus de +1 en CHA |
+| Rose laiteux | Prisme | Bonus de +2 en DEF |
+| Rouge sang | Rhombe | Bonus de +1 en CON |
+| Rouge et bleu | Sphère | Bonus de +1 en INT |
+| Rose vif | Sphère | Bonus de +1 en AGI |
+| Translucide | Fuseau | Permet de subsister sans boire ni manger |
+| Vert pâle | Prisme | Bonus de +1 en attaque |
+
+## VOIE DE L'ÉLÉMENTALISTE
+
+La trame de la matière est constituée des éléments primordiaux : (air, terre, feu et eau), liés par les énergies élémentaires (électricité - ou foudre -, acide, feu et froid). Certains lanceurs de sorts sont passés maîtres dans l'art de manipuler ces énergies : on les appelle élémentalistes.
+
+### 4. Élément de prédilection :
+
+Le personnage choisit un élément parmi feu, froid, électricité et acide. Lorsqu'il utilise un sort de cet élément, il obtient un bonus de +2 en attaque magique et il augmente de +2 la difficulté de tous les tests destinés à résister au sort.
+
+### 5. Résistance élémentaire :
+
+Le personnage ne subit que la moitié des DM provenant de son élément de prédilection. Il peut transformer un sort élémentaire pour le remplacer par son élément de prédilection en action gratuite.
+
+### 6. Invocation d'élémentaire (L)* :
+
+Une fois par combat, le magicien invoque un élémentaire de l'élément de son choix, il lui obéit pendant INT minutes puis disparaît. Il agit au tour du magicien.
+
+### 7. Élément puissant :
+
+Le personnage ajoute +1d4° aux DM de tous les sorts qui infligent des dommages de son élément de prédilection. Les sorts qui infligent des DM sur la durée augmentent seulement leurs DM initiaux (flèche enflammée, etc.).
+
+### 8. Métamorphose élémentaire (A)* :
+
+Le personnage peut prendre une seule forme élémentaire de son choix pendant [5 + INT] minutes. La forme élémentaire lui permet de retrancher 5 points à tous les DM subis (RD 5), elle l'immunise aux DM de la forme choisie et lui octroie les capacités suivantes :
+
+*   **Feu** : le personnage ajoute +2d4° DM de feu à toutes ses attaques au contact. Une créature qui s'attaque à lui avec des armes naturelles subit 1d4° DM pour chaque attaque réussie.
+*   **Eau** : le personnage guérit toutes ses blessures au rythme de 1d4° PV par round et il peut déformer son corps pour passer dans le moindre interstice.
+*   **Terre** : le personnage obtient un bonus de +3 en FOR (+3 attaque et DM au contact et +3 tests de FOR) et en DEF.
+*   **Air** : le personnage peut voler (à une vitesse de 20 m par action de mouvement), il divise par deux les DM de ses attaques physiques mais pas ceux des sorts) et sa RD passe à 10.
+
+> #### ÉLÉMENTAIRE
+>
+>  CRÉATURE NON VIVANTE DE TAILLE GRANDE
+>
+> | AGI | CON | FOR | PER | CHA | INT | VOL | 
+> | --- | --- | --- | --- | --- | --- | --- |
+> | +2 | +6* | +6* | +0 | -2 | -2 | +4 |
+> 
+> 
+> *   **Défense** 19
+> *   **Points de vigueur** [niv. du magicien × 5]
+> *   **Initiative** 10
+> 
+> **Coup** [attaque magique du magicien]
+> *   **DM** 2d4°+6
+> *   **Feu** : +1d4° DM, immunisé au feu.
+> *   **Eau** : dé bonus en attaque, immunisé à l'acide.
+> *   **Air** : vol 30 m, immunisé à la foudre.
+> *   **Terre** : +5 DEF, immunisé au froid.
+
+## VOIE DE L'ENCHANTEUR
+
+Il est des mages qui se spécialisent dans la fabrication d'objets magiques (voir le chapitre « Objets magiques », page 242).
+
+**Requis** : au moins une voie de magie jusqu'au rang 4
+
+### Rangs 4 à 8 :
+
+Le personnage peut enchanter des objets magiques dont le niveau de magie maximal est égal à [rang atteint dans la voie – 3] (donc
+niveau de magie 1 au rang 4). Si vous jouez avec le module *high fantasy* (voir *Atlas d'Osgild & règles optionnelles*), vous pouvez si vous le souhaitez doubler ce niveau.
+
+## VOIE DU GEL
+
+Les sorciers et les sorcières des cimes ou des étendues glacées du grand nord sont des adversaires redoutables.
+
+### 4. Verglas (A)* :
+
+Un verglas glissant recouvre le sol sur une surface de 10 m de diamètre pendant INT minutes (vous pouvez stopper le sort plus tôt). Dans cette zone, pour rester debout il faut réussir un test d'AGI de difficulté 10 à son tour, s'y déplacer ou combattre demande un test de difficulté 15. Un échec signifie que la créature est renversée se relever nécessite de réussir un nouveau test d'AGI difficulté 15 et prend un round. Ramper en dehors de la zone demande un round complet.
+
+### 5. Cœur de glace :
+
+Vous divisez par deux tous les DM de froid que vous subissez et vous êtes désormais immunisé à la peur.
+
+### 6. Souffle glacial (A)* :
+
+Le mage ouvre la bouche et souffle un blizzard glacial et des éclats de glace tranchants. Le sort affecte toutes les créatures dans un cône approximatif de 20 m de long sur 20 m de large à son extrémité. Les victimes subissent [4d4° + INT] DM et sont ralenties pour 1 round si elles ratent un test de CON difficulté [10 + INT]. Sinon, elles subissent seulement la moitié des DM et ne sont pas ralenties.
+
+### 7. Présence glaciale (A)* :
+
+L'ensorceleur transforme son corps en glace vivante, il gagne +4 en DEF, est immunisé au froid et divise les DM de feu par deux. Les créatures qui le touchent ou l'attaquent avec des armes naturelles subissent 1d4° DM. Lorsqu'il marche, il gèle le sol et peut se déplacer sur l'eau en la transformant en glace. Le sort a une durée de [1d6 + INT] minutes.
+
+### 8. Cryogénisation (A)* :
+
+Le mage projette un rayon de froid absolu sur sa cible. S'il réussit un test opposé d'attaque magique ou si la cible est volontaire, elle est congelée dans une gangue de glace de la forme d'un énorme cristal. La gangue peut être détruite en lui infligeant 50 DM ; sinon, elle se brise d'elle-même après une durée qui dépend du NC de la créature.
+
+*   NC 1 ou moins : valeur d'INT en siècles
+*   NC 2 : valeur d'INT en années
+*   NC 3 : valeur d'INT en jours
+*   NC 4 : valeur d'INT en heures
+*   NC 5 : valeur d'INT en minutes
+*   NC 6 et + : valeur d'INT en rounds
+
+Si la cible est volontaire, la durée du sort est la même que si elle était de NC 1.
+
+## VOIE DE L'INVOCATION MAJEURE
+
+L'invocation n'est pas une magie d'attaque, mais elle permet d'obtenir des miracles presque sans limites.
+
+**Durée d'incantation** : tous les sorts de la voie de l'invocation majeure sont des actions limitées qui demandent un rituel d'incantation d'une durée d'une minute, mais ils bénéficient automatiquement de la Concentration, c'est-à-dire qu'ils coûtent un nombre de PM égal à leur rang - 2.
+
+### 4. Monture fantôme (L)* :
+
+Le personnage conjure un cheval fantomatique qui peut le transporter (plus éventuellement un autre cavalier) pendant [1d4° + INT] heures. Cette monture est un peu plus rapide qu'un cheval ordinaire (10 km/période) sauf si elle transporte deux cavaliers (5 km/h). Elle n'est pas ralentie par les terrains difficiles ; à partir du rang 6, elle peut courir sur l'eau et à partir du rang 8, elle peut se déplacer dans les airs. Ce type de monture ne peut être guidée que par son invocateur.
+
+### 5. Manoir d'outre-monde (L)* :
+
+L'invocateur enchante une porte ordinaire existante (pas une porte artificielle) et, pour une durée allant jusqu'à 1 h/niveau, elle s'ouvre sur un manoir magique au lieu de l'endroit habituel. La porte garde ses caractéristiques originelles (solidité, serrure, etc.), mais ne peut pas être bloquée par magie. Le manoir possède jusqu'à une pièce par niveau, pour une surface totale jusqu'à 50 m² par niveau de l'invocateur. Il est meublé selon le style choisi par l'invocateur, depuis un taudis lugubre jusqu'à un palais luxueux rempli de victuailles et de vaisselle d'or (aucun objet magique). Les pièces n'ont pas de fenêtre et les objets disparaissent s'ils sortent du manoir. La nourriture qui peut y être trouvée possède des qualités gustatives à la discrétion de l'invocateur. Tous ces aliments désaltèrent ou procurent un effet normal de satiété, mais ils ne nourrissent pas réellement. Si l'invocateur utilise à nouveau ce sort alors qu'un autre manoir était encore actif, le premier disparaît immédiatement. Toutes les créatures à l'intérieur du manoir au moment où il disparaît, sont éjectées devant la porte et subissent 1d6 DM.
+
+### 6. Navire fantôme (L)* :
+
+Un navire fantôme surgit des profondeurs de la mer et se place sous les ordres du personnage. Il est recouvert d'algues et de coquillages, il n'a pas d'équipage et n'en a nul besoin. Il se déplace au bon vouloir du personnage à une vitesse de 20 km/h. Il peut abriter une vingtaine de personnes, mais peut en transporter jusqu'à cent. Il disparaît au prochain lever de soleil. Le
+navire fantôme ne peut naviguer à plus d'une journée de la côte la plus proche, les étendues lointaines lui sont interdites... À partir du rang 8, le personnage devient capable d'invoquer une nef fantôme qui navigue dans les airs (considéré comme un sort de rang 8 pour le coût en PM).
+
+### 7. Chasseur ailé (L):
+
+Le personnage invoque à son service une créature ailée de grande taille pendant 24 h. À son arrivée, il doit lui donner la mission de trouver et de lui rapporter une personne ou un objet. Le chasseur se met immédiatement en chasse avec un instinct infalible et la trouve à moins que la cible ne soit dissimulée par magie (sort de non-détecton, par exemple). Le chasseur utilise au mieux ses capacités et son intelligence pour réussir sa mission, mais il ne combat pas, sauf pour se défendre. Il parcourt jusqu'à 25 km/h. En cas de réussite, le chasseur rapporte l'objet ou la créature et le dépose devant l'invocateur. À la fin de la durée du sort, si le chasseur ailé n'a pas pu remplir sa mission, il entre dans une rage destructrice, il retrouve alors le personnage qui l'a invoqué et l'attaque jusqu'à ce qu'il soit vaincu (il n'utilise pas sa capacité d'*Enlèvement* pour ce combat).
+
+### 8. Portail magique (L):
+
+Une fois par jour, le personnage peut faire apparaître un portail lumineux pour une durée maximale de [5 + INT] minutes, bien qu'il puisse mettre fin au sort à tout moment. Cette porte apparaît simultanément dans un autre lieu choisi par le magicien, soit à portée de vue, soit à un endroit parfaitement connu du magicien à une portée maximale égale à son niveau × 10 km. Tant qu'il est actif, le portail magique peut être emprunté dans un sens ou dans un autre par toute créature de taille énorme ou inférieure.
+
+>  **CHASSEUR AILÉ** | NC5
+> 
+> Le chasseur ailé ressemble à un humain à la peau noire, doté d'une tête de > faucon de la même couleur. Ses bras sont remplacés par des ailes et ses > jambes par de puissantes serres.
+> 
+> TAILLE GRANDE, CRÉATURE NON VIVANTE
+> 
+> | AGI | +1 | CON | +6 | FOR | +6 | PER | +0 |
+> | --- | --- | --- | --- | --- | --- | --- | --- |
+> | CHA | +0 | INT | +2 | VOL | +6 |  |  |
+> 
+> 
+> Serres +10 • DM 2d6+6
+> 
+> **VOL RAPIDE:** 
+> Le chasseur ailé obtient une action de mouvement supplémentaire par round  lorsqu'il est en vol. Au premier round de combat, la créature obtient un  bonus de +5 en attaque et +1d6 aux DM si elle est en vol et attaque une  créature au sol, elle peut tenter un enlèvement.
+> 
+> **ENLÈVEMENT:**
+> Le chasseur ailé peut tenter d'agripper une cible de taille moyenne ou inférieure en action d'attaque. La cible peut faire un test de FOR opposé pour échapper à son étreinte à sa première attaque, en cas d'échec, elle est immobilisée et elle ne peut pas se libérer avant que le serviteur ne décide de la relâcher ou qu'il soit vaincu.
+
+## VOIE DU MAGE DE GUERRE
+
+Les mages de guerre sont de véritables machines à tuer. Ils représentent les pires terreur des soldats, la mort venue du ciel, l'enfer sur terre. Ils peuvent être de puissants mages royaux qui défendent les intérêts de leur souverain avec loyauté ou d'infâmes mercenaires qui louent leur puissance de frappe au plus offrant.
+
+Requis : connaître au moins trois sorts qui infligent des DM directs (Projectile de mana, Explosion de feu, Foudre, etc.).
+
+### 4. Coup au but (G) ou (M):
+
+Le personnage ou la cible (portée 10 m) bénéficie d'un bonus de +10 sur son prochain test d'attaque contre DEF (au contact, à distance ou magique au choix) qui doit être exécuté avant la fin du round. Si ce sort est lancé en action de mouvement, il coûte seulement 2 PM.
+
+### 5. Explosion différée (A):
+
+Le personnage invoque une bille de feu qui se positionne là où le mage lui en donne l'ordre. La trajectoire peut comporter jusqu'à deux coudes à 90° et la distance totale parcourue ne doit pas dépasser 50 m. Le magicien n'a pas besoin de voir le lieu. La bille explose immédiatement si une des conditions suivantes est remplie.
+*   Quelque chose ou quelqu'un touche la bille.
+*   Le magicien prononce un mot de commande (action gratuite).
+*   Le délai fixé par le magicien est terminé.
+*   Au bout d'un nombre de minutes égal à l'INT du personnage.
+
+La bille de feu explose dans un rayon de 5 m et inflige [4d4° + INT] DM. Les créatures qui réussissent un test d'AGI difficulté [10 + INT] ne subissent que la moitié des dégâts. Avant son explosion, la bille de feu produit une lumière équivalant celle d'une torche.
+
+### 6. Aura du chef de guerre (A):
+
+Tous vos alliés dans un rayon de 20 m autour de vous bénéficient d'un bonus de +1 en DEF et aux DM pendant INT minutes. À partir du niveau 16, ce bonus passe à +2.
+
+### 7. Épargner les alliés:
+
+Vous êtes capable de sculpter et de contrôler la puissance de vos sorts de zone de façon à ne pas affecter vos alliés.
+
+### 8. Vague de feu (L):
+
+Le personnage dresse un mur de feu de 3 m de hauteur et de 20 de large à une portée initiale de 10 m. La vague de feu s'éloigne de lui et parcourt 50 m en infligeant [5d4° + INT] DM sur son passage. Les créatures qui réussissent un test d'AGI difficulté 15 ne subissent que la moitié des DM.
+
+## VOIE DE LA MAGIE DE L'ESPRIT
+
+Ces mages qui utilisent la magie de l'esprit font partie des plus terribles adversaires et de ceux qui suscitent les plus grandes peurs et la haine la plus profonde. Quoi de plus terrible que ne pas pouvoir protéger l'intimité de ses pensées ou de devoir céder le contrôle de son propre corps à un autre esprit contre son gré...
+
+### 4. Esprit impénétrable (A):
+
+Le personnage ou un allié au contact est immunisé à toutes les tentatives de détection des mensonges, des sentiments ou des émotions, même magiques pendant INT heures. Il ne peut pas non plus être localisé ou scruté par des moyens magiques (sorts ou pouvoirs comme clairvoyance ou détection de l'invisible). En plus de ce sort, le personnage obtient un bonus de +5 à tous les tests destinés à cacher ses émotions et ses sentiments ou pour résister aux sorts qui affectent l'esprit (charme, fascination, domination, etc.).
+
+### 5. Lire les pensées (A):
+
+S'il réussit un test opposé d'attaque magique contre une créature de NC inférieur à son niveau, le personnage « entend » les pensées de la cible, pendant [1d6 + INT] rounds (portée 20 m). Il ne peut fouiller dans sa mémoire, seulement savoir ce qu'elle pense
+
+à ce moment-là. En combat, le lanceur obtient un bonus de +3 en DEF contre les attaques portées par la cible du sort.
+
+### 6. Prison mentale (A):
+
+Une fois par combat, le personnage peut faire un test opposé d'attaque magique contre une cible à une portée de 20 m. En cas de réussite, la victime est emprisonnée dans un labyrinthe extradimensionnel. La durée d'emprisonnement dépend du NC de la cible :
+*   NC 1 ou moins, valeur d'INT jours;
+*   NC 2, valeur d'INT heures;
+*   NC 3, valeur d'INT minutes;
+*   NC 4 et +, 1d6 rounds.
+
+La cible peut faire un test d'INT difficulté [10 + INT] pour diviser par deux sa durée d'emprisonnement (minimum 1 round). Dans tous les cas, si la victime possède une valeur d'INT supérieure ou égale à celle du mage, elle n'est pas affectée par le sort. Le mage ne peut contrôler plus d'une créature à la fois.
+
+### 7. Attaque mentale (A):
+
+Une surcharge de stimulus sensoriels qui provoque des DM et éventuellement une perte de connaissance de la cible. Le personnage fait un test opposé d'attaque magique contre une cible à une portée de 20 m. En cas de succès, il inflige [5d4° + INT] DM et la cible doit faire un test d'INT difficulté [10 + INT]. En cas d'échec, si la cible est de niveau inférieur au mage, elle perd conscience pour 1d6 rounds, sinon elle est immobilisée (sonnée debout) pour 1 round.
+
+### 8. Contrôle mental (A):
+
+Si le personnage réussit un test opposé d'attaque magique contre une cible à une portée de 20 m, il prend le contrôle des actions de sa cible (c'est le joueur qui décide de ses actions comme s'il s'agissait de son PJ). Pendant ce temps-là, le corps du mage est inactif.
+La durée du contrôle dépend du NC de la cible :
+*   NC 1 ou moins, valeur d'INT heures;
+*   NC 2, valeur d'INT minutes;
+*   NC 3, valeur d'INT rounds;
+*   NC 4 et +, 1d6 rounds.
+
+La cible peut faire un test d'INT difficulté [10 + INT] pour diviser par deux la durée de contrôle (minimum 1 round). Dans tous les cas, si la victime possède une valeur d'INT supérieure ou égale à celle du mage, elle n'est pas affectée par le sort. Le mage ne peut contrôler plus d'une créature à la fois.
+
+## VOIE DE LA MAGIE DES MOTS
+
+Certains disent que le verbe précéda la matière et que les mots qui décrivent le monde servent à le modeler. Ceux qui empruntent la voie de la magie des mots suivent ces préceptes à la lettre et ils sculptent le monde par leur volonté.
+
+Cette voie est accessible aux bardes comme s'il s'agissait d'une voie de leur famille de profil.
+
+### 4. Chant fascinant (A):
+
+Le lanceur de sort entonne un chant si merveilleux qu'il fascine toutes les créatures humanoïdes et les animaux de NC 1 ou inférieur dans un rayon de 20 m. Le NC augmente de 1 par rang acquis (NC 2 au rang 6, NC 3 au rang 7 et enfin NC 4 au rang 8). Les victimes cessent toute activité tant que le personnage continue à chanter par une action de mouvement à chaque round et pour une durée maximale de [1d6 + INT] minutes et, si le personnage se déplace, elles le suivent. Les créatures sourdes ou qui se bouchent les oreilles sont immunisées au sort tant qu'elles ne l'entendent pas. Une créature blessée pendant le sort reprend ses esprits et elle y est immunisée pendant 24 h. Un barde peut aussi utiliser un instrument de musique pour lancer ce sort.
+
+### 5. Poids des mots (L)* :
+
+Le personnage déforme la réalité et la plie à sa volonté par la force du conte. Par exemple, avant de savoir si une porte est fermée à clé, il dira « La porte était habituellement fermée à clé mais, ce jour-là, le maître des lieux, pressé de rejoindre sa fougueuse maîtresse, avait oublié de la verrouiller ». Le personnage peut tenter d'altérer la réalité tant que celle-ci n'a pas été révélée, ensuite ce n'est plus possible. Le MJ peut choisir de refuser les allégations du joueur mais, dans ce cas, les points de mana ne sont pas dépensés.
+
+### 6. Cri de la banshee (A)* :
+
+Une fois par jour, le personnage peut pousser un terrible cri. Toutes les créatures vivantes dans un rayon de 10 m autour du personnage doivent réussir **un test de CON difficulté [10 + INT]** ou subir 6d4° DM (rien en cas de succès). Les alliés du mage ont un bonus de +5 à ce test (qui prend en compte le fait que ceux-ci sont prévenus et peuvent entre autres se boucher les oreilles). Les victimes qui ont été réduites à 0 PV voient leurs cheveux blanchir définitivement.
+
+### 7. Mot de mana (L)* :
+
+Le lanceur de sort désigne une cible à une portée de 20 m et prononce un mot empreint de la puissance brute de la magie. Si la cible possède moins de 120 PV (on parle ici des PV max), elle est aveuglée pour 1d4 rounds. À partir du niveau 15, le personnage peut, s'il le souhaite, utiliser le mot d'étourdissement, si la cible possède moins de 100 PV, elle est étourdie pour 1d4 rounds. À partir du niveau 18, le personnage peut, s'il le souhaite, utiliser le mot de mort : si la cible possède moins de 80 PV, elle meurt (réduite à 0 PV). Le lanceur de sort doit terminer une récupération rapide avant d'être à nouveau capable d'utiliser ce sort.
+
+### 8. Souhait (L)* :
+
+Le personnage modifie le monde par la force des mots et émet un vœu qui est exaucé. Une fois par jour, il peut dupliquer les effets de n'importe quelle capacité de n'importe quelle voie, jusqu'au rang 5. Une fois par aventure, il peut émettre un souhait qui dépasse ce cadre et dont les limites sont fixées par le seul bon vouloir du MJ. Toutefois, plutôt que d'empêcher le souhait du joueur de se réaliser, le MJ inventera des effets collatéraux préjudiciables qui feront de l'utilisation du souhait un moment de tension et de danger... Par exemple, si le personnage souhaite devenir « extrêmement fort », le MJ peut lui octroyer +4 en FOR, mais lui enlever 4 points en AGI. Les effets du sort sont généralement valables jusqu'à la fin de l'aventure en cours.
+
+## VOIE DE LA MAGIE DU TEMPS
+
+La magie du temps est un des arts occultes le plus subtil, le plus difficile et le plus puissant à la fois. Rares sont les magiciens qui s'y risquent, car il est aisé de s'y perdre.
+
+**Contretemps** : cette règle optionnelle permet de simuler les effets secondaires des sorts temporels. Elle sert aussi d'exemple à ce que le MJ pourrait inventer comme effet secondaire pour d'autres voies de prestige. Pour tous les sorts de cette voie, si le lanceur obtient un échec critique au test d'attaque magique (1 au d20), il subit un contre-coup : lancez un d6 sur la table ci-dessous.
+
+*   Reste perdu dans ses pensées pour 1d4° rounds. Attaqué, il se défend.
+*   Ne sait plus qui il est durant 1d4° minutes.
+*   Ne sait plus où il est ni pourquoi il est là durant 1d4° minutes.
+*   Ne reconnaît plus l'un de ses compagnons (déterminé au hasard) durant 1d4° h.
+*   Oubli d'un événement important durant 1d4° jours.
+*   Oubli d'un détail durant 1d4° mois.
+
+### 4. Fuite en avant (A)* :
+
+Le personnage se projette dans le futur, s'il réussit un test d'attaque magique contre une difficulté égale à [10 + durée choisie en min], il disparait et réapparaît à la fin de la durée choisie. Si un obstacle occupe sa position, il réapparaît au plus près et subit 1d4° DM, s'il s'agit d'un être vivant la créature subit des DM similaires.
+
+### 5. Lenteur (A)* :
+
+Le personnage doit emporter un test opposé d'attaque magique contre une créature située à moins de 30 m. Si la cible est de niveau supérieur ou égal au PJ, elle est *ralentie* pendant 1d4 rounds sinon la durée est doublée. Si la victime réussit son test de résistance, elle ne peut plus être la cible de ce pour le reste du combat.
+
+### 6. Décalage (A)* :
+
+Le personnage touche sa cible et doit réussir un test opposé d'attaque magique contre elle. En cas de réussite, il envoie la cible 1d4° min dans le futur (au maximum, moins s'il le souhaite). La victime devient une image transparente, immatérielle et immobile pour la durée du sort. Elle reprend consistance et son activité normale à la fin de celui-ci. Si un obstacle occupe sa position, elle réapparaît au plus près et subit 1d4° DM, s'il s'agit d'un être vivant la créature subit des DM similaires.
+
+### 7. Enkystement lointain (A)* :
+
+Une fois par combat, le personnage désigne une cible à moins de 20 m d'un mouvement de la main et un tourbillon de lumière multicolore emporte la victime en un lieu lointain. En cas de succès d'un test opposé d'attaque magique, la cible est instantanément téléportée dans une direction aléatoire (à peu près horizontalement et dans un milieu adapté à sa survie). Les créatures de NC inférieur à la moitié du niveau du magicien sont téléportées à une distance de 2d4° × 100 km, celles de niveau inférieur à 2d4° km et celles de niveau supérieur ou égal à 2d4° × 10 m. Une créature ne peut pas être victime de ce sort plus d'une fois par jour.
+
+### 8. Arrêt du temps (L)* :
+
+Le magicien peut arrêter le temps pendant [1d4° + INT] rounds. Seul le magicien peut agir à sa guise pendant cette période, lancer des sorts sur lui-même, se déplacer et déplacer des objets, tant qu'il ne touche pas un autre être vivant ou n'interagit pas avec lui (en lui lançant un sort, par exemple). Dans le cas d'un contact (même magique), le temps reprend instantanément son cours normal. Si vous utilisez la règle optionnelle du contretemps, l'effet se produit sur un résultat de 1 au d4° qui détermine la durée du sort.
+
+## VOIE DU MAÎTRE DES SORTS
+
+Le maître des sorts étudie sans cesse afin de constituer une liste encyclopédique de sorts, il apprend autant de sorts que possible pour toujours connaître le bon sort au bon moment, au détriment des sorts les plus puissants.
+
+### 4. Connaissance des arcanes inférieures :
+
+Le personnage apprend deux sorts de rang 1 de magie profane de son choix.
+
+### 5. Connaissance des arcanes mineures :
+
+Le personnage apprend deux sorts de rang 2 de magie profane de son choix.
+
+### 6. Connaissance des arcanes supérieures :
+
+Le personnage apprend deux sorts de rang 3 de magie profane de son choix.
+
+### 7. Connaissance des arcanes majeures :
+Le personnage apprend deux sorts de rang 4 de magie profane de son choix.
+
+### 8. Connaissance des arcanes suprêmes :
+Le personnage apprend deux sorts de rang 5 de magie profane de son choix.
+Les sorts de magie profane sont tous les sorts des profils de mage plus les sorts de barde.
+
+## VOIE DE LA VISION
+
+Voir et ne pas être vu, celui qui suit cette voie apprend à maîtriser et à tromper le sens qui nous permet d'interagir le plus souvent avec notre environnement.
+
+Requis : avoir accès à une voie parmi la voie de la magie universelle, la voie de la divination, la voie des illusions ou la voie de la sombre magie.
+
+### 4. Cécité (A)* :
+Le personnage doit emporter un test opposé d'attaque magique contre une cible à une portée de 20 m. En cas de succès la cible est aveuglée (-5 en Init., Att et DEF, -10 en attaque à distance). La durée du sort est de 1d6 rounds si la cible est d'un NC inférieur au niveau personnage, sinon elle est d'un round seulement.
+
+### 5. Œil magique (A)* :
+Le personnage détache son œil et l'envoie explorer son environnement. Il voit par cet œil et le déplace en volant de 10 m par action de mouvement pour une durée d'INT min. L'œil possède une DEF 20 et 1 PV. S'il est réduit à 0 PV, l'œil est détruit et le mage perd 1d6 PV (son œil repousse immédiatement).
+
+### 6. Motif hypnotique (A)* :
+Le personnage crée dans le ciel un tableau coloré hypnotique dans lequel chacun voit une scène différente qui le touche au plus profond de son être. Chaque créature à portée (20 m) doit réussir un test d'INT difficulté [12 + INT du magicien] ou cesser ce qu'elle faisait pour regarder intensément le tableau. Elle ne prête plus du tout attention à son environnement, toutefois, si elle est attaquée, elle riposte bien qu'elle reprenne immédiatement sa contemplation dès son adversaire vaincu ou en fuite. Le sort a une durée d'INT min et il n'affecte que les créatures dont le NC est inférieur au rang atteint dans la voie.
+
+### 7. Vision de la vérité (A)* :
+Pendant INT min, le personnage voit à travers les illusions et les déguisements, même magiques, comme s'ils n'existaient pas. Il voit aussi les créatures invisibles. Au prix d'une action de mouvement, il peut se concentrer sur l'aura d'une créature à moins de 20 m, et s'il réussit un test opposé d'attaque magique, il apprend son niveau approximatif, ses PV et ses pouvoirs particuliers.
+
+### 8. Invisibilité supérieure (A)* :
+Au choix, le personnage peut lancer invisibilité (rang 3 de la voie de la magie universelle) sur lui-même plus un nombre d'alliés égal à son INT (durée [1d4° + INT] minutes) ou il lance invisibilité supérieure seulement sur lui-même. Dans ce cas, il reste invisible même s'il utilise des actions offensives, mais la durée est exprimée en rounds. Ses adversaires l'attaquent comme s'ils étaient aveuglés (-5 en Att et en DEF, -10 aux attaques à distance, ne peut être ciblé par les sorts).
+
+## VOIES DE MYSTIQUE
+
+Les sorts des voies de mystique sont tous indexés sur le CHA. Toutefois, si un druide (ou un moine) choisit une de ces voies, il utilisera sa PER. Vos remarquerez par ailleurs que certaines voies utilisent la VOL ou la PER : cela est voulu et, dans ce cas, un prêtre aura l'obligation d'utiliser la caractéristique indiquée.
+
+## VOIE DE L'ARMURE SACRÉE
+
+Cette voie permet au personnage de revêtir une armure magique extraordinaire qui fait de lui un combattant très résistant. Chaque armure est unique et n'accepte qu'un seul maître. Elle possède une apparence qui associe son porteur à un thème particulier : un animal fantastique ou non, un signe astrologique, etc. Les porteurs d'armure sont hiérarchisés en trois rangs : bronze, argent, or. Si vous avez rêvé de jouer un personnage tiré de certaines séries de dessins animés, cette voie est faite pour vous !
+
+Cette voie est ouverte à tous les mystiques. Dans le cas du moine et du druide, elle n'empêche pas l'utilisation des capacités de ces profils. Pour le druide, l'armure est constituée d'écaillles de dragon de la couleur correspondante.
+
+### 4. Armure de bronze :
+
+Le personnage acquiert son armure de bronze. Celle-ci se présente sous la forme d'un cube de métal d'environ 50 cm d'arête pour 10 kg, portant son symbole. Sur un simple mot de commande (action de mouvement), l'armure se déploie et recouvre son corps. L'armure confère une RD égale à 3 et n'inflige aucune pénalité d'encombrement.
+
+### 5. Pouvoir unique (L) :
+
+Le personnage associe à son armure un sort de son choix de rang 1 à 4 de n'importe quelle voie. Il peut utiliser ce sort plus souvent s'il est moins puissant :
+*   Rang 1, 4 fois par combat ;
+*   Rang 2, 3 fois par combat ;
+*   Rang 3, 2 fois par combat ;
+*   Rang 4, 1 fois par combat.
+
+### 6. Armure d'argent :
+
+L'armure acquiert la couleur de l'argent. Elle octroie une RD 5.
+
+### 7. Pouvoir puissant (L) :
+
+Le personnage associe à son armure un sort de son choix de rang 5 à 7 de n'importe quelle voie. Il peut utiliser ce sort plus souvent s'il est moins puissant, mais dans tous les cas pas plus d'une fois par combat :
+*   Rang 5, 3 fois par jour ;
+*   Rang 6, 2 fois par jour ;
+*   Rang 7, 1 fois par jour.
+
+### 8. Armure d'or :
+L'armure acquiert la couleur de l'or et elle octroie une RD 7.
+
+pendant un maximum de CHA minutes. Sous cette forme, il ne peut pas employer d'autres capacités que celles de la voie élémentaire du feu et il ne peut pas parler. S'il est réduit à 0 PV sous cette forme, il reprend sa forme initiale avec les PV qu'il avait au moment de la transformation.
+
+## VOIE ÉLÉMENTAIRE DU FEU
+
+Les voies élémentaires ont tendance à changer profondément ceux qui les suivent, tant physiquement que mentalement. Dans le cas du feu, les cheveux deviennent roux, les ongles noircissent, tandis que le tempérament devient plus explosif.
+Cette voie peut aussi être choisie par un mage qui maîtrise au moins deux sorts de feu. Remplacer le Charisme par l'Intelligence dans le texte des capacités.
+
+### 4. Mur de feu (A)* :
+
+Le personnage peut créer un mur de feu rectiligne de 20 m de long pour 4 m de haut (portée 20 m, épaisseur 30 cm). Toute créature qui franchit le mur subit [2d4° + CHA] DM de feu. Le sort a une durée de CHA minutes.
+
+### 5. Tornade de feu (A)* :
+
+Le personnage invoque une colonne de feu (portée 20 m) qui inflige [4d4° + CHA] DM à la cible sur un test d'attaque magique réussi contre DEF. Les DM sont doublés contre les morts-vivants et les démons.
+
+### 6. Insensible au feu :
+
+Le personnage devient insensible aux DM de feu et il divise par deux les DM de froid.
+
+### 7. Immolation (A)* :
+
+Le personnage s'immole dans une aura de flammes vives pendant CHA minutes. Il est immunisé aux DM de feu et inflige 1d4° DM de feu à tout attaquant qui réussit à le blesser avec une arme, 2d4° s'il s'agit d'une arme naturelle.
+
+### 8. Forme élémentaire de feu (A)* :
+
+Une fois par jour, le personnage peut se transformer en élémentaire de feu (taille grand), pendant un maximum de CHA minutes. Sous cette forme, il ne peut pas employer d’autres capacités que celles de la voie élémentaire du feu et il ne peut pas parler. S’il est réduit à 0 PV sous cette forme, il reprend sa forme initiale avec les PV qu’il avait au moment de la transformation.
+
+> #### ÉLÉMENTAIRE DE FEU
+> 
+> | AGI | CON | FOR | PER | CHA | INT | VOL |
+> | --- | --- | --- | --- | --- | --- | --- |
+> | +3* | +5 | +5 | [PER du personnage] | [CHA du personnage] | [INT du  personnage] | [VOL du personnage] |
+> 
+> * Défense 20
+> * Points de vigueur [Niv. du mystique × 4]
+> * Initiative [Init. du mystique]
+> 
+> Frappe de feu [attaque magique] • DM 2d4°+5
+> • DM de feu.
+> 
+> La forme élémentaire de feu profite en permanence des effets des capacités Insensible au feu et Immolation.
+
+## VOIE ÉLÉMENTAIRE DE LA TERRE
+
+Les voies élémentaires ont tendance à changer profondément ceux qui les suivent, tant physiquement que mentalement. Dans le cas de la terre, les cheveux deviennent gris, la peau terreuse, tandis que le tempérament devient plus introverti.
+Cette voie peut aussi être choisie par un mage qui maîtrise au moins un sort de terre. Remplacer le Charisme par l'Intelligence dans le texte des capacités.
+
+### 4. Mur de pierre (A)* :
+
+Le personnage invoque un mur de pierre de 20 m de long pour 4 m de haut (portée 20 m). Le mur est parfaitement rectiligne sur toute sa longueur. Il peut prendre attache sur un mur ou une paroi rocheuse et ainsi boucher complètement un passage. Le mur a une durée d'existence d'INT heures (Solidité 30, RD 20, 30 cm d'épaisseur).
+
+### 5. Litomorphose (A)* :
+
+Le personnage peut modeler la pierre par sa simple volonté (portée 10 m). Il affecte un volume maximal de 1 m3 par niveau et lui donne la forme qu'il désire. Ainsi au niveau 10, il peut percer un tunnel de 1 m de côté pour environ 10 m de long ou au contraire créer une arche de pierre de 1 m de large pour 10 m de long afin de franchir un précipice. La transformation dure INT heures.
+
+### 6. Pétrification (A)* :
+
+Le personnage effectue un test opposé d'attaque magique (portée 20 m) contre sa cible. En cas de réussite, la victime est changée en pierre (effet permanent). Sous cette forme, elle a une RD 30, mais un sort de litomorphose lui inflige 4d4° DM sans réduction. Si la victime est de niveau supérieur ou égal au lanceur du sort, elle peut faire un test de CON difficulté [10 + CHA] à la fin de chaque round pour mettre fin au sort.
+
+### 7. Séisme (A)* :
+
+Le personnage déclenche un terrible tremblement de terre qui fait s'effondrer les bâtisses dans une zone de 100 m de rayon autour de lui. Les maisonnettes pauvres s'écroulent automatiquement, les villas ont 4 chances sur 6 de s'effondrer, les palais 2 chances sur 6 et les édifices fortifiés 1 chance sur 6. Toute créature présente dans un édifice qui s'effondre subit 4d6 DM (on considère qu'elle sort de l'édifice, sinon elle subit le double de DM). Les DM sont divisés par deux si la bâtisse a résisté. Sous terre, le sort inflige 4d6 DM dans toute la zone.
+
+### 8. Forme élémentaire de terre (A)* :
+
+Une fois par jour, le personnage peut se transformer en élémentaire de terre (taille grand), pendant un maximum de CHA minutes. Sous cette forme, il ne peut pas employer d'autres capacités que celles de la voie élémentaire de terre et il ne peut pas parler. S'il est réduit à 0 PV sous cette forme, il reprend sa forme initiale avec les PV qu'il avait au moment de la transformation.
+
+> ### ÉLÉMENTAIRE DE TERRE
+> 
+> | AGI | CON | FOR | PER | CHA | INT | VOL |
+> | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+> | +1 | +6 | +6* | mystique | mystique | mystique | mystique |
+> 
+> * Défense 23
+> * Points de vigueur [Niv. × 5]
+> * Initiative [mystique]
+> 
+> **Coup de poing** [attaque magique] • **DM** 2d4°+6
+
+## VOIE ÉLÉMENTAIRE DE L'AIR
+
+Les voies élémentaires ont tendance à changer profondément ceux qui les suivent, tant physiquement que mentalement. Dans le cas de l'air, les cheveux deviennent blancs et la peau très pâle, tandis que le tempérament devient rêveur.
+Cette voie peut aussi être choisie par un mage qui maîtrise au moins un sort d'air. Remplacer le Charisme par l'Intelligence dans le texte des capacités.
+
+### 4. Bourrasque (A)* :
+
+Le personnage prend une grande inspiration et souffle une terrible bourrasque. Toutes les créatures face à lui dans un cône de 30 m de long et de large à son extrémité doivent faire un test de FOR difficulté [10 + rang] ou être renversée et repoussées en arrière à une distance qui dépend de leur taille.
+
+*   **Très petite à moyenne** : 20 m, subit 3d4° DM
+*   **Grande** : 10 m, subit 2d4° DM
+*   **Énorme** : 5 m subit 1d4° DM
+*   **Colossale** : seulement renversée
+
+### 5. Chevaucher les nuées (A)* :
+
+Le personnage et un compagnon supplémentaire par rang peuvent être transportés par les forces du vent sur une distance de 1 km au maximum à la vitesse de 100 m par round. Le personnage doit voir l'endroit où le sort va le transporter et cet endroit doit pouvoir recevoir toutes les personnes qui l'accompagnent.
+
+### 6. Mur de vent (A):
+
+Le sort crée un mur de vent circulaire de 5 à 10 m de diamètre autour du personnage (au choix) pendant CHA minutes. Il bloque les attaques à distance dans les deux sens (mais pas la magie) et repousse les créatures qui tentent de le franchir. Il leur faut réussir un test de FOR difficulté [10 + rang] pour passer.
+
+### 7. Cyclone (A):
+
+Le personnage invoque un violent maelström de vents tourbillonnants à une portée de 500 m. Le phénomène occupe un espace de 20 m de diamètre et toutes les créatures présentes dans la zone d'effet subissent 2d4° DM par round. De plus, une cible doit réussir un test de FOR difficulté 15 ou être renversée. Le sort a une durée CHA minutes et le personnage peut déplacer la tornade de 10 m par action de mouvement.
+
+### 8. Forme élémentaire d'air (A):
+
+Une fois par jour, le personnage peut se transformer en élémentaire d'air (taille grand), pendant un maximum de CHA minutes. Sous cette forme, il ne peut pas employer d'autres capacités que celles de la voie élémentaire de l'air et il ne peut pas parler. S'il est réduit à 0 PV sous cette forme, il reprend sa forme initiale avec les PV qu'il avait au moment de la transformation.
+
+> #### ÉLÉMENTAIRE D'AIR
+> 
+> | AGI | CON | FOR | PER | CHA | INT | VOL |
+> | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+> | +5* | +4 | +4 | [mystique] | [mystique] | [mystique] | [mystique] |
+> | [mystique] | [mystique] | [mystique] | [mystique] |
+> 
+> **Défense** 25
+> **Points de vigueur** [Niv. × 5]
+> **Initiative** [mystique + 3]
+> 
+> **Frappe** [attaque magique] • **DM** 2d4°+ 4 de foudre
+> Immunité aux DM de foudre.
+
+## VOIE ÉLÉMENTAIRE DE L'EAU
+
+Les voies élémentaires ont tendance à changer profondément ceux qui les suivent, tant physiquement que mentalement. Dans le cas de l'eau, les cheveux semblent toujours mouillés et les yeux prennent une couleur délavée, tandis que le tempérament devient plus changeant.
+Cette voie peut aussi être choisie par un mage qui maîtrise au moins un sort d'eau. Remplacer le Charisme par l'Intelligence dans le texte des capacités.
+
+### 4. Brouillard (A):
+
+Le personnage lève un brouillard dense (pénombre dans un rayon de 10 m, puis équivalent au noir total) dans un rayon de 20 m autour de lui. S'il maintient sa concentration, il peut continuer à augmenter le rayon de la zone de 20 m par action limitée à chaque round suivant pendant un maximum de round égal à son niveau. Une fois qu'il cesse sa concentration, le brouillard dure pendant CHA minutes.
+
+### 5. Mur acide (A):
+
+Le personnage peut créer un mur d'acide rectiligne de 20 m de long pour 4 m de haut (portée 20 m, épaisseur 30 cm). Toute créature qui franchit le mur subit [3d4° + CHA] DM d'acide. Le sort a une durée de CHA minutes.
+
+### 6. Armure d'eau (A):
+
+Une couche d'eau de quelques centimètres d'épaisseur recouvre le corps du personnage pendant CHA minutes, elle lui donne une RD 3 contre tous les DM physiques et RD 10 contre les DM de feu et d'acide. Enfin le personnage est glissant comme un poisson et ne peut être saisi.
+
+### 7. Écartement des eaux (A):
+
+Le personnage peut stopper le cours d'une rivière ou écarter les eaux d'un lac. L'eau s'ouvre devant le personnage et se referme derrière lui sur une distance maximale de 1 km (moins
+selon son choix). Lui et ses compagnons peuvent alors traverser à pied sec pendant une durée de CHA heures.
+
+### 8. Forme élémentaire d'eau (A):
+
+Une fois par jour, le personnage peut se transformer en élémentaire d'eau (taille grand), pendant un maximum de CHA minutes. Sous cette forme, il ne peut pas employer d'autres capacités que celles de la voie élémentaire de l'eau et il ne peut pas parler. S'il est réduit à 0 PV sous cette forme, il reprend sa forme initiale avec les PV qu'il avait au moment de la transformation.
+
+> #### ÉLÉMENTAIRE D'EAU
+> 
+> | AGI | CON | FOR | PER | CHA | INT | VOL |
+> | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+> | +3 | +5 | +5 | mystique | mystique | mystique | mystique |
+> 
+> 
+>  **Points de vigueur** [Niv. x 5]
+>  **Initiative** [mystique]
+> 
+> **Frappe** [attaque magique]
+> *   **DM** 2d4°+ 5 d'acide
+> Immunité aux DM d'acide.
+
+
+
+## VOIE DU CHANGEFORME 
+
+Le changeforme est lanceur de sort capable de prendre la forme d'animaux toujours plus puissants à mesure qu'il progresse dans la voie.
+La capacité de druide *Forme animale* n'est pas requise pour développer cette voie. Toutefois elle permet d'en tirer plus d'avantages. Les animaux mentionnés dans les capacités suivantes figurent dans le chapitre « Adversité », à partir de la page 259.
+
+### 4. Forme de voyage (A):
+
+Le personnage peut prendre la forme d'un animal de son choix parmi chat, chien, chevreuil, saumon ou corbeau. Il doit choisir cet animal à l'acquisition de ce sort et ce sera toujours le même. La transformation dure PER minutes ou PER heures si le personnage connaît le sort de druide *Forme animale* de la voie des animaux. Il peut faire l'acquisition d'une forme de voyage supplémentaire par rang atteint dans la voie. Voir le sort de druide *Forme animale* pour les effets.
+
+
+### 5. Transformation en animal (A):
+
+Le personnage fait l'acquisition de la capacité de druide *Forme animale*, mais il ne connaît qu'une seule catégorie d'animaux (parmi mammifère, poissons, arthropodes, reptiles ou oiseaux). Si le personnage connaît déjà la capacité de druide du même nom, il peut désormais rester sous forme animale pour une durée égale à sa PER en heures (au lieu de minutes) et à la fin de la transformation, il récupère 3d4° PV.
+
+### 6. Transformation puissante (A):
+
+Lorsqu'il prend une forme animale, le personnage peut conserver sa propre DEF et utiliser sa valeur d'attaque magique pour attaquer si ceux-ci sont supérieurs au profil de la forme choisie. Désormais, le personnage peut prendre la forme des animaux géants ou préhistoriques (mais toujours sans dépasser la taille M).
+
+### 7. Grande forme animale (A):
+
+Lorsqu'il utilise le sort de *Forme animale*, le personnage peut prendre la forme d'un animal de taille grande (ours, tigre, etc.). Il peut conserver sa DEF et utiliser sa valeur d'attaque magique pour attaquer s'il le souhaite. Le coût du sort est égal à 2 + NC de la créature en points de magie (ou NC PM en utilisant la concentration). Par exemple, une transformation en cheval coûte 3 PM (1 PM en concentration) tandis qu'une transformation en loup géant coûte 6 PM (4 PM en concentration).
+
+### 8. Forme animale énorme (A):
+
+Lorsqu'il utilise le sort de *Forme animale*, le personnage peut prendre la forme d'un animal ou d'un animal géant de taille énorme (par exemple, un éléphant). Il suit les mêmes règles que pour la capacité précédente.
+
+## VOIE DU COMBAT MYSTIQUE
+
+Cette voie est parfaitement adaptée au moine, mais elle fait de tout mystique un adepte des manœuvres martiales à grand spectacle.
+
+### 4. Attaque étourdissante (L):
+
+Le personnage réalise une attaque à mains nues ou avec une arme contondante. En plus des DM habituels, si le NC de la victime est inférieur au rang atteint dans la voie, elle doit réussir un test de CON difficulté [10 + VOL] ou être étourdie pour un round.
+
+### 5. Frappe concentrée (A):
+
+Le personnage se concentre pendant 1d4 rounds (le MJ garde cette durée secrète et annonce au joueur lorsqu'il est prêt) pendant lesquels il ne peut ni attaquer ni se déplacer, mais bénéficie d'une RD 5. Au round suivant, en utilisant une action d'attaque, il peut réaliser une attaque dévastatrice : il touche automatiquement et il triple ses DM. S'il cesse sa concentration prématurément, le personnage ne profite d'aucun bénéfice.
+
+### 6. Pression nerveuse (L):
+
+Une fois par combat, s'il réussit un test d'attaque au contact à mains nues, le personnage pince le nerf d'une créature humanoïde. Si le NC de la cible est inférieur au rang atteint dans la voie, elle est paralysée pour VOL minutes. Si son NC est supérieur ou égal, elle est paralysée pour 1 round seulement.
+
+### 7. Paume mortelle (L):
+
+Une fois par jour, le personnage peut tenter une attaque à mains nues capable de tuer net un adversaire. Le personnage doit être au contact est réussir un test opposé d'attaque magique contre sa cible. En cas de réussite, la victime meurt sur le coup. Si elle est d'un niveau supérieur ou égal au personnage, elle est seulement paralysée pour 1 round.
+
+### 8. Main du tout puissant (L):
+
+Une fois par jour, le personnage frappe le sol de la paume de sa main. Une onde de choc dévastatrice percuté toutes les créatures face à lui sur 20 m de large et autant de profondeur. Chacune d'elle est renversée et subit [4d4° + VOL] DM.
+
+## VOIE DU GUÉRISSEUR
+
+Cette voie est destinée à ceux qui souhaitent prendre soin de la santé de leur prochain, prêtres, druides, et même moines.
+
+### 4. Premiers soins (A):
+
+Cette capacité s'utilise seulement sur une créature vivante à 0 PV. La cible touchée récupère immédiatement [3d4°+ CHA] PV. Un patient ne peut bénéficier de cette capacité qu'une seule fois par combat.
+
+### 5. Soins rapides (G):
+
+D'un simple regard, le personnage soigne une cible (ou lui-même) à une portée de 20 m, elle récupère immédiatement [2d4°+ CHA] PV.
+
+### 6. Rappel à la vie (L):
+
+Une fois par jour, le personnage peut rappeler à la vie un mort décédé depuis moins de [6 + CON du personnage] heures par un rituel de 30 min. Il doit avoir accès au corps. Le personnage revient à la conscience avec 1d4° PV et il est affaibli pendant 24 h. Le sort ne régénère pas les membres ou les parties perdues (il faut pour cela utiliser Régénération, sort de druide).
+
+### 7. Zone de vie (A):
+
+Le personnage peut enchanter une zone de 10 m de rayon autour de lui pour une
+durée de CHA rounds. La zone se met à luire d'une lumière bienfaitrice et l'air scintille. Toutes les créatures vivantes dans la zone récupèrent 2d4°PV à chaque round (à la fin de leur tour). Les morts-vivants et les démons subissent des DM équivalents. Une fois le sort lancé, la zone reste immobile.
+
+### 8. Résurrection (L)* :
+
+Une fois par aventure, le personnage peut rappeler à la vie un personnage décédé depuis moins de [CHA du prêtre] jours par un rituel de 7 h. Il doit avoir accès à une relique (ongle, cheveux, etc.). Le personnage rappelé à la vie revient à la conscience avec 1 PV, il est affaibli pendant 7 jours. Si une créature bénéficie de ce sort plus d'une fois dans sa vie, elle perd 1 point de CON pour chaque résurrection au-delà de la première.
+
+## VOIE DU MAÎTRE DE LA NATURE
+
+Les maîtres de la nature sont en communion avec la nature et les animaux se mettent à leur service. Dans leur milieu de prédilection, ce sont des adversaires redoutables.
+
+### 4. Amitié animale (A)* :
+
+Le personnage cible un animal à une distance maximale de 10 m et doit faire un test opposé d'attaque magique. En cas de réussite, l'animal se met au service du personnage et le défend pendant PER heures. À la fin du sort, l'animal s'enfuit. La somme des NC des animaux que le personnage garde sous contrôle ne peut à aucun moment dépasser le rang atteint dans la voie. À partir du rang 6, le personnage peut cibler les animaux géants et à partir du rang 8 les animaux fantastiques (griffon, ourhible, hippogriffe, etc.). S'il le personnage essaie d'emmenner un animal en milieu urbain, le sort prend immédiatement fin.
+
+### 5. Seigneur de la nature :
+
+Choisissez un milieu naturel de prédilection, puis un milieu naturel supplémentaire au rang 7. Lorsque le personnage est dans un milieu naturel de prédilection, il obtient un dé bonus à tous ses tests et récupère 1d4° PV durant chaque récupération rapide. Milieux naturels de prédilection : forêt et jungle, déserts et plaines, montagnes et collines, marais et milieu aquatique, grottes et profondeurs.
+
+### 6. Invisibilité aux animaux :
+
+Lorsqu'il est dans un milieu de prédilection, le personnage est totalement indétectable par les animaux et les insectes même géants, tant qu'il le décide (que ce soit par la vue, l'odorat ou l'ouïe). S'il entreprend une action offensive contre un animal, la capacité prend fin immédiatement et ne sera à nouveau active qu'à la fin d'une récupération rapide.
+
+### 7. Monture géante :
+
+Le personnage obtient une monture géante de son choix (mammouth, dinosaure, aigle géant, etc.). Elle doit être adaptée à un de ses milieux de prédilection et le NC de la créature ne peut pas être supérieur à [rang + PER]. Si le cadre de jeu ne le permet pas, le meneur de jeu peut décider d'interdire les dinosaures de la liste. La monture géante est parfaitement sous contrôle et lorsque le personnage la monte, elle peut attaquer une fois par round sur son ordre (action d'attaque pour la monture, l'ordre est une action gratuite pour le cavalier).
+
+### 8. Magie druidique innée (G) :
+
+3 fois par jour, lorsqu'il est dans un milieu de prédilection, le personnage peut lancer n'importe quel sort de druide de son choix (le même ou trois sorts différents). Ceci est une action gratuite qui ne peut être utilisée qu'une seule fois par round et ne coûte aucun point de mana.
+
+## VOIE DES SAISONS
+
+Le personnage qui choisit la voie des saisons laisse les cycles naturels s'emparer de son corps et cela modifie son apparence. Au printemps, il semble plus jeune que son âge d'un nombre d'années égal à deux fois le rang atteint dans la voie (pour un humain) et en hiver c'est l'inverse.
+
+### 4. Vigueur du printemps :
+
+Le personnage gagne 2 DR supplémentaires. De plus, lorsqu'il utilise des DR, il relance tous les 1 obtenus.
+
+### 5. Flamme de l'été (A) :
+
+S'il a accès à une flamme (une torche suffit), le personnage peut lancer un projectile de feu qui inflige [2d4° + PER] DM de feu à une cible à moins de 30 m sur un test d'attaque magique réussi. De plus, le personnage divise par deux tous les DM de feu subis.
+
+### 6. Tourbillon d'automne (A)* :
+
+Le personnage souffle un tourbillon de feuilles mortes aux bords tranchants de 5 m de diamètre à une portée de 10 m. À chaque round, toutes les créatures dans la zone subissent [3d4° + PER] DM ou la moitié sur un test de CON difficulté 10 réussi (durée PER rounds). Le personnage peut le déplacer à chaque round de 10 m par action de mouvement.
+
+### 7. Frimas de l'hiver (A) :
+
+S'il a accès à de l'eau, il peut lancer un projectile de glace qui inflige [4d4° + PER] DM de froid à une cible à moins de 30 m sur un test d'attaque magique réussi. Si la victime rate un test de CON difficulté [10 + PER], elle est ralentie à son prochain tour. De plus, le personnage divise par deux tous les DM de froid subis.
+
+### 8. Contrôle climatique (A)* :
+
+Le personnage peut influer sur la météo. Il lui faut 1 min de concentration pour faire varier les conditions météorologiques d'un palier dans l'échelle suivante et il ne peut la faire varier que d'un nombre de paliers maximal égal à sa PER. La modification climatique a une durée de [1d6 + INT] heures et couvre un rayon égal au niveau du personnage exprimé en kilomètres (éventuellement moins). À la fin du sort, la météo reprend son cours normal.
+
+*   Ciel bleu
+*   Nuageux
+*   Pluie fine et vent faible
+*   Pluie dense et vent moyen
+*   Pluie intense et vent fort
+*   Tempête (trombes d'eau et vent violent)
+
+Au dernier palier, le personnage peut appeler la foudre sur une cible en vue par une action gratuite une fois par round. L'éclair inflige 4d4° DM.
+
+## VOIE DU TEMPLIER
+
+Le templier est un soldat de la foi. Il combat les forces du mal et concentre ses forces pour combattre les démons et les morts-vivants.
+Cette voie est obligatoirement utilisée avec le CHA (même si le personnage est druide ou moine).
+
+### 4. Résistance au mal (M)* :
+
+Le personnage touche une cible volontaire (ce peut être lui-même). Celle-ci devient immunisée à toutes les capacités de drain, de charme, de domination, de paralysie ou d'affaiblissement (etc.) des morts-vivants pendant CHA minutes. En plus de ce sort, le personnage gagne +1 en DEF.
+
+### 5. Quête (L)* :
+
+Le personnage assigne une quête à une cible volontaire (ou contrainte à accepter sous la menace) lors d'un long rituel de 10 min. La créature récupère 1 PC par jour tant qu'elle travaille à sa quête. En revanche, si elle cesse de travailler à l'objectif fixé, elle est affaiblie après un laps de temps de 24 h. L'effet préjudiciable cesse si la créature reprend la quête et le sort prend fin une fois la quête menée à bien. Alternativement, le personnage peut imposer au récipiendaire un interdit : tu ne tueras point, tu ne parleras point, tu ne mangeras pas de viande, etc. Dans ce cas, le sort dure un mois par point de CHA du lanceur de sort et à chaque incartade, la cible subit un dé malus pendant 24 h. Le personnage ne peut maintenir plus d'un sort de quête à la fois.
+
+### 6. Résistance au mal supérieure (A)* :
+
+Cette version permet au personnage visé de résister à la fois aux pouvoirs des morts-vivants et à ceux des démons. Le bonus de DEF permanent passe à +2.
+
+### 7. Châtiment du mal (L) :
+
+Le personnage effectue une attaque contre un mort-vivant ou un démon. Il inflige le double des DM habituels s'il réussit son attaque (le triple en cas de critique). S'il la rate, il inflige ses DM normaux. Si le personnage connaît la capacité Châtiment divin, il peut appliquer cette capacité simultanément (le bonus de CHA sera doublé).
+
+### 8. Forme d'Ange (A)* :
+
+Une fois par jour, le personnage prend la forme d'un ange pendant CHA minutes. Lorsqu'il est en forme d'ange, il garde son profil et toutes ses caractéristiques habituelles, mais il peut voler à une vitesse de 30 m par action de mouvement et il obtient une RD 10 contre les attaques des morts-vivants et des démons.
+
+## VOIE DES VERMINES
+
+Alors que certains ont une peur maladive des araignées, des scorpions et des insectes, et quand la vermine mesure plus d'un mètre de haut on peut aisément le comprendre, d'autres les adorent et s'en font une spécialité.
+
+### 4. Maître vermine :
+
+Le personnage peut communiquer avec les vermines géantes (insectes, araignées, scorpions, mille-pattes, etc.) et celles-ci le considèrent plutôt comme une créature amicale, sauf si elles sont sous l'emprise d'un druide ou sous contrôle magique.
+
+### 5. Nuées de criquets (A)* :
+
+S'il réussit un test opposé d'attaque magique (portée 20 m), le personnage libère sur sa cible une nuée de criquets affamés qui la dévorent pendant [5 + CHA] rounds. La victime subit 2 DM par tour et un malus de -3 à toutes ses actions. Les DM de zone détruisent la nuée (minimum 1 DM).
+
+### 6. Compagnon vermine :
+
+Le personnage adopte un scorpion ou une araignée géante (au choix du joueur).
+
+> #### SCORPION OU ARAIGNÉE
+> 
+> TAILLE MOYENNE
+> 
+> | AGI | CON | FOR | PER | CHA | INT | VOL |
+> | --- | --- | --- | --- | --- | --- | --- |
+> | +3* | +5 | +5 | +2 | -4 | -3 | +2 |
+> 
+> *   **Défense** [15 + rang dans la voie]
+> *   **Points de vigueur** [niveau du personnage × 5]
+> *   **Initiative** [Init. du personnage]
+> 
+> ### Attaque au contact [attaque magique]
+> 
+> *   **DM** 1d4°+5 et poison +1d4° DM
+> 
+> Au prix d'une action limitée, le scorpion peut attaquer une fois avec ses pinces (pas de poison) et une fois avec son dard (avec poison). L'araignée peut se déplacer sur les surfaces verticales. Déplacement rapide : les vermines se déplacent de 20 m par action de mouvement.
+
+### 7. Affinité au poison (L):
+
+Le personnage peut enduire une arme tranchante ou perforante de poison une fois par combat. Cette arme inflige +1d4° DM de poison. En plus des effets décrits ci-dessus, le personnage divise par deux les DM et la durée d'effet des poisons.
+
+### 8. Vermine supérieure:
+
+Le compagnon vermine du personnage gagne une des capacités suivantes, qui dépend de sa nature. De plus, la vermine peut désormais servir de monture à son maître.
+
+*   **Étreinte du scorpion** : le scorpion peut désormais tenter d'attraper entre ses pinces une créature de taille grande ou inférieure. Lorsqu'il obtient un résultat de 15 à 20 sur son dé d'attaque, le scorpion immobilise son adversaire en plus des DM habituels.
+*   **Toile d'araignée (L)** : l'araignée gagne la capacité de lancer (portée 10 m) une toile gluante et collante. Si elle réussit son attaque, la cible est immobilisée pour 1d6 rounds. Au début de son tour, la créature engluée peut faire un test de FOR difficulté 15, en cas de succès, elle réussit à se libérer, sinon elle reste immobilisée.
+
+
+
+# PROFILS HYBRIDES
+
+## EXPLICATIONS
+
+Les règles sur les profils hybrides ont été prévues pour des joueurs ayant déjà une certaine expérience du jeu et souhaitant faire prendre un tournant à la carrière de leur PJ, comme un voleur qui voudrait apprendre la magie ou encore un magicien qui voudrait apprendre à se battre. Nous conseillons donc aux débutants de ne pas s'en préoccuper tout de suite.
+
+## Qu'est-ce qu'un profil hybride ?
+
+Le profil adopté par le personnage au niveau 1 est appelé le profil principal. Il permet de déterminer le dé de récupération (DR) et certains avantages selon la famille de profils (PC, DR ou capacité de rang 2). Le profil principal représente la jeunesse et la formation initiale du personnage ; même si, par la suite, il change complètement d'orientation, il ne peut pas le renier.
+
+Toutefois, lorsque le personnage change de niveau, le joueur peut décider de choisir une nouvelle voie qui n'appartient pas à son profil principal. Il adopte alors un profil hybride.
+
+Tant qu'il reste au moins une voie sur les cinq de son profil dans laquelle le joueur n'a investi aucun point de capacité, le personnage peut avoir un profil hybride. En revanche, si un personnage a acquis des capacités dans l'ensemble des cinq voies de son profil, il ne le peut plus.
+
+Le choix d'une voie en dehors du profil principal du personnage doit avoir une cohérence avec les événements vécus en cours de jeu. Le personnage devra au moins se donner les moyens de justifier l'acquisition de nouvelles capacités (découverte d'un antique grimoire de magie, dépense de fonds personnels pour étudier, rencontre d'un maître d'armes, etc.).
+
+Toutefois, si la nouvelle voie appartient à la même famille de profils, l'évolution peut-être suffisamment subtile pour ne pas nécessiter d'entraînement particulier (par exemple, un chevalier qui choisit la voie du combat).
+
+Inversement, certains profils sont radicalement opposés (par exemple, le primitif barbare et l'érudit magicien). Il faudra de très bonnes raisons pour justifier leur assemblage. La liste exacte des combinaisons interdites est toutefois laissée à la discrétion de chaque MJ.
+
+Du point de vue des règles, obtenir une nouvelle capacité dans une voie en dehors du profil principal du personnage se passe de la façon habituelle : la capacité coûte 1 point de capacité si elle est de rang 1 ou 2, et 2 points si elle est de rang 3 ou davantage.
+
+Pour plus de simplicité, lorsque vous choisissez des capacités dans une voie d'une autre famille, nous vous conseillons de dépenser vos 2 points de capacité dans celle-ci à ce niveau. Ce n'est pas une obligation, mais cela compliquera le calcul des points de vigueur si vous faites autrement. Vous voici prévenu.
+
+## Points de vigueur
+
+Lorsque le personnage change de niveau, le nombre de points de vigueur qu'il obtient dépend du choix de ses capacités.
+
+**Si toutes les capacités proviennent de la même famille**, vous êtes dans le cas idéal ! Augmentez simplement vos points de vigueur en fonction de cette famille (aventuriers 4 PV, combattants 5 PV, mages 3 PV et mystiques 4 PV).
+
+Nous vous incitons vivement à toujours choisir toutes vos capacités dans la même famille à chaque niveau et d'ailleurs votre MJ pourrait en faire une règle. Cela simplifiera grandement calculs et arrondis.
+
+Toutefois, **si ce n'est pas le cas**, le nombre de PV obtenus à ce niveau est égal à la moyenne des PV des deux familles concernées. En cas de demi-PV, arrondissez à l'inférieur pour la première fois et **notez-le** sur votre fiche de personnage. Vous arrondirez au demi-PV supérieur la fois suivante. Et ainsi de suite, une fois sur deux, si vous avez un doute, n'hésitez pas à reprendre l'ensemble des capacités cochées pour calculer vos PV au plus juste.
+
+**Exemple 1** : Un personnage fait l'acquisition d'une capacité de combattant de rang 2 et d'une capacité de mage de rang 1, il gagne $(5 + 3) / 2 = 4$ PV.
+
+**Exemple 2** : Un personnage obtient une capacité de rang 1 de mage et d'aventurier, il gagne $3,5$ PV arrondis à 3. Le joueur note ce demi-point manquant sur sa fiche de personnage, afin de s'en souvenir. Lorsqu'il prendra les capacités de rang 2, il obtiendra à nouveau $3,5$ PV, mais cette fois il arrondira à 4 PV de façon que le total des 4 rangs fasse bien 7 PV ($3$ PV pour les deux rangs de mage et $4$ PV pour les deux rangs d'aventurier.
+Alternativement, le joueur peut choisir de dépenser 1 point dans sa voie de peuple. Dans ce cas, le nombre de PV pour cette capacité correspond à la famille de votre profil principal.
+
+**Exemple** : un personnage de profil principal guerrier choisit d'investir 1 point de capacité pour faire l'acquisition du rang 2 de sa voie de peuple et 1 point pour une capacité de rang 1 de mage. Ses PV sont alors égaux à 2,5 pour la capacité de peuple (profil principal guerrier) plus 1,5 pour la capacité de mage.
+
+## Armes et armures
+
+Le personnage apprend à utiliser les armes et armures d'un autre profil dès qu'il fait l'acquisition d'au moins **deux rangs** dans une voie de ce profil (on dit alors qu'il les maîtrise). Utiliser une arme sans la maîtriser impose un dé malus en attaque.
+
+**Attention** ! Chaque capacité impose **toujours** les restrictions d'armure qui correspondent au profil dont elle est issue : par exemple pas d'armure pour l'usage d'une capacité de moine, armure de cuir maximum pour une capacité de voleur, etc. Si cette règle ne vous convient pas, il existe une autre solution proposée dans les règles optionnelles high fantasy de COF présentées dans l'Atlas d'Osgild & règles optionnelles.
+
+**Exemple** : Si un moine fait l'acquisition d'au moins deux rangs issus de voies de guerrier, il apprend à utiliser toutes les armes de ce profil. En revanche, il ne peut toujours pas porter d'armure s'il veut profiter des capacités de moine.
+
+De même, un guerrier qui fait l'acquisition d'une voie de mage doit renoncer à l'armure pour utiliser ses nouvelles capacités.
+
+Voici la liste des meilleures armures autorisées pour chaque voie (voir les chapitres 4 à 7, page 61 et suivantes).
+
+**Famille des aventuriers (4 PV)**
+*   Voies d'arquebusier (chemise de mailles)
+*   Voies de barde (cuir renforcé)
+*   Voies de rôdeur (cuir renforcé)
+*   Voies de voleur (cuir simple)
+
+**Famille des combattants (5 PV)**
+*   Voies de barbare (cuir renforcé)
+*   Voies de chevalier (armure de plaque)
+*   Voies de guerrier (cotte de mailles)
+
+**Famille des mages (3 PV)**
+*   Voies d'ensorceleur (aucune)
+*   Voies de forgesort (cuir simple)
+*   Voies de magicien (aucune)
+*   Voies de sorcier (aucune)
+
+**Familles des mystiques (4 PV)**
+*   Voies de druide (cuir simple)
+*   Voies de moine (aucune)
+*   Voies de prêtre (chemise de mailles)
+
+Notez cependant que quelques capacités permettent d’améliorer le type d’armures associées à un profil (par exemple le barbare avec Tour de force et Briseur d’os).
+
+## Magie et sorts
+
+La caractéristique utilisée pour les sorts dépend du profil dont la capacité est issue.
+
+> Exemple : Un profil magicien/prêtre utilise l'Intelligence pour ses sorts de magicien et le Charisme pour ses sorts de prêtre (mais toujours la Volonté pour sa valeur d'attaque magique). Les sorts issus des voies de prêtre peuvent être lancés en portant n'importe quelle armure, mais pour tous les autres profils, l'armure isole le lanceur de sorts du monde et atténue sa connexion avec les flux de magie.
+
+Pour lancer un sort en portant une armure qui n'est pas autorisée au profil dont la capacité est issue, le personnage doit respecter deux règles : maîtriser l'armure concernée et dépenser davantage de points de mana.
+
+Le nombre de PM supplémentaires à dépenser pour lancer le sort est égal au **bonus de DEF de l'armure portée** (ne pas tenir compte d'un éventuel bonus magique de l'armure).
+
+Dans le cas d'un sort de forgesort, de druide ou de barde, faites seulement la différence entre l'armure portée et l'armure maximum autorisée pour ce profil (armure de cuir pour les sorts de forgesort et de druide (DEF +2), cuir renforcé pour les sorts de barde (DEF +3)).
+> Exemple : si un personnage veut lancer un sort de magicien de rang 3 (3 PM) en armure de cuir (DEF +2), il lui en coûtera 5 PM. Si un personnage en cotte de maille (DEF +5) veut lancer un sort de forgesort (DEF max autorisée +2), il doit dépen- ser 3 PM supplémentaires (5 – 2 = 3). Pour un sort de barde (DEF max autorisée +3), le surcoût est seulement de 2 PM (5 – 3 = 2).
+
+## Capacités en doublon
+
+À force de se spécialiser, un profil hybride court le risque d'obtenir deux capacités quasi identiques. Dans ce cas, si le MJ l'autorise, le joueur peut cocher cette capacité gratuitement et ainsi accéder aux capacités suivantes. Le MJ ne devra autoriser cette exception que si les deux capacités accordent le même avantage.
+
+Tout se passe comme si le personnage avait effectivement acquis la capacité (il peut ensuite choisir les capacités suivantes), mais cela ne lui a coûté aucun point de capacité et il n'en tire aucun avantage. Vous pouvez rayer le texte de la capacité sur la fiche de personnage, elle n'a aucun effet en jeu.
+
+## Cumul des caractéristiques
+
+Aucun test, aucune valeur (DEF), ni aucun jet de dé (DM) ne peut bénéficier plusieurs fois de l'ajout de la même caractéristique.
+> **Exemple :** Si un personnage utilise sa valeur d'AGI pour attaquer au contact, avec Précision du barde, par exemple, et l'Attaque éclair du rôdeur, il n'ajoute pas une seconde fois son AGI en attaque (mais il peut l'ajouter normalement aux DM).
+
+## CRÉER UN PROFIL HYBRIDE AU NIVEAU 1
+
+Cette option devrait être réservée aux joueurs expérimentés qui ont une idée précise de ce qu'ils souhaitent obtenir et connaissent suffisamment les différents profils et voies pour l'obtenir.
+
+Lorsque le profil hybride est construit à la création du personnage, avant toute chose, le joueur devra consulter son MJ pour discuter du concept qu'il veut développer. Seul le MJ est capable d'estimer si ce concept colle à son cadre de jeu. Il devra aussi veiller à ce que le but du profil hybride ne soit pas seulement de produire une combinaison de capacités surpuissantes individuellement ou par leurs synergies, sans aucune considération de cohérence narrative.
+> **Exemple :** Maude a en tête un concept de guerrier totem, à la fois combattant et shaman en relation avec les esprits des animaux. Cela pourrait correspondre à un hybride de barbare et de druide.
+
+## Les voies et capacités
+
+Le joueur choisit deux voies de son choix issues de n'importe quel profil et il obtient la capacité de rang 1 de chacune d'elle. Il doit alors **choisir son profil principal** parmi les deux profils dont sont issues les voies qu'il a choisies.
+> **Exemple :** Pour son guerrier totem, Maude choisit la voie du pagne du barbare et la voie des animaux du druide. Elle obtient les capacités Vigueur (barbare) et Langage des animaux (druide). Elle décide que son profil principal sera barbare.
+
+## Points de vigueur
+
+Au lieu de doubler les PV de sa famille de profil, le personnage ajoute les PV de chacun des deux profils dont sont issues ses capacités.
+> **Exemple :** Ayant choisi une capacité de barbare (5 PV) et une capacité de druide (4 PV), le PJ de Maude obtient 9 PV au niveau 1 (auxquels elle doit ajouter sa Constitution normalement).
+
+## Dé de récupération
+
+Le personnage obtient le DR et les avantages qui correspondent à la famille de son profil principal, soit :
+
+*   **Aventurier** : DR d8, 1 point de chance en plus.
+*   **Combattant** : DR d10.
+*   **Mage** : DR d6, 1 capacité de rang 2, obligatoirement dans la voie de cette famille.
+
+*   **Mystique** : DR d8, 1 dé de récupération en plus.
+> **Exemple :** Comme Maude a choisi barbare en profil principal, elle obtient le d10 en dé de récupération.
+
+## Armes et armures
+
+Le personnage maîtrise toutes les armes et armures des deux profils dont sont issues ses voies. Mais attention, l'utilisation d'une capacité est toujours limitée par l'armure autorisée du profil dont elle est issue (par exemple, armure de cuir au maximum pour les capacités de druide).
+> **Exemple :** la barbare peut utiliser le cuir renforcé tandis que la druide est limitée au cuir simple. Si elle veut utiliser ses capacités de druide, Maude devra donc limiter l'armure de son personnage au cuir simple.
+
+Par défaut, le personnage obtient l'équipement de son profil principal, mais le MJ pourra lui permettre d'en échanger une partie avec l'équipement de son autre profil.
+
+
+# ÉQUIPEMENT
+
+## MATÉRIEL D'AVENTURIER
+
+### Système monétaire
+
+Tous les prix sont exprimés en pièces d'argent (pa) et pièces de cuivre (pc). Les pièces d'or (po) sont rares et précieuses, la plupart des paysans en utilisent rarement.
+
+1 po = 10 pa = 100 pc
+1pp = 10 po
+
+**Platine**: seuls les princes, les rois et les aventuriers ont vu un jour une pièce de platine.
+**Petite monnaie**: un aventurier n'a pas vraiment besoin de comptabiliser les pièces de cuivre, sauf si les temps sont vraiment durs ou si vous vous êtes fait voler votre bourse, le MJ devrait toujours considérer que vous avez de quoi vous offrir une bière. Commencez à compter votre argent pour les choses un peu plus importantes qui valent au moins 1 pa.
+
+## Acheter de l'équipement
+
+La liste d'équipement qui suit n'est pas exhaustive et le MJ doit décider ce qui est localement disponible et ce qui ne l'est pas, ainsi que les tarifs à appliquer. On n'achète pas directement sur cette page, mais en jeu.
+
+## ARMES
+
+Un personnage peut utiliser soit une arme à une main et un bouclier, soit une arme à deux mains, soit deux armes à une main (voir Combat page 208). Il peut aussi utiliser une seule arme à une main : c'est souvent le cas pour les profils ne maniant ni le bouclier ni les armes à deux mains. Cela lui laisse une main libre pour tenir un autre objet, comme une torche.
+
+Dégainer ou rengainer une arme est une action de mouvement qui peut être accompagnée d'un déplacement de 10 m, la jeter au sol est une action gratuite (mais la ramasser au sol est une action d'attaque). Pour les armes de lancer, se saisir de l'arme est inclus dans l'action d'attaque, pour peu que la main utilisée soit libre.
+
+**Armes maîtrisées.** Chaque profil détermine les maîtrises d'armes du personnage. Si le personnage utilise une arme qu'il ne maîtrise pas, il subit un **dé malus** au test d'attaque.
+
+## Armes d'attaque au contact
+
+**DM.** Sauf exception, les DM des armes de contact sont composés d'un type de dé auquel on ajoute la FOR. Certaines armes disposent de deux valeurs, la première correspondant à l'utilisation avec une main, et la seconde avec deux mains.
+
+Dans le cas du combat à mains nues, les DM sont généralement temporaires (voir DM temporaires, p. 219, sauf pour les moines, voir les voies de moine, p. 119). Certaines armes peuvent également infliger des DM temporaires; c'est alors indiqué dans la colonne « Notes complémentaires ».
+
+Types de DM. Les armes peuvent provoquer trois types de DM :
+
+*   **Contondants** : l'impact provoque des contusions et brise les os.
+*   **Perforants** : la pointe perce la chair et s'enfonce profondément dans le corps.
+*   **Tranchants** : la lame découpe les chairs, formant de longues entailles.
+
+Le type de DM n'a une importance que lorsque les personnages affrontent certaines créatures particulières. Par exemple, les squelettes sont résistants aux DM tranchants et perforants (ils divisent ces DM par deux), tandis qu'ils subissent des DM ordinaires des armes contondantes.
+
+**Catégories d'armes.** On distingue plusieurs catégories d'armes :
+
+*   **Armes légères :** ce sont des armes de duel souvent utilisées par les combattants légers. Elles permettent l'utilisation de certaines capacités de barde ou de voleur (comme l'Attaque sournoise). Si le personnage manie un bouclier, l'arme n'est plus considérée comme légère. La vivelame est un cas à part, elle est considérée comme une arme légère, la plupart du temps, mais pas pour les Attaques sournoises.
+*   **Armes à une ou deux mains :** comme leur nom l'indique, ces armes peuvent être utilisées avec une ou deux mains, au choix du combattant. Les DM sont alors plus ou moins importants. L'avantage de ces armes est l'adaptabilité selon la situation.
+*   **Armes à deux mains :** comme indiqué en introduction, ces armes qui infligent des DM plus importants ne peuvent être utilisées en même temps qu'un bouclier ou une torche.
+
+Les armes dont le nom est inscrit en italique font appel à des règles particulières exposées ci-après. Leur utilisation est souvent plus complexe et nous les déconseillons aux joueurs débutants.
+
+*   **Bâton et bâton ferré :** tous les personnages qui savent manier le bâton ferré savent aussi manier le bâton. Un bâton est un simple morceau de bois, un bâton ferré est adapté au combat, plus lourd et généralement couvert de métal aux extrémités (bien que les druides utilisent des bâtons de bois noueux avec le même effet).
+*   **Épieu :** une arme d'environ 1,50 m. Elle peut être utilisée à une ou à deux mains (1d6/1d10 DM) ou lancée (1d6 DM à 10 m).
+
+*   **Fléau et fléau à deux mains :** un manche prolongé par une chaîne au bout de laquelle sont suspendues une ou plusieurs boules d'acier, souvent hérisssées de pointes. C'est une arme très difficile à parer. Une fois par combat, le fléau permet de relancer le dé d'une attaque ratée contre un adversaire qui utilise un bouclier ou une arme (par opposition aux armes naturelles des animaux et des monstres).
+*   **Lance :** une arme d'environ 1,50 m. Elle peut être utilisée à une ou à deux mains (DM 1d6/1d10) ou lancée (1d6 DM à 10 m).
+*   **Lance de cavalerie :** conçue pour être utilisée uniquement à cheval, la lance de cavalerie mesure environ 3 m de long. Il faut prendre de l'élan pour l'utiliser à son plein potentiel. L'attaque doit donc avoir lieu après un déplacement pour obtenir les DM indiqués. Sinon, en combat au contact classique, le cavalier subit un dé malus.
+*   **Pique :** une très longue lance de fantassin, destinée à recevoir les charges de cavalerie ou à attaquer depuis le second rang. La pique double ses DM contre une créature de grande taille qui vient de réaliser une charge ou une action de mouvement suivie d'une attaque contact. Elle permet aussi d'attaquer en se tenant derrière un allié de taille normale, avec une pénalité de -5. Son utilisateur subit un dé malus en attaque dans toutes les autres conditions.
+*    **Stylet :** une arme d'assassin, dotée d'une pointe acérée sans tranchant, destinée à transpercer les organes vitaux. La FOR ne s'applique pas aux DM du stylet (DM 1d3), mais en cas d'attaque sur un adversaire surpris, il inflige (1d6+AGI) DM contre les cibles de taille moyenne ou petite. Le stylet est considéré comme une arme légère.
+*   **Vivelame :** cette arme n'a pas de réalité historique, il s'agit de la version occidentale (ou elfique) du katana, une arme à deux mains légère et très rapide, au tranchant aussi affûté que le fil d'un rasoir. Si le personnage obtient une capacité qui permet d'utiliser l'AGI au lieu de la FOR pour attaquer au contact, il peut aussi l'appliquer à cette arme s'il maîtrise les armes de contact à deux mains. Pour autant, la vivelame n'est pas considérée comme une arme légère pour les attaques sournoises.
+
+### Liste Armes d'attaque au contact
+
+| Armes | DM | Prix | Type de DM | Notes complémentaires |
+| --- | --- | --- | --- | --- |
+| Mains nues | 1d3 | - | Contondants | Les DM sont temporaires |
+| Bâton | 1d4 | - | Contondants | Arme à deux mains, DM temporaires possibles |
+| Bâton ferré | 1d6 | 2 pa | Contondants | Arme à deux mains |
+| Dague | 1d4 | 3 pa | Perforants | Arme légère |
+| Épée à deux mains | 2d6 | 10 pa | Tranchants | Arme à deux mains |
+| Épée bâtarde | 1d8/1d12 | 9 pa | Tranchants | Arme à une ou deux mains |
+| Épée courte | 1d6 | 5 pa | Perforants | Arme légère |
+| Épée longue | 1d8 | 6 pa | Tranchants |  |
+| Épieu | 1d6/1d10 | 4 pa | Perforants | Arme à une ou deux mains |
+| Fléau | 1d6 | 5 pa | Contondants |  |
+| Fléau à deux mains | 1d10 | 8 pa | Contondants | Arme à deux mains, relance 1 attaque ratée/combat |
+| Gourdin | (1d4) | 1 pa | Contondants | DM temporaires possibles |
+| Hache | 1d8 | 6 pa | Tranchants |  |
+| Hache à deux mains | 2d6 | 10 pa | Tranchants | Arme à deux mains |
+| Lance | 1d6/1d10 | 4 pa | Perforants | Arme à une ou deux mains |
+| Lance de cavalerie | 2d6 | 8 pa | Perforants | Dé malus au contact |
+| Marteau | 1d6 | 4 pa | Contondants |  |
+| Masse | 1d6 | 4 pa | Contondants |  |
+| Pique | 1d10 | 5 pa | Perforants | Arme à deux mains, spécial (voir description) |
+| Rapière | 1d6 | 6 pa | Perforants | Arme légère, critique sur 19-20 |
+| Stylet | 1d3 | 1 pa | Perforants | Arme légère; pas de FOR aux DM, mais 1d6+AGI DM si surpris |
+| Vivelame | 1d10 | 15 pa | Tranchants | Arme à deux mains, critique sur 19-20 |
+
+## Armes d'attaque à distance
+
+**Portée.** La portée indique à quelle distance l'arme est efficace. Au-delà, le tireur subit un dé malus sur son test d'attaque à distance. La portée maximale à laquelle l'arme peut être utilisée est égale au double de la distance indiquée.
+
+**DM.** Les DM des armes d'attaque à distance ne reçoivent pas de bonus de caractéristique du personnage qui les utilise.
+
+**Types de DM.** Les armes d'attaque à distance ne provoquent que des DM perforants.
+
+Le type de DM n'a une importance que lorsque les personnages affrontent certaines créatures particulières. Par exemple, les squelettes sont résistants aux DM tranchants et perforants (ils divisent ces DM par deux), tandis qu'ils subissent des DM ordinaires des armes contondantes.
+
+**Munitions.** Nous vous conseillons de ne pas tenir compte des dépenses de munitions, c'est fastidieux et il est souhaitable de ne pas pénaliser les profils qui combattent à distance.
+
+Dans certains cas exceptionnels, cela peut cependant faire partie des difficultés inhérentes à l'aventure (une exploration de plusieurs semaines en terre sauvage par exemple). Si cela est nécessaire, considérez que la norme est de 20 à 50 projectiles de réserve.
+
+**Recharger.** Il n'est pas possible de recharger une arbalète ou une arme à poudre si vous avez un adversaire actif (par opposition à incapable d'agir) à votre contact.
+
+Les armes dont le nom est inscrit en italique font appel à des règles particulières exposées ci-après. Leur utilisation est souvent plus complexe et nous les déconseillons aux joueurs débutants.
+
+*   **Couteaux de lancer :** inflige seulement 1d3 DM en attaque au contact. Lancer trois couteaux au titre d'un seul test d'attaque est possible. Il s'agit d'une action limitée qui permet l'ajout de l'AGI aux DM.
+*   **Javelot :** un javelot peut être utilisé avec un propulseur, une pièce de bois tenue en main qui permet d'augmenter sa portée. La portée est doublée, mais l'utilisation nécessite une action limitée.
+*   **Lance :** voir épée et lance dans les armes d'attaque au contact.
+
+### ARMES À POUDRE
+
+Les armes à poudre ne conviennent pas à tous les univers de jeu, elles sont soumises à l'autorisation du MJ.
+
+Par défaut, même si ce n'est pas précisé dans les autres profils, seul l'arquebusier maîtrise les armes à poudre. Lorsqu'un personnage utilise une arme à poudre sans la maîtriser, non seulement, il subit un dé malus en attaque, mais de plus, s'il obtient 1 ou 2 au d20, la poudre explose de façon imprévue : elle lui inflige 1d4° DM et l'arme ne peut plus être utilisée pour le reste du combat.
+
+**Charger des armes à poudre à l'avance :** les joueurs comprendront vite qu'ils ont tout intérêt à ce que leurs personnages chargent le plus grand nombre d'armes à poudre possible avant un combat, afin de ne pas avoir à le faire pendant celui-ci. Il faudra rapidement poser une limite à cette tactique de jeu, sous peine de voir fleurir une liste d'armes sans fin. Un arquebusier pourra raisonnablement avoir trois armes chargées en même temps, généralement deux pétoires et un mousquet (plus éventuellement une couleuvre qui ne compte pas dans ce calcul). Plus d'armes surchargent le personnage. Changer d'arme demande une action de mouvement (M).
+
+**Halfelins et armes à poudre :** si un halfelin utilise une arme à poudre destinée à un humain, il subit un dé malus en attaque. Il peut toutefois tirer sans malus en tenant une pétoire à deux mains ou utiliser des armes de plus petit calibre spécialement fabriquées pour les halfelins (ou parfois les gobelins) dont les dés de DM sont réduits : pétoire 1d8 et mousquet 1d12.
+
+
+
+### Liste Armes d'attaque à distance
+
+| Armes | Portée | DM | Prix | Type de DM | Notes complémentaires |
+| --- | --- | --- | --- | --- | --- |
+| Arbalète de poing | 10 m | 1d6 | 8 pa | Perforants | Action de mouvement pour être rechargée |
+| Arbalète légère | 30 m | 2d4 | 10 pa | Perforants | Nécessite une action de mouvement pour être rechargée, arme tenue à deux mains |
+| Arbalète lourde | 60 m | 2d6 | 15 pa | Perforants | Nécessite une action limitée pour être rechargée, arme tenue à deux mains |
+| Arc court | 30 m | 1d6 | 4 pa | Perforants | Arme tenue à deux mains |
+| Arc long | 50 m | 1d8 | 8 pa | Perforants | Arme tenue à deux mains, nécessite d'avoir une valeur minimale de +1 en FOR |
+| Couteaux de lancer | 10 m | 1d4 | 3 pa | Perforants |  |
+| Dague | 5 m | 1d4 | 3 pa | Perforants |  |
+| Fronde | 20 m | 1d4 | - | Contondants |  |
+| Hachette | 5 m | 1d6 | 2 pa | Tranchants |  |
+| Javelot | 20 m | 1d6 | 1 pa | Perforants |  |
+| Lance | 10 m | 1d6 | 3 pa | Perforants |  |
+| Lance-pierre | 10 m | 1d3 | 1 pc | Contondants |  |
+| Pétoire | 20 m | 1d10 | 50 pa | Perforants | Armes à poudre, soumises à l'autorisation du MJ (voir encadré), nécessite une action limitée pour être rechargée |
+| Mousquet | 50 m | 2d6 | 100 pa | Perforants | Armes à poudre, soumises à l'autorisation du MJ (voir encadré), nécessite une action limitée pour être rechargée, arme tenue à deux mains |
+
+
+## ARMURE
+
+Les armures sont classées par valeur croissante de DEF, de la moins protectrice à la plus efficace. Par exemple, lorsqu'un profil indique « peut porter jusqu'à la chemise de mailles », cela signifie : du début du tableau jusqu'à cette armure incluse.
+
+**Armures maîtrisées.** Il n'y a pas de maîtrise d'armure à proprement parler. Un personnage peut toujours enfiler une armure de plaque ou utiliser un bouclier et profiter de son bonus en Défense. Toutefois, les voies de chaque profil sont associées à un type d'armure maximal : si vous utilisez une armure trop lourde, toutes les capacités restreintes à une armure plus légère vous seront interdites.
+
+Ainsi, si un magicien porte une cotte de mailles ou utilise un bouclier, il ne peut plus utiliser ses capacités et ses sorts. Si un rôdeur porte une cotte de mailles, il ne peut plus utiliser les capacités de rôdeur.
+
+**AGI maximale.** La valeur maximale d'AGI d'un personnage est déterminée par l'armure qu'il porte. Les personnages avec une haute valeur d'AGI n'ont donc aucun intérêt à porter une armure trop lourde.
+> **Exemple :** un personnage avec une AGI de +3 peut porter jusqu'à la cotte de mailles sans subir de limitation, mais toute armure plus encombrante réduit la valeur de son AGI du nombre indiqué. S'il porte une armure de plaque, sa valeur d'AGI est réduite à +2 tant qu'il garde cette armure.
+La règle est calibrée de façon qu'aucun personnage ne puisse dépasser un bonus de DEF de +8 en cumulant AGI + armure (+10 avec un grand bouclier).
+
+**Malus d'armure.** Les armures infligent des malus d'encombrement aux tests d'AGI : ajoutez la valeur de DEF de l'armure à la difficulté de tous les tests d'AGI effectués par le personnage. Pour certains tests de survie (CON), vous pouvez aussi imposer ce malus.
+
+Si vous avez une armure magique, non seulement le bonus de magie n'augmente pas le malus d'encombrement, mais en plus il le réduit (minimum 0).
+> **Exemple :** une chemise de mailles (DEF +4, donc malus d'armure = -4) +3 impose seulement un malus d'armure de -1 (-4 + 3 = -1).
+
+### Liste Armures
+
+| Armures | DEF | AGI max | Prix |
+| --- | --- | --- | --- |
+| Tissus matelassés, fourrures | +1 | +7 | 2 pa |
+| Cuir simple | +2 | +6 | 4 pa |
+| Cuir renforcé, broigne | +3 | +5 | 8 pa |
+| Chemise de mailles | +4 | +4 | 15 pa |
+| Cotte de mailles | +5 | +3 | 25 pa |
+| Armure de plaques | +6 | +2 | 60 pa |
+| Plaque complète¹ | +7 | +1 | 200 pa |
+| Petit bouclier | +1 | - | 2 pa |
+| Grand bouclier | +2 | - | 4pa |
+
+¹Armure fabriquée sur mesure, seul le chevalier peut la porter grâce à la capacité de rang 3 de la voie de la noblesse.
+
+
+
+## Matériel
+
+### Liste Prix du matériel
+
+| Matériel | Prix |
+| --- | --- |
+| Briquet à silex | 1 pa |
+| Carquois de 20 flèches | 3 pa |
+| Corde 15 m | 2 pa |
+| Couverture | 1 pa |
+| Grappin | 2 pa |
+| Lanterne à huile$ | 3 pa |
+| Matériel d'écriture | 5 pa |
+| Huile pour lanterne | 1 pa |
+| Torches# (x3) | 1 pa |
+| Outils de crochetage* | 5 pa |
+| Potion de Soins° (1d4° PV) | 10 pa |
+| Ration (1 semaine) | 4 pa |
+| Sac à dos | 1 pa |
+
+* (*) Sans ces outils, une pénalité de -10 est infligée aux tests d'AGI (Crocheter).
+* (°) Les potions de soins ne sont pas forcément magiques, ce sont des remèdes à base de plantes ou de composants rares (qui peuvent être magiques). Un personnage ne peut pas profiter des effets de plus d'une potion de soins par récupération rapide (30 min).
+* ($) Une torche ou une lanterne éclairent dans un rayon de 10 m pendant 1 h pour une torche ou 6 h pour une lanterne (1 dose d'huile).
+
+
+## Montures
+
+### Liste Prix des montures
+
+| Monture | Prix |
+| --- | --- |
+| Mule ou âne | 25 pa |
+| Poney | 50 pa |
+| Cheval de selle | 100 pa |
+| Cheval de guerre | 300 pa |
+| Carriole | 50 pa |
+| Chariot | 90 pa |
+
+> #### Cheval de selle : 
+>  
+> Un cheval de selle n'est pas apte à subir le stress du combat, son cavalier subit un dé malus à toutes ses actions en selle en situation de combat.
+> 
+> NC1, TAILLE GRANDE
+> 
+> | AGI +0 | CON +4* | FOR +4 | PER +0 | CHA | INT | VOL |    
+> |---|---|---|---|---|---|---|
+> | +0 | +4 | +4 | +0 | -1 | -4 | -2 |
+> 
+> 
+> *   **Défense** 11
+> *   **Points de vigueur** 15
+> *   **Initiative** 10
+> 
+> Ruade +2 • DM 1d4+4
+>
+>La créature double sa FOR pour porter une charge.
+>
+>Le **cheval de guerre** ne souffre pas des pénalités du cheval de selle en combat et sa valeur d'attaque passe à +4.
+
+### CAPARAÇON:
+
+Un cheval de guerre est apte à porter un ensemble de protections pour le cheval. Un caparaçon de mailles augmente la DEF du cheval de +2 pour un prix de 100 pa. Une barde de plaque de métal apporte un bonus de +4 en DEF pour un prix de 300 pa. Les bardes octroient un malus en Init. Au cheval et à son cavalier égal au bonus de DEF. Le caparaçon ne se cumule pas à la DEF d'une fidèle monture (voie du cavalier – chevalier), la DEF est seulement prise en compte si elle est supérieure (par exemple un cheval avec une barde de plaque vaut 15 en DEF, ce qui est plus avantageux qu'une fidèle monture de rang 2 et sa DEF de 14).
+
+# À l'auberge
+
+## Prix des prestations d'auberge
+
+| À la carte | Prix |
+| --- | --- |
+| **Boissons** |  |
+| Cidre, lait (verre) | 1 pc |
+| Cervoise, bière (pinte) | 2 pc |
+| Hydromel, vin (verre) | 5 pc |
+| Grand cru (bouteille) | 5-50 pa |
+| **Repas** |  |
+| Soupe et pain | 1 pc |
+| Repas avec viande | 1 pa |
+| Bon repas | 5 pa |
+| Banquet | 10-20 pa |
+| **Nuitées** |  |
+| Nuit (dortoir) | 5 pc |
+| Nuit (chambre de 4) | 1 pa |
+| Nuit (chambre individuelle) | 2-5 pa |
+| Nuit (suite) | 10-20 pa |
+
+# Achat de biens immobiliers
+
+Ces quelques exemples vous permettront de vous faire une idée de la valeur de ce type de biens, si les personnages veulent investir dans la pierre. Bien entendu, ces prix peuvent baisser ou augmenter considérablement selon la qualité de l'environnement ou le caractère exceptionnel du lieu.
+
+## Prix des biens immobiliers
+
+| Bien | Prix |
+| --- | --- |
+| Appartement (2 pièces) | 250 po |
+| Masure (3 pièces) | 500 po |
+| Maison (4 pièces) | 1000 po |
+| Grande maison (6 pièces) | 2000 po |
+| Villa luxueuse | 10000 po |
+| Manoir | 20000 po |
+| Place forte | 60000 po |
+| Château | 150000 po |
+| Palais | 300000 po |
+
+# ÉQUIPEMENT DE QUALITÉ
+
+Armes et armures peuvent être fabriquées par des maîtres artisans à partir de matériaux exceptionnels et précieux. Les PJ n'ont pas accès à un tel équipement à la création du personnage, sauf avis contraire du MJ en rapport avec un historique particulier. Par la suite, les PJ pourront en faire l'acquisition s'ils trouvent l'artisan approprié ou dans une grande cité. Vous trouverez dans l'Atlas d'Osgild des règles optionnelles pour définir les possibilités de trouver de l'équipement rare ou précieux en fonction de la taille des agglomérations.
+
+Une arme de qualité donne un bonus de +1 en attaque ou aux DM (toujours le même). Pour une armure, c'est la pénalité d'encombrement infligée aux tests d'AGI qui est réduite de -1. Le prix de l'objet est multiplié par deux et on y ajoute 100 pa. Ainsi une épée longue de qualité vaut (6 x 2) + 100 = 112 pa.
+
+Fabriquer un objet de qualité augmente la difficulté du test d'artisanat (habituellement entre 10 et 15) de +10, et la durée de travail est multipliée par trois.
+
+# ÉQUIPEMENT EXOTIQUE
+
+Un monde fantastique est une formidable réserve de minéraux, de plantes ou d'organismes étranges aux propriétés magiques et extraordinaires. Mais si la diversité semble quasi infinie et réserve bien des surprises aux voyageurs, il s'avère que chacune de ces merveilles se trouve en toute petite quantité, ce qui en réserve l'accès aux plus érudits, aux plus chanceux ou aux plus riches. Les tentatives de culture ou d'exploitation à grande échelle de ce type de produits se sont toujours soldées par des échecs, aussi restent-ils rares.
+
+Pour acheter un objet, il faut d'abord le trouver et les articles extraordinaires présentés ne courent pas les rues. Il faut de préférence se trouver dans une cité, puis l'acheteur potentiel ira de marchand en contact, de contact en échoppes où il devra faire connaître son intérêt pour l'article qui n'est pas forcément disponible immédiatement... Voici des règles pour gérer tout cela.
+
+# Niveau de rareté
+
+## Rareté des objets
+
+| Rareté | Valeur max | Agglomération | Difficulté | Temps |
+| --- | --- | --- | --- | --- |
+| Ordinaire | 100 pa | Village (500 hab.) | 10 | 2d10 min |
+| Précieux | 1000 pa | Bourg (2000 hab.) | 15 | 1d4 h |
+| Exotique | 5000 pa | Ville (8000 hab.) | 20 | 2d6 h |
+| Rare | 15000 pa | Cité (30000 hab.) | 25 | 1d4 jours |
+| Très rare | 30000 pa | Mégapole (100000 hab.) | 30 | 2d6 jours |
+
+Les objets précieux sont classés en niveau de rareté. Cette nomenclature permet de déterminer la difficulté pour trouver un objet et la taille minimale de l'agglomération où il existe une chance de se le procurer.
+
+**Taille de l'agglomération :** commencez par vérifier que ni le prix ni la rareté de l'objet ne dépassent la limite de l'agglomération dans laquelle l'objet est recherché. Si l'objet recherché est dans la tranche supérieure de la limite monétaire de la ville (80 %), vous pouvez choisir d'ajouter +5 à la difficulté des tests (voir ci-dessous). Le tableau montre aussi que des objets d'une valeur supérieure à 3 000 po ne peuvent être acquis que dans des conditions particulières.
+
+Le PJ doit faire **trois tests de CHA (Commerce)** dont la difficulté dépend de la rareté de l'objet (et donc de sa valeur).
+
+S'il obtient :
+*   **3 succès**, il trouve l'objet au prix habituel (un peu moins cher ou plus rapidement s'il obtient une réussite critique).
+*   **2 succès**, l'objet est disponible, mais à +20 % du prix habituel.
+*   **1 succès**, l'objet n'est pas disponible pour le moment et il ne le sera pas avant 3d10 jours.
+*   **0 succès**, l'objet n'est pas disponible avant très longtemps en ce lieu. Si en plus il obtient un échec critique (ou plusieurs), il s'est probablement fait arnaquer d'une façon ou d'une autre...
+
+**Durée** : Pour les objets les plus rares, la recherche est un travail de longue haleine, par exemple pour trouver un objet très rare, il faut compter 2d6 jours de recherche. Il faut se renseigner et prendre le temps de trouver les bons contacts, car ce type de marchand n'a pas pignon sur rue et les transactions se font soit de façon illégale soit dans des salons bourgeois à l'ambiance feutrée.
+
+**Exemple** : une épée longue de qualité qui coûte 112 pa nécessite au moins un bourg pour être trouvée (et 1d6 h de recherche). Si le PJ fait 3 tests de CHA et en réussit seulement 2, elle est disponible au prix de 153 pa.
+
+**Les échoppes** : lorsqu'on recherche un produit *rare* ou *très rare*, on ne le trouve généralement pas chez le forgeron local. Le négociant qui vend ce type de merchandise ne se trouve pas forcément dans les quartiers commerçants et n'a généralement pas pignon sur rue. On y accède sur recommandation et en montrant son or. Les transactions ont lieu à la cave et les gardes sont tous des pointures, non seulement très bien rémunérés, mais souvent proche depuis longtemps du propriétaire, quand ils n'ont pas carrément des intérêts dans son affaire. Il est de mise de pouvoir vérifier et essayer le matériel lorsque celui-ci le permet.
+
+## Exemples
+
+Voici trois exemples de matériaux ou d'objets étranges et précieux. Vous pouvez en inventer d'autres, mais vous trouverez aussi davantage de propositions dans les suppléments à venir ou au sein des premiers épisodes de la campagne Calice, le crépuscule des déesses.
+
+### Durium
+*   Précieux
+*   40 pa
+
+Un métal bleu sombre, très dur et particulièrement lourd. Les armes de mêlée fabriquées dans ce métal imposent un malus de -1 en attaque, mais le dé de DM augmente d'une catégorie et elles sont presque indestructibles (1d4/1d6/1d8/1d10/1d12). S'ils les DM sont exprimés sous la forme de deux dés, un seul dé augmente (2d4 devient 1d4+1d6, 2d6 devient 1d6+1d8).
+
+Les projectiles fabriqués dans ce métal voient leur portée divisée par deux. Les armures obtiennent un bonus de +1 en DEF, mais leur pénalité d'armure augmente de +2.
+
+Pour déterminer le prix d'une arme, multipliez la valeur maximale de ses DM par le prix indiqué, puis ajoutez le prix normal de l'arme.
+> **Exemple :** une épée longue (DM 1d8, 6 pa) en durium (40 pa) vaut (8 x 40) + 6 = 326 pa.
+
+Pour déterminer le prix d'une armure, multipliez son bonus de DEF par le double du prix indiqué, puis ajoutez le prix normal de l'armure.
+> **Exemple :** une cotte de mailles en durium vaut (5 x 2 x 40) + 25 = 425 pa.
+
+### Chope en hybberium
+*   Exotique
+*   100 pa
+
+L'hybberium est un métal qui devient glacial au contact de l'air, produisant même du givre. Cette simple chope en métal, en bois, en ivoire ou en terre cuite est doublée en hybberium. L'action du métal permet à votre bière d'être bien fraîche, même en plein désert. Un passage obligé pour tout nain qui se respecte.
+
+## Pnoulpe
+*   Exotique
+*   300 pa
+
+Le pnoulpe est une sorte de petit poulpe qui a la particularité de transformer l'eau en mélange respirable – et inversement – en quantité suffisante pour assurer la survie d'un être humain en milieu aquatique. En pratique, on place le corps mou de couleur rouge sur les voies respiratoires, les tentacules enserrant la tête, puis on se dépêche d'entrer dans l'eau pour ne pas asphyxier.
+
+Le pnoulpe est vendu dans un coffret de bois étanche empli d'un liquide qui permet de le conserver en léthargie pendant un mois au maximum (15 x 15 x 30 cm, poids 5 kg). Dès que la boîte est ouverte, il faut le mettre à l'eau, il ne peut plus être à nouveau plongé en léthargie et si on le sort de l'eau, il meurt rapidement.
+
+# LES RÈGLES DE BASE
+
+Comme nous l'avons vu en introduction (voir « Qu'est-ce que le jeu de rôle », page 6), jouer à Chroniques Oubliées Fantasy consiste pour les joueurs à incarner des personnages dans une histoire que leur propose le meneur de jeu (MJ). Ensemble, joueurs et MJ co-créent l'histoire, les premiers en décidant ce que font et disent leurs personnages, et le second en réagissant aux actions et paroles des personnages joueurs (PJ), et en narrant des événements extérieurs aux PJ ainsi que les actions et paroles des personnages non joueurs (PNJ).
+
+Une partie de jeu de rôle ressemble ainsi, en quelque sorte, à une pièce de théâtre improvisée, les joueurs incarnant les rôles principaux, et le MJ étant à la fois le scénariste, le metteur en scène et l'acteur incarnant tous les autres rôles. Certains dialogues du MJ sont parfois écrits à l'avance, mais ceux des joueurs sont totalement improvisés en réaction à ce que propose le MJ. De même, les actions des PJ sont improvisées en réaction aux situations décrites par le MJ.
+
+Si les joueurs sont totalement libres de décider ce que leurs personnages disent ou entreprennent, les conséquences de leurs paroles et actions ne leur appartiennent pas et restent à déterminer. C'est pour cela que Chroniques Oubliées Fantasy, comme tout jeu, dispose de règles du jeu.
+
+Dans de nombreuses situations, le bon sens suffit amplement et le MJ pourra agir en arbitre, décidant ce qu'il advient à la suite de la décision d'un joueur.
+> Exemple : Émilie décide que son personnage, une jeune noble, quitte le château de son père pour une balade à cheval en direction de la proche forêt. Émilie précise qu'après avoir franchi le pont levis, la jeune femme éperonne sa monture pour la mettre au trot, heureuse de profiter du beau temps, et peu après, sentant sa monture piaffer de joie, la laisse partir au galop. Comme il fait beau et que le personnage d'Émilie sait parfaitement monter à cheval, Chloé, la MJ, estime qu'il n'y a aucun problème et reprend la description, expliquant que le cheval s'élanse sur un chemin longeant les champs, hennissant de bonheur.
+
+Toutefois, il arrivera toujours des situations dont l'issue est incertaine. Le MJ s'appuiera alors sur les règles et les feuilles de personnages (voir La feuille de personnage, page 355) pour déterminer ce qu'il advient.
+> Exemple : Émilie indique à Chloé que son personnage souhaite traverser la forêt pour arriver plus rapidement à un village où vit sa meilleure amie. Impatiente de la retrouver, elle ne ralentit pas la cadence. Chloé approuve et décrit les arbres qui filent sur les côtés et l'impression de vitesse augmentée par l'étroitesse du chemin forestier... et l'obstacle qui apparaît soudain au détour d'un virage. le cheval n a pas le temps le temps de ralentir et va devoir franchir l arbre tombé en travers de la piste. le personnage d émilie va-t-il être capable de franchir l obstacle avec sa monture? Chloé estime qu il ne lui appartient pas de décider et va donc s en remettre aux règles du jeu.
+
+
+Lorsqu’un joueur décrit une action entreprise par son personnage, il y a donc deux situations :
+- l’action n’a pas d’enjeu, ou bien elle ne peut que réussir ou échouer : le MJ décide du résultat et décrit immédiatement la suite des événements ;
+- l’action a un enjeu et/ou son résultat est incertain : le MJ a recours à ce qu’on appelle un test.
+
+Dans les deux cas, le MJ et les joueurs vont notamment s’appuyer sur les caractéristiques et capacités des PJ (voir « Création du personnage », page 20).
+Dans ce chapitre, nous vous expliquons comment réaliser un test et différencier les deux types de tests qui existent : les tests de caractéristique et les tests d’attaque.
+
+Le résultat de ces tests n’étant pas toujours favorables aux PJ, nous vous présentons également une mécanique permettant aux joueurs d’agir sur le destin : les points de chance.
+
+# MÉCANIQUE DE BASE : LE TEST
+
+Chaque fois qu'un personnage entreprend une action un peu délicate et dont la réussite ou l'échec n'est pas automatique, le MJ a recours à un test, que les joueurs ou lui vont effectuer à l'aide d'un dé à vingt faces (d20). Certaines actions sont vouées à l'échec avant même que le joueur n'ait lancé le moindre dé. Un personnage qui voudrait traverser un mur de pierre ou soulever un éléphant à mains nues n'a aucune chance d'y parvenir. Dans ce cas, le MJ peut mettre en garde le joueur ou laisser son personnage se ridiculiser devant ses compagnons.
+
+> Exemple : Un personnage barbe habile de ses doigts joue avec sa dague pour se distraire. Saltimbanque, il se reproduit régulièrement en public et ce genre d'exercice est pour lui une seconde nature. Il ne fait pas de test car il n'y a pas d'enjeu et aucune incertitude sur la réussite. En revanche, lorsqu'il se retrouve devant le seigneur local qu'il essaie d'impressionner, la pression peut l'amener à commettre une erreur. Du point de vue technique, il est aussi intéressant de déterminer à quel point le personnage impressionne le seigneur. Dans ce cas, le MJ demandera au joueur d'effectuer un test de caractéristique (voir ci-après Tests de caractéristiques & tests d'attaque).
+
+## Résolution d'un test
+
+Pour effectuer un test, le joueur ou le MJ jette un d20 et ajoute au résultat obtenu la valeur de la caractéristique concernée (dans les scénarios vendus dans le commerce, la caractéristique est indiquée ; sinon, il revient au MJ de déterminer celle qui est adaptée à l'action qui nécessite le test). Le MJ peut appliquer toutes sortes de modificateurs en fonction de la situation, et le joueur peut ajouter un bonus à son résultat grâce à certaines capacités de son personnage (voir plus loin, compétences) ou son niveau (voir Test d'attaque, ci-après).
+
+**L'action est réussie lorsque le résultat final est supérieur ou égal à la difficulté du test.**
+> **Exemple :** Lhagva, le personnage joué par Anaïs, veut sauter par-dessus un précipice. Valentine, la meneuse de jeu, demande à Anaïs d'effectuer un test d'AGI difficulté 15. Elle lance le d20 et obtient un 14. Lhagva a +1 en AGI, donc le résultat final est égal à 14 + 1 = 15. Valentine annonce à Anaïs que son personnage parvient de justesse de l'autre côté !
+
+Si la difficulté de certains tests est précisée dans les scénarios publiés dans le commerce, les joueurs entreprennent souvent des actions qui n'ont pas été prévues par les auteurs. C'est alors, là encore, au MJ d'estimer la difficulté de l'action. Il en va de même lorsqu'il écrit ses propres scénarios. Pour ce faire, le MJ doit se demander comment il peut qualifier l'action : est-elle facile ? difficile ? Presque impossible à réaliser ? Une fois qu'il a déterminé le qualificatif, il n'a plus qu'à consulter la table des difficultés qui lui indique la valeur chiffrée correspondante.
+
+## Table des difficultés
+
+| Qualificatif | Valeur de la difficulté |
+| --- | --- |
+| Facile | 5 |
+| Moyenne | 10 |
+| Difficile | 15 |
+| Très difficile | 20 |
+| Extrême | 25 |
+| Abominable | 30 |
+
+## LE TEST EN RÉSUMÉ
+
+d20 + Carac. + modificateur
+Si le résultat est **inférieur à la difficulté**, l'action **échoue**.
+Si le résultat est **supérieur ou égal à la difficulté**, l'action **réussit**.
+
+## Dé bonus et dé malus
+
+Dans certaines situations ou du fait de certaines capacités de voie, un test peut bénéficier d'un dé bonus ou subir un dé malus.
+
+*   **Dé bonus :** lancez un d20 supplémentaire et gardez le plus haut résultat (pas celui de votre choix).
+*   **Dé malus :** lancez un d20 supplémentaire et gardez le plus faible résultat.
+> **Exemple :** Wilibert veut escalader la façade d'un bâtiment. Le MJ lui demande un test d'AGI difficulté 15, mais comme Wilibert est Affaibli (un état préjudiciable), il subit un dé malus. Le joueur lance deux d20 et obtient 13 et 4. Il doit conserver le résultat le plus faible (4). Malgré une valeur de caractéristique de +2, le test est un échec.
+
+Sur un même test, il peut arriver (du fait d'une capacité ou d'une situation particulière) qu'un personnage bénéficie de plusieurs dés bonus d'une part, et/ou subisse plusieurs dés malus d'autre part. Dans ce cas, les règles suivantes s'appliquent :
+
+*   Il n'est pas possible de cumuler plusieurs dés bonus ou malus. Ainsi, si la situation entraîne plusieurs dés d'un type ou de l'autre, un seul de chaque sera pris en compte.
+*   Le dé malus et le dé bonus s'annulent.
+
+**Caractéristiques héroïques :** ce sont des capacités de rang 4 (parfois 5) qui permettent d'obtenir un dé bonus. Ce dé ne s'applique qu'aux tests de la caractéristique pas aux tests d'attaque.
+

@@ -1,16 +1,21 @@
-import React, { useState, useMemo } from 'react';
-import creaturesData from '../data/creatures.json';
+import React, { useState, useMemo, useEffect } from 'react';
 import type { Creature } from '../types';
 import { getCreatureName, getCreatureLevel, getCreatureCategory, getCreatureFamily, getCreatureArchetype, getCreatureEnvironment, getCreatureSize, getCreatureImage } from '../utils/creature';
 import { Search, Filter, ChevronDown, ChevronUp, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
-
-// Cast the JSON import to the generic type first because of the complex JSON structure validity
-// In a real app, we would validate this with Zod.
-const creatures = creaturesData as unknown as Creature[];
+import { DataService } from '../services/dataService';
 
 export const Bestiary: React.FC = () => {
+    const [creatures, setCreatures] = useState<Creature[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        DataService.getCreatures()
+            .then(setCreatures)
+            .catch(console.error)
+            .finally(() => setLoading(false));
+    }, []);
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedCategory, setSelectedCategory] = useState<string>('');
     const [selectedFamily, setSelectedFamily] = useState<string>('');
@@ -43,32 +48,32 @@ export const Bestiary: React.FC = () => {
 
             return matchesSearch && matchesCategory && matchesFamily && matchesArchetype && matchesEnvironment && matchesSize && matchesLevel;
         });
-    }, [searchTerm, selectedCategory, selectedFamily, selectedArchetype, selectedEnvironment, selectedSize, minLevel, maxLevel]);
+    }, [creatures, searchTerm, selectedCategory, selectedFamily, selectedArchetype, selectedEnvironment, selectedSize, minLevel, maxLevel]);
 
     const categories = useMemo(() => {
         const cats = new Set(creatures.map(c => getCreatureCategory(c)).filter(Boolean));
         return Array.from(cats).sort();
-    }, []);
+    }, [creatures]);
 
     const families = useMemo(() => {
         const items = new Set(creatures.map(c => getFamily(c)).filter(Boolean));
         return Array.from(items).sort();
-    }, []);
+    }, [creatures]);
 
     const archetypes = useMemo(() => {
         const items = new Set(creatures.map(c => getCreatureArchetype(c)).filter(Boolean));
         return Array.from(items).sort();
-    }, []);
+    }, [creatures]);
 
     const environments = useMemo(() => {
         const items = new Set(creatures.map(c => getCreatureEnvironment(c)).filter(Boolean));
         return Array.from(items).sort();
-    }, []);
+    }, [creatures]);
 
     const sizes = useMemo(() => {
         const items = new Set(creatures.map(c => getCreatureSize(c)).filter(Boolean));
         return Array.from(items).sort();
-    }, []);
+    }, [creatures]);
 
     // Grouping Logic
     const groupedCreatures = useMemo(() => {
@@ -100,6 +105,8 @@ export const Bestiary: React.FC = () => {
     };
 
     const hasActiveFilters = searchTerm || selectedCategory || selectedFamily || selectedArchetype || selectedEnvironment || selectedSize || minLevel > 0 || maxLevel < 30;
+
+    if (loading) return <div className="p-8 text-center text-primary-200">Chargement...</div>;
 
     return (
         <div className="max-w-6xl mx-auto space-y-6 pb-12">
@@ -301,7 +308,7 @@ export const Bestiary: React.FC = () => {
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                                 {familyCreatures.map((creature, idx) => (
                                     <Link
-                                        to={`/bestiary/${creatures.indexOf(creature)}`}
+                                        to={`/bestiary/${creature.id}`}
                                         key={idx}
                                         className="glass-panel rounded-xl hover:border-primary-500/40 hover:shadow-[0_0_15px_rgba(245,158,11,0.1)] transition-all duration-300 group flex flex-col overflow-hidden hover:-translate-y-1"
                                     >
@@ -330,10 +337,10 @@ export const Bestiary: React.FC = () => {
                                                     </div>
                                                 </div>
 
-                                                {creature.health_point?.[0]?.value && (
+                                                {creature.hp !== undefined && (
                                                     <div className="text-right bg-stone-950/30 px-2 py-1 rounded border border-white/5">
                                                         <span className="text-[10px] text-stone-500 uppercase tracking-wider block">PV</span>
-                                                        <span className="font-mono text-green-500/90 font-bold text-base">{creature.health_point[0].value}</span>
+                                                        <span className="font-mono text-green-500/90 font-bold text-base">{creature.hp}</span>
                                                     </div>
                                                 )}
                                             </div>
@@ -341,15 +348,15 @@ export const Bestiary: React.FC = () => {
                                             <div className="grid grid-cols-3 gap-px bg-stone-950/40 rounded-lg overflow-hidden border border-white/5">
                                                 <div className="p-2 text-center group-hover:bg-primary-500/5 transition-colors">
                                                     <span className="text-[10px] text-stone-500 uppercase block mb-0.5 font-bold">DEF</span>
-                                                    <span className="font-bold text-sm text-stone-300">{creature.defense?.[0]?.value || '-'}</span>
+                                                    <span className="font-bold text-sm text-stone-300">{creature.def || '-'}</span>
                                                 </div>
                                                 <div className="p-2 text-center group-hover:bg-primary-500/5 transition-colors border-l border-r border-white/5">
                                                     <span className="text-[10px] text-stone-500 uppercase block mb-0.5 font-bold">FOR</span>
-                                                    <span className="font-bold text-sm text-stone-300">{creature.str_mod?.[0]?.value || '0'}</span>
+                                                    <span className="font-bold text-sm text-stone-300">{creature.stats?.FOR ?? '0'}</span>
                                                 </div>
                                                 <div className="p-2 text-center group-hover:bg-primary-500/5 transition-colors">
                                                     <span className="text-[10px] text-stone-500 uppercase block mb-0.5 font-bold">INIT</span>
-                                                    <span className="font-bold text-sm text-stone-300">{creature.init?.[0]?.value || '-'}</span>
+                                                    <span className="font-bold text-sm text-stone-300">{creature.init || '-'}</span>
                                                 </div>
                                             </div>
                                         </div>

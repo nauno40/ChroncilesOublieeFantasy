@@ -1,16 +1,26 @@
-import React from 'react';
-import statesData from '../data/states.json';
+import React, { useState, useEffect } from 'react';
 import type { HarmfulState } from '../types/normalized';
 import { PageContainer, PageHeader } from '../components/common';
 import { useSearch } from '../hooks';
-
-const states = statesData as HarmfulState[];
+import { DataService } from '../services/dataService';
 
 export const States: React.FC = () => {
+    const [states, setStates] = useState<HarmfulState[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        DataService.getStates()
+            .then(setStates)
+            .catch(console.error)
+            .finally(() => setLoading(false));
+    }, []);
+
     const { searchTerm, setSearchTerm, filteredItems } = useSearch(
         states,
         (state, term) => state.name.toLowerCase().includes(term.toLowerCase())
     );
+
+    if (loading) return <PageContainer><div className="p-8 text-center text-primary-200">Chargement...</div></PageContainer>;
 
     return (
         <PageContainer>

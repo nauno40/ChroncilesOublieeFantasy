@@ -1,0 +1,36 @@
+[
+    {
+        "id": "aventuriers",
+        "name": "Famille des Aventuriers",
+        "description": "Vous trouverez dans ce chapitre la description des quatre profils de la famille des aventuriers : arquebusier, barde, rôdeur et voleur. Ce sont des profils polyvalents dont les capacités de combat sont basées sur la ruse ou le combat à distance plutôt que sur la force brute.",
+        "vigorPoints": 4,
+        "recoveryDie": "d8",
+        "luckPoints": 1
+    },
+    {
+        "id": "combattants",
+        "name": "Famille des Combattants",
+        "description": "Vous trouverez dans ce chapitre la description des trois profils de la famille des combattants : barbare, chevalier et guerrier. En cas de conflit, ces profils privilégient la force brute et le combat au contact.",
+        "vigorPoints": 5,
+        "recoveryDie": "d10",
+        "luckPoints": 0
+    },
+    {
+        "id": "mages",
+        "name": "Famille des Mages",
+        "description": "Vous trouverez dans ce chapitre la description des quatre profils de la famille des mages : ensorcelleur, forgesort, magicien et sorcier. Ce sont des profils capables d'utiliser la magie profane (par opposition à la magie divine). Ils comptent sur cette magie pour combattre, mais cela leur confère aussi une bien plus grande variété de pouvoirs qu'aux autres personnages. Ces profils partagent l'accès à la voie du mage en remplacement de la voie de peuple.",
+        "vigorPoints": 3,
+        "recoveryDie": "d6",
+        "luckPoints": 0,
+        "specials": "+1 capacité de rang 2 à la création"
+    },
+    {
+        "id": "mystiques",
+        "name": "Famille des Mystiques",
+        "description": "Vous trouverez dans ce chapitre la description des trois profils de la famille des mystiques : druide, moine et prêtre. Ce sont des profils basés sur la spiritualité et les pouvoirs divins, qu'il s'agisse de sorts ou de capacités surnaturelles. Ce sont des profils orientés vers la vie et parfois capables de prodiguer des soins.",
+        "vigorPoints": 4,
+        "recoveryDie": "d8",
+        "luckPoints": 0,
+        "specials": "+1 dé de récupération"
+    }
+]

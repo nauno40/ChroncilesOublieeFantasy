@@ -4,17 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { Search, Command, X, ChevronRight, type LucideIcon, Ghost, Sparkles, BookOpen, User, Users, AlertCircle, Backpack } from 'lucide-react';
 import { createPortal } from 'react-dom';
 
-// Import data
-import creaturesData from '../../data/creatures.json';
-import capacitesData from '../../data/capacites.json';
-import profilesData from '../../data/profiles.json';
-import racesData from '../../data/races.json';
-import voiesData from '../../data/voies.json';
-import rulesData from '../../data/rulesIndex.json';
-import statesData from '../../data/states.json';
-import weaponsData from '../../data/weapons.json';
-import armorsData from '../../data/armors.json';
-import materialsData from '../../data/materials.json';
+// Import services and constants
+import { DataService } from '../../services/dataService';
+import { RULES_INDEX } from '../../constants/rules';
 
 interface SearchResult {
     id: string;
@@ -43,6 +35,7 @@ interface GlobalSearchProps {
 export const GlobalSearch: React.FC<GlobalSearchProps> = ({ isOpen, onClose }) => {
     const [query, setQuery] = useState('');
     const [selectedIndex, setSelectedIndex] = useState(0);
+    const [allItems, setAllItems] = useState<SearchResult[]>([]);
     const inputRef = useRef<HTMLInputElement>(null);
     const navigate = useNavigate();
 
@@ -57,109 +50,133 @@ export const GlobalSearch: React.FC<GlobalSearchProps> = ({ isOpen, onClose }) =
         }
     }, [isOpen]);
 
-    // Build the search index (memoized)
-    const allItems = useMemo(() => {
-        const items: SearchResult[] = [];
+    // Fetch and build index
+    useEffect(() => {
+        // Only fetch once
+        if (allItems.length > 0) return;
 
-        // Helper to safely add items
-        const safeAdd = (data: any, type: SearchResult['type'], mapFn: (item: any, index: number) => Partial<SearchResult> | null) => {
-            if (!Array.isArray(data)) return;
-            data.forEach((item, index) => {
-                if (!item) return;
-                try {
-                    const mapped = mapFn(item, index);
-                    if (!mapped) return;
+        const fetchData = async () => {
+            try {
+                const [creatures, capacites, profiles, races, voies, states, weapons, armors, materials] = await Promise.all([
+                    DataService.getCreatures(),
+                    DataService.getCapabilities(),
+                    DataService.getProfiles(),
+                    DataService.getRaces(),
+                    DataService.getVoies(),
+                    DataService.getStates(),
+                    DataService.getWeapons(),
+                    DataService.getArmors(),
+                    DataService.getMaterials()
+                ]);
 
-                    if (mapped.label && typeof mapped.label === 'string') {
-                        items.push({
-                            id: mapped.id || `${type}-${Math.random().toString(36).substr(2, 9)}`,
-                            label: mapped.label,
-                            subLabel: mapped.subLabel,
-                            type: type,
-                            url: mapped.url || '/'
-                        } as SearchResult);
-                    }
-                } catch (e) {
-                    console.warn(`Error mapping ${type} item:`, e);
-                }
-            });
+                const items: SearchResult[] = [];
+
+                // Helper to safely add items
+                const safeAdd = (data: any[], type: SearchResult['type'], mapFn: (item: any, index: number) => Partial<SearchResult> | null) => {
+                    if (!Array.isArray(data)) return;
+                    data.forEach((item, index) => {
+                        if (!item) return;
+                        try {
+                            const mapped = mapFn(item, index);
+                            if (!mapped) return;
+
+                            if (mapped.label && typeof mapped.label === 'string') {
+                                items.push({
+                                    id: mapped.id || `${type}-${Math.random().toString(36).substr(2, 9)}`,
+                                    label: mapped.label,
+                                    subLabel: mapped.subLabel,
+                                    type: type,
+                                    url: mapped.url || '/'
+                                } as SearchResult);
+                            }
+                        } catch (e) {
+                            console.warn(`Error mapping ${type} item:`, e);
+                        }
+                    });
+                };
+
+                safeAdd(creatures, 'creature', (c, index) => {
+                    const name = c.name?.[0]?.value;
+                    if (!name) return null;
+                    const level = c.level?.[0]?.value;
+                    const category = c.category?.[0]?.label;
+                    const id = c.id || index; // Use ID if available
+
+                    return {
+                        id: `creature-${id}`,
+                        label: name,
+                        subLabel: level ? `Niv ${level} • ${category || ''}` : category,
+                        url: `/bestiary/${id}` // This now assumes ID based routing for bestiary if c.id is present, else index might fail if refactored
+                    };
+                });
+
+                safeAdd(capacites, 'capacity', c => ({
+                    id: `capacity-${c.id}`,
+                    label: c.name,
+                    subLabel: c.rank ? `Rang ${c.rank}` : undefined,
+                    url: `/capacites/${c.id}`
+                }));
+
+                safeAdd(profiles, 'class', p => ({
+                    id: `profile-${p.id}`,
+                    label: p.name,
+                    url: `/classes/${p.id}`
+                }));
+
+                safeAdd(races, 'race', r => ({
+                    id: `race-${r.id}`,
+                    label: r.name,
+                    url: `/races/${r.id}`
+                }));
+
+                safeAdd(voies, 'voie', v => ({
+                    id: `voie-${v.id}`,
+                    label: v.name,
+                    url: `/voies/${v.id}`
+                }));
+
+                safeAdd(states, 'state', s => ({
+                    id: `state-${s.id}`,
+                    label: s.name,
+                    url: '/states'
+                }));
+
+                safeAdd(weapons, 'equipment', w => ({
+                    id: `weapon-${w.id}`,
+                    label: w.name,
+                    subLabel: w.damage ? `Arme • ${w.damage}` : 'Arme',
+                    url: '/equipment'
+                }));
+
+                safeAdd(armors, 'equipment', a => ({
+                    id: `armor-${a.id}`,
+                    label: a.name,
+                    subLabel: a.defense ? `Armure • DEF ${a.defense}` : 'Armure',
+                    url: '/equipment'
+                }));
+
+                safeAdd(materials, 'equipment', m => ({
+                    id: `material-${m.id}`,
+                    label: m.name,
+                    subLabel: m.price ? `Matériel • ${m.price}` : 'Matériel',
+                    url: '/equipment'
+                }));
+
+                // Add static rules
+                safeAdd(RULES_INDEX, 'rule', (r) => ({
+                    id: `rule-${r.id}`,
+                    label: r.title,
+                    subLabel: r.description,
+                    url: r.url
+                }));
+
+                setAllItems(items);
+            } catch (error) {
+                console.error("GlobalSearch index build failed", error);
+            }
         };
 
-        safeAdd(creaturesData, 'creature', (c, index) => {
-            const name = c.name?.[0]?.value;
-            if (!name) return null;
-
-            const level = c.level?.[0]?.value;
-            const category = c.category?.[0]?.label;
-
-            return {
-                id: `creature-${index}`, // Use index as ID since creatures have no inherent ID
-                label: name,
-                subLabel: level ? `Niv ${level} • ${category || ''}` : category,
-                url: `/bestiary/${index}`
-            };
-        });
-
-        safeAdd(capacitesData, 'capacity', c => ({
-            id: `capacity-${c.id}`,
-            label: c.name,
-            subLabel: c.rank ? `Rang ${c.rank}` : undefined,
-            url: `/capacites/${c.id}`
-        }));
-
-        safeAdd(profilesData, 'class', p => ({
-            id: `profile-${p.id}`,
-            label: p.name,
-            url: `/classes/${p.id}`
-        }));
-
-        safeAdd(racesData, 'race', r => ({
-            id: `race-${r.id}`,
-            label: r.name,
-            url: `/races/${r.id}`
-        }));
-
-        safeAdd(voiesData, 'voie', v => ({
-            id: `voie-${v.id}`,
-            label: v.name,
-            url: `/voies/${v.id}`
-        }));
-
-        safeAdd(rulesData, 'rule', (r) => ({
-            id: `rule-${r.id}`,
-            label: r.title,
-            subLabel: r.description,
-            url: r.url
-        }));
-
-        safeAdd(statesData, 'state', s => ({
-            id: `state-${s.id}`,
-            label: s.name,
-            url: '/states'
-        }));
-
-        safeAdd(weaponsData, 'equipment', w => ({
-            id: `weapon-${w.id}`,
-            label: w.name,
-            subLabel: w.damage ? `Arme • ${w.damage}` : 'Arme',
-            url: '/equipment'
-        }));
-
-        safeAdd(armorsData, 'equipment', a => ({
-            id: `armor-${a.id}`,
-            label: a.name,
-            subLabel: a.defense ? `Armure • DEF ${a.defense}` : 'Armure',
-            url: '/equipment'
-        }));
-
-        safeAdd(materialsData, 'equipment', m => ({
-            id: `material-${m.id}`,
-            label: m.name,
-            subLabel: m.price ? `Matériel • ${m.price}` : 'Matériel',
-            url: '/equipment'
-        }));
-
-        return items;
+        fetchData();
     }, []);
 
     // Filter results

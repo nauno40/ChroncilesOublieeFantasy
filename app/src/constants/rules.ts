@@ -1,0 +1,260 @@
+export const RULES_INDEX = [
+    {
+        "id": "intro",
+        "title": "Introduction & Univers",
+        "description": "Présentation du JDR, Rôle du MJ et PJ, Terres d'Osgild, Système d20",
+        "url": "/rules#introduction"
+    },
+    {
+        "id": "base-test",
+        "title": "Le Test (Caractéristique)",
+        "description": "Mécanique du d20, Difficulté (Diff), Modificateurs, Réussite Critique",
+        "url": "/rules#bases"
+    },
+    {
+        "id": "base-carac",
+        "title": "Caractéristiques & Modificateurs",
+        "description": "Attaque (Contact/Dist/Magique), Limitée (Charge/Sort), Mouvement, Gratuite",
+        "url": "/rules#types-actions"
+    },
+    {
+        "id": "combat-modificateurs",
+        "title": "Modificateurs de Combat",
+        "description": "Portée, Couverture, Visibilité, Tir en mêlée, Taille",
+        "url": "/rules#modificateurs-combat"
+    },
+    {
+        "id": "combat-etats",
+        "title": "États Préjudiciables",
+        "description": "Aveuglé, Affaibli, Étourdi, Immobilisé, Paralysé, Ralenti, Renversé, Surpris",
+        "url": "/rules#modificateurs-combat"
+    },
+    {
+        "id": "combat-tactique",
+        "title": "Options Tactiques",
+        "description": "Défense Totale/Partielle, Attaque Assurée/Violente, Soutenir, Riposte",
+        "url": "/rules#options-tactiques"
+    },
+    {
+        "id": "combat-manoeuvres",
+        "title": "Manœuvres de Combat",
+        "description": "Renverser, Désarmer, Pousser, Bloquer, Aveugler, Distraire, Étourdir",
+        "url": "/rules#options-tactiques"
+    },
+    {
+        "id": "base-rd",
+        "title": "Réduction des Dommages (RD)",
+        "description": "Réduction des Dommages (Sources, Cumul), Résistance (/2), Dommages Temporaires",
+        "url": "/rules#sante-dommages"
+    },
+    {
+        "id": "base-chance",
+        "title": "Points de Chance",
+        "description": "Utilisation des PC, Réussite automatique, Récupération",
+        "url": "/rules#points-chance"
+    },
+    {
+        "id": "base-oppose",
+        "title": "Tests Opposés",
+        "description": "Comparaison de résultats, Égalité, Critique",
+        "url": "/rules#types-tests"
+    },
+    {
+        "id": "base-competence",
+        "title": "Compétences & Bonus",
+        "description": "Calcul des bonus, Cumul (Profil, Peuple, Prestige), Plafond (+15)",
+        "url": "/rules#types-tests"
+    },
+    {
+        "id": "base-coop",
+        "title": "Coopération & Séries",
+        "description": "Aider un allié (+2), Réussites cumulées, Prendre son temps (x5, x20)",
+        "url": "/rules#mecaniques-avancees"
+    },
+    {
+        "id": "base-chance-test",
+        "title": "Test de Chance",
+        "description": "1d6 (JSL) + PC. Hasard pur (Positif/Négatif).",
+        "url": "/rules#points-chance"
+    },
+    {
+        "id": "combat-tour",
+        "title": "Tour de Combat & Initiative",
+        "description": "Déroulement du combat, Surprise, Test d'initiative",
+        "url": "/rules#combat"
+    },
+    {
+        "id": "combat-actions",
+        "title": "Actions de Combat",
+        "description": "Mouvement, Attaque, Action Gratuite, Dégainer, Recharger",
+        "url": "/rules#types-actions"
+    },
+    {
+        "id": "combat-attaque",
+        "title": "Attaque & Défense",
+        "description": "Attaque au contact (FOR), distance (DEX), magique. Calcul Défense",
+        "url": "/rules#resolution-attaques"
+    },
+    {
+        "id": "combat-dommages",
+        "title": "Dommages & Santé",
+        "description": "Points de Vie (PV), Blessure grave, Mort, Inconscient, Soins",
+        "url": "/rules#sante-dommages"
+    },
+    {
+        "id": "combat-recup",
+        "title": "Récupération & Soins",
+        "description": "Repos rapide, Repos complet, Premiers soins, Récupération PV et Mana",
+        "url": "/rules#sante-dommages"
+    },
+    {
+        "id": "magie-lancer",
+        "title": "Lancer un Sort",
+        "description": "Test d'attaque magique, Portée, Durée, Aire d'effet, Incantation",
+        "url": "/rules#lancer-sort"
+    },
+    {
+        "id": "magie-mana",
+        "title": "Mana (PM)",
+        "description": "Coût des sorts, Points de Mana, Récupération de mana (Grimoire, Repos)",
+        "url": "/rules#mana"
+    },
+    {
+        "id": "magie-brulure",
+        "title": "Brûlure de Mana",
+        "description": "Lancer un sort sans PM en sacrifiant des PV (Dé de récupération)",
+        "url": "/rules#regles-speciales-magie"
+    },
+    {
+        "id": "magie-concentration",
+        "title": "Concentration Accrue",
+        "description": "Réduire le coût en PM d'un sort en prenant plus de temps (Action Limitée)",
+        "url": "/rules#lancer-sort"
+    },
+    {
+        "id": "env-lumiere",
+        "title": "Lumière & Vision",
+        "description": "Lumière vive, Pénombre (-2), Obscurité (-5/Aveuglé), Vision dans le noir, Sources de lumière",
+        "url": "/rules#lumiere-vision"
+    },
+    {
+        "id": "env-chute",
+        "title": "Chute & Asphyxie",
+        "description": "Dégâts de chute (1d6/3m), Acrobatie, Noyade, Retenir sa respiration",
+        "url": "/rules#chute-asphyxie"
+    },
+    {
+        "id": "env-elements",
+        "title": "Feu, Acide & Environnement",
+        "description": "Dégâts de feu/acide par round, Températures extrêmes (Froid/Chaud), Fatigue",
+        "url": "/rules#feu-acide"
+    },
+    {
+        "id": "env-objets",
+        "title": "Briser des Objets",
+        "description": "Solidité des matériaux, Dureté (RD), Points de Structure, Casser une arme",
+        "url": "/rules#briser-objets"
+    },
+    {
+        "id": "av-voyage",
+        "title": "Voyage & Survie",
+        "description": "Voyage hivernal, Progression, Bivouac, Récupération en voyage",
+        "url": "/rules#voyage"
+    },
+    {
+        "id": "av-rencontres",
+        "title": "Rencontres",
+        "description": "Fréquence des rencontres, Distance de détection, Surprise",
+        "url": "/rules#rencontres"
+    },
+    {
+        "id": "av-obstacles",
+        "title": "Obstacles & Pièges",
+        "description": "Saut, Grand Froid, Forcer une porte, Pièges, Poisons",
+        "url": "/rules#obstacles"
+    },
+    {
+        "id": "av-montures",
+        "title": "Montures",
+        "description": "Combat monté, Dressage, Profils de chevaux, Charge montée",
+        "url": "/rules#montures"
+    },
+    {
+        "id": "obj-consommables",
+        "title": "Potions & Parchemins",
+        "description": "Potion de soin, Potion de mana, Lecture de parchemin, Invisibilité",
+        "url": "/rules#consommables"
+    },
+    {
+        "id": "obj-armes",
+        "title": "Armes Magiques & Sceptres",
+        "description": "Bonus d'attaque/DM, Sceptres pour mages, Propriétés spéciales, Projectiles",
+        "url": "/rules#armes-magiques"
+    },
+    {
+        "id": "obj-defensifs",
+        "title": "Armures & Boucliers",
+        "description": "Bonus de défense, Propriétés d'armure, Capes, Anneaux de protection",
+        "url": "/rules#objets-defensifs"
+    },
+    {
+        "id": "obj-pouvoir",
+        "title": "Objets de Pouvoir",
+        "description": "Objets reproduisant des sorts, Grimoires, Génération aléatoire",
+        "url": "/rules#objets-pouvoir"
+    },
+    {
+        "id": "obj-divers",
+        "title": "Objets de Puissance & Divers",
+        "description": "Ceinture de force, Diadème d'intelligence, Augmentation de caractéristiques",
+        "url": "/rules#objets-divers"
+    },
+    {
+        "id": "opp-nc",
+        "title": "Niveau de Créature (NC)",
+        "description": "Puissance des monstres, Équilibrage des rencontres",
+        "url": "/rules#opposition"
+    },
+    {
+        "id": "opp-types",
+        "title": "Types de Créatures",
+        "description": "Mort-vivant, Construct, Humanoïde, Immunités",
+        "url": "/rules#general-opposition"
+    },
+    {
+        "id": "opp-bestiaire",
+        "title": "Bestiaire",
+        "description": "Squelette, Vampire, Troll, Exemples de monstres",
+        "url": "/rules#bestiaire"
+    },
+    {
+        "id": "opp-creation",
+        "title": "Création de Créatures",
+        "description": "Table de progression par NC, Boss, Statistiques de base",
+        "url": "/rules#creation-creatures"
+    },
+    {
+        "id": "mj-role",
+        "title": "Le Meneur de Jeu (MJ)",
+        "description": "Rôle, Responsabilités, Arbitrage",
+        "url": "/rules#meneur-eu-jeu"
+    },
+    {
+        "id": "mj-session",
+        "title": "Déroulement de Session",
+        "description": "Préparation, Session 0, Rythme de partie",
+        "url": "/rules#deroulement-session"
+    },
+    {
+        "id": "mj-progression",
+        "title": "Progression & Récompenses",
+        "description": "Gain de niveau, Richesse par niveau, Points de Chance",
+        "url": "/rules#progression-recompenses"
+    },
+    {
+        "id": "conversion-guide",
+        "title": "Conversion COF1 vers COF2",
+        "description": "Caractéristiques (DEX/AGI), PV/Vigueur, Créatures (+Att/DM/PV), Médreï",
+        "url": "/rules#conversion-guide"
+    }
+];

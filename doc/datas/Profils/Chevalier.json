@@ -1,0 +1,245 @@
+{
+    "classe": {
+        "nom": "Chevalier",
+        "description_generale": "Le chevalier est un noble guerrier errant, monté sur un puissant destrier et protégé par une armure lourde. Il parcourt la campagne en quête de torts à redresser et d’occasions de mettre son courage à l’épreuve.",
+        "lore": {
+            "adoubement": "De nombreuses nations humaines peuvent prétendre adouber des chevaliers. D’ouest en est : le comté du Ponant, la principauté d’Arly, les marches du Piémont, le duché de Périk, la baronnie de Bordant et le royaume de Cobis.",
+            "ordres_chevalerie": "Seuls le Comté du Ponant, la Principauté d'Arly, les Marches du Piémont et le Royaume de Cobis possèdent un véritable ordre de chevalerie.",
+            "statut_social": "Appartenir à un ordre est une charge à temps complet. Un PJ sera plus probablement un jeune noble errant, fils cadet, condamné à se tailler un domaine ou une réputation.",
+            "races": "Fréquents chez les humains, la noblesse des hauts elfes et chez les nains. Quasi inexistants chez les autres peuples."
+        },
+        "statistiques": {
+            "pv_par_niveau": 5,
+            "profil_type": "Combattant monté / Tank / Leader"
+        }
+    },
+    "maitrises": {
+        "armes": "Sait manier toutes les armes de contact. Dédaigne les armes à distance (considérées comme des armes de couard).",
+        "armures": "Armures jusqu'à la plaque (la plaque complète nécessite une capacité spécifique).",
+        "boucliers": "Tous les boucliers."
+    },
+    "equipement_depart": [
+        {
+            "objet": "Épée longue",
+            "stats": "DM 1d8"
+        },
+        {
+            "objet": "Grand bouclier",
+            "stats": "DEF +2"
+        },
+        {
+            "objet": "Lance de cavalerie",
+            "stats": "DM 2d6"
+        },
+        {
+            "objet": "Dague",
+            "stats": "DM 1d4"
+        },
+        {
+            "objet": "Cotte de mailles",
+            "stats": "DEF +5"
+        }
+    ],
+    "voies": [
+        {
+            "nom": "Voie du Cavalier",
+            "capacites": [
+                {
+                    "rang": 1,
+                    "nom": "Fidèle monture",
+                    "type": "Passif",
+                    "description_textuelle": "Le chevalier possède une fidèle monture, un cheval de guerre bien dressé qui comprend les ordres simples. À cheval, il peut ajouter un déplacement de 10 m avant ou après une action normale. La monture n’attaque que si elle est elle‑même attaquée au contact par une créature. De plus, le chevalier ajoute son rang + 2 aux tests d’équitation et de dressage.",
+                    "statistiques_monture": {
+                        "nom": "Cheval de guerre",
+                        "caracteristiques": "AGI +0, CON +4*, FOR +5, PER +0, CHA +0, INT -2, VOL +2 (*Dé bonus)",
+                        "defense": "12 + rang",
+                        "pv": "10 + (Niveau × 4)",
+                        "initiative": "Egale à celle du chevalier",
+                        "attaque": "Ruade +5",
+                        "dommages": "1d4° + 5",
+                        "soin": "Récupère 1d8+4 PV par nuit.",
+                        "mort": "Remplacée au niveau suivant.",
+                        "variantes": "Yack ou sanglier (nain), cerf ou orignal (elfe)."
+                    }
+                },
+                {
+                    "rang": 2,
+                    "nom": "Cavalier émérite",
+                    "type": "Passif",
+                    "description_textuelle": "Lorsqu’il est en selle, le chevalier gagne un bonus de +1 aux DM de ses attaques au contact, et sa monture obtient une DEF égale à celle du chevalier. Monter ou descendre de cheval est désormais une action gratuite. Le bonus aux DM passe à +2 au rang 5."
+                },
+                {
+                    "rang": 3,
+                    "nom": "Charge",
+                    "type": "Action Limitée (L)",
+                    "description_textuelle": "À cheval, le chevalier peut effectuer un déplacement de 10 à 20 m en ligne droite et faire une attaque de contact placée au moment de son choix. Le joueur obtient un dé bonus au test d’attaque et ajoute 1d4° aux DM. Si une créature s’interpose pour bloquer la charge du chevalier, elle doit réussir un test de FOR difficulté 20 ou être contrainte de céder le passage en subissant 1d4° DM. Si elle réussit ce test, la Charge est bloquée et le tour du chevalier se termine."
+                },
+                {
+                    "rang": 4,
+                    "nom": "Monture magique",
+                    "type": "Action Limitée (L)",
+                    "description_textuelle": "Le chevalier obtient une monture magique, qui peut apparaître et disparaître depuis un autre plan à volonté. Il peut l’invoquer à tout moment (c’est une action limitée) et elle apparaît alors pour se mettre à son service. Lorsqu’il la laisse au moins une heure dans son plan d’origine, elle guérit l’ensemble de ses PV."
+                },
+                {
+                    "rang": 5,
+                    "nom": "Monture fantastique",
+                    "type": "Passif / Action Gratuite",
+                    "description_textuelle": "Le chevalier obtient une monture puissante (cheval de guerre lourd, ours, félin géant, etc.). Lorsqu’il est en selle, le chevalier peut faire attaquer sa monture une fois par round en action gratuite. À partir du niveau 9, peut être une monture volante (pégase, griffon...) si le MJ l'autorise.",
+                    "statistiques_monture_fantastique": {
+                        "defense": "20",
+                        "pv": "10 + (Niveau × 6) [Si volante: 10 + (Niveau x 5)]",
+                        "attaque": "Ruade ou morsure (Attaque magique)",
+                        "dommages": "2d4° + 5"
+                    }
+                }
+            ]
+        },
+        {
+            "nom": "Voie de la Guerre",
+            "capacites": [
+                {
+                    "rang": 1,
+                    "nom": "Armure sur mesure",
+                    "type": "Passif",
+                    "description_textuelle": "L’armure du chevalier est parfaitement ajustée, aussi il n’ajoute que la moitié de sa DEF à la difficulté des tests pour lesquels l’armure inflige une pénalité. De plus, lorsqu’il porte une armure lourde (plaque ou plaque complète), il obtient un bonus de +1 en DEF à chaque fois qu’il atteint le rang 5 dans une voie de chevalier."
+                },
+                {
+                    "rang": 2,
+                    "nom": "Encaisser un coup",
+                    "type": "Action de Mouvement (M)",
+                    "description_textuelle": "Le chevalier se place de façon à dévier un coup sur son armure. Jusqu’à son tour au round suivant, il peut retrancher la valeur de DEF de son armure (bonus de magie inclus si elle est enchantée) aux DM d’une seule attaque au contact qu’il subit (minimum 1 DM). Au rang 5, il peut ajouter son bonus de bouclier (là aussi, bonus de magie inclus et cumulable au bonus d’armure). Le chevalier ne peut pas être étourdi ou renversé par une attaque qu’il a décidé d’encaisser."
+                },
+                {
+                    "rang": 3,
+                    "nom": "Frappe du justicier",
+                    "type": "Action Limitée (L)",
+                    "description_textuelle": "Lorsque le chevalier réalise cette attaque au contact, si le test d’attaque est un échec, il inflige tout de même ½ DM à sa cible. Un résultat de 1 au d20 n’inflige aucun DM."
+                },
+                {
+                    "rang": 4,
+                    "nom": "Force héroïque",
+                    "type": "Passif",
+                    "description_textuelle": "Le chevalier augmente sa FOR de +1. Désormais, il obtient un dé bonus aux tests de FOR."
+                },
+                {
+                    "rang": 5,
+                    "nom": "Mon armure est une arme",
+                    "type": "Action Gratuite (G)",
+                    "description_textuelle": "Une fois par combat, le chevalier peut donner un coup avec son armure (gantelet, heaume, spallière, etc.) en action gratuite. Il inflige automatiquement [1d4° + FOR] DM, et si la FOR de la cible est inférieure à celle du chevalier, elle est (au choix du chevalier) renversée ou étourdie pour 1 round ou recule de 3 m."
+                }
+            ]
+        },
+        {
+            "nom": "Voie du Preux",
+            "capacites": [
+                {
+                    "rang": 1,
+                    "nom": "Ignorer la douleur",
+                    "type": "Action Gratuite (G)",
+                    "description_textuelle": "Une fois par combat, le chevalier peut noter à part les DM subis par une attaque (mais pas un critique). Il ne subira les DM que lorsque le combat sera terminé. De plus le héros gagne un bonus égal à rang + 2 pour haranguer et convaincre les foules (au moins 15 individus)."
+                },
+                {
+                    "rang": 2,
+                    "nom": "Piqûres d’insectes",
+                    "type": "Passif",
+                    "description_textuelle": "Le chevalier obtient une réduction des DM (RD) des attaques à distance (arcs, arbalètes, lances, etc.) qui dépend de l’armure qu’il porte. Armure de plaques (complète ou non) RD 3, armure intermédiaire (Chemise ou cotte de mailles) RD 2, armure de cuir (simple ou renforcée) RD 1. Les DM infligés par une attaque sont toujours au minimum d’un point."
+                },
+                {
+                    "rang": 3,
+                    "nom": "Laissez‑le‑moi",
+                    "type": "Passif",
+                    "description_textuelle": "Le chevalier met un point d’honneur à combattre le leader ennemi. Lorsqu’il peut aisément être identifié dans un groupe d’au moins 4 créatures, le chevalier lui inflige +1d4° DM par attaque au contact. Chaque fois que le chevalier inflige des DM à une créature de cette façon, la créature doit réussir un test d’INT difficulté 15 ou elle ne peut pas attaquer d’autre adversaire que lui à son prochain tour."
+                },
+                {
+                    "rang": 4,
+                    "nom": "Charisme héroïque",
+                    "type": "Passif",
+                    "description_textuelle": "Le chevalier augmente son CHA de +1. Désormais, il obtient un dé bonus aux tests de CHA."
+                },
+                {
+                    "rang": 5,
+                    "nom": "Seul contre tous",
+                    "type": "Passif",
+                    "description_textuelle": "Le chevalier sait faire face à de nombreux adversaires. Lorsque au moins 3 adversaires l’attaquent au contact à ce round, il obtient une action d’attaque (A) supplémentaire à ce round."
+                }
+            ]
+        },
+        {
+            "nom": "Voie du Meneur d'Hommes",
+            "capacites": [
+                {
+                    "rang": 1,
+                    "nom": "Sans peur",
+                    "type": "Passif",
+                    "description_textuelle": "Le chevalier est immunisé aux effets de peur et il offre un bonus égal à son CHA aux tests de tous ses alliés contre ce type d’effet. De plus, le chevalier ajoute son rang + 2 aux tests de stratégie et de tactique militaire ou pour commander une troupe."
+                },
+                {
+                    "rang": 2,
+                    "nom": "Intercepter",
+                    "type": "Action Gratuite (G)",
+                    "description_textuelle": "Une fois par round, le chevalier peut encaisser une attaque au contact ou à distance à la place d’un allié à son contact. Il utilise sa DEF plutôt que celle de la cible initiale et retranche son rang dans la voie aux DM (en cas de synergie avec la capacité Piqûres d’insectes ou encaisser un coup, la réduction des DM se cumule). Le joueur doit annoncer son intention d’intercepter avant de connaître le résultat de l’attaque."
+                },
+                {
+                    "rang": 3,
+                    "nom": "Exemplaire",
+                    "type": "Action Gratuite (G)",
+                    "description_textuelle": "Une fois par round, le chevalier donne un dé bonus à un allié qui attaque un adversaire à son contact. Le dé bonus doit être attribué avant de lancer les dés."
+                },
+                {
+                    "rang": 4,
+                    "nom": "Charge fantastique",
+                    "type": "Action Gratuite (G)",
+                    "description_textuelle": "Une fois par combat, lorsque le chevalier déclare l’utilisation de cette capacité, tous ses alliés en vue et lui obtiennent 10 m de déplacement supplémentaire au début de leur tour puis un dé bonus et +1d4° DM à toutes leurs attaques. Ne se cumule ni avec exemplaire ni avec ordre de bataille."
+                },
+                {
+                    "rang": 5,
+                    "nom": "Ordre de bataille",
+                    "type": "Action Gratuite (G)",
+                    "description_textuelle": "Le chevalier donne des ordres tactiques pertinents au cœur de la bataille. Une fois par round, il octroie une action supplémentaire gratuite à un allié en vue (une action de mouvement ou une action d’attaque, mais pas une action limitée). Chaque allié ne peut profiter d’un ordre de bataille qu’une seule fois par combat."
+                }
+            ]
+        },
+        {
+            "nom": "Voie de la Noblesse",
+            "capacites": [
+                {
+                    "rang": 1,
+                    "nom": "Éduqué",
+                    "type": "Passif",
+                    "description_textuelle": "Le chevalier sait lire et écrire, et apprend à parler une langue supplémentaire. De plus, il ajoute son rang + 2 à tous les tests d’histoire, d’héraldique et de géographie ainsi qu’aux tests pour savoir se comporter dans la haute société."
+                },
+                {
+                    "rang": 2,
+                    "nom": "Écuyer",
+                    "type": "Passif",
+                    "description_textuelle": "Le chevalier dispose d’un écuyer à son service. Il est absolument loyal à son maître, il s’occupe de sa monture et de son équipement, prépare le campement, panse les blessures, etc. Grâce à l’écuyer, les armes du chevalier sont parfaitement affûtées et il augmente de 1 point les chances d’obtenir un critique sur les attaques au contact (par exemple, 19‑20 au lieu de 20). De plus, le chevalier, sa monture et jusqu’à CHA alliés récupèrent 1d4° PV supplémentaires après chaque récupération complète s’ils profitent des services de l’écuyer. Si l’écuyer vient à mourir, le chevalier en prendra un autre à son service au niveau suivant.",
+                    "statistiques_ecuyer": {
+                        "initiative": "Egale à celle du chevalier",
+                        "defense": "10 + rang",
+                        "pv": "Niveau × 4",
+                        "attaque": "Attaque magique",
+                        "dommages": "1d4° + 1"
+                    }
+                },
+                {
+                    "rang": 3,
+                    "nom": "Autorité naturelle",
+                    "type": "Passif",
+                    "description_textuelle": "Le chevalier ajoute son rang + 2 aux tests réalisés pour donner des ordres ou intimider. De plus, le noble chevalier reçoit la formation nécessaire au port de l’armure de plaque complète (DEF +7). Désormais, il peut utiliser toutes les capacités des voies de chevalier en portant cette armure. *Note : Pour un profil hybride, augmente le niveau d'armure autorisé d'un cran pour les autres voies.*"
+                },
+                {
+                    "rang": 4,
+                    "nom": "Massacrer la piétaille",
+                    "type": "Passif",
+                    "description_textuelle": "Le chevalier ajoute +1d4° aux DM contre la piétaille. S’il y a au moins 4 créatures aux statistiques semblables impliquées dans le combat, elles sont assimilées à de la piétaille (même si leur nombre est par la suite réduit à moins de 4 au cours du combat). Les cavaliers ne sont jamais considérés comme de la piétaille."
+                },
+                {
+                    "rang": 5,
+                    "nom": "Formation d’élite",
+                    "type": "Passif (Spécial)",
+                    "description_textuelle": "Le chevalier possède les moyens et la culture nécessaires pour obtenir une formation dans n’importe quel domaine qui lui sied. Choisissez une capacité de rang 1 à 3 dans n’importe quel profil issu de la famille des combattants ou des aventuriers. De plus, le chevalier choisit une caractéristique ; désormais, il obtient un dé bonus lors des tests en rapport avec celle‑ci."
+                }
+            ]
+        }
+    ]
+}

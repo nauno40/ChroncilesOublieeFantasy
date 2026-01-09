@@ -1,12 +1,20 @@
-import React, { useState, useMemo } from 'react';
-import profilesData from '../data/profiles.json';
+import React, { useState, useMemo, useEffect } from 'react';
 import type { Profile } from '../types/normalized';
 import { PageContainer, PageHeader, Card, Badge, FilterPanel } from '../components/common';
 import { useSearch } from '../hooks';
-
-const profiles = profilesData as Profile[];
+import { DataService } from '../services/dataService';
 
 export const Classes: React.FC = () => {
+    const [profiles, setProfiles] = useState<Profile[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        DataService.getProfiles()
+            .then(setProfiles)
+            .catch(console.error)
+            .finally(() => setLoading(false));
+    }, []);
+
     const [selectedHitDie, setSelectedHitDie] = useState<string>('all');
     const [selectedMagic, setSelectedMagic] = useState<string>('all');
 
@@ -24,7 +32,7 @@ export const Classes: React.FC = () => {
             }
             return true;
         });
-    }, [selectedHitDie, selectedMagic]);
+    }, [profiles, selectedHitDie, selectedMagic]);
 
     const { searchTerm, setSearchTerm, filteredItems } = useSearch(
         filteredByFilters,
@@ -32,6 +40,8 @@ export const Classes: React.FC = () => {
     );
 
     const activeFiltersCount = [selectedHitDie, selectedMagic].filter(f => f !== 'all').length;
+
+    if (loading) return <PageContainer><div className="p-8 text-center text-primary-200">Chargement...</div></PageContainer>;
 
     return (
         <PageContainer>

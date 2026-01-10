@@ -16,7 +16,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./backend:/app
-      - ./app/src/data:/app/data
+      - ./backend/data:/app/data
     environment:
       DATABASE_URL: "postgresql://app:!ChangeMe!@database:5432/app?serverVersion=15&charset=utf8"
       APP_ENV: dev

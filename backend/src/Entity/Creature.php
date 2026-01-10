@@ -71,6 +71,22 @@ class Creature
     #[Groups(['creature:read', 'creature:write'])]
     private ?string $picture = null;
 
+    #[ORM\Column(length: 50, nullable: true)]
+    #[Groups(['creature:read', 'creature:write'])]
+    private ?string $category = null;
+
+    #[ORM\Column(length: 50, nullable: true)]
+    #[Groups(['creature:read', 'creature:write'])]
+    private ?string $environment = null;
+
+    #[ORM\Column(length: 50, nullable: true)]
+    #[Groups(['creature:read', 'creature:write'])]
+    private ?string $archetype = null;
+
+    #[ORM\Column(length: 50, nullable: true)]
+    #[Groups(['creature:read', 'creature:write'])]
+    private ?string $size = null;
+
     #[ORM\OneToMany(mappedBy: 'creature', targetEntity: CreatureVoie::class, orphanRemoval: true)]
     #[Groups(['creature:read'])]
     private Collection $creatureVoies;
@@ -247,4 +263,16 @@ class Creature
 
         return $this;
     }
+
+    public function getCategory(): ?string { return $this->category; }
+    public function setCategory(?string $category): static { $this->category = $category; return $this; }
+
+    public function getEnvironment(): ?string { return $this->environment; }
+    public function setEnvironment(?string $environment): static { $this->environment = $environment; return $this; }
+
+    public function getArchetype(): ?string { return $this->archetype; }
+    public function setArchetype(?string $archetype): static { $this->archetype = $archetype; return $this; }
+
+    public function getSize(): ?string { return $this->size; }
+    public function setSize(?string $size): static { $this->size = $size; return $this; }
 }

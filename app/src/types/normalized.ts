@@ -311,4 +311,10 @@ export interface Creature {
     attacks?: any[]; // JSON array
     capabilities?: any[]; // JSON array
     picture?: string;
+
+    // Extended properties
+    category?: string;
+    environment?: string;
+    archetype?: string;
+    size?: string;
 }

@@ -3,12 +3,15 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use App\Repository\EquipmentRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: EquipmentRepository::class)]
 #[ApiResource]
+#[ApiFilter(SearchFilter::class, properties: ['type' => 'exact'])]
 class Equipment
 {
     #[ORM\Id]

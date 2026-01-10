@@ -27,7 +27,7 @@ class AppFixtures extends Fixture
             $this->dataDir = '/app/data';
         } else {
             // Local environment (relative path)
-            $this->dataDir = __DIR__ . '/../../../app/src/data';
+            $this->dataDir = __DIR__ . '/../../data';
         }
     }
 
@@ -76,6 +76,19 @@ class AppFixtures extends Fixture
     {
         if (isset($item[$key]) && is_array($item[$key]) && isset($item[$key][0]['value'])) {
             return $item[$key][0]['value'];
+        }
+        return $default;
+    }
+
+    private function getLabelOrValue(array $item, string $key, $default = null)
+    {
+        if (isset($item[$key]) && is_array($item[$key]) && !empty($item[$key])) {
+             if (isset($item[$key][0]['label'])) {
+                 return $item[$key][0]['label'];
+             }
+             if (isset($item[$key][0]['value'])) {
+                 return $item[$key][0]['value'];
+             }
         }
         return $default;
     }
@@ -432,6 +445,37 @@ class AppFixtures extends Fixture
             // We don't need to add to $entities as they aren't referenced by ID elsewhere currently
             // $entities[$item['id']] = $e; 
         }
+
+        // Mounts
+        $mounts = $this->getData('mounts.json');
+        foreach ($mounts as $item) {
+            $e = new Equipment();
+            $e->setName($item['name']);
+            $e->setType('Mount');
+            $e->setPrice($item['price'] ?? null);
+            $manager->persist($e);
+        }
+
+        // Food
+        $food = $this->getData('food.json');
+        foreach ($food as $item) {
+            $e = new Equipment();
+            $e->setName($item['name']);
+            $e->setType('Food');
+            $e->setPrice($item['price'] ?? null);
+            $manager->persist($e);
+        }
+
+        // Lodging
+        $lodging = $this->getData('lodging.json');
+        foreach ($lodging as $item) {
+            $e = new Equipment();
+            $e->setName($item['name']);
+            $e->setType('Lodging');
+            $e->setPrice($item['price'] ?? null);
+            $manager->persist($e);
+        }
+        
         
         return $entities;
     }
@@ -511,6 +555,24 @@ class AppFixtures extends Fixture
             if (isset($item['picture'][0]['creature_token_url'])) {
                 $e->setPicture($item['picture'][0]['creature_token_url']);
             }
+
+            // Expanded Details (Category, Environment, Archetype, Size)
+            // Note: These are often array of objects with value/label
+            $e->setCategory($this->getValue($item, 'category', null)); // Using value or label? Usually value map to translation.
+            // Let's check `getValue` implementation. It takes the first item's 'value'.
+            // The frontend displays the Label usually.
+            // Let's modify getValue or use a specific logic.
+            // JSON example: "category": [{"value": "humanoid", "label": "Humanoïde"}]
+            // If I save "humanoid", frontend needs to translate. 
+            // Better to save "Humanoïde" (label) for direct display? 
+            // Or save structured data?
+            // User requested "Category, Environment..." to be displayed.
+            // Let's save the LABEL if available, fallback to VALUE.
+            
+            $e->setCategory($this->getLabelOrValue($item, 'category'));
+            $e->setEnvironment($this->getLabelOrValue($item, 'environment'));
+            $e->setArchetype($this->getLabelOrValue($item, 'archetype'));
+            $e->setSize($this->getLabelOrValue($item, 'size'));
 
             // Link Family
             if (isset($monsterMap[$name])) {

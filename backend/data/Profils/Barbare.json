@@ -18,7 +18,9 @@
         "image_url": "https:\/\/www.co-drs.org\/sites\/default\/files\/styles\/original_compressed\/public\/co\/profile\/2023-02\/barbarian.png.webp?itok=dHQHS0Ze"
     },
     "maitrises": {
-        "armes_armures": "Le barbare sait manier toutes les armes au contact, toutes les armes à distance (sauf les arbalètes et les armes d’une technologie trop complexe). Les voies de barbare limitent l’armure au cuir renforcé. Le barbare peut en revanche utiliser tous les boucliers.",
+        "armes": "Le barbare sait manier toutes les armes au contact, toutes les armes à distance (sauf les arbalètes et les armes d’une technologie trop complexe).",
+        "armures": "Les voies de barbare limitent l’armure au cuir renforcé.",
+        "boucliers": "Le barbare peut en revanche utiliser tous les boucliers.",
         "evolution_armure": "Certaines capacités (Voie de la Brute) permettent de débloquer le port d'armures plus lourdes."
     },
     "equipement_depart": [

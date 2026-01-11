@@ -17,7 +17,9 @@
         "image_url": "https:\/\/www.co-drs.org\/sites\/default\/files\/styles\/original_compressed\/public\/co\/profile\/2023-02\/bard.png.webp?itok=PEiVEYQy"
     },
     "maitrises": {
-        "armes_armures": "Le barde sait manier les armes à une main. Les voies de barde limitent l’armure au cuir renforcé et interdisent l’utilisation du bouclier.",
+        "armes": "Le barde sait manier les armes à une main.",
+        "armures": "Les voies de barde limitent l’armure au cuir renforcé.",
+        "boucliers": "Interdisent l’utilisation du bouclier.",
         "contraintes": "Il est nécessaire d’avoir une main libre pour utiliser les capacités de bardes (ni arme secondaire ni bouclier)."
     },
     "equipement_depart": [

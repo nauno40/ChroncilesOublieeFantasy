@@ -36,6 +36,9 @@ class Family
     #[ORM\Column(length: 10, nullable: true)]
     private ?string $manaStat = null;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $specials = null;
+
     #[ORM\OneToMany(mappedBy: 'family', targetEntity: Profile::class)]
     private Collection $profiles;
 
@@ -117,6 +120,18 @@ class Family
     public function setManaStat(?string $manaStat): static
     {
         $this->manaStat = $manaStat;
+
+        return $this;
+    }
+
+    public function getSpecials(): ?string
+    {
+        return $this->specials;
+    }
+
+    public function setSpecials(?string $specials): static
+    {
+        $this->specials = $specials;
 
         return $this;
     }

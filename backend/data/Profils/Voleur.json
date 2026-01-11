@@ -15,7 +15,9 @@
         "image_url": "https:\/\/www.co-drs.org\/sites\/default\/files\/styles\/original_compressed\/public\/co\/profile\/2023-02\/thief.png.webp?itok=uYf5aVTh"
     },
     "maitrises": {
-        "armes_armures": "Le voleur sait manier les armes de contact à une main et toutes les armes à distance. Les voies de voleur limitent l’armure au cuir simple et interdisent l’utilisation du bouclier."
+        "armes": "Le voleur sait manier les armes de contact à une main et toutes les armes à distance.",
+        "armures": "Les voies de voleur limitent l’armure au cuir simple.",
+        "boucliers": "Interdisent l’utilisation du bouclier."
     },
     "equipement_depart": [
         {

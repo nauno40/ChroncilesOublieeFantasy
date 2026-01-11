@@ -18,7 +18,9 @@
         "note_legacy": "Dans les Terres d’Osgild. L’arquebusier est un personnage atypique dans les Terres d’Osgild. Il est toutefois plus commun dans les régions de l’est, où les armes à poudre ont d’abord été importées par le Protectorat de fer, tête de pont d’un vaste empire expansionniste qui a traversé l’océan. Mais cette nation est en guerre larvée permanente avec tous ses voisins et elle garde jalousement le secret des armes à poudre. Plus au sud, les nains de Kaer Glimmerstern maîtrisent à présent eux aussi la poudre et depuis peu ils s’en sont ouverts à leurs alliés, le royaume de Cobis et le duché de Périk. Guilde et Port‑Libre, les deux grandes cités commerçantes se sont saisies de l’occasion et font désormais le commerce des armes à poudre, à prix d’or... Un PJ arquebusier devra donc avoir séjourné dans l’un de ces lieux."
     },
     "maitrises": {
-        "armes_armures": "L’arquebusier sait manier toutes les armes de contact à une main, les armes à distance, armes à poudre incluses. Les voies d’arquebusier limitent l’armure à la chemise de mailles et interdisent l’utilisation du bouclier.",
+        "armes": "L’arquebusier sait manier toutes les armes de contact à une main, les armes à distance, armes à poudre incluses.",
+        "armures": "Les voies d’arquebusier limitent l’armure à la chemise de mailles.",
+        "boucliers": "Interdisent l’utilisation du bouclier.",
         "special": "Un arquebusier sait fabriquer sa propre poudre et elle ne risque pas d’exploser malgré lui."
     },
     "equipement_depart": [

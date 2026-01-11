@@ -109,6 +109,7 @@ class AppFixtures extends Fixture
             $e->setRecoveryDie($item['recoveryDie'] ?? 'd8');
             $e->setLuckPoints($item['luckPoints'] ?? 0);
             $e->setManaStat($item['manaStat'] ?? null);
+            $e->setSpecials($item['specials'] ?? null);
             
             $manager->persist($e);
             $id = strtolower(str_replace(['Famille des ', ' '], ['', '_'], $item['name'])); // "aventuriers", "combattants"... matches JSON mapping logic if needed
@@ -125,8 +126,11 @@ class AppFixtures extends Fixture
         return $entities;
     }
 
+    private array $createdVoieKeys = [];
+
     private function loadRichProfiles(ObjectManager $manager, array $families, array $equipmentMap): array
     {
+        // ... (existing map setup)
         // Map Profile Name to Family ID based on user prompt/knowledge
         $familyMap = [
             'Arquebusier' => 'aventuriers',
@@ -157,6 +161,7 @@ class AppFixtures extends Fixture
             $e = new Profile();
             $name = $classData['nom'];
             $e->setName($name);
+            // ... (rest of profile creation) ...
             $e->setDescription($classData['description_generale'] ?? '');
             
             // Stats
@@ -175,7 +180,6 @@ class AppFixtures extends Fixture
             if ($famId && isset($families[$famId])) {
                 $family = $families[$famId];
                 $e->setFamily($family);
-                // Fallback Hit Die if not set
                 if (!$e->getHitDie()) {
                      $e->setHitDie($family->getRecoveryDie()); 
                 }
@@ -187,8 +191,24 @@ class AppFixtures extends Fixture
             }
             
             // Notes logic
-            // Concatenate legacy note if present
-            $note = ($data['maitrises']['special'] ?? '') . "\n" . ($data['maitrises']['armes_armures'] ?? '');
+            // Notes logic
+            $masteries = $data['maitrises'] ?? [];
+            $noteParts = [];
+            
+            if (!empty($masteries['special'])) {
+                $noteParts[] = $masteries['special'];
+            }
+            
+            if (!empty($masteries['armes_armures'])) {
+                $noteParts[] = $masteries['armes_armures'];
+            } else {
+                if (!empty($masteries['armes'])) $noteParts[] = $masteries['armes'];
+                if (!empty($masteries['armures'])) $noteParts[] = $masteries['armures'];
+                if (!empty($masteries['boucliers'])) $noteParts[] = $masteries['boucliers'];
+            }
+
+            $note = implode("\n", $noteParts);
+
             if (isset($classData['note_legacy'])) {
                 $note .= "\n\n" . $classData['note_legacy'];
             }
@@ -198,22 +218,14 @@ class AppFixtures extends Fixture
                 $e->setMasteries($data['maitrises']);
             }
             
-            // ... (rest of code)
-
-
-            if (isset($data['maitrises'])) {
-                $e->setMasteries($data['maitrises']);
-            }
-
             if (isset($data['equipement_depart'])) {
                 $e->setStartingEquipment($data['equipement_depart']);
             }
 
-            $e->setSkillPoints(2); // Default
+            $e->setSkillPoints(2); 
             
             $manager->persist($e);
             
-            // Map entry
             $key = strtolower($file->getBasename('.json'));
             $profileMap[$key] = $e;
             
@@ -228,6 +240,11 @@ class AppFixtures extends Fixture
                     $v->setMaxRank(5);
                     $manager->persist($v);
                     
+                    // Track created Voie
+                    // Key: normalized profile name + normalized voie name
+                    $trackKey = $this->normalizeKey($name) . '_' . $this->normalizeKey($voieData['nom']);
+                    $this->createdVoieKeys[$trackKey] = true;
+
                     if (isset($voieData['capacites'])) {
                         foreach ($voieData['capacites'] as $capData) {
                             $c = new Capability();
@@ -238,7 +255,7 @@ class AppFixtures extends Fixture
                             
                             $type = $capData['type'] ?? '';
                             $c->setLimited(str_contains(strtolower($type), 'limité'));
-                            $c->setIsSpell(str_contains(strtolower($type), 'sort') || isset($voieData['sorts'])); // Heuristics
+                            $c->setIsSpell(str_contains(strtolower($type), 'sort') || isset($voieData['sorts'])); 
                             
                             $manager->persist($c);
                         }
@@ -248,6 +265,15 @@ class AppFixtures extends Fixture
         }
         return $profileMap;
     }
+
+    private function normalizeKey(string $str): string
+    {
+        $str = mb_strtolower($str);
+        $str = str_replace(['’', '`', '´'], "'", $str);
+        return trim($str);
+    }
+
+
 
     private function loadCreatureFamilies(ObjectManager $manager): array
     {
@@ -344,26 +370,13 @@ class AppFixtures extends Fixture
 
     private function loadVoies(ObjectManager $manager, array $profiles, array $races): array
     {
-        $data = $this->getData('voies.json');
+        // LEGACY FILE (voies.json) LOADING DISABLED
+        // We now rely purely on Profils/*.json and Races/*.json for Voie definitions.
+        
         $entities = [];
 
-        foreach ($data as $item) {
-            $e = new Voie();
-            $e->setName($item['name']);
-            $e->setDescription($item['description'] ?? ''); // Default to empty string
-            $e->setCategory($item['type'] ?? 'Personnage');
-            $e->setMaxRank(5); // Default for COF seems to be 5? Or should be dynamic? Standard is 5.
-            
-            if (!empty($item['profileId']) && isset($profiles[$item['profileId']])) {
-                $e->setProfile($profiles[$item['profileId']]);
-            }
-
-            $manager->persist($e);
-            $entities[$item['id']] = $e;
-        }
-
         // Link Races to Available Voies
-        // Re-read from individual files
+        // Re-read from individual files to create Racial Voies
         $finder = new Finder();
         $finder->files()->in($this->dataDir . '/Races')->name('*.json');
         
@@ -388,7 +401,9 @@ class AppFixtures extends Fixture
                         }
                         
                         $voie->setName($voieData['nom']);
+                        $voie->setDescription($voieData['description'] ?? '');
                         $voie->setCategory('Race');
+                        $voie->setMaxRank(5);
                         
                         // Link to Race
                         $raceEntity->addAvailableVoie($voie);

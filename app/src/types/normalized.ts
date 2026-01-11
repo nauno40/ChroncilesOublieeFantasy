@@ -53,6 +53,7 @@ export interface Family {
     recoveryDie: string;
     luckPoints: number;
     manaStat: string | null;
+    specials?: string | null;
 }
 
 export interface Profile {

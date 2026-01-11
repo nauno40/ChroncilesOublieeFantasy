@@ -22,9 +22,10 @@ const getRaceImageName = (raceName: string): string => {
 export const RaceDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const [race, setRace] = useState<Race | null>(null);
-    const [raceVoie, setRaceVoie] = useState<Voie | null>(null);
+    const [raceVoies, setRaceVoies] = useState<Voie[]>([]);
     const [raceCapacities, setRaceCapacities] = useState<Capacity[]>([]);
     const [loading, setLoading] = useState(true);
+    const [activeTab, setActiveTab] = useState<'lore' | 'rules'>('lore');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -37,25 +38,47 @@ export const RaceDetail: React.FC = () => {
                     DataService.getCapabilities()
                 ]);
 
-                console.log('RaceDetail Debug:', {
-                    idToFind: id,
-                    racesIsArray: Array.isArray(races),
-                    racesCount: Array.isArray(races) ? races.length : 'Not Array',
-                    firstRace: Array.isArray(races) && races.length > 0 ? races[0] : null
-                });
-
                 const foundRace = races.find(r => String(r.id) === id);
-                console.log('Found Race:', foundRace);
-
                 setRace(foundRace || null);
 
-                if (foundRace && foundRace.voieId) {
-                    const foundVoie = voies.find(v => String(v.id) === foundRace.voieId);
-                    setRaceVoie(foundVoie || null);
+                // Process available Voies (New Logic)
+                if (foundRace && foundRace.availableVoies && foundRace.availableVoies.length > 0) {
+                    const voieIds = foundRace.availableVoies.map(iri => {
+                        // Handle IRI string "/api/voies/123" or object
+                        if (typeof iri === 'string') {
+                            const parts = iri.split('/');
+                            return parts[parts.length - 1];
+                        }
+                        return String((iri as Voie).id);
+                    });
 
+                    const foundVoies = voies.filter(v => voieIds.includes(String(v.id)));
+                    setRaceVoies(foundVoies);
+
+                    // Collect capabilities for all found voies
+                    // Normalize capability voie reference to ID string
+                    const allCaps = capacities.filter(c => {
+                        const capVoieRef = c.voie || c.voieId; // Handle potential IRI in 'voie' or ID in 'voieId'
+                        if (!capVoieRef) return false;
+
+                        const capVoieId = String(capVoieRef).split('/').pop();
+                        return foundVoies.some(v => String(v.id) === capVoieId);
+                    }).sort((a, b) => (a.rank || 0) - (b.rank || 0));
+
+                    setRaceCapacities(allCaps);
+                }
+                // Fallback to legacy field logic if no availableVoies
+                else if (foundRace && foundRace.voieId) {
+                    const foundVoie = voies.find(v => String(v.id) === foundRace.voieId);
                     if (foundVoie) {
+                        setRaceVoies([foundVoie]);
                         const filteredCapacities = capacities
-                            .filter(c => String(c.voieId) === String(foundVoie.id))
+                            .filter(c => {
+                                const capVoieRef = c.voie || c.voieId;
+                                if (!capVoieRef) return false;
+                                const capVoieId = String(capVoieRef).split('/').pop();
+                                return String(capVoieId) === String(foundVoie.id);
+                            })
                             .sort((a, b) => (a.rank || 0) - (b.rank || 0));
                         setRaceCapacities(filteredCapacities);
                     }
@@ -69,209 +92,282 @@ export const RaceDetail: React.FC = () => {
         fetchData();
     }, [id]);
 
-    if (loading) return <div className="p-8 text-center text-primary-200">Chargement...</div>;
+    if (loading) return <div className="min-h-screen flex items-center justify-center text-primary-200">Chargement...</div>;
 
     if (!race) {
-        return <div>Race introuvable</div>;
+        return <div className="p-8 text-center text-red-400">Race introuvable</div>;
     }
 
     const raceImageName = race.image ? race.image.split('/').pop() : getRaceImageName(race.name);
 
     return (
-        <div className="max-w-4xl mx-auto space-y-6 pb-12">
-            <Link to="/races" className="inline-flex items-center text-stone-400 hover:text-primary-400 transition-colors group mb-2">
-                <ArrowLeft size={18} className="mr-2 group-hover:-translate-x-1 transition-transform" />
-                <span className="font-display font-medium">Retour aux Races</span>
-            </Link>
+        <div className="min-h-screen pb-12 relative">
 
-            <div className="glass-panel rounded-2xl overflow-hidden shadow-2xl border-primary-500/20 relative">
-                {/* Decorative top border */}
-                <div className="h-1 w-full bg-gradient-to-r from-transparent via-primary-500 to-transparent opacity-50"></div>
+            {/* Background Banner (Decorative) */}
+            <div className="absolute top-0 left-0 w-full h-[500px] overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_40%,transparent)]">
+                <img
+                    src={`/assets/races/${raceImageName}`}
+                    alt={race.name}
+                    className="w-full h-full object-cover object-top opacity-30"
+                />
+            </div>
 
-                {/* Header */}
-                <div className="bg-stone-900/40 p-8 backdrop-blur-sm relative overflow-hidden">
-                    {/* Background Image */}
-                    <div className="absolute inset-0 opacity-20">
-                        <img
-                            src={`/assets/races/${raceImageName}`}
-                            alt={race.name}
-                            onError={(e) => {
-                                e.currentTarget.style.display = 'none';
-                            }}
-                            className="w-full h-full object-cover object-top blur-sm"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-r from-stone-900 via-stone-900/80 to-stone-900"></div>
-                    </div>
+            {/* MAIN CONTENT CONTAINER */}
+            <div className="container mx-auto px-4 relative z-10 pt-6">
 
-                    <div className="relative z-10">
-                        <h1 className="text-4xl md:text-5xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary-200 to-primary-500 drop-shadow-sm mb-4">
-                            {race.name}
-                        </h1>
+                {/* Header Section */}
+                <div className="mb-8">
+                    <Link to="/races" className="inline-flex items-center text-stone-400 hover:text-white transition-colors group mb-6">
+                        <ArrowLeft size={16} className="mr-2 group-hover:-translate-x-1 transition-transform" />
+                        <span className="font-display font-medium tracking-wide text-sm uppercase">Retour aux Races</span>
+                    </Link>
 
-                    </div>
+                    <h1 className="text-5xl md:text-7xl font-display font-bold text-white drop-shadow-xl">
+                        {race.name}
+                    </h1>
                 </div>
 
-                {/* Stats Grid */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-6 bg-black/20 border-y border-white/5">
-                    <div className="text-center">
-                        <div className="text-stone-500 text-xs uppercase tracking-wider mb-1">Âge de départ</div>
-                        <div className="text-2xl font-display font-bold text-primary-400">{race.startingAge} ans</div>
-                    </div>
-                    <div className="text-center">
-                        <div className="text-stone-500 text-xs uppercase tracking-wider mb-1">Espérance de vie</div>
-                        <div className="text-2xl font-display font-bold text-primary-400">{race.lifeExpectancy} ans</div>
-                    </div>
-                    <div className="text-center md:col-span-2">
-                        <div className="text-stone-500 text-xs uppercase tracking-wider mb-1">Taille</div>
-                        <div className="text-2xl font-display font-bold text-primary-400">
-                            {race.minHeight / 100}m - {race.maxHeight / 100}m
+                {/* Content Grid */}
+                <div className="grid lg:grid-cols-12 gap-8">
+
+                    {/* LEFT COLUMN: Sidebar (33%) */}
+                    <div className="lg:col-span-4 space-y-6">
+
+                        {/* Portrait Card */}
+                        <div className="bg-stone-900 rounded-2xl overflow-hidden shadow-2xl border border-white/10 group">
+                            <div className="aspect-[3/4] relative overflow-hidden">
+                                <div className="absolute inset-0 bg-gradient-to-t from-stone-900 via-transparent to-transparent opacity-60 z-10"></div>
+                                <img
+                                    src={`/assets/races/${raceImageName}`}
+                                    alt={race.name}
+                                    className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-105"
+                                    onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                                />
+                            </div>
+                        </div>
+
+                        {/* Vital Stats */}
+                        <div className="bg-stone-900/80 backdrop-blur-sm rounded-2xl p-6 border border-white/5 shadow-xl">
+                            <h3 className="text-stone-500 text-xs font-bold uppercase tracking-widest mb-6 flex items-center gap-2">
+                                <span className="w-8 h-[1px] bg-stone-700"></span>
+                                Statistiques Vitales
+                            </h3>
+                            <div className="space-y-4">
+                                <div className="flex justify-between items-center border-b border-white/5 pb-2">
+                                    <span className="text-stone-400">Âge de départ</span>
+                                    <span className="font-display text-xl text-primary-200">{race.startingAge} ans</span>
+                                </div>
+                                <div className="flex justify-between items-center border-b border-white/5 pb-2">
+                                    <span className="text-stone-400">Espérance de vie</span>
+                                    <span className="font-display text-xl text-primary-200">{race.lifeExpectancy} ans</span>
+                                </div>
+                                <div className="flex justify-between items-center border-b border-white/5 pb-2">
+                                    <span className="text-stone-400">Taille</span>
+                                    <span className="font-display text-xl text-primary-200">{race.minHeight / 100}m - {race.maxHeight / 100}m</span>
+                                </div>
+                                <div className="flex justify-between items-center pb-2">
+                                    <span className="text-stone-400">Poids</span>
+                                    <span className="font-display text-xl text-primary-200">{race.minWeight} - {race.maxWeight} kg</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                {/* Content */}
-                <div className="p-6 md:p-8 space-y-6 bg-gradient-to-b from-stone-900/30 to-transparent">
-                    {/* Illustration */}
-                    <div>
-                        <h3 className="text-xl font-display font-bold text-primary-400 mb-4 flex items-center gap-2">
-                            <span className="w-1 h-6 bg-primary-500 rounded-full"></span> Illustration
-                        </h3>
-                        <div className="w-fit mx-auto bg-white rounded-xl overflow-hidden shadow-2xl border-2 border-primary-500/20 group relative">
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
-                            <img
-                                src={`/assets/races/${raceImageName}`}
-                                onError={(e) => {
-                                    e.currentTarget.parentElement!.style.display = 'none';
-                                }}
-                                alt={race.name}
-                                className="block max-w-full h-auto max-h-[600px] object-contain transform transition-transform duration-700 group-hover:scale-105"
-                            />
+                    {/* RIGHT COLUMN: Content (66%) */}
+                    <div className="lg:col-span-8">
+
+                        {/* Tabs Navigation */}
+                        <div className="flex items-center gap-8 border-b border-white/10 mb-8 px-2">
+                            <button
+                                onClick={() => setActiveTab('lore')}
+                                className={`pb-4 text-lg font-display font-bold tracking-wide transition-all relative ${activeTab === 'lore'
+                                    ? 'text-white'
+                                    : 'text-stone-500 hover:text-stone-300'
+                                    }`}
+                            >
+                                Légendes & Culture
+                                {activeTab === 'lore' && (
+                                    <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary-500 to-primary-400 shadow-[0_0_10px_rgba(234,179,8,0.5)]"></div>
+                                )}
+                            </button>
+                            <button
+                                onClick={() => setActiveTab('rules')}
+                                className={`pb-4 text-lg font-display font-bold tracking-wide transition-all relative ${activeTab === 'rules'
+                                    ? 'text-white'
+                                    : 'text-stone-500 hover:text-stone-300'
+                                    }`}
+                            >
+                                Règles & Capacités
+                                {activeTab === 'rules' && (
+                                    <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary-500 to-primary-400 shadow-[0_0_10px_rgba(234,179,8,0.5)]"></div>
+                                )}
+                            </button>
                         </div>
-                    </div>
 
-                    {/* Characteristics */}
-                    <div className="glass-panel p-6 rounded-xl border-white/5 bg-primary-950/20">
-                        <h3 className="text-xl font-display font-bold text-primary-300 mb-3 border-b border-primary-500/20 pb-2">
-                            Caractéristiques
-                        </h3>
-                        {race.characteristics ? (
-                            <p className="text-stone-300 font-mono text-lg">{race.characteristics}</p>
-                        ) : (
-                            <div className="text-stone-300 font-mono text-lg space-y-1">
-                                {race.modifiers?.map((mod, i) => (
-                                    <div key={i}>
-                                        {mod.description
-                                            ? mod.description
-                                            : mod.type === 'choice'
-                                                ? `${mod.value > 0 ? '+' : ''}${mod.value} ${mod.options?.join(' ou ')}`
-                                                : `${mod.value > 0 ? '+' : ''}${mod.value} ${mod.stat}`
-                                        }
+                        {/* TAB CONTENT: Lore */}
+                        {activeTab === 'lore' && (
+                            <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+
+                                {/* Description */}
+                                <div className="prose prose-invert prose-lg max-w-none">
+                                    <div className="bg-gradient-to-b from-white/5 to-transparent p-8 rounded-2xl border border-white/5">
+                                        <p className="lead text-xl text-primary-100 not-italic mb-6 leading-relaxed">
+                                            {race.description}
+                                        </p>
+                                        <p className="text-stone-300">
+                                            {race.detailedDescription}
+                                        </p>
                                     </div>
-                                ))}
+                                </div>
+
+                                {/* Physical Traits */}
+                                <div className="bg-stone-900/60 p-8 rounded-2xl border border-white/5">
+                                    <h3 className="text-xl font-display font-bold text-white mb-4">Traits Physiques</h3>
+                                    <p className="text-stone-300 leading-relaxed">
+                                        {race.physicalTraits}
+                                    </p>
+                                </div>
+
+                                {/* Roleplay & Culture Grid */}
+                                <div className="space-y-6">
+                                    {race.publicPerception && (
+                                        <div className="bg-black/20 p-6 rounded-xl border border-white/5">
+                                            <h4 className="text-primary-400 font-bold mb-3 uppercase text-sm tracking-wider">Réputation</h4>
+                                            <p className="text-stone-400 text-sm italic">
+                                                "{race.publicPerception}"
+                                            </p>
+                                        </div>
+                                    )}
+                                    {race.roleplay && (
+                                        <div className="bg-black/20 p-6 rounded-xl border border-white/5">
+                                            <h4 className="text-primary-400 font-bold mb-3 uppercase text-sm tracking-wider">Interprétation</h4>
+                                            <p className="text-stone-400 text-sm italic">
+                                                "{race.roleplay}"
+                                            </p>
+                                        </div>
+                                    )}
+                                    {race.typicalNames && (
+                                        <div className="bg-stone-900/40 p-6 rounded-xl border border-white/5">
+                                            <h4 className="text-stone-500 font-bold mb-3 uppercase text-sm tracking-wider flex items-center gap-2">
+                                                <span className="w-8 h-[1px] bg-stone-700"></span>
+                                                Noms Typiques
+                                            </h4>
+                                            <p className="text-stone-300 text-sm leading-relaxed whitespace-pre-line">
+                                                {race.typicalNames}
+                                            </p>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* TAB CONTENT: Rules */}
+                        {activeTab === 'rules' && (
+                            <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-500">
+
+                                {/* Base Racial Abilities */}
+                                <div className="relative">
+                                    <h3 className="text-2xl font-display font-bold text-white mb-6 flex items-center gap-3">
+                                        <div className="size-2 rounded-full bg-primary-500/50"></div>
+                                        Traits Raciaux
+                                    </h3>
+
+                                    <div className="bg-stone-900/60 rounded-2xl p-8 border border-white/5 relative overflow-hidden backdrop-blur-sm">
+
+                                        {/* Modifiers Badges Block (Moved here) */}
+                                        <div className="mb-6">
+                                            <h4 className="text-sm font-bold text-stone-500 uppercase tracking-widest mb-3">Caractéristiques</h4>
+                                            <div className="flex flex-wrap gap-3">
+                                                {/* Static Char string fallback */}
+                                                {!race.modifiers && race.characteristics && (
+                                                    <div className="px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-stone-100 font-mono text-sm">
+                                                        {race.characteristics}
+                                                    </div>
+                                                )}
+
+                                                {/* Modifiers Badges */}
+                                                {race.modifiers?.map((mod, i) => (
+                                                    <div key={i} className="px-4 py-2 rounded-lg bg-primary-600/20 border border-primary-500/30 text-primary-100 font-mono text-sm flex items-center gap-2">
+                                                        {mod.description ? (
+                                                            <span>{mod.description}</span>
+                                                        ) : (
+                                                            <>
+                                                                <span className={`font-bold ${mod.value > 0 ? 'text-primary-300' : 'text-red-300'}`}>
+                                                                    {mod.value > 0 ? '+' : ''}{mod.value}
+                                                                </span>
+                                                                <span className="uppercase tracking-wider opacity-90">
+                                                                    {mod.type === 'choice' ? mod.options?.join(' / ') : mod.stat}
+                                                                </span>
+                                                            </>
+                                                        )}
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+
+                                        <div className="absolute top-0 right-0 p-32 bg-primary-900/10 blur-3xl rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+                                        <p className="text-stone-300 leading-relaxed whitespace-pre-line relative z-10 text-lg">
+                                            {race.abilities}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                {/* Voies & Capacities */}
+                                {raceVoies.length > 0 && (
+                                    <div className="relative">
+                                        <h3 className="text-2xl font-display font-bold text-white mb-6 flex items-center gap-3">
+                                            <div className="size-2 rounded-full bg-primary-500/50"></div>
+                                            Voies & Évolution
+                                        </h3>
+
+                                        <div className="space-y-12">
+                                            {raceVoies.map(voie => (
+                                                <div key={voie.id} className="space-y-6">
+                                                    <div className="flex items-baseline gap-4 border-b border-white/10 pb-4">
+                                                        <h4 className="text-3xl font-display font-bold text-primary-200">
+                                                            {voie.name}
+                                                        </h4>
+                                                        <span className="text-stone-500 text-sm font-mono uppercase tracking-wider">Voie Raciale</span>
+                                                    </div>
+
+                                                    <div className="grid gap-4">
+                                                        {raceCapacities
+                                                            .filter(c => {
+                                                                const capVoieRef = c.voie || c.voieId;
+                                                                if (!capVoieRef) return false;
+                                                                const capVoieId = String(capVoieRef).split('/').pop();
+                                                                return String(capVoieId) === String(voie.id);
+                                                            })
+                                                            .map((cap) => (
+                                                                <div key={cap.id} className="group relative bg-stone-900/80 hover:bg-stone-800 transition-colors p-6 rounded-xl border border-white/5 hover:border-primary-500/30">
+                                                                    <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-2 mb-3">
+                                                                        <div className="flex items-center gap-3">
+                                                                            <span className="flex items-center justify-center size-6 rounded bg-primary-950 text-primary-500 text-xs font-bold border border-primary-500/20">
+                                                                                {cap.rank}
+                                                                            </span>
+                                                                            <h5 className="text-lg font-bold text-stone-100 group-hover:text-primary-300 transition-colors">
+                                                                                {cap.name}
+                                                                            </h5>
+                                                                        </div>
+                                                                        <div className="h-[1px] flex-1 bg-white/5 mx-4 hidden md:block"></div>
+                                                                    </div>
+                                                                    <p className="text-stone-400 text-sm leading-relaxed pl-9">
+                                                                        {cap.description}
+                                                                    </p>
+                                                                </div>
+                                                            ))}
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                         )}
                     </div>
-
-                    {/* Desc - Short description */}
-                    {race.description && (
-                        <div className="glass-panel p-6 rounded-xl border-white/5">
-                            <h3 className="text-xl font-display font-bold text-stone-300 mb-4 border-b border-white/10 pb-2">
-                                Présentation
-                            </h3>
-                            <p className="text-stone-300 leading-relaxed">{race.description}</p>
-                        </div>
-                    )}
-
-                    {/* Desc2 - Cultural description */}
-                    {race.publicPerception && (
-                        <div className="glass-panel p-6 rounded-xl border-white/5 bg-stone-900/30">
-                            <h3 className="text-xl font-display font-bold text-stone-300 mb-4 border-b border-white/10 pb-2">
-                                Culture & Réputation
-                            </h3>
-                            <p className="text-stone-300 leading-relaxed italic">{race.publicPerception}</p>
-                        </div>
-                    )}
-
-                    {/* Roleplay - Interprétation (Desc2 replacement in new logic) */}
-                    {race.roleplay && (
-                        <div className="glass-panel p-6 rounded-xl border-white/5 bg-stone-900/30">
-                            <h3 className="text-xl font-display font-bold text-stone-300 mb-4 border-b border-white/10 pb-2">
-                                Interprétation
-                            </h3>
-                            <p className="text-stone-300 leading-relaxed italic">{race.roleplay}</p>
-                        </div>
-                    )}
-
-                    {/* Description - Main description (Desc3) */}
-                    <div className="glass-panel p-6 rounded-xl border-white/5">
-                        <h3 className="text-xl font-display font-bold text-stone-300 mb-4 border-b border-white/10 pb-2">
-                            Description détaillée
-                        </h3>
-                        <p className="text-stone-300 leading-relaxed">{race.detailedDescription}</p>
-                    </div>
-
-                    {/* Capacités raciales */}
-                    {(race.abilities || raceCapacities.length > 0) && (
-                        <div className="glass-panel p-6 rounded-xl border-white/5 bg-primary-950/20">
-                            <h3 className="text-xl font-display font-bold text-primary-300 mb-4 border-b border-primary-500/20 pb-2">
-                                Capacités raciales {raceVoie ? `(${raceVoie.name})` : ''}
-                            </h3>
-
-                            {raceCapacities.length > 0 ? (
-                                <div className="space-y-4">
-                                    {raceCapacities.map((cap) => (
-                                        <div key={cap.id} className="relative pl-4 border-l-2 border-primary-500/30">
-                                            <div className="flex items-baseline gap-2 mb-1">
-                                                <span className="text-xs font-bold text-primary-400 uppercase tracking-wider">Rang {cap.rank}</span>
-                                                <h4 className="font-bold text-stone-200">{cap.name}</h4>
-                                            </div>
-                                            <p className="text-stone-300 text-sm leading-relaxed">{cap.description}</p>
-                                        </div>
-                                    ))}
-                                </div>
-                            ) : (
-                                <p className="text-stone-300 leading-relaxed whitespace-pre-line">{race.abilities}</p>
-                            )}
-                        </div>
-                    )}
-
-                    {/* Physical attributes */}
-                    <div className="glass-panel p-6 rounded-xl border-white/5">
-                        <h3 className="text-xl font-display font-bold text-stone-300 mb-4 border-b border-white/10 pb-2">
-                            Attributs physiques
-                        </h3>
-                        <div className="mb-4">
-                            <p className="text-stone-300 italic"><span className="font-bold not-italic text-primary-400">Traits distinctifs : </span>{race.physicalTraits}</p>
-                        </div>
-                        <div className="grid md:grid-cols-2 gap-4 text-stone-300">
-                            <div>
-                                <span className="text-stone-500 text-sm">Taille :</span>
-                                <p className="font-semibold">{race.minHeight} cm - {race.maxHeight} cm</p>
-                            </div>
-                            <div>
-                                <span className="text-stone-500 text-sm">Poids :</span>
-                                <p className="font-semibold">{race.minWeight} kg - {race.maxWeight} kg</p>
-                            </div>
-                            <div>
-                                <span className="text-stone-500 text-sm">Âge de départ :</span>
-                                <p className="font-semibold">{race.startingAge} ans</p>
-                            </div>
-                            <div>
-                                <span className="text-stone-500 text-sm">Espérance de vie :</span>
-                                <p className="font-semibold">{race.lifeExpectancy} ans</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Typical Names */}
-                    <div className="glass-panel p-6 rounded-xl border-white/5">
-                        <h3 className="text-xl font-display font-bold text-stone-300 mb-4 border-b border-white/10 pb-2">
-                            Noms typiques
-                        </h3>
-                        <p className="text-stone-300 leading-relaxed text-sm">{race.typicalNames}</p>
-                    </div>
                 </div>
             </div>
-        </div >
+
+        </div>
     );
 };

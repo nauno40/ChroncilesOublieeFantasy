@@ -36,6 +36,7 @@ export interface Race {
     voieId?: string; // Refactored Voie ID
     roleplay?: string;
     image?: string;
+    availableVoies?: string[] | Voie[]; // Array of IRIs or Objects
 }
 
 export interface StartingEquipmentItem {

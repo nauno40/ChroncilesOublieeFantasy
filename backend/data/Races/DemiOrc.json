@@ -1,0 +1,73 @@
+{
+    "id": "demi_orc",
+    "name": "Demi-orc",
+    "description": "Le demi-orc est de grande taille. Il possède une force physique hors du commun, et est généralement méprisé par les autres peuples, en particulier par les nains et les elfes.",
+    "detailedDescription": "**Dans les Terres d'Osgild.** Cela peut paraître évident, mais on trouve généralement des demi-orcs là où les humains et les orcs partagent une frontière, souvent de façon musclée. De nombreux sang-mêlé survivent du côté des monts Vierges, là où les tribus barbares combattent ceux du désert des Morteroches. La vie de demi-orc n'est pas facile : dans le meilleur des cas les préjugés et la méfiance sont de mise, dans le pire c'est de la haine. Toutefois, localement, il existe des régions où la tolérance est plus élevée. C'est le cas de la principauté d'Arly, sous le règne éclairé du prince Thomar d'Arly, et en particulier de la région de Clairval. Bien que cette région ait eu des conflits difficiles avec les orcs, la petite baronnie a donné naissance à un demi-orc du nom de Krush, dont la trajectoire éclatante a permis au peuple d'Arly de revoir ses préjugés et aux sang-mêlé d'avoir un héros auquel s'identifier.\n\nPlus à l'est, à la suite de l'invasion du pays de Dorn par les géants et les orcs, nombre de jeunes demi-orcs ont vu le jour. Traités en paria depuis la libération, ils se sont dispersés à travers les marches du Piémont. Enfin, loin au sud-est, la forêt de Luir-An-Doral abrite elle aussi de nombreuses tribus d'orcs et d'humains qui luttent également pour la survie. Ces tribus primitives n'ont pas de préjugés raciaux et les jeunes métisses sont bien acceptés des deux côtés. Ce n'est que lorsqu'ils quittent la jungle qu'ils découvrent les préjugés dont ils sont victimes.",
+    "roleplay": "Comme pour le demi-elfe, le caractère et les préjugés des demi-orcs dépendent beaucoup des conditions de leur éducation. Toutefois, contrairement à ce cousin « de bonne famille », il est bien rare qu'un enfant demi-orc ait eu la chance de bénéficier des soins d'un couple aimant et sans histoire. Les demi-orcs sont, plus souvent qu'à leur tour, élevés dans la misère par une mère seule, reniée même par sa propre famille, quand ils ne sont pas tout simplement déposés devant les portes d'un orphelinat ou d'un temple. Pour cette raison, on trouve presque autant de prêtres demi-orcs que de guerriers ou de voleurs. Lorsqu'ils sont recueillis par un ordre religieux, ils deviennent généralement d'une loyauté sans faille pour leur nouvelle famille et d'un zèle qui confine au fanatisme. Pour les autres, souvent rejetés et victimes de racisme, les demi-orcs apprennent rapidement à user de leur talent pour la violence afin de survivre.\n\nDans tous les cas, vous savez que vous devez vous montrer fort et impitoyable, car, à la moindre faiblesse, les « braves gens » se jeteront sur vous avec la bienveillance d'une bande de hyènes affamées. Alors vous avez appris à savourer la peur que vous allumez dans leur regard, lorsque vous découvrez vos crocs dans un rictus provocateur.",
+    "modifiers": [
+        {
+            "type": "choice",
+            "value": 1,
+            "options": [
+                "FOR",
+                "CON"
+            ],
+            "count": 1
+        },
+        {
+            "type": "choice",
+            "value": -1,
+            "options": [
+                "CHA",
+                "INT"
+            ],
+            "count": 1
+        }
+    ],
+    "minHeight": 170,
+    "maxHeight": 210,
+    "minWeight": 70,
+    "maxWeight": 150,
+    "startingAge": 15,
+    "lifeExpectancy": 60,
+    "physicalTraits": "Grand et athlétique. Peau verdâtre qui tend parfois vers un vert plus franc, mâchoire large, front bas, petits yeux.",
+    "typicalNames": "Les demi-orcs utilisent des prénoms humains, à moins qu'ils aient été élevés chez les orcs. Certains se choisissent aussi un prénom orc à l'âge adulte, en réaction à l'ostracisme dont ils sont victimes. Les noms orcs sont courts et gutturaux, privilégiez les lettres R, G et K, évitez une voyelle douce comme le E et préférez le O.\n\nMasculin: Aog, Bargul, Carok, Drog, Erok, Farg, Gorog, Hurl, Jorgul, Krok, Krush, Lugn, Mog, Norok, Rork, Urdu, etc.\n\nFéminin: Aoga, Bargula, Caroka, Droga, Eroka, Farga, Goroga, Hurla, Jorgula, Kroka, Krusha, Lugna, Moga, Noroka, Rorka, Urdua, etc.",
+    "availableVoiesIds": [
+        "voie_du_demiorque"
+    ],
+    "image": "\/assets\/races\/orc_half.png.webp",
+    "voies": [
+        {
+            "id": "voie_du_demiorque",
+            "nom": "Voie du demi-orque",
+            "capacites": [
+                {
+                    "rang": 1,
+                    "nom": "Impressionnant",
+                    "description": "Le demi-orc gagne un bonus de +3 à tous les tests d'intimidation. De plus, dans le noir total, le demi-orc voit comme dans la pénombre jusqu'à 30 m."
+                },
+                {
+                    "rang": 2,
+                    "nom": "Talent pour la violence",
+                    "description": "Le joueur choisit une capacité de rang 1 de n'importe quelle voie de barbare ou de guerrier."
+                },
+                {
+                    "rang": 3,
+                    "nom": "Critique brutal",
+                    "description": "Le demi-orc augmente de 1 point la zone de critique sur une attaque au contact (19-20 au d20) et ajoute +1d4° aux DM en cas de critique."
+                },
+                {
+                    "rang": 4,
+                    "nom": "Attaque sanglante",
+                    "type": "Action Limitée (L)",
+                    "description": "Le demi-orc réalise une attaque de contact qui provoque une hémorragie. En plus des DM normaux, l'attaque produit un saignement qui inflige à la victime 1d4° DM à chaque round suivant jusqu'à ce que la cible soit soignée (tout effet de soins ou une action limitée utilisée à cet effet). On ne peut pas cumuler plusieurs effets de saignement."
+                },
+                {
+                    "rang": 5,
+                    "nom": "Colosse",
+                    "description": "Le demi-orc augmente ses valeurs de FOR et de CON de +1."
+                }
+            ]
+        }
+    ]
+}

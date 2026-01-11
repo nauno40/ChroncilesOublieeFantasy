@@ -5,8 +5,6 @@
 This directory contains both **legacy** and **normalized** data files.
 
 ### Normalized Files (✅ Use These)
-- `races.json` - Character races with IDs
-- `profiles.json` - Character classes/profiles with IDs
 - `voies.json` - Character paths with profile references
 - `capacites.json` - Abilities with profile/voie references
 - `weapons.json` - Weapons with IDs
@@ -18,8 +16,6 @@ This directory contains both **legacy** and **normalized** data files.
 - `states.json` - Harmful states with IDs
 
 ### Legacy Files (⚠️ Deprecated)
-- `Races.json` - Use `races.json` instead
-- `Profils.json` - Use `profiles.json` instead
 - `Voies.json` - Use `voies.json` instead
 - `Capacités.json` - Use `capacites.json` instead
 - `Armes.json` - Use `weapons.json` instead

@@ -1,0 +1,69 @@
+{
+    "id": "elfe_sylvain",
+    "name": "Elfe sylvain",
+    "description": "L'elfe sylvain est issu d'une culture différente de celle des elfes hauts. Légèrement plus petits, ils vivent au plus profond des forêts, s'abritant dans les arbres et vivant simplement de la chasse et de la cueillette. Moins arrogants que leurs cousins hauts elfes, ils sont cependant beaucoup plus méfiants. Ils maîtrisent particulièrement l'art du camouflage et l'utilisation de l'arc.",
+    "detailedDescription": "**Dans les Terres d'Osgild.** Les elfes sylvains partagent la grande forêt de Hautesylve avec les elfes hauts, mais ils sont beaucoup moins présents que ces derniers au sud et autour de la capitale Syndoril. Ils sont en revanche majoritaires plus au nord, autour du lac Thuléa. Ils s'impliquent beaucoup moins dans la politique que leurs cousins, ils sont plus proches de la nature, moins rêveurs et plus pragmatiques. Les elfes sylvains sont également nombreux dans les forêts du nord de la principauté d'Arly : le bois de Myrviel autour de Clairval ou Bois dormant autour de Myrlune. Ces elfes sont des citoyens de la principauté et un de leurs représentants siège au grand conseil de la nation. Enfin, une importante communauté d'elfes sylvains vit dans la dangereuse forêt de Luir-An-Doral, loin au sud-est, une jungle dont on ne sait que peu de choses. Une origine parfaite pour tout elfe sauvage (barbare). Les elfes sylvains vivent en petites communautés, un peu partout où on peut trouver une forêt. Ainsi un elfe sylvain peut venir d'une contrée lointaine, comme les forêts enneigées du Nord où naissent les elfes du givre à la peau blanche.",
+    "roleplay": "Vous êtes un écologiste dans un monde qui ne connaît pas la signification de ce mot. Pour vous, la nature — plus particulièrement la forêt — est une mère qu'il faut aimer et respecter. Au mieux, vous ne comprenez pas ceux qui détruisent vos très chers arbres, au pire, vous les haïssez. Si les elfes sylvains ne respectaient pas autant la valeur de la vie, le métier de bûcheron serait sans aucun doute le plus dangereux des Terres d'Osgild. Vous partagez avec vos cousins elfes hauts une langue, une culture et un amour des arts et de la beauté, mais vos goûts sont plus simples. En particulier vous préférez les tenues fonctionnelles et les couleurs de la nature, tandis que les elfes hauts aiment le bleu, le blanc, l'or ou l'argent. Vous êtes méfiant vis-à-vis des étrangers, peut-être plus encore que vos cousins, et vous ne cherchez pas à vous en cacher. Pourtant, vous restez moins prompt qu'eux à juger sur les apparences.",
+    "modifiers": [
+        {
+            "type": "choice",
+            "value": 1,
+            "options": [
+                "AGI",
+                "PER"
+            ],
+            "count": 1
+        },
+        {
+            "type": "fixed",
+            "stat": "FOR",
+            "value": -1
+        }
+    ],
+    "minHeight": 140,
+    "maxHeight": 170,
+    "minWeight": 30,
+    "maxWeight": 60,
+    "startingAge": 50,
+    "lifeExpectancy": 350,
+    "physicalTraits": "Menu, svelte. Oreilles pointues, yeux en amandes (verts, violets), cheveux sombres (bruns, noirs, roux), tatouages, pilosité absente.",
+    "typicalNames": "Les elfes des bois ont des noms assez similaires à ceux des elfes hauts, quoique ceux des sylvains soient plus simples. Chez les femmes, la dernière consonne ou la dernière voyelle est doublée. Chez les hommes, les terminaisons -din, -dor, -ion sont privilégiées.\n\nMasculin: Aëdin, Caëndor, Cirion, Doralion, Ealdor, Findalion, Glorfindor, Haëldion, Laurendor, Morwendir, Raëldirion, etc.\n\nFéminin: Aëldill, Aluinill, Aliann, Dianaë, Eilinelle, Elenwëe, Lúthill, Nínielle, Nolwaënn, Mírielle, Keltienn, etc.",
+    "availableVoiesIds": [
+        "voie_de_l_elfe_sylvain"
+    ],
+    "image": "\/assets\/races\/elf_wood.png.webp",
+    "voies": [
+        {
+            "id": "voie_de_l_elfe_sylvain",
+            "nom": "Voie de l'elfe sylvain",
+            "capacites": [
+                {
+                    "rang": 1,
+                    "nom": "Lumière des étoiles",
+                    "description": "Pour un elfe sylvain, l'obscurité de la nuit sous la lumière des étoiles est considérée comme de la pénombre. De plus, l'elfe gagne un bonus de +3 à tous les tests de survie en forêt (escalade, discrétion, chasse, etc.)."
+                },
+                {
+                    "rang": 2,
+                    "nom": "Enfant de la forêt",
+                    "description": "Le joueur choisit une capacité de rang 1 de n'importe quelle voie de druide ou de rôdeur. Il peut utiliser cette capacité en armure jusqu'à l'armure de cuir renforcé sans pénalité."
+                },
+                {
+                    "rang": 3,
+                    "nom": "Archer émérite",
+                    "description": "L'elfe augmente de 1 la zone de critique lorsqu'il utilise un arc (19-20 au d20) et ajoute +1d4° aux DM en cas de critique. Il sait utiliser les arcs courts, quel que soit son profil."
+                },
+                {
+                    "rang": 4,
+                    "nom": "Flèche sanglante",
+                    "type": "Action Limitée (L)",
+                    "description": "L'elfe fait une attaque à distance qui provoque une hémorragie. En plus des DM normaux, la flèche produit un effet de saignement qui inflige à la victime 1d4° DM à chaque round suivant jusqu'à ce que la cible soit soignée (tout effet de soins ou une action limitée utilisée à cet effet). On ne peut cumuler plusieurs effets de saignement."
+                },
+                {
+                    "rang": 5,
+                    "nom": "Supériorité elfique",
+                    "description": "L'elfe augmente ses valeurs d'AGI et PER de +1."
+                }
+            ]
+        }
+    ]
+}

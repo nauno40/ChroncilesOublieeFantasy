@@ -32,6 +32,7 @@ export const DataService = {
     getFamilies: () => ApiService.getAll<any>('creature_families?pagination=false&itemsPerPage=500'), // Creature Families
     getProfileFamilies: () => ApiService.getAll<Family>('families?pagination=false&itemsPerPage=500'), // Profile Families
     getRaces: () => ApiService.getAll<Race>('races?pagination=false&itemsPerPage=500'),
+    getRaceById: (id: string | number) => ApiService.getOne<Race>('races', id),
     getProfiles: () => ApiService.getAll<Profile>('profiles?pagination=false&itemsPerPage=500'),
     getVoies: () => ApiService.getAll<Voie>('voies?pagination=false&itemsPerPage=500'),
     getVoieById: (id: string | number) => ApiService.getOne<Voie>('voies', id),

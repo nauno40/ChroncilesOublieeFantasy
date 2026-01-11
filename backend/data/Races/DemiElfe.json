@@ -1,0 +1,41 @@
+{
+    "id": "demi_elfe",
+    "name": "Demi-elfe",
+    "description": "Le demi-elfe a hérité des qualités de ses deux parents (humain et elfe). Il est généralement traité avec condescendance parmi les elfes et perçu comme un elfe parmi les humains.",
+    "detailedDescription": "**Dans les Terres d'Osgild.** Ce n'est pas une surprise, mais les demi-elfes sont plus nombreux à proximité des lieux habités par les elfes, notamment à la lisière de la grande forêt de Hautesylve. Néanmoins, les elfes hauts sont trop fiers et arrogants, et les unions mixtes se terminent souvent en exil volontaire vers le bois de Myrviel, suffisamment accueillant pour qu'une famille s'y établisse, et suffisamment proche de Hautesylve pour que le parent elfe reste en contact avec les siens. Ainsi, la principauté d'Arly abrite la plus grande concentration de demi-elfe. Outre Myrviel, les demi-elfes sont particulièrement communs dans la forêt de Bois dormant où les sang-mêlé ont plus souvent un héritage elfe sylvain.\n\nLes demi-elfes sont bien acceptés dans les nations humaines où, au pire, on les confond avec des elfes, mais en dehors de la principauté d'Arly, ils restent considérés comme des gens d'exception, à raison. Le protectorat de Fer est une exception notoire, sa politique raciste envers les peuples non humains étant particulièrement exacerbée envers ceux qu'elle appelle les sangs impurs.",
+    "roleplay": "Le caractère et les aspirations d'un demi-elfe dépendent surtout de son éducation. Vous devez déterminer lequel de vos deux parents était un elfe et s'il s'agissait d'un elfe haut ou d'un elfe sylvain. Vos deux parents vous ont-ils élevé ensemble ? Si c'est le cas, vous avez probablement une vision éclairée et tolérante des différentes cultures. Mais si ce n'est pas le cas, vous avez peut-être hérité de quelques préjugés, voire d'un certain ressentiment pour la culture qui vous a renié.\n\nToutefois, presque tous les demi-elfes ont un point commun : ils sont souvent d'une nature poétique, voire mélancolique. En effet, il n'est pas facile de voir les ravages que cause une si grande différence d'espérance de vie entre vos deux parents, et entre vos parents et vous-même. Cela pousse inévitablement le jeune demi-elfe à se poser des questions existentielles sur l'amour, la vie et la mort. Pour cette raison, alors que les elfes détestent généralement la nécromancie, c'est une spécialité qui n'est pas rare chez les sang-mêlé. Cette fragilité intérieure associée à la dualité de culture fait aussi des demi-elfes des bardes d'exception.",
+    "modifiers": [
+        {
+            "type": "choice",
+            "value": 1,
+            "options": [
+                "PER",
+                "CHA"
+            ],
+            "count": 1
+        },
+        {
+            "type": "choice",
+            "value": -1,
+            "options": [
+                "FOR",
+                "CON"
+            ],
+            "count": 1
+        }
+    ],
+    "minHeight": 150,
+    "maxHeight": 190,
+    "minWeight": 40,
+    "maxWeight": 80,
+    "startingAge": 20,
+    "lifeExpectancy": 150,
+    "physicalTraits": "Grâce naturelle, oreilles légèrement pointues, pilosité faible.",
+    "typicalNames": "Les noms des personnages demi-elfes reflètent souvent leur double nature et ils se composent d'un prénom elfique et d'un nom de famille humain. L'inverse est plus rare car les elfes n'acceptent pas qu'une créature avec une durée de vie aussi brève porte le nom de leur lignée.",
+    "availableVoiesIds": [
+        "voie_de_l_humain",
+        "voie_de_l_elfe_sylvain",
+        "voie_du_hautelfe"
+    ],
+    "image": "\/assets\/races\/elf_half.png.webp"
+}

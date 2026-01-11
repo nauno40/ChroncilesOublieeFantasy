@@ -49,7 +49,10 @@ class AppFixtures extends Fixture
         $profileFamilies = $this->loadProfileFamilies($manager);
 
         // 5. Load Profiles (Rich Data) - Includes Voies and Capabilities
-        $this->loadRichProfiles($manager, $profileFamilies, $equipment);
+        $profiles = $this->loadRichProfiles($manager, $profileFamilies, $equipment);
+
+        // 5.5 Load Shared/Racial Voies (Legacy & Races)
+        $this->loadVoies($manager, $profiles, $races);
 
         // 6. Load Creatures
         $this->loadCreatures($manager, $familyContext['monsterMap']);
@@ -122,7 +125,7 @@ class AppFixtures extends Fixture
         return $entities;
     }
 
-    private function loadRichProfiles(ObjectManager $manager, array $families, array $equipment): void
+    private function loadRichProfiles(ObjectManager $manager, array $families, array $equipmentMap): array
     {
         // Map Profile Name to Family ID based on user prompt/knowledge
         $familyMap = [
@@ -144,6 +147,8 @@ class AppFixtures extends Fixture
 
         $finder = new Finder();
         $finder->files()->in($this->dataDir . '/Profils')->name('*.json');
+
+        $profileMap = [];
 
         foreach ($finder as $file) {
             $data = json_decode($file->getContents(), true);
@@ -208,6 +213,10 @@ class AppFixtures extends Fixture
             
             $manager->persist($e);
             
+            // Map entry
+            $key = strtolower($file->getBasename('.json'));
+            $profileMap[$key] = $e;
+            
             // VOIES
             if (isset($data['voies'])) {
                 foreach ($data['voies'] as $voieData) {
@@ -237,6 +246,7 @@ class AppFixtures extends Fixture
                 }
             }
         }
+        return $profileMap;
     }
 
     private function loadCreatureFamilies(ObjectManager $manager): array
@@ -272,10 +282,13 @@ class AppFixtures extends Fixture
 
     private function loadRaces(ObjectManager $manager): array
     {
-        $data = $this->getData('races.json');
         $entities = [];
+        $finder = new Finder();
+        $finder->files()->in($this->dataDir . '/Races')->name('*.json');
 
-        foreach ($data as $item) {
+        foreach ($finder as $file) {
+            $item = json_decode($file->getContents(), true);
+            
             $e = new Race();
             $e->setName($item['name']);
             $e->setDescription($item['description'] ?? null);
@@ -350,13 +363,59 @@ class AppFixtures extends Fixture
         }
 
         // Link Races to Available Voies
-        $racesData = $this->getData('races.json');
-        foreach ($racesData as $raceItem) {
-            if (isset($raceItem['availableVoiesIds']) && isset($races[$raceItem['id']])) {
-                $raceEntity = $races[$raceItem['id']];
-                foreach ($raceItem['availableVoiesIds'] as $voieId) {
-                    if (isset($entities[$voieId])) {
-                        $raceEntity->addAvailableVoie($entities[$voieId]);
+        // Re-read from individual files
+        $finder = new Finder();
+        $finder->files()->in($this->dataDir . '/Races')->name('*.json');
+        
+        foreach ($finder as $file) {
+            $raceItem = json_decode($file->getContents(), true);
+            $raceEntity = $races[$raceItem['id']] ?? null;
+
+            if ($raceEntity) {
+                // 1. Process embedded Racial Voies (created by enrich_races.php)
+                if (isset($raceItem['voies'])) {
+                    foreach ($raceItem['voies'] as $voieData) {
+                        $voieId = $voieData['id'];
+                        
+                        // Create or Get Voie Entity
+                        if (isset($entities[$voieId])) {
+                            $voie = $entities[$voieId];
+                        } else {
+                            $voie = new Voie();
+                            // $voie->setId($voieId); // Removed: ID is auto-generated int
+                            $manager->persist($voie);
+                            $entities[$voieId] = $voie;
+                        }
+                        
+                        $voie->setName($voieData['nom']);
+                        $voie->setCategory('Race');
+                        
+                        // Link to Race
+                        $raceEntity->addAvailableVoie($voie);
+                        
+                        // Capabilities
+                        if (isset($voieData['capacites'])) {
+                            foreach ($voieData['capacites'] as $capData) {
+                                $cap = new Capability();
+                                $cap->setName($capData['nom']);
+                                $cap->setDescription($capData['description'] ?? '');
+                                $cap->setRank($capData['rang']);
+                                $type = $capData['type'] ?? '';
+                                $cap->setLimited(str_contains(strtolower($type), 'limité'));
+                                $cap->setIsSpell(str_contains(strtolower($type), 'sort'));
+                                $cap->setVoie($voie);
+                                $manager->persist($cap);
+                            }
+                        }
+                    }
+                }
+
+                // 2. Process legacy/shared references
+                if (isset($raceItem['availableVoiesIds'])) {
+                    foreach ($raceItem['availableVoiesIds'] as $voieId) {
+                        if (isset($entities[$voieId])) {
+                            $raceEntity->addAvailableVoie($entities[$voieId]);
+                        }
                     }
                 }
             }

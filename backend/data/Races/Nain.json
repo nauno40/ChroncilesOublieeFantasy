@@ -1,0 +1,68 @@
+{
+    "id": "nain",
+    "name": "Nain",
+    "description": "Le nain est petit mais robuste. Célèbre pour sa barbe, il aime les profondeurs de la terre, dont il extrait des métaux et des pierres précieuses. Isolé, il est généralement ouvert et chaleureux, mais la société naine peut paraître sévère, car le travail et l'entraînement militaire y sont des obligations.",
+    "detailedDescription": "**Dans les Terres d'Osgild.** La principale nation des nains est située dans les monts Argentés, dans la vallée de Kaerimbor, mais on trouve aussi de fortes concentrations du peuple du roc à Xélys (au sud des marches du Piémont) et à Fort Colline, une ville minière entourée de collines d'où l'on extrait tout le fer de la principauté d'Arly. Kaer Glimmerstern est une vaste citée souterraine construite autour d'un joyau de feu légendaire dans le nord des monts Ethernos (au sud-est). Enfin, de petites communautés de nains, appelées clans, sont aussi disséminées un peu partout dans le monde, dès que des montagnes et des mines sont accessibles.",
+    "roleplay": "Vous pouvez être taciturne ou braillard, mais vous ne faites pas les choses à moitié, et quand vous donnez votre avis, il est franc et massif, tant pis si cela froisse quelque susceptibilité. Vous êtes méfiant de prime abord, mais chaleureux une fois la glace rompue et vous savez entretenir l'amitié autour d'une bière ou deux... ou plus. La demi-mesure n'est pas votre fort. Votre parole est solide comme le roc et vos griefs durs comme l'acier. Vous êtes coriace, courageux, opiniâtre, et un combat ne vous fera jamais reculer. Oui, c'est vrai, vous aimez les joyaux et les métaux précieux, mais surtout parce qu'ils permettent de produire cet artisanat raffiné qui fait la fierté du peuple nain.\n\nDans les Terres d'Osgild, les nains éprouvent une nostalgie viscérale à la simple évocation de Kaer-Undün, leur ancien royaume souterrain des serres du Monde, abandonné aux ténèbres à la suite d'une terrible guerre contre les orcs et les géants, deux peuples qu'ils détestent. Ils entretiennent avec les elfes une relation paradoxale, faite de respect pour un peuple ancien, d'un esprit de compétition entre les deux antiques civilisations et d'une rancoeur tenace et si ancienne que tous semblent avoir à peu près oublié son origine, bien qu'elle soit d'une façon ou d'une autre liée à la période à laquelle Kaer-Undün fut perdu.",
+    "modifiers": [
+        {
+            "type": "choice",
+            "value": 1,
+            "options": [
+                "CON",
+                "VOL"
+            ],
+            "count": 1
+        },
+        {
+            "type": "fixed",
+            "stat": "AGI",
+            "value": -1
+        }
+    ],
+    "minHeight": 115,
+    "maxHeight": 135,
+    "minWeight": 50,
+    "maxWeight": 100,
+    "startingAge": 40,
+    "lifeExpectancy": 250,
+    "physicalTraits": "Robuste et trapu. Pilosité très développée (barbe). Tresses dans les cheveux et la barbe, bijoux et piercing. Non, les naines n'ont pas de barbe, tout juste un fin duvet avec l'âge.",
+    "typicalNames": "Les nains ont des prénoms courts et percutants, les principales terminaisons sont en -in, -un, -ik, ou -ir, mais il en existe d'autres. Suit généralement le nom de leur clan, qu'ils traduisent en langue commune pour mettre en avant l'idée qu'il véhicule. Chez les femmes, la terminaison en -hild ou -id est la plus courante.\n\nMasculin: Gloin Mâchefer, Krorin Briseroc, Thorin Forgefer, Buldur Tranchetroll, Trorin Cassegranit, Orik Briselame, Durok Écu-de-chêne, Guerann Marteleur, Korik Peau-de-pierre, etc.\n\nFéminin: Astrid, Arnhild, Berthild, Brynild, Eldrid, Ermenhild, Frida, Gerda, Grimhild, Gudrun, Helga, Hilda, Ingrid, Klothild, Sigrid, Strida etc.",
+    "availableVoiesIds": [
+        "voie_du_nain"
+    ],
+    "image": "\/assets\/races\/dwarf.png.webp",
+    "voies": [
+        {
+            "id": "voie_du_nain",
+            "nom": "Voie du nain",
+            "capacites": [
+                {
+                    "rang": 1,
+                    "nom": "Habitant des tunnels",
+                    "description": "Dans le noir total, le nain voit comme dans la pénombre jusqu'à 30 m. De plus, il obtient un bonus de +3 à tous les tests en rapport avec la pierre, l'architecture ou les mines ainsi qu'avec les passages secrets et les pièges dans les murs et les parois rocheuses."
+                },
+                {
+                    "rang": 2,
+                    "nom": "Haches et marteaux",
+                    "description": "Le nain gagne un bonus de +1 en attaque et aux DM lorsqu'il utilise une hache ou un marteau de guerre. Il sait utiliser ces armes, quel que soit son profil."
+                },
+                {
+                    "rang": 3,
+                    "nom": "Résistance à la magie",
+                    "description": "Une fois par jour, le nain peut choisir d'ignorer les effets d'un sort qui le prend pour cible (mais pas un sort de zone). Les créatures dont le niveau (NC) est au moins égal au double du nain ignorent cette capacité."
+                },
+                {
+                    "rang": 4,
+                    "nom": "Fils du roc",
+                    "description": "Le nain réduit tous les DM subis de 2 points (mais il subit toujours au moins 1 DM par attaque reçue). La réduction passe à 3 au niveau 10. Elle est cumulable avec d'autres sources de réduction des DM comme la peau d'acier du barbare."
+                },
+                {
+                    "rang": 5,
+                    "nom": "Ténacité",
+                    "description": "Le nain augmente ses valeurs de CON et de VOL de +1."
+                }
+            ]
+        }
+    ]
+}

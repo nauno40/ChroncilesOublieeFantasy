@@ -10,8 +10,11 @@
         },
         "statistiques": {
             "pv_par_niveau": 3,
-            "profil_type": "Lanceur de sorts / Contrôle / Utilité"
-        }
+            "profil_type": "Lanceur de sorts \/ Contrôle \/ Utilité",
+            "de_vie": "1D4",
+            "carac_magique": "CHA"
+        },
+        "image_url": "https:\/\/www.co-drs.org\/sites\/default\/files\/styles\/original_compressed\/public\/co\/profile\/2023-02\/sorcerer.png.webp?itok=39URpkyq"
     },
     "maitrises": {
         "armes": "Sait manier la dague et le bâton ferré.",
@@ -102,7 +105,7 @@
                 {
                     "rang": 5,
                     "nom": "Prescience",
-                    "type": "Passif / Début de round",
+                    "type": "Passif \/ Début de round",
                     "description_textuelle": "Une fois par combat, au début du round, le joueur peut décider qu’il a eu une vision des différents futurs possibles. Il bénéficie d’un bonus de +10 en attaque, en Défense et à tous les tests de PER pour tout le round, il divise tous les DM subis par 2 et il peut choisir d’agir à n’importe quel moment dans le round, sans considération d’initiative."
                 }
             ]

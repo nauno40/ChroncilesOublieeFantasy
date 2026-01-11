@@ -9,12 +9,16 @@
         },
         "statistiques": {
             "pv_par_niveau": 4,
-            "profil_type": "Soutien / Guérisseur / Combattant divin"
-        }
+            "profil_type": "Soutien \/ Guérisseur \/ Combattant divin",
+            "de_vie": "1D8",
+            "carac_magique": "PER"
+        },
+        "image_url": "https:\/\/www.co-drs.org\/sites\/default\/files\/styles\/original_compressed\/public\/co\/profile\/2023-02\/priest_1.png.webp?itok=mPP0AOgk",
+        "note_legacy": "Pouvoirs divins\n\nLes voies présentées ici sont génériques mais chaque dieu est particulier. Afin de personnaliser votre Prêtre, choisissez une autre arme sacrée et inventez vous-même (ou choisissez parmi les voies des autres profils) un pouvoir de rang 1 ou 2 que le personnage prendra en remplacement d’une capacité de même rang. L'arme sacrée et le pouvoir devra symboliser fortement sa religion et les directives du culte.\n"
     },
     "maitrises": {
         "armes": "Armes contondantes à une main, bâton ferré.",
-        "interdictions": "Interdiction morale de faire couler le sang (pas d'armes tranchantes/perçantes, sauf exception arme sacrée d'un prêtre spécialiste).",
+        "interdictions": "Interdiction morale de faire couler le sang (pas d'armes tranchantes\/perçantes, sauf exception arme sacrée d'un prêtre spécialiste).",
         "armures": "Chemise de mailles (maximum).",
         "boucliers": "Petit bouclier (+1 DEF)."
     },
@@ -174,7 +178,7 @@
                 {
                     "rang": 4,
                     "nom": "Phénix",
-                    "type": "Passif / Réaction",
+                    "type": "Passif \/ Réaction",
                     "description_textuelle": "Une fois par jour, lorsque le personnage tombe à 0 PV, il se relève, nimbé d’une aura de lumière. Il produit alors une onde d’énergie positive qui restitue [2d4°+CHA du prêtre] PV à tous ses alliés dans un rayon de 20 m, et il récupère lui‑même le double de PV."
                 },
                 {

@@ -10,8 +10,11 @@
         },
         "statistiques": {
             "pv_par_niveau": 3,
-            "profil_type": "Lanceur de sorts / Invocateur / Debuff"
-        }
+            "profil_type": "Lanceur de sorts \/ Invocateur \/ Debuff",
+            "de_vie": "1D4",
+            "carac_magique": "INT"
+        },
+        "image_url": "https:\/\/www.co-drs.org\/sites\/default\/files\/styles\/original_compressed\/public\/co\/profile\/2023-02\/necromancer.png.webp?itok=DkvQs34L"
     },
     "maitrises": {
         "armes": "Sait manier la dague et le bâton.",

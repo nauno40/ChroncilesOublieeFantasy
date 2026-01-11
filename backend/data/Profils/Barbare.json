@@ -12,8 +12,10 @@
         },
         "statistiques": {
             "pv_par_niveau": 5,
-            "profil_type": "Combattant au contact / Tank (PV)"
-        }
+            "profil_type": "Combattant au contact \/ Tank (PV)",
+            "de_vie": "1D12"
+        },
+        "image_url": "https:\/\/www.co-drs.org\/sites\/default\/files\/styles\/original_compressed\/public\/co\/profile\/2023-02\/barbarian.png.webp?itok=dHQHS0Ze"
     },
     "maitrises": {
         "armes_armures": "Le barbare sait manier toutes les armes au contact, toutes les armes à distance (sauf les arbalètes et les armes d’une technologie trop complexe). Les voies de barbare limitent l’armure au cuir renforcé. Le barbare peut en revanche utiliser tous les boucliers.",
@@ -142,7 +144,7 @@
                 {
                     "rang": 3,
                     "nom": "Enchaînement",
-                    "type": "Passif / Action Gratuite",
+                    "type": "Passif \/ Action Gratuite",
                     "description_textuelle": "Chaque fois que le barbare réduit un adversaire à 0 PV avec une attaque de contact, il bénéficie d’une action d’attaque gratuite sur un autre adversaire à son contact. Enchaînement ne peut pas être cumulé à un déchaînement d’acier ou une attaque tourbillon."
                 },
                 {
@@ -196,7 +198,7 @@
         },
         {
             "nom": "Voie de la Rage",
-            "restrictions_generales": "La rage ne s'accorde avec aucune capacité nécessitant maîtrise et concentration (sorts, attaque sournoise, etc.). Non cumulable avec : Voie du maître d’armes (guerrier), Voie de l’escrime (barde), Voie de la maîtrise/méditation (moine), Voie du spadassin/assassin (voleur).",
+            "restrictions_generales": "La rage ne s'accorde avec aucune capacité nécessitant maîtrise et concentration (sorts, attaque sournoise, etc.). Non cumulable avec : Voie du maître d’armes (guerrier), Voie de l’escrime (barde), Voie de la maîtrise\/méditation (moine), Voie du spadassin\/assassin (voleur).",
             "capacites": [
                 {
                     "rang": 1,
@@ -207,7 +209,7 @@
                 {
                     "rang": 2,
                     "nom": "Défier la mort",
-                    "type": "Passif / Réaction",
+                    "type": "Passif \/ Réaction",
                     "description_textuelle": "Une fois par combat, lorsque le barbare subit des DM d’une attaque qui devrait l’amener à 0 PV, il peut réaliser un test de CON difficulté 10. En cas de réussite, il conserve 1 PV. S’il est enragé, la réussite est automatique."
                 },
                 {
@@ -219,7 +221,7 @@
                 {
                     "rang": 4,
                     "nom": "Même pas mal",
-                    "type": "Passif / Réaction",
+                    "type": "Passif \/ Réaction",
                     "description_textuelle": "Une fois par combat, le barbare peut ignorer les DM d’un coup critique (il ne subit aucun DM) et il peut alors immédiatement entrer en Rage par une action gratuite."
                 },
                 {

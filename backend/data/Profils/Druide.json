@@ -10,8 +10,11 @@
         },
         "statistiques": {
             "pv_par_niveau": 4,
-            "profil_type": "Prêtre de la nature / Invocateur / Polyvalent"
-        }
+            "profil_type": "Prêtre de la nature \/ Invocateur \/ Polyvalent",
+            "de_vie": "1D8",
+            "carac_magique": "PER"
+        },
+        "image_url": "https:\/\/www.co-drs.org\/sites\/default\/files\/styles\/original_compressed\/public\/co\/profile\/2023-02\/druid.png.webp?itok=VZOEhX75"
     },
     "maitrises": {
         "armes": "Dague, bâton noueux (équivalent bâton ferré), épieu, javelot, arc court.",

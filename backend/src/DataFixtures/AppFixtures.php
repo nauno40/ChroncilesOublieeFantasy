@@ -156,26 +156,24 @@ class AppFixtures extends Fixture
             
             // Stats
             $stats = $classData['statistiques'] ?? [];
-            if (isset($stats['pv_par_niveau'])) {
-                // Note: Profile::hitDie is a string (e.g., "1D8"). 
-                // Family has baseHp (int).
-                // Let's set the Hit Die string based on family if possible or use generic map.
-                // Or just use the int as string "d{val}"?
-                // The current entity uses hitDie string.
-                // Families have recoveryDie.
-                // Let's use Families defaults if missing, or specific if present.
-                // The JSON has "pv_par_niveau": 4.
-                // Let's store "d8" etc standard.
+            if (isset($stats['de_vie'])) {
+                $e->setHitDie($stats['de_vie']);
             }
-            // For now, let's trust the family default for hitDie/RecDie logic or just hardcode based on family
+            if (isset($stats['carac_magique'])) {
+                $e->setMagicStat($stats['carac_magique']); 
+            }
+            if (isset($classData['image_url'])) {
+                $e->setImageUrl($classData['image_url']);
+            }
             
             $famId = $familyMap[$name] ?? null;
             if ($famId && isset($families[$famId])) {
                 $family = $families[$famId];
                 $e->setFamily($family);
-                $e->setHitDie($family->getRecoveryDie()); // Often Hit Die = Recovery Die in COF? Or close?
-                // Prompt says: "Points de vigueur / niveau : 4". Hit Die is usually distinct.
-                // Let's rely on standard COF rules or just leave defaults.
+                // Fallback Hit Die if not set
+                if (!$e->getHitDie()) {
+                     $e->setHitDie($family->getRecoveryDie()); 
+                }
             }
 
             // Lore
@@ -184,8 +182,19 @@ class AppFixtures extends Fixture
             }
             
             // Notes logic
-            // Preserve legacy note, but prefer structured masteries
-            $e->setNote(($data['maitrises']['special'] ?? '') . "\n" . ($data['maitrises']['armes_armures'] ?? ''));
+            // Concatenate legacy note if present
+            $note = ($data['maitrises']['special'] ?? '') . "\n" . ($data['maitrises']['armes_armures'] ?? '');
+            if (isset($classData['note_legacy'])) {
+                $note .= "\n\n" . $classData['note_legacy'];
+            }
+            $e->setNote(trim($note));
+
+            if (isset($data['maitrises'])) {
+                $e->setMasteries($data['maitrises']);
+            }
+            
+            // ... (rest of code)
+
 
             if (isset($data['maitrises'])) {
                 $e->setMasteries($data['maitrises']);
@@ -318,24 +327,7 @@ class AppFixtures extends Fixture
         return $entities;
     }
 
-    private function loadProfiles(ObjectManager $manager): array
-    {
-        $data = $this->getData('profiles.json');
-        $entities = [];
 
-        foreach ($data as $item) {
-            $e = new Profile();
-            $e->setName($item['name']);
-            $e->setDescription($item['description'] ?? null);
-            $e->setNote($item['note'] ?? null);
-            $e->setHitDie($item['hitDie'] ?? 'd8');
-            $e->setSkillPoints(2); // Default
-            
-            $manager->persist($e);
-            $entities[$item['id']] = $e;
-        }
-        return $entities;
-    }
 
     private function loadVoies(ObjectManager $manager, array $profiles, array $races): array
     {
@@ -449,9 +441,8 @@ class AppFixtures extends Fixture
         // Mounts
         $mounts = $this->getData('mounts.json');
         foreach ($mounts as $item) {
-            $e = new Equipment();
+            $e = new \App\Entity\Mount();
             $e->setName($item['name']);
-            $e->setType('Mount');
             $e->setPrice($item['price'] ?? null);
             $manager->persist($e);
         }
@@ -459,9 +450,8 @@ class AppFixtures extends Fixture
         // Food
         $food = $this->getData('food.json');
         foreach ($food as $item) {
-            $e = new Equipment();
+            $e = new \App\Entity\Food();
             $e->setName($item['name']);
-            $e->setType('Food');
             $e->setPrice($item['price'] ?? null);
             $manager->persist($e);
         }
@@ -469,9 +459,8 @@ class AppFixtures extends Fixture
         // Lodging
         $lodging = $this->getData('lodging.json');
         foreach ($lodging as $item) {
-            $e = new Equipment();
+            $e = new \App\Entity\Lodging();
             $e->setName($item['name']);
-            $e->setType('Lodging');
             $e->setPrice($item['price'] ?? null);
             $manager->persist($e);
         }

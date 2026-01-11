@@ -10,8 +10,10 @@
         },
         "statistiques": {
             "pv_par_niveau": 5,
-            "profil_type": "Combattant monté / Tank / Leader"
-        }
+            "profil_type": "Combattant monté \/ Tank \/ Leader",
+            "de_vie": "1D10"
+        },
+        "image_url": "https:\/\/www.co-drs.org\/sites\/default\/files\/styles\/original_compressed\/public\/co\/profile\/2023-02\/knight.png.webp?itok=1Dq6PaS4"
     },
     "maitrises": {
         "armes": "Sait manier toutes les armes de contact. Dédaigne les armes à distance (considérées comme des armes de couard).",
@@ -83,7 +85,7 @@
                 {
                     "rang": 5,
                     "nom": "Monture fantastique",
-                    "type": "Passif / Action Gratuite",
+                    "type": "Passif \/ Action Gratuite",
                     "description_textuelle": "Le chevalier obtient une monture puissante (cheval de guerre lourd, ours, félin géant, etc.). Lorsqu’il est en selle, le chevalier peut faire attaquer sa monture une fois par round en action gratuite. À partir du niveau 9, peut être une monture volante (pégase, griffon...) si le MJ l'autorise.",
                     "statistiques_monture_fantastique": {
                         "defense": "20",

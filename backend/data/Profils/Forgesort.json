@@ -10,8 +10,12 @@
         },
         "statistiques": {
             "pv_par_niveau": 3,
-            "profil_type": "Magicien-Artisan / Soutien / Contrôle"
-        }
+            "profil_type": "Magicien-Artisan \/ Soutien \/ Contrôle",
+            "de_vie": "1D6",
+            "carac_magique": "INT"
+        },
+        "image_url": "https:\/\/www.co-drs.org\/sites\/default\/files\/styles\/original_compressed\/public\/co\/profile\/2023-02\/forgesort.png.webp?itok=x79UJDx3",
+        "note_legacy": "Science, pas science ?\n\nCe Profil est particulièrement adapté aux univers où le développement technologique n’est pas en reste (tendance Steampunk, Les Royaumes d’Acier ou Eberron par exemple). Dans ce genre d’univers, vous pouvez le typer plus fortement en renommant la Voie du golem en Voie du méca et plutôt que des sorts, tous les effets sont obtenus par de nombreux objets étranges portés, ingérés ou greffés."
     },
     "maitrises": {
         "armes": "Dague, bâton, marteau, arbalète légère.",
@@ -39,7 +43,7 @@
                 {
                     "rang": 1,
                     "nom": "Bâton de mage",
-                    "type": "Passif / Action Limitée",
+                    "type": "Passif \/ Action Limitée",
                     "description_textuelle": "Lorsqu’il utilise son bâton, le forgesort inflige [1d4°+INT] DM magiques. À partir du rang 3, au prix d’une action limitée, il peut utiliser sa valeur d’attaque magique pour une attaque au contact et il inflige [2d4°+INT] DM dans un éclair d’énergie ! Si le forgesort fait l’acquisition d’un bâton magique, les bonus de celui‑ci s’ajouteront normalement à l’attaque et aux DM (de même pour le bonus de feu de la voie du métal)."
                 },
                 {
@@ -70,7 +74,7 @@
         },
         {
             "nom": "Voie des Élixirs",
-            "mecanique_elixirs": "Prépare [Rang] élixirs par jour ( +1 au rang 3 d'une voie forgesort). Préparation le matin (30 min). Validité 1 jour. Boire = Action Limitée. Si acquis via une autre voie : seulement 2/jour (ou 1 majeur).",
+            "mecanique_elixirs": "Prépare [Rang] élixirs par jour ( +1 au rang 3 d'une voie forgesort). Préparation le matin (30 min). Validité 1 jour. Boire = Action Limitée. Si acquis via une autre voie : seulement 2\/jour (ou 1 majeur).",
             "capacites": [
                 {
                     "rang": 1,
@@ -160,8 +164,8 @@
                         "initiative": "Init. du forgesort",
                         "attaque": "Attaque magique du forgesort",
                         "dommages": "1d4° + 1",
-                        "soin_reparation": "Ne guérit pas naturellement. Réparation : [1d6/rang + INT] PV/heure.",
-                        "destruction": "Reconstruction en 1d6+3 jours (+1d6/amélioration)."
+                        "soin_reparation": "Ne guérit pas naturellement. Réparation : [1d6\/rang + INT] PV\/heure.",
+                        "destruction": "Reconstruction en 1d6+3 jours (+1d6\/amélioration)."
                     }
                 },
                 {
@@ -226,7 +230,7 @@
                     "rang": 5,
                     "nom": "Rune de garde",
                     "type": "Rituel (10 min)*",
-                    "description_textuelle": "Le forgesort inscrit des runes invisibles au sol. Il protège une zone (10 m de diamètre, porte ou coffre) pendant 12 h. Déclenchement à l'intrusion. Coût : 3 PM. Effet au choix : 1) Alarme (Gong + étourdi 1 round, test CON 15) ou 2) Élémentaire ([3d4°+INT] DM feu/foudre/froid/acide)."
+                    "description_textuelle": "Le forgesort inscrit des runes invisibles au sol. Il protège une zone (10 m de diamètre, porte ou coffre) pendant 12 h. Déclenchement à l'intrusion. Coût : 3 PM. Effet au choix : 1) Alarme (Gong + étourdi 1 round, test CON 15) ou 2) Élémentaire ([3d4°+INT] DM feu\/foudre\/froid\/acide)."
                 }
             ]
         }

@@ -5,13 +5,17 @@
         "lore": {
             "origines": "Peut être issu d'un monastère, un gladiateur formé à la lutte, ou un enfant sauvage. Les capacités peuvent être déclinées avec une arme de prédilection (profils hybrides).",
             "principaute_arly": "Ordre de Saint Môn à Monastir (garde de la Grande Bibliothèque). Enseignement libre aux auditeurs ou disciples.",
-            "elfes": "Ordre Tyr’Nan Lwe (Elfes verts) à Hautesylve. Pacifistes stricts (pas de métal/pierre pour blesser, pas de monnaie). Respectés mais considérés comme fous.",
+            "elfes": "Ordre Tyr’Nan Lwe (Elfes verts) à Hautesylve. Pacifistes stricts (pas de métal\/pierre pour blesser, pas de monnaie). Respectés mais considérés comme fous.",
             "iles_ouister": "Intense tradition monastique sur des pics vertigineux. Tournois réguliers."
         },
         "statistiques": {
             "pv_par_niveau": 4,
-            "profil_type": "Combattant agile / Corps à corps / Mystique"
-        }
+            "profil_type": "Combattant agile \/ Corps à corps \/ Mystique",
+            "de_vie": "1D8",
+            "carac_magique": "PER"
+        },
+        "image_url": "https:\/\/www.co-drs.org\/sites\/default\/files\/styles\/original_compressed\/public\/co\/profile\/2023-02\/monk.png.webp?itok=sBEQSj2V",
+        "note_legacy": "Bien que d’inspiration asiatique, ce Moine est un moine-guerrier qui peut être adapté à de nombreux mondes fantastiques. Si cela ne colle pas avec votre univers, vous pouvez facilement transposer les capacités de combat à mains nues avec une arme (l’épée par exemple) afin d’occidentaliser ce profil."
     },
     "maitrises": {
         "armes": "Sait manier toutes les armes (sauf armes à poudre). La plupart préfèrent les mains nues (infligent des DM létaux sur demande).",
@@ -48,7 +52,7 @@
                 {
                     "rang": 4,
                     "nom": "Pression mortelle",
-                    "type": "Action de Mouvement (M) / Limitée (L)",
+                    "type": "Action de Mouvement (M) \/ Limitée (L)",
                     "description_textuelle": "Le moine frappe les points par lesquels circule l’énergie vitale d’une créature vivante. Lorsqu’il combat à mains nues, le joueur peut choisir de ne pas infliger immédiatement les DM de ses attaques, il les comptabilise à part et ajoute +1d4° aux DM de chaque attaque. À tout moment dans l’heure qui suit, il peut annoncer une Pression mortelle. Il doit alors réussir un test d’attaque au contact contre la DEF de la cible (action limitée), ce qui libère instantanément la totalité des DM infligés jusqu’alors. À partir du niveau 10, le moine n’a plus besoin de toucher sa cible pour déclencher cet effet ; dans ce cas, il remplace le test d’attaque au contact par un test opposé d’attaque magique, mais n'a droit qu'à un seul essai."
                 },
                 {
@@ -89,7 +93,7 @@
                 {
                     "rang": 5,
                     "nom": "Moment de perfection",
-                    "type": "Passif / Action Gratuite",
+                    "type": "Passif \/ Action Gratuite",
                     "description_textuelle": "Une fois par jour, le moine peut choisir de réussir toutes ses attaques automatiquement (pas de critique) et d’esquiver toutes celles qui le prennent pour cible pendant un round. Tout semble aller au ralenti autour de lui... Il peut utiliser cette capacité une fois de plus chaque jour par rang 5 atteint dans une autre voie de moine, mais pas plus d’une fois par combat. De plus le moine augmente définitivement de +1 la valeur de sa plus faible caractéristique (choisir en cas d’égalité)."
                 }
             ]

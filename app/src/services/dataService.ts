@@ -10,11 +10,8 @@ import { ApiService } from './api';
 export const DataService = {
     getWeapons: async () => {
         const all = await ApiService.getAll<Weapon>('equipment?pagination=false&itemsPerPage=500');
-        // Filter out non-weapons (Mount, Food, Lodging, Armor)
-        // Heuristic: Weapons don't have types Mount/Food/Lodging. 
-        // Armors usually have 'Armure' or 'Bouclier' in type, or acBonus.
+        // Filter out armors client-side until DB is normalized for Weapon vs Armor
         return all.filter(e =>
-            !['Mount', 'Food', 'Lodging'].includes(e.type) &&
             !e.type.toLowerCase().includes('armure') &&
             !e.type.toLowerCase().includes('bouclier')
         );
@@ -27,9 +24,9 @@ export const DataService = {
         );
     },
     getMaterials: () => ApiService.getAll<Material>('materials?pagination=false&itemsPerPage=500'),
-    getFoods: () => ApiService.getAll<Food>('equipment?type=Food&pagination=false'),
-    getLodgings: () => ApiService.getAll<Lodging>('equipment?type=Lodging&pagination=false'),
-    getMounts: () => ApiService.getAll<Mount>('equipment?type=Mount&pagination=false'),
+    getFoods: () => ApiService.getAll<Food>('foods?pagination=false&itemsPerPage=500'),
+    getLodgings: () => ApiService.getAll<Lodging>('lodgings?pagination=false&itemsPerPage=500'),
+    getMounts: () => ApiService.getAll<Mount>('mounts?pagination=false&itemsPerPage=500'),
     getCreatures: () => ApiService.getAll<Creature>('creatures?pagination=false&itemsPerPage=500'),
     getCreatureById: (id: string | number) => ApiService.getOne<Creature>('creatures', id),
     getFamilies: () => ApiService.getAll<any>('creature_families?pagination=false&itemsPerPage=500'), // Creature Families
@@ -47,8 +44,8 @@ export const DataService = {
     // Provision helper (combines food and lodging)
     getProvisions: async (): Promise<(Food | Lodging)[]> => {
         const [foods, lodgings] = await Promise.all([
-            ApiService.getAll<Food>('equipment?type=Food&pagination=false'),
-            ApiService.getAll<Lodging>('equipment?type=Lodging&pagination=false')
+            ApiService.getAll<Food>('foods?pagination=false&itemsPerPage=500'),
+            ApiService.getAll<Lodging>('lodgings?pagination=false&itemsPerPage=500')
         ]);
         return [...foods, ...lodgings];
     },

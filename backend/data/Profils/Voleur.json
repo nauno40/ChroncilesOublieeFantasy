@@ -9,10 +9,10 @@
         },
         "statistiques": {
             "pv_par_niveau": 4,
-            "profil_type": "Furtif \/ Technique",
+            "profil_type": "Furtif / Technique",
             "de_vie": "1D8"
         },
-        "image_url": "https:\/\/www.co-drs.org\/sites\/default\/files\/styles\/original_compressed\/public\/co\/profile\/2023-02\/thief.png.webp?itok=uYf5aVTh"
+        "image_url": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/profile/2023-02/thief.png.webp?itok=uYf5aVTh"
     },
     "maitrises": {
         "armes": "Le voleur sait manier les armes de contact à une main et toutes les armes à distance.",
@@ -43,10 +43,6 @@
     "voies": [
         {
             "nom": "Voie de l'Assassin",
-            "mecaniques_specifiques": {
-                "attaquer_dans_le_dos": "Lorsque le voleur attaque la même créature qu’un allié au contact de cette cible, on considère qu’il peut attaquer celle‑ci dans le dos (sauf si la cible peut se placer dos à un obstacle infranchissable).",
-                "attaque_sournoise_distance": "Possible à distance (pas portée longue) uniquement contre un adversaire surpris (la règle de l'allié au contact ne s'applique pas à distance)."
-            },
             "capacites": [
                 {
                     "rang": 1,
@@ -78,7 +74,13 @@
                     "type": "Action Limitée (L)",
                     "description_textuelle": "Une fois par combat, le voleur obtient une réussite critique automatique contre la cible de son choix. Il profite donc d’une réussite automatique, des dommages multipliés par 2 prévus dans ce cas et d’une attaque sournoise (dont les DM ne sont pas doublés)."
                 }
-            ]
+            ],
+            "details": {
+                "mecaniques_specifiques": {
+                    "attaquer_dans_le_dos": "Lorsque le voleur attaque la même créature qu’un allié au contact de cette cible, on considère qu’il peut attaquer celle‑ci dans le dos (sauf si la cible peut se placer dos à un obstacle infranchissable).",
+                    "attaque_sournoise_distance": "Possible à distance (pas portée longue) uniquement contre un adversaire surpris (la règle de l'allié au contact ne s'applique pas à distance)."
+                }
+            }
         },
         {
             "nom": "Voie de l'Aventurier",
@@ -180,7 +182,7 @@
                 {
                     "rang": 5,
                     "nom": "Maître du poison",
-                    "type": "Passif \/ Action",
+                    "type": "Passif / Action",
                     "description_textuelle": "Le voleur peut utiliser 3 doses de poison par jour sans risque de s’empoisonner lui‑même. Une dose permet d’enduire une dague, une flèche ou un carreau pour infliger +2d4° DM supplémentaire et demande un test de CON difficulté (10 + INT du voleur) ou une cible vivante est affaiblie pour le reste du combat. Alternativement, une dose peut être versée dans les aliments pour une personne ; si la cible rate son test de CON, elle sombre dans l’inconscience pour 2d6 min (4d6 min pour 2 doses, etc.)."
                 }
             ]

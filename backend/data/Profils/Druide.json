@@ -10,11 +10,11 @@
         },
         "statistiques": {
             "pv_par_niveau": 4,
-            "profil_type": "Prêtre de la nature \/ Invocateur \/ Polyvalent",
+            "profil_type": "Prêtre de la nature / Invocateur / Polyvalent",
             "de_vie": "1D8",
             "carac_magique": "PER"
         },
-        "image_url": "https:\/\/www.co-drs.org\/sites\/default\/files\/styles\/original_compressed\/public\/co\/profile\/2023-02\/druid.png.webp?itok=VZOEhX75"
+        "image_url": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/profile/2023-02/druid.png.webp?itok=VZOEhX75"
     },
     "maitrises": {
         "armes": "Dague, bâton noueux (équivalent bâton ferré), épieu, javelot, arc court.",
@@ -62,11 +62,13 @@
                     "nom": "Petit compagnon",
                     "type": "Passif",
                     "description_textuelle": "Le druide choisit un petit animal (écureuil, corbeau, chat). Il peut utiliser les sens de son familier (voir par ses yeux, entendre ce qu’il entend, etc.) et communiquer avec lui à distance illimitée. Il gagne +2 en DEF lorsque son familier est en vue. Le familier récupère tous les PV perdus après une récupération rapide. S’il est réduit à 0 PV, le familier prend la fuite et réapparaît auprès de son maître 24 h plus tard, complètement soigné. S’il est tué (lors d’un fait de jeu que le MJ juge inévitable), le druide perd 1d4° PV en contrecoup et pourra trouver un autre familier au prochain passage de niveau. *Note : Bonus de DEF non cumulable avec le Familier du magicien.*",
-                    "statistiques_familier": {
-                        "caracteristiques": "AGI +3*, CON 0, FOR -4, PER +2*, INT -2, CHA -2, VOL +2 (*Dé bonus)",
-                        "defense": "13 + rang dans la voie",
-                        "pv": "Niveau du druide × 2",
-                        "combat": "Trop petit pour attaquer."
+                    "details": {
+                        "statistiques_familier": {
+                            "caracteristiques": "AGI +3*, CON 0, FOR -4, PER +2*, INT -2, CHA -2, VOL +2 (*Dé bonus)",
+                            "defense": "13 + rang dans la voie",
+                            "pv": "Niveau du druide × 2",
+                            "combat": "Trop petit pour attaquer."
+                        }
                     }
                 },
                 {
@@ -91,7 +93,6 @@
         },
         {
             "nom": "Voie du Fauve",
-            "regles_compagnon": "En ville : reste à l'extérieur. Soin : récupère comme un PJ. 0 PV : s'enfuit (retour 8h) ou doit être soigné. Mort : nouveau compagnon au niveau suivant.",
             "capacites": [
                 {
                     "rang": 1,
@@ -104,13 +105,15 @@
                     "nom": "Panthère",
                     "type": "Passif",
                     "description_textuelle": "Le druide apprivoise une panthère (ou un puma) qui lui obéit au doigt et à l’œil.",
-                    "statistiques_panthere": {
-                        "caracteristiques": "AGI +4*, CON +2, FOR +2, PER +2*, CHA -2, INT -3, VOL +2 (*Dé bonus)",
-                        "defense": "13 + rang dans la voie",
-                        "pv": "Niveau du druide × 4",
-                        "initiative": "Init. du druide",
-                        "attaque": "Attaque magique (Contact)",
-                        "dommages": "1d4 + 2"
+                    "details": {
+                        "statistiques_panthere": {
+                            "caracteristiques": "AGI +4*, CON +2, FOR +2, PER +2*, CHA -2, INT -3, VOL +2 (*Dé bonus)",
+                            "defense": "13 + rang dans la voie",
+                            "pv": "Niveau du druide × 4",
+                            "initiative": "Init. du druide",
+                            "attaque": "Attaque magique (Contact)",
+                            "dommages": "1d4 + 2"
+                        }
                     }
                 },
                 {
@@ -124,12 +127,14 @@
                     "nom": "Grand félin",
                     "type": "Passif (Amélioration)",
                     "description_textuelle": "La panthère devient un animal fabuleux ou est remplacée par un félin plus grand (tigre, lion). Le grand félin peut servir de monture au druide et il se déplace de 20 m par action de mouvement. Le druide peut communiquer avec son félin par télépathie et le guérir à distance en dépensant ses propres PV (‑1 PV au druide par PV octroyé au félin).",
-                    "statistiques_grand_felin": {
-                        "caracteristiques": "AGI +4*, CON +5, FOR +5, PER +2*, CHA -2, INT -2, VOL +4 (*Dé bonus)",
-                        "defense": "15 + rang",
-                        "pv": "Niveau du druide × 5",
-                        "attaque": "Attaque magique (Contact)",
-                        "dommages": "1d4° + 5"
+                    "details": {
+                        "statistiques_grand_felin": {
+                            "caracteristiques": "AGI +4*, CON +5, FOR +5, PER +2*, CHA -2, INT -2, VOL +4 (*Dé bonus)",
+                            "defense": "15 + rang",
+                            "pv": "Niveau du druide × 5",
+                            "attaque": "Attaque magique (Contact)",
+                            "dommages": "1d4° + 5"
+                        }
                     }
                 },
                 {
@@ -138,7 +143,10 @@
                     "type": "Passif (Limité)",
                     "description_textuelle": "Cette capacité ne peut être utilisée que six fois, et pas plus d’une fois par niveau. Lorsque les PV du druide tombent à 0 ou qu’il meurt, le druide peut choisir d’ignorer ce qui a provoqué la mort ou l’inconscience ! Le MJ et le joueur doivent se mettre d’accord pour expliquer la survie."
                 }
-            ]
+            ],
+            "details": {
+                "regles_compagnon": "En ville : reste à l'extérieur. Soin : récupère comme un PJ. 0 PV : s'enfuit (retour 8h) ou doit être soigné. Mort : nouveau compagnon au niveau suivant."
+            }
         },
         {
             "nom": "Voie de la Nature",
@@ -236,14 +244,16 @@
                     "nom": "Animation d’un arbre",
                     "type": "Action Limitée (L)*",
                     "description_textuelle": "Le druide peut animer un arbre en le touchant. Il combat à son service pendant [niveau du druide] rounds. Il peut animer un seul arbre à la fois.",
-                    "statistiques_arbre": {
-                        "caracteristiques": "AGI -2, CON +3, FOR +3, PER -2, CHA -2, INT -2, VOL 0",
-                        "defense": "10 + rang",
-                        "pv": "Niveau du druide × 5",
-                        "initiative": "8",
-                        "attaque": "Attaque de contact (magique)",
-                        "dommages": "1d4° + 3",
-                        "mouvement": "5 m par action de mouvement"
+                    "details": {
+                        "statistiques_arbre": {
+                            "caracteristiques": "AGI -2, CON +3, FOR +3, PER -2, CHA -2, INT -2, VOL 0",
+                            "defense": "10 + rang",
+                            "pv": "Niveau du druide × 5",
+                            "initiative": "8",
+                            "attaque": "Attaque de contact (magique)",
+                            "dommages": "1d4° + 3",
+                            "mouvement": "5 m par action de mouvement"
+                        }
                     }
                 },
                 {

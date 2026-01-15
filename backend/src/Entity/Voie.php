@@ -43,6 +43,9 @@ class Voie
     #[ORM\OneToMany(mappedBy: 'voie', targetEntity: Capability::class, orphanRemoval: true)]
     private Collection $capabilities;
 
+    #[ORM\Column(type: Types::JSON, nullable: true)]
+    private ?array $details = null;
+
     public function __construct()
     {
         $this->capabilities = new ArrayCollection();
@@ -90,6 +93,30 @@ class Voie
         return $this;
     }
 
+    public function getMaxRank(): ?int
+    {
+        return $this->maxRank;
+    }
+
+    public function setMaxRank(int $maxRank): static
+    {
+        $this->maxRank = $maxRank;
+
+        return $this;
+    }
+
+    public function getDetails(): ?array
+    {
+        return $this->details;
+    }
+
+    public function setDetails(?array $details): static
+    {
+        $this->details = $details;
+
+        return $this;
+    }
+
     public function getProfile(): ?Profile
     {
         return $this->profile;
@@ -126,17 +153,7 @@ class Voie
         return $this;
     }
 
-    public function getMaxRank(): ?int
-    {
-        return $this->maxRank;
-    }
 
-    public function setMaxRank(int $maxRank): static
-    {
-        $this->maxRank = $maxRank;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Capability>

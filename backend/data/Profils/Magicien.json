@@ -11,11 +11,11 @@
         },
         "statistiques": {
             "pv_par_niveau": 3,
-            "profil_type": "Lanceur de sorts \/ DPS magique \/ Contrôle",
+            "profil_type": "Lanceur de sorts / DPS magique / Contrôle",
             "de_vie": "1D4",
             "carac_magique": "INT"
         },
-        "image_url": "https:\/\/www.co-drs.org\/sites\/default\/files\/styles\/original_compressed\/public\/co\/profile\/2023-02\/wizard.png.webp?itok=YysF_fBG"
+        "image_url": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/profile/2023-02/wizard.png.webp?itok=YysF_fBG"
     },
     "maitrises": {
         "armes": "Sait manier la dague et le bâton.",
@@ -72,7 +72,6 @@
         },
         {
             "nom": "Voie de la Magie Destructrice",
-            "note_speciale": "Le joueur peut décider de substituer un élément à un autre lors de l’acquisition d’un sort (ex: Mains électriques, Explosion acide). Ce choix est définitif.",
             "capacites": [
                 {
                     "rang": 1,
@@ -104,7 +103,10 @@
                     "type": "Action (A)*",
                     "description_textuelle": "Le magicien projette des traits de foudre sur toutes les cibles de son choix dans un rayon de 10 m autour de lui. Il fait un seul test d’attaque magique et toutes les créatures ciblées dont il atteint la DEF subissent [2d4°+INT] DM d’électricité."
                 }
-            ]
+            ],
+            "details": {
+                "note_speciale": "Le joueur peut décider de substituer un élément à un autre lors de l’acquisition d’un sort (ex: Mains électriques, Explosion acide). Ce choix est définitif."
+            }
         },
         {
             "nom": "Voie de la Magie Élémentaire",
@@ -190,12 +192,14 @@
                     "nom": "Familier",
                     "type": "Action (A)*",
                     "description_textuelle": "Le magicien choisit un petit animal (écureuil, corbeau, chat, dragonnet). Il peut utiliser les sens de son familier (voir par ses yeux, entendre ce qu’il entend, etc.) et communiquer avec lui à distance illimitée. Il gagne +2 en Initiative et en DEF lorsque son familier est en vue. S’il est réduit à 0 PV, le familier disparaît dans un nuage de fumée et le personnage perd 1d4° PV en contrecoup (invocation possible après récupération complète).",
-                    "statistiques_familier": {
-                        "caracteristiques": "AGI +3*, CON 0, FOR -4, PER +2, CHA -2, INT -2, VOL +2 (*Dé bonus)",
-                        "defense": "13 + rang dans la voie",
-                        "pv": "Niveau du magicien",
-                        "initiative": "Init. du magicien",
-                        "combat": "Trop petit pour attaquer ou infliger des dommages."
+                    "details": {
+                        "statistiques_familier": {
+                            "caracteristiques": "AGI +3*, CON 0, FOR -4, PER +2, CHA -2, INT -2, VOL +2 (*Dé bonus)",
+                            "defense": "13 + rang dans la voie",
+                            "pv": "Niveau du magicien",
+                            "initiative": "Init. du magicien",
+                            "combat": "Trop petit pour attaquer ou infliger des dommages."
+                        }
                     }
                 },
                 {

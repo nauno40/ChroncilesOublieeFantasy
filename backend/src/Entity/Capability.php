@@ -29,10 +29,6 @@ class Capability
     #[ORM\Column]
     private ?int $rank = null;
 
-    #[ORM\ManyToOne(inversedBy: 'capabilities')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Voie $voie = null;
-
     #[ORM\Column]
     private ?bool $isSpell = null;
 
@@ -44,6 +40,13 @@ class Capability
 
     #[ORM\Column(nullable: true)]
     private ?array $effect = null;
+
+    #[ORM\Column(type: Types::JSON, nullable: true)]
+    private ?array $details = null;
+
+    #[ORM\ManyToOne(inversedBy: 'capabilities')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Voie $voie = null;
 
     public function getId(): ?int
     {
@@ -106,6 +109,18 @@ class Capability
     public function setIsSpell(bool $isSpell): static
     {
         $this->isSpell = $isSpell;
+
+        return $this;
+    }
+
+    public function getDetails(): ?array
+    {
+        return $this->details;
+    }
+
+    public function setDetails(?array $details): static
+    {
+        $this->details = $details;
 
         return $this;
     }

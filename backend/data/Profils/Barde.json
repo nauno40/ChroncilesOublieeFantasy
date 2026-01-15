@@ -10,11 +10,11 @@
         },
         "statistiques": {
             "pv_par_niveau": 4,
-            "profil_type": "Polyvalent \/ Social",
+            "profil_type": "Polyvalent / Social",
             "de_vie": "1D8",
             "carac_magique": "CHA"
         },
-        "image_url": "https:\/\/www.co-drs.org\/sites\/default\/files\/styles\/original_compressed\/public\/co\/profile\/2023-02\/bard.png.webp?itok=PEiVEYQy"
+        "image_url": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/profile/2023-02/bard.png.webp?itok=PEiVEYQy"
     },
     "maitrises": {
         "armes": "Le barde sait manier les armes à une main.",

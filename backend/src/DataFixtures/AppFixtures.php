@@ -238,10 +238,15 @@ class AppFixtures extends Fixture
                     $v->setProfile($e);
                     $v->setCategory('Personnage');
                     $v->setMaxRank(5);
+                    
+                    // Extract extra details for Voie
+                    if (!empty($voieData['details'])) {
+                        $v->setDetails($voieData['details']);
+                    }
+
                     $manager->persist($v);
                     
                     // Track created Voie
-                    // Key: normalized profile name + normalized voie name
                     $trackKey = $this->normalizeKey($name) . '_' . $this->normalizeKey($voieData['nom']);
                     $this->createdVoieKeys[$trackKey] = true;
 
@@ -256,6 +261,11 @@ class AppFixtures extends Fixture
                             $type = $capData['type'] ?? '';
                             $c->setLimited(str_contains(strtolower($type), 'limité'));
                             $c->setIsSpell(str_contains(strtolower($type), 'sort') || isset($voieData['sorts'])); 
+                            
+                            // Extract extra details for Capability
+                            if (!empty($capData['details'])) {
+                                $c->setDetails($capData['details']);
+                            }
                             
                             $manager->persist($c);
                         }

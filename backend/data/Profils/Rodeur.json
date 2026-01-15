@@ -8,10 +8,10 @@
         },
         "statistiques": {
             "pv_par_niveau": 4,
-            "profil_type": "Nature \/ Combat à distance ou Deux armes",
+            "profil_type": "Nature / Combat à distance ou Deux armes",
             "de_vie": "1D8"
         },
-        "image_url": "https:\/\/www.co-drs.org\/sites\/default\/files\/styles\/original_compressed\/public\/co\/profile\/2023-02\/ranger.png.webp?itok=eNydqDzS",
+        "image_url": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/profile/2023-02/ranger.png.webp?itok=eNydqDzS",
         "note_legacy": "Si vous jouez dans un monde moins fantastique ou plus exotique, vous pouvez remplacer le loup par un chien ou par tout autre animal adapté à vos aventures (hyène, panthère, chacal...). Si le joueur la choisit, la Voie du montreur d’ours supprime et remplace la Voie du compagnon animal. Un Profil ne peut avoir plus de 5 Voies."
     },
     "maitrises": {
@@ -48,7 +48,6 @@
     "voies": [
         {
             "nom": "Voie de l'Archer",
-            "note_speciale": "Le joueur peut choisir une variante 'Voie du lancer'. Dans ce cas : ajoute FOR aux DM (au lieu de PER), double la portée, pas de bonus d'Init. Toutes les capacités s'appliquent alors aux armes de jet.",
             "capacites": [
                 {
                     "rang": 1,
@@ -65,7 +64,7 @@
                 {
                     "rang": 3,
                     "nom": "Dans le mille",
-                    "type": "Passif \/ Action Limitée (Option)",
+                    "type": "Passif / Action Limitée (Option)",
                     "description_textuelle": "Pour une attaque à distance, le rôdeur peut choisir de s’imposer un dé malus en attaque. Si elle est réussie, il ajoute +2d4° aux DM. Cette capacité peut être utilisée avec Tir rapide ou Flèche de mort par exemple. Transformez cette capacité en action limitée (L) pour obtenir +3d4° aux DM au lieu de 2d4°."
                 },
                 {
@@ -80,28 +79,28 @@
                     "type": "Action Limitée (L)",
                     "description_textuelle": "Vous obtenez un dé bonus en attaque à distance et vous ajoutez +1d4° aux DM. Au lieu du dé bonus et de +1d4° aux DM, vous pouvez choisir d'infliger un état préjudiciable de votre choix parmi aveuglé, affaibli, ralenti ou immobilisé pendant 1 round à une cible d’un NC inférieur au vôtre. Vous ne pouvez infliger chaque état préjudiciable qu’une seule fois par combat."
                 }
-            ]
+            ],
+            "details": {
+                "note_speciale": "Le joueur peut choisir une variante 'Voie du lancer'. Dans ce cas : ajoute FOR aux DM (au lieu de PER), double la portée, pas de bonus d'Init. Toutes les capacités s'appliquent alors aux armes de jet."
+            }
         },
         {
             "nom": "Voie du Compagnon Animal",
-            "mecaniques_compagnon": {
-                "soin": "Récupère tous les PV après récupération complète ou soigné par magie. Si 0 PV : s'enfuit (revient après 8h) ou doit être soigné comme un PJ.",
-                "mort": "Nouveau compagnon au niveau suivant.",
-                "alternative": "Montreur d'ours (ou gros chien). Modifie stats : -2 DEF, +2 FOR\/DM. Bonus Intimidation\/Spectacle au rang 2."
-            },
             "capacites": [
                 {
                     "rang": 1,
                     "nom": "Le loup",
                     "type": "Passif",
                     "description_textuelle": "Le rôdeur obtient un loup pour compagnon animal. En combat, le loup attaque en même temps que le rôdeur. Le loup comprend des ordres simples comme : garde, reste, apporte, attaque, etc.",
-                    "statistiques_loup_base": {
-                        "caracteristiques": "AGI +1, CON +1*, FOR +2, PER +2*, CHA -2, INT -3, VOL +2 (*Dé bonus aux tests)",
-                        "defense": "12 + rang dans la voie",
-                        "pv": "Niveau du rôdeur × 4",
-                        "initiative": "Egale à celle du rôdeur",
-                        "attaque": "Attaque magique du rôdeur (au contact)",
-                        "dommages": "1d4 + 2"
+                    "details": {
+                        "statistiques_loup_base": {
+                            "caracteristiques": "AGI +1, CON +1*, FOR +2, PER +2*, CHA -2, INT -3, VOL +2 (*Dé bonus aux tests)",
+                            "defense": "12 + rang dans la voie",
+                            "pv": "Niveau du rôdeur × 4",
+                            "initiative": "Egale à celle du rôdeur",
+                            "attaque": "Attaque magique du rôdeur (au contact)",
+                            "dommages": "1d4 + 2"
+                        }
                     }
                 },
                 {
@@ -121,11 +120,13 @@
                     "nom": "Loup alpha",
                     "type": "Passif (Amélioration)",
                     "description_textuelle": "Le loup du rôdeur devient un spécimen particulièrement puissant.",
-                    "statistiques_loup_alpha": {
-                        "modifications": "CON +3*, FOR +5",
-                        "defense": "18",
-                        "pv": "Niveau du rôdeur × 5",
-                        "dommages": "1d4° + 5"
+                    "details": {
+                        "statistiques_loup_alpha": {
+                            "modifications": "CON +3*, FOR +5",
+                            "defense": "18",
+                            "pv": "Niveau du rôdeur × 5",
+                            "dommages": "1d4° + 5"
+                        }
                     }
                 },
                 {
@@ -134,7 +135,14 @@
                     "type": "Passif",
                     "description_textuelle": "Lorsque le loup attaque la même cible que le rôdeur, il obtient un bonus de 1d4° aux DM. Chaque fois que le rôdeur dépense 1 PV pour soigner son loup, le loup récupère 2 PV. De plus, le rôdeur et son loup augmentent leur DEF de +1 chaque fois que le personnage atteint le rang 5 dans une voie de rôdeur (celle‑ci incluse)."
                 }
-            ]
+            ],
+            "details": {
+                "mecaniques_compagnon": {
+                    "soin": "Récupère tous les PV après récupération complète ou soigné par magie. Si 0 PV : s'enfuit (revient après 8h) ou doit être soigné comme un PJ.",
+                    "mort": "Nouveau compagnon au niveau suivant.",
+                    "alternative": "Montreur d'ours (ou gros chien). Modifie stats : -2 DEF, +2 FOR/DM. Bonus Intimidation/Spectacle au rang 2."
+                }
+            }
         },
         {
             "nom": "Voie de la Survie",
@@ -148,7 +156,7 @@
                 {
                     "rang": 2,
                     "nom": "Nature nourricière",
-                    "type": "Passif \/ Action",
+                    "type": "Passif / Action",
                     "description_textuelle": "Une fois par jour, si le rôdeur passe 1d6 h en milieu naturel sauvage (pas dans un champ), il trouve de quoi nourrir une personne par rang pour une journée et, s’il réussit un test de PER (Survie) difficulté 10, il trouve des plantes médicinales pour soigner 1d4° PV par rang. Les plantes doivent être utilisées immédiatement (10 min de préparation et autant pour faire effet) et les dés peuvent être répartis sur plusieurs patients."
                 },
                 {
@@ -208,7 +216,6 @@
         },
         {
             "nom": "Voie du Combat à Deux Armes",
-            "note_speciale": "Exception aux règles hybrides : un personnage peut utiliser cette voie en portant toutes les armures autorisées par son profil principal. Fonctionne avec armes de contact et de lancer.",
             "capacites": [
                 {
                     "rang": 1,
@@ -240,7 +247,10 @@
                     "type": "Passif",
                     "description_textuelle": "Si les deux armes du rôdeur atteignent la même cible lors d’un même tour, le personnage obtient un effet d’enchaînement qui ajoute 1d4° DM à l’une des deux attaques de son choix."
                 }
-            ]
+            ],
+            "details": {
+                "note_speciale": "Exception aux règles hybrides : un personnage peut utiliser cette voie en portant toutes les armures autorisées par son profil principal. Fonctionne avec armes de contact et de lancer."
+            }
         }
     ]
 }

@@ -8,10 +8,10 @@
         },
         "statistiques": {
             "pv_par_niveau": 5,
-            "profil_type": "Combattant polyvalent \/ Corps à corps",
+            "profil_type": "Combattant polyvalent / Corps à corps",
             "de_vie": "1D10"
         },
-        "image_url": "https:\/\/www.co-drs.org\/sites\/default\/files\/styles\/original_compressed\/public\/co\/profile\/2023-02\/warrior.png.webp?itok=dtizFbla"
+        "image_url": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/profile/2023-02/warrior.png.webp?itok=dtizFbla"
     },
     "maitrises": {
         "armes": "Sait manier toutes les armes de contact et toutes les armes à distance.",
@@ -59,7 +59,6 @@
     "voies": [
         {
             "nom": "Voie du Bouclier",
-            "condition": "Pour utiliser les capacités suivantes, le guerrier doit obligatoirement manier un bouclier.",
             "capacites": [
                 {
                     "rang": 1,
@@ -91,11 +90,13 @@
                     "type": "Action Gratuite (G)",
                     "description_textuelle": "Le guerrier peut décider de renvoyer un sort qu’il vient d’absorber grâce à sa capacité Absorber un sort. Au lieu d’être annulé, le sort absorbé est immédiatement retourné contre son expéditeur : le lanceur du sort subit alors les effets de sa propre attaque ! Cet effet ne fonctionne pas contre les sorts de zone."
                 }
-            ]
+            ],
+            "details": {
+                "condition": "Pour utiliser les capacités suivantes, le guerrier doit obligatoirement manier un bouclier."
+            }
         },
         {
             "nom": "Voie du Combat",
-            "exemples_combinaison": "Un guerrier peut choisir de se déplacer puis d’utiliser attaque puissante sur une action d’attaque (A). Il subit alors un dé malus en attaque et inflige +2d4° DM. Il peut choisir de faire une double attaque en puissance (seulement s’il connaît aussi la capacité double attaque), ce qui lui demande une action limitée. Il fait alors deux attaques avec un dé malus et ‑2 en attaque, et chaque attaque réussie inflige +2d4° DM. Enfin, il peut utiliser une action limitée pour faire une seule attaque puissante ; il subit un dé malus et si l’attaque est réussie, il inflige +3d4° DM.",
             "capacites": [
                 {
                     "rang": 1,
@@ -112,7 +113,7 @@
                 {
                     "rang": 3,
                     "nom": "Attaque puissante",
-                    "type": "Passif \/ Action Limitée",
+                    "type": "Passif / Action Limitée",
                     "description_textuelle": "Le guerrier peut choisir de s’imposer un dé malus sur une attaque au contact et il ajoute +2d4° aux DM. Cette capacité peut être utilisée avec Double attaque, Attaque circulaire ou Attaque parfaite. Transformez cette capacité en action limitée (L) pour obtenir +3d4° aux DM au lieu de +2d4°."
                 },
                 {
@@ -127,7 +128,10 @@
                     "type": "Action Limitée (L)",
                     "description_textuelle": "Le guerrier peut faire une attaque au contact avec un malus de ‑2 contre chaque adversaire engagé au contact avec lui (il fait un test d’attaque pour chaque adversaire)."
                 }
-            ]
+            ],
+            "details": {
+                "exemples_combinaison": "Un guerrier peut choisir de se déplacer puis d’utiliser attaque puissante sur une action d’attaque (A). Il subit alors un dé malus en attaque et inflige +2d4° DM. Il peut choisir de faire une double attaque en puissance (seulement s’il connaît aussi la capacité double attaque), ce qui lui demande une action limitée. Il fait alors deux attaques avec un dé malus et ‑2 en attaque, et chaque attaque réussie inflige +2d4° DM. Enfin, il peut utiliser une action limitée pour faire une seule attaque puissante ; il subit un dé malus et si l’attaque est réussie, il inflige +3d4° DM."
+            }
         },
         {
             "nom": "Voie du Maître d'Armes",

@@ -10,11 +10,11 @@
         },
         "statistiques": {
             "pv_par_niveau": 3,
-            "profil_type": "Lanceur de sorts \/ Contrôle \/ Utilité",
+            "profil_type": "Lanceur de sorts / Contrôle / Utilité",
             "de_vie": "1D4",
             "carac_magique": "CHA"
         },
-        "image_url": "https:\/\/www.co-drs.org\/sites\/default\/files\/styles\/original_compressed\/public\/co\/profile\/2023-02\/sorcerer.png.webp?itok=39URpkyq"
+        "image_url": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/profile/2023-02/sorcerer.png.webp?itok=39URpkyq"
     },
     "maitrises": {
         "armes": "Sait manier la dague et le bâton ferré.",
@@ -105,14 +105,13 @@
                 {
                     "rang": 5,
                     "nom": "Prescience",
-                    "type": "Passif \/ Début de round",
+                    "type": "Passif / Début de round",
                     "description_textuelle": "Une fois par combat, au début du round, le joueur peut décider qu’il a eu une vision des différents futurs possibles. Il bénéficie d’un bonus de +10 en attaque, en Défense et à tous les tests de PER pour tout le round, il divise tous les DM subis par 2 et il peut choisir d’agir à n’importe quel moment dans le round, sans considération d’initiative."
                 }
             ]
         },
         {
             "nom": "Voie de l'Envoûteur",
-            "note_speciale": "Si une victime résiste à un sort de cette voie, elle y est immunisée pendant 24 h.",
             "capacites": [
                 {
                     "rang": 1,
@@ -144,7 +143,10 @@
                     "type": "Action (A)*",
                     "description_textuelle": "En réussissant un test opposé d’attaque magique contre une cible de niveau ou NC inférieur au sien (portée 20 m), l’ensorceleur prend contrôle de sa cible pendant CHA minutes. Son propre corps devient inactif et s’écroule au sol. Si la créature meurt pendant la domination, l’ensorceleur réintègre son corps et subit 1d4° DM. Si la cible est d’un niveau trop élevé, il peut la forcer à faire une seule action de son choix (mouvement ou attaque) ; ensuite, il est éjecté et subit 1d4° DM."
                 }
-            ]
+            ],
+            "details": {
+                "note_speciale": "Si une victime résiste à un sort de cette voie, elle y est immunisée pendant 24 h."
+            }
         },
         {
             "nom": "Voie des Illusions",

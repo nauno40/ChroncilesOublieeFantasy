@@ -10,10 +10,10 @@
         },
         "statistiques": {
             "pv_par_niveau": 5,
-            "profil_type": "Combattant monté \/ Tank \/ Leader",
+            "profil_type": "Combattant monté / Tank / Leader",
             "de_vie": "1D10"
         },
-        "image_url": "https:\/\/www.co-drs.org\/sites\/default\/files\/styles\/original_compressed\/public\/co\/profile\/2023-02\/knight.png.webp?itok=1Dq6PaS4"
+        "image_url": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/profile/2023-02/knight.png.webp?itok=1Dq6PaS4"
     },
     "maitrises": {
         "armes": "Sait manier toutes les armes de contact. Dédaigne les armes à distance (considérées comme des armes de couard).",
@@ -51,17 +51,19 @@
                     "nom": "Fidèle monture",
                     "type": "Passif",
                     "description_textuelle": "Le chevalier possède une fidèle monture, un cheval de guerre bien dressé qui comprend les ordres simples. À cheval, il peut ajouter un déplacement de 10 m avant ou après une action normale. La monture n’attaque que si elle est elle‑même attaquée au contact par une créature. De plus, le chevalier ajoute son rang + 2 aux tests d’équitation et de dressage.",
-                    "statistiques_monture": {
-                        "nom": "Cheval de guerre",
-                        "caracteristiques": "AGI +0, CON +4*, FOR +5, PER +0, CHA +0, INT -2, VOL +2 (*Dé bonus)",
-                        "defense": "12 + rang",
-                        "pv": "10 + (Niveau × 4)",
-                        "initiative": "Egale à celle du chevalier",
-                        "attaque": "Ruade +5",
-                        "dommages": "1d4° + 5",
-                        "soin": "Récupère 1d8+4 PV par nuit.",
-                        "mort": "Remplacée au niveau suivant.",
-                        "variantes": "Yack ou sanglier (nain), cerf ou orignal (elfe)."
+                    "details": {
+                        "statistiques_monture": {
+                            "nom": "Cheval de guerre",
+                            "caracteristiques": "AGI +0, CON +4*, FOR +5, PER +0, CHA +0, INT -2, VOL +2 (*Dé bonus)",
+                            "defense": "12 + rang",
+                            "pv": "10 + (Niveau × 4)",
+                            "initiative": "Egale à celle du chevalier",
+                            "attaque": "Ruade +5",
+                            "dommages": "1d4° + 5",
+                            "soin": "Récupère 1d8+4 PV par nuit.",
+                            "mort": "Remplacée au niveau suivant.",
+                            "variantes": "Yack ou sanglier (nain), cerf ou orignal (elfe)."
+                        }
                     }
                 },
                 {
@@ -85,13 +87,15 @@
                 {
                     "rang": 5,
                     "nom": "Monture fantastique",
-                    "type": "Passif \/ Action Gratuite",
+                    "type": "Passif / Action Gratuite",
                     "description_textuelle": "Le chevalier obtient une monture puissante (cheval de guerre lourd, ours, félin géant, etc.). Lorsqu’il est en selle, le chevalier peut faire attaquer sa monture une fois par round en action gratuite. À partir du niveau 9, peut être une monture volante (pégase, griffon...) si le MJ l'autorise.",
-                    "statistiques_monture_fantastique": {
-                        "defense": "20",
-                        "pv": "10 + (Niveau × 6) [Si volante: 10 + (Niveau x 5)]",
-                        "attaque": "Ruade ou morsure (Attaque magique)",
-                        "dommages": "2d4° + 5"
+                    "details": {
+                        "statistiques_monture_fantastique": {
+                            "defense": "20",
+                            "pv": "10 + (Niveau × 6) [Si volante: 10 + (Niveau x 5)]",
+                            "attaque": "Ruade ou morsure (Attaque magique)",
+                            "dommages": "2d4° + 5"
+                        }
                     }
                 }
             ]
@@ -215,12 +219,14 @@
                     "nom": "Écuyer",
                     "type": "Passif",
                     "description_textuelle": "Le chevalier dispose d’un écuyer à son service. Il est absolument loyal à son maître, il s’occupe de sa monture et de son équipement, prépare le campement, panse les blessures, etc. Grâce à l’écuyer, les armes du chevalier sont parfaitement affûtées et il augmente de 1 point les chances d’obtenir un critique sur les attaques au contact (par exemple, 19‑20 au lieu de 20). De plus, le chevalier, sa monture et jusqu’à CHA alliés récupèrent 1d4° PV supplémentaires après chaque récupération complète s’ils profitent des services de l’écuyer. Si l’écuyer vient à mourir, le chevalier en prendra un autre à son service au niveau suivant.",
-                    "statistiques_ecuyer": {
-                        "initiative": "Egale à celle du chevalier",
-                        "defense": "10 + rang",
-                        "pv": "Niveau × 4",
-                        "attaque": "Attaque magique",
-                        "dommages": "1d4° + 1"
+                    "details": {
+                        "statistiques_ecuyer": {
+                            "initiative": "Egale à celle du chevalier",
+                            "defense": "10 + rang",
+                            "pv": "Niveau × 4",
+                            "attaque": "Attaque magique",
+                            "dommages": "1d4° + 1"
+                        }
                     }
                 },
                 {

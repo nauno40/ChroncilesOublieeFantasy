@@ -102,6 +102,7 @@ export interface Voie {
     note_speciale?: string | null;
     type: string;
     profileId: string | null; // Reference to profile ID
+    details?: any; // Dynamic details from JSON
 }
 
 export interface Capacity {
@@ -113,6 +114,9 @@ export interface Capacity {
     voieId: string | null; // Reference to voie ID
     voie?: string; // IRI reference from API (e.g. /api/voies/123)
     rank: number | null;
+    limited?: boolean;
+    isSpell?: boolean;
+    details?: any; // Dynamic details from JSON
 }
 
 // ============================================================================

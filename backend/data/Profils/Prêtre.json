@@ -17,10 +17,9 @@
         "note_legacy": "Pouvoirs divins\n\nLes voies présentées ici sont génériques mais chaque dieu est particulier. Afin de personnaliser votre Prêtre, choisissez une autre arme sacrée et inventez vous-même (ou choisissez parmi les voies des autres profils) un pouvoir de rang 1 ou 2 que le personnage prendra en remplacement d’une capacité de même rang. L'arme sacrée et le pouvoir devra symboliser fortement sa religion et les directives du culte.\n"
     },
     "maitrises": {
-        "armes": "Armes contondantes à une main, bâton ferré.",
-        "interdictions": "Interdiction morale de faire couler le sang (pas d'armes tranchantes/perçantes, sauf exception arme sacrée d'un prêtre spécialiste).",
-        "armures": "Chemise de mailles (maximum).",
-        "boucliers": "Petit bouclier (+1 DEF)."
+        "armes": "Le prêtre sait manier les armes contondantes à une main ainsi que le bâton ferré. Les prêtres ont l'interdiction morale de faire couler le sang et n'utilisent donc pas les armes tranchantes ou perçantes (sauf arme sacrée).",
+        "armures": "Les voies de prêtre limitent l'armure à la chemise de mailles.",
+        "boucliers": "Permettent d'utiliser le petit bouclier (DEF +1)."
     },
     "equipement_depart": [
         {

@@ -45,7 +45,12 @@
                 {
                     "rang": 2,
                     "nom": "Haches et marteaux",
-                    "description": "Le nain gagne un bonus de +1 en attaque et aux DM lorsqu'il utilise une hache ou un marteau de guerre. Il sait utiliser ces armes, quel que soit son profil."
+                    "description": "Le nain gagne un bonus de +1 en attaque et aux DM lorsqu'il utilise une hache ou un marteau de guerre. Il sait utiliser ces armes, quel que soit son profil.",
+                    "details": {
+                        "bonus_armes": [
+                            "+1 Attaque/DM (Haches, Marteaux)"
+                        ]
+                    }
                 },
                 {
                     "rang": 3,

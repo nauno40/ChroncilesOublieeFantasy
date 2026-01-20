@@ -18,9 +18,9 @@
     },
     "maitrises": {
         "armes": "Le barde sait manier les armes à une main.",
-        "armures": "Les voies de barde limitent l’armure au cuir renforcé.",
-        "boucliers": "Interdisent l’utilisation du bouclier.",
-        "contraintes": "Il est nécessaire d’avoir une main libre pour utiliser les capacités de bardes (ni arme secondaire ni bouclier)."
+        "armures": "Les voies de barde limitent l'armure au cuir renforcé.",
+        "boucliers": "Interdisent l'utilisation du bouclier.",
+        "contraintes": "Il est nécessaire d'avoir une main libre pour utiliser les capacités de bardes (ni arme secondaire ni bouclier)."
     },
     "equipement_depart": [
         {

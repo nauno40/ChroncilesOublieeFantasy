@@ -40,7 +40,12 @@
                 {
                     "rang": 1,
                     "nom": "Don étrange",
-                    "description": "Le gnome possède un talent inné pour les sciences, qu'elles soient occultes ou plus ordinaires. Il gagne un bonus de +3 à tous les tests scientifiques (INT) et il choisit une capacité de rang 1 d'ensorceleur. S'il porte une armure, il ne peut pas utiliser ce sort plus d'une fois par jour (il doit payer le coût en PM de façon normale). Dans le noir total, le gnome voit comme dans la pénombre jusqu'à 10 m."
+                    "description": "Le gnome possède un talent inné pour les sciences, qu'elles soient occultes ou plus ordinaires. Il gagne un bonus de +3 à tous les tests scientifiques (INT) et il choisit une capacité de rang 1 d'ensorceleur. S'il porte une armure, il ne peut pas utiliser ce sort plus d'une fois par jour (il doit payer le coût en PM de façon normale). Dans le noir total, le gnome voit comme dans la pénombre jusqu'à 10 m.",
+                    "details": {
+                        "choix_capacite": [
+                            "Ensorceleur (Rang 1)"
+                        ]
+                    }
                 },
                 {
                     "rang": 2,

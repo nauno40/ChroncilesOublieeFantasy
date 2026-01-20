@@ -18,10 +18,10 @@
         "note_legacy": "Dans les Terres d’Osgild. L’arquebusier est un personnage atypique dans les Terres d’Osgild. Il est toutefois plus commun dans les régions de l’est, où les armes à poudre ont d’abord été importées par le Protectorat de fer, tête de pont d’un vaste empire expansionniste qui a traversé l’océan. Mais cette nation est en guerre larvée permanente avec tous ses voisins et elle garde jalousement le secret des armes à poudre. Plus au sud, les nains de Kaer Glimmerstern maîtrisent à présent eux aussi la poudre et depuis peu ils s’en sont ouverts à leurs alliés, le royaume de Cobis et le duché de Périk. Guilde et Port‑Libre, les deux grandes cités commerçantes se sont saisies de l’occasion et font désormais le commerce des armes à poudre, à prix d’or... Un PJ arquebusier devra donc avoir séjourné dans l’un de ces lieux."
     },
     "maitrises": {
-        "armes": "L’arquebusier sait manier toutes les armes de contact à une main, les armes à distance, armes à poudre incluses.",
-        "armures": "Les voies d’arquebusier limitent l’armure à la chemise de mailles.",
-        "boucliers": "Interdisent l’utilisation du bouclier.",
-        "special": "Un arquebusier sait fabriquer sa propre poudre et elle ne risque pas d’exploser malgré lui."
+        "armes": "L'arquebusier sait manier toutes les armes de contact à une main, les armes à distance, armes à poudre incluses.",
+        "armures": "Les voies d'arquebusier limitent l'armure à la chemise de mailles.",
+        "boucliers": "Interdisent l'utilisation du bouclier.",
+        "special": "Un arquebusier sait fabriquer sa propre poudre et elle ne risque pas d'exploser malgré lui."
     },
     "equipement_depart": [
         {
@@ -73,7 +73,14 @@
                     "rang": 5,
                     "nom": "Couleuvrine",
                     "type": "Action Limitée (L)",
-                    "description_textuelle": "L’arquebusier obtient une couleuvrine (un petit canon portatif). Sur un test d’attaque à distance réussi (dé bonus), la couleuvrine inflige [5d4° + INT] DM à une portée de 100 m. Il faut ensuite deux rounds (L) pour la recharger. C’est une arme encombrante et il est impossible de transporter plus d’une couleuvrine."
+                    "description_textuelle": "L’arquebusier obtient une couleuvrine (un petit canon portatif). Sur un test d’attaque à distance réussi (dé bonus), la couleuvrine inflige [5d4° + INT] DM à une portée de 100 m. Il faut ensuite deux rounds (L) pour la recharger. C’est une arme encombrante et il est impossible de transporter plus d’une couleuvrine.",
+                    "details": {
+                        "statistiques_arme": {
+                            "portee": "100 m",
+                            "dommages": "5d4 + INT",
+                            "rechargement": "2 rounds"
+                        }
+                    }
                 }
             ]
         },
@@ -90,7 +97,13 @@
                     "rang": 2,
                     "nom": "Démolition",
                     "type": "Action (Longue)",
-                    "description_textuelle": "L’arquebusier peut préparer un explosif qui lui permet de démolir facilement des structures. Il lui faut 3 rounds complets pour préparer et poser son explosif. Celui‑ci inflige à la structure [3d4° + INT] DM et ignore la moitié de sa RD (et seulement 2d4° DM dans un rayon de 2 m). Chaque jour, l’arquebusier peut utiliser un nombre de charges explosives égal au rang dans la voie. Ces charges permettent indifféremment d’utiliser les capacités Démolition, Piège explosif ou Boulet explosif."
+                    "description_textuelle": "L’arquebusier peut préparer un explosif qui lui permet de démolir facilement des structures. Il lui faut 3 rounds complets pour préparer et poser son explosif. Celui‑ci inflige à la structure [3d4° + INT] DM et ignore la moitié de sa RD (et seulement 2d4° DM dans un rayon de 2 m). Chaque jour, l’arquebusier peut utiliser un nombre de charges explosives égal au rang dans la voie. Ces charges permettent indifféremment d’utiliser les capacités Démolition, Piège explosif ou Boulet explosif.",
+                    "details": {
+                        "statistiques_explosif": {
+                            "dommages_structure": "3d4 + INT (ignore moitié RD)",
+                            "dommages_zone": "2d4 (rayon 2 m)"
+                        }
+                    }
                 },
                 {
                     "rang": 3,
@@ -102,13 +115,28 @@
                     "rang": 4,
                     "nom": "Piège explosif",
                     "type": "Action Limitée (L)",
-                    "description_textuelle": "Il faut 1 min à l’arquebusier pour installer un piège qui explose dans un rayon de 5 m en infligeant [5d4° + INT] DM de feu (test d’AGI difficulté 15 pour ne subir que la moitié des DM). Le piège est déclenché à l’intrusion de toute créature dans une zone d’un à deux mètres autour du piège. Une créature peut détecter le piège avec un test d’INT difficulté [15 + INT de l’arquebusier] avant de le déclencher."
+                    "description_textuelle": "Il faut 1 min à l’arquebusier pour installer un piège qui explose dans un rayon de 5 m en infligeant [5d4° + INT] DM de feu (test d’AGI difficulté 15 pour ne subir que la moitié des DM). Le piège est déclenché à l’intrusion de toute créature dans une zone d’un à deux mètres autour du piège. Une créature peut détecter le piège avec un test d’INT difficulté [15 + INT de l’arquebusier] avant de le déclencher.",
+                    "details": {
+                        "statistiques_piege": {
+                            "dommages": "5d4 + INT (feu)",
+                            "rayon": "5 m",
+                            "detection": "INT diff 15 + INT arquebusier"
+                        }
+                    }
                 },
                 {
                     "rang": 5,
                     "nom": "Boulet explosif",
                     "type": "Action Limitée (L)",
-                    "description_textuelle": "L’arquebusier sait fabriquer et lancer de petites boules de métal garnies de poudre et d’une portée de 20 m qui explosent dans un rayon de 5 m en infligeant [4d4° + INT] DM perforants, divisés par 2 pour les victimes qui réussissent un test d’AGI difficulté 10. Ceux qui ratent le test sont de plus aveuglés un round par le flash lumineux de l’explosion."
+                    "description_textuelle": "L’arquebusier sait fabriquer et lancer de petites boules de métal garnies de poudre et d’une portée de 20 m qui explosent dans un rayon de 5 m en infligeant [4d4° + INT] DM perforants, divisés par 2 pour les victimes qui réussissent un test d’AGI difficulté 10. Ceux qui ratent le test sont de plus aveuglés un round par le flash lumineux de l’explosion.",
+                    "details": {
+                        "statistiques_boulet": {
+                            "portee": "20 m",
+                            "dommages": "4d4 + INT",
+                            "rayon": "5 m",
+                            "effet": "Aveuglement (si test raté)"
+                        }
+                    }
                 }
             ],
             "details": {

@@ -17,8 +17,9 @@
         "image_url": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/profile/2023-02/necromancer.png.webp?itok=DkvQs34L"
     },
     "maitrises": {
-        "armes": "Sait manier la dague et le bâton.",
-        "armures_boucliers": "Interdiction de porter une armure ou d’utiliser un bouclier (sauf capacité spéciale Voie de l'Outre-Tombe)."
+        "armes": "Le sorcier sait manier la dague et le bâton.",
+        "armures": "Les voies de sorcier interdisent de porter une armure (sauf capacité spéciale Voie de l'Outre-Tombe).",
+        "boucliers": "Interdisent d'utiliser un bouclier."
     },
     "equipement_depart": [
         {

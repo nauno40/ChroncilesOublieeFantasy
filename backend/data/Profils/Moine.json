@@ -18,8 +18,9 @@
         "note_legacy": "Bien que d’inspiration asiatique, ce Moine est un moine-guerrier qui peut être adapté à de nombreux mondes fantastiques. Si cela ne colle pas avec votre univers, vous pouvez facilement transposer les capacités de combat à mains nues avec une arme (l’épée par exemple) afin d’occidentaliser ce profil."
     },
     "maitrises": {
-        "armes": "Sait manier toutes les armes (sauf armes à poudre). La plupart préfèrent les mains nues (infligent des DM létaux sur demande).",
-        "armures_boucliers": "Interdiction de porter une armure ou d’utiliser un bouclier."
+        "armes": "Le moine sait manier toutes les armes (sauf les armes à poudre), y compris celles à deux mains, mais la plupart des moines préfèrent les mains nues (infligent des DM létaux sur demande).",
+        "armures": "Les voies de moine interdisent de porter une armure.",
+        "boucliers": "Interdisent d'utiliser un bouclier."
     },
     "equipement_depart": [
         {

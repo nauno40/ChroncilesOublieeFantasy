@@ -18,8 +18,9 @@
         "image_url": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/profile/2023-02/wizard.png.webp?itok=YysF_fBG"
     },
     "maitrises": {
-        "armes": "Sait manier la dague et le bâton.",
-        "armures_boucliers": "Interdiction de porter une armure ou d’utiliser un bouclier."
+        "armes": "Le magicien sait manier la dague et le bâton.",
+        "armures": "Les voies de magicien interdisent de porter une armure.",
+        "boucliers": "Interdisent d'utiliser un bouclier."
     },
     "equipement_depart": [
         {

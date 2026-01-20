@@ -33,7 +33,19 @@
                 {
                     "rang": 1,
                     "nom": "Diversité",
-                    "description": "Un humain obtient un bonus de +3 aux tests de deux domaines associés à son origine géographique ou sociale. De plus, il gagne 1 PC supplémentaire."
+                    "description": "Un humain obtient un bonus de +3 aux tests de deux domaines associés à son origine géographique ou sociale. De plus, il gagne 1 PC supplémentaire.",
+                    "details": {
+                        "options_origines": [
+                            "1 : Montagnard (escalade et résistance au froid)",
+                            "2 : Citadin (commerce et résistance aux maladies)",
+                            "3 : Campagnard (météorologie et équitation)",
+                            "4 : Riverain (natation et navigation)",
+                            "5 : Sauvage (chasser et pister)",
+                            "6 : Nomade (orientation et résistance à la chaleur ou au froid)",
+                            "Autre : Selon MJ (troglodyte, marais, etc.) ou Gagne-pain (métier)"
+                        ],
+                        "note_speciale": "Le gagne-pain ne peut pas être un profil et le bonus obtenu ne s'applique jamais à des tests de combat."
+                    }
                 },
                 {
                     "rang": 2,
@@ -43,7 +55,12 @@
                 {
                     "rang": 3,
                     "nom": "Touche-à-tout",
-                    "description": "Le personnage obtient une capacité de rang 1 ou 2 de n'importe quel profil au choix du joueur. Si la capacité est de rang 2 ou accorde un bonus de DEF, il doit respecter les limitations d'armure."
+                    "description": "Le personnage obtient une capacité de rang 1 ou 2 de n'importe quel profil au choix du joueur. Si la capacité est de rang 2 ou accorde un bonus de DEF, il doit respecter les limitations d'armure.",
+                    "details": {
+                        "choix_capacite": [
+                            "N'importe quel profil (Rang 1 ou 2)"
+                        ]
+                    }
                 },
                 {
                     "rang": 4,

@@ -417,6 +417,11 @@ class AppFixtures extends Fixture
                         
                         // Link to Race
                         $raceEntity->addAvailableVoie($voie);
+
+                        // Extract extra details for Racial Voie
+                        if (!empty($voieData['details'])) {
+                            $voie->setDetails($voieData['details']);
+                        }
                         
                         // Capabilities
                         if (isset($voieData['capacites'])) {
@@ -429,6 +434,12 @@ class AppFixtures extends Fixture
                                 $cap->setLimited(str_contains(strtolower($type), 'limité'));
                                 $cap->setIsSpell(str_contains(strtolower($type), 'sort'));
                                 $cap->setVoie($voie);
+                                
+                                // Extract extra details for Racial Capability
+                                if (!empty($capData['details'])) {
+                                    $cap->setDetails($capData['details']);
+                                }
+
                                 $manager->persist($cap);
                             }
                         }

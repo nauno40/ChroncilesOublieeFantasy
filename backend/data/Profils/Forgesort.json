@@ -18,9 +18,9 @@
         "note_legacy": "Science, pas science ?\n\nCe Profil est particulièrement adapté aux univers où le développement technologique n’est pas en reste (tendance Steampunk, Les Royaumes d’Acier ou Eberron par exemple). Dans ce genre d’univers, vous pouvez le typer plus fortement en renommant la Voie du golem en Voie du méca et plutôt que des sorts, tous les effets sont obtenus par de nombreux objets étranges portés, ingérés ou greffés."
     },
     "maitrises": {
-        "armes": "Dague, bâton, marteau, arbalète légère.",
-        "armures": "Cuir simple.",
-        "boucliers": "Interdit."
+        "armes": "Le forgesort sait manier la dague, le bâton, le marteau et l'arbalète légère.",
+        "armures": "Les voies de forgesort limitent l'armure au cuir simple.",
+        "boucliers": "Interdisent d'utiliser un bouclier."
     },
     "equipement_depart": [
         {
@@ -97,13 +97,29 @@
                     "rang": 4,
                     "nom": "Élixirs mineurs",
                     "type": "Action Limitée (L)",
-                    "description_textuelle": "Le forgesort apprend à préparer des élixirs parmi Forme gazeuse, Maîtrise des éléments, Chute ralentie (voies de magicien) et Masque mortuaire (voie de sorcier). Il choisit un nombre d’élixirs égal à sa valeur d’INT (pour un maximum de 4)."
+                    "description_textuelle": "Le forgesort apprend à préparer des élixirs parmi Forme gazeuse, Maîtrise des éléments, Chute ralentie (voies de magicien) et Masque mortuaire (voie de sorcier). Il choisit un nombre d’élixirs égal à sa valeur d’INT (pour un maximum de 4).",
+                    "details": {
+                        "options_elixirs_mineurs": [
+                            "Forme gazeuse (Magicien)",
+                            "Maîtrise des éléments (Magicien)",
+                            "Chute ralentie (Magicien)",
+                            "Masque mortuaire (Sorcier)"
+                        ]
+                    }
                 },
                 {
                     "rang": 5,
                     "nom": "Élixirs majeurs",
                     "type": "Action Limitée (L)",
-                    "description_textuelle": "Le forgesort apprend à préparer des élixirs parmi Invisibilité, Vol, Accélération (voies de magicien) et Masque du prédateur (voie de druide). Il choisit un nombre d’élixirs égal à sa valeur d’INT (pour un maximum de 4). Ces préparations comptent pour deux élixirs."
+                    "description_textuelle": "Le forgesort apprend à préparer des élixirs parmi Invisibilité, Vol, Accélération (voies de magicien) et Masque du prédateur (voie de druide). Il choisit un nombre d’élixirs égal à sa valeur d’INT (pour un maximum de 4). Ces préparations comptent pour deux élixirs.",
+                    "details": {
+                        "options_elixirs_majeurs": [
+                            "Invisibilité (Magicien)",
+                            "Vol (Magicien)",
+                            "Accélération (Magicien)",
+                            "Masque du prédateur (Druide)"
+                        ]
+                    }
                 }
             ],
             "details": {

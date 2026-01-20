@@ -45,7 +45,13 @@
                 {
                     "rang": 2,
                     "nom": "Enfant de la forêt",
-                    "description": "Le joueur choisit une capacité de rang 1 de n'importe quelle voie de druide ou de rôdeur. Il peut utiliser cette capacité en armure jusqu'à l'armure de cuir renforcé sans pénalité."
+                    "description": "Le joueur choisit une capacité de rang 1 de n'importe quelle voie de druide ou de rôdeur. Il peut utiliser cette capacité en armure jusqu'à l'armure de cuir renforcé sans pénalité.",
+                    "details": {
+                        "choix_capacite": [
+                            "Druide (Rang 1)",
+                            "Rôdeur (Rang 1)"
+                        ]
+                    }
                 },
                 {
                     "rang": 3,

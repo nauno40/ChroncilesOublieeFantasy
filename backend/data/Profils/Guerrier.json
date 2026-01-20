@@ -14,9 +14,9 @@
         "image_url": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/profile/2023-02/warrior.png.webp?itok=dtizFbla"
     },
     "maitrises": {
-        "armes": "Sait manier toutes les armes de contact et toutes les armes à distance.",
-        "armures": "Limitées à la cotte de mailles (sauf capacité spéciale).",
-        "boucliers": "Peut utiliser tous les boucliers."
+        "armes": "Le guerrier sait manier toutes les armes de contact et toutes les armes à distance.",
+        "armures": "Les voies de guerrier limitent l'armure à la cotte de mailles (sauf capacité spéciale).",
+        "boucliers": "Il peut utiliser tous les boucliers."
     },
     "equipement_depart": [
         {
@@ -140,7 +140,17 @@
                     "rang": 1,
                     "nom": "Armes de prédilection",
                     "type": "Passif",
-                    "description_textuelle": "Le guerrier choisit une catégorie d’armes de prédilection parmi épées, haches, mains nues, masses, lances (épieu, lance, pique) et enfin armes de jet (dague de lancer, javelot, etc.), et il gagne +1 en attaque lorsqu’il l’utilise une arme de cette catégorie. De plus, vous ajoutez votre rang + 2 à tous les tests destinés à estimer la valeur d’une arme ou la réputation martiale d’un adversaire."
+                    "description_textuelle": "Le guerrier choisit une catégorie d’armes de prédilection parmi épées, haches, mains nues, masses, lances (épieu, lance, pique) et enfin armes de jet (dague de lancer, javelot, etc.), et il gagne +1 en attaque lorsqu’il l’utilise une arme de cette catégorie. De plus, vous ajoutez votre rang + 2 à tous les tests destinés à estimer la valeur d’une arme ou la réputation martiale d’un adversaire.",
+                    "details": {
+                        "options_armes": [
+                            "Épées",
+                            "Haches",
+                            "Mains nues",
+                            "Masses",
+                            "Lances",
+                            "Armes de jet"
+                        ]
+                    }
                 },
                 {
                     "rang": 2,

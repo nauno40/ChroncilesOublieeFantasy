@@ -18,8 +18,8 @@
         "image_url": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/profile/2023-02/barbarian.png.webp?itok=dHQHS0Ze"
     },
     "maitrises": {
-        "armes": "Le barbare sait manier toutes les armes au contact, toutes les armes à distance (sauf les arbalètes et les armes d’une technologie trop complexe).",
-        "armures": "Les voies de barbare limitent l’armure au cuir renforcé.",
+        "armes": "Le barbare sait manier toutes les armes au contact, toutes les armes à distance (sauf les arbalètes et les armes d'une technologie trop complexe).",
+        "armures": "Les voies de barbare limitent l'armure au cuir renforcé.",
         "boucliers": "Le barbare peut en revanche utiliser tous les boucliers.",
         "evolution_armure": "Certaines capacités (Voie de la Brute) permettent de débloquer le port d'armures plus lourdes."
     },
@@ -112,7 +112,18 @@
                     "rang": 3,
                     "nom": "Tatouages",
                     "type": "Passif",
-                    "description_textuelle": "Le barbare possède un tatouage magique qui améliore ses performances physiques ou mentales. Au choix : Taureau (+3 aux tests de FOR), ours (+3 aux tests de CON), panthère (+3 aux tests d’AGI), chouette (+3 aux tests de PER), loup (+3 aux tests de CHA), renard (+3 aux tests d’INT) ou serpent (+3 aux tests de VOL). De plus, lorsqu’il subit l’état étourdi, il est seulement ralenti. *Note : Ce bonus est un bonus de magie et ne se cumule pas avec les objets magiques.*"
+                    "description_textuelle": "Le barbare possède un tatouage magique qui améliore ses performances physiques ou mentales. Au choix : Taureau (+3 aux tests de FOR), ours (+3 aux tests de CON), panthère (+3 aux tests d’AGI), chouette (+3 aux tests de PER), loup (+3 aux tests de CHA), renard (+3 aux tests d’INT) ou serpent (+3 aux tests de VOL). De plus, lorsqu’il subit l’état étourdi, il est seulement ralenti. *Note : Ce bonus est un bonus de magie et ne se cumule pas avec les objets magiques.*",
+                    "details": {
+                        "options_tatouages": [
+                            "Taureau (+3 FOR)",
+                            "Ours (+3 CON)",
+                            "Panthère (+3 AGI)",
+                            "Chouette (+3 PER)",
+                            "Loup (+3 CHA)",
+                            "Renard (+3 INT)",
+                            "Serpent (+3 VOL)"
+                        ]
+                    }
                 },
                 {
                     "rang": 4,

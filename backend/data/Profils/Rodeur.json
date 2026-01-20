@@ -16,7 +16,7 @@
     },
     "maitrises": {
         "armes": "Le rôdeur sait manier les armes de contact à une main et toutes les armes à distance.",
-        "armures": "Les voies de rôdeur limitent l’armure au cuir renforcé.",
+        "armures": "Les voies de rôdeur limitent l'armure au cuir renforcé.",
         "boucliers": "Interdisent le port du bouclier."
     },
     "equipement_depart": [

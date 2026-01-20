@@ -11,17 +11,17 @@ export const DataService = {
     getWeapons: async () => {
         const all = await ApiService.getAll<Weapon>('equipment?pagination=false&itemsPerPage=500');
         // Filter out armors client-side until DB is normalized for Weapon vs Armor
-        return all.filter(e =>
-            !e.type.toLowerCase().includes('armure') &&
-            !e.type.toLowerCase().includes('bouclier')
-        );
+        return all.filter(e => {
+            const type = (e.type || '').toLowerCase();
+            return !type.includes('armure') && !type.includes('bouclier');
+        });
     },
     getArmors: async () => {
         const all = await ApiService.getAll<Armor>('equipment?pagination=false&itemsPerPage=500');
-        return all.filter(e =>
-            e.type.toLowerCase().includes('armure') ||
-            e.type.toLowerCase().includes('bouclier')
-        );
+        return all.filter(e => {
+            const type = (e.type || '').toLowerCase();
+            return type.includes('armure') || type.includes('bouclier');
+        });
     },
     getMaterials: () => ApiService.getAll<Material>('materials?pagination=false&itemsPerPage=500'),
     getFoods: () => ApiService.getAll<Food>('foods?pagination=false&itemsPerPage=500'),

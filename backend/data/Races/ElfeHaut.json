@@ -50,7 +50,13 @@
                 {
                     "rang": 3,
                     "nom": "Talent pour la magie",
-                    "description": "Le joueur choisit une capacité de rang 1 de n'importe quelle voie de magicien ou d'ensorceleur. Il peut utiliser cette capacité en armure sans pénalité (mais pas une capacité qui offre un bonus de DEF). À la place, il peut choisir une capacité de rang 2, mais ne doit alors pas porter d'armure pour lancer le sort."
+                    "description": "Le joueur choisit une capacité de rang 1 de n'importe quelle voie de magicien ou d'ensorceleur. Il peut utiliser cette capacité en armure sans pénalité (mais pas une capacité qui offre un bonus de DEF). À la place, il peut choisir une capacité de rang 2, mais ne doit alors pas porter d'armure pour lancer le sort.",
+                    "details": {
+                        "choix_capacite": [
+                            "Magicien (Rang 1 ou 2)",
+                            "Ensorceleur (Rang 1 ou 2)"
+                        ]
+                    }
                 },
                 {
                     "rang": 4,

@@ -16,9 +16,9 @@
         "image_url": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/profile/2023-02/knight.png.webp?itok=1Dq6PaS4"
     },
     "maitrises": {
-        "armes": "Sait manier toutes les armes de contact. Dédaigne les armes à distance (considérées comme des armes de couard).",
-        "armures": "Armures jusqu'à la plaque (la plaque complète nécessite une capacité spécifique).",
-        "boucliers": "Tous les boucliers."
+        "armes": "Le chevalier sait manier toutes les armes de contact, mais il dédaigne les armes à distance qu'il considère comme des armes de couard.",
+        "armures": "Les voies de chevalier limitent l'armure à celle de plaque (l'armure de plaque complète nécessite une capacité particulière).",
+        "boucliers": "Il peut utiliser tous les boucliers."
     },
     "equipement_depart": [
         {

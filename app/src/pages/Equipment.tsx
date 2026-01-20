@@ -16,6 +16,7 @@ export const Equipment: React.FC = () => {
     const [armors, setArmors] = React.useState<Armor[]>([]);
     const [materials, setMaterials] = React.useState<Material[]>([]);
     const [loading, setLoading] = React.useState(true);
+    const [error, setError] = React.useState<string | null>(null);
 
     React.useEffect(() => {
         Promise.all([
@@ -35,7 +36,10 @@ export const Equipment: React.FC = () => {
                 setArmors(actualArmors as unknown as Armor[]);
                 setMaterials(m);
             })
-            .catch(console.error)
+            .catch(err => {
+                console.error("Equipment load error:", err);
+                setError(err instanceof Error ? err.message : 'Une erreur est survenue');
+            })
             .finally(() => setLoading(false));
     }, []);
 
@@ -50,7 +54,7 @@ export const Equipment: React.FC = () => {
     ];
 
     const getDamageMod = (type: string) => {
-        if (type.toLowerCase().includes('contact')) return '+ FOR';
+        if (type && type.toLowerCase().includes('contact')) return '+ FOR';
         return '-';
     };
 
@@ -60,6 +64,11 @@ export const Equipment: React.FC = () => {
 
             {loading ? (
                 <div className="p-8 text-center text-primary-200">Chargement...</div>
+            ) : error ? (
+                <div className="p-8 text-center text-red-400">
+                    <p>Erreur lors du chargement des équipements :</p>
+                    <code className="text-sm bg-black/20 p-1 rounded block mt-2">{error}</code>
+                </div>
             ) : (
                 <TabGroup tabs={tabs} defaultTab={initialTab}>
                     {(activeTab) => (

@@ -36,7 +36,10 @@ export const getCreatureSize = (creature: Creature): string => {
  * Get the image path for a creature
  */
 export const getCreatureImage = (creature: Creature): string => {
-    // Fallback to name-based lookup
+    // Use database picture field, fallback to name-based lookup
+    if (creature.picture) {
+        return creature.picture;
+    }
     const name = getCreatureName(creature);
     return `/assets/creatures/${name}.jpg`;
 };

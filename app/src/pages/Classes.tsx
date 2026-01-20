@@ -102,7 +102,7 @@ export const Classes: React.FC = () => {
                         key={profile.id}
                         to={`/classes/${profile.id}`}
                         image={{
-                            src: `/assets/profils/${profile.name}.jpg`,
+                            src: profile.imageUrl || `/assets/profils/${profile.name}.jpg`,
                             alt: profile.name
                         }}
                     >

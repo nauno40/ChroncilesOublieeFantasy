@@ -90,21 +90,6 @@ const DynamicDetailsRenderer = ({ details }: { details: any }) => {
     );
 };
 
-// Map French race names to English image filenames
-const getRaceImageName = (raceName: string): string => {
-    const mapping: Record<string, string> = {
-        'Demi-elfe': 'elf_half.png.webp',
-        'Elfe, haut': 'elf_high.png.webp',
-        'Elfe, sylvain': 'elf_wood.png.webp',
-        'Nain': 'dwarf.png.webp',
-        'Halfelin': 'halfling.png.webp',
-        'Humain': 'human.png.webp',
-        'Gnome': 'gnome.png.webp',
-        'Demi-orque': 'orc_half.png.webp'
-    };
-    return mapping[raceName] || `${raceName}.jpg`;
-};
-
 export const RaceDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const [race, setRace] = useState<Race | null>(null);
@@ -184,7 +169,7 @@ export const RaceDetail: React.FC = () => {
         return <div className="p-8 text-center text-red-400">Race introuvable</div>;
     }
 
-    const raceImageName = race.image ? race.image.split('/').pop() : getRaceImageName(race.name);
+    const raceImageName = race.image || `/assets/races/${race.name.toLowerCase()}.png.webp`;
 
     return (
         <div className="min-h-screen pb-12 relative">
@@ -192,7 +177,7 @@ export const RaceDetail: React.FC = () => {
             {/* Background Banner (Decorative) */}
             <div className="absolute top-0 left-0 w-full h-[500px] overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_40%,transparent)]">
                 <img
-                    src={`/assets/races/${raceImageName}`}
+                    src={raceImageName}
                     alt={race.name}
                     className="w-full h-full object-cover object-top opacity-30"
                 />
@@ -224,7 +209,7 @@ export const RaceDetail: React.FC = () => {
                             <div className="aspect-[3/4] relative overflow-hidden">
                                 <div className="absolute inset-0 bg-gradient-to-t from-stone-900 via-transparent to-transparent opacity-60 z-10"></div>
                                 <img
-                                    src={`/assets/races/${raceImageName}`}
+                                    src={raceImageName}
                                     alt={race.name}
                                     className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-105"
                                     onError={(e) => { e.currentTarget.style.display = 'none'; }}

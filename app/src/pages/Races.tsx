@@ -15,21 +15,6 @@ export const Races: React.FC = () => {
             .finally(() => setLoading(false));
     }, []);
 
-    // Map French race names to English image filenames because API data might rely on name convention
-    const getRaceImageName = (raceName: string): string => {
-        const mapping: Record<string, string> = {
-            'Demi-elfe': 'elf_half.png.webp',
-            'Elfe haut': 'elf_high.png.webp',
-            'Elfe sylvain': 'elf_wood.png.webp',
-            'Nain': 'dwarf.png.webp',
-            'Halfelin': 'halfling.png.webp',
-            'Humain': 'human.png.webp',
-            'Gnome': 'gnome.png.webp',
-            'Demi-orc': 'orc_half.png.webp'
-        };
-        return mapping[raceName] || `${raceName}.jpg`;
-    };
-
     const { searchTerm, setSearchTerm, filteredItems } = useSearch(
         races,
         (race, term) => race.name.toLowerCase().includes(term.toLowerCase())
@@ -53,7 +38,7 @@ export const Races: React.FC = () => {
                         key={race.id}
                         to={`/races/${race.id}`}
                         image={{
-                            src: `/assets/races/${getRaceImageName(race.name)}`,
+                            src: race.image || `/assets/races/${race.name.toLowerCase()}.png.webp`,
                             alt: race.name
                         }}
                     >

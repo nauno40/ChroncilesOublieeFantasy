@@ -1,225 +1,224 @@
 {
-    "classe": {
-        "nom": "Prêtre",
-        "description_generale": "Le prêtre perçoit la nature divine du monde et les desseins des dieux. Il utilise l’énergie transmise par sa divinité pour mener à bien ses missions avec la force de la foi, mais aussi celle des armes si nécessaire.",
+    "class": {
+        "name": "Prêtre",
+        "description": "Le prêtre perçoit la nature divine du monde et les desseins des dieux. Il utilise l’énergie transmise par sa divinité pour mener à bien ses missions avec la force de la foi, mais aussi celle des armes si nécessaire.",
+        "imageUrl": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/profile/2023-02/priest_1.png.webp?itok=mPP0AOgk",
+        "stats": {
+            "hpPerLevel": 4,
+            "profileType": "Soutien / Guérisseur / Combattant divin",
+            "hitDie": "1D8",
+            "magicStat": "PER"
+        },
         "lore": {
             "religion_humaine": "Considèrent que les dieux sont les créateurs du monde.",
             "religion_premiers_nes": "Elfes et Nains affirment que les dieux ('nouveaux dieux') sont arrivés après les Puissances (air, terre, feu, eau, esprit, mort).",
             "conflit": "Pas de réel conflit, le culte des Puissances étant quasi éteint."
-        },
-        "statistiques": {
-            "pv_par_niveau": 4,
-            "profil_type": "Soutien / Guérisseur / Combattant divin",
-            "de_vie": "1D8",
-            "carac_magique": "PER"
-        },
-        "image_url": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/profile/2023-02/priest_1.png.webp?itok=mPP0AOgk",
-        "note_legacy": "Pouvoirs divins\n\nLes voies présentées ici sont génériques mais chaque dieu est particulier. Afin de personnaliser votre Prêtre, choisissez une autre arme sacrée et inventez vous-même (ou choisissez parmi les voies des autres profils) un pouvoir de rang 1 ou 2 que le personnage prendra en remplacement d’une capacité de même rang. L'arme sacrée et le pouvoir devra symboliser fortement sa religion et les directives du culte.\n"
+        }
     },
-    "maitrises": {
-        "armes": "Le prêtre sait manier les armes contondantes à une main ainsi que le bâton ferré. Les prêtres ont l'interdiction morale de faire couler le sang et n'utilisent donc pas les armes tranchantes ou perçantes (sauf arme sacrée).",
-        "armures": "Les voies de prêtre limitent l'armure à la chemise de mailles.",
-        "boucliers": "Permettent d'utiliser le petit bouclier (DEF +1)."
+    "masteries": {
+        "weapons": "Le prêtre sait manier les armes contondantes à une main ainsi que le bâton ferré. Les prêtres ont l'interdiction morale de faire couler le sang et n'utilisent donc pas les armes tranchantes ou perçantes (sauf arme sacrée).",
+        "armors": "Les voies de prêtre limitent l'armure à la chemise de mailles.",
+        "shields": "Permettent d'utiliser le petit bouclier (DEF +1)."
     },
-    "equipement_depart": [
+    "startingEquipment": [
         {
-            "choix": [
+            "choice": [
                 {
-                    "objet": "Masse",
+                    "item": "Masse",
                     "stats": "DM 1d6"
                 },
                 {
-                    "objet": "Marteau de guerre",
+                    "item": "Marteau de guerre",
                     "stats": "DM 1d6"
                 },
                 {
-                    "objet": "Bâton ferré",
+                    "item": "Bâton ferré",
                     "stats": "DM 1d6 (à deux mains)"
                 }
             ]
         },
         {
-            "objet": "Petit bouclier",
+            "item": "Petit bouclier",
             "stats": "DEF +1"
         },
         {
-            "objet": "Chemise de mailles",
+            "item": "Chemise de mailles",
             "stats": "DEF +4"
         }
     ],
-    "voies": [
+    "paths": [
         {
-            "nom": "Voie de la Foi",
-            "capacites": [
+            "name": "Voie de la Foi",
+            "abilities": [
                 {
-                    "rang": 1,
-                    "nom": "Prédicateur",
+                    "rank": 1,
+                    "name": "Prédicateur",
                     "type": "Passif",
-                    "description_textuelle": "Le prêtre ajoute son rang + 2 aux tests visant à convaincre ou convertir son auditoire. De plus, une fois par jour, il récupère 1 PC s’il réussit à convertir une créature (ou un groupe) à sa religion ou à convaincre une créature peu encline à le faire à suivre ses préceptes."
+                    "description": "Le prêtre ajoute son rang + 2 aux tests visant à convaincre ou convertir son auditoire. De plus, une fois par jour, il récupère 1 PC s’il réussit à convertir une créature (ou un groupe) à sa religion ou à convaincre une créature peu encline à le faire à suivre ses préceptes."
                 },
                 {
-                    "rang": 2,
-                    "nom": "Miracle mineur",
+                    "rank": 2,
+                    "name": "Miracle mineur",
                     "type": "Action (A)*",
-                    "description_textuelle": "Le prêtre réalise un petit miracle. Par exemple, purifier de l’eau croupie pour qu’elle devienne buvable ou des aliments avariés (mais il ne peut pas en créer), apaiser une douleur mineure (qui n’entraîne pas de malus) ou même une douleur majeure pendant un seul round, soigner une maladie bénigne (rhume, grippe, etc.). Ce sort permet aussi de rendre 1d4° PV à une créature à 0 PV."
+                    "description": "Le prêtre réalise un petit miracle. Par exemple, purifier de l’eau croupie pour qu’elle devienne buvable ou des aliments avariés (mais il ne peut pas en créer), apaiser une douleur mineure (qui n’entraîne pas de malus) ou même une douleur majeure pendant un seul round, soigner une maladie bénigne (rhume, grippe, etc.). Ce sort permet aussi de rendre 1d4° PV à une créature à 0 PV."
                 },
                 {
-                    "rang": 3,
-                    "nom": "Arme de lumière",
+                    "rank": 3,
+                    "name": "Arme de lumière",
                     "type": "Action de Mouvement (M) ou Limitée (L)*",
-                    "description_textuelle": "Ce sort permet d’enchanter l’arme du prêtre pour une durée de CHA minutes. Elle produit de la lumière dans un rayon de 5 m et contre les démons et les morts‑vivants, elle offre un dé bonus en attaque et ajoute +1d4° aux DM. À partir du rang 5, le prêtre peut utiliser ce sort sur l’arme d’un allié au prix d’une action limitée ou, s’il utilise le sort sur son arme personnelle, infliger +2d4° DM (au lieu de 1d4°). Le sort prend immédiatement fin si l’arme quitte les mains du prêtre."
+                    "description": "Ce sort permet d’enchanter l’arme du prêtre pour une durée de CHA minutes. Elle produit de la lumière dans un rayon de 5 m et contre les démons et les morts‑vivants, elle offre un dé bonus en attaque et ajoute +1d4° aux DM. À partir du rang 5, le prêtre peut utiliser ce sort sur l’arme d’un allié au prix d’une action limitée ou, s’il utilise le sort sur son arme personnelle, infliger +2d4° DM (au lieu de 1d4°). Le sort prend immédiatement fin si l’arme quitte les mains du prêtre."
                 },
                 {
-                    "rang": 4,
-                    "nom": "Ailes célestes",
+                    "rank": 4,
+                    "name": "Ailes célestes",
                     "type": "Action (A)*",
-                    "description_textuelle": "Des ailes divines poussent dans le dos du prêtre, qui peut voler à une vitesse équivalente à son déplacement normal pendant CHA minutes. Rester en vol stationnaire avec les ailes célestes est une action de mouvement."
+                    "description": "Des ailes divines poussent dans le dos du prêtre, qui peut voler à une vitesse équivalente à son déplacement normal pendant CHA minutes. Rester en vol stationnaire avec les ailes célestes est une action de mouvement."
                 },
                 {
-                    "rang": 5,
-                    "nom": "Foudres divines",
+                    "rank": 5,
+                    "name": "Foudres divines",
                     "type": "Action (A)*",
-                    "description_textuelle": "La foudre frappe toutes les créatures désignées dans un rayon de 10 m autour du prêtre et leur inflige [2d4°+CHA] DM (pas de test d’attaque requis). Ce sort est gourmand en énergie et son coût augmente de +1 PM à chaque utilisation tant que le prêtre n’a pas terminé une récupération rapide."
+                    "description": "La foudre frappe toutes les créatures désignées dans un rayon de 10 m autour du prêtre et leur inflige [2d4°+CHA] DM (pas de test d’attaque requis). Ce sort est gourmand en énergie et son coût augmente de +1 PM à chaque utilisation tant que le prêtre n’a pas terminé une récupération rapide."
                 }
             ]
         },
         {
-            "nom": "Voie de la Guerre Sainte",
-            "capacites": [
+            "name": "Voie de la Guerre Sainte",
+            "abilities": [
                 {
-                    "rang": 1,
-                    "nom": "Arme bénie",
+                    "rank": 1,
+                    "name": "Arme bénie",
                     "type": "Action (A)*",
-                    "description_textuelle": "Le prêtre effectue un court rituel et son arme est bénie pour une durée de 24 h. Lorsqu’il obtient un résultat de 1 sur son dé de DM, il relance le dé et garde le second résultat. Les DM de l’arme sont considérés comme magiques. L’arme n’est plus bénie si une autre créature l’utilise."
+                    "description": "Le prêtre effectue un court rituel et son arme est bénie pour une durée de 24 h. Lorsqu’il obtient un résultat de 1 sur son dé de DM, il relance le dé et garde le second résultat. Les DM de l’arme sont considérés comme magiques. L’arme n’est plus bénie si une autre créature l’utilise."
                 },
                 {
-                    "rang": 2,
-                    "nom": "Bouclier de la foi",
+                    "rank": 2,
+                    "name": "Bouclier de la foi",
                     "type": "Passif",
-                    "description_textuelle": "Le prêtre porte le symbole de sa foi sur son bouclier, ce qui lui confère un bonus supplémentaire de +1 en DEF lorsqu’il l’utilise. Ce bonus passe à +2 au rang 5. Comme pour l'arme bénie, le symbole de la foi n'est d'aucune utilité si le bouclier est utilisé par quelqu'un d'autre."
+                    "description": "Le prêtre porte le symbole de sa foi sur son bouclier, ce qui lui confère un bonus supplémentaire de +1 en DEF lorsqu’il l’utilise. Ce bonus passe à +2 au rang 5. Comme pour l'arme bénie, le symbole de la foi n'est d'aucune utilité si le bouclier est utilisé par quelqu'un d'autre."
                 },
                 {
-                    "rang": 3,
-                    "nom": "Châtiment divin",
+                    "rank": 3,
+                    "name": "Châtiment divin",
                     "type": "Action Limitée (L)",
-                    "description_textuelle": "Le prêtre effectue une attaque de contact avec un dé bonus et ajoute son CHA aux dommages. De plus, lorsqu’il utilise cette capacité, le prêtre peut dépenser 1 PM pour ajouter +1d4° aux DM d’une attaque au contact qui touche. Au rang 5, il peut dépenser 2 PM pour ajouter +2d4°."
+                    "description": "Le prêtre effectue une attaque de contact avec un dé bonus et ajoute son CHA aux dommages. De plus, lorsqu’il utilise cette capacité, le prêtre peut dépenser 1 PM pour ajouter +1d4° aux DM d’une attaque au contact qui touche. Au rang 5, il peut dépenser 2 PM pour ajouter +2d4°."
                 },
                 {
-                    "rang": 4,
-                    "nom": "Marteau de la foi",
+                    "rank": 4,
+                    "name": "Marteau de la foi",
                     "type": "Action (A)*",
-                    "description_textuelle": "Le prêtre effectue un test d’attaque magique contre la DEF se sa cible (portée de 30 m). Un projectile d’énergie de la forme de l’arme du prêtre va percuter la cible, lui infligeant [2d4°+CHA] DM en cas de réussite. Si l’arme du prêtre est magique, il peut ajouter son bonus au test d’attaque et aux DM. Les DM du marteau de la foi augmentent de +1 chaque fois que le personnage atteint le rang 4 dans une autre voie de prêtre."
+                    "description": "Le prêtre effectue un test d’attaque magique contre la DEF se sa cible (portée de 30 m). Un projectile d’énergie de la forme de l’arme du prêtre va percuter la cible, lui infligeant [2d4°+CHA] DM en cas de réussite. Si l’arme du prêtre est magique, il peut ajouter son bonus au test d’attaque et aux DM. Les DM du marteau de la foi augmentent de +1 chaque fois que le personnage atteint le rang 4 dans une autre voie de prêtre."
                 },
                 {
-                    "rang": 5,
-                    "nom": "Mot de pouvoir",
+                    "rank": 5,
+                    "name": "Mot de pouvoir",
                     "type": "Action (A)*",
-                    "description_textuelle": "Une fois par jour, le prêtre peut prononcer un mot avec la voix de son dieu. Cela dépasse l’entendement des mortels et tous ses ennemis dans un rayon de 10 m sont étourdis pendant 1 round (pas d’action et ‑5 en DEF)."
+                    "description": "Une fois par jour, le prêtre peut prononcer un mot avec la voix de son dieu. Cela dépasse l’entendement des mortels et tous ses ennemis dans un rayon de 10 m sont étourdis pendant 1 round (pas d’action et ‑5 en DEF)."
                 }
             ]
         },
         {
-            "nom": "Voie de la Prière",
-            "capacites": [
+            "name": "Voie de la Prière",
+            "abilities": [
                 {
-                    "rang": 1,
-                    "nom": "Bénédiction",
+                    "rank": 1,
+                    "name": "Bénédiction",
                     "type": "Action Limitée (L)*",
-                    "description_textuelle": "Le prêtre entonne un chant pour encourager ses compagnons en vue. Ses alliés et lui bénéficient d’un bonus de +1 à tous leurs tests de caractéristique et d’attaque pendant CHA minutes. Ce bonus passe à +2 au rang 5. De plus, le prêtre obtient un bonus égal à son rang + 2 à tous les tests de théologie ou de cosmologie."
+                    "description": "Le prêtre entonne un chant pour encourager ses compagnons en vue. Ses alliés et lui bénéficient d’un bonus de +1 à tous leurs tests de caractéristique et d’attaque pendant CHA minutes. Ce bonus passe à +2 au rang 5. De plus, le prêtre obtient un bonus égal à son rang + 2 à tous les tests de théologie ou de cosmologie."
                 },
                 {
-                    "rang": 2,
-                    "nom": "Sanctuaire",
+                    "rank": 2,
+                    "name": "Sanctuaire",
                     "type": "Action Limitée (L)*",
-                    "description_textuelle": "Pendant 1 min (10 rounds), tous les adversaires qui veulent attaquer le prêtre doivent réussir un test d’INT difficulté [10 + CHA du prêtre]. S’ils échouent, ils ne peuvent pas l’attaquer pour la durée du sort. Ceux dont le niveau est inférieur à la moitié de celui du prêtre sont automatiquement affectés (pas de test d’INT). Si le prêtre commet une action offensive, le sort prend fin immédiatement et il ne peut plus être lancé avant de prendre une récupération rapide."
+                    "description": "Pendant 1 min (10 rounds), tous les adversaires qui veulent attaquer le prêtre doivent réussir un test d’INT difficulté [10 + CHA du prêtre]. S’ils échouent, ils ne peuvent pas l’attaquer pour la durée du sort. Ceux dont le niveau est inférieur à la moitié de celui du prêtre sont automatiquement affectés (pas de test d’INT). Si le prêtre commet une action offensive, le sort prend fin immédiatement et il ne peut plus être lancé avant de prendre une récupération rapide."
                 },
                 {
-                    "rang": 3,
-                    "nom": "Destruction du mal",
+                    "rank": 3,
+                    "name": "Destruction du mal",
                     "type": "Action (A)*",
-                    "description_textuelle": "Tous les morts‑vivants et les démons dans un rayon de 10 m autour du prêtre subissent automatiquement [2d4°+CHA] DM. Les DM passent à 3d4° au rang 5."
+                    "description": "Tous les morts‑vivants et les démons dans un rayon de 10 m autour du prêtre subissent automatiquement [2d4°+CHA] DM. Les DM passent à 3d4° au rang 5."
                 },
                 {
-                    "rang": 4,
-                    "nom": "Volonté héroïque",
+                    "rank": 4,
+                    "name": "Volonté héroïque",
                     "type": "Passif",
-                    "description_textuelle": "Le prêtre augmente sa VOL de +1. Désormais, il obtient un dé bonus aux tests de VOL."
+                    "description": "Le prêtre augmente sa VOL de +1. Désormais, il obtient un dé bonus aux tests de VOL."
                 },
                 {
-                    "rang": 5,
-                    "nom": "Intervention divine",
+                    "rank": 5,
+                    "name": "Intervention divine",
                     "type": "Action Gratuite (G)",
-                    "description_textuelle": "Le prêtre fait appel à son dieu pour changer le cours des événements. Une fois par combat, il peut décider qu’un test du MJ ou des joueurs est une réussite ou un échec, même après que les dés ont révélé leur résultat. Il ne peut pas modifier le résultat du test obtenu par une créature d’un NC supérieur à son niveau."
+                    "description": "Le prêtre fait appel à son dieu pour changer le cours des événements. Une fois par combat, il peut décider qu’un test du MJ ou des joueurs est une réussite ou un échec, même après que les dés ont révélé leur résultat. Il ne peut pas modifier le résultat du test obtenu par une créature d’un NC supérieur à son niveau."
                 }
             ]
         },
         {
-            "nom": "Voie des Soins",
-            "capacites": [
+            "name": "Voie des Soins",
+            "abilities": [
                 {
-                    "rang": 1,
-                    "nom": "Récupération mineure",
+                    "rank": 1,
+                    "name": "Récupération mineure",
                     "type": "Action (A)*",
-                    "description_textuelle": "Le prêtre peut apposer les mains sur un allié au contact (ou sur lui‑même) pour le soigner. Le patient récupère [1d4°+CHA du prêtre] PV. Ce sort peut être lancé une fois par jour par rang atteint dans la voie, plus une fois supplémentaire chaque fois que le personnage atteint le rang 3 dans une autre voie de prêtre. En plus de ce sort, le prêtre ajoute son rang + 2 à tous les tests de médecine et de premiers soins."
+                    "description": "Le prêtre peut apposer les mains sur un allié au contact (ou sur lui‑même) pour le soigner. Le patient récupère [1d4°+CHA du prêtre] PV. Ce sort peut être lancé une fois par jour par rang atteint dans la voie, plus une fois supplémentaire chaque fois que le personnage atteint le rang 3 dans une autre voie de prêtre. En plus de ce sort, le prêtre ajoute son rang + 2 à tous les tests de médecine et de premiers soins."
                 },
                 {
-                    "rang": 2,
-                    "nom": "Vigueur divine",
+                    "rank": 2,
+                    "name": "Vigueur divine",
                     "type": "Action Limitée (L)*",
-                    "description_textuelle": "La cible au contact est guérie d’un poison ou d’une maladie. Si l’infection est surnaturelle, un test d’attaque magique (éventuellement opposé) peut être demandé par le MJ. De plus, le prêtre obtient un bonus égal au rang + 2 aux tests effectués pour résister aux maladies et aux poisons."
+                    "description": "La cible au contact est guérie d’un poison ou d’une maladie. Si l’infection est surnaturelle, un test d’attaque magique (éventuellement opposé) peut être demandé par le MJ. De plus, le prêtre obtient un bonus égal au rang + 2 aux tests effectués pour résister aux maladies et aux poisons."
                 },
                 {
-                    "rang": 3,
-                    "nom": "Récupération majeure",
+                    "rank": 3,
+                    "name": "Récupération majeure",
                     "type": "Action Limitée (L)*",
-                    "description_textuelle": "Le prêtre peut soigner une cible (ou lui‑même) à une portée de 20 m ; elle récupère immédiatement [3d4°+CHA du prêtre] PV. Le montant des soins prodigués augmente de 1d4° chaque fois que le personnage atteint le rang 5 dans une voie de prêtre."
+                    "description": "Le prêtre peut soigner une cible (ou lui‑même) à une portée de 20 m ; elle récupère immédiatement [3d4°+CHA du prêtre] PV. Le montant des soins prodigués augmente de 1d4° chaque fois que le personnage atteint le rang 5 dans une voie de prêtre."
                 },
                 {
-                    "rang": 4,
-                    "nom": "Phénix",
+                    "rank": 4,
+                    "name": "Phénix",
                     "type": "Passif / Réaction",
-                    "description_textuelle": "Une fois par jour, lorsque le personnage tombe à 0 PV, il se relève, nimbé d’une aura de lumière. Il produit alors une onde d’énergie positive qui restitue [2d4°+CHA du prêtre] PV à tous ses alliés dans un rayon de 20 m, et il récupère lui‑même le double de PV."
+                    "description": "Une fois par jour, lorsque le personnage tombe à 0 PV, il se relève, nimbé d’une aura de lumière. Il produit alors une onde d’énergie positive qui restitue [2d4°+CHA du prêtre] PV à tous ses alliés dans un rayon de 20 m, et il récupère lui‑même le double de PV."
                 },
                 {
-                    "rang": 5,
-                    "nom": "Rétablissement",
+                    "rank": 5,
+                    "name": "Rétablissement",
                     "type": "Rituel (10 min)*",
-                    "description_textuelle": "Une fois par jour, le prêtre peut soigner une créature par point de CHA. Chaque patient (éventuellement lui‑même inclus) obtient les mêmes effets qu’un sort de Récupération majeure. Le sort prend 10 min pendant lesquelles tous les patients doivent rester au repos dans un rayon de 5 m autour du prêtre qui se concentre et se nimbe de lumière divine. Ce sort ne peut pas être lancé avec la règle de concentration."
+                    "description": "Une fois par jour, le prêtre peut soigner une créature par point de CHA. Chaque patient (éventuellement lui‑même inclus) obtient les mêmes effets qu’un sort de Récupération majeure. Le sort prend 10 min pendant lesquelles tous les patients doivent rester au repos dans un rayon de 5 m autour du prêtre qui se concentre et se nimbe de lumière divine. Ce sort ne peut pas être lancé avec la règle de concentration."
                 }
             ]
         },
         {
-            "nom": "Voie de la Spiritualité",
-            "capacites": [
+            "name": "Voie de la Spiritualité",
+            "abilities": [
                 {
-                    "rang": 1,
-                    "nom": "Vêtements sacrés",
+                    "rank": 1,
+                    "name": "Vêtements sacrés",
                     "type": "Passif",
-                    "description_textuelle": "La tenue religieuse du prêtre est bénie et le protège. Lorsqu’il ne porte aucune armure (bouclier autorisé), il obtient un dé bonus à tous les tests pour résister à un contrôle mental (injonction, charme, domination...) et +2 en DEF. Ce bonus passe à +3 au rang 3 et +4 au rang 5. *Variante :* Si le prêtre prie une divinité guerrière, il peut choisir d’obtenir la maîtrise de la cotte de mailles (DEF +5) et l’autorisation d’utiliser les capacités des voies de prêtre avec cette armure (nécessite maîtrise chemise de mailles pour hybride)."
+                    "description": "La tenue religieuse du prêtre est bénie et le protège. Lorsqu’il ne porte aucune armure (bouclier autorisé), il obtient un dé bonus à tous les tests pour résister à un contrôle mental (injonction, charme, domination...) et +2 en DEF. Ce bonus passe à +3 au rang 3 et +4 au rang 5. *Variante :* Si le prêtre prie une divinité guerrière, il peut choisir d’obtenir la maîtrise de la cotte de mailles (DEF +5) et l’autorisation d’utiliser les capacités des voies de prêtre avec cette armure (nécessite maîtrise chemise de mailles pour hybride)."
                 },
                 {
-                    "rang": 2,
-                    "nom": "Augure",
+                    "rank": 2,
+                    "name": "Augure",
                     "type": "Action Limitée (L)*",
-                    "description_textuelle": "Le prêtre entre en contact avec les forces de l’au‑delà et demande un avis sur les conséquences d’une action (par exemple « quelles seront les conséquences si j’ouvre cette porte ? »). Il doit faire un test de CHA difficulté 10. En cas de succès, il reçoit une réponse déterminée par le MJ parmi : bénéfique, incertain, risqué ou préjudiciable."
+                    "description": "Le prêtre entre en contact avec les forces de l’au‑delà et demande un avis sur les conséquences d’une action (par exemple « quelles seront les conséquences si j’ouvre cette porte ? »). Il doit faire un test de CHA difficulté 10. En cas de succès, il reçoit une réponse déterminée par le MJ parmi : bénéfique, incertain, risqué ou préjudiciable."
                 },
                 {
-                    "rang": 3,
-                    "nom": "Délivrance",
+                    "rank": 3,
+                    "name": "Délivrance",
                     "type": "Action Limitée (L)*",
-                    "description_textuelle": "En touchant sa cible, le prêtre annule les pénalités infligées par les sorts, les malédictions et les capacités spéciales (peur, douleur, affaiblissement, poisons, pétrification, etc., et les états étourdi, paralysé, ralenti ou immobilisé), mais pas les mutilations ou les amputations. Si la pénalité était permanente, le MJ peut requérir un test d’attaque magique opposé."
+                    "description": "En touchant sa cible, le prêtre annule les pénalités infligées par les sorts, les malédictions et les capacités spéciales (peur, douleur, affaiblissement, poisons, pétrification, etc., et les états étourdi, paralysé, ralenti ou immobilisé), mais pas les mutilations ou les amputations. Si la pénalité était permanente, le MJ peut requérir un test d’attaque magique opposé."
                 },
                 {
-                    "rang": 4,
-                    "nom": "Charisme héroïque",
+                    "rank": 4,
+                    "name": "Charisme héroïque",
                     "type": "Passif",
-                    "description_textuelle": "Le prêtre augmente son CHA de +1. Désormais, il obtient un dé bonus aux tests de CHA."
+                    "description": "Le prêtre augmente son CHA de +1. Désormais, il obtient un dé bonus aux tests de CHA."
                 },
                 {
-                    "rang": 5,
-                    "nom": "Marche des plans",
+                    "rank": 5,
+                    "name": "Marche des plans",
                     "type": "Action Limitée (L)*",
-                    "description_textuelle": "Une fois par jour, le prêtre peut passer dans une dimension entre les plans d’existence où le temps et l’espace sont déformés pendant un maximum de CHA rounds. Il se déplace dans une sorte de brouillard gris où le paysage défile à toute vitesse. Pour chaque round de Marche des plans, il se déplace en réalité de 10 km. Le lieu de sortie n’est cependant pas très précis et le MJ doit déterminer une position au hasard autour du point visé (à 1d6 km près)."
+                    "description": "Une fois par jour, le prêtre peut passer dans une dimension entre les plans d’existence où le temps et l’espace sont déformés pendant un maximum de CHA rounds. Il se déplace dans une sorte de brouillard gris où le paysage défile à toute vitesse. Pour chaque round de Marche des plans, il se déplace en réalité de 10 km. Le lieu de sortie n’est cependant pas très précis et le MJ doit déterminer une position au hasard autour du point visé (à 1d6 km près)."
                 }
             ]
         }

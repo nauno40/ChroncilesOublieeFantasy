@@ -67,6 +67,24 @@ const DynamicDetailsRenderer = ({ details }: { details: any }) => {
                     );
                 }
 
+                // Handle choices and options (Added from RaceDetail)
+                if (key === 'choix_capacite' || key === 'options_origines' || key.startsWith('choix_') || key.startsWith('options_')) {
+                    return (
+                        <div key={key} className="bg-primary-950/20 rounded-lg p-3 border border-primary-500/10 text-sm">
+                            <strong className="block text-primary-300 mb-2 font-display text-xs uppercase tracking-wider">
+                                {key.replace(/_/g, ' ')}
+                            </strong>
+                            {Array.isArray(value) ? (
+                                <ul className="list-disc list-inside space-y-1 pl-2">
+                                    {value.map((v: any, i: number) => <li key={i} className="text-stone-300">{String(v)}</li>)}
+                                </ul>
+                            ) : (
+                                <span className="text-stone-300 italic">{String(value)}</span>
+                            )}
+                        </div>
+                    );
+                }
+
                 // Default renderer for unknown keys
                 return (
                     <div key={key} className="text-xs text-stone-500 border-l-2 border-white/10 pl-2">
@@ -217,7 +235,7 @@ const ClassDetail: React.FC = () => {
                         <div className="bg-stone-900/80 backdrop-blur-sm rounded-2xl p-6 border border-white/5 shadow-xl transition-all hover:border-primary-500/20">
                             <h3 className="text-stone-500 text-xs font-bold uppercase tracking-widest mb-6 flex items-center gap-2">
                                 <span className="w-8 h-[1px] bg-stone-700"></span>
-                                Statistiques Vitales
+                                {profile.stats?.profileType || "Statistiques Vitales"}
                             </h3>
                             <div className="space-y-4">
                                 <div className="flex justify-between items-center border-b border-white/5 pb-2">
@@ -227,6 +245,20 @@ const ClassDetail: React.FC = () => {
                                     </div>
                                     <span className="font-display text-xl text-primary-200">{profile.hitDie}</span>
                                 </div>
+
+                                {/* Extra Stats */}
+                                {profile.stats && Object.entries(profile.stats)
+                                    .filter(([key]) => key !== 'profileType' && key !== 'hpPerLevel' && key !== 'hitDie' && key !== 'magicStat')
+                                    .map(([key, value]) => (
+                                        <div key={key} className="flex justify-between items-center border-b border-white/5 pb-2">
+                                            <div className="flex items-center gap-2 text-stone-400">
+                                                <Activity size={16} className="text-primary-600/60" />
+                                                <span>{key}</span>
+                                            </div>
+                                            <span className="font-display text-lg text-primary-200 text-right max-w-[60%]">{String(value)}</span>
+                                        </div>
+                                    ))}
+
                                 {family && (
                                     <>
                                         <div className="flex justify-between items-center border-b border-white/5 pb-2">
@@ -287,22 +319,28 @@ const ClassDetail: React.FC = () => {
                                 <div className="space-y-6">
                                     {profile.masteries ? (
                                         <>
-                                            {profile.masteries.armes && (
+                                            {profile.masteries.weapons && (
                                                 <div>
                                                     <strong className="text-primary-400 block mb-2 font-display text-sm uppercase tracking-wide">Armes</strong>
-                                                    <p className="text-stone-300 text-sm leading-relaxed">{profile.masteries.armes}</p>
+                                                    <p className="text-stone-300 text-sm leading-relaxed">{profile.masteries.weapons}</p>
                                                 </div>
                                             )}
-                                            {profile.masteries.armures && (
+                                            {profile.masteries.armors && (
                                                 <div>
                                                     <strong className="text-primary-400 block mb-2 font-display text-sm uppercase tracking-wide">Armures</strong>
-                                                    <p className="text-stone-300 text-sm leading-relaxed">{profile.masteries.armures}</p>
+                                                    <p className="text-stone-300 text-sm leading-relaxed">{profile.masteries.armors}</p>
                                                 </div>
                                             )}
-                                            {profile.masteries.boucliers && (
+                                            {profile.masteries.shields && (
                                                 <div>
                                                     <strong className="text-primary-400 block mb-2 font-display text-sm uppercase tracking-wide">Boucliers</strong>
-                                                    <p className="text-stone-300 text-sm leading-relaxed">{profile.masteries.boucliers}</p>
+                                                    <p className="text-stone-300 text-sm leading-relaxed">{profile.masteries.shields}</p>
+                                                </div>
+                                            )}
+                                            {profile.masteries.constraints && (
+                                                <div>
+                                                    <strong className="text-primary-400 block mb-2 font-display text-sm uppercase tracking-wide">Contraintes</strong>
+                                                    <p className="text-stone-300 text-sm leading-relaxed">{profile.masteries.constraints}</p>
                                                 </div>
                                             )}
                                         </>
@@ -335,8 +373,8 @@ const ClassDetail: React.FC = () => {
                                                 );
                                             }
 
-                                            // Handle 'choix' (Choice between multiple options)
-                                            if (item.choix) {
+                                            // Handle 'choice' (Choice between multiple options)
+                                            if (item.choice) {
                                                 return (
                                                     <div key={idx} className="mb-4 pl-0">
                                                         <div className="flex items-center gap-2 mb-2 text-primary-300/80 text-xs uppercase tracking-wider font-bold">
@@ -344,7 +382,7 @@ const ClassDetail: React.FC = () => {
                                                             Au choix :
                                                         </div>
                                                         <div className="pl-4 border-l border-white/10 space-y-2">
-                                                            {item.choix.map((choice: any, cIdx: number) => (
+                                                            {item.choice.map((choice: any, cIdx: number) => (
                                                                 <div key={cIdx}>
                                                                     {cIdx > 0 && <div className="text-[10px] text-stone-500 uppercase font-bold my-1">OU</div>}
                                                                     {renderItem(choice, cIdx, level + 1)}
@@ -355,24 +393,24 @@ const ClassDetail: React.FC = () => {
                                                 );
                                             }
 
-                                            // Handle 'ensemble' (Group of items together)
-                                            if (item.ensemble) {
+                                            // Handle 'set' (Group of items together)
+                                            if (item.set) {
                                                 return (
                                                     <div key={idx} className="bg-white/5 rounded-lg p-3 border border-white/5">
                                                         <span className="text-xs text-stone-400 block mb-2 uppercase tracking-wide font-bold">Ensemble :</span>
-                                                        {item.ensemble.map((subItem: any, sIdx: number) => renderItem(subItem, sIdx, level + 1))}
+                                                        {item.set.map((subItem: any, sIdx: number) => renderItem(subItem, sIdx, level + 1))}
                                                     </div>
                                                 );
                                             }
 
-                                            // Handle standard object { objet, stats }
+                                            // Handle standard object { item, stats }
                                             return (
                                                 <div key={idx} className="flex items-start gap-3 mb-2">
                                                     <div className={`w-1.5 h-1.5 rounded-full bg-primary-500 mt-2 shrink-0 ${level > 0 ? 'bg-primary-500/50' : ''}`}></div>
                                                     <span>
-                                                        <strong className="text-stone-200">{item.objet || item.id}</strong>
+                                                        <strong className="text-stone-200">{item.item || item.id}</strong>
                                                         {item.stats && <span className="text-primary-400/80 ml-1">({item.stats})</span>}
-                                                        {item.exemples && <span className="text-stone-500 italic ml-1">- ex: {item.exemples}</span>}
+                                                        {item.examples && <span className="text-stone-500 italic ml-1">- ex: {item.examples}</span>}
                                                     </span>
                                                 </div>
                                             );

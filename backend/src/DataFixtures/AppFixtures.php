@@ -105,7 +105,7 @@ class AppFixtures extends Fixture
             $e = new Family();
             $e->setName($item['name']);
             $e->setDescription($item['description'] ?? '');
-            $e->setBaseHp($item['vigorPoints'] ?? 4);
+            $e->setBaseHp($item['baseHp'] ?? 4);
             $e->setRecoveryDie($item['recoveryDie'] ?? 'd8');
             $e->setLuckPoints($item['luckPoints'] ?? 0);
             $e->setManaStat($item['manaStat'] ?? null);
@@ -156,24 +156,31 @@ class AppFixtures extends Fixture
 
         foreach ($finder as $file) {
             $data = json_decode($file->getContents(), true);
-            $classData = $data['classe'];
+            $classData = $data['class'];
             
             $e = new Profile();
-            $name = $classData['nom'];
+            $name = $classData['name'];
             $e->setName($name);
-            // ... (rest of profile creation) ...
-            $e->setDescription($classData['description_generale'] ?? '');
+            $e->setDescription($classData['description'] ?? '');
             
             // Stats
-            $stats = $classData['statistiques'] ?? [];
-            if (isset($stats['de_vie'])) {
-                $e->setHitDie($stats['de_vie']);
+            $stats = $classData['stats'] ?? [];
+            if (isset($stats['hitDie'])) {
+                $e->setHitDie($stats['hitDie']);
             }
-            if (isset($stats['carac_magique'])) {
-                $e->setMagicStat($stats['carac_magique']); 
+            if (isset($stats['magicStat'])) {
+                $e->setMagicStat($stats['magicStat']); 
             }
-            if (isset($classData['image_url'])) {
-                $e->setImageUrl($classData['image_url']);
+            
+            // Save remaining stats in JSON
+            $extraStats = $stats;
+            unset($extraStats['hitDie'], $extraStats['magicStat']);
+            if (!empty($extraStats)) {
+                $e->setStats($extraStats);
+            }
+            
+            if (isset($classData['imageUrl'])) {
+                $e->setImageUrl($classData['imageUrl']);
             }
             
             $famId = $familyMap[$name] ?? null;
@@ -190,36 +197,35 @@ class AppFixtures extends Fixture
                 $e->setLore($classData['lore']);
             }
             
-            // Notes logic
-            // Notes logic
-            $masteries = $data['maitrises'] ?? [];
+            // Notes from masteries
+            $masteries = $data['masteries'] ?? [];
             $noteParts = [];
             
             if (!empty($masteries['special'])) {
                 $noteParts[] = $masteries['special'];
             }
             
-            if (!empty($masteries['armes_armures'])) {
-                $noteParts[] = $masteries['armes_armures'];
+            if (!empty($masteries['weaponsAndArmors'])) {
+                $noteParts[] = $masteries['weaponsAndArmors'];
             } else {
-                if (!empty($masteries['armes'])) $noteParts[] = $masteries['armes'];
-                if (!empty($masteries['armures'])) $noteParts[] = $masteries['armures'];
-                if (!empty($masteries['boucliers'])) $noteParts[] = $masteries['boucliers'];
+                if (!empty($masteries['weapons'])) $noteParts[] = $masteries['weapons'];
+                if (!empty($masteries['armors'])) $noteParts[] = $masteries['armors'];
+                if (!empty($masteries['shields'])) $noteParts[] = $masteries['shields'];
             }
 
             $note = implode("\n", $noteParts);
 
-            if (isset($classData['note_legacy'])) {
-                $note .= "\n\n" . $classData['note_legacy'];
+            if (isset($classData['noteLegacy'])) {
+                $note .= "\n\n" . $classData['noteLegacy'];
             }
             $e->setNote(trim($note));
 
-            if (isset($data['maitrises'])) {
-                $e->setMasteries($data['maitrises']);
+            if (isset($data['masteries'])) {
+                $e->setMasteries($data['masteries']);
             }
             
-            if (isset($data['equipement_depart'])) {
-                $e->setStartingEquipment($data['equipement_depart']);
+            if (isset($data['startingEquipment'])) {
+                $e->setStartingEquipment($data['startingEquipment']);
             }
 
             $e->setSkillPoints(2); 
@@ -229,40 +235,38 @@ class AppFixtures extends Fixture
             $key = strtolower($file->getBasename('.json'));
             $profileMap[$key] = $e;
             
-            // VOIES
-            if (isset($data['voies'])) {
-                foreach ($data['voies'] as $voieData) {
+            // PATHS (Voies)
+            if (isset($data['paths'])) {
+                foreach ($data['paths'] as $voieData) {
                     $v = new Voie();
-                    $v->setName($voieData['nom']);
+                    $v->setName($voieData['name']);
                     $v->setDescription($voieData['description'] ?? '');
                     $v->setProfile($e);
                     $v->setCategory('Personnage');
                     $v->setMaxRank(5);
                     
-                    // Extract extra details for Voie
                     if (!empty($voieData['details'])) {
                         $v->setDetails($voieData['details']);
                     }
 
                     $manager->persist($v);
                     
-                    // Track created Voie
-                    $trackKey = $this->normalizeKey($name) . '_' . $this->normalizeKey($voieData['nom']);
+                    $trackKey = $this->normalizeKey($name) . '_' . $this->normalizeKey($voieData['name']);
                     $this->createdVoieKeys[$trackKey] = true;
 
-                    if (isset($voieData['capacites'])) {
-                        foreach ($voieData['capacites'] as $capData) {
+                    // ABILITIES (Capacites)
+                    if (isset($voieData['abilities'])) {
+                        foreach ($voieData['abilities'] as $capData) {
                             $c = new Capability();
-                            $c->setName($capData['nom']);
-                            $c->setDescription($capData['description_textuelle'] ?? '');
-                            $c->setRank($capData['rang']);
+                            $c->setName($capData['name']);
+                            $c->setDescription($capData['description'] ?? '');
+                            $c->setRank($capData['rank']);
                             $c->setVoie($v);
                             
                             $type = $capData['type'] ?? '';
                             $c->setLimited(str_contains(strtolower($type), 'limité'));
-                            $c->setIsSpell(str_contains(strtolower($type), 'sort') || isset($voieData['sorts'])); 
+                            $c->setIsSpell(str_contains(strtolower($type), 'sort')); 
                             
-                            // Extract extra details for Capability
                             if (!empty($capData['details'])) {
                                 $c->setDetails($capData['details']);
                             }
@@ -293,9 +297,9 @@ class AppFixtures extends Fixture
 
         foreach ($data as $item) {
             $e = new CreatureFamily();
-            $e->setName($item['Famille'] ?? 'Unknown');
-            $e->setDescription($item['Text'] ?? null);
-            $e->setImage($item['Image'] ?? null);
+            $e->setName($item['name'] ?? 'Unknown');
+            $e->setDescription($item['text'] ?? null);
+            $e->setImage($item['image'] ?? null);
             $e->setReference($item['id'] ?? null);
             
             $manager->persist($e);
@@ -305,8 +309,8 @@ class AppFixtures extends Fixture
             $entities[$key] = $e;
             
             // Map monster names to this family
-            if (isset($item['Monstres']) && is_array($item['Monstres'])) {
-                foreach ($item['Monstres'] as $monsterName) {
+            if (isset($item['monsters']) && is_array($item['monsters'])) {
+                foreach ($item['monsters'] as $monsterName) {
                     $monsterToFamilyMap[$monsterName] = $e;
                 }
             }
@@ -410,7 +414,7 @@ class AppFixtures extends Fixture
                             $entities[$voieId] = $voie;
                         }
                         
-                        $voie->setName($voieData['nom']);
+                        $voie->setName($voieData['name']);
                         $voie->setDescription($voieData['description'] ?? '');
                         $voie->setCategory('Race');
                         $voie->setMaxRank(5);
@@ -424,12 +428,12 @@ class AppFixtures extends Fixture
                         }
                         
                         // Capabilities
-                        if (isset($voieData['capacites'])) {
-                            foreach ($voieData['capacites'] as $capData) {
+                        if (isset($voieData['abilities'])) {
+                            foreach ($voieData['abilities'] as $capData) {
                                 $cap = new Capability();
-                                $cap->setName($capData['nom']);
+                                $cap->setName($capData['name']);
                                 $cap->setDescription($capData['description'] ?? '');
-                                $cap->setRank($capData['rang']);
+                                $cap->setRank($capData['rank']);
                                 $type = $capData['type'] ?? '';
                                 $cap->setLimited(str_contains(strtolower($type), 'limité'));
                                 $cap->setIsSpell(str_contains(strtolower($type), 'sort'));
@@ -497,6 +501,8 @@ class AppFixtures extends Fixture
             $e->setPrice($item['price'] ?? null);
             $e->setDamage($item['damage'] ?? null);
             $e->setRange($item['range'] ?? null);
+            $e->setCritical($item['critical'] ?? null);
+            $e->setReload($item['reload'] ?? null);
             
             $manager->persist($e);
             $entities[$item['id']] = $e;
@@ -594,71 +600,50 @@ class AppFixtures extends Fixture
         
         foreach ($data as $item) {
             $e = new Creature();
-            $name = $this->getValue($item, 'name', 'Unknown');
+            
+            // Direct access - flat format
+            $name = $item['name'] ?? 'Unknown';
             $e->setName($name);
+            $e->setDescription($item['description'] ?? '');
             
-            // Combine appearance and description
-            $desc = $this->getValue($item, 'appearance', '');
-            $desc2 = $this->getValue($item, 'description', '');
-            $e->setDescription($desc . "\n" . $desc2);
+            // Basic stats - direct integers
+            $e->setNc($item['nc'] ?? 0);
+            $e->setHp($item['hp'] ?? 0);
+            $e->setDef($item['def'] ?? 10);
+            $e->setInit($item['init'] ?? 10);
             
-            // Basic stats
-            $e->setNc((int)$this->getValue($item, 'level', 0));
-            $e->setHp((int)$this->getValue($item, 'health_point', 0));
-            $e->setDef((int)$this->getValue($item, 'defense', 10));
-            $e->setInit((int)$this->getValue($item, 'init', 10));
+            // Stats array - already structured
+            if (isset($item['stats'])) {
+                $e->setStats($item['stats']);
+            }
             
-            // Stats array
-            $stats = [
-                'FOR' => (int)$this->getValue($item, 'str_mod', 0),
-                'DEX' => (int)$this->getValue($item, 'agi_mod', 0),
-                'CON' => (int)$this->getValue($item, 'con_mod', 0),
-                'INT' => (int)$this->getValue($item, 'int_mod', 0),
-                'SAG' => (int)$this->getValue($item, 'per_mod', 0),
-                'CHA' => (int)$this->getValue($item, 'cha_mod', 0),
-            ];
-            $e->setStats($stats);
-            
-            // Special Abilities (text)
-            $specAbil = $this->getValue($item, 'special_capabilities', null);
-            if ($specAbil) {
-                 $e->setSpecialAbilities(['text' => $specAbil]);
+            // Special Abilities
+            if (!empty($item['specialAbilities'])) {
+                $e->setSpecialAbilities(['text' => $item['specialAbilities']]);
             }
 
-            // Attacks
-            if (isset($item['attacks'][0]['data'])) {
-                $e->setAttacks($item['attacks'][0]['data']);
+            // Attacks - already flat array
+            if (!empty($item['attacks'])) {
+                $e->setAttacks($item['attacks']);
             }
 
-            // Capabilities (Array)
-            if (isset($item['capabilities'])) {
+            // Capabilities
+            if (!empty($item['capabilities'])) {
                 $e->setCapabilities($item['capabilities']);
             }
 
-            // Picture (Token URL)
-            if (isset($item['picture'][0]['creature_token_url'])) {
-                $e->setPicture($item['picture'][0]['creature_token_url']);
+            // Picture - direct string
+            if (!empty($item['picture'])) {
+                $e->setPicture($item['picture']);
             }
 
-            // Expanded Details (Category, Environment, Archetype, Size)
-            // Note: These are often array of objects with value/label
-            $e->setCategory($this->getValue($item, 'category', null)); // Using value or label? Usually value map to translation.
-            // Let's check `getValue` implementation. It takes the first item's 'value'.
-            // The frontend displays the Label usually.
-            // Let's modify getValue or use a specific logic.
-            // JSON example: "category": [{"value": "humanoid", "label": "Humanoïde"}]
-            // If I save "humanoid", frontend needs to translate. 
-            // Better to save "Humanoïde" (label) for direct display? 
-            // Or save structured data?
-            // User requested "Category, Environment..." to be displayed.
-            // Let's save the LABEL if available, fallback to VALUE.
-            
-            $e->setCategory($this->getLabelOrValue($item, 'category'));
-            $e->setEnvironment($this->getLabelOrValue($item, 'environment'));
-            $e->setArchetype($this->getLabelOrValue($item, 'archetype'));
-            $e->setSize($this->getLabelOrValue($item, 'size'));
+            // Classification - direct strings
+            $e->setCategory($item['category'] ?? null);
+            $e->setEnvironment($item['environment'] ?? null);
+            $e->setArchetype($item['archetype'] ?? null);
+            $e->setSize($item['size'] ?? null);
 
-            // Link Family
+            // Link Family by name
             if (isset($monsterMap[$name])) {
                 $e->setFamily($monsterMap[$name]);
             }

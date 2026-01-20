@@ -1,171 +1,170 @@
 {
-    "classe": {
-        "nom": "Moine",
-        "description_generale": "Le moine combat à mains nues et utilise le contrôle qu’il a sur son esprit et son corps pour transformer ce dernier en arme de chair. Il couvre tous les combattants acrobates qui réalisent des prouesses martiales.",
+    "class": {
+        "name": "Moine",
+        "description": "Le moine combat à mains nues et utilise le contrôle qu’il a sur son esprit et son corps pour transformer ce dernier en arme de chair. Il couvre tous les combattants acrobates qui réalisent des prouesses martiales.",
+        "imageUrl": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/profile/2023-02/monk.png.webp?itok=sBEQSj2V",
+        "stats": {
+            "hpPerLevel": 4,
+            "profileType": "Combattant agile / Corps à corps / Mystique",
+            "hitDie": "1D8",
+            "magicStat": "PER"
+        },
         "lore": {
             "origines": "Peut être issu d'un monastère, un gladiateur formé à la lutte, ou un enfant sauvage. Les capacités peuvent être déclinées avec une arme de prédilection (profils hybrides).",
             "principaute_arly": "Ordre de Saint Môn à Monastir (garde de la Grande Bibliothèque). Enseignement libre aux auditeurs ou disciples.",
             "elfes": "Ordre Tyr’Nan Lwe (Elfes verts) à Hautesylve. Pacifistes stricts (pas de métal/pierre pour blesser, pas de monnaie). Respectés mais considérés comme fous.",
             "iles_ouister": "Intense tradition monastique sur des pics vertigineux. Tournois réguliers."
-        },
-        "statistiques": {
-            "pv_par_niveau": 4,
-            "profil_type": "Combattant agile / Corps à corps / Mystique",
-            "de_vie": "1D8",
-            "carac_magique": "PER"
-        },
-        "image_url": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/profile/2023-02/monk.png.webp?itok=sBEQSj2V",
-        "note_legacy": "Bien que d’inspiration asiatique, ce Moine est un moine-guerrier qui peut être adapté à de nombreux mondes fantastiques. Si cela ne colle pas avec votre univers, vous pouvez facilement transposer les capacités de combat à mains nues avec une arme (l’épée par exemple) afin d’occidentaliser ce profil."
+        }
     },
-    "maitrises": {
-        "armes": "Le moine sait manier toutes les armes (sauf les armes à poudre), y compris celles à deux mains, mais la plupart des moines préfèrent les mains nues (infligent des DM létaux sur demande).",
-        "armures": "Les voies de moine interdisent de porter une armure.",
-        "boucliers": "Interdisent d'utiliser un bouclier."
+    "masteries": {
+        "weapons": "Le moine sait manier toutes les armes (sauf les armes à poudre), y compris celles à deux mains, mais la plupart des moines préfèrent les mains nues (infligent des DM létaux sur demande).",
+        "armors": "Les voies de moine interdisent de porter une armure.",
+        "shields": "Interdisent d'utiliser un bouclier."
     },
-    "equipement_depart": [
+    "startingEquipment": [
         {
-            "objet": "Bâton",
+            "item": "Bâton",
             "stats": "DM 1d6"
         }
     ],
-    "voies": [
+    "paths": [
         {
-            "nom": "Voie de l'Énergie Vitale",
-            "capacites": [
+            "name": "Voie de l'Énergie Vitale",
+            "abilities": [
                 {
-                    "rang": 1,
-                    "nom": "Mains d’énergie",
+                    "rank": 1,
+                    "name": "Mains d’énergie",
                     "type": "Action Limitée (L)",
-                    "description_textuelle": "Par un effort de concentration, le moine peut rendre ses mains intangibles. Au prix d’une action limitée, à son tour, il peut faire une attaque à mains nues avec un bonus en attaque égal au rang + 2. De plus, même lorsqu’il n’utilise pas Mains d’énergie, toutes les attaques à mains nues du moine sont considérées comme magiques et il peut choisir de remplacer sa FOR aux DM par sa VOL."
+                    "description": "Par un effort de concentration, le moine peut rendre ses mains intangibles. Au prix d’une action limitée, à son tour, il peut faire une attaque à mains nues avec un bonus en attaque égal au rang + 2. De plus, même lorsqu’il n’utilise pas Mains d’énergie, toutes les attaques à mains nues du moine sont considérées comme magiques et il peut choisir de remplacer sa FOR aux DM par sa VOL."
                 },
                 {
-                    "rang": 2,
-                    "nom": "Projection du ki",
+                    "rank": 2,
+                    "name": "Projection du ki",
                     "type": "Action Limitée (L)",
-                    "description_textuelle": "Le moine projette une vague de force avec son corps et son esprit à une distance maximale de 20 m. Un test d’attaque magique réussi lui permet d’infliger [1d4°+ VOL] DM. Les DM passent à [2d4°+ VOL] au rang 4."
+                    "description": "Le moine projette une vague de force avec son corps et son esprit à une distance maximale de 20 m. Un test d’attaque magique réussi lui permet d’infliger [1d4°+ VOL] DM. Les DM passent à [2d4°+ VOL] au rang 4."
                 },
                 {
-                    "rang": 3,
-                    "nom": "Invulnérable",
+                    "rank": 3,
+                    "name": "Invulnérable",
                     "type": "Passif",
-                    "description_textuelle": "Le moine ne reçoit que la moitié des DM de toutes les sources « élémentaires » : Feu, froid, foudre, acide... ainsi que des poisons ou des maladies. À partir du rang 5, il ne reçoit plus aucun DM ni effet des poisons et des maladies."
+                    "description": "Le moine ne reçoit que la moitié des DM de toutes les sources « élémentaires » : Feu, froid, foudre, acide... ainsi que des poisons ou des maladies. À partir du rang 5, il ne reçoit plus aucun DM ni effet des poisons et des maladies."
                 },
                 {
-                    "rang": 4,
-                    "nom": "Pression mortelle",
+                    "rank": 4,
+                    "name": "Pression mortelle",
                     "type": "Action de Mouvement (M) / Limitée (L)",
-                    "description_textuelle": "Le moine frappe les points par lesquels circule l’énergie vitale d’une créature vivante. Lorsqu’il combat à mains nues, le joueur peut choisir de ne pas infliger immédiatement les DM de ses attaques, il les comptabilise à part et ajoute +1d4° aux DM de chaque attaque. À tout moment dans l’heure qui suit, il peut annoncer une Pression mortelle. Il doit alors réussir un test d’attaque au contact contre la DEF de la cible (action limitée), ce qui libère instantanément la totalité des DM infligés jusqu’alors. À partir du niveau 10, le moine n’a plus besoin de toucher sa cible pour déclencher cet effet ; dans ce cas, il remplace le test d’attaque au contact par un test opposé d’attaque magique, mais n'a droit qu'à un seul essai."
+                    "description": "Le moine frappe les points par lesquels circule l’énergie vitale d’une créature vivante. Lorsqu’il combat à mains nues, le joueur peut choisir de ne pas infliger immédiatement les DM de ses attaques, il les comptabilise à part et ajoute +1d4° aux DM de chaque attaque. À tout moment dans l’heure qui suit, il peut annoncer une Pression mortelle. Il doit alors réussir un test d’attaque au contact contre la DEF de la cible (action limitée), ce qui libère instantanément la totalité des DM infligés jusqu’alors. À partir du niveau 10, le moine n’a plus besoin de toucher sa cible pour déclencher cet effet ; dans ce cas, il remplace le test d’attaque au contact par un test opposé d’attaque magique, mais n'a droit qu'à un seul essai."
                 },
                 {
-                    "rang": 5,
-                    "nom": "Ascétisme",
+                    "rank": 5,
+                    "name": "Ascétisme",
                     "type": "Passif",
-                    "description_textuelle": "Le moine ne mange presque plus, et il peut subsister sans eau et sans sommeil pendant [5 + VOL] jours. Il ne subit aucune pénalité durant cette période. De plus, le moine augmente sa CON de +1 et obtient un dé bonus aux tests de CON."
+                    "description": "Le moine ne mange presque plus, et il peut subsister sans eau et sans sommeil pendant [5 + VOL] jours. Il ne subit aucune pénalité durant cette période. De plus, le moine augmente sa CON de +1 et obtient un dé bonus aux tests de CON."
                 }
             ]
         },
         {
-            "nom": "Voie de la Maîtrise",
-            "capacites": [
+            "name": "Voie de la Maîtrise",
+            "abilities": [
                 {
-                    "rang": 1,
-                    "nom": "Agilité du singe",
+                    "rank": 1,
+                    "name": "Agilité du singe",
                     "type": "Passif",
-                    "description_textuelle": "Le moine ajoute son rang + 2 à tous ses tests pour effectuer des acrobaties ou esquiver et il gagne +2 en DEF. Ce bonus passe à +3 au rang 4. Se relever (si le personnage est renversé) devient une action gratuite."
+                    "description": "Le moine ajoute son rang + 2 à tous ses tests pour effectuer des acrobaties ou esquiver et il gagne +2 en DEF. Ce bonus passe à +3 au rang 4. Se relever (si le personnage est renversé) devient une action gratuite."
                 },
                 {
-                    "rang": 2,
-                    "nom": "Griffes du tigre",
+                    "rank": 2,
+                    "name": "Griffes du tigre",
                     "type": "Passif",
-                    "description_textuelle": "Désormais, lorsque le moine obtient un résultat de 1 au dé de DM à mains nues, il le remplace par le résultat maximal du dé. De plus le moine peut choisir d’infliger des DM tranchants ou perforants lorsqu’il combat à mains nues au lieu de DM contondants."
+                    "description": "Désormais, lorsque le moine obtient un résultat de 1 au dé de DM à mains nues, il le remplace par le résultat maximal du dé. De plus le moine peut choisir d’infliger des DM tranchants ou perforants lorsqu’il combat à mains nues au lieu de DM contondants."
                 },
                 {
-                    "rang": 3,
-                    "nom": "Morsure du serpent",
+                    "rank": 3,
+                    "name": "Morsure du serpent",
                     "type": "Passif",
-                    "description_textuelle": "Lorsqu’il attaque à mains nues, le moine augmente de 1 point les chances d’obtenir un critique sur les attaques au contact (par exemple, 19‑20 au lieu de 20). De plus, ses coups critiques portés à mains nues sont désormais si douloureux que la cible est affaiblie pendant 1 round."
+                    "description": "Lorsqu’il attaque à mains nues, le moine augmente de 1 point les chances d’obtenir un critique sur les attaques au contact (par exemple, 19‑20 au lieu de 20). De plus, ses coups critiques portés à mains nues sont désormais si douloureux que la cible est affaiblie pendant 1 round."
                 },
                 {
-                    "rang": 4,
-                    "nom": "Fureur du dragon",
+                    "rank": 4,
+                    "name": "Fureur du dragon",
                     "type": "Action Limitée (L)",
-                    "description_textuelle": "Une fois par combat, le moine peut effectuer une attaque tournoyante qui inflige automatiquement [3d4°+FOR] DM à tous les adversaires au contact et oblige ceux‑ci à réussir un test de FOR difficulté 10 pour ne pas être renversés."
+                    "description": "Une fois par combat, le moine peut effectuer une attaque tournoyante qui inflige automatiquement [3d4°+FOR] DM à tous les adversaires au contact et oblige ceux‑ci à réussir un test de FOR difficulté 10 pour ne pas être renversés."
                 },
                 {
-                    "rang": 5,
-                    "nom": "Moment de perfection",
+                    "rank": 5,
+                    "name": "Moment de perfection",
                     "type": "Passif / Action Gratuite",
-                    "description_textuelle": "Une fois par jour, le moine peut choisir de réussir toutes ses attaques automatiquement (pas de critique) et d’esquiver toutes celles qui le prennent pour cible pendant un round. Tout semble aller au ralenti autour de lui... Il peut utiliser cette capacité une fois de plus chaque jour par rang 5 atteint dans une autre voie de moine, mais pas plus d’une fois par combat. De plus le moine augmente définitivement de +1 la valeur de sa plus faible caractéristique (choisir en cas d’égalité)."
+                    "description": "Une fois par jour, le moine peut choisir de réussir toutes ses attaques automatiquement (pas de critique) et d’esquiver toutes celles qui le prennent pour cible pendant un round. Tout semble aller au ralenti autour de lui... Il peut utiliser cette capacité une fois de plus chaque jour par rang 5 atteint dans une autre voie de moine, mais pas plus d’une fois par combat. De plus le moine augmente définitivement de +1 la valeur de sa plus faible caractéristique (choisir en cas d’égalité)."
                 }
             ]
         },
         {
-            "nom": "Voie de la Méditation",
-            "capacites": [
+            "name": "Voie de la Méditation",
+            "abilities": [
                 {
-                    "rang": 1,
-                    "nom": "Pacifisme",
+                    "rank": 1,
+                    "name": "Pacifisme",
                     "type": "Passif",
-                    "description_textuelle": "Tant que le moine n’a réalisé aucune action offensive dans un combat, il bénéficie d’un bonus de +5 en DEF et divise par deux tous les DM subis par des attaques. De plus, il obtient un bonus égal à son rang + 2 à tous les tests d’empathie (pour analyser l’état émotionnel d’un interlocuteur) ou à ceux effectués pour apaiser un auditoire ou le convaincre de ne pas avoir recours à la violence."
+                    "description": "Tant que le moine n’a réalisé aucune action offensive dans un combat, il bénéficie d’un bonus de +5 en DEF et divise par deux tous les DM subis par des attaques. De plus, il obtient un bonus égal à son rang + 2 à tous les tests d’empathie (pour analyser l’état émotionnel d’un interlocuteur) ou à ceux effectués pour apaiser un auditoire ou le convaincre de ne pas avoir recours à la violence."
                 },
                 {
-                    "rang": 2,
-                    "nom": "Transe de guérison",
+                    "rank": 2,
+                    "name": "Transe de guérison",
                     "type": "Action (Méditation 10 min)",
-                    "description_textuelle": "Le moine peut méditer pendant 10 min et récupérer ainsi [1d4°+VOL] PV. Les soins augmentent de +1d4° chaque fois que le personnage atteint le rang 4 dans une voie de moine. Il doit terminer une récupération rapide avant de pouvoir à nouveau utiliser cette capacité et il ne peut pas l’utiliser plus de trois fois par jour."
+                    "description": "Le moine peut méditer pendant 10 min et récupérer ainsi [1d4°+VOL] PV. Les soins augmentent de +1d4° chaque fois que le personnage atteint le rang 4 dans une voie de moine. Il doit terminer une récupération rapide avant de pouvoir à nouveau utiliser cette capacité et il ne peut pas l’utiliser plus de trois fois par jour."
                 },
                 {
-                    "rang": 3,
-                    "nom": "Maîtrise du ki",
+                    "rank": 3,
+                    "name": "Maîtrise du ki",
                     "type": "Passif",
-                    "description_textuelle": "Le moine utilise sa force mentale pour augmenter son efficacité en combat. Il ajoute sa VOL à son Initiative et à ses PV. De plus, il gagne +2 en DEF (ce bonus passe à +3 au rang 5)."
+                    "description": "Le moine utilise sa force mentale pour augmenter son efficacité en combat. Il ajoute sa VOL à son Initiative et à ses PV. De plus, il gagne +2 en DEF (ce bonus passe à +3 au rang 5)."
                 },
                 {
-                    "rang": 4,
-                    "nom": "Volonté héroïque",
+                    "rank": 4,
+                    "name": "Volonté héroïque",
                     "type": "Passif",
-                    "description_textuelle": "Le moine augmente sa VOL de +1. Désormais, il obtient un dé bonus aux tests de VOL."
+                    "description": "Le moine augmente sa VOL de +1. Désormais, il obtient un dé bonus aux tests de VOL."
                 },
                 {
-                    "rang": 5,
-                    "nom": "Projection mentale",
+                    "rank": 5,
+                    "name": "Projection mentale",
                     "type": "Action Limitée (L)",
-                    "description_textuelle": "Une fois par jour, le moine entre en méditation et projette son esprit hors de son corps pendant [1d4°+VOL] minutes. Il ressemble à un ectoplasme de couleur blanche qui se déplace en volant à la vitesse de 10 m par round. Il peut passer au travers des murs, mais pas des êtres vivants ou des barrières magiques. Le moine ne perçoit le monde que par sa projection mentale, mais ressent les DM qui sont infligés à son corps. Il peut utiliser cette capacité une fois de plus chaque jour par rang 5 atteint dans une autre voie de moine. De plus le moine augmente définitivement de +1 la valeur de sa plus faible caractéristique (choisir en cas d’égalité)."
+                    "description": "Une fois par jour, le moine entre en méditation et projette son esprit hors de son corps pendant [1d4°+VOL] minutes. Il ressemble à un ectoplasme de couleur blanche qui se déplace en volant à la vitesse de 10 m par round. Il peut passer au travers des murs, mais pas des êtres vivants ou des barrières magiques. Le moine ne perçoit le monde que par sa projection mentale, mais ressent les DM qui sont infligés à son corps. Il peut utiliser cette capacité une fois de plus chaque jour par rang 5 atteint dans une autre voie de moine. De plus le moine augmente définitivement de +1 la valeur de sa plus faible caractéristique (choisir en cas d’égalité)."
                 }
             ]
         },
         {
-            "nom": "Voie du Poing",
-            "capacites": [
+            "name": "Voie du Poing",
+            "abilities": [
                 {
-                    "rang": 1,
-                    "nom": "Poings de fer",
+                    "rank": 1,
+                    "name": "Poings de fer",
                     "type": "Passif",
-                    "description_textuelle": "Lorsqu’il combat à mains nues, le moine peut (s’il le souhaite) remplacer sa FOR par son AGI pour ses tests d’attaque au contact et il inflige [1d6+FOR] DM létaux. Ces DM augmentent à chaque rang suivant : 1d8 au rang 2, 1d10 au rang 3, 1d12 au rang 4 et enfin 2d6 au rang 5."
+                    "description": "Lorsqu’il combat à mains nues, le moine peut (s’il le souhaite) remplacer sa FOR par son AGI pour ses tests d’attaque au contact et il inflige [1d6+FOR] DM létaux. Ces DM augmentent à chaque rang suivant : 1d8 au rang 2, 1d10 au rang 3, 1d12 au rang 4 et enfin 2d6 au rang 5."
                 },
                 {
-                    "rang": 2,
-                    "nom": "Peau de fer",
+                    "rank": 2,
+                    "name": "Peau de fer",
                     "type": "Passif",
-                    "description_textuelle": "Le moine gagne un bonus de +2 en DEF et il divise tous les DM temporaires subis par deux. Le bonus de DEF passe à +3 au rang 5."
+                    "description": "Le moine gagne un bonus de +2 en DEF et il divise tous les DM temporaires subis par deux. Le bonus de DEF passe à +3 au rang 5."
                 },
                 {
-                    "rang": 3,
-                    "nom": "Parade de projectiles",
+                    "rank": 3,
+                    "name": "Parade de projectiles",
                     "type": "Action Gratuite (G)",
-                    "description_textuelle": "Le moine peut dévier un projectile (flèche, javelot...) une fois par round (sauf si le test d’attaque est un critique ou si l’attaque vient d’une arme à poudre)."
+                    "description": "Le moine peut dévier un projectile (flèche, javelot...) une fois par round (sauf si le test d’attaque est un critique ou si l’attaque vient d’une arme à poudre)."
                 },
                 {
-                    "rang": 4,
-                    "nom": "Déluge de coups",
+                    "rank": 4,
+                    "name": "Déluge de coups",
                     "type": "Action Limitée (L)",
-                    "description_textuelle": "À son tour, le moine peut effectuer deux attaques au contact sur des cibles de son choix."
+                    "description": "À son tour, le moine peut effectuer deux attaques au contact sur des cibles de son choix."
                 },
                 {
-                    "rang": 5,
-                    "nom": "Puissance du ki",
+                    "rank": 5,
+                    "name": "Puissance du ki",
                     "type": "Passif",
-                    "description_textuelle": "Le moine peut choisir de s’imposer un dé malus sur une attaque au contact et ajoute +2d4° aux DM. Cette capacité peut aussi être utilisée avec Projection du ki qui est une attaque magique."
+                    "description": "Le moine peut choisir de s’imposer un dé malus sur une attaque au contact et ajoute +2d4° aux DM. Cette capacité peut aussi être utilisée avec Projection du ki qui est une attaque magique."
                 }
             ],
             "details": {
@@ -173,37 +172,37 @@
             }
         },
         {
-            "nom": "Voie du Vent",
-            "capacites": [
+            "name": "Voie du Vent",
+            "abilities": [
                 {
-                    "rang": 1,
-                    "nom": "Pas du vent",
+                    "rank": 1,
+                    "name": "Pas du vent",
                     "type": "Passif",
-                    "description_textuelle": "Le moine peut se déplacer avant et après avoir attaqué (mais il couvre toujours une distance normale, il divise son mouvement en deux). De plus, il gagne +3 en Initiative et son rang + 2 à tous les tests de saut, de course ou d’escalade."
+                    "description": "Le moine peut se déplacer avant et après avoir attaqué (mais il couvre toujours une distance normale, il divise son mouvement en deux). De plus, il gagne +3 en Initiative et son rang + 2 à tous les tests de saut, de course ou d’escalade."
                 },
                 {
-                    "rang": 2,
-                    "nom": "Course du vent",
+                    "rank": 2,
+                    "name": "Course du vent",
                     "type": "Passif",
-                    "description_textuelle": "Le moine se déplace à une vitesse surhumaine, il gagne +1 en DEF et une action de mouvement lui permet de couvrir 15 m. Au rang 5, le bonus de DEF passe à +2 et l’action de mouvement lui permet de couvrir 20 m."
+                    "description": "Le moine se déplace à une vitesse surhumaine, il gagne +1 en DEF et une action de mouvement lui permet de couvrir 15 m. Au rang 5, le bonus de DEF passe à +2 et l’action de mouvement lui permet de couvrir 20 m."
                 },
                 {
-                    "rang": 3,
-                    "nom": "Course des airs",
+                    "rank": 3,
+                    "name": "Course des airs",
                     "type": "Passif",
-                    "description_textuelle": "Le moine défie les lois de la pesanteur et peut se déplacer sur des surfaces qui ne devraient pas supporter son poids. Il peut se déplacer sur l’eau, la neige, le feuillage des arbres ou courir sur un mur vertical. Il doit commencer et terminer son déplacement sur une surface normale. Il n’est plus ralenti par les terrains difficiles et il est désormais immunisé à l’état immobilisé."
+                    "description": "Le moine défie les lois de la pesanteur et peut se déplacer sur des surfaces qui ne devraient pas supporter son poids. Il peut se déplacer sur l’eau, la neige, le feuillage des arbres ou courir sur un mur vertical. Il doit commencer et terminer son déplacement sur une surface normale. Il n’est plus ralenti par les terrains difficiles et il est désormais immunisé à l’état immobilisé."
                 },
                 {
-                    "rang": 4,
-                    "nom": "Agilité héroïque",
+                    "rank": 4,
+                    "name": "Agilité héroïque",
                     "type": "Passif",
-                    "description_textuelle": "Le moine augmente son AGI de +1. Désormais, il obtient un dé bonus aux tests d’AGI."
+                    "description": "Le moine augmente son AGI de +1. Désormais, il obtient un dé bonus aux tests d’AGI."
                 },
                 {
-                    "rang": 5,
-                    "nom": "Passe‑muraille",
+                    "rank": 5,
+                    "name": "Passe‑muraille",
                     "type": "Action Limitée (L)",
-                    "description_textuelle": "Une fois par combat, le moine peut rendre son corps intangible le temps de passer au travers d’un mur d’une épaisseur maximal de VOL mètres. Il ne peut rester immatériel qu’un court instant et reprend corps dès qu’il émerge du mur. Si le mur est trop épais, la capacité ne fonctionne pas. De plus le moine augmente définitivement de +1 la valeur de sa plus faible caractéristique (choisir en cas d’égalité)."
+                    "description": "Une fois par combat, le moine peut rendre son corps intangible le temps de passer au travers d’un mur d’une épaisseur maximal de VOL mètres. Il ne peut rester immatériel qu’un court instant et reprend corps dès qu’il émerge du mur. Si le mur est trop épais, la capacité ne fonctionne pas. De plus le moine augmente définitivement de +1 la valeur de sa plus faible caractéristique (choisir en cas d’égalité)."
                 }
             ]
         }

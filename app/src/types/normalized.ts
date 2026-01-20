@@ -62,6 +62,7 @@ export interface Profile {
     description: string;
     note: string | null;
     hitDie: string;
+    stats?: any;
     skillPoints: number;
 
     // Virtual/Mapped fields for frontend display
@@ -72,10 +73,12 @@ export interface Profile {
 
     // New Masteries field
     masteries?: {
-        armes?: string;
-        armures?: string;
-        boucliers?: string;
+        weapons?: string;
+        armors?: string;
+        shields?: string;
         special?: string;
+        weaponsAndArmors?: string;
+        constraints?: string;
         [key: string]: any;
     } | null;
 
@@ -84,15 +87,11 @@ export interface Profile {
 
     // Relationships
     voies: string[] | Voie[]; // Array of IRIs or Objects
+    // Relationship
     family?: string | Family; // IRI or Object
 
     // Rich Data
-    lore?: any; // Structured JSON, explicit type would be better if schema is strict
-
-    // Legacy fields optional
-    vigorPoints?: number;
-    recoveryDie?: string;
-    luckPoints?: number;
+    lore?: any; // Structured JSON
 }
 
 export interface Voie {
@@ -140,7 +139,9 @@ export interface Armor {
     id: string;
     name: string;
     type: string;
-    defense: string;
+    acBonus: number;
+    acMaxAgi?: number;
+    acPenalty?: number;
     price: string;
     comments: string;
 }
@@ -183,54 +184,6 @@ export interface HarmfulState {
     name: string;
     description: string;
     image: string;
-}
-
-// ============================================================================
-// LEGACY TYPES (deprecated, use normalized types above)
-// ============================================================================
-
-/** @deprecated Use Race instead */
-export interface RaceLegacy {
-    Title: string;
-    Desc: string;
-    Desc2: string;
-    Capacités: string;
-    "Âge de départ": string;
-    Desc3: string;
-    Repères: string;
-    "Espérance de vie": string;
-    Caractéristiques: string;
-    "Noms typiques": string;
-    "Taille Min": string;
-    "Taille Max": string;
-    "Poids Min": string;
-    "Poids Max": string;
-}
-
-/** @deprecated Use Profile instead */
-export interface ProfileLegacy {
-    Note: string;
-    Profil: string;
-    Description: string;
-    "Dé de vie": string;
-    "Armes et armures": string;
-    "Equipement de départ": string;
-    Image_URL: string;
-    Voie1: string;
-    Voie2: string;
-    Voie3: string;
-    Voie4: string;
-    Voie5: string;
-    Mod: string;
-}
-
-/** @deprecated Use Capacity instead */
-export interface CapacityLegacy {
-    Nom: string;
-    Desc: string;
-    Profile: string;
-    Voie: string;
-    rang: string;
 }
 
 // ============================================================================

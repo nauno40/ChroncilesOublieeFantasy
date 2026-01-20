@@ -1,94 +1,94 @@
 {
-    "classe": {
-        "nom": "Guerrier",
-        "description_generale": "Le guerrier est un combattant émérite qui ne craint pas le danger et qui affronte ses ennemis l’arme à la main. De tous les profils de combattant, il est le plus spécialisé et le plus complet dans l’art du combat au corps à corps.",
+    "class": {
+        "name": "Guerrier",
+        "description": "Le guerrier est un combattant émérite qui ne craint pas le danger et qui affronte ses ennemis l’arme à la main. De tous les profils de combattant, il est le plus spécialisé et le plus complet dans l’art du combat au corps à corps.",
+        "imageUrl": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/profile/2023-02/warrior.png.webp?itok=dtizFbla",
+        "stats": {
+            "hpPerLevel": 5,
+            "profileType": "Combattant polyvalent / Corps à corps",
+            "hitDie": "1D10"
+        },
         "lore": {
             "frequence": "Le guerrier est sans doute le profil le plus commun de toutes les Terres d’Osgild.",
             "origines": "Peut venir de n’importe quelle région. Formé au sein d’une armée, d’une milice, par un mentor, ou simplement un gros bras des bas quartiers."
-        },
-        "statistiques": {
-            "pv_par_niveau": 5,
-            "profil_type": "Combattant polyvalent / Corps à corps",
-            "de_vie": "1D10"
-        },
-        "image_url": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/profile/2023-02/warrior.png.webp?itok=dtizFbla"
+        }
     },
-    "maitrises": {
-        "armes": "Le guerrier sait manier toutes les armes de contact et toutes les armes à distance.",
-        "armures": "Les voies de guerrier limitent l'armure à la cotte de mailles (sauf capacité spéciale).",
-        "boucliers": "Il peut utiliser tous les boucliers."
+    "masteries": {
+        "weapons": "Le guerrier sait manier toutes les armes de contact et toutes les armes à distance.",
+        "armors": "Les voies de guerrier limitent l'armure à la cotte de mailles (sauf capacité spéciale).",
+        "shields": "Il peut utiliser tous les boucliers."
     },
-    "equipement_depart": [
+    "startingEquipment": [
         {
-            "objet": "Épée longue",
+            "item": "Épée longue",
             "stats": "DM 1d8"
         },
         {
-            "choix": [
+            "choice": [
                 {
-                    "objet": "Épée à deux mains",
+                    "item": "Épée à deux mains",
                     "stats": "DM 2d6"
                 },
                 {
-                    "objet": "Hache à deux mains",
+                    "item": "Hache à deux mains",
                     "stats": "DM 2d6"
                 }
             ]
         },
         {
-            "choix": [
+            "choice": [
                 {
-                    "objet": "Dague",
+                    "item": "Dague",
                     "stats": "DM 1d4"
                 },
                 {
-                    "objet": "Hachette de lancer",
+                    "item": "Hachette de lancer",
                     "stats": "DM 1d6"
                 }
             ]
         },
         {
-            "objet": "Grand bouclier",
+            "item": "Grand bouclier",
             "stats": "DEF +2"
         },
         {
-            "objet": "Chemise de mailles",
+            "item": "Chemise de mailles",
             "stats": "DEF +4"
         }
     ],
-    "voies": [
+    "paths": [
         {
-            "nom": "Voie du Bouclier",
-            "capacites": [
+            "name": "Voie du Bouclier",
+            "abilities": [
                 {
-                    "rang": 1,
-                    "nom": "Protéger un allié",
+                    "rank": 1,
+                    "name": "Protéger un allié",
                     "type": "Action Gratuite (G)",
-                    "description_textuelle": "S’il n’est pas surpris, le guerrier peut accorder un bonus de DEF de +2 à un allié à son contact contre une attaque par round. Il doit annoncer son intention avant de connaître le résultat de l’attaque. De plus, vous ajoutez votre rang + 2 à tous les tests destinés à éviter d’être surpris."
+                    "description": "S’il n’est pas surpris, le guerrier peut accorder un bonus de DEF de +2 à un allié à son contact contre une attaque par round. Il doit annoncer son intention avant de connaître le résultat de l’attaque. De plus, vous ajoutez votre rang + 2 à tous les tests destinés à éviter d’être surpris."
                 },
                 {
-                    "rang": 2,
-                    "nom": "Parer un coup",
+                    "rank": 2,
+                    "name": "Parer un coup",
                     "type": "Action de Mouvement (M)",
-                    "description_textuelle": "Le guerrier utilise une action de mouvement pour se mettre en posture défensive. Il peut alors essayer de parer une attaque à tout moment avant son prochain tour. Il doit faire un test d’attaque au contact (il peut remplacer la FOR par l’AGI pour ce test) en opposition au test de l’attaque au contact ou à distance réussie par son adversaire. S’il l’emporte, l’attaque adverse est bloquée par le bouclier. Il ne subit aucun DM sauf si la créature est de taille énorme ou colossale, auquel cas, il subit tout de même la moitié des DM. À partir du rang 5, le guerrier peut utiliser cette capacité en action gratuite (toujours une fois par round), mais dans ce cas, il subit un dé malus au test opposé."
+                    "description": "Le guerrier utilise une action de mouvement pour se mettre en posture défensive. Il peut alors essayer de parer une attaque à tout moment avant son prochain tour. Il doit faire un test d’attaque au contact (il peut remplacer la FOR par l’AGI pour ce test) en opposition au test de l’attaque au contact ou à distance réussie par son adversaire. S’il l’emporte, l’attaque adverse est bloquée par le bouclier. Il ne subit aucun DM sauf si la créature est de taille énorme ou colossale, auquel cas, il subit tout de même la moitié des DM. À partir du rang 5, le guerrier peut utiliser cette capacité en action gratuite (toujours une fois par round), mais dans ce cas, il subit un dé malus au test opposé."
                 },
                 {
-                    "rang": 3,
-                    "nom": "Défense au bouclier",
+                    "rank": 3,
+                    "name": "Défense au bouclier",
                     "type": "Passif",
-                    "description_textuelle": "Le guerrier obtient un bonus de +1 en DEF lorsqu’il manie un bouclier. Ce bonus passe à +2 au rang 5. De plus, lorsqu’il tient son bouclier en main, il retranche son rang à tous les DM des attaques de zone (sorts d'Explosion de feu, mains brûlantes, foudre, etc. et aux souffles) sauf s’il est surpris."
+                    "description": "Le guerrier obtient un bonus de +1 en DEF lorsqu’il manie un bouclier. Ce bonus passe à +2 au rang 5. De plus, lorsqu’il tient son bouclier en main, il retranche son rang à tous les DM des attaques de zone (sorts d'Explosion de feu, mains brûlantes, foudre, etc. et aux souffles) sauf s’il est surpris."
                 },
                 {
-                    "rang": 4,
-                    "nom": "Absorber un sort",
+                    "rank": 4,
+                    "name": "Absorber un sort",
                     "type": "Réaction (Spécial)",
-                    "description_textuelle": "Lorsqu’il s’est préparé à parer un coup, le guerrier peut décider à la place d’absorber un sort. S’il réussit un test d’attaque au contact (il peut remplacer la FOR par l’AGI pour ce test) opposé à un test d’attaque magique du lanceur de sort, le sort est absorbé par le bouclier et n’a aucun effet sur le guerrier (mais s’il s’agit d’un sort de zone, les autres cibles sont affectées normalement)."
+                    "description": "Lorsqu’il s’est préparé à parer un coup, le guerrier peut décider à la place d’absorber un sort. S’il réussit un test d’attaque au contact (il peut remplacer la FOR par l’AGI pour ce test) opposé à un test d’attaque magique du lanceur de sort, le sort est absorbé par le bouclier et n’a aucun effet sur le guerrier (mais s’il s’agit d’un sort de zone, les autres cibles sont affectées normalement)."
                 },
                 {
-                    "rang": 5,
-                    "nom": "Renvoi de sort",
+                    "rank": 5,
+                    "name": "Renvoi de sort",
                     "type": "Action Gratuite (G)",
-                    "description_textuelle": "Le guerrier peut décider de renvoyer un sort qu’il vient d’absorber grâce à sa capacité Absorber un sort. Au lieu d’être annulé, le sort absorbé est immédiatement retourné contre son expéditeur : le lanceur du sort subit alors les effets de sa propre attaque ! Cet effet ne fonctionne pas contre les sorts de zone."
+                    "description": "Le guerrier peut décider de renvoyer un sort qu’il vient d’absorber grâce à sa capacité Absorber un sort. Au lieu d’être annulé, le sort absorbé est immédiatement retourné contre son expéditeur : le lanceur du sort subit alors les effets de sa propre attaque ! Cet effet ne fonctionne pas contre les sorts de zone."
                 }
             ],
             "details": {
@@ -96,37 +96,37 @@
             }
         },
         {
-            "nom": "Voie du Combat",
-            "capacites": [
+            "name": "Voie du Combat",
+            "abilities": [
                 {
-                    "rang": 1,
-                    "nom": "Vivacité",
+                    "rank": 1,
+                    "name": "Vivacité",
                     "type": "Passif",
-                    "description_textuelle": "Le guerrier gagne +3 en Initiative et aux tests d’AGI ou de FOR pour éviter d’être immobilisé ou renversé. De plus, une fois par combat, il obtient une action de mouvement supplémentaire à son tour."
+                    "description": "Le guerrier gagne +3 en Initiative et aux tests d’AGI ou de FOR pour éviter d’être immobilisé ou renversé. De plus, une fois par combat, il obtient une action de mouvement supplémentaire à son tour."
                 },
                 {
-                    "rang": 2,
-                    "nom": "Manœuvre",
+                    "rank": 2,
+                    "name": "Manœuvre",
                     "type": "Passif",
-                    "description_textuelle": "Le guerrier obtient un dé bonus lorsqu’il exécute une manœuvre en combat."
+                    "description": "Le guerrier obtient un dé bonus lorsqu’il exécute une manœuvre en combat."
                 },
                 {
-                    "rang": 3,
-                    "nom": "Attaque puissante",
+                    "rank": 3,
+                    "name": "Attaque puissante",
                     "type": "Passif / Action Limitée",
-                    "description_textuelle": "Le guerrier peut choisir de s’imposer un dé malus sur une attaque au contact et il ajoute +2d4° aux DM. Cette capacité peut être utilisée avec Double attaque, Attaque circulaire ou Attaque parfaite. Transformez cette capacité en action limitée (L) pour obtenir +3d4° aux DM au lieu de +2d4°."
+                    "description": "Le guerrier peut choisir de s’imposer un dé malus sur une attaque au contact et il ajoute +2d4° aux DM. Cette capacité peut être utilisée avec Double attaque, Attaque circulaire ou Attaque parfaite. Transformez cette capacité en action limitée (L) pour obtenir +3d4° aux DM au lieu de +2d4°."
                 },
                 {
-                    "rang": 4,
-                    "nom": "Double attaque",
+                    "rank": 4,
+                    "name": "Double attaque",
                     "type": "Action Limitée (L)",
-                    "description_textuelle": "Le guerrier fait deux attaques au contact durant son tour avec un malus de ‑2."
+                    "description": "Le guerrier fait deux attaques au contact durant son tour avec un malus de ‑2."
                 },
                 {
-                    "rang": 5,
-                    "nom": "Attaque circulaire",
+                    "rank": 5,
+                    "name": "Attaque circulaire",
                     "type": "Action Limitée (L)",
-                    "description_textuelle": "Le guerrier peut faire une attaque au contact avec un malus de ‑2 contre chaque adversaire engagé au contact avec lui (il fait un test d’attaque pour chaque adversaire)."
+                    "description": "Le guerrier peut faire une attaque au contact avec un malus de ‑2 contre chaque adversaire engagé au contact avec lui (il fait un test d’attaque pour chaque adversaire)."
                 }
             ],
             "details": {
@@ -134,13 +134,13 @@
             }
         },
         {
-            "nom": "Voie du Maître d'Armes",
-            "capacites": [
+            "name": "Voie du Maître d'Armes",
+            "abilities": [
                 {
-                    "rang": 1,
-                    "nom": "Armes de prédilection",
+                    "rank": 1,
+                    "name": "Armes de prédilection",
                     "type": "Passif",
-                    "description_textuelle": "Le guerrier choisit une catégorie d’armes de prédilection parmi épées, haches, mains nues, masses, lances (épieu, lance, pique) et enfin armes de jet (dague de lancer, javelot, etc.), et il gagne +1 en attaque lorsqu’il l’utilise une arme de cette catégorie. De plus, vous ajoutez votre rang + 2 à tous les tests destinés à estimer la valeur d’une arme ou la réputation martiale d’un adversaire.",
+                    "description": "Le guerrier choisit une catégorie d’armes de prédilection parmi épées, haches, mains nues, masses, lances (épieu, lance, pique) et enfin armes de jet (dague de lancer, javelot, etc.), et il gagne +1 en attaque lorsqu’il l’utilise une arme de cette catégorie. De plus, vous ajoutez votre rang + 2 à tous les tests destinés à estimer la valeur d’une arme ou la réputation martiale d’un adversaire.",
                     "details": {
                         "options_armes": [
                             "Épées",
@@ -153,98 +153,98 @@
                     }
                 },
                 {
-                    "rang": 2,
-                    "nom": "Science du critique",
+                    "rank": 2,
+                    "name": "Science du critique",
                     "type": "Passif",
-                    "description_textuelle": "Le guerrier augmente de 1 point les chances d’obtenir un critique sur les attaques effectuées avec une arme de prédilection (par exemple, 19‑20 au lieu de 20)."
+                    "description": "Le guerrier augmente de 1 point les chances d’obtenir un critique sur les attaques effectuées avec une arme de prédilection (par exemple, 19‑20 au lieu de 20)."
                 },
                 {
-                    "rang": 3,
-                    "nom": "Spécialisation",
+                    "rank": 3,
+                    "name": "Spécialisation",
                     "type": "Passif",
-                    "description_textuelle": "Lorsque le guerrier emploie une arme de prédilection, il gagne un bonus de +1 DM. Chaque fois que le personnage atteint le rang 5 dans une voie de guerrier, il peut choisir une nouvelle catégorie d’arme de prédilection (il gagne les avantages des rangs 1 à 3) ou décider d’augmenter de +1 le bonus aux DM d’une catégorie qu’il connaît déjà (pour un maximum de +6 pour un guerrier ayant atteint le rang 5 dans les cinq voies)."
+                    "description": "Lorsque le guerrier emploie une arme de prédilection, il gagne un bonus de +1 DM. Chaque fois que le personnage atteint le rang 5 dans une voie de guerrier, il peut choisir une nouvelle catégorie d’arme de prédilection (il gagne les avantages des rangs 1 à 3) ou décider d’augmenter de +1 le bonus aux DM d’une catégorie qu’il connaît déjà (pour un maximum de +6 pour un guerrier ayant atteint le rang 5 dans les cinq voies)."
                 },
                 {
-                    "rang": 4,
-                    "nom": "Attaque parfaite",
+                    "rank": 4,
+                    "name": "Attaque parfaite",
                     "type": "Action Limitée (L)",
-                    "description_textuelle": "Vous obtenez un dé bonus en attaque au contact (ou à distance pour une arme de lancer) et ajoutez +1d4° DM. Vous devez utiliser une arme de prédilection. Éventuellement, le guerrier peut choisir de ne pas infliger les DM de son attaque parfaite pour désarmer une cible dont le NC est inférieur à son bonus de DM de spécialisation."
+                    "description": "Vous obtenez un dé bonus en attaque au contact (ou à distance pour une arme de lancer) et ajoutez +1d4° DM. Vous devez utiliser une arme de prédilection. Éventuellement, le guerrier peut choisir de ne pas infliger les DM de son attaque parfaite pour désarmer une cible dont le NC est inférieur à son bonus de DM de spécialisation."
                 },
                 {
-                    "rang": 5,
-                    "nom": "Riposte",
+                    "rank": 5,
+                    "name": "Riposte",
                     "type": "Action Gratuite (G)",
-                    "description_textuelle": "Lorsqu’un adversaire rate une attaque de contact contre lui, le personnage obtient immédiatement une attaque au contact contre cet adversaire. Le personnage ne peut obtenir qu’une seule attaque supplémentaire de cette façon à chaque round et si plusieurs adversaires le ratent, il choisit contre lequel il effectue la riposte."
+                    "description": "Lorsqu’un adversaire rate une attaque de contact contre lui, le personnage obtient immédiatement une attaque au contact contre cet adversaire. Le personnage ne peut obtenir qu’une seule attaque supplémentaire de cette façon à chaque round et si plusieurs adversaires le ratent, il choisit contre lequel il effectue la riposte."
                 }
             ]
         },
         {
-            "nom": "Voie de la Résistance",
-            "capacites": [
+            "name": "Voie de la Résistance",
+            "abilities": [
                 {
-                    "rang": 1,
-                    "nom": "Robustesse",
+                    "rank": 1,
+                    "name": "Robustesse",
                     "type": "Passif",
-                    "description_textuelle": "Le guerrier augmente sa valeur maximale de PV de rang + 2. De plus, vous ajoutez votre rang + 2 à tous les tests destinés à résister aux efforts physiques, à la chaleur ou au froid (conditions naturelles)."
+                    "description": "Le guerrier augmente sa valeur maximale de PV de rang + 2. De plus, vous ajoutez votre rang + 2 à tous les tests destinés à résister aux efforts physiques, à la chaleur ou au froid (conditions naturelles)."
                 },
                 {
-                    "rang": 2,
-                    "nom": "Résilient",
+                    "rank": 2,
+                    "name": "Résilient",
                     "type": "Passif",
-                    "description_textuelle": "Désormais, il suffit de 10 min au guerrier pour bénéficier des effets d’une récupération rapide (au lieu de 30 min) et cela passe à 5 min au rang 4 de la voie. De plus, le guerrier obtient un bonus égal au rang atteint dans la voie pour tous les tests destinés à résister aux états étourdi et affaibli."
+                    "description": "Désormais, il suffit de 10 min au guerrier pour bénéficier des effets d’une récupération rapide (au lieu de 30 min) et cela passe à 5 min au rang 4 de la voie. De plus, le guerrier obtient un bonus égal au rang atteint dans la voie pour tous les tests destinés à résister aux états étourdi et affaibli."
                 },
                 {
-                    "rang": 3,
-                    "nom": "Armure lourde",
+                    "rank": 3,
+                    "name": "Armure lourde",
                     "type": "Passif",
-                    "description_textuelle": "Au choix le guerrier gagne +1 en DEF ou il apprend à porter l’armure de plaque (DEF +6) et désormais, il peut utiliser toutes les capacités de guerrier avec cette armure. *Note pour profil hybride : permet d'apprendre l'armure d'une catégorie au-dessus du profil principal et d'utiliser les capacités avec.*"
+                    "description": "Au choix le guerrier gagne +1 en DEF ou il apprend à porter l’armure de plaque (DEF +6) et désormais, il peut utiliser toutes les capacités de guerrier avec cette armure. *Note pour profil hybride : permet d'apprendre l'armure d'une catégorie au-dessus du profil principal et d'utiliser les capacités avec.*"
                 },
                 {
-                    "rang": 4,
-                    "nom": "Constitution héroïque",
+                    "rank": 4,
+                    "name": "Constitution héroïque",
                     "type": "Passif",
-                    "description_textuelle": "Le guerrier augmente sa CON de +1. Désormais, il obtient un dé bonus aux tests de CON."
+                    "description": "Le guerrier augmente sa CON de +1. Désormais, il obtient un dé bonus aux tests de CON."
                 },
                 {
-                    "rang": 5,
-                    "nom": "Dur à cuire",
+                    "rank": 5,
+                    "name": "Dur à cuire",
                     "type": "Passif",
-                    "description_textuelle": "Le guerrier gagne +1 en DEF et, une fois par combat, lorsqu’il tombe à 0 PV, il peut encore agir un round avant de tomber inconscient. De plus, il ne subit plus de dé malus lorsqu’il est immobilisé et lorsqu’il est étourdi ; il peut encore attaquer, mais avec un dé malus."
+                    "description": "Le guerrier gagne +1 en DEF et, une fois par combat, lorsqu’il tombe à 0 PV, il peut encore agir un round avant de tomber inconscient. De plus, il ne subit plus de dé malus lorsqu’il est immobilisé et lorsqu’il est étourdi ; il peut encore attaquer, mais avec un dé malus."
                 }
             ]
         },
         {
-            "nom": "Voie du Soldat",
-            "capacites": [
+            "name": "Voie du Soldat",
+            "abilities": [
                 {
-                    "rang": 1,
-                    "nom": "Teigneux",
+                    "rank": 1,
+                    "name": "Teigneux",
                     "type": "Action Gratuite (G)",
-                    "description_textuelle": "Une fois par round, si une créature à votre contact tente de s’éloigner de vous, vous obtenez une attaque au contact en action gratuite contre elle. De plus vous ajoutez votre rang + 2 aux tests destinés à résister à l’alcool et à la privation de nourriture ou de sommeil."
+                    "description": "Une fois par round, si une créature à votre contact tente de s’éloigner de vous, vous obtenez une attaque au contact en action gratuite contre elle. De plus vous ajoutez votre rang + 2 aux tests destinés à résister à l’alcool et à la privation de nourriture ou de sommeil."
                 },
                 {
-                    "rang": 2,
-                    "nom": "Prouesse",
+                    "rank": 2,
+                    "name": "Prouesse",
                     "type": "Action Gratuite (G)",
-                    "description_textuelle": "Le guerrier réussit souvent des exploits physiques hors‑norme. Une fois par round, vous pouvez sacrifier 1d4° PV pour obtenir +5 sur un test de FOR ou de CON. Vous pouvez annoncer l’utilisation de cette capacité après avoir pris connaissance du résultat du test de caractéristique."
+                    "description": "Le guerrier réussit souvent des exploits physiques hors‑norme. Une fois par round, vous pouvez sacrifier 1d4° PV pour obtenir +5 sur un test de FOR ou de CON. Vous pouvez annoncer l’utilisation de cette capacité après avoir pris connaissance du résultat du test de caractéristique."
                 },
                 {
-                    "rang": 3,
-                    "nom": "Piqûre de rappel",
+                    "rank": 3,
+                    "name": "Piqûre de rappel",
                     "type": "Action Gratuite (G)",
-                    "description_textuelle": "Vous n’admettez pas qu’un adversaire vous ignore. Une fois par round, si un adversaire à votre contact attaque une autre créature que vous, vous obtenez une attaque en action gratuite contre lui. Si l’INT de cet adversaire est négative et que vous lui infligez des DM sur cette attaque, il vous prend automatiquement pour cible lors de sa prochaine attaque."
+                    "description": "Vous n’admettez pas qu’un adversaire vous ignore. Une fois par round, si un adversaire à votre contact attaque une autre créature que vous, vous obtenez une attaque en action gratuite contre lui. Si l’INT de cet adversaire est négative et que vous lui infligez des DM sur cette attaque, il vous prend automatiquement pour cible lors de sa prochaine attaque."
                 },
                 {
-                    "rang": 4,
-                    "nom": "Force héroïque",
+                    "rank": 4,
+                    "name": "Force héroïque",
                     "type": "Passif",
-                    "description_textuelle": "Le guerrier augmente sa FOR de +1. Désormais, il obtient un dé bonus aux tests de FOR."
+                    "description": "Le guerrier augmente sa FOR de +1. Désormais, il obtient un dé bonus aux tests de FOR."
                 },
                 {
-                    "rang": 5,
-                    "nom": "Rempart",
+                    "rank": 5,
+                    "name": "Rempart",
                     "type": "Passif",
-                    "description_textuelle": "Vous pouvez désormais utiliser Teigneux contre un nombre d’adversaires égal à votre AGI + 2 à chaque round. Si vous réussissez cette attaque, le déplacement de votre adversaire est stoppé à l’endroit où vous l’avez attaqué. De plus vous gagnez +1 en DEF."
+                    "description": "Vous pouvez désormais utiliser Teigneux contre un nombre d’adversaires égal à votre AGI + 2 à chaque round. Si vous réussissez cette attaque, le déplacement de votre adversaire est stoppé à l’endroit où vous l’avez attaqué. De plus vous gagnez +1 en DEF."
                 }
             ]
         }

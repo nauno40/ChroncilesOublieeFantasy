@@ -58,6 +58,12 @@ class Equipment
     #[ORM\Column(nullable: true)]
     private ?int $acPenalty = null;
 
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $critical = null;
+
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $reload = null;
+
     #[ORM\Column(nullable: true)]
     private ?array $properties = null;
 
@@ -118,4 +124,10 @@ class Equipment
 
     public function getProperties(): ?array { return $this->properties; }
     public function setProperties(?array $properties): static { $this->properties = $properties; return $this; }
+
+    public function getCritical(): ?string { return $this->critical; }
+    public function setCritical(?string $critical): static { $this->critical = $critical; return $this; }
+
+    public function getReload(): ?string { return $this->reload; }
+    public function setReload(?string $reload): static { $this->reload = $reload; return $this; }
 }

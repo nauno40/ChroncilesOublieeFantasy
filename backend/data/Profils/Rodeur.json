@@ -1,83 +1,82 @@
 {
-    "classe": {
-        "nom": "Rôdeur",
-        "description_generale": "Le rôdeur est à l’aise dans les forêts ténébreuses, où il traque les animaux dangereux et les créatures monstrueuses ou, au contraire, se fait l’ami des bêtes et le protecteur des lieux sauvages.",
+    "class": {
+        "name": "Rôdeur",
+        "description": "Le rôdeur est à l’aise dans les forêts ténébreuses, où il traque les animaux dangereux et les créatures monstrueuses ou, au contraire, se fait l’ami des bêtes et le protecteur des lieux sauvages.",
+        "imageUrl": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/profile/2023-02/ranger.png.webp?itok=eNydqDzS",
+        "stats": {
+            "hpPerLevel": 4,
+            "profileType": "Nature / Combat à distance ou Deux armes",
+            "hitDie": "1D8"
+        },
         "lore": {
             "geographie": "On trouve des rôdeurs dans tous les lieux naturels sauvages ou dans les villes et les villages à proximité où ils peuvent servir de guide aux marchands ou aux explorateurs.",
             "lieux_notables": "Dans la principauté d’Arly, le bois de Myrviel, le bois Dormant ou celui d’Astréis sont de bons points de départ tout comme les monts Vierges."
-        },
-        "statistiques": {
-            "pv_par_niveau": 4,
-            "profil_type": "Nature / Combat à distance ou Deux armes",
-            "de_vie": "1D8"
-        },
-        "image_url": "https://www.co-drs.org/sites/default/files/styles/original_compressed/public/co/profile/2023-02/ranger.png.webp?itok=eNydqDzS",
-        "note_legacy": "Si vous jouez dans un monde moins fantastique ou plus exotique, vous pouvez remplacer le loup par un chien ou par tout autre animal adapté à vos aventures (hyène, panthère, chacal...). Si le joueur la choisit, la Voie du montreur d’ours supprime et remplace la Voie du compagnon animal. Un Profil ne peut avoir plus de 5 Voies."
+        }
     },
-    "maitrises": {
-        "armes": "Le rôdeur sait manier les armes de contact à une main et toutes les armes à distance.",
-        "armures": "Les voies de rôdeur limitent l'armure au cuir renforcé.",
-        "boucliers": "Interdisent le port du bouclier."
+    "masteries": {
+        "weapons": "Le rôdeur sait manier les armes de contact à une main et toutes les armes à distance.",
+        "armors": "Les voies de rôdeur limitent l'armure au cuir renforcé.",
+        "shields": "Interdisent le port du bouclier."
     },
-    "equipement_depart": [
+    "startingEquipment": [
         {
-            "objet": "Épée longue",
+            "item": "Épée longue",
             "stats": "DM 1d8"
         },
         {
-            "choix": [
+            "choice": [
                 {
-                    "objet": "Arc court et carquois",
+                    "item": "Arc court et carquois",
                     "stats": "DM 1d6, portée 30 m"
                 },
                 {
-                    "objet": "Autre arme de contact",
-                    "exemples": "Épée courte, hachette, lance"
+                    "item": "Autre arme de contact",
+                    "examples": "Épée courte, hachette, lance"
                 }
             ]
         },
         {
-            "objet": "Dague",
+            "item": "Dague",
             "stats": "DM 1d4"
         },
         {
-            "objet": "Armure de cuir renforcé",
+            "item": "Armure de cuir renforcé",
             "stats": "DEF +3"
         }
     ],
-    "voies": [
+    "paths": [
         {
-            "nom": "Voie de l'Archer",
-            "capacites": [
+            "name": "Voie de l'Archer",
+            "abilities": [
                 {
-                    "rang": 1,
-                    "nom": "Archer émérite",
+                    "rank": 1,
+                    "name": "Archer émérite",
                     "type": "Passif",
-                    "description_textuelle": "Le rôdeur ajoute sa PER aux DM qu’il inflige à l’arc et +1 par rang dans la voie en initiative."
+                    "description": "Le rôdeur ajoute sa PER aux DM qu’il inflige à l’arc et +1 par rang dans la voie en initiative."
                 },
                 {
-                    "rang": 2,
-                    "nom": "Tir chirurgical",
+                    "rank": 2,
+                    "name": "Tir chirurgical",
                     "type": "Passif",
-                    "description_textuelle": "Le rôdeur peut tirer sur une cible engagée en mêlée sans pénalité (mais pas sur une cible à couvert). Il ne risque jamais de toucher un allié, même en cas d’échec critique."
+                    "description": "Le rôdeur peut tirer sur une cible engagée en mêlée sans pénalité (mais pas sur une cible à couvert). Il ne risque jamais de toucher un allié, même en cas d’échec critique."
                 },
                 {
-                    "rang": 3,
-                    "nom": "Dans le mille",
+                    "rank": 3,
+                    "name": "Dans le mille",
                     "type": "Passif / Action Limitée (Option)",
-                    "description_textuelle": "Pour une attaque à distance, le rôdeur peut choisir de s’imposer un dé malus en attaque. Si elle est réussie, il ajoute +2d4° aux DM. Cette capacité peut être utilisée avec Tir rapide ou Flèche de mort par exemple. Transformez cette capacité en action limitée (L) pour obtenir +3d4° aux DM au lieu de 2d4°."
+                    "description": "Pour une attaque à distance, le rôdeur peut choisir de s’imposer un dé malus en attaque. Si elle est réussie, il ajoute +2d4° aux DM. Cette capacité peut être utilisée avec Tir rapide ou Flèche de mort par exemple. Transformez cette capacité en action limitée (L) pour obtenir +3d4° aux DM au lieu de 2d4°."
                 },
                 {
-                    "rang": 4,
-                    "nom": "Tir rapide",
+                    "rank": 4,
+                    "name": "Tir rapide",
                     "type": "Action Limitée (L)",
-                    "description_textuelle": "Le rôdeur peut faire deux attaques à distance pendant son tour avec un malus de ‑2."
+                    "description": "Le rôdeur peut faire deux attaques à distance pendant son tour avec un malus de ‑2."
                 },
                 {
-                    "rang": 5,
-                    "nom": "Flèche de mort",
+                    "rank": 5,
+                    "name": "Flèche de mort",
                     "type": "Action Limitée (L)",
-                    "description_textuelle": "Vous obtenez un dé bonus en attaque à distance et vous ajoutez +1d4° aux DM. Au lieu du dé bonus et de +1d4° aux DM, vous pouvez choisir d'infliger un état préjudiciable de votre choix parmi aveuglé, affaibli, ralenti ou immobilisé pendant 1 round à une cible d’un NC inférieur au vôtre. Vous ne pouvez infliger chaque état préjudiciable qu’une seule fois par combat."
+                    "description": "Vous obtenez un dé bonus en attaque à distance et vous ajoutez +1d4° aux DM. Au lieu du dé bonus et de +1d4° aux DM, vous pouvez choisir d'infliger un état préjudiciable de votre choix parmi aveuglé, affaibli, ralenti ou immobilisé pendant 1 round à une cible d’un NC inférieur au vôtre. Vous ne pouvez infliger chaque état préjudiciable qu’une seule fois par combat."
                 }
             ],
             "details": {
@@ -85,13 +84,13 @@
             }
         },
         {
-            "nom": "Voie du Compagnon Animal",
-            "capacites": [
+            "name": "Voie du Compagnon Animal",
+            "abilities": [
                 {
-                    "rang": 1,
-                    "nom": "Le loup",
+                    "rank": 1,
+                    "name": "Le loup",
                     "type": "Passif",
-                    "description_textuelle": "Le rôdeur obtient un loup pour compagnon animal. En combat, le loup attaque en même temps que le rôdeur. Le loup comprend des ordres simples comme : garde, reste, apporte, attaque, etc.",
+                    "description": "Le rôdeur obtient un loup pour compagnon animal. En combat, le loup attaque en même temps que le rôdeur. Le loup comprend des ordres simples comme : garde, reste, apporte, attaque, etc.",
                     "details": {
                         "statistiques_loup_base": {
                             "caracteristiques": "AGI +1, CON +1*, FOR +2, PER +2*, CHA -2, INT -3, VOL +2 (*Dé bonus aux tests)",
@@ -104,22 +103,22 @@
                     }
                 },
                 {
-                    "rang": 2,
-                    "nom": "Travail d’équipe",
+                    "rank": 2,
+                    "name": "Travail d’équipe",
                     "type": "Passif",
-                    "description_textuelle": "Lorsque le loup et le rôdeur sont au contact, le loup obtient un dé bonus en attaque et le rôdeur obtient un dé bonus aux tests effectués pour pister ou pour éviter d’être surpris (Vigilance)."
+                    "description": "Lorsque le loup et le rôdeur sont au contact, le loup obtient un dé bonus en attaque et le rôdeur obtient un dé bonus aux tests effectués pour pister ou pour éviter d’être surpris (Vigilance)."
                 },
                 {
-                    "rang": 3,
-                    "nom": "Lien empathique",
+                    "rank": 3,
+                    "name": "Lien empathique",
                     "type": "Action Limitée (L)",
-                    "description_textuelle": "Le rôdeur peut communiquer avec son loup par télépathie et le guérir à distance en dépensant ses propres PV (1 PV du rôdeur pour 1 PV octroyé au loup, sans limitation de quantité) au prix d’une action limitée."
+                    "description": "Le rôdeur peut communiquer avec son loup par télépathie et le guérir à distance en dépensant ses propres PV (1 PV du rôdeur pour 1 PV octroyé au loup, sans limitation de quantité) au prix d’une action limitée."
                 },
                 {
-                    "rang": 4,
-                    "nom": "Loup alpha",
+                    "rank": 4,
+                    "name": "Loup alpha",
                     "type": "Passif (Amélioration)",
-                    "description_textuelle": "Le loup du rôdeur devient un spécimen particulièrement puissant.",
+                    "description": "Le loup du rôdeur devient un spécimen particulièrement puissant.",
                     "details": {
                         "statistiques_loup_alpha": {
                             "modifications": "CON +3*, FOR +5",
@@ -130,10 +129,10 @@
                     }
                 },
                 {
-                    "rang": 5,
-                    "nom": "Tactiques de meute",
+                    "rank": 5,
+                    "name": "Tactiques de meute",
                     "type": "Passif",
-                    "description_textuelle": "Lorsque le loup attaque la même cible que le rôdeur, il obtient un bonus de 1d4° aux DM. Chaque fois que le rôdeur dépense 1 PV pour soigner son loup, le loup récupère 2 PV. De plus, le rôdeur et son loup augmentent leur DEF de +1 chaque fois que le personnage atteint le rang 5 dans une voie de rôdeur (celle‑ci incluse)."
+                    "description": "Lorsque le loup attaque la même cible que le rôdeur, il obtient un bonus de 1d4° aux DM. Chaque fois que le rôdeur dépense 1 PV pour soigner son loup, le loup récupère 2 PV. De plus, le rôdeur et son loup augmentent leur DEF de +1 chaque fois que le personnage atteint le rang 5 dans une voie de rôdeur (celle‑ci incluse)."
                 }
             ],
             "details": {
@@ -145,107 +144,107 @@
             }
         },
         {
-            "nom": "Voie de la Survie",
-            "capacites": [
+            "name": "Voie de la Survie",
+            "abilities": [
                 {
-                    "rang": 1,
-                    "nom": "Survie",
+                    "rank": 1,
+                    "name": "Survie",
                     "type": "Passif",
-                    "description_textuelle": "Le rôdeur ajoute son rang + 2 à tous les tests d’escalade et de survie en milieu naturel (s’orienter, trouver un abri et de la nourriture, etc.) dont les tests de récupération effectués chaque nuit. Lorsqu’il dort en milieu naturel, s’il dépense 1 dé de récupération (DR), il guérit 1d4° PV supplémentaire (en plus de [DR max + ½ niveau])."
+                    "description": "Le rôdeur ajoute son rang + 2 à tous les tests d’escalade et de survie en milieu naturel (s’orienter, trouver un abri et de la nourriture, etc.) dont les tests de récupération effectués chaque nuit. Lorsqu’il dort en milieu naturel, s’il dépense 1 dé de récupération (DR), il guérit 1d4° PV supplémentaire (en plus de [DR max + ½ niveau])."
                 },
                 {
-                    "rang": 2,
-                    "nom": "Nature nourricière",
+                    "rank": 2,
+                    "name": "Nature nourricière",
                     "type": "Passif / Action",
-                    "description_textuelle": "Une fois par jour, si le rôdeur passe 1d6 h en milieu naturel sauvage (pas dans un champ), il trouve de quoi nourrir une personne par rang pour une journée et, s’il réussit un test de PER (Survie) difficulté 10, il trouve des plantes médicinales pour soigner 1d4° PV par rang. Les plantes doivent être utilisées immédiatement (10 min de préparation et autant pour faire effet) et les dés peuvent être répartis sur plusieurs patients."
+                    "description": "Une fois par jour, si le rôdeur passe 1d6 h en milieu naturel sauvage (pas dans un champ), il trouve de quoi nourrir une personne par rang pour une journée et, s’il réussit un test de PER (Survie) difficulté 10, il trouve des plantes médicinales pour soigner 1d4° PV par rang. Les plantes doivent être utilisées immédiatement (10 min de préparation et autant pour faire effet) et les dés peuvent être répartis sur plusieurs patients."
                 },
                 {
-                    "rang": 3,
-                    "nom": "Grand pas",
+                    "rank": 3,
+                    "name": "Grand pas",
                     "type": "Action Gratuite (G)",
-                    "description_textuelle": "En milieu naturel, le rôdeur obtient +1 en DEF (ce bonus passe à +2 au rang 5) et 10 m de déplacement en action gratuite (à son tour de jeu). Enfin, il n’est pas gêné par les terrains difficiles naturels, mais il n’obtient pas alors de déplacement supplémentaire."
+                    "description": "En milieu naturel, le rôdeur obtient +1 en DEF (ce bonus passe à +2 au rang 5) et 10 m de déplacement en action gratuite (à son tour de jeu). Enfin, il n’est pas gêné par les terrains difficiles naturels, mais il n’obtient pas alors de déplacement supplémentaire."
                 },
                 {
-                    "rang": 4,
-                    "nom": "Constitution héroïque",
+                    "rank": 4,
+                    "name": "Constitution héroïque",
                     "type": "Passif",
-                    "description_textuelle": "Le rôdeur augmente sa valeur de CON de +1. Désormais, il obtient un dé bonus aux tests de CON."
+                    "description": "Le rôdeur augmente sa valeur de CON de +1. Désormais, il obtient un dé bonus aux tests de CON."
                 },
                 {
-                    "rang": 5,
-                    "nom": "Increvable",
+                    "rank": 5,
+                    "name": "Increvable",
                     "type": "Action Limitée (L)",
-                    "description_textuelle": "Une fois par combat, lorsqu’il tombe à 0 PV, le rôdeur peut récupérer [4d4° + CON] PV au début de son prochain tour. Lorsqu’il se relève, il bénéficie d’un bonus de +5 en DEF pendant 1 round et il se débarrasse de tous les états préjudiciables non permanents qui l’affectent."
+                    "description": "Une fois par combat, lorsqu’il tombe à 0 PV, le rôdeur peut récupérer [4d4° + CON] PV au début de son prochain tour. Lorsqu’il se relève, il bénéficie d’un bonus de +5 en DEF pendant 1 round et il se débarrasse de tous les états préjudiciables non permanents qui l’affectent."
                 }
             ]
         },
         {
-            "nom": "Voie du Traqueur",
-            "capacites": [
+            "name": "Voie du Traqueur",
+            "abilities": [
                 {
-                    "rang": 1,
-                    "nom": "Éclaireur",
+                    "rank": 1,
+                    "name": "Éclaireur",
                     "type": "Passif",
-                    "description_textuelle": "En milieu naturel, le rôdeur ajoute son rang + 2 à ses tests de discrétion et de vigilance ainsi qu’aux tests pour pister. De plus, le rôdeur peut remplacer le bonus de +1 PC de la famille des aventuriers par un bonus de +1 DR si le joueur le souhaite."
+                    "description": "En milieu naturel, le rôdeur ajoute son rang + 2 à ses tests de discrétion et de vigilance ainsi qu’aux tests pour pister. De plus, le rôdeur peut remplacer le bonus de +1 PC de la famille des aventuriers par un bonus de +1 DR si le joueur le souhaite."
                 },
                 {
-                    "rang": 2,
-                    "nom": "Attaque éclair",
+                    "rank": 2,
+                    "name": "Attaque éclair",
                     "type": "Action Limitée (L)",
-                    "description_textuelle": "Le rôdeur peut effectuer une attaque au contact très rapide. Il ajoute son AGI en attaque et aux DM pour cette attaque. À partir du rang 5, cette attaque peut être associée à 10 m de déplacement."
+                    "description": "Le rôdeur peut effectuer une attaque au contact très rapide. Il ajoute son AGI en attaque et aux DM pour cette attaque. À partir du rang 5, cette attaque peut être associée à 10 m de déplacement."
                 },
                 {
-                    "rang": 3,
-                    "nom": "Chasseur émérite",
+                    "rank": 3,
+                    "name": "Chasseur émérite",
                     "type": "Passif",
-                    "description_textuelle": "Le rôdeur obtient +1d4° aux DM de ses attaques au contact ou à distance lorsqu’il combat des animaux (même géants). Chaque fois qu’il atteint le rang 5 dans une voie de rôdeur, il peut choisir un ennemi juré contre lequel il obtient le même avantage parmi les goblinoïdes, les géants, les dragons, les morts-vivants, les insectes (arthropodes inclus) ou les démons."
+                    "description": "Le rôdeur obtient +1d4° aux DM de ses attaques au contact ou à distance lorsqu’il combat des animaux (même géants). Chaque fois qu’il atteint le rang 5 dans une voie de rôdeur, il peut choisir un ennemi juré contre lequel il obtient le même avantage parmi les goblinoïdes, les géants, les dragons, les morts-vivants, les insectes (arthropodes inclus) ou les démons."
                 },
                 {
-                    "rang": 4,
-                    "nom": "Perception héroïque",
+                    "rank": 4,
+                    "name": "Perception héroïque",
                     "type": "Passif",
-                    "description_textuelle": "Le rôdeur augmente sa valeur de PER de +1. Désormais, il obtient un dé bonus aux tests de PER."
+                    "description": "Le rôdeur augmente sa valeur de PER de +1. Désormais, il obtient un dé bonus aux tests de PER."
                 },
                 {
-                    "rang": 5,
-                    "nom": "Repli",
+                    "rank": 5,
+                    "name": "Repli",
                     "type": "Action Limitée (L)",
-                    "description_textuelle": "En milieu naturel, le rôdeur se déplace de 30 m en s’éloignant de ses ennemis. Le joueur fait un test d’AGI difficulté 10, en cas de succès, il disparaît de la vue de ses poursuivants. Il peut s’éloigner ou rester caché sans risque d’être retrouvé ou rattrapé. Si le terrain est découvert (désert, plaine), la difficulté passe à 15."
+                    "description": "En milieu naturel, le rôdeur se déplace de 30 m en s’éloignant de ses ennemis. Le joueur fait un test d’AGI difficulté 10, en cas de succès, il disparaît de la vue de ses poursuivants. Il peut s’éloigner ou rester caché sans risque d’être retrouvé ou rattrapé. Si le terrain est découvert (désert, plaine), la difficulté passe à 15."
                 }
             ]
         },
         {
-            "nom": "Voie du Combat à Deux Armes",
-            "capacites": [
+            "name": "Voie du Combat à Deux Armes",
+            "abilities": [
                 {
-                    "rang": 1,
-                    "nom": "Attaque à suivre",
+                    "rank": 1,
+                    "name": "Attaque à suivre",
                     "type": "Action Gratuite (G)",
-                    "description_textuelle": "Une fois par round, lorsqu’il rate une attaque de sa main principale, le rôdeur peut porter une attaque en action gratuite de son autre main avec une arme parmi : dague (dague de lancer), hachette (hache de lancer) ou épée courte. S’il utilise une arme à une main en dehors de cette liste, il subit un dé malus sur cette attaque."
+                    "description": "Une fois par round, lorsqu’il rate une attaque de sa main principale, le rôdeur peut porter une attaque en action gratuite de son autre main avec une arme parmi : dague (dague de lancer), hachette (hache de lancer) ou épée courte. S’il utilise une arme à une main en dehors de cette liste, il subit un dé malus sur cette attaque."
                 },
                 {
-                    "rang": 2,
-                    "nom": "Parade croisée",
+                    "rank": 2,
+                    "name": "Parade croisée",
                     "type": "Passif",
-                    "description_textuelle": "Le rôdeur obtient un bonus de +1 en DEF lorsqu’il combat avec une arme dans chaque main. Ce bonus passe à +2 au rang 5 de la voie. Au début de son tour, s’il renonce à toute attaque de la main secondaire, il double ce bonus jusqu’à son prochain tour."
+                    "description": "Le rôdeur obtient un bonus de +1 en DEF lorsqu’il combat avec une arme dans chaque main. Ce bonus passe à +2 au rang 5 de la voie. Au début de son tour, s’il renonce à toute attaque de la main secondaire, il double ce bonus jusqu’à son prochain tour."
                 },
                 {
-                    "rang": 3,
-                    "nom": "Droite ‑ gauche",
+                    "rank": 3,
+                    "name": "Droite ‑ gauche",
                     "type": "Action Gratuite (G)",
-                    "description_textuelle": "Une fois par round, lorsqu’il attaque de sa main principale, le rôdeur obtient aussi une attaque de sa main secondaire en action gratuite. Si la cible n’est pas la même que celle de la main principale, il subit un dé malus au test. Cette capacité se substitue à Attaque à suivre."
+                    "description": "Une fois par round, lorsqu’il attaque de sa main principale, le rôdeur obtient aussi une attaque de sa main secondaire en action gratuite. Si la cible n’est pas la même que celle de la main principale, il subit un dé malus au test. Cette capacité se substitue à Attaque à suivre."
                 },
                 {
-                    "rang": 4,
-                    "nom": "Combattant héroïque",
+                    "rank": 4,
+                    "name": "Combattant héroïque",
                     "type": "Passif",
-                    "description_textuelle": "Le rôdeur augmente sa valeur d’AGI de +1 et obtient un dé bonus aux tests d’AGI (lancer deux d20 et conserver le plus haut résultat). Plutôt qu’augmenter son AGI, le personnage peut choisir d’augmenter sa valeur de FOR de +1 (pas de dé bonus aux tests) et peut désormais attaquer avec la même arme dans la main secondaire sans subir de dé malus (par exemple deux épées longues)."
+                    "description": "Le rôdeur augmente sa valeur d’AGI de +1 et obtient un dé bonus aux tests d’AGI (lancer deux d20 et conserver le plus haut résultat). Plutôt qu’augmenter son AGI, le personnage peut choisir d’augmenter sa valeur de FOR de +1 (pas de dé bonus aux tests) et peut désormais attaquer avec la même arme dans la main secondaire sans subir de dé malus (par exemple deux épées longues)."
                 },
                 {
-                    "rang": 5,
-                    "nom": "Double peine",
+                    "rank": 5,
+                    "name": "Double peine",
                     "type": "Passif",
-                    "description_textuelle": "Si les deux armes du rôdeur atteignent la même cible lors d’un même tour, le personnage obtient un effet d’enchaînement qui ajoute 1d4° DM à l’une des deux attaques de son choix."
+                    "description": "Si les deux armes du rôdeur atteignent la même cible lors d’un même tour, le personnage obtient un effet d’enchaînement qui ajoute 1d4° DM à l’une des deux attaques de son choix."
                 }
             ],
             "details": {

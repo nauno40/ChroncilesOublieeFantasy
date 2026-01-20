@@ -31,20 +31,20 @@
     "availableVoiesIds": [
         "voie_de_l_elfe_sylvain"
     ],
-    "image": "\/assets\/races\/elf_wood.png.webp",
+    "image": "/assets/races/elf_wood.png.webp",
     "voies": [
         {
             "id": "voie_de_l_elfe_sylvain",
-            "nom": "Voie de l'elfe sylvain",
-            "capacites": [
+            "name": "Voie de l'elfe sylvain",
+            "abilities": [
                 {
-                    "rang": 1,
-                    "nom": "Lumière des étoiles",
+                    "name": "Lumière des étoiles",
+                    "rank": 1,
                     "description": "Pour un elfe sylvain, l'obscurité de la nuit sous la lumière des étoiles est considérée comme de la pénombre. De plus, l'elfe gagne un bonus de +3 à tous les tests de survie en forêt (escalade, discrétion, chasse, etc.)."
                 },
                 {
-                    "rang": 2,
-                    "nom": "Enfant de la forêt",
+                    "name": "Enfant de la forêt",
+                    "rank": 2,
                     "description": "Le joueur choisit une capacité de rang 1 de n'importe quelle voie de druide ou de rôdeur. Il peut utiliser cette capacité en armure jusqu'à l'armure de cuir renforcé sans pénalité.",
                     "details": {
                         "choix_capacite": [
@@ -54,19 +54,19 @@
                     }
                 },
                 {
-                    "rang": 3,
-                    "nom": "Archer émérite",
+                    "name": "Archer émérite",
+                    "rank": 3,
                     "description": "L'elfe augmente de 1 la zone de critique lorsqu'il utilise un arc (19-20 au d20) et ajoute +1d4° aux DM en cas de critique. Il sait utiliser les arcs courts, quel que soit son profil."
                 },
                 {
-                    "rang": 4,
-                    "nom": "Flèche sanglante",
-                    "type": "Action Limitée (L)",
-                    "description": "L'elfe fait une attaque à distance qui provoque une hémorragie. En plus des DM normaux, la flèche produit un effet de saignement qui inflige à la victime 1d4° DM à chaque round suivant jusqu'à ce que la cible soit soignée (tout effet de soins ou une action limitée utilisée à cet effet). On ne peut cumuler plusieurs effets de saignement."
+                    "name": "Flèche sanglante",
+                    "rank": 4,
+                    "description": "L'elfe fait une attaque à distance qui provoque une hémorragie. En plus des DM normaux, la flèche produit un effet de saignement qui inflige à la victime 1d4° DM à chaque round suivant jusqu'à ce que la cible soit soignée (tout effet de soins ou une action limitée utilisée à cet effet). On ne peut cumuler plusieurs effets de saignement.",
+                    "type": "Action Limitée (L)"
                 },
                 {
-                    "rang": 5,
-                    "nom": "Supériorité elfique",
+                    "name": "Supériorité elfique",
+                    "rank": 5,
                     "description": "L'elfe augmente ses valeurs d'AGI et PER de +1."
                 }
             ]

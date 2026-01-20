@@ -106,7 +106,7 @@ export const Equipment: React.FC = () => {
                                                             <td className="p-4 text-stone-400 text-sm whitespace-nowrap">{weapon.type}</td>
                                                             <td className="p-4 text-stone-300 font-mono text-sm">{weapon.damage}</td>
                                                             <td className="p-4 text-stone-400 font-mono text-sm">{getDamageMod(weapon.type)}</td>
-                                                            <td className="p-4 text-stone-400 font-mono text-sm">{weapon.critical}</td>
+                                                            <td className="p-4 text-stone-400 font-mono text-sm">{weapon.critical || '-'}</td>
                                                             <td className="p-4 text-stone-400 font-mono text-sm whitespace-nowrap">{weapon.range || '-'}</td>
                                                             <td className="p-4 text-stone-400 text-sm whitespace-nowrap">{weapon.reload || '-'}</td>
                                                             <td className="p-4 text-amber-400/80 text-xs italic">{weapon.requirements}</td>
@@ -147,7 +147,9 @@ export const Equipment: React.FC = () => {
                                                         <tr key={i} className="hover:bg-primary-500/5 transition-colors">
                                                             <td className="p-4 text-stone-200 font-bold">{armor.name}</td>
                                                             <td className="p-4 text-stone-400 text-sm whitespace-nowrap">{armor.type}</td>
-                                                            <td className="p-4 text-primary-400 font-mono font-bold whitespace-nowrap">{armor.defense}</td>
+                                                            <td className="p-4 text-primary-400 font-mono font-bold whitespace-nowrap">
+                                                                {armor.acBonus ? `+${armor.acBonus}` : '-'}
+                                                            </td>
                                                             <td className="p-4 text-stone-400 text-sm italic">{armor.comments}</td>
                                                             <td className="p-4 text-yellow-500/90 font-mono text-sm text-right whitespace-nowrap">{armor.price}</td>
                                                         </tr>

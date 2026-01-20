@@ -210,6 +210,13 @@ class Profile
 
         return $this;
     }
+
+    #[ORM\Column(type: Types::JSON, nullable: true)]
+    private ?array $stats = null;
+
+    public function getStats(): ?array { return $this->stats; }
+    public function setStats(?array $stats): static { $this->stats = $stats; return $this; }
+    
     #[ORM\Column(type: Types::JSON, nullable: true)]
     private ?array $startingEquipment = null;
 

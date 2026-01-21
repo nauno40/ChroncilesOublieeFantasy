@@ -394,68 +394,60 @@ class AppFixtures extends Fixture
         $finder = new Finder();
         $finder->files()->in($this->dataDir . '/Races')->name('*.json');
         
+        $raceItems = [];
         foreach ($finder as $file) {
-            $raceItem = json_decode($file->getContents(), true);
+            $raceItems[] = json_decode($file->getContents(), true);
+        }
+
+        // PASS 1: Create all embedded Racial Voies first
+        foreach ($raceItems as $raceItem) {
             $raceEntity = $races[$raceItem['id']] ?? null;
+            if ($raceEntity && isset($raceItem['voies'])) {
+                foreach ($raceItem['voies'] as $voieData) {
+                    $voieId = $voieData['id'];
+                    $voie = $entities[$voieId] ?? new Voie();
+                    if (!isset($entities[$voieId])) {
+                        $manager->persist($voie);
+                        $entities[$voieId] = $voie;
+                    }
+                    
+                    $voie->setName($voieData['name']);
+                    $voie->setDescription($voieData['description'] ?? '');
+                    $voie->setCategory('Race');
+                    $voie->setMaxRank(5);
+                    $raceEntity->addAvailableVoie($voie);
 
-            if ($raceEntity) {
-                // 1. Process embedded Racial Voies (created by enrich_races.php)
-                if (isset($raceItem['voies'])) {
-                    foreach ($raceItem['voies'] as $voieData) {
-                        $voieId = $voieData['id'];
-                        
-                        // Create or Get Voie Entity
-                        if (isset($entities[$voieId])) {
-                            $voie = $entities[$voieId];
-                        } else {
-                            $voie = new Voie();
-                            // $voie->setId($voieId); // Removed: ID is auto-generated int
-                            $manager->persist($voie);
-                            $entities[$voieId] = $voie;
-                        }
-                        
-                        $voie->setName($voieData['name']);
-                        $voie->setDescription($voieData['description'] ?? '');
-                        $voie->setCategory('Race');
-                        $voie->setMaxRank(5);
-                        
-                        // Link to Race
-                        $raceEntity->addAvailableVoie($voie);
-
-                        // Extract extra details for Racial Voie
-                        if (!empty($voieData['details'])) {
-                            $voie->setDetails($voieData['details']);
-                        }
-                        
-                        // Capabilities
-                        if (isset($voieData['abilities'])) {
-                            foreach ($voieData['abilities'] as $capData) {
-                                $cap = new Capability();
-                                $cap->setName($capData['name']);
-                                $cap->setDescription($capData['description'] ?? '');
-                                $cap->setRank($capData['rank']);
-                                $type = $capData['type'] ?? '';
-                                $cap->setLimited(str_contains(strtolower($type), 'limité'));
-                                $cap->setIsSpell(str_contains(strtolower($type), 'sort'));
-                                $cap->setVoie($voie);
-                                
-                                // Extract extra details for Racial Capability
-                                if (!empty($capData['details'])) {
-                                    $cap->setDetails($capData['details']);
-                                }
-
-                                $manager->persist($cap);
+                    if (!empty($voieData['details'])) {
+                        $voie->setDetails($voieData['details']);
+                    }
+                    
+                    if (isset($voieData['abilities'])) {
+                        foreach ($voieData['abilities'] as $capData) {
+                            $cap = new Capability();
+                            $cap->setName($capData['name']);
+                            $cap->setDescription($capData['description'] ?? '');
+                            $cap->setRank($capData['rank']);
+                            $type = $capData['type'] ?? '';
+                            $cap->setLimited(str_contains(strtolower($type), 'limité'));
+                            $cap->setIsSpell(str_contains(strtolower($type), 'sort'));
+                            $cap->setVoie($voie);
+                            if (!empty($capData['details'])) {
+                                $cap->setDetails($capData['details']);
                             }
+                            $manager->persist($cap);
                         }
                     }
                 }
+            }
+        }
 
-                // 2. Process legacy/shared references
-                if (isset($raceItem['availableVoiesIds'])) {
-                    foreach ($raceItem['availableVoiesIds'] as $voieId) {
-                        if (isset($entities[$voieId])) {
-                            $raceEntity->addAvailableVoie($entities[$voieId]);
-                        }
+        // PASS 2: Link availableVoiesIds (may refer to voies created in Pass 1)
+        foreach ($raceItems as $raceItem) {
+            $raceEntity = $races[$raceItem['id']] ?? null;
+            if ($raceEntity && isset($raceItem['availableVoiesIds'])) {
+                foreach ($raceItem['availableVoiesIds'] as $voieId) {
+                    if (isset($entities[$voieId])) {
+                        $raceEntity->addAvailableVoie($entities[$voieId]);
                     }
                 }
             }

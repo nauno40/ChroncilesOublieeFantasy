@@ -28,8 +28,15 @@ services:
     build:
       context: ./app
       dockerfile: Dockerfile
+      target: build
     ports:
-      - "8080:80"
+      - "5173:5173"
+    volumes:
+      - ./app:/app
+      - /app/node_modules
+    environment:
+      - VITE_API_URL=http://localhost:8000/api
+    command: npm run dev -- --host
     depends_on:
       - backend
 

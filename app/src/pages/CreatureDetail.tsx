@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import type { Creature } from '../types';
 import { getCreatureCategory, getCreatureEnvironment, getCreatureArchetype, getCreatureSize, getCreatureImage } from '../utils/creature';
-import { ArrowLeft, Shield, Sword, Heart } from 'lucide-react';
+import { ArrowLeft, Shield, Sword, Heart, Crown, Zap } from 'lucide-react';
 import { DataService } from '../services/dataService';
 
 export const CreatureDetail: React.FC = () => {
@@ -15,8 +15,6 @@ export const CreatureDetail: React.FC = () => {
         const fetchData = async () => {
             if (!id) return;
             try {
-                // Fetch creature and metadata
-                // Note: getCreatureById assumes ID compatibility
                 const [creatureData, familiesData] = await Promise.all([
                     DataService.getCreatureById(id),
                     DataService.getFamilies()
@@ -32,15 +30,20 @@ export const CreatureDetail: React.FC = () => {
         fetchData();
     }, [id]);
 
-    if (loading) return <div className="p-8 text-center text-primary-200">Chargement...</div>;
+    if (loading) return <div className="min-h-screen flex items-center justify-center text-primary-200">Chargement...</div>;
 
     if (!creature) {
-        return <div>Créature introuvable</div>;
+        return <div className="min-h-screen flex flex-col items-center justify-center p-8">
+            <h2 className="text-2xl font-bold text-red-400 mb-4">Créature introuvable</h2>
+            <Link to="/bestiary" className="text-primary-400 hover:text-primary-300 flex items-center justify-center gap-2">
+                <ArrowLeft size={20} /> Retour au Bestiaire
+            </Link>
+        </div>;
     }
 
     const familyName = creature.family?.name;
-    // Helper to find family desc
     const familyDesc = familyName ? families.find(f => f.Famille === familyName || f.name === familyName)?.description : null;
+    const creatureImage = getCreatureImage(creature);
 
     // Mapping stats to display
     const statsConfig = [
@@ -48,171 +51,162 @@ export const CreatureDetail: React.FC = () => {
         { label: 'DEX', key: 'DEX' as const },
         { label: 'CON', key: 'CON' as const },
         { label: 'INT', key: 'INT' as const },
-        { label: 'SAG', key: 'SAG' as const }, // Assuming SAG for per_mod/wis
+        { label: 'SAG', key: 'SAG' as const },
         { label: 'CHA', key: 'CHA' as const },
     ];
 
     return (
-        <div className="max-w-4xl mx-auto space-y-6 animate-fade-in pb-12">
-            <Link to="/bestiary" className="inline-flex items-center text-stone-400 hover:text-primary-400 transition-colors group mb-2">
-                <ArrowLeft size={18} className="mr-2 group-hover:-translate-x-1 transition-transform" /> <span className="font-display font-medium">Retour au Bestiaire</span>
-            </Link>
+        <div className="min-h-screen pb-12 relative">
 
-            <div className="glass-panel rounded-2xl overflow-hidden shadow-2xl border-primary-500/20 relative">
-                {/* Decorative top border */}
-                <div className="h-1 w-full bg-gradient-to-r from-transparent via-primary-500 to-transparent opacity-50"></div>
+            {/* Background Banner (Decorative) */}
+            <div className="absolute top-0 left-0 w-full h-[500px] overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_40%,transparent)]">
+                <img
+                    src={creatureImage}
+                    alt={creature.name}
+                    className="w-full h-full object-cover object-top opacity-30 blur-sm"
+                    onError={(e) => {
+                        (e.target as HTMLImageElement).style.display = 'none';
+                    }}
+                />
+                <div className="absolute inset-0 bg-stone-950/60 mix-blend-multiply"></div>
+            </div>
 
-                {/* Header */}
-                <div className="bg-stone-900/40 p-8 backdrop-blur-sm relative overflow-hidden">
-                    {/* Background Token Blur */}
-                    {creature.picture && (
-                        <div className="absolute top-0 right-0 w-96 h-96 opacity-10 bg-no-repeat bg-contain bg-center pointer-events-none blur-3xl transform translate-x-1/3 -translate-y-1/3" style={{ backgroundImage: `url(${creature.picture})` }}></div>
-                    )}
+            {/* MAIN CONTENT CONTAINER */}
+            <div className="container mx-auto px-4 relative z-10 pt-6">
 
-                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative z-10">
-                        <div className="flex-1">
-                            <h1 className="text-4xl md:text-5xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary-200 to-primary-500 drop-shadow-sm mb-4">{creature.name}</h1>
+                {/* Header Section */}
+                <div className="mb-8">
+                    <Link to="/bestiary" className="inline-flex items-center text-stone-400 hover:text-white transition-colors group mb-6">
+                        <ArrowLeft size={16} className="mr-2 group-hover:-translate-x-1 transition-transform" />
+                        <span className="font-display font-medium tracking-wide text-sm uppercase">Retour au Bestiaire</span>
+                    </Link>
 
-                            {/* Main Characteristics Badges */}
-                            <div className="flex flex-wrap gap-2 text-sm mb-6">
-                                <span className="bg-primary-950/80 px-4 py-1.5 rounded-lg border border-primary-500/40 text-primary-300 font-bold tracking-wider shadow-lg shadow-black/20">NC {creature.nc}</span>
-                                {familyName && <span className="bg-stone-900/60 px-3 py-1.5 rounded-lg border border-stone-700 text-stone-400 italic">{familyName}</span>}
-                            </div>
+                    <h1 className="text-5xl md:text-7xl font-display font-bold text-white drop-shadow-xl mb-4">
+                        {creature.name}
+                    </h1>
 
-                            {/* Stats Line (Condensed) */}
-                            {/* Stats Line (Condensed) - Updated with Category, Env, Archetype, Size */}
-                            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 bg-black/20 p-4 rounded-xl border border-white/5">
-                                <div>
-                                    <div className="text-stone-500 text-[10px] font-bold uppercase tracking-wider mb-1">Catégorie</div>
-                                    <div className="text-stone-300 font-medium">{getCreatureCategory(creature) || '-'}</div>
-                                </div>
-                                <div>
-                                    <div className="text-stone-500 text-[10px] font-bold uppercase tracking-wider mb-1">Milieu</div>
-                                    <div className="text-stone-300 font-medium">{getCreatureEnvironment(creature) || '-'}</div>
-                                </div>
-                                <div>
-                                    <div className="text-stone-500 text-[10px] font-bold uppercase tracking-wider mb-1">Archétype</div>
-                                    <div className="text-stone-300 font-medium">{getCreatureArchetype(creature) || '-'}</div>
-                                </div>
-                                <div>
-                                    <div className="text-stone-500 text-[10px] font-bold uppercase tracking-wider mb-1">Taille</div>
-                                    <div className="text-stone-300 font-medium">{getCreatureSize(creature) || '-'}</div>
-                                </div>
-                            </div>
-                        </div>
+                    <div className="flex flex-wrap gap-3 items-center">
+                        <span className="bg-primary-950/80 px-4 py-1.5 rounded-lg border border-primary-500/40 text-primary-300 font-bold tracking-wider shadow-lg shadow-black/20 text-sm">
+                            NC {creature.nc}
+                        </span>
+                        {familyName && (
+                            <span className="bg-stone-900/60 px-3 py-1.5 rounded-lg border border-stone-700 text-stone-400 italic text-sm">
+                                {familyName}
+                            </span>
+                        )}
+                    </div>
+                </div>
 
-                        {/* Token Image */}
-                        {creature.picture && (
-                            <div className="relative">
-                                <div className="absolute inset-0 bg-primary-500 rounded-full blur-md opacity-20"></div>
+                {/* Content Grid */}
+                <div className="grid lg:grid-cols-12 gap-8">
+
+                    {/* LEFT COLUMN: Sidebar (33%) */}
+                    <div className="lg:col-span-4 space-y-6">
+
+                        {/* Portrait Card */}
+                        <div className="bg-stone-900 rounded-2xl overflow-hidden shadow-2xl border border-white/10 group">
+                            <div className="aspect-[3/4] relative overflow-hidden flex items-center justify-center bg-stone-950">
+                                {/* Token Image Effect */}
+                                <div className="absolute inset-0 bg-gradient-to-t from-stone-900 via-transparent to-transparent opacity-60 z-10"></div>
                                 <img
-                                    src={creature.picture}
+                                    src={creatureImage}
                                     alt={creature.name}
-                                    className="w-24 h-24 md:w-32 md:h-32 rounded-full border-2 border-primary-500/30 object-cover bg-stone-950 shadow-2xl relative z-10"
+                                    className="w-full h-full object-contain p-4 transition-transform duration-700 group-hover:scale-105"
+                                    onError={(e) => { e.currentTarget.style.display = 'none'; }}
                                 />
                             </div>
-                        )}
-                    </div>
-                </div>
-
-                {/* Stats Block */}
-                <div className="grid grid-cols-3 divide-x divide-white/5 border-y border-white/5 bg-black/20 backdrop-blur-md">
-                    <div className="py-6 text-center hover:bg-white/5 transition-colors">
-                        <div className="flex items-center justify-center text-stone-500 mb-2 gap-2 text-xs uppercase tracking-widest font-bold">
-                            <Shield size={14} /> Défense
                         </div>
-                        <div className="text-3xl font-display font-bold text-stone-200">{creature.def || '-'}</div>
-                    </div>
-                    <div className="py-6 text-center hover:bg-white/5 transition-colors">
-                        <div className="flex items-center justify-center text-stone-500 mb-2 gap-2 text-xs uppercase tracking-widest font-bold">
-                            <Heart size={14} className="text-green-500/70" /> PV
-                        </div>
-                        <div className="text-3xl font-display font-bold text-green-500">{creature.hp || '-'}</div>
-                    </div>
-                    <div className="py-6 text-center hover:bg-white/5 transition-colors">
-                        <div className="flex items-center justify-center text-stone-500 mb-2 gap-2 text-xs uppercase tracking-widest font-bold">
-                            <Sword size={14} className="text-amber-600/70" /> Init
-                        </div>
-                        <div className="text-3xl font-display font-bold text-amber-500">{creature.init || '-'}</div>
-                    </div>
-                </div>
 
-                {/* Main Content */}
-                <div className="p-6 md:p-8 space-y-8 bg-gradient-to-b from-stone-900/30 to-transparent">
-
-                    {/* Attributes */}
-                    {creature.stats && (
-                        <div className="grid grid-cols-3 sm:grid-cols-6 gap-3 mb-8">
-                            {statsConfig.map(attr => (
-                                <div key={attr.label} className="bg-black/20 rounded-lg p-3 border border-white/5 text-center hover:border-primary-500/30 transition-colors">
-                                    <div className="text-stone-500 text-[10px] font-bold uppercase tracking-wider mb-1">{attr.label}</div>
-                                    <div className="font-display font-bold text-xl text-stone-200">
-                                        {creature.stats![attr.key] ?? '0'}
-                                    </div>
+                        {/* Vital Stats */}
+                        <div className="bg-stone-900/80 backdrop-blur-sm rounded-2xl p-6 border border-white/5 shadow-xl">
+                            <h3 className="text-stone-500 text-xs font-bold uppercase tracking-widest mb-6 flex items-center gap-2">
+                                <span className="w-8 h-[1px] bg-stone-700"></span>
+                                Informations
+                            </h3>
+                            <div className="space-y-4">
+                                <div className="flex justify-between items-center border-b border-white/5 pb-2">
+                                    <span className="text-stone-400">Catégorie</span>
+                                    <span className="font-display text-lg text-primary-200">{getCreatureCategory(creature) || '-'}</span>
                                 </div>
-                            ))}
+                                <div className="flex justify-between items-center border-b border-white/5 pb-2">
+                                    <span className="text-stone-400">Milieu</span>
+                                    <span className="font-display text-lg text-primary-200">{getCreatureEnvironment(creature) || '-'}</span>
+                                </div>
+                                <div className="flex justify-between items-center border-b border-white/5 pb-2">
+                                    <span className="text-stone-400">Archétype</span>
+                                    <span className="font-display text-lg text-primary-200">{getCreatureArchetype(creature) || '-'}</span>
+                                </div>
+                                <div className="flex justify-between items-center pb-2">
+                                    <span className="text-stone-400">Taille</span>
+                                    <span className="font-display text-lg text-primary-200">{getCreatureSize(creature) || '-'}</span>
+                                </div>
+                            </div>
                         </div>
-                    )}
 
-                    <div className="grid gap-8">
-                        {/* 1. Family Description */}
-                        {familyDesc && (
-                            <div className="glass-panel p-6 rounded-xl border-white/5 bg-primary-950/20">
-                                <h3 className="text-xl font-display font-bold text-primary-300 mb-4 border-b border-primary-500/20 pb-2 flex items-center gap-2">
-                                    <span className="w-1 h-6 bg-primary-500 rounded-full"></span> Famille : {familyName}
-                                </h3>
-                                <p className="text-stone-300 leading-relaxed text-sm italic">{familyDesc}</p>
+                        {/* Combat Stats */}
+                        <div className="grid grid-cols-3 gap-2">
+                            <div className="bg-stone-900/80 p-4 rounded-xl border border-white/5 text-center flex flex-col items-center justify-center hover:border-white/20 transition-colors">
+                                <Shield className="mb-2 text-stone-400" size={20} />
+                                <div className="text-xs text-stone-500 font-bold uppercase tracking-wider mb-1">Défense</div>
+                                <div className="text-2xl font-display font-bold text-stone-200">{creature.def || '-'}</div>
+                            </div>
+                            <div className="bg-stone-900/80 p-4 rounded-xl border border-white/5 text-center flex flex-col items-center justify-center hover:border-green-500/30 transition-colors group">
+                                <Heart className="mb-2 text-green-900 group-hover:text-green-500 transition-colors" size={20} />
+                                <div className="text-xs text-stone-500 font-bold uppercase tracking-wider mb-1">PV</div>
+                                <div className="text-2xl font-display font-bold text-green-500">{creature.hp || '-'}</div>
+                            </div>
+                            <div className="bg-stone-900/80 p-4 rounded-xl border border-white/5 text-center flex flex-col items-center justify-center hover:border-amber-500/30 transition-colors group">
+                                <Sword className="mb-2 text-amber-900 group-hover:text-amber-500 transition-colors" size={20} />
+                                <div className="text-xs text-stone-500 font-bold uppercase tracking-wider mb-1">Init</div>
+                                <div className="text-2xl font-display font-bold text-amber-500">{creature.init || '-'}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* RIGHT COLUMN: Content (66%) */}
+                    <div className="lg:col-span-8">
+
+                        {/* Char Stats Row */}
+                        {creature.stats && (
+                            <div className="grid grid-cols-3 sm:grid-cols-6 gap-3 mb-8">
+                                {statsConfig.map(attr => (
+                                    <div key={attr.label} className="bg-stone-900/60 rounded-xl p-3 border border-white/5 text-center hover:border-primary-500/30 transition-colors">
+                                        <div className="text-stone-500 text-[10px] font-bold uppercase tracking-wider mb-1">{attr.label}</div>
+                                        <div className="font-display font-bold text-xl text-stone-200">
+                                            {creature.stats![attr.key] ?? '0'}
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
                         )}
 
-                        {/* 2. Creature Description */}
-                        {creature.description && creature.description.replace(/<[^>]*>/g, '').trim().length > 0 && (
-                            <div className="glass-panel p-6 rounded-xl border-white/5">
-                                <h3 className="text-xl font-display font-bold text-stone-300 mb-4 border-b border-white/10 pb-2">Description</h3>
-                                <div
-                                    className="prose prose-invert prose-stone max-w-none text-sm space-y-3 [&_p]:leading-relaxed text-stone-300/90"
-                                    dangerouslySetInnerHTML={{ __html: creature.description }}
-                                />
-                            </div>
-                        )}
-
-                        {/* 2b. Special Abilities (Text) */}
-                        {creature.specialAbilities?.text && (
-                            <div className="glass-panel p-6 rounded-xl border-white/5">
-                                <h3 className="text-xl font-display font-bold text-primary-300 mb-4 border-b border-white/10 pb-2">Capacités Spéciales</h3>
-                                <div
-                                    className="prose prose-invert prose-stone max-w-none text-sm space-y-3 [&_p]:leading-relaxed text-stone-300/90"
-                                    dangerouslySetInnerHTML={{ __html: creature.specialAbilities.text }}
-                                />
-                            </div>
-                        )}
-
-                        {/* 3. Attacks - Conditional if present */}
+                        {/* Attacks Section */}
                         {creature.attacks && creature.attacks.length > 0 && (
-                            <div>
+                            <div className="mb-10 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-100">
                                 <h3 className="text-xl font-display font-bold text-primary-400 mb-4 flex items-center gap-2">
-                                    <span className="w-1 h-6 bg-primary-500 rounded-full"></span> Attaques
+                                    <Sword size={20} /> Attaques
                                 </h3>
-                                <div className="grid md:grid-cols-2 gap-3">
+                                <div className="grid gap-4">
                                     {creature.attacks.map((attack: any, i: number) => (
-                                        <div key={i} className="flex flex-col gap-2 bg-stone-900/40 p-4 rounded-xl border border-white/5 hover:border-primary-500/30 transition-all hover:bg-stone-900/60">
-                                            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
-                                                <span className="font-bold text-stone-200 text-lg">{attack.name}</span>
-                                                <div className="flex gap-4 text-sm bg-black/30 px-3 py-1.5 rounded-lg border border-white/5 self-start sm:self-auto mt-2 sm:mt-0 items-center">
-                                                    <div className="flex items-center gap-1.5">
+                                        <div key={i} className="flex flex-col gap-3 bg-stone-900/60 p-5 rounded-xl border border-white/5 hover:border-primary-500/30 transition-all hover:bg-stone-900/80">
+                                            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-2">
+                                                <span className="font-bold text-stone-100 text-lg flex items-center gap-2">
+                                                    {attack.name}
+                                                </span>
+                                                <div className="flex gap-4 text-sm items-center self-start sm:self-auto">
+                                                    <div className="flex items-center gap-2 bg-black/20 px-3 py-1 rounded-lg border border-white/5">
                                                         <span className="text-[10px] text-stone-500 font-bold uppercase tracking-wider">Test</span>
                                                         <span className="text-primary-400 font-mono font-bold">{attack.test || attack.atk || '-'}</span>
                                                     </div>
-                                                    <div className="flex items-center gap-1.5 pl-4 border-l border-white/10">
+                                                    <div className="flex items-center gap-2 bg-black/20 px-3 py-1 rounded-lg border border-white/5">
                                                         <span className="text-[10px] text-stone-500 font-bold uppercase tracking-wider">DM</span>
                                                         <span className="text-stone-300 font-mono font-bold">{attack.dm || attack.dmg || '-'}</span>
                                                     </div>
                                                 </div>
                                             </div>
                                             {attack.special && (
-                                                <div className="text-sm text-stone-400 italic border-t border-white/5 pt-2 mt-1">
-                                                    <span className="text-primary-500/70 font-semibold text-xs uppercase tracking-wider mr-2">Spécial:</span>
-                                                    {attack.special}
+                                                <div className="text-sm text-stone-400 flex gap-2 items-start mt-1 pl-2 border-l-2 border-primary-500/30">
+                                                    <span className="italic">{attack.special}</span>
                                                 </div>
                                             )}
                                         </div>
@@ -221,21 +215,32 @@ export const CreatureDetail: React.FC = () => {
                             </div>
                         )}
 
-                        {/* Capabilities from JSON list if any */}
-                        {creature.capabilities && creature.capabilities.length > 0 && (
-                            <div>
+                        {/* Abilities Section */}
+                        {((creature.capabilities && creature.capabilities.length > 0) || creature.specialAbilities?.text) && (
+                            <div className="mb-10 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-200">
                                 <h3 className="text-xl font-display font-bold text-primary-400 mb-4 flex items-center gap-2">
-                                    <span className="w-1 h-6 bg-primary-500 rounded-full"></span> Autres Capacités
+                                    <Zap size={20} /> Capacités
                                 </h3>
                                 <div className="space-y-4">
-                                    {creature.capabilities.map((cap: any, i: number) => (
-                                        <div key={i} className="bg-stone-900/40 p-4 rounded-xl border border-white/5">
-                                            <div className="font-bold text-primary-300 mb-1">
+                                    {/* Text-based Special Abilities */}
+                                    {creature.specialAbilities?.text && (
+                                        <div className="bg-stone-900/40 p-6 rounded-xl border border-white/5">
+                                            <div
+                                                className="prose prose-invert prose-stone max-w-none text-sm space-y-3 [&_p]:leading-relaxed text-stone-300/90"
+                                                dangerouslySetInnerHTML={{ __html: creature.specialAbilities.text }}
+                                            />
+                                        </div>
+                                    )}
+
+                                    {/* Structured Capabilities */}
+                                    {creature.capabilities?.map((cap: any, i: number) => (
+                                        <div key={i} className="bg-stone-900/60 p-5 rounded-xl border border-white/5 hover:border-primary-500/30 transition-colors">
+                                            <div className="font-bold text-primary-300 mb-2 flex items-baseline gap-2">
                                                 {typeof cap === 'string' ? cap : (cap.label || cap.name)}
-                                                {cap.rank && <span className="text-stone-500 font-normal ml-2 text-sm">(Rang {cap.rank})</span>}
+                                                {cap.rank && <span className="text-stone-500 font-normal text-xs bg-black/30 px-2 py-0.5 rounded border border-white/5">Rang {cap.rank}</span>}
                                             </div>
                                             {typeof cap !== 'string' && cap.description && (
-                                                <div className="text-sm text-stone-300 leading-relaxed opacity-90 whitespace-pre-line">
+                                                <div className="text-sm text-stone-300 leading-relaxed opacity-90 whitespace-pre-line pl-2 border-l-2 border-white/10">
                                                     {cap.description}
                                                 </div>
                                             )}
@@ -245,18 +250,38 @@ export const CreatureDetail: React.FC = () => {
                             </div>
                         )}
 
-                        {/* Full Illustration at Bottom */}
-                        <div className="mt-8 relative group perspective-1000 flex justify-center">
-                            <div className="absolute inset-0 bg-primary-500 rounded-2xl blur-xl opacity-10 group-hover:opacity-20 transition-opacity duration-500"></div>
-                            <img
-                                src={getCreatureImage(creature)}
-                                alt={`Illustration de ${creature.name}`}
-                                className="max-w-full md:max-w-lg h-auto rounded-xl border-2 border-primary-500/30 object-contain bg-stone-950/50 shadow-2xl relative z-10"
-                                onError={(e) => {
-                                    e.currentTarget.style.display = 'none'; // Hide if no image found
-                                }}
-                            />
-                        </div>
+                        {/* Description / Lore */}
+                        {(creature.description || familyDesc) && (
+                            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 delay-300">
+                                <h3 className="text-xl font-display font-bold text-stone-300 mb-4 flex items-center gap-2">
+                                    <Crown size={20} /> Description & Comportement
+                                </h3>
+
+                                <div className="space-y-6">
+                                    {familyDesc && (
+                                        <div className="bg-primary-950/10 p-6 rounded-xl border border-primary-500/10">
+                                            <h4 className="text-primary-400 font-bold mb-3 uppercase text-xs tracking-wider flex items-center gap-2">
+                                                <span className="w-1.5 h-1.5 rounded-full bg-primary-500"></span>
+                                                Famille : {familyName}
+                                            </h4>
+                                            <p className="text-stone-300 italic text-sm leading-relaxed">
+                                                {familyDesc}
+                                            </p>
+                                        </div>
+                                    )}
+
+                                    {creature.description && creature.description.replace(/<[^>]*>/g, '').trim().length > 0 && (
+                                        <div className="bg-stone-900/20 p-6 rounded-xl border border-white/5">
+                                            <div
+                                                className="prose prose-invert prose-stone max-w-none text-sm space-y-3 [&_p]:leading-relaxed text-stone-300/90"
+                                                dangerouslySetInnerHTML={{ __html: creature.description }}
+                                            />
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        )}
+
                     </div>
                 </div>
             </div>

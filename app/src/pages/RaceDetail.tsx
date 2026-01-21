@@ -110,10 +110,12 @@ export const RaceDetail: React.FC = () => {
                 ]);
 
                 const foundRace = races.find(r => String(r.id) === id);
+                console.log("Race Detail - Found Race:", foundRace?.name, foundRace);
                 setRace(foundRace || null);
 
                 // Process available Voies (New Logic)
                 if (foundRace && foundRace.availableVoies && foundRace.availableVoies.length > 0) {
+                    console.log("Race Detail - Available Voies IRIs:", foundRace.availableVoies);
                     const voieIds = foundRace.availableVoies.map(iri => {
                         // Handle IRI string "/api/voies/123" or object
                         if (typeof iri === 'string') {

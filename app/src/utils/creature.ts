@@ -36,10 +36,11 @@ export const getCreatureSize = (creature: Creature): string => {
  * Get the image path for a creature
  */
 export const getCreatureImage = (creature: Creature): string => {
-    // Use database picture field, fallback to name-based lookup
-    if (creature.picture) {
-        return creature.picture;
-    }
+    // Priority: 1. Local asset (Full illustration), 2. Remote picture (Token)
     const name = getCreatureName(creature);
-    return `/assets/creatures/${name}.jpg`;
+    if (name && name !== 'Unknown') {
+        return `/assets/creatures/${name}.jpg`;
+    }
+
+    return creature.picture || '/assets/creatures/default.jpg';
 };

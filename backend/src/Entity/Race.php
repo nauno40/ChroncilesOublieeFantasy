@@ -3,11 +3,13 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\ApiProperty;
 use App\Repository\RaceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: RaceRepository::class)]
 #[ApiResource]
@@ -43,6 +45,8 @@ class Race
     private ?string $speed = null;
 
     #[ORM\ManyToMany(targetEntity: Voie::class, mappedBy: 'races')]
+    #[Groups(['race:read'])]
+    #[ApiProperty(readableLink: true)]
     private Collection $availableVoies;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]

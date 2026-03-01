@@ -11,6 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Metadata\ApiProperty;
 
 #[ORM\Entity(repositoryClass: VoieRepository::class)]
 #[ApiResource]
@@ -20,9 +22,11 @@ class Voie
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['race:read', 'profile:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['race:read', 'profile:read'])]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT)]
@@ -40,7 +44,9 @@ class Voie
     #[ORM\Column]
     private ?int $maxRank = null;
 
-    #[ORM\OneToMany(mappedBy: 'voie', targetEntity: Capability::class, orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Capability::class, mappedBy: 'voie', orphanRemoval: true)]
+    #[Groups(['race:read', 'profile:read'])]
+    #[ApiProperty(readableLink: true)]
     private Collection $capabilities;
 
     #[ORM\Column(type: Types::JSON, nullable: true)]

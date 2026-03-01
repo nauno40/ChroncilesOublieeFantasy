@@ -3,11 +3,13 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\ApiProperty;
 use App\Repository\ProfileRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ProfileRepository::class)]
 #[ApiResource]
@@ -48,7 +50,9 @@ class Profile
     #[ORM\Column(length: 10, nullable: true)]
     private ?string $magicStat = null;
 
-    #[ORM\OneToMany(mappedBy: 'profile', targetEntity: Voie::class)]
+    #[ORM\OneToMany(targetEntity: Voie::class, mappedBy: 'profile')]
+    #[Groups(['profile:read'])]
+    #[ApiProperty(readableLink: true)]
     private Collection $voies;
 
     public function __construct()
@@ -216,7 +220,7 @@ class Profile
 
     public function getStats(): ?array { return $this->stats; }
     public function setStats(?array $stats): static { $this->stats = $stats; return $this; }
-    
+
     #[ORM\Column(type: Types::JSON, nullable: true)]
     private ?array $startingEquipment = null;
 

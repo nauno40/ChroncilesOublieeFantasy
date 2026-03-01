@@ -157,7 +157,6 @@ class AppFixtures extends Fixture
         foreach ($finder as $file) {
             $data = json_decode($file->getContents(), true);
             $classData = $data['class'];
-            
             $e = new Profile();
             $name = $classData['name'];
             $e->setName($name);
@@ -265,7 +264,7 @@ class AppFixtures extends Fixture
                             
                             $type = $capData['type'] ?? '';
                             $c->setLimited(str_contains(strtolower($type), 'limité'));
-                            $c->setIsSpell(str_contains(strtolower($type), 'sort')); 
+                            $c->setIsSpell(str_contains(strtolower($type), 'sort') || str_contains($type, '*')); 
                             
                             if (!empty($capData['details'])) {
                                 $c->setDetails($capData['details']);
@@ -427,9 +426,9 @@ class AppFixtures extends Fixture
                             $cap->setName($capData['name']);
                             $cap->setDescription($capData['description'] ?? '');
                             $cap->setRank($capData['rank']);
-                            $type = $capData['type'] ?? '';
+                            $type = $capData['type'] ?? ''; 
                             $cap->setLimited(str_contains(strtolower($type), 'limité'));
-                            $cap->setIsSpell(str_contains(strtolower($type), 'sort'));
+                            $cap->setIsSpell(str_contains(strtolower($type), 'sort') || str_contains($type, '*'));
                             $cap->setVoie($voie);
                             if (!empty($capData['details'])) {
                                 $cap->setDetails($capData['details']);

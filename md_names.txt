@@ -1,0 +1,77 @@
+Assassin
+BANDIT DE BASE
+BANDIT VÉTÉRAN
+CHEF BANDIT
+MILICIEN
+GARDE DE LA VILLE
+VÉTÉRAN OU GARDE DE PALAIS DUCAL
+CAPITAINE
+GARDE DU CORPS
+Sorcier
+Aigle commun
+CHEVAL DE SELLE
+CHEVAL DE GUERRE
+Crocodile
+Bison
+GRAND MÂLE BISON
+Éléphant
+Gorille
+Lion
+GRAND MÂLE LION
+Loup
+MÂLE ALPHA
+Ours noir
+Ours brun
+Ours polaire
+Panthère
+Requin
+Rhinocéros
+Sanglier
+Serpent constricteur
+Serpent venimeux
+Araignée géante
+Basilic
+Chimère
+CHIMÈRE DRACONIQUE
+Démonet
+Dragon des forêts
+Élémentaire d’eau (grand)
+Géant du feu
+Geoselachis
+GNOLL DE BASE
+SERGENT GNOLL
+CHEF GNOLL
+GOBELIN DE BASE
+GOBELIN ÉLITE
+CHEF GOBELIN
+SHAMAN GOBELIN
+Golem de chair
+Goule
+ABOMINATION
+Griffon
+HYDRE À 5 TÊTES
+CRYOHYDRE
+Kobold de base
+CHEF KOBOLD
+PRÊTRE KOBOLD
+Licorne
+Momie
+MOMIE AUGUSTE
+Ogre de base
+CHEF OGRE
+ORC DE BASE
+ORC NOIR
+BERSERKER ORC
+SHAMAN ORC
+CHEF ORC
+Ourhible (Choursette)
+Rat géant
+Skrambler
+Squelette
+SQUELETTE GÉANT
+Troll
+Vampire
+VAMPIRE ANCIEN
+VAMPIRIEN
+Worg
+Zombie humain

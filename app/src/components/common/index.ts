@@ -13,4 +13,5 @@ export { GlobalNotes } from './GlobalNotes';
 export { Soundboard } from './Soundboard';
 export { DraggableWindow } from './DraggableWindow';
 export { GlobalSearch } from './GlobalSearch';
+export { Tooltip } from './Tooltip';
 

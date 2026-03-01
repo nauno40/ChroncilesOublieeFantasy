@@ -48,6 +48,7 @@ export const Layout: React.FC = () => {
             icon: GraduationCap,
             label: 'Personnages',
             subItems: [
+                { path: '/characters', icon: Users, label: 'Mes Personnages' },
                 { path: '/races', icon: BookOpen, label: 'Races' },
                 { path: '/classes', icon: GraduationCap, label: 'Classes' },
                 { path: '/voies', icon: Sparkles, label: 'Voies' },

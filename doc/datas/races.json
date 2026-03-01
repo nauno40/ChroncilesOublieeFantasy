@@ -5,15 +5,21 @@
     "description": "Le demi-elfe a hérité des qualités de ses deux parents (humain et elfe). Il est généralement traité avec condescendance parmi les elfes et perçu comme un elfe parmi les humains.\n**Dans les Terres d'Osgild.** Ce n'est pas une surprise, mais les demi-elfes sont plus nombreux à proximité des lieux habités par les elfes, notamment à la lisière de la grande forêt de Hautesylve. Néanmoins, les elfes hauts sont trop fiers et arrogants, et les unions mixtes se terminent souvent en exil volontaire vers le bois de Myrviel, suffisamment accueillant pour qu'une famille s'y établisse, et suffisamment proche de Hautesylve pour que le parent elfe reste en contact avec les siens. Ainsi, la principauté d'Arly abrite la plus grande concentration de demi-elfe. Outre Myrviel, les demi-elfes sont particulièrement communs dans la forêt de Bois dormant où les sang-mêlé ont plus souvent un héritage elfe sylvain.\nLes demi-elfes sont bien acceptés dans les nations humaines où, au pire, on les confond avec des elfes, mais en dehors de la principauté d'Arly, ils restent considérés comme des gens d'exception, à raison. Le protectorat de Fer est une exception notoire, sa politique raciste envers les peuples non humains étant particulièrement exacerbée envers ceux qu'elle appelle les sangs impurs.\nLe caractère et les aspirations d'un demi-elfe dépendent surtout de son éducation. Vous devez déterminer lequel de vos deux parents était un elfe et s'il s'agissait d'un elfe haut ou d'un elfe sylvain. Vos deux parents vous ont-ils élevé ensemble ? Si c'est le cas, vous avez probablement une vision éclairée et tolérante des différentes cultures. Mais si ce n'est pas le cas, vous avez peut-être hérité de quelques préjugés, voire d'un certain ressentiment pour la culture qui vous a renié.\nToutefois, presque tous les demi-elfes ont un point commun : ils sont souvent d'une nature poétique, voire mélancolique. En effet, il n'est pas facile de voir les ravages que cause une si grande différence d'espérance de vie entre vos deux parents, et entre vos parents et vous-même. Cela pousse inévitablement le jeune demi-elfe à se poser des questions existentielles sur l'amour, la vie et la mort. Pour cette raison, alors que les elfes détestent généralement la nécromancie, c'est une spécialité qui n'est pas rare chez les sang-mêlé. Cette fragilité intérieure associée à la dualité de culture fait aussi des demi-elfes des bardes d'exception.\nLes noms des personnages demi-elfes reflètent souvent leur double nature et ils se composent d'un prénom elfique et d'un nom de famille humain (voir pages et 56). L'inverse est plus rare car les elfes n'acceptent pas qu'une créature avec une durée de vie aussi brève porte le nom de leur lignée.\n- Âge de départ : 20+\n- Espérance de vie : 150 ans\n- Taille : 1,50 m à 1,90 m\n- Poids : 40 à 80 kg\n- Traits : grâce naturelle, oreilles légèrement pointues, pilosité faible.\nLe demi-elfe ne possède pas de voie de peuple dédiée, selon l'héritage culturel et le lieu de l'éducation de son personnage, le joueur devra choisir entre la voie de l'humain ou une des voies de peuple d'elfe (elfe sylvain ou elfe haut).",
     "modifiers": [
       {
-        "stat": "# DEMI-ELFE",
-        "value": 0
-      },
-      {
+        "type": "choice",
         "stat": "PER ou CHA",
+        "options": [
+          "PER",
+          "CHA"
+        ],
         "value": 1
       },
       {
+        "type": "choice",
         "stat": "FOR ou CON",
+        "options": [
+          "FOR",
+          "CON"
+        ],
         "value": -1
       }
     ],
@@ -28,8 +34,22 @@
     "description": "Le demi-orc est de grande taille. Il possède une force physique hors du commun, et est généralement méprisé par les autres peuples, en particulier par les nains et les elfes.\nDans les Terres d'Osgild. Cela peut paraître évident, mais on trouve généralement des demi-orcs là où les humains et les orcs partagent une frontière, souvent de façon musclée. De nombreux sang-mêlé survivent du côté des monts Vierges, là où les tribus barbares combattent ceux du désert des Morteroches. La vie de demi-orc n'est pas facile : dans le meilleur des cas les préjugés et la méfiance sont de mise, dans le pire c'est de la haine. Toutefois, localement, il existe des régions où la tolérance est plus élevée. C'est le cas de la principauté d'Arly, sous le règne éclairé du prince Thomar d'Arly, et en particulier de la région de Clairval. Bien que cette région ait eu des conflits difficiles avec les orcs, la petite baronnie a donné naissance à un demi-orc du nom de Krush, dont la trajectoire éclatante a permis au peuple d'Arly de revoir ses préjugés et aux sang-mêlé d'avoir un héros auquel s'identifier.\nPlus à l'est, à la suite de l'invasion du pays de Dorn par les géants et les orcs, nombre de jeunes demi-orcs ont vu le jour. Traités en paria depuis la libération, ils se sont dispersés à travers les marches du Piémont. Enfin, loin au sud-est, la forêt de Luir-An-Doral abrite elle aussi de nombreuses tribus d'orcs et d'humains qui luttent également pour la survie. Ces tribus primitives n'ont pas de préjugés raciaux et les jeunes métisses sont bien acceptés des deux côtés. Ce n'est que lorsqu'ils quittent la jungle qu'ils découvrent les préjugés dont ils sont victimes.\nComme pour le demi-elfe, le caractère et les préjugés des demi-orcs dépendent beaucoup des conditions de leur éducation. Toutefois, contrairement à ce cousin « de bonne famille », il est bien rare qu'un enfant demi-orc ait eu la chance de bénéficier des soins d'un couple aimant et sans histoire. Les demi-orcs sont, plus souvent qu'à leur tour, élevés dans la misère par une mère seule, reniée même par sa propre famille, quand ils ne sont pas tout simplement déposés devant les portes d'un orphelinat ou d'un temple. Pour cette raison, on trouve presque autant de prêtres demi-orcs que de guerriers ou de voleurs. Lorsqu'ils sont recueillis par un ordre religieux, ils deviennent généralement d'une loyauté sans faille pour leur nouvelle famille et d'un zèle qui confine au fanatisme. Pour les autres, souvent rejetés et victimes de racisme, les demi-orcs apprennent rapidement à user de leur talent pour la violence afin de survivre.\nDans tous les cas, vous savez que vous devez vous montrer fort et impitoyable, car, à la moindre faiblesse, les « braves gens » se jeteront sur vous avec la bienveillance d'une bande de hyènes affamées. Alors vous avez appris à savourer la peur que vous allumez dans leur regard, lorsque vous découvrez vos crocs dans un rictus provocateur.\nLes demi-orcs utilisent des prénoms humains, à moins qu'ils aient été élevés chez les orcs. Certains se choisissent aussi un prénom orc à l'âge adulte, en réaction à l'ostracisme dont ils sont victimes.\nLes noms orcs sont courts et gutturaux, privilégiez les lettres R, G et K, évitez une voyelle douce comme le E et préférez le O.\nLes noms féminins sont généralement les mêmes que les noms masculins mais avec la lettre A en plus à la fin\n**Masculin.** Aog, Bargul, Carok, Drog, Erok, Farg, Gorog, Hurl, Jorgul, Krok, Krush, Lugn, Mog, Norok, Rork, Urdu, etc.\n**Féminin.** Aoga, Bargula, Caroka, Droga, Eroka, Farga, Goroga, Hurla, Jorgula, Kroka, Krusha, Lugna, Moga, Noroka, Rorka, Urdua, etc.\n- Âge de départ : 15+\n- Espérance de vie : 60 ans\n- Taille : 1,70 m à 2,10 m\n- Poids : 70 à 150 kg\n- Traits : grand et athlétique. Peau verdâtre qui tend parfois vers un vert plus franc, mâchoire large, front bas, petits yeux.\n**1. Impressionnant :**\nLe demi-orc gagne un bonus de +3 à tous les tests d'intimidation. De plus, dans le noir total, le demi-orc voit comme dans la pénombre jusqu'à 30 m.\n**2. Talent pour la violence :**\nLe joueur choisit une capacité de rang 1 de n'importe quelle voie de barbare ou de guerrier.\n**3. Critique brutal :**\nLe demi-orc augmente de 1 point la zone de critique sur une attaque au contact (19-20 au d20) et ajoute +1d4° aux DM en cas de critique.\n**4. Attaque sanglante (L) :**\nLe demi-orc réalise une attaque de contact qui provoque une hémorragie. En plus des DM normaux, l'attaque produit un saignement qui inflige à la victime 1d4° DM à chaque round suivant jusqu'à ce que la cible soit soignée (tout effet de soins ou une action limitée utilisée à cet effet). On ne peut pas cumuler plusieurs effets de saignement.\n**5. Colosse :**\nLe demi-orc augmente ses valeurs de FOR et de CON de +1.",
     "modifiers": [
       {
-        "stat": "FOR ou CON et -1 CHA ou INT",
+        "type": "choice",
+        "stat": "FOR ou CON",
+        "options": [
+          "FOR",
+          "CON"
+        ],
         "value": 1
+      },
+      {
+        "type": "choice",
+        "stat": "CHA ou INT",
+        "options": [
+          "CHA",
+          "INT"
+        ],
+        "value": -1
       }
     ],
     "size": "Moyenne",
@@ -43,10 +63,21 @@
     "description": "L'elfe haut est un être féérique qui vit extrêmement longtemps et dont le niveau de civilisation et de culture se révèle généralement supérieur à celui des autres peuples. Proche de la nature, il maîtrise aussi bien les arts de la magie que ceux de la guerre.\n**Dans les Terres d'Osgild.** La seule grande nation des elfes est le royaume de Hautesylve, mais le peuple qui s'est autoproclamé le plus noble et le plus ancien du Mitan ne se mélange pas facilement aux autres. Quelques elfes hauts se sont aussi établis dans d'autres forêts, par exemple Bois dormant, en principauté d'Arly, où ils forment souvent des communautés aristocratiques parmi une population d'elfes sylvains. Les elfes hauts sont donc assez peu nombreux à parcourir les Terres d'Osgild et, lorsqu'ils le font, ils ont souvent une bonne raison.\nLes elfes hauts entretiennent une relation paradoxale avec les nains. En tant que peuple ancien, les nains méritent nécessairement davantage de respect que les jeunes et turbulents humains. Pourtant, les relations sont tendues. Leur amour de l'or, des souterrains et de la bière, leurs manières, jugées détestables par les elfes de bonne éducation, tout cela ne suffit pas à expliquer cette inimitié. Il y a entre les deux peuples des blessures anciennes, des conflits territoriaux liés à une époque révolue. Mais les Premiers-nés vivent longtemps et ont la mémoire longue. Par exemple, ils se souviennent encore que la forêt Sombre est un lieu maudit où ils ont mené une terrible bataille contre le Roi-Sorcier de Tor-Angul, il y a sept mille ans. Une information que les humains ont oubliée depuis longtemps.\nEssayez de garder une certaine distance avec les autres personnages, une certaine hauteur de vue. Vous êtes réservé et vous ne montrez pas facilement vos sentiments profonds. La plupart des elfes hauts ont une haute probité morale et une haute opinion d'eux-mêmes. Ils détestent la corruption, la vulgarité et la violence et ils ont un grand respect pour la vie. Ce sont des êtres civilisés et cultivés, bien plus que n'importe quel autre peuple, et cela les rend parfois arrogants. Les elfes aiment la beauté, les arts, les vêtements de luxe et les matériaux nobles, ils attachent sans doute trop d'importance aux apparences. Ils sont souvent méprisants envers les nains qu'ils jugent avides et sans finesse.\nLes elfes hauts privilégient les noms aux sonorités douces mais complexes. L, W, N et M sont les consonnes dominantes et les voyelles sont souvent doubles (iê, aë). Les noms féminins finissent par -wen, -wë, -iê, -ael ou -aëlle. Ceux des hommes par des terminaisons aux sonorités plus tranchées comme -dir, -dur, -dor ou -dil.\n**Masculin.** Arwendil, Caëldwendir, Eldwyndor, Elberenhdìr, Elendur, Gilgalendìl, Irwildur, Laurelith, Linaëndìr, Laendoril, Nennendir, etc.\n**Féminin.** Elberenh, Elidhwen, Ellenúviel, Laurelinn, Linaëwen, Laendorië, Maelwë, Maerwen, Nennenvaël, Ninwelotë, Tintaëlle, etc.\n- Âge de départ : 80+\n- Espérance de vie : 450 ans\n- Taille : 1,50 m à 1,80 m\n- Poids : 40 à 70 kg\nTraits : élancé, svelte et gracieux. Jeunesse éternelle. Oreilles pointues, yeux en amandes (verts, violets), cheveux parfois blancs, argent ou or.\nL'elfe augmente sa valeur de VOL de +1 et sa valeur d'INT ou de CHA de +1.",
     "modifiers": [
       {
-        "stat": "INT ou CHA",
+        "type": "fixed",
+        "stat": "VOL",
         "value": 1
       },
       {
+        "type": "choice",
+        "stat": "INT ou CHA",
+        "options": [
+          "INT",
+          "CHA"
+        ],
+        "value": 1
+      },
+      {
+        "type": "fixed",
         "stat": "FOR",
         "value": -1
       }
@@ -62,10 +93,17 @@
     "description": "L'elfe sylvain est issu d'une culture différente de celle des elfes hauts. Légèrement plus petits, ils vivent au plus profond des forêts, s'abritant dans les arbres et vivant simplement de la chasse et de la cueillette. Moins arrogants que leurs cousins hauts elfes, ils sont cependant beaucoup plus méfiants. Ils maîtrisent particulièrement l'art du camouflage et l'utilisation de l'arc.\nDans les Terres d'Osgild. Les elfes sylvains partagent la grande forêt de Hautesylve avec les elfes hauts, mais ils sont beaucoup moins présents que ces derniers au sud et autour de la capitale Syndoril. Ils sont en revanche majoritaires plus au nord, autour du lac Thuléa. Ils s'impliquent beaucoup moins dans la politique que leurs cousins, ils sont plus proches de la nature, moins rêveurs et plus pragmatiques. Les elfes sylvains sont également nombreux dans les forêts du nord de la principauté d'Arly : le bois de Myrviel autour de Clairval ou Bois dormant autour de Myrlune. Ces elfes sont des citoyens de la principauté et un de leurs représentants siège au grand conseil de la nation. Enfin, une importante communauté d'elfes sylvains vit dans la dangereuse forêt de Luir-An-Doral, loin au sud-est, une jungle dont on ne sait que peu de choses. Une origine parfaite pour tout elfe sauvage (barbare). Les elfes sylvains vivent en petites communautés, un peu partout où on peut trouver une forêt. Ainsi un elfe sylvain peut venir d'une contrée lointaine, comme les forêts enneigées du Nord où naissent les elfes du givre à la peau blanche.\nVous êtes un écologiste dans un monde qui ne connaît pas la signification de ce mot. Pour vous, la nature — plus particulièrement la forêt — est une mère qu'il faut aimer et respecter. Au mieux, vous ne comprenez pas ceux qui détruisent vos très chers arbres, au pire, vous les haïssez. Si les elfes sylvains ne respectaient pas autant la valeur de la vie, le métier de bûcheron serait sans aucun doute le plus dangereux des Terres d'Osgild. Vous partagez avec vos cousins elfes hauts une langue, une culture et un amour des arts et de la beauté, mais vos goûts sont plus simples. En particulier vous préférez les tenues fonctionnelles et les couleurs de la nature, tandis que les elfes hauts aiment le bleu, le blanc, l'or ou l'argent. Vous êtes méfiant vis-à-vis des étrangers, peut-être plus encore que vos cousins, et vous ne cherchez pas à vous en cacher. Pourtant, vous restez moins prompt qu'eux à juger sur les apparences.\nLes elfes des bois ont des noms assez similaires à ceux des elfes hauts, quoique ceux des sylvains soient plus simples. Chez les femmes, la dernière consonne ou la dernière voyelle est doublée. Chez les hommes, les terminaisons -din, -dor, -ion sont privilégiées.\n**Masculin.** Aëdin, Caëndor, Cirion, Doralion, Ealdor, Findalion, Glorfindor, Haëldion, Laurendor, Morwendir, Raëldirion, etc.\n**Féminin.** Aëldill, Aluinill, Aliann, Dianaë, Eilinelle, Elenwëe, Lúthill, Nínielle, Nolwaënn, Mírielle, Keltienn, etc.\n- Âge de départ : 50+\n- Espérance de vie : 350 ans\n- Taille : 1,40 m à 1,70 m\n- Poids : 30 à 60 kg\n- Traits : menu, svelte. Oreilles pointues, yeux en amandes (verts, violets), cheveux sombres (bruns, noirs, roux), tatouages, pilosité absente.\nL'elfe augmente ses valeurs d'AGI et PER de +1.",
     "modifiers": [
       {
-        "stat": "AGI ou PER",
+        "type": "fixed",
+        "stat": "AGI",
         "value": 1
       },
       {
+        "type": "fixed",
+        "stat": "PER",
+        "value": 1
+      },
+      {
+        "type": "fixed",
         "stat": "FOR",
         "value": -1
       }
@@ -81,10 +119,17 @@
     "description": "Le gnome est une créature de petite taille pourvue d'un gros nez, d'une bonne nature et d'une curiosité insatiable pour la magie et les sciences. C'est un compagnon souvent agréable, bien qu'un peu original. Les nains et les halfelins l'apprécient, tandis que les « grandes » personnes se montrent plutôt indifférentes à leur égard.\nDans les Terres d'Osgild. Ce peuple industrious réside majoritairement dans la principauté d'Arly. La région de Wyks ou le Bois dormant sont de bonnes origines géographiques pour un personnage gnome. Des gnomes sont également installés tout le long des frontières de Hautesylve. De nombreux gnomes ont colonisé les Hauts de Hurleroche (entre Hautesylve et le désert des Morteroches) où se situe leur capitale, une étonnante cité souterraine nommée Hurlevent. Mais l'existence de cette cité est une information assez peu connue des autres peuples, à l'exception des elfes de Hautesylve.\nEnfin, il existerait au sein de la forêt de Luir-An-Doral des tribus de gnomes belliqueux à la peau sombre et aux coutumes anthropophages qui s'intéresseraient davantage à la nécromancie qu'aux illusions, et plus aux poisons qu'aux sciences.\nVous êtes généralement joyeux, optimiste et enthousiaste et cet état d'esprit positif fait de vous un agréable compagnon. Mais il faut bien cela pour vous supporter, car vous êtes aussi très original, et jamais à court d'idée ou de plans farfelus. De plus, vous avez tendance à n'en faire qu'à votre tête... Essayez de trouver une passion originale, un sujet d'étude improbable ou une collection étrange. Par exemple, un gnome pourrait avoir une passion pour la composition de la terre de surface, et le projet de sa vie pourrait être de recenser tous les terroirs des Terres d'Osgild au sein d'une classification basée sur leur goût en bouche... Vos affinités avec les nains et les halfelins sont très fortes. Vous vous entendez bien avec les elfes et, bien que ceux-ci vous considèrent avec condescendance, vous ne leur en tenez pas rigueur. Car globalement, les gnomes ont très bon caractère et il en faut vraiment beaucoup pour mettre un gnome en colère. D'ailleurs, il se dit que si un gnome devait se venger de son pire ennemi, il le ferait sans doute en blaguant.\nLes gnomes aiment les prénoms que les humains jugent désuets. Ils ont aussi un nom de famille compliqué et long, qu'ils accolent toujours à ce prénom. Un habitant de notre monde pourrait trouver que ces noms ont des consonances germaniques et étranges.\n**Masculin.** Albert Blumdenplick, Eustache Dimtigballen, Firmin Vondemacht, Isidore Kolerbiltag, Nestor Wurmenship, etc.\n**Féminin.** Thérèse Aliserwilp, Huguette Uhldimmerstelp, Rose Molkenpulp, Eugénie Bimpbelinedor, etc.\n- Âge de départ : 40+\n- Espérance de vie : 250 ans\n- Taille : 1 m à 1,20 m\n- Poids : 30 à 50 kg\n- Traits : Petit et rondouillard, gros nez. Moustaches et rouflaquettes pour les gnomes, couettes pour les gnomettes. Oreilles un peu pointues ou grandes et rondes.\nLe gnome augmente ses valeurs de CON et de CHA de +1.",
     "modifiers": [
       {
-        "stat": "INT ou PER",
+        "type": "fixed",
+        "stat": "CON",
         "value": 1
       },
       {
+        "type": "fixed",
+        "stat": "CHA",
+        "value": 1
+      },
+      {
+        "type": "fixed",
         "stat": "FOR",
         "value": -1
       }
@@ -100,10 +145,17 @@
     "description": "Les halfelins représentent le plus petit des peuples jouables. Toujours bons vivants, souvent vifs, curieux, et parfois farceurs, les halfelins sont des incompris que les autres peuples considèrent souvent comme turbulents, pénibles, si ce n'est comme des voleurs.\n**Dans les Terres d'Osgild.** Bien que souvent regroupés au sein de modestes communautés, les petites gens, comme on les désigne parfois, vivent discrètement et en bonne entente avec les grandes gens. Ils n'ont pas de revendication territoriale et, à vrai dire, personne ne sait, pas même eux, s'ils font partie des peuples anciens ou s'ils ont une origine commune avec les humains... Les halfelins peuvent donc venir des mêmes zones que les humains, mais ils sont plus souvent d'origine rurale que citadine. La plaine entre Clairval et Wyks comporte de très nombreux hameaux et presque tous abritent une ou deux familles de halfelins bien intégrés. Les halfelins possèdent un don naturel pour attirer la sympathie et se faire discrets quand ce n'est pas le cas.\nLa plupart des halfelins sont des gens paisibles et sans histoire qui fuient l'incertitude et le danger une fois atteint l'âge de raison. Mais avant cela, les jeunes adultes ont une période de curiosité insatiable et de remise en question de leur mode de vie paisible. Durant cette parenthèse turbulente, ils sont enclins à l'aventure et il est alors fréquent pour le jeune halfelin de s'émanciper de sa parenté. Ainsi, les petites gens se sont approprié la devise « les voyages forment la jeunesse ». À moins que ce ne soit simplement une manière pratique pour les adultes de se débarrasser des jeunes gens agités... C'est généralement durant leurs voyages que les jeunes halfelins, sans fortune ni principes, construisent leur réputation de voleur, alors que la société de leurs parents réprouve totalement ce type de pratique.\nEn tant que jeune halfelin, vous êtes idéaliste et naïf, mais aussi curieux et aventureux, ce qui vous pousse parfois à prendre des risques inconsidérés. Toutefois, les halfelins ont aussi un bon fond qui leur vient de l'amour qu'ils ont reçu durant leur enfance et qui les pousse instinctivement à aider les plus faibles et les plus démunis. Dans la société des halfelins, la nourriture occupe une place centrale et on ne laisse pas quelqu'un en manquer. Enfin, un peu avant leurs trente ans, la plupart des petites gens cessent leur errance et s'installent pour mener une vie paisible. Cependant, il arrive que, de façon très exceptionnelle, certains prennent goût à l'aventure.\nLes halfelins mâles utilisent des prénoms courts qui ressemblent à des diminutifs. Les prénoms féminins sont le plus souvent inspirés des fleurs et des fruits. Ils ont généralement un nom en rapport avec leur lieu de naissance : Sur-le-pont, Dubois, Sous-colline, Moulinbas, etc.\n**MASCULIN.** Bill, Bern, Don, Duky, Eckel, Fili, Ged, Gerry, Hek, Hicks, Jack, Karl, Litle, Luky, Mike, Polo, Sam, Titi, etc.\n**FÉMININ.** Églantine, Lila, Jacinthe, Marguerite, Muguette, Pâquerette, Prune, Rose, etc.\n- Âge de départ : 20+\n- Espérance de vie : 150 ans\n- Taille : 80 cm à 1 m\n- Poids : 20 à 30 kg\n- Traits : petit et vif. Pieds poilus, regard espiègle.\nLe halfelin augmente ses valeurs d'AGI et de CON de +1.",
     "modifiers": [
       {
-        "stat": "AGI ou VOL",
+        "type": "fixed",
+        "stat": "AGI",
         "value": 1
       },
       {
+        "type": "fixed",
+        "stat": "CON",
+        "value": 1
+      },
+      {
+        "type": "fixed",
         "stat": "FOR",
         "value": -1
       }
@@ -119,7 +171,14 @@
     "description": "L'humain se distingue par sa capacité d'adaptation et son instinct qui le pousse à coloniser tous les territoires qui l'entourent. Le peuple humain est le plus représenté et le plus répandu dans les zones dites civilisées.\n**Dans les Terres d'Osgild.** Les humains sont à la fois le peuple le plus commun et un des plus jeunes des Terres d'Osgild. Ils se vantent d'être les enfants des dieux, tandis que les Premiers-nés (les elfes et les nains) sont les enfants des Puissances (des forces naturelles comme le vent, la terre ou l'air). Les humains occupent toutes les plaines et les terres les plus riches, car l'activité qui les caractérise est l'agriculture. Cette technique pratiquée avec une intensité inconnue des autres peuples leur a permis de se développer rapidement, mais cette croissance nécessite sans cesse d'étendre les surfaces agricoles et provoque souvent des conflits territoriaux. Ce qui vaut aux humains leur réputation de peuple expansionniste et belliqueux. Ainsi toutes les grandes plaines qui s'étendent d'est en ouest sont occupées par des nations humaines, fragments d'un ancien empire brisé, l'empire d'Osgild qui donna son nom à ses terres. Les deux plus grandes nations, celles où se situeront sans doute la plupart des aventures des personnages sont la principauté d'Arly à l'ouest et les marches du Piémont à l'est.\nInterpréter un humain ne devrait pas poser beaucoup de difficultés, puisque vous en êtes un (jusqu'à preuve du contraire). Les humains sont très différents les uns des autres et permettent une grande liberté d'interprétation. Rappelez-vous simplement que la plupart des humains des Terres d'Osgild sont assez peu cultivés et que votre personnage n'a pas du tout le même niveau de connaissance que vous. Les humains prennent sans compter ce que la nature peut leur offrir, ils considèrent que les dieux leur ont offert le monde pour qu'ils le modèlent à leur guise. Leur vie est courte et frénétique. Ils ont la mémoire courte et ne tirent aucune leçon du passé.\nLes humains ont les prénoms et les noms les plus variés qu'il soit. Vous pouvez vous inspirer d'anciens prénoms médiévaux, scandinaves, francs ou celtiques et les modifier légèrement pour leur donner une consonance plus fantastique. Pour les femmes, les noms de minéraux, de fleurs ou de couleurs peuvent aussi être utilisés.\n**Masculin.** Adalrik, Arn, Bernulf, Brand, Edwald, Ketil, Ferwin, Gerulf, Godfred, Gunter, Halfdan, Ingvar, Knud, Lothar, Osvald, Roderick, Rurik, Sigfred, Sigmar, Sigvald, Stig, Svenn, Thorsten, etc.\n**Féminin.** Annia, Alaina, Berthille, Bérénia, Téline, Koralie, Floraline, Gadrielle, Jocynthe, Kéline, Myrthinne, Marille, Naelwen, Natasha, Odælle, Prescille, Sorsha, Véronelle, Wendoline, etc.\n- Âge de départ : 18+\n- Espérance de vie : 100 ans\n- Taille : 1,50 m à 2 m\n- Poids : 40 à 120 kg\n- Traits : toute la diversité possible à l'exception des couleurs trop exotiques (cheveux violets, etc.).\nLe personnage augmente sa caractéristique la plus faible de +1 et sa Volonté de +1.\nOrigine géographique ou sociale (choisissez ou lancez un d6) :\n*   1 : Montagnard (escalade et résistance au froid).\n*   2 : Citadin (commerce et résistance aux maladies).\n*   3 : Campagnard (météorologie et équitation).\n*   4 : Riverain (natation et navigation).\n*   5 : Sauvage (chasser et pister).\n*   6 : Nomade (orientation et résistance à la chaleur ou au froid).\nLe MJ peut en inventer d'autres selon les cultures présentes dans son univers de jeu (troglodyte, marais, etc.). Éventuellement, le joueur peut remplacer un des bonus d'origine géographique par un bonus en relation avec son origine sociale ou un gagne-pain de son choix (serrurier, forgeron, scribe, maçon, chasseur, cuisinier, acrobate, pickpocket, bibliothécaire, étudiant, etc.). Le gagne-pain ne peut pas être un profil et le bonus obtenu ne s'applique jamais à des tests de combat.\n> **Exemple :** Un citadin étudiant en magie pourrait obtenir un bonus de +3 aux tests de commerce et +3 aux tests d'érudition occulte, même si son personnage est finalement devenu guerrier.",
     "modifiers": [
       {
-        "stat": "à la valeur d'une de ses deux plus faibles caractéristiques au choix.",
+        "type": "fixed",
+        "stat": "VOL",
+        "value": 1
+      },
+      {
+        "type": "special",
+        "stat": "Lowest",
+        "description": "au choix parmi les 2 plus faibles",
         "value": 1
       }
     ],
@@ -134,10 +193,16 @@
     "description": "Le nain est petit mais robuste. Célèbre pour sa barbe, il aime les profondeurs de la terre, dont il extrait des métaux et des pierres précieuses. Isolé, il est généralement ouvert et chaleureux, mais la société naine peut paraître sévère, car le travail et l'entraînement militaire y sont des obligations.\n**Dans les Terres d'Osgild.** La principale nation des nains est située dans les monts Argentés, dans la vallée de Kaerimbor, mais on trouve aussi de fortes concentrations du peuple du roc à Xélys (au sud des marches du Piémont) et à Fort Colline, une ville minière entourée de collines d'où l'on extrait tout le fer de la principauté d'Arly. Kaer Glimmerstern est une vaste citée souterraine construite autour d'un joyau de feu légendaire dans le nord des monts Ethernos (au sud-est). Enfin, de petites communautés de nains, appelées clans, sont aussi disséminées un peu partout dans le monde, dès que des montagnes et des mines sont accessibles.\nVous pouvez être taciturne ou braillard, mais vous ne faites pas les choses à moitié, et quand vous donnez votre avis, il est franc et massif, tant pis si cela froisse quelque susceptibilité. Vous êtes méfiant de prime abord, mais chaleureux une fois la glace rompue et vous savez entretenir l'amitié autour d'une bière ou deux... ou plus. La demi-mesure n'est pas votre fort. Votre parole est solide comme le roc et vos griefs durs comme l'acier. Vous êtes coriace, courageux, opiniâtre, et un combat ne vous fera jamais reculer. Oui, c'est vrai, vous aimez les joyaux et les métaux précieux, mais surtout parce qu'ils permettent de produire cet artisanat raffiné qui fait la fierté du peuple nain.\nDans les Terres d'Osgild, les nains éprouvent une nostalgie viscérale à la simple évocation de Kaer-Undün, leur ancien royaume souterrain des serres du Monde, abandonné aux ténèbres à la suite d'une terrible guerre contre les orcs et les géants, deux peuples qu'ils détestent. Ils entretiennent avec les elfes une relation paradoxale, faite de respect pour un peuple ancien, d'un esprit de compétition entre les deux antiques civilisations et d'une rancoeur tenace et si ancienne que tous semblent avoir à peu près oublié son origine, bien qu'elle soit d'une façon ou d'une autre liée à la période à laquelle Kaer-Undün fut perdu.\nLes nains ont des prénoms courts et percutants, les principales terminaisons sont en -in, -un, -ik, ou -ir, mais il en existe d'autres. Suit généralement le nom de leur clan, qu'ils traduisent en langue commune pour mettre en avant l'idée qu'il véhicule.\nChez les femmes, la terminaison en -hild ou -id est la plus courante.\n**Masculin.** Gloin Mâchefer, Krorin Briseroc, Thorin Forgefer, Buldur Tranchetroll, Trorin Cassegranit, Orik Briselame, Durok Écu-de-chêne, Guerann Marteleur, Korik Peau-de-pierre, etc.\n**Féminin.** Astrid, Arnhild, Berthild, Brynild, Eldrid, Ermenhild, Frida, Gerda, Grimhild, Gudrun, Helga, Hilda, Ingrid, Klothild, Sigrid, Strida etc.\n- Âge de départ : 40+\n- Espérance de vie : 250 ans\n- Taille : 1,15 m à 1,35 m\n- Poids : 50 à 100 kg\n- Traits : robuste et trapu. Pilosité très développée, tresses dans les cheveux et la barbe, bijoux et piercing. Non, les naines n'ont pas de barbe, tout juste un fin duvet avec l'âge.\nLes mages ne sont pas un peuple, un mage est simplement un personnage qui a choisi un profil de la famille des mages. Un préjugé populaire affirme pourtant que les mages forment une caste à part. Ce n'est pas totalement faux car, si la magie est une ressource puissante, elle demande aussi un investissement considérable pour être maîtrisée. Peu importe les origines de celui qui emprunte cette voie, il doit tout sacrifier pour se consacrer entièrement aux arts occultes.\nUn personnage de la famille des mages (ensorceleur, forgesort, magicien, sorcier) peut choisir de remplacer sa voie de peuple par la voie du mage. Il renonce à ses racines en échange d'un plus grand pouvoir occulte. Il ne conserve que la capacité de rang 1 de sa voie de peuple, acquise dès la création du personnage. Ce choix doit être fait avant d'obtenir le rang 2 de la voie de peuple et il est définitif. Désormais, le personnage ne peut plus obtenir de nouvelles capacités de sa voie de peuple.\nSi vous comptez jouer un mage pur (c'est-à-dire que vous ne songez pas à un profil hybride d'une autre famille que les mages), nous vous conseillons de choisir cette voie qui améliore à la fois la polyvalence et la puissance de feu à haut niveau.",
     "modifiers": [
       {
+        "type": "choice",
         "stat": "CON ou VOL",
+        "options": [
+          "CON",
+          "VOL"
+        ],
         "value": 1
       },
       {
+        "type": "fixed",
         "stat": "AGI",
         "value": -1
       }

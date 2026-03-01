@@ -1,0 +1,2766 @@
+[
+  {
+    "id": 1000,
+    "name": "Assassin",
+    "description": "Ce professionnel du meurtre est un adversaire redoutable, mais il ne s’amuse jamais à attaquer un groupe de PJ de front. Il attaque par surprise et de préférence un PJ solitaire avant de disparaître dans les ombres.",
+    "nc": 4.0,
+    "hp": 40,
+    "def": 17,
+    "init": 15,
+    "stats": {
+      "FOR": 2,
+      "DEX": 3,
+      "CON": 3,
+      "INT": 1,
+      "SAG": 2,
+      "CHA": 1
+    },
+    "category": "Humanoïde",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": {
+      "text": "* <b>ATTAQUE MORTELLE (A) :</b> Une attaque qui doit être exécutée dans le dos ou par surprise. L’assassin obtient un dé bonus en attaque et ajoute +4d6 aux DM de sa première attaque (il fait ensuite sa seconde attaque dans des conditions normales).<br>    * <b>ASSASSINAT (L) :</b> Au premier round de combat, si la cible est Surprise, une Attaque mortelle réussie l’oblige à réussir un test de CON difficulté 13 ou tomber à 0 PV.<br>    * <b>DISPARITION (L) :</b> L’assassin devient invisible (passage dans les ombres, cape magique, sort, etc.) et peut se déplacer de 20 m. Il réapparaît à son prochain tour et s’il emporte un test opposé d’AGI (discrétion +5) contre la PER (vigilance) de sa cible, il peut effectuer une Attaque mortelle."
+    },
+    "attacks": [
+      {
+        "name": "Épée courte (2 attaques)",
+        "test": "+7",
+        "dm": "1d6+3",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1001,
+    "name": "BANDIT DE BASE",
+    "description": "",
+    "nc": 0.5,
+    "hp": 9,
+    "def": 12,
+    "init": 10,
+    "stats": {
+      "FOR": 1,
+      "DEX": 1,
+      "CON": 1,
+      "INT": 0,
+      "SAG": 0,
+      "CHA": 0
+    },
+    "category": "Humanoïde",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": {
+      "text": "* <b>EMBUSCADE :</b> Au premier round de combat, si l’environnement permet de se dissimuler, la cible doit faire un test de PER difficulté 16 ou être surprise."
+    },
+    "attacks": [
+      {
+        "name": "Épée longue",
+        "test": "+2",
+        "dm": "1d8+1",
+        "special": null,
+        "reach": null
+      },
+      {
+        "name": "Arc",
+        "test": "+2",
+        "dm": "1d6",
+        "special": null,
+        "reach": "30"
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1002,
+    "name": "BANDIT VÉTÉRAN",
+    "description": "",
+    "nc": 1.0,
+    "hp": 15,
+    "def": 14,
+    "init": 13,
+    "stats": {
+      "FOR": 2,
+      "DEX": 1,
+      "CON": 3,
+      "INT": 0,
+      "SAG": 0,
+      "CHA": 0
+    },
+    "category": "Humanoïde",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": {
+      "text": "* <b>EMBUSCADE :</b> Au premier round de combat, si l’environnement permet de se dissimuler, la cible doit faire un test de PER difficulté 16 ou être surprise."
+    },
+    "attacks": [
+      {
+        "name": "Épée longue",
+        "test": "+4",
+        "dm": "1d8+2",
+        "special": null,
+        "reach": null
+      },
+      {
+        "name": "Arc",
+        "test": "+3",
+        "dm": "1d6",
+        "special": null,
+        "reach": "30"
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1003,
+    "name": "CHEF BANDIT",
+    "description": "",
+    "nc": 2.0,
+    "hp": 25,
+    "def": 16,
+    "init": 13,
+    "stats": {
+      "FOR": 3,
+      "DEX": 2,
+      "CON": 3,
+      "INT": 0,
+      "SAG": 0,
+      "CHA": 2
+    },
+    "category": "Humanoïde",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": {
+      "text": "* <b>EMBUSCADE :</b> Au premier round de combat, si l’environnement permet de se dissimuler, la cible doit faire un test de PER difficulté 16 ou être surprise.<br>    * <b>ATTAQUE EN TRAÎTRE (L) :</b> Si la créature attaque en même temps qu’un allié ou par surprise, elle obtient +1d4 DM.<br>    * <b>CHEF :</b> Le chef bandit donne un bonus de +1 en Init., en attaque et aux DM à tous les bandits à portée de vue."
+    },
+    "attacks": [
+      {
+        "name": "Épée longue",
+        "test": "+6",
+        "dm": "1d8+3",
+        "special": null,
+        "reach": null
+      },
+      {
+        "name": "Arc",
+        "test": "+5",
+        "dm": "1d6+2",
+        "special": null,
+        "reach": "30"
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1004,
+    "name": "MILICIEN",
+    "description": "",
+    "nc": 0.5,
+    "hp": 9,
+    "def": 14,
+    "init": 10,
+    "stats": {
+      "FOR": 1,
+      "DEX": 0,
+      "CON": 1,
+      "INT": -1,
+      "SAG": 0,
+      "CHA": 0
+    },
+    "category": "Humanoïde",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": {
+      "text": ""
+    },
+    "attacks": [
+      {
+        "name": "Pique",
+        "test": "+2",
+        "dm": "1d10+1",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1005,
+    "name": "GARDE DE LA VILLE",
+    "description": "",
+    "nc": 1.0,
+    "hp": 15,
+    "def": 16,
+    "init": 10,
+    "stats": {
+      "FOR": 2,
+      "DEX": 0,
+      "CON": 1,
+      "INT": -1,
+      "SAG": 0,
+      "CHA": 0
+    },
+    "category": "Humanoïde",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": {
+      "text": ""
+    },
+    "attacks": [
+      {
+        "name": "Épée longue",
+        "test": "+4",
+        "dm": "1d8+2",
+        "special": null,
+        "reach": null
+      },
+      {
+        "name": "Arbalète",
+        "test": "+4",
+        "dm": "2d4",
+        "special": null,
+        "reach": "30"
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1006,
+    "name": "VÉTÉRAN OU GARDE DE PALAIS DUCAL",
+    "description": "",
+    "nc": 2.0,
+    "hp": 25,
+    "def": 17,
+    "init": 13,
+    "stats": {
+      "FOR": 2,
+      "DEX": 0,
+      "CON": 2,
+      "INT": 0,
+      "SAG": 0,
+      "CHA": 0
+    },
+    "category": "Humanoïde",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": {
+      "text": "Choisir une capacité parmi les trois proposées :<br>    * <b>BRISE-GENOU :</b> Si un adversaire au contact tente de s’éloigner de la créature (généralement pour fuir), elle obtient une attaque de contact gratuite contre lui. Si cette attaque est réussie, en plus des DM habituels, la cible doit réussir un test de CON difficulté 15 ou diviser par deux tous ses déplacements pour le reste du combat.<br>    * <b>IMPARABLE :</b> Si la créature obtient 15-20 au d20 d’un test d’attaque (17 à 20 si la créature possède 2 attaques), elle inflige +2d4 DM supplémentaire et l’attaque est automatiquement réussie (quelle que soit la DEF de son adversaire). Les dés bonus ne sont pas multipliés en cas de critique.<br>    * <b>SERGENT (G) :</b> Une fois par round, le sergent peut donner une action supplémentaire à n’importe quel allié sous ses ordres à portée de vue (attaque ou mouvement). Une fois par combat, une attaque qui aurait dû amener le sergent à 0 PV est ignorée."
+    },
+    "attacks": [
+      {
+        "name": "Épée longue",
+        "test": "+6",
+        "dm": "1d8+4",
+        "special": null,
+        "reach": null
+      },
+      {
+        "name": "Arbalète lourde",
+        "test": "+6",
+        "dm": "3d4",
+        "special": null,
+        "reach": "50"
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1007,
+    "name": "CAPITAINE",
+    "description": "",
+    "nc": 4.0,
+    "hp": 50,
+    "def": 18,
+    "init": 10,
+    "stats": {
+      "FOR": 3,
+      "DEX": 1,
+      "CON": 2,
+      "INT": 1,
+      "SAG": 0,
+      "CHA": 2
+    },
+    "category": "Humanoïde",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": {
+      "text": "* <b>CAPITAINE :</b> Le capitaine donne un bonus de +2 en initiative, en attaque et aux DM à toutes les créatures sous ses ordres à portée de vue.<br>    * <b>RIPOSTE :</b> La créature peut effectuer une attaque en action gratuite contre chaque adversaire qui l’attaque à l’exception de celui qu’elle a elle-même choisi d’attaquer à son tour."
+    },
+    "attacks": [
+      {
+        "name": "Épée longue (2 attaques)",
+        "test": "+8",
+        "dm": "1d8+3",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1008,
+    "name": "GARDE DU CORPS",
+    "description": "",
+    "nc": 3.0,
+    "hp": 45,
+    "def": 20,
+    "init": 13,
+    "stats": {
+      "FOR": 3,
+      "DEX": 1,
+      "CON": 3,
+      "INT": 0,
+      "SAG": 0,
+      "CHA": 0
+    },
+    "category": "Humanoïde",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": {
+      "text": "* <b>GARDE DU CORPS :</b> Au début de son tour de jeu, la créature désigne une cible située à son contact (une autre créature ou un objet). Dès lors, elle réduit tous les DM subis par la cible de 5 points. Elle ne peut pas se désigner elle-même.<br>    * <b>INAMOVIBLE :</b> La créature est immunisée aux états suivants : Surpris, Immobilisé et Renversé. Elle ne peut pas être désarmée et elle est insensible à la capacité Attaque sournoise (ou Attaque mortelle)."
+    },
+    "attacks": [
+      {
+        "name": "Épée longue",
+        "test": "+6",
+        "dm": "1d8+3",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1009,
+    "name": "Sorcier",
+    "description": "Un puissant sorcier ou nécromancien flanqué de ses deux gardes du corps (vétérans) devant un autel impie forme une rencontre difficile de niveau 5 ou normale de niveau 6.",
+    "nc": 5.0,
+    "hp": 45,
+    "def": 18,
+    "init": 10,
+    "stats": {
+      "FOR": -1,
+      "DEX": 1,
+      "CON": 1,
+      "INT": 3,
+      "SAG": 0,
+      "CHA": 1
+    },
+    "category": "Humanoïde",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": {
+      "text": "* <b>ANIMER UN CADAVRE (L) :</b> Le sorcier peut animer un cadavre à une portée de 10 m (NC maximum de la créature 2). La créature devient une créature non vivante et subit une pénalité de -2 en attaque, en DEF et en Initiative par rapport au profil d’origine.<br>    * <b>INJONCTION MORTELLE (L) :</b> Une cible située à une distance maximale de 30 m doit réussir un test de CON difficulté 15 ou tomber à 0 PV (et mourir immédiatement s’il s’agit d’un PNJ). En cas de succès, la cible subit tout de même 2d6+5 DM. Ce pouvoir ne peut prendre une même créature pour cible qu’une seule fois par combat.<br>    * <b>PAS DE L’OMBRE (L) :</b> Le sorcier peut se téléporter à n’importe quel endroit qu’il voit ou qu’il connaît à une distance maximale de 100 m jusqu’à 3 fois par combat.<br>    * <b>VAMPIRISATION (L) :</b> Sur un test opposé d’attaque magique contre une cible à une portée maximale de 30 m, l’attaque inflige 2d8 DM et le sorcier récupère un nombre de PV égal aux DM infligés. De plus, le sorcier peut également s’approprier l’énergie des morts : chaque cadavre à une portée de 20 m lui rend un nombre de PV égal à 2 fois son NC lors de sa mort."
+    },
+    "attacks": [
+      {
+        "name": "Dague",
+        "test": "+6",
+        "dm": "1d4+2 + 2d6 poison",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1010,
+    "name": "Aigle commun",
+    "description": "",
+    "nc": 0.5,
+    "hp": 3,
+    "def": 13,
+    "init": 16,
+    "stats": {
+      "FOR": -3,
+      "DEX": 3,
+      "CON": 2,
+      "INT": -4,
+      "SAG": 4,
+      "CHA": 0
+    },
+    "category": "Vivant",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Petite",
+    "specialAbilities": {
+      "text": "* <b>VOL RAPIDE :</b> La créature obtient une action de mouvement supplémentaire par round lorsqu’elle est en vol. Au premier round de combat, la créature obtient un dé bonus en attaque et inflige +1d4 aux DM si elle est en vol et attaque une créature au sol.<br>    * <b>EMPORTER DANS LES AIRS :</b> Sur un résultat de 17-20 au test d’attaque, l’aigle peut emporter dans les airs une créature minuscule ou moins au prix d’une action de mouvement."
+    },
+    "attacks": [
+      {
+        "name": "Serres",
+        "test": "+3",
+        "dm": "1d4",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1011,
+    "name": "CHEVAL DE SELLE",
+    "description": "",
+    "nc": 1.0,
+    "hp": 14,
+    "def": 11,
+    "init": 10,
+    "stats": {
+      "FOR": 4,
+      "DEX": 0,
+      "CON": 4,
+      "INT": -4,
+      "SAG": 0,
+      "CHA": -1
+    },
+    "category": "Vivant",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Grande",
+    "specialAbilities": {
+      "text": "* <b>MONTURE :</b> Le cheval double sa FOR lorsqu’il s’agit de déterminer la charge qu’il peut transporter."
+    },
+    "attacks": [
+      {
+        "name": "Ruade",
+        "test": "+2",
+        "dm": "1d4+4",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1012,
+    "name": "CHEVAL DE GUERRE",
+    "description": "Le cheval de guerre est entraîné au combat et il ne risque pas de paniquer si son cavalier lui demande de charger l'adversaire ou au milieu du fracas des armes.",
+    "nc": 1.0,
+    "hp": 14,
+    "def": 11,
+    "init": 10,
+    "stats": {
+      "FOR": 5,
+      "DEX": 0,
+      "CON": 4,
+      "INT": -4,
+      "SAG": 0,
+      "CHA": -1
+    },
+    "category": "Vivant",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Grande",
+    "specialAbilities": {
+      "text": "* <b>MONTURE :</b> Le cheval double sa FOR lorsqu’il s’agit de déterminer la charge qu’il peut transporter.<br>    * <b>ÉQUIPEMENT :</b> Un cheval de guerre peut être équipé d’une barde.<br>        * <b>Caparaçon de maille :</b> +2 en DEF, -2 en Init., prix 100 pa.<br>        * <b>Barde de plaques :</b> +4 en DEF, -4 en Init., prix 400 pa."
+    },
+    "attacks": [
+      {
+        "name": "Ruade",
+        "test": "+4",
+        "dm": "1d4+5",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1013,
+    "name": "Crocodile",
+    "description": "",
+    "nc": 2.0,
+    "hp": 15,
+    "def": 15,
+    "init": 15,
+    "stats": {
+      "FOR": 4,
+      "DEX": 0,
+      "CON": 3,
+      "INT": -4,
+      "SAG": 2,
+      "CHA": -2
+    },
+    "category": "Vivant",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyenne",
+    "specialAbilities": {
+      "text": "* <b>EMBUSCADE :</b> Au premier round de combat, si l’environnement permet à la créature de se dissimuler, la cible doit faire un test de PER difficulté 15 ou être surprise. Lorsqu’elle attaque avec succès une cible surprise, la créature obtient un dé bonus en attaque et toute créature dont la FOR est inférieure à la sienne est renversée. La créature obtient un bonus de +5 à tous les tests de discrétion.<br>    * <b>DÉVORER :</b> Lorsque la créature réussit une attaque avec un résultat de 15-20 au d20, elle saisit sa proie entre ses crocs ou ses griffes et lui inflige immédiatement une attaque gratuite supplémentaire."
+    },
+    "attacks": [
+      {
+        "name": "Morsure",
+        "test": "+4",
+        "dm": "1d6+3",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1014,
+    "name": "Bison",
+    "description": "Ce profil peut être utilisé pour les gros bovidés comme le buffle. Le bison mesure environ 2 m au garrot pour un poids de 500 à 900 kg.",
+    "nc": 2.0,
+    "hp": 30,
+    "def": 14,
+    "init": 12,
+    "stats": {
+      "FOR": 4,
+      "DEX": 0,
+      "CON": 4,
+      "INT": -4,
+      "SAG": 2,
+      "CHA": -2
+    },
+    "category": "Vivant",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Grande",
+    "specialAbilities": {
+      "text": "* <b>CHARGE (L) :</b> La créature parcourt une distance maximale de 20 m et réalise une attaque avec un dé bonus. Si l’attaque est réussie, en plus des DM normaux, une victime de taille inférieure ou égale à la créature doit faire un test de FOR difficulté 14 ou être renversée. Dans ce cas, la créature piétine sa victime et les DM sont doublés."
+    },
+    "attacks": [
+      {
+        "name": "Cornes",
+        "test": "+5",
+        "dm": "1d6+4",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1015,
+    "name": "GRAND MÂLE BISON",
+    "description": "Certains grands buffles d’Afrique ou buffles du Cap dépassent la tonne et sont extrêmement agressifs.",
+    "nc": 3.0,
+    "hp": 40,
+    "def": 15,
+    "init": 12,
+    "stats": {
+      "FOR": 6,
+      "DEX": 0,
+      "CON": 6,
+      "INT": -4,
+      "SAG": 2,
+      "CHA": -2
+    },
+    "category": "Vivant",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Grande",
+    "specialAbilities": {
+      "text": "* <b>CHARGE (L) :</b> Voir ci-dessus."
+    },
+    "attacks": [
+      {
+        "name": "Cornes",
+        "test": "+8",
+        "dm": "2d6+6",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1016,
+    "name": "Éléphant",
+    "description": "L’éléphant d’Afrique peut mesurer jusqu’à 4 m au garrot pour un poids de 6 t environ. Les spécimens d'éléphant d'Asie sont un peu plus petits (NC 5).",
+    "nc": 6.0,
+    "hp": 90,
+    "def": 21,
+    "init": 11,
+    "stats": {
+      "FOR": 10,
+      "DEX": 0,
+      "CON": 10,
+      "INT": -4,
+      "SAG": 1,
+      "CHA": -2
+    },
+    "category": "Vivant",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Énorme",
+    "specialAbilities": {
+      "text": "* <b>CHARGE (L) :</b> La créature parcourt une distance maximale de 20 m et réalise une attaque avec un dé bonus. Si l’attaque est réussie, en plus des DM normaux, une victime de taille inférieure ou égale à la créature doit faire un test de FOR difficulté 20 ou être renversée. Dans ce cas, la créature piétine sa victime et les DM sont doublés.<br>    * <b>FAUCHAGE :</b> Si la créature obtient 15 à 20 au dé du test d'attaque, si l’attaque est réussie, la victime doit réussir au choix un test de FOR ou d’AGI difficulté 20 ou être renversée.<br>    * <b>RÉDUCTION DE DOMMAGES :</b> La créature retranche 3 à tous les DM subis (RD 3)."
+    },
+    "attacks": [
+      {
+        "name": "Trompe et défenses",
+        "test": "+12",
+        "dm": "2d10+12",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1017,
+    "name": "Gorille",
+    "description": "Le gorille est une créature impressionnante de 1,70 m pesant jusqu’à 150 kg ou 200 kg. D’un tempérament plutôt calme, il peut se révéler un redoutable adversaire si l’on pénètre sur son territoire ou si sa famille est menacée.",
+    "nc": 3.0,
+    "hp": 30,
+    "def": 18,
+    "init": 12,
+    "stats": {
+      "FOR": 5,
+      "DEX": 4,
+      "CON": 5,
+      "INT": -3,
+      "SAG": 2,
+      "CHA": -2
+    },
+    "category": "Vivant",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Grande",
+    "specialAbilities": {
+      "text": "* <b>CHARGE (L) :</b> La créature parcourt une distance maximale de 20 m et réalise une attaque avec un dé bonus. Si l’attaque est réussie, en plus des DM normaux, une victime de taille inférieure ou égale à la créature doit faire un test de FOR difficulté 15 ou être renversée. Dans ce cas, la créature piétine sa victime et les DM sont doublés.<br>    * <b>PASSAGE PAR LES ARBRES :</b> Le personnage peut se déplacer aussi vite dans les arbres qu’au sol et il obtient un bonus de +5 à ses tests de discrétion lorsqu’il se trouve en forêt."
+    },
+    "attacks": [
+      {
+        "name": "Poings et morsure",
+        "test": "+7",
+        "dm": "2d6+5",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1018,
+    "name": "Lion",
+    "description": "Le lion peut peser jusqu’à 250 kg. C’est un prédateur puissant qui chasse en groupe.",
+    "nc": 3.0,
+    "hp": 30,
+    "def": 17,
+    "init": 15,
+    "stats": {
+      "FOR": 5,
+      "DEX": 4,
+      "CON": 5,
+      "INT": -3,
+      "SAG": 2,
+      "CHA": -2
+    },
+    "category": "Vivant",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Grande",
+    "specialAbilities": {
+      "text": "* <b>EMBUSCADE :</b> Au premier round de combat, si l’environnement permet à la créature de se dissimuler, la cible doit faire un test de PER difficulté 19 ou être surprise. Lorsqu’elle attaque avec succès une cible surprise, la créature inflige +1d4 DM et toute créature dont la FOR est inférieure à la sienne est renversée. La créature obtient un bonus de +5 à tous les tests de discrétion.<br>    * <b>DÉVORER :</b> Lorsque la créature réussit une attaque avec un résultat de 15-20 au d20, elle saisit sa proie entre ses crocs ou ses griffes et lui inflige immédiatement une attaque gratuite supplémentaire."
+    },
+    "attacks": [
+      {
+        "name": "Morsure et griffes",
+        "test": "+6",
+        "dm": "2d6+5",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1019,
+    "name": "GRAND MÂLE LION",
+    "description": "",
+    "nc": 4.0,
+    "hp": 50,
+    "def": 18,
+    "init": 15,
+    "stats": {
+      "FOR": 6,
+      "DEX": 4,
+      "CON": 6,
+      "INT": -3,
+      "SAG": 2,
+      "CHA": -2
+    },
+    "category": "Vivant",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Grande",
+    "specialAbilities": {
+      "text": ""
+    },
+    "attacks": [
+      {
+        "name": "Morsure et griffes",
+        "test": "+8",
+        "dm": "2d6+8",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1020,
+    "name": "Loup",
+    "description": "Le loup pèse environ 40 kg. C’est un prédateur qui chasse en meute.",
+    "nc": 1.0,
+    "hp": 9,
+    "def": 13,
+    "init": 15,
+    "stats": {
+      "FOR": 1,
+      "DEX": 1,
+      "CON": 1,
+      "INT": -4,
+      "SAG": 2,
+      "CHA": -2
+    },
+    "category": "Vivant",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyenne",
+    "specialAbilities": {
+      "text": "* <b>INTERCHANGEABLES : </b> Tant que les loups sont au moins deux au contact d’une même cible, ils se relaient pour esquiver ses attaques et elles obtiennent un bonus de +3 en DEF. Si plusieurs créatures semblables sont au contact du PJ, le MJ a toute latitude pour infliger les DM d’une attaque sur une créature au hasard, le personnage ne sait jamais laquelle il blesse. Seul, le loup n’a pas usage de la capacité interchangeable et son NC passe à ½.<br>    * <b>CHIEN : </b> Vous pouvez aussi utiliser le profil du loup pour les gros chiens en retirant de 2 à 4 PV."
+    },
+    "attacks": [
+      {
+        "name": "Morsure",
+        "test": "+3",
+        "dm": "1d6+1",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1021,
+    "name": "MÂLE ALPHA",
+    "description": "Chaque meute de loups possède un mâle dominant plus gros que ses congénères (jusqu’à 80 kg). Si les personnages rencontrent un loup solitaire, il sera souvent basé sur ce profil. Un chef de meute accompagné de sa bande de 6 loups est une rencontre ordinaire de niveau 5.",
+    "nc": 2.0,
+    "hp": 15,
+    "def": 15,
+    "init": 15,
+    "stats": {
+      "FOR": 3,
+      "DEX": 1,
+      "CON": 3,
+      "INT": -4,
+      "SAG": 2,
+      "CHA": -2
+    },
+    "category": "Vivant",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyenne",
+    "specialAbilities": {
+      "text": "* <b>CHEF DE MEUTE : </b> Le chef de meute donne un bonus de +2 en initiative, en attaque et aux DM, à tous les loups de sa meute à portée de vue. De plus, s’il attaque en même temps qu’un autre loup, il réalise une attaque avec un dé bonus et +2d4 DM."
+    },
+    "attacks": [
+      {
+        "name": "Morsure",
+        "test": "+4",
+        "dm": "1d6+3",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1022,
+    "name": "Ours noir",
+    "description": "Ce profil correspond aux espèces d’ours de petite taille ne dépassant pas 150 kg. Plus agile et plus rapide que son cousin l’ours brun, il est tout à fait capable de grimper aux arbres.",
+    "nc": 2.0,
+    "hp": 35,
+    "def": 17,
+    "init": 12,
+    "stats": {
+      "FOR": 3,
+      "DEX": 2,
+      "CON": 3,
+      "INT": -4,
+      "SAG": 2,
+      "CHA": -2
+    },
+    "category": "Vivant",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyenne",
+    "specialAbilities": {
+      "text": ""
+    },
+    "attacks": [
+      {
+        "name": "Morsure et griffes",
+        "test": "+6",
+        "dm": "2d6+3",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1023,
+    "name": "Ours brun",
+    "description": "L’ours brun mesure environ 1,50 m au garrot et jusqu’à 2,50 m lorsqu’il se dresse sur ses pattes postérieures pour un poids d’environ 300 kg. On peut aussi trouver des spécimens d’ours noir particulièrement massifs (jusqu’à 400 kg) qui correspondent à ce profil.",
+    "nc": 4.0,
+    "hp": 50,
+    "def": 18,
+    "init": 12,
+    "stats": {
+      "FOR": 6,
+      "DEX": 1,
+      "CON": 6,
+      "INT": -4,
+      "SAG": 2,
+      "CHA": -2
+    },
+    "category": "Vivant",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Grande",
+    "specialAbilities": {
+      "text": "* <b>CHARGE (L) : </b> La créature parcourt une distance maximale de 20 m et réalise une attaque avec un dé bonus. Si l’attaque est réussie, en plus des DM normaux, une victime de taille inférieure ou égale à la créature, doit faire un test de FOR difficulté 16 ou être renversée. Dans ce cas, la créature piétine (ou embroche) sa victime et les DM sont doublés.<br>    * <b>ENRAGÉ : </b> Lorsqu’elle reçoit un coup critique, la créature devient enragée. Elle ignore les pénalités de douleur ou la peur, augmente de +3 sa valeur d’attaque au contact et ses DM de +1d4. Elle peut encore agir un tour complet après avoir atteint 0 PV."
+    },
+    "attacks": [
+      {
+        "name": "Morsure et griffes",
+        "test": "+10",
+        "dm": "2d6+6",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1024,
+    "name": "Ours polaire",
+    "description": "Avec des mensurations moyennes de 500 kg pour 3 m le grand ours polaire mâle est le plus gros prédateur terrestre avec l’ours Kodiak (encore un peu plus gros).",
+    "nc": 6.0,
+    "hp": 80,
+    "def": 20,
+    "init": 12,
+    "stats": {
+      "FOR": 8,
+      "DEX": 0,
+      "CON": 8,
+      "INT": -4,
+      "SAG": 2,
+      "CHA": -2
+    },
+    "category": "Vivant",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Grande",
+    "specialAbilities": {
+      "text": "* <b>CHARGE (L) : </b> La créature parcourt une distance maximale de 20 m et réalise une attaque avec un dé bonus. Si l’attaque est réussie, en plus des DM normaux, une victime de taille inférieure ou égale à la créature, doit faire un test de FOR difficulté 16 ou être renversée. Dans ce cas, la créature piétine (ou embroche) sa victime et les DM sont doublés.<br>    * <b>DÉVORER : </b> Lorsque la créature réussit une attaque avec un résultat de 15-20 au d20, elle saisit sa proie entre ses crocs ou ses griffes et lui inflige immédiatement une attaque gratuite supplémentaire.<br>    * <b>ENRAGÉ : </b> Lorsqu’elle reçoit un coup critique, la créature devient enragée. Elle ignore les pénalités de douleur ou la peur, augmente de +3 sa valeur d’attaque au contact et ses DM de +1d4. Elle peut encore agir un tour complet après avoir atteint 0 PV."
+    },
+    "attacks": [
+      {
+        "name": "Morsure et griffes",
+        "test": "+12",
+        "dm": "2d8+10",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1025,
+    "name": "Panthère",
+    "description": "Ce profil convient à tous les félins de taille moyenne comme le léopard, le jaguar ou le lion des montagnes.",
+    "nc": 2.0,
+    "hp": 15,
+    "def": 16,
+    "init": 15,
+    "stats": {
+      "FOR": 2,
+      "DEX": 4,
+      "CON": 2,
+      "INT": -4,
+      "SAG": 2,
+      "CHA": -2
+    },
+    "category": "Vivant",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyenne",
+    "specialAbilities": {
+      "text": "* <b>EMBUSCADE : </b> Au premier round de combat, si l’environnement permet à la créature de se dissimuler, la cible doit faire un test de PER difficulté 19 ou être surprise. Si elle attaque avec succès une cible surprise, la créature inflige +1d4 DM et toute créature dont la FOR est inférieure à la sienne est renversée. La créature obtient un bonus de +5 à tous les tests de discrétion.<br>    * <b>DÉVORER : </b> Lorsque la créature réussit une attaque avec un résultat de 15-20 au d20, elle saisit sa proie entre ses crocs ou ses griffes et lui inflige immédiatement une attaque gratuite supplémentaire."
+    },
+    "attacks": [
+      {
+        "name": "Morsure et Griffes",
+        "test": "+5",
+        "dm": "1d6+2",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1026,
+    "name": "Requin",
+    "description": "",
+    "nc": 4.0,
+    "hp": 50,
+    "def": 18,
+    "init": 13,
+    "stats": {
+      "FOR": 5,
+      "DEX": 3,
+      "CON": 5,
+      "INT": -4,
+      "SAG": 0,
+      "CHA": -3
+    },
+    "category": "Aquatique :",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Grande",
+    "specialAbilities": {
+      "text": "* <b>DÉVORER : </b> Lorsque le requin réussit une attaque avec un résultat de 15-20 au d20, il saisit sa proie entre ses crocs et lui inflige immédiatement une attaque gratuite supplémentaire. Si la FOR de la cible est inférieure ou égale au prédateur, elle est de plus immobilisée. Pour se libérer, la victime doit réussir un test de FOR difficulté 15 lors de son tour et cela lui demande une action de mouvement.<br>    * <b>CRÉATURE AQUATIQUE : </b> Le requin ne subit aucune pénalité pour attaquer et se déplacer sous l’eau et il bénéficie d’un bonus de +3 en initiative."
+    },
+    "attacks": [
+      {
+        "name": "Morsure",
+        "test": "+10",
+        "dm": "2d8+5",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1027,
+    "name": "Rhinocéros",
+    "description": "Selon les espèces, le rhinocéros peut mesurer de 3 à 4 m de long pour un poids de 800 kg à 2 t. Les grands rhinocéros blancs pèsent parfois plus de 3 t et vous pourrez leur ajouter un rang de Boss (+1 NC, +2 en DEF et en Att, +2 DM et +2 PV).",
+    "nc": 4.0,
+    "hp": 50,
+    "def": 18,
+    "init": 10,
+    "stats": {
+      "FOR": 8,
+      "DEX": 0,
+      "CON": 8,
+      "INT": -4,
+      "SAG": 0,
+      "CHA": -2
+    },
+    "category": "Vivant",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Grande",
+    "specialAbilities": {
+      "text": "* <b>CHARGE (L) : </b> La créature parcourt une distance maximale de 20 m et réalise une attaque avec un de bonus. Si l’attaque est réussie, en plus de subir les DM normaux, une victime de taille inférieure ou égale à la créature doit faire un test de FOR difficulté 18 ou être renversée. Dans ce cas, la créature piétine sa victime et les DM sont doublés.<br>    * <b>ENRAGÉ : </b> Lorsqu’elle reçoit un coup critique, la créature devient enragée. Elle ignore les pénalités de douleur ou la peur, augmente de +3 sa valeur d’attaque au contact et ses DM de +1d4. Elle peut encore agir un tour complet après avoir atteint 0 PV."
+    },
+    "attacks": [
+      {
+        "name": "Corne",
+        "test": "+8",
+        "dm": "2d6+8",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1028,
+    "name": "Sanglier",
+    "description": "Les sangliers mâles pèsent généralement autour de 150 kg, mais on peut rencontrer des spécimens de 200 à 300 kg.",
+    "nc": 3.0,
+    "hp": 20,
+    "def": 16,
+    "init": 11,
+    "stats": {
+      "FOR": 3,
+      "DEX": 0,
+      "CON": 3,
+      "INT": -4,
+      "SAG": 1,
+      "CHA": -2
+    },
+    "category": "Vivant",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyenne",
+    "specialAbilities": {
+      "text": "* <b>CHARGE (L) : </b> La créature parcourt une distance maximale de 20 m et réalise une attaque avec un de bonus. Si l’attaque est réussie, en plus de subir les DM normaux, une victime de taille inférieure ou égale à la créature, doit faire un test de FOR difficulté 13 ou être renversée. Dans ce cas, la créature éventre sa victime et les DM sont doublés.<br>    * <b>TAPE DUR : </b> Si la créature obtient 15 à 20 au de du test d’attaque, l’attaque est automatiquement réussie. De surcroît, la victime doit réussir un test de CON difficulté 13 ou être étourdie pendant 1 round.<br>    * <b>ENRAGÉ : </b> Lorsqu’elle reçoit un coup critique, la créature devient enragée. Elle ignore les pénalités de douleur ou la peur, augmente de +3 sa valeur d’attaque au contact et ses DM de +1d4. Elle peut encore agir un tour complet après avoir atteint 0 PV."
+    },
+    "attacks": [
+      {
+        "name": "Défenses",
+        "test": "+6",
+        "dm": "2d4+3",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1029,
+    "name": "Serpent constricteur",
+    "description": "Ce profil correspond au boa ou au python. Toutefois, cette famille de serpents comprend de grandes disparités de taille et de poids, allant de 2 m pour une quinzaine de kilos à plus de 6 m pour 150 kg et au-delà. Les caractéristiques présentées ici correspondent à un spécimen d’environ 4 m pour 80 kg.",
+    "nc": 3.0,
+    "hp": 30,
+    "def": 15,
+    "init": 13,
+    "stats": {
+      "FOR": 4,
+      "DEX": 0,
+      "CON": 4,
+      "INT": -4,
+      "SAG": 0,
+      "CHA": -2
+    },
+    "category": "Vivant",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyenne",
+    "specialAbilities": {
+      "text": "* <b>EMBUSCADE : </b> Au premier round de combat, si l’environnement permet à la créature de se dissimuler, la cible doit faire un test de PER difficulté 15 ou être surprise. Si elle attaque avec succès une cible surprise, la créature inflige +1d4 DM et toute créature dont la FOR est inférieure à la sienne est renversée. La créature obtient un bonus de +5 à tous les tests de discrétion.<br>    * <b>ÉTREINTE : </b> Chaque fois que le serpent réussit une attaque, la cible doit réussir un test de FOR (ou d’AGI au choix) difficulté 10. En cas d’échec, le serpent s’enroule autour d’elle et commence à l’étouffer, infligeant automatiquement 1d4 DM supplémentaires par round. La victime est immobilisée. Elle peut tenter de se libérer au prix d’une action de mouvement à son tour, en réussissant un test de FOR difficulté 14."
+    },
+    "attacks": [
+      {
+        "name": "Morsure",
+        "test": "+4",
+        "dm": "1d6+4 + étreinte",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1030,
+    "name": "Serpent venimeux",
+    "description": "Ce profil correspond à un serpent d’environ un mètre de long : crotale, vipère, etc.",
+    "nc": 1.0,
+    "hp": 2,
+    "def": 15,
+    "init": 12,
+    "stats": {
+      "FOR": -3,
+      "DEX": 3,
+      "CON": 0,
+      "INT": -4,
+      "SAG": 2,
+      "CHA": -2
+    },
+    "category": "Vivant",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Très Petite",
+    "specialAbilities": {
+      "text": "* <b>EMBUSCADE : </b> Au premier round de combat, si l’environnement permet à la créature de se dissimuler, la cible doit faire un test de PER difficulté 15 ou être surprise. La créature obtient un bonus de +5 à tous les tests de discrétion.<br>    * <b>VENIN : </b> La victime d’une morsure de serpent venimeux doit faire un test de CON difficulté 15 à chaque morsure. En cas d’échec la victime subit 1 DM supplémentaire par round pendant 1d6 rounds. De plus, la victime est affaiblie pour une durée similaire exprimée en heures. Chaque nouvelle morsure augmente la durée (mais pas les DM par round).<br>    * <b>CRACHAT (A) : </b> Certains serpents crachent leur venin dans les yeux de leur adversaire pour l’aveugler. La victime doit réussir un test d’AGI difficulté 12 ou être aveuglée pour 1d6 rounds."
+    },
+    "attacks": [
+      {
+        "name": "Morsure",
+        "test": "+3",
+        "dm": "1 + Poison",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1031,
+    "name": "Araignée géante",
+    "description": "Les araignées géantes (arthropodes) sont des monstres terrifiants : rapides, puissants et capables de survivre aux pires blessures. On trouve les araignées géantes dans les forêts sombres et reculées, mais aussi dans les souterrains, surtout les plus grosses d’entre elles. Il en existe de nombreuses variantes, mais celle que nous vous proposons ici fait le poids d’un humain, elle est donc moins haute mais occupe un espace de presque 2 m de diamètre.",
+    "nc": 3.0,
+    "hp": 30,
+    "def": 17,
+    "init": 12,
+    "stats": {
+      "FOR": 3,
+      "DEX": 4,
+      "CON": 3,
+      "INT": -4,
+      "SAG": 2,
+      "CHA": -4
+    },
+    "category": "Vivant",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyenne",
+    "specialAbilities": {
+      "text": "* <b>POISON MORTEL : </b> Le poison inflige 2d6 DM supplémentaires à la victime à chaque attaque. Si la victime réussit un test de CON de la difficulté indiquée, elle subit seulement la moitié des DM.<br>    * <b>VERMINE : </b> Une araignée géante peut encore agir un round complet lorsqu’elle atteint 0 PV. Une araignée se déplace de 15 m par action de mouvement.<br>    * <b>VARIANTES : </b> Choisissez un type de poison et soit Toile (L), soit Araignée chasseuse.<br>    * <b>ARAIGNÉE CHASSEUSE : </b> Au premier round de combat, si l’environnement permet à la créature de se dissimuler, la cible doit faire un test de PER difficulté 19 ou être surprise. Si elle attaque avec succès une cible surprise, la créature inflige +1d4 DM et toute créature dont la FOR est inférieure à la sienne est renversée. La créature obtient un bonus de +5 à tous les tests de discrétion.<br>    * <b>TOILE (L) : </b> Sur un test d’attaque réussi (portée 3 m), l’araignée emprisonne sa cible dans une toile gluante et solide. Elle est immobilisée ; se libérer nécessite l’usage d’une action limitée et il faut réussir un test de FOR difficulté 12."
+    },
+    "attacks": [
+      {
+        "name": "Attaque",
+        "test": "+6",
+        "dm": "2d6+4 + poison (2d6, difficulté 12)",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1032,
+    "name": "Basilic",
+    "description": "Le basilic est un reptile à 8 pattes d’environ 150 kg particulièrement hideux. Toutefois, peu de personnes peuvent se vanter de connaître son apparence exacte, car son regard pétrifiant rend son observation directe particulièrement mortelle. Le basilic vit dans une grande variété de milieux naturels, mais il est très commun dans les déserts ou les montagnes. Un basilic voit dans le noir.",
+    "nc": 3.0,
+    "hp": 30,
+    "def": 17,
+    "init": 12,
+    "stats": {
+      "FOR": 3,
+      "DEX": 0,
+      "CON": 3,
+      "INT": -4,
+      "SAG": 2,
+      "CHA": -1
+    },
+    "category": "Vivant",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Grande",
+    "specialAbilities": {
+      "text": "* <b>REGARD PÉTRIFIANT : </b> Celui qui regarde le basilic et croise son regard est pétrifié. Un personnage qui n’est pas conscient du danger doit réussir un test de CON difficulté 15 à chaque round de combat (à son tour) ou être immédiatement transformé en pierre. La transformation est permanente, mais un sort de Délivrance (prêtre) lancé moins de 1 jour par niveau du prêtre après la pétrification peut ramener la victime à la vie.<br>    * <b>DÉTOURNER LE REGARD : </b> Un personnage qui combat le basilic sans tactique particulière, si ce n’est éviter de croiser son regard doit réussir un test de CON difficulté 10 au début de son tour ou être pétrifié. Il subit un dé malus en attaque.<br>    * <b>FERMER LES YEUX : </b> Le personnage est aveuglé (-5 en DEF et en attaque, pas d’attaque à distance ni de sorts ciblés), mais il ne risque pas d’être pétrifié, sauf échec critique en attaque (dans ce cas test de CON difficulté 10)."
+    },
+    "attacks": [
+      {
+        "name": "Morsure",
+        "test": "+6",
+        "dm": "2d6+4",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1033,
+    "name": "Chimère",
+    "description": "La chimère est un monstre improbable, mélange de trois créatures. On pourrait la comparer à un lion pourvu de deux têtes supplémentaires, à gauche une tête de chèvre et à droite une tête d’aigle, tandis que sa queue est un long serpent aux crocs dégoulinants de poison. Des ailes se déploient dans son dos et les mots peinent à décrire une créature issue des pires cauchemars. La chimère fait la taille d’un énorme taureau, elle voit dans le noir et comprend le noir parler.",
+    "nc": 7.0,
+    "hp": 100,
+    "def": 21,
+    "init": 15,
+    "stats": {
+      "FOR": 6,
+      "DEX": 1,
+      "CON": 6,
+      "INT": -2,
+      "SAG": 2,
+      "CHA": -4
+    },
+    "category": "Vivant",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Grande",
+    "specialAbilities": {
+      "text": "* <b>POISON : </b> La victime subit 1d6 DM de poison et elle doit faire un test de CON difficulté 16. En cas d’échec, elle subit 1d6 DM supplémentaires par round pendant 5 rounds.<br>    * <b>RIPOSTE SOURNOISE : </b> Si une créature attaque la chimère dans le dos, la chimère obtient une attaque supplémentaire de serpent contre cet attaquant en plus de ces attaques normales à ce tour.<br>    * <b>VOL RAPIDE : </b> La créature obtient une action de mouvement supplémentaire par round lorsqu’elle est en vol. Au premier round de combat, la créature obtient un dé bonus en attaque et +1d6 aux DM si elle est en vol et attaque une créature au sol."
+    },
+    "attacks": [
+      {
+        "name": "Morsure, bec ou cornes (3 attaques)",
+        "test": "+14",
+        "dm": "1d6+6",
+        "special": null,
+        "reach": null
+      },
+      {
+        "name": "Morsure de serpent",
+        "test": "+14",
+        "dm": "1d4+3 + poison",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1034,
+    "name": "CHIMÈRE DRACONIQUE",
+    "description": "La chimère draconique est une cousine de la chimère ordinaire, mais sa tête d’aigle est remplacée par une tête de dragon. Encore plus dangereuse, elle est dotée d’un souffle qui dépend de la couleur de la tête de dragon (rouge pour feu, blanc pour froid, etc.). Elle parle le draconique.",
+    "nc": 7.0,
+    "hp": 10,
+    "def": 10,
+    "init": 10,
+    "stats": {
+      "FOR": 0,
+      "DEX": 0,
+      "CON": 0,
+      "INT": 0,
+      "SAG": 0,
+      "CHA": 0
+    },
+    "category": "Vivant",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": {
+      "text": "* <b>SOUFFLE (L) : </b> Le souffle est une attaque de zone affectant toutes les créatures dans un cône de 10 m de long sur 10 m de large. L’attaque inflige automatiquement (pas de test d’attaque) 6d6+9 DM. Les DM sont divisés par deux si la victime réussit un test de DEX difficulté 15. La créature doit attendre 2d4 rounds avant d’utiliser à nouveau son souffle après chaque utilisation."
+    },
+    "attacks": [],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1035,
+    "name": "Démonet",
+    "description": ")\nLe démonet représente l’image d’Épinal d’un démon miniature, de celui qui se perche sur votre épaule pour vous suggérer des actions maléfiques. Il possède une tête humaine, des ailes de chauve-souris, des cornes et une queue reptilienne fourchue à son extrémité.",
+    "nc": 2.0,
+    "hp": 15,
+    "def": 15,
+    "init": 15,
+    "stats": {
+      "FOR": -2,
+      "DEX": 3,
+      "CON": -2,
+      "INT": 1,
+      "SAG": 2,
+      "CHA": 0
+    },
+    "category": "Humanoïde · Taille Très Petite",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": {
+      "text": "* <b>VENIN : </b> La victime doit réussir un test de CON difficulté 10 ou être affaiblie pendant 1d6 min.<br>    * <b>TRANSFORMATION (L) : </b> Le démonet peut se transformer en n’importe quel animal de taille très petite (chien, chat, rat, corbeau, etc.) aussi longtemps qu’il le souhaite.<br>    * <b>INVISIBILITÉ (A)* : </b> Le démon se rend invisible pendant 1d4 min. Une fois invisible, personne ne peut plus détecter sa présence ou lui porter d’attaque directe. S’il attaque, il redevient visible.<br>    * <b>VOL : </b> Un démonet peut se déplacer en vol de 10 m par action de mouvement.<br>    * <b>DÉMON : </b> Les démons ne sont pas considérés comme des créatures non vivantes. Toutefois, ils partagent avec celles-ci de nombreux traits. Ils ne respirent pas, ne dorment jamais, ne connaissent pas la fatigue et sont immunisés au poison et aux maladies non magiques. Ils n’ont pas besoin de se sustenter, du moins pas de nourritures terrestres.<br>    * <b>RÉSISTANCE : </b> Tous les démons réduisent les DM de feu et d’acide de 10 points.<br>    * <b>RÉSISTANCE AUX ARMES : </b> Le démonet possède une RD 5 sur les armes non magiques. Si les PJ ne sont pas équipés des armes appropriées, le NC des démons augmente de 1.<br>    * <b>TÉLÉPATHIE : </b> Les démons peuvent communiquer avec toutes les créatures par télépathie à une distance de 50 m sans avoir besoin de partager une langue commune. Ils parlent l’abyssal.<br>    * <b>TÉLÉPORTATION (L) : </b> Le démonet peut se téléporter à n’importe quel endroit qu’il voit ou qu’il connaît à une distance maximale de 200 m jusqu’à 3 fois par combat.<br>    * <b>TENTATION DU MAL : </b> Les démons aiment corrompre les mortels en leur offrant le pouvoir. Un démon peut donner un dé bonus à toutes les actions d’un mortel durant 24 h (ce mortel doit avoir un niveau inférieur au NC du démon). À la fin de cette période, le mortel est affaibli pendant une semaine, ce qui le pousse généralement à négocier un nouveau don de pouvoir. Ce que le démon fait payer de plus en plus cher, jusqu’à obtenir l’âme de sa proie. Après chaque nouvelle période de 24 h, la période d’affaiblissement augmente d’une semaine.<br>    * <b>VISION DANS LE NOIR : </b> Tous les démons voient dans le noir comme en plein jour à une distance de 30 m.<br>    * <b>TÉNÈBRES (L)* : </b> Tous les démons peuvent invoquer à volonté une zone fixe de ténèbres magiques de 10 m de diamètre, à une portée de 20 m pour une durée de 1 min. Même les créatures capables de voir dans le noir sont aveuglées dans cette zone. Il ne peut maintenir plus d’une zone de ténèbres à la fois."
+    },
+    "attacks": [
+      {
+        "name": "Griffes et morsure",
+        "test": "+4",
+        "dm": "1d4",
+        "special": null,
+        "reach": null
+      },
+      {
+        "name": "Queue fourchue",
+        "test": "+4",
+        "dm": "1 + venin",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1036,
+    "name": "Dragon des forêts",
+    "description": "Énormes créatures reptiliennes, les dragons possèdent quatre pattes et de grandes ailes membraneuses semblables à celles des chauves-souris. Les dragons des forêts sont reconnaissables aux patchs de plumes qui poussent au creux de certaines de leurs articulations (cou notamment) et en vieillissant leurs écailles ressemblent à de l’écorce. Leur souffle est un nuage empoisonné et ils utilisent généralement la magie druidique. Le caractère de chaque dragon varie selon l’individu, mais tous sont orgueilleux et attirés par les trésors et ceux qui ont réuni un butin fabuleux évitent de s’en éloigner. Le profil du dragon fourni ci-dessous, correspond à une jeune femelle d’environ un siècle.",
+    "nc": 10.0,
+    "hp": 140,
+    "def": 24,
+    "init": 16,
+    "stats": {
+      "FOR": 8,
+      "DEX": 3,
+      "CON": 8,
+      "INT": 2,
+      "SAG": 3,
+      "CHA": 2
+    },
+    "category": "Vivant",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Énorme",
+    "specialAbilities": {
+      "text": "* <b>COUP DE QUEUE (G) : </b> Chaque fois qu’un adversaire attaque le dragon dans le dos, il subit une attaque de queue gratuite équivalant à une attaque avec des DM divisés par deux.<br>    * <b>EMPORTER DANS LES AIRS : </b> Sur un résultat de 17 à 20 au test d’attaque, le dragon peut emporter dans les airs une victime de taille inférieure à la sienne au prix d’une action de mouvement. Au premier round, si la victime se libère (test de FOR difficulté 18), elle subit, 4d4° DM de chute. Au round suivant, si la créature décide de prendre de l’altitude, les DM passent à 7d4° et enfin 10d4° aux rounds suivants. Le dé évolutif des DM de chute est indexé sur le niveau de la victime, et non sur celui de la créature.<br>    * <b>IMMUNITÉS : </b> Un dragon des forêts est immunisé au sommeil et à la paralysie et ne subit aucun DM de poison.<br>    * <b>INSPIRER LA TERREUR : </b> Lorsque le dragon attaque pour la première fois, toutes les créatures à moins de 30 m doivent réussir un test d’attaque magique contre 25 ou être submergées par la peur et subir l’état affaibli pendant 1d4 rounds. Si le test est raté avec une marge de 10 plus, la victime doit fuir aussi loin que possible pendant la même durée.<br>    * <b>SOUFFLE (L) : </b> Le souffle est un nuage de gaz empoisonné affectant toutes les créatures dans un cône 15 m × 15 m. Retenir sa respiration est inutile, le poison fonctionne par simple contact. L’attaque inflige automatiquement (pas de test d’attaque) 6d6+18 DM de poison. Les DM sont divisés par deux si la victime réussit un test d’AGI difficulté 15. La créature doit attendre 1d4 rounds avant d’utiliser à nouveau son souffle après chaque utilisation.<br>    * <b>VOL RAPIDE : </b> La créature obtient une action de mouvement supplémentaire par round lorsqu’elle est en vol. Au premier round de combat, la créature obtient un dé bonus en attaque et +1d8 DM si elle est en vol et attaque une créature au sol."
+    },
+    "attacks": [
+      {
+        "name": "Morsure et griffes (2 attaques)",
+        "test": "+14",
+        "dm": "1d12+8",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1037,
+    "name": "Élémentaire d’eau (grand)",
+    "description": "L’élémentaire d’eau est l’incarnations de son élément primordial. Il peut être invoqué par magie et se manifeste dans notre monde sous la forme d’une créature au buste vaguement humanoïde mêlée à un tourbillon d’eau. L’élémentaire d’eau percute l’adversaire ou le noie.",
+    "nc": 5.0,
+    "hp": 70,
+    "def": 19,
+    "init": 10,
+    "stats": {
+      "FOR": 6,
+      "DEX": 2,
+      "CON": 6,
+      "INT": -2,
+      "SAG": 0,
+      "CHA": -2
+    },
+    "category": "Non Vivante · Taille Grande",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": {
+      "text": "* <b>EAU DE VIE : </b> L’élémentaire d’eau régénère 5 PV par round (sauf DM de feu).<br>    * <b>FAUCHAGE : </b> Sur 17 à 20 au test d’attaque, si l’attaque est réussie, la victime doit réussir au choix un test de FOR ou d’AGI difficulté 16 ou être renversée.<br>    * <b>GRAND : </b> La créature retranche 3 à tous les DM subis (RD 3).<br>    * <b>RÉSISTANCE : </b> Les élémentaires divisent par deux tous les DM des armes non magiques (de +0 à +1 au NC selon l’équipement des PJ). Les élémentaires d’eau sont immunisés aux DM d’acide.<br>    * <b>TOURBILLON (L) : </b> Une fois par combat, un élémentaire peut se transformer en tourbillon liquide pendant 3 rounds. Sous cette forme, il peut se déplacer à travers les créatures et les objets à la vitesse de 10 m par action de mouvement (20 m pour les élémentaires d’air). Toute créature sur son passage doit faire un test d’AGI ou de FOR au choix de difficulté 16. En cas d’échec, la cible subit automatiquement les DM de base de l’élémentaire (selon la taille) et elle est renversée (si sa taille ne dépasse pas celle de l’élémentaire). En cas de succès, elle ne subit que la moitié des DM et peut rester debout.<br>    * <b>VISION : </b> Ils voient dans le noir à 30 m et ils peuvent déterminer la localisation de toute créature en contact avec leur élément à moins de 30 m, même si celle-ci est invisible."
+    },
+    "attacks": [
+      {
+        "name": "Coups (2 attaques)",
+        "test": "+10",
+        "dm": "1d8+6",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1038,
+    "name": "Géant du feu",
+    "description": "Les géants du feu sont de grande créature à la peau charbonneuse, aux cheveux et à la barbe de feu. Le front des mâles est orné de cornes recourbées, plus ou moins longues selon leur âge. Ils aiment arborer des tatouages et des décorations en or.",
+    "nc": 9.0,
+    "hp": 160,
+    "def": 25,
+    "init": 12,
+    "stats": {
+      "FOR": 12,
+      "DEX": -1,
+      "CON": 12,
+      "INT": 0,
+      "SAG": 2,
+      "CHA": 0
+    },
+    "category": "Humanoïde · Taille Énorme",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": {
+      "text": "* <b>FAUCHAGE : </b> Sur 15 à 20 au test d’attaque, si l’attaque est réussie, la victime doit réussir au choix un test de FOR ou d’AGI difficulté 20 ou être renversée.<br>    * <b>BALAYAGE : </b> La créature utilise sa grande taille pour affecter deux créatures à son contact d’un seul coup de patte/arme. Faites un seul test et comparez-le à la DEF des deux cibles. Si les deux cibles sont touchées, la cible secondaire (désignée par le MJ) subit la moitié des DM.<br>    * <b>IMMUNISÉ AU FEU : </b> Le géant du feu est immunisé aux DM de feu."
+    },
+    "attacks": [
+      {
+        "name": "Marteau de guerre",
+        "test": "+14",
+        "dm": "4d8+16",
+        "special": null,
+        "reach": null
+      },
+      {
+        "name": "Lancer de rocher",
+        "test": "+14",
+        "dm": "2d8+12",
+        "special": null,
+        "reach": "20"
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1039,
+    "name": "Geoselachis",
+    "description": "Aussi appelé requin terrestre, le geoselachis est un prédateur puissant et très dangereux capable de s’enterrer pour surprendre sa proie. Imaginez une taupe géante dotée d’un exosquelette impénétrable, de la mâchoire d’un grand requin et enfin de la puissance et de la capacité à encorner d’un rhinocéros et vous aurez un aperçu de cette machine à tuer…\nLes multiples dents triangulaires qui constituent la mâchoire du geoselachis sont autant de cristaux transparents semblables à des diamants. La créature possède 50+1d60 dents récupérables (les autres sont en mauvais état), il faut environ 1 min pour retirer une dent sur son cadavre et chaque dent vaut environ 1 pa. Elles sont utilisées pour concevoir des outils tranchants, en particulier dans les tribus du désert qui n’ont pas d’accès à la manufacture de métaux. Chasseur de geoselachis est un des plus dangereux métiers du monde.",
+    "nc": 7.0,
+    "hp": 110,
+    "def": 22,
+    "init": 15,
+    "stats": {
+      "FOR": 8,
+      "DEX": 0,
+      "CON": 8,
+      "INT": -4,
+      "SAG": 2,
+      "CHA": -2
+    },
+    "category": "Vivant",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Grande",
+    "specialAbilities": {
+      "text": "* <b>EMBUSCADE : </b> Au premier round de combat, si le geoselachis peut se dissimuler sous terre, la cible doit faire un test de PER difficulté 15 ou être surprise. Si elle attaque avec succès une cible surprise, la créature inflige +1d6 DM et toute créature dont la FOR est inférieure à la sienne est renversée. La créature obtient un bonus de +5 à tous les tests de discrétion.<br>    * <b>ENCORNER : </b> Lorsque la créature réussit une attaque avec un résultat de 17-20 au d20, elle encorne sa proie et lui inflige immédiatement une attaque gratuite supplémentaire.<br>    * <b>DÉPLACEMENT SOUS TERRE : </b> Le geoselachis est capable de parcourir 5 m par action de mouvement en creusant dans un sol meuble (le tunnel s’effondre derrière lui)."
+    },
+    "attacks": [
+      {
+        "name": "Morsure et griffes (2 attaques)",
+        "test": "+13",
+        "dm": "1d12+8",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1040,
+    "name": "GNOLL DE BASE",
+    "description": "",
+    "nc": 1.0,
+    "hp": 15,
+    "def": 14,
+    "init": 10,
+    "stats": {
+      "FOR": 3,
+      "DEX": 0,
+      "CON": 3,
+      "INT": -2,
+      "SAG": 0,
+      "CHA": -2
+    },
+    "category": "Humanoïde",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": {
+      "text": "* <b>RIRES INSUPPORTABLES : </b> À chaque round, un PJ qui combat des gnolls au contact doit réussir un test de VOL difficulté (5 + nombre de gnolls) à son contact ou subir un dé malus en attaque.<br>    * <b>INTERCHANGEABLES : </b> Tant que les gnolls sont plus nombreux que la cible, ils se relaient pour esquiver ses attaques et ils obtiennent un bonus de +3 en DEF. Si plusieurs gnolls sont au contact du PJ, le MJ a toute latitude pour infliger les DM d’une attaque sur le gnoll de son choix, le personnage ne sait jamais laquelle il blesse.<br>    * <b>L’HALLALI : </b> Les gnolls profitent d’une erreur de leur victime pour lui porter des attaques fatales. Chaque fois que la victime de la meute rate une attaque ou obtient sur un test d’attaque un résultat au d20 allant de 1 à 5 (inclus), elle déclenche la curée. Chaque gnoll à son contact bénéficie immédiatement et gratuitement d’une attaque contre la victime."
+    },
+    "attacks": [
+      {
+        "name": "Hache",
+        "test": "+4",
+        "dm": "1d8+3",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1041,
+    "name": "SERGENT GNOLL",
+    "description": "Un sergent gnoll est généralement à la tête de cinq gnolls standard. Ils forment une rencontre de NC 4.",
+    "nc": 2.0,
+    "hp": 25,
+    "def": 16,
+    "init": 10,
+    "stats": {
+      "FOR": 4,
+      "DEX": 0,
+      "CON": 4,
+      "INT": -1,
+      "SAG": 0,
+      "CHA": -1
+    },
+    "category": "Humanoïde",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": {
+      "text": "* <b>SERGENT : </b> Une fois par round, le sergent peut donner une action supplémentaire à n’importe quel allié sous ses ordres à portée de vue (attaque ou mouvement). Une fois par combat, une attaque qui aurait dû amener le sergent à 0 PV est ignorée."
+    },
+    "attacks": [
+      {
+        "name": "Hache",
+        "test": "+6",
+        "dm": "1d8+4",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1042,
+    "name": "CHEF GNOLL",
+    "description": "Une meute de douze gnolls commandée par le chef gnoll équivaut à une rencontre ordinaire NC 7.",
+    "nc": 4.0,
+    "hp": 50,
+    "def": 17,
+    "init": 10,
+    "stats": {
+      "FOR": 4,
+      "DEX": 0,
+      "CON": 4,
+      "INT": -1,
+      "SAG": 0,
+      "CHA": -1
+    },
+    "category": "Humanoïde",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": {
+      "text": "* <b>CAPITAINE : </b> Le chef donne un bonus de +2 en initiative, en attaque et aux DM à toutes les créatures sous ses ordres à portée de vue.<br>    * <b>COMMANDANT : </b> Tant qu’au moins 4 créatures sous ses ordres sont à moins de 20 m du commandant, il ne subit que la moitié des DM qui lui sont infligés."
+    },
+    "attacks": [
+      {
+        "name": "Hache (2 attaques)",
+        "test": "+8",
+        "dm": "1d8+4",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1043,
+    "name": "GOBELIN DE BASE",
+    "description": "Un groupe de cinq gobelins de base forme une rencontre ordinaire de niveau 1.",
+    "nc": 0.0,
+    "hp": 3,
+    "def": 12,
+    "init": 13,
+    "stats": {
+      "FOR": -1,
+      "DEX": 2,
+      "CON": -1,
+      "INT": -2,
+      "SAG": 0,
+      "CHA": -2
+    },
+    "category": "Humanoïde · Taille Petite",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": {
+      "text": "* <b>ATTAQUE EN MEUTE : </b> Lorsque au moins 2 gobelins attaquent la même cible en même temps, ils bénéficient d’un bonus de +2 en attaque (bonus qui peut s’ajouter à une éventuelle attaque groupée)."
+    },
+    "attacks": [
+      {
+        "name": "Arme",
+        "test": "+2",
+        "dm": "1d4-1",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1044,
+    "name": "GOBELIN ÉLITE",
+    "description": "Un gobelin d’élite accompagné de huit gobelins de base forment une rencontre ordinaire de niveau 2.",
+    "nc": 0.5,
+    "hp": 9,
+    "def": 13,
+    "init": 13,
+    "stats": {
+      "FOR": 0,
+      "DEX": 2,
+      "CON": 0,
+      "INT": -1,
+      "SAG": 0,
+      "CHA": -1
+    },
+    "category": "Humanoïde · Taille Petite",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": {
+      "text": "* <b>ATTAQUE EN MEUTE : </b> Lorsque au moins 2 gobelins attaquent la même cible en même temps, ils bénéficient d’un bonus de +2 en attaque (bonus qui peut s’ajouter à une éventuelle attaque groupée)."
+    },
+    "attacks": [
+      {
+        "name": "Arme",
+        "test": "+4",
+        "dm": "1d6",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1045,
+    "name": "CHEF GOBELIN",
+    "description": "Un chef gobelin accompagné d’un shaman, de ses deux gardes du corps (gobelins élite) et à la tête de quinze gobelins est une rencontre ordinaire de niveau 4 (ou difficile au niveau 3).",
+    "nc": 2.0,
+    "hp": 22,
+    "def": 16,
+    "init": 13,
+    "stats": {
+      "FOR": 1,
+      "DEX": 2,
+      "CON": 1,
+      "INT": 0,
+      "SAG": 0,
+      "CHA": 1
+    },
+    "category": "Humanoïde · Taille Petite",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": {
+      "text": "* <b>ATTAQUE EN MEUTE : </b> Lorsque au moins 2 gobelins attaquent la même cible en même temps, ils bénéficient d’un bonus de +2 en attaque (bonus qui peut s’ajouter à une éventuelle attaque groupée).<br>    * <b>SERGENT : </b> Une fois par round, le sergent peut donner une action supplémentaire à n’importe quel allié sous ses ordres à portée de vue (attaque ou mouvement). Une fois par combat, une attaque qui aurait dû amener le sergent à 0 PV est ignorée."
+    },
+    "attacks": [
+      {
+        "name": "Arme (2 attaques)",
+        "test": "+5",
+        "dm": "1d6+1",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1046,
+    "name": "SHAMAN GOBELIN",
+    "description": "",
+    "nc": 1.0,
+    "hp": 9,
+    "def": 13,
+    "init": 13,
+    "stats": {
+      "FOR": 0,
+      "DEX": 2,
+      "CON": 1,
+      "INT": 1,
+      "SAG": 0,
+      "CHA": 1
+    },
+    "category": "Humanoïde · Taille Petite",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": {
+      "text": "* <b>ATTAQUE EN MEUTE : </b> Lorsque au moins 2 gobelins attaquent la même cible en même temps, ils bénéficient d’un bonus de +2 en attaque (bonus qui peut s’ajouter à une éventuelle attaque groupée).<br>    * <b>ATTAQUE MAGIQUE (A) : </b> La créature possède un pouvoir magique qui inflige 2d6 DM sur un test d’attaque magique réussi (portée 30 m) sur une cible unique."
+    },
+    "attacks": [
+      {
+        "name": "Arme",
+        "test": "+4",
+        "dm": "1d6",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1047,
+    "name": "Golem de chair",
+    "description": "Le golem de chair est un assemblage immonde de morceaux de cadavres maintenus entre eux par de gros points de suture. Malgré son manque de grâce, il est d'une force effrayante et ne ressent pas la douleur. Il ne dégage aucune odeur de décomposition, car la magie occulte qui l’anime préserve la chair, bien que celle-ci arbore un aspect cireux et blafard.",
+    "nc": 5.0,
+    "hp": 70,
+    "def": 15,
+    "init": 9,
+    "stats": {
+      "FOR": 6,
+      "DEX": -1,
+      "CON": 6,
+      "INT": -4,
+      "SAG": -2,
+      "CHA": -4
+    },
+    "category": "Non Vivante · Taille Grande",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": {
+      "text": "* <b>INCASSABLE : </b> Le golem de chair possède une réduction automatique de 5 de tous les DM (RD 5). De plus, il régénère 5 PV par round (sauf DM de feu ou d’acide).<br>    * <b>NON VIVANT : </b> Voir le chapitre consacré aux créatures non vivantes.<br>    * <b>CRAQUEUR D’OS : </b> Si la créature obtient 15 à 20 au dé du test d’attaque, l’attaque est automatiquement réussie. De surcroît, la cible doit réussir un test de CON difficulté 16 ou être étourdie pendant 1 round."
+    },
+    "attacks": [
+      {
+        "name": "Coup",
+        "test": "+10",
+        "dm": "2d6+6",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1048,
+    "name": "Goule",
+    "description": "La goule est une créature humanoïde mangeuse de cadavre, l’aspect est celui d’un humain aux membres allongés, à la peau grise et parcheminée. Doté de griffes acérées et d’une mâchoire puissante, c’est toutefois sa morsure et son toucher qui sont le plus à craindre. Les goules vivent en meute autour des cimetières.",
+    "nc": 2.0,
+    "hp": 30,
+    "def": 15,
+    "init": 15,
+    "stats": {
+      "FOR": 1,
+      "DEX": 2,
+      "CON": 1,
+      "INT": -2,
+      "SAG": 2,
+      "CHA": -2
+    },
+    "category": "Non Vivante",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": {
+      "text": "* <b>PARALYSIE : </b> Chaque fois que la goule inflige des DM, la cible doit réussir un test de CON difficulté 13 ou être immobilisée pendant 1d6 rounds. Une nouvelle morsure n’augmente pas la durée, mais à chaque round la victime peut tenter de se libérer à son tour de jeu avec un nouveau test de CON (difficulté 13). Les elfes sont immunisés à la paralysie des goules.<br>    * <b>INTERCHANGEABLES : </b> Si au moins 2 goules sont au contact d’un PJ, elles se relaient pour esquiver ses attaques et elles obtiennent un bonus de +3 en DEF. Si plusieurs goules sont au contact du PJ, le MJ a toute latitude pour infliger les DM d’une attaque sur la goule de son choix, le personnage ne sait jamais laquelle il blesse."
+    },
+    "attacks": [
+      {
+        "name": "Morsures et griffes",
+        "test": "+6",
+        "dm": "1d6+3 + paralysie",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1049,
+    "name": "ABOMINATION",
+    "description": "Cette goule plus volumineuse et dotée de muscles saillants dirige la meute. Une abomination et quatre goules forment une rencontre normale de niveau 7.",
+    "nc": 6.0,
+    "hp": 70,
+    "def": 20,
+    "init": 15,
+    "stats": {
+      "FOR": 4,
+      "DEX": 1,
+      "CON": 4,
+      "INT": -2,
+      "SAG": 2,
+      "CHA": -2
+    },
+    "category": "Non Vivante · Taille Grande",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": {
+      "text": "* <b>PARALYSIE : </b> Voir ci-dessus, avec une difficulté de 15."
+    },
+    "attacks": [
+      {
+        "name": "Morsures et griffes (2 attaques)",
+        "test": "+11",
+        "dm": "2d6+6 + paralysie",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1050,
+    "name": "Griffon",
+    "description": "Le griffon est une créature légendaire possédant le buste, la tête et les ailes d’un immense aigle et le corps d’un lion. On le trouve principalement dans les zones montagneuses. Très puissant, il n’hésite pas à attaquer de grandes créatures pour se nourrir, en particulier les chevaux dont il raffole. Un griffon mâle pèse environ 200 à 300 kg.",
+    "nc": 4.0,
+    "hp": 50,
+    "def": 18,
+    "init": 17,
+    "stats": {
+      "FOR": 5,
+      "DEX": 2,
+      "CON": 5,
+      "INT": -3,
+      "SAG": 4,
+      "CHA": -2
+    },
+    "category": "Vivant",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Grande",
+    "specialAbilities": {
+      "text": "* <b>EMPORTER DANS LES AIRS : </b> Sur un résultat de 17 à 20 au test d’attaque, le griffon peut emporter dans les airs une victime de taille inférieure à la sienne au prix d’une action de mouvement. Au premier round, si la victime se libère (test de FOR difficulté 15), elle subit, 4d4° DM de chute. Au round suivant, si la créature décide de prendre de l’altitude, les DM passent à 7d4° et enfin 10d4° aux rounds suivants. Le dé évolutif des DM de chute est indexé sur le niveau de la victime, et non sur celui de la créature.<br>    * <b>VOL RAPIDE : </b> La créature obtient une action de mouvement supplémentaire par round lorsqu’elle est en vol. Au premier round de combat, la créature obtient un dé bonus en attaque et +1d6 DM si elle est en vol et attaque une créature au sol."
+    },
+    "attacks": [
+      {
+        "name": "Serres et morsure",
+        "test": "+10",
+        "dm": "2d8+5",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1051,
+    "name": "HYDRE À 5 TÊTES",
+    "description": "",
+    "nc": 6.0,
+    "hp": 90,
+    "def": 21,
+    "init": 15,
+    "stats": {
+      "FOR": 8,
+      "DEX": 0,
+      "CON": 8,
+      "INT": -4,
+      "SAG": 2,
+      "CHA": -2
+    },
+    "category": "Vivant",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Énorme",
+    "specialAbilities": {
+      "text": "* <b>BOUCLIER DE TÊTES : </b> Le grand nombre de têtes et l’agilité de ses cous protègent la créature contre toutes les attaques. Elle possède une RD 5 sur toutes les attaques qui n’infligent pas des DM de feu ou d’acide.<br>    * <b>MORSURES MULTIPLES : </b> À chaque tour, elle réalise 2 attaques de morsure, mais à chaque fois elle choisit une méthode différente parmi les deux suivantes :<br>        1.  Elle attaque deux cibles différentes à son contact.<br>        2.  Elle concentre ses attaques sur une cible unique, elle réalise alors une seule attaque avec un dé bonus et +2d10 DM."
+    },
+    "attacks": [
+      {
+        "name": "Morsure (2 attaques)",
+        "test": "+12",
+        "dm": "2d10+8",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1052,
+    "name": "CRYOHYDRE",
+    "description": "Cette hydre rarissime vit dans les contrées glacées ou au sommet de très hautes montagnes.",
+    "nc": 10.0,
+    "hp": 170,
+    "def": 26,
+    "init": 15,
+    "stats": {
+      "FOR": 12,
+      "DEX": 0,
+      "CON": 12,
+      "INT": -4,
+      "SAG": 2,
+      "CHA": -2
+    },
+    "category": "Vivant",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Énorme",
+    "specialAbilities": {
+      "text": "* <b>IMMUNISÉ AU FROID : </b> Elle est totalement immunisée au froid.<br>    * <b>SOUFFLE GLACIAL (L) : </b> Toutes les têtes de la créature expirent un nuage glacé qui affecte toutes les créatures dans un cône de 20 m de long sur 20 m de large. L’attaque inflige automatiquement (pas de test d’attaque) 6d6+18 DM de froid. Les DM sont divisés par deux si la victime réussit un test d’AGI difficulté 15. La créature doit attendre 1d4 rounds avant d’utiliser à nouveau son souffle après chaque utilisation.<br>    * <b>RÉGÉNÉRATION : </b> L’hydre récupère 5 PV par round tant qu’elle est en vie (sauf si elle a subi des DM de feu à ce tour)."
+    },
+    "attacks": [
+      {
+        "name": "Morsure (2 attaques)",
+        "test": "+16",
+        "dm": "4d10+12",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1053,
+    "name": "Kobold de base",
+    "description": "Le kobold est une créature humanoïde reptilienne d’environ 80 cm de haut. Les kobolds vivent par tribu sous la surface du globe, mais on peut les trouver dans tous les environnements obscurs et humides. Bien que très chétifs, ils compensent leur manque de force physique par leur ruse et leur habileté à tendre des pièges dans leurs repaires. Ils parlent le draconique.",
+    "nc": 0.5,
+    "hp": 3,
+    "def": 12,
+    "init": 11,
+    "stats": {
+      "FOR": -1,
+      "DEX": 2,
+      "CON": -1,
+      "INT": 0,
+      "SAG": 1,
+      "CHA": -2
+    },
+    "category": "Humanoïde · Taille Petite",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": {
+      "text": "* <b>EMBUSCADE : </b> Au premier round de combat, si l’environnement permet de se dissimuler, la cible doit faire un test de PER difficulté 16 ou être surprise.<br>    * <b>PAS DE CÔTÉ (G) : </b> Une fois par round, si un kobold est la cible d’une attaque au contact, il peut se déplacer de 3 m sans déclencher d’attaque de contact. Si ce mouvement lui permet de sortir de l’allonge de l’attaquant, l’attaque échoue."
+    },
+    "attacks": [
+      {
+        "name": "Lance",
+        "test": "+2",
+        "dm": "1d6-1",
+        "special": null,
+        "reach": null
+      },
+      {
+        "name": "Fronde",
+        "test": "+2",
+        "dm": "1d4",
+        "special": null,
+        "reach": "20"
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1054,
+    "name": "CHEF KOBOLD",
+    "description": "",
+    "nc": 1.0,
+    "hp": 15,
+    "def": 13,
+    "init": 11,
+    "stats": {
+      "FOR": 0,
+      "DEX": 2,
+      "CON": 0,
+      "INT": 0,
+      "SAG": 1,
+      "CHA": 1
+    },
+    "category": "Humanoïde · Taille Petite",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": {
+      "text": "* <b>IMPARABLE : </b> Si la créature obtient 15 à 20 au d20 d’un test d’attaque, elle inflige +2d4 DM supplémentaire et l’attaque est automatiquement réussie."
+    },
+    "attacks": [
+      {
+        "name": "Lance",
+        "test": "+3",
+        "dm": "1d6",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1055,
+    "name": "PRÊTRE KOBOLD",
+    "description": "",
+    "nc": 2.0,
+    "hp": 30,
+    "def": 15,
+    "init": 11,
+    "stats": {
+      "FOR": -1,
+      "DEX": 2,
+      "CON": -1,
+      "INT": 0,
+      "SAG": 1,
+      "CHA": 1
+    },
+    "category": "Humanoïde · Taille Petite",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": {
+      "text": "* <b>BOUCLIER MAGIQUE : </b> La créature est protégée par un champ de force invisible qui lui octroie un bonus de +3 en DEF."
+    },
+    "attacks": [
+      {
+        "name": "Dague",
+        "test": "+4",
+        "dm": "1d4-1",
+        "special": null,
+        "reach": null
+      },
+      {
+        "name": "Attaque magique",
+        "test": "+6",
+        "dm": "3d6 (élémentaire)",
+        "special": null,
+        "reach": "20"
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1056,
+    "name": "Licorne",
+    "description": "La licorne est une créature magique majestueuse qui ressemble à un cheval blanc élancé, doté d’une unique corne spiralée au milieu du front. Les licornes vivent dans les forêts les plus reculées et les plus sauvages. Bien que farouches, elles possèdent un tempérament protecteur envers la nature et les êtres innocents. Elles voient dans le noir et parlent le sylvestre.",
+    "nc": 3.0,
+    "hp": 35,
+    "def": 18,
+    "init": 17,
+    "stats": {
+      "FOR": 5,
+      "DEX": 4,
+      "CON": 5,
+      "INT": 0,
+      "SAG": 4,
+      "CHA": 4
+    },
+    "category": "Vivant",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Grande",
+    "specialAbilities": {
+      "text": "* <b>CÉLÉRITÉ : </b> La créature possède une vitesse de déplacement exceptionnelle, elle peut se déplacer de 15 m par action de mouvement (tant qu’elle n’est pas chargée de plus de 50 kg).<br>    * <b>CORNE MAGIQUE (L) : </b> La licorne peut utiliser sa corne pour soigner les blessures ou les poisons. Sur un simple contact, elle rend 2d4 PV à une cible (elle peut l’utiliser autant de fois qu’elle le souhaite, mais une même cible ne peut pas en bénéficier plus d’une fois par jour). Pour soigner un poison, elle doit réussir un test de CON contre la difficulté du poison.<br>    * <b>DÉPLACEMENT MAGIQUE (L) : </b> La licorne peut se téléporter à n’importe quel endroit qu’elle voit ou qu’elle connaît à une distance maximale de 60 m jusqu’à 3 fois par combat. Ce pouvoir ne fonctionne qu’en milieu forestier.<br>    * <b>RÉSISTANCE : </b> La licorne possède une RD de 5 contre toutes les attaques, sauf celles effectuées avec des armes en fer froid. De plus, les DM infligés par des armes en fer froid sont doublés."
+    },
+    "attacks": [
+      {
+        "name": "Corne et sabots",
+        "test": "+8",
+        "dm": "2d6+5",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1057,
+    "name": "Momie",
+    "description": "La momie est un cadavre desséché et enveloppé dans des bandelettes de lin, animé par une puissante magie funéraire. On les trouve principalement dans les tombeaux et les pyramides antiques. Les momies sont infatigables et poursuivent leur proie sans relâche.",
+    "nc": 5.0,
+    "hp": 70,
+    "def": 20,
+    "init": 11,
+    "stats": {
+      "FOR": 5,
+      "DEX": 1,
+      "CON": 3,
+      "INT": -2,
+      "SAG": 1,
+      "CHA": -2
+    },
+    "category": "Non Vivante · Taille Moyenne",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": {
+      "text": "* <b>PUTRÉFACTION : </b> Chaque fois que la momie inflige des DM avec son attaque de coup, la cible doit réussir un test de CON difficulté 15. En cas d’échec, elle contracte la putréfaction de la momie : elle subit 1d6 DM supplémentaire par round pendant 5 rounds.<br>    * <b>NON VIVANTE : </b> Voir le chapitre consacré aux créatures non vivantes.<br>    * <b>RÉSISTANCE : </b> La momie réduit de 5 tous les DM subis (RD 5), sauf ceux infligés par le feu."
+    },
+    "attacks": [
+      {
+        "name": "Coup (2 attaques)",
+        "test": "+10",
+        "dm": "1d8+5 + putréfaction",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1058,
+    "name": "MOMIE AUGUSTE",
+    "description": "Ce souverain d’antan à la volonté d’acier commande aux autres momies.",
+    "nc": 10.0,
+    "hp": 160,
+    "def": 24,
+    "init": 12,
+    "stats": {
+      "FOR": 6,
+      "DEX": 3,
+      "CON": 6,
+      "INT": 3,
+      "SAG": 2,
+      "CHA": -2
+    },
+    "category": "Non Vivante · Taille Moyenne",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": {
+      "text": "* <b>PUTRÉFACTION : </b> Voir ci-dessus, avec une difficulté de 20 et 1d10 DM par round.<br>    * <b>INJONCTION MORTELLE (L) : </b> Voir le profil du sorcier.<br>    * <b>MAGIE UNIVERSELLE (RANG 5) : </b> La momie auguste peut lancer à volonté tous les sorts de cette voie."
+    },
+    "attacks": [
+      {
+        "name": "Coup (2 attaques)",
+        "test": "+16",
+        "dm": "2d6+8 + putréfaction",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1059,
+    "name": "Ogre de base",
+    "description": "L’ogre est un humanoïde massif d’environ 3 m de haut, à la peau épaisse et au tempérament brutal. Bien que peu intelligent, sa force physique et sa résistance en font un adversaire redoutable. Les ogres vivent généralement en solitaire ou en petits groupes familiaux et n’hésitent pas à dévorer tout ce qui passe à leur portée.",
+    "nc": 3.0,
+    "hp": 40,
+    "def": 17,
+    "init": 10,
+    "stats": {
+      "FOR": 6,
+      "DEX": 1,
+      "CON": 6,
+      "INT": -2,
+      "SAG": 0,
+      "CHA": -2
+    },
+    "category": "Humanoïde · Taille Grande",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": {
+      "text": "Choisissez une capacité parmi les deux suivantes :<br>    * <b>TAPE DUR : </b> Si la créature obtient 15 à 20 au dé du test d'attaque, l’attaque est automatiquement réussie. De surcroît, la cible doit réussir un test de CON difficulté 13 ou être étourdie pendant 1 round.<br>    * <b>IMPARABLE (L) : </b> Si la créature obtient 15 à 20 au d20 d’un test d’attaque, elle inflige +2d6 DM supplémentaire et l’attaque est automatiquement réussie."
+    },
+    "attacks": [
+      {
+        "name": "Hachoir",
+        "test": "+7",
+        "dm": "2d6+6",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1060,
+    "name": "CHEF OGRE",
+    "description": "Un chef ogre dirigeant une bande de quatre ogres forme une rencontre difficile de NC 6 (ou facile au NC 7).",
+    "nc": 6.0,
+    "hp": 70,
+    "def": 20,
+    "init": 10,
+    "stats": {
+      "FOR": 6,
+      "DEX": 1,
+      "CON": 6,
+      "INT": -2,
+      "SAG": 0,
+      "CHA": -2
+    },
+    "category": "Humanoïde · Taille Grande",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": {
+      "text": "* <b>TEIGNEUSE : </b> Lorsque la créature effectue un test d’attaque et qu’elle échoue, elle obtient un dé bonus en attaque et inflige +2d6 DM sur sa prochaine attaque.<br>    * <b>ENRAGÉ : </b> Lorsqu’elle reçoit un coup critique, la créature devient enragée. Elle ignore les pénalités de douleur ou la peur, augmente de +3 sa valeur d’attaque au contact et ses DM de +1d4. Elle peut encore agir un tour complet après avoir atteint 0 PV."
+    },
+    "attacks": [
+      {
+        "name": "Hachoir (2 attaques)",
+        "test": "+12",
+        "dm": "2d6+6",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1061,
+    "name": "ORC DE BASE",
+    "description": "",
+    "nc": 0.5,
+    "hp": 12,
+    "def": 13,
+    "init": 10,
+    "stats": {
+      "FOR": 2,
+      "DEX": 0,
+      "CON": 2,
+      "INT": -2,
+      "SAG": 0,
+      "CHA": -2
+    },
+    "category": "Humanoïde",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": {
+      "text": "* <b>SENSIBLE À LA LUMIÈRE : </b> Lorsqu'un orc se trouve à la lumière directe du soleil, il subit un dé malus à toutes ses attaques et tous ses tests de Perception."
+    },
+    "attacks": [
+      {
+        "name": "Hache ou masse",
+        "test": "+3",
+        "dm": "1d8+2",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1062,
+    "name": "ORC NOIR",
+    "description": "Plus puissant et mieux équipé, l’orc noir est un guerrier d’élite au sein de sa tribu.",
+    "nc": 1.0,
+    "hp": 15,
+    "def": 15,
+    "init": 10,
+    "stats": {
+      "FOR": 3,
+      "DEX": 0,
+      "CON": 3,
+      "INT": -2,
+      "SAG": 0,
+      "CHA": -2
+    },
+    "category": "Humanoïde",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": {
+      "text": "* <b>RÉSISTANCE À LA LUMIÈRE : </b> Contrairement à l'orc de base, l’orc noir ne subit aucune pénalité lorsqu’il se trouve à la lumière directe du soleil."
+    },
+    "attacks": [
+      {
+        "name": "Arme à deux mains",
+        "test": "+4",
+        "dm": "2d6+3",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1063,
+    "name": "BERSERKER ORC",
+    "description": "Envahi par une fureur incontrôlable, le berserker orc se jette dans la mêlée sans aucun souci de sa propre vie.",
+    "nc": 2.0,
+    "hp": 15,
+    "def": 13,
+    "init": 10,
+    "stats": {
+      "FOR": 3,
+      "DEX": 0,
+      "CON": 3,
+      "INT": -2,
+      "SAG": 0,
+      "CHA": -2
+    },
+    "category": "Humanoïde",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": {
+      "text": "* <b>IMPARABLE : </b> Si la créature obtient 15 à 20 au d20 d’un test d’attaque, elle inflige +2d4 DM supplémentaire et l’attaque est automatiquement réussie.<br>    * <b>TEIGNEUSE : </b> Lorsque la créature effectue un test d’attaque et qu’elle échoue, elle obtient un dé bonus en attaque et inflige +2d6 DM sur sa prochaine attaque."
+    },
+    "attacks": [
+      {
+        "name": "Arme à deux mains",
+        "test": "+6",
+        "dm": "2d6+3",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1064,
+    "name": "SHAMAN ORC",
+    "description": "",
+    "nc": 3.0,
+    "hp": 40,
+    "def": 17,
+    "init": 13,
+    "stats": {
+      "FOR": 1,
+      "DEX": 0,
+      "CON": 3,
+      "INT": 0,
+      "SAG": 3,
+      "CHA": -1
+    },
+    "category": "Humanoïde",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": {
+      "text": "* <b>VAMPIRISATION (L) : </b> Voir le profil du sorcier.<br>    * <b>ANIMER UN CADAVRE (L) : </b> Voir le profil du sorcier."
+    },
+    "attacks": [
+      {
+        "name": "Dague (2 attaques)",
+        "test": "+6",
+        "dm": "1d4+1",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1065,
+    "name": "CHEF ORC",
+    "description": "Un chef orc à la tête de vingt orcs noir est une rencontre difficile de NC 6 (ou ordinaire au NC 7).",
+    "nc": 6.0,
+    "hp": 60,
+    "def": 20,
+    "init": 10,
+    "stats": {
+      "FOR": 5,
+      "DEX": 1,
+      "CON": 5,
+      "INT": 0,
+      "SAG": 0,
+      "CHA": 1
+    },
+    "category": "Humanoïde",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": {
+      "text": "* <b>IMPARABLE : </b> Si la créature obtient 15 à 20 au d20 d’un test d’attaque, elle inflige +2d6 DM supplémentaire et l’attaque est automatiquement réussie.<br>    * <b>BRISE-GENOU : </b> Voir le profil du vétéran.<br>    * <b>CAPITAINE : </b> Voir le profil du capitaine.<br>    * <b>COMMANDANT : </b> Voir le profil du chef gnoll."
+    },
+    "attacks": [
+      {
+        "name": "Épée à deux mains (2 attaques)",
+        "test": "+10",
+        "dm": "2d6+5",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1066,
+    "name": "Ourhible (Choursette)",
+    "description": "L’ourhible est une créature agressive de la taille d’un ours polaire de 3 m pesant environ 600 kg. Son corps est recouvert d’une fourrure sombre et épaisse, tandis que sa tête possède un bec d'aigle puissant ainsi qu'une paire de grands yeux capables de voir dans la pénombre. L’ourhible est extrêmement territoriale et n’hésite pas à attaquer tout ce qui pénètre dans son domaine.",
+    "nc": 5.0,
+    "hp": 70,
+    "def": 18,
+    "init": 12,
+    "stats": {
+      "FOR": 6,
+      "DEX": 1,
+      "CON": 6,
+      "INT": -4,
+      "SAG": 2,
+      "CHA": -2
+    },
+    "category": "Vivant",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Grande",
+    "specialAbilities": {
+      "text": "* <b>CHARGE (L) : </b> La créature parcourt une distance maximale de 20 m et réalise une attaque avec un dé bonus. Si l’attaque est réussie, en plus de subir les DM normaux, une victime de taille inférieure ou égale à la créature doit faire un test de FOR difficulté 16 ou être renversée. Dans ce cas, la créature éventre sa victime et les DM sont doublés.<br>    * <b>ENRAGÉ : </b> Lorsqu’elle reçoit un coup critique, la créature devient enragée. Elle ignore les pénalités de douleur ou la peur, augmente de +3 sa valeur d’attaque au contact et ses DM de +1d4. Elle peut encore agir un tour complet après avoir atteint 0 PV."
+    },
+    "attacks": [
+      {
+        "name": "Bec et griffes (2 attaques)",
+        "test": "+10",
+        "dm": "1d8+6",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1067,
+    "name": "Rat géant",
+    "description": "Le rat géant est une créature immonde de la taille d’un gros chien (NC 1/2). Les rats géants vivent en colonies dans les égouts des grandes villes ou dans les souterrains humides. Bien qu’individuellement peu dangereux, leur nombre et leur capacité à transmettre des maladies en font des adversaires gênants.",
+    "nc": 0.5,
+    "hp": 4,
+    "def": 13,
+    "init": 15,
+    "stats": {
+      "FOR": 1,
+      "DEX": 1,
+      "CON": 1,
+      "INT": -4,
+      "SAG": 2,
+      "CHA": -4
+    },
+    "category": "Vivant",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Petite",
+    "specialAbilities": {
+      "text": "* <b>MALADIE : </b> Chaque fois qu’un rat géant inflige au moins 1 DM de morsure, la victime doit réussir un test de CON difficulté 10 à la fin du combat. En cas d’échec, elle contracte une maladie qui lui fait perdre 1d4 PV par période de 24 h tant qu’elle n’est pas soignée par un sort approprié ou un test de soins réussi (difficulté 12)."
+    },
+    "attacks": [
+      {
+        "name": "Morsure",
+        "test": "+3",
+        "dm": "1d4+1",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1068,
+    "name": "Skrambler",
+    "description": "Le skrambler est une créature monstrueuse ressemblant à une mante religieuse géante d’environ 2,50 m de haut. Ses pattes antérieures sont pourvues de puissantes pinces capables de déchiqueter les armures les plus solides. Le skrambler vit principalement dans les grottes ou les souterrains profonds.",
+    "nc": 3.0,
+    "hp": 30,
+    "def": 17,
+    "init": 14,
+    "stats": {
+      "FOR": 6,
+      "DEX": 1,
+      "CON": 6,
+      "INT": -4,
+      "SAG": 2,
+      "CHA": -4
+    },
+    "category": "Vivant",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Grande",
+    "specialAbilities": {
+      "text": "* <b>CREUSER (L) : </b> Le skrambler peut se déplacer sous terre à travers la terre meuble ou le gravier à une vitesse de 10 m par action de mouvement. Le tunnel ne reste pas ouvert derrière lui.<br>    * <b>EMBUSCADE : </b> Au premier round de combat, si le skrambler peut le dissimuler sous terre ou dans l'obscurité, la cible doit faire un test de PER difficulté 19 ou être surprise. Lorsqu’il attaque avec succès une cible surprise, il bénéficie d’un bonus de +5 à l’initiative à son premier tour et inflige +1d4 DM.<br>    * <b>ONDE DÉVASTATRICE (A) : </b> Le skrambler peut faire vibrer ses membres pour générer une onde de choc destructrice dans un cône de 10 m. Toutes les créatures dans la zone subissent 5d6 DM de choc. Les DM sont divisés par deux si la victime réussit un test de CON difficulté 15."
+    },
+    "attacks": [
+      {
+        "name": "Pattes",
+        "test": "+8",
+        "dm": "2d6+6",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1069,
+    "name": "Squelette",
+    "description": "Le squelette est le reste osseux d’un cadavre humain ou humanoïde, animé par une magie nécromantique de base. Les squelettes sont des automates sans esprit, obéissant aveuglément aux ordres de leur créateur. Ils sont les gardiens idéaux pour les tombeaux et les cryptes.",
+    "nc": 1.0,
+    "hp": 9,
+    "def": 13,
+    "init": 9,
+    "stats": {
+      "FOR": 1,
+      "DEX": 1,
+      "CON": 1,
+      "INT": -4,
+      "SAG": -2,
+      "CHA": -4
+    },
+    "category": "Non Vivante",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": {
+      "text": "* <b>SANS ESPRIT : </b> Voir le chapitre consacré aux créatures non vivantes.<br>    * <b>RÉSISTANCE AUX DM : </b> Les squelettes ne possèdent plus de chair, ce qui les rend difficiles à blesser pour toutes les armes qui n’infligent pas de DM de type contondant (masse, bâton, marteau, etc.). Ils divisent par deux tous les DM qu’il reçoivent (sauf ceux de type contondant).<br>    * <b>RÉDUCTION DES DM DE FROID : </b> Ils retranchent 5 de tous les DM causés par le froid (RD 5)."
+    },
+    "attacks": [
+      {
+        "name": "Épée",
+        "test": "+4",
+        "dm": "1d6+1",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1070,
+    "name": "SQUELETTE GÉANT",
+    "description": "Le squelette d’un géant est une vision terrifiante, sa taille imposante et sa force brute en font un adversaire redoutable.",
+    "nc": 4.0,
+    "hp": 60,
+    "def": 18,
+    "init": 9,
+    "stats": {
+      "FOR": 4,
+      "DEX": 0,
+      "CON": 4,
+      "INT": -4,
+      "SAG": -2,
+      "CHA": -4
+    },
+    "category": "Non Vivante · Taille Grande",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": {
+      "text": ""
+    },
+    "attacks": [
+      {
+        "name": "Épée géante",
+        "test": "+9",
+        "dm": "2d8+6",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1071,
+    "name": "Troll",
+    "description": "Le troll est une créature humanoïde massive d'environ 3 m de haut, connue pour sa force physique incroyable et surtout sa capacité de régénération. Bien que peu intelligent, sa férocité et sa résistance en font un adversaire redouté par tous les voyageurs. Les trolls vivent principalement dans les grottes ou les montagnes.",
+    "nc": 5.0,
+    "hp": 70,
+    "def": 19,
+    "init": 10,
+    "stats": {
+      "FOR": 6,
+      "DEX": 1,
+      "CON": 6,
+      "INT": -2,
+      "SAG": 0,
+      "CHA": -2
+    },
+    "category": "Vivant",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Grande",
+    "specialAbilities": {
+      "text": "* <b>FAUCHAGE : </b> Sur 17 à 20 au test d’attaque, si l’attaque est réussie, la victime doit réussir au choix un test de FOR ou d’AGI difficulté 16 ou être renversée.<br>    * <b>GRAND : </b> La créature retranche 3 à tous les DM subis (RD 3).<br>    * <b>VITALITÉ SURNATURELLE : </b> À chaque round (y compris celui de sa mort), le troll récupère 5 PV. Seuls les DM de feu ou d'acide peuvent définitivement arrêter ce processus (le troll cesse de régénérer durant le tour où il a subi de tels DM)."
+    },
+    "attacks": [
+      {
+        "name": "Griffes ou gourdin (2 attaques)",
+        "test": "+10",
+        "dm": "1d6+6",
+        "special": null,
+        "reach": null
+      },
+      {
+        "name": "Lancer de rocher",
+        "test": "+10",
+        "dm": "2d6+6",
+        "special": null,
+        "reach": "10"
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1072,
+    "name": "Vampire",
+    "description": "Le vampire est un mort-vivant puissant, élégant et cruel, qui subsiste en buvant le sang des vivants. Bien que d’apparence humaine, ses sens sont aiguisés et sa force est surhumaine. Les vampires sont des prédateurs nocturnes sophistiqués, souvent maîtres de vastes domaines.",
+    "nc": 8.0,
+    "hp": 70,
+    "def": 20,
+    "init": 17,
+    "stats": {
+      "FOR": 5,
+      "DEX": 4,
+      "CON": 5,
+      "INT": 4,
+      "SAG": 4,
+      "CHA": 4
+    },
+    "category": "Non Vivante",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": {
+      "text": "* <b>ABSORPTION D’ÉNERGIE : </b> Chaque fois que le vampire blesse une créature vivante avec ses armes naturelles, il récupère 5 PV. Si une créature tombe à 0 PV suite à cette attaque, elle meurt et se relève sous la forme d’un vampirien à la nuit suivante.<br>    * <b>IMMORTEL : </b> Lorsqu'un vampire tombe à 0 PV, il se transforme immédiatement en brume ou en chauve-souris et tente de rejoindre son cercueil pour se régénérer. S’il n’y parvient pas avant le lever du jour, il est définitivement détruit. Seul un pieu en bois enfoncé dans son cœur pendant qu’il repose dans son cercueil peut le tuer réellement.<br>    * <b>REGARD ENVOÛTANT (M) : </b> Le vampire peut tenter de fasciner une cible d’un simple regard. La victime doit réussir un test de VOL difficulté 15 ou subir l’état affaibli pendant 1d6 rounds.<br>    * <b>RÉSISTANCE IMPIE : </b> Le vampire possède une RD 10 contre toutes les attaques, sauf celles effectuées avec des armes en argent ou infligeant des DM de feu.<br>    * <b>VARIANTES : </b> Un vampire possède généralement une ou plusieurs capacités supplémentaires parmi les suivantes : Forme gazeuse (A), Pattes d’araignée ou Transformation en chauve-souris."
+    },
+    "attacks": [
+      {
+        "name": "Griffes et morsure (2 attaques)",
+        "test": "+11",
+        "dm": "1d8+5 + absorption d'énergie",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1073,
+    "name": "VAMPIRE ANCIEN",
+    "description": "Ce vampire est beaucoup plus puissant et maîtrise les arts occultes.",
+    "nc": 13.0,
+    "hp": 160,
+    "def": 25,
+    "init": 20,
+    "stats": {
+      "FOR": 8,
+      "DEX": 6,
+      "CON": 8,
+      "INT": 6,
+      "SAG": 4,
+      "CHA": 6
+    },
+    "category": "Non Vivante",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": {
+      "text": "* <b>ESTROPIER : </b> Les blessures infligées par le vampire ancien laissent des cicatrices impies qui ne peuvent être soignées normalement. Le niveau d’efficacité de tous les sorts de soins lancés sur la victime est divisé par deux tant qu'un sort de Délivrance n’a pas été lancé sur elle.<br>    * <b>MAGICIEN : </b> Le vampire ancien maîtrise toutes les capacités de la Voie du mage (jusqu’au rang 5).<br>    * <b>REGARD ENVOÛTANT (M) : </b> Voir ci-dessus, avec une difficulté de 20."
+    },
+    "attacks": [
+      {
+        "name": "Griffes et morsure (2 attaques)",
+        "test": "+14",
+        "dm": "1d8+8 + 1d8 froid + absorption d’énergie",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1074,
+    "name": "VAMPIRIEN",
+    "description": "Un vampirien est une créature plus commune, dénuée de la volonté et de la puissance d’un véritable vampire.",
+    "nc": 4.0,
+    "hp": 35,
+    "def": 17,
+    "init": 12,
+    "stats": {
+      "FOR": 3,
+      "DEX": 2,
+      "CON": 3,
+      "INT": -2,
+      "SAG": 2,
+      "CHA": -2
+    },
+    "category": "Non Vivante",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": {
+      "text": ""
+    },
+    "attacks": [
+      {
+        "name": "Morsure",
+        "test": "+6",
+        "dm": "1d6+3 + absorption d’énergie (2 PV)",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1075,
+    "name": "Worg",
+    "description": "Le worg est une créature lupine de la taille d'un grand poney (1,50 m au garrot pour 200 kg) dotée d'une intelligence maléfique. Bien qu'ils ressemblent à de grands loups, les worgs sont beaucoup plus puissants, vicieux et capables de parler le noir parler. Ils servent souvent de montures pour les chefs gobelins ou orcs les plus puissants.",
+    "nc": 3.0,
+    "hp": 35,
+    "def": 17,
+    "init": 15,
+    "stats": {
+      "FOR": 5,
+      "DEX": 1,
+      "CON": 5,
+      "INT": -1,
+      "SAG": 2,
+      "CHA": -2
+    },
+    "category": "Vivant",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyenne",
+    "specialAbilities": {
+      "text": "* <b>EMBUSCADE : </b> Au premier round de combat, si l’environnement permet à la créature de se dissimuler, la cible doit faire un test de PER difficulté 19 ou être surprise. Lorsqu’elle attaque avec succès une cible surprise, la créature inflige +1d4 DM et toute créature dont la FOR est inférieure à la sienne est renversée. La créature obtient un bonus de +5 à tous les tests de discrétion.<br>    * <b>BRISE-GENOU : </b> Voir le profil du vétéran."
+    },
+    "attacks": [
+      {
+        "name": "Morsure",
+        "test": "+7",
+        "dm": "1d6+5",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 1076,
+    "name": "Zombie humain",
+    "description": "Le zombie est un cadavre animé par une magie nécromantique de base. Contrairement au squelette, le zombie conserve sa chair en décomposition, ce qui le rend plus résistant mais beaucoup plus lent. Dénué de toute volonté propre, il n’a qu'un désir : dévorer les vivants.",
+    "nc": 1.0,
+    "hp": 18,
+    "def": 10,
+    "init": 8,
+    "stats": {
+      "FOR": 2,
+      "DEX": -1,
+      "CON": 1,
+      "INT": -4,
+      "SAG": -2,
+      "CHA": -4
+    },
+    "category": "Non Vivante",
+    "environment": "Spécial",
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": {
+      "text": "* <b>RÉSISTANCE AUX DM : </b> Sa chair putride et morte est difficile à trancher. Le zombie divise par deux tous les DM subis par des armes tranchantes ou perforantes. En revanche, les DM contondants sont infligés normalement.<br>    * <b>SANS ESPRIT : </b> Voir le chapitre consacré aux créatures non vivantes.<br>    * <b>LENTEUR : </b> La créature est extrêmement lente, elle ne peut effectuer qu’une seule action par tour (une action de mouvement ou une action d'attaque). Son déplacement est limité à 5 m.<br>    * <b>INSSENSIBLE À LA DOULEUR : </b> Pour refléter sa résistance surnaturelle, le zombie possède un grand nombre de PV bonus égal à 3 fois son NC (déjà inclus)."
+    },
+    "attacks": [
+      {
+        "name": "Coup",
+        "test": "+4",
+        "dm": "1d6+3",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  }
+]

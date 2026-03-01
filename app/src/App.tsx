@@ -22,6 +22,8 @@ import { Dice } from './pages/Dice';
 import { States } from './pages/States';
 import { Rules } from './pages/Rules';
 import { SoundboardPage } from './pages/SoundboardPage';
+import { CharacterList } from './pages/CharacterList';
+import { CharacterSheet } from './pages/CharacterSheet';
 
 function App() {
   return (
@@ -50,6 +52,9 @@ function App() {
           <Route path="tools/dice" element={<Dice />} />
           <Route path="states" element={<States />} />
           <Route path="rules" element={<Rules />} />
+          <Route path="characters" element={<CharacterList />} />
+          <Route path="characters/new" element={<CharacterSheet />} />
+          <Route path="characters/:id" element={<CharacterSheet />} />
         </Route>
       </Routes>
     </BrowserRouter>

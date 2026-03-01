@@ -23,7 +23,7 @@ export const ApiService = {
 
         const response = await fetch(url, {
             headers: {
-                'Accept': 'application/json'
+                'Accept': 'application/ld+json'
             }
         });
         if (!response.ok) {
@@ -85,5 +85,50 @@ export const ApiService = {
 
     async getOne<T>(resource: string, id: string | number): Promise<T> {
         return this.get<T>(`${resource}/${id}`);
+    },
+
+    async post<T>(resource: string, data: any): Promise<T> {
+        const url = `${API_BASE_URL}/${resource}`.replace(/([^:]\/)\/+/g, "$1");
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/ld+json'
+            },
+            body: JSON.stringify(data)
+        });
+        if (!response.ok) {
+            throw new Error(`API Error: ${response.statusText}`);
+        }
+        return response.json();
+    },
+
+    async put<T>(resource: string, id: string | number, data: any): Promise<T> {
+        const url = `${API_BASE_URL}/${resource}/${id}`.replace(/([^:]\/)\/+/g, "$1");
+        const response = await fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/ld+json'
+            },
+            body: JSON.stringify(data)
+        });
+        if (!response.ok) {
+            throw new Error(`API Error: ${response.statusText}`);
+        }
+        return response.json();
+    },
+
+    async delete(resource: string, id: string | number): Promise<void> {
+        const url = `${API_BASE_URL}/${resource}/${id}`.replace(/([^:]\/)\/+/g, "$1");
+        const response = await fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/ld+json'
+            }
+        });
+        if (!response.ok) {
+            throw new Error(`API Error: ${response.statusText}`);
+        }
     }
 };

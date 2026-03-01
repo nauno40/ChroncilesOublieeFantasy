@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CapabilityRepository::class)]
 #[ApiResource]
@@ -21,18 +22,23 @@ class Capability
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['race:read', 'profile:read'])]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups(['race:read', 'profile:read'])]
     private ?string $description = null;
 
     #[ORM\Column]
+    #[Groups(['race:read', 'profile:read'])]
     private ?int $rank = null;
 
     #[ORM\Column]
+    #[Groups(['race:read', 'profile:read'])]
     private ?bool $isSpell = null;
 
     #[ORM\Column(length: 50, nullable: true)]
+    #[Groups(['race:read', 'profile:read'])]
     private ?string $actionType = null;
 
     #[ORM\Column]
@@ -42,6 +48,7 @@ class Capability
     private ?array $effect = null;
 
     #[ORM\Column(type: Types::JSON, nullable: true)]
+    #[Groups(['race:read', 'profile:read'])]
     private ?array $details = null;
 
     #[ORM\ManyToOne(inversedBy: 'capabilities')]

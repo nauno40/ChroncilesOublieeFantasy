@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import type { Voie, Capacity } from '../types/normalized';
 import { ArrowLeft } from 'lucide-react';
-import { Badge } from '../components/common';
+import { DynamicDetailsRenderer } from '../components/common';
 import { DataService } from '../services/dataService';
 
 export const VoieDetail: React.FC = () => {
@@ -75,6 +75,12 @@ export const VoieDetail: React.FC = () => {
                         <>
                             <h3 className="text-xl font-display font-bold text-primary-400 mb-4 flex items-center gap-2">
                                 <span className="w-1 h-6 bg-primary-500 rounded-full"></span>
+                                Détails & Mécaniques
+                            </h3>
+                            {voie && voie.details && <DynamicDetailsRenderer details={voie.details} className="mb-8" />}
+
+                            <h3 className="text-xl font-display font-bold text-primary-400 mb-4 flex items-center gap-2">
+                                <span className="w-1 h-6 bg-primary-500 rounded-full"></span>
                                 Capacités ({voieCapacities.length})
                             </h3>
 
@@ -99,35 +105,42 @@ export const VoieDetail: React.FC = () => {
                                             key={capacity.id}
                                             className="glass-panel p-6 rounded-xl border border-white/5 hover:border-primary-500/30 transition-all duration-300"
                                         >
-                                            <div className="flex flex-col gap-3 mb-3">
-                                                <h4 className="text-lg font-display font-bold text-primary-300">
-                                                    {displayName}
-                                                </h4>
-                                                <div className="flex gap-2 flex-wrap">
-                                                    {isLimited && (
-                                                        <Badge variant="danger">
-                                                            Limité
-                                                        </Badge>
-                                                    )}
-                                                    {capacity.active ? (
-                                                        <Badge variant="warning">
-                                                            Actif
-                                                        </Badge>
-                                                    ) : (
-                                                        <Badge variant="secondary">
-                                                            Passif
-                                                        </Badge>
-                                                    )}
-                                                    {capacity.rank && (
-                                                        <Badge variant="primary">
-                                                            Rang {capacity.rank}
-                                                        </Badge>
-                                                    )}
+                                            <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-2 mb-3">
+                                                <div className="flex items-center gap-3">
+                                                    <span className="flex items-center justify-center size-6 rounded bg-primary-950 text-primary-500 text-xs font-bold border border-primary-500/20">
+                                                        {capacity.rank}
+                                                    </span>
+                                                    <h4 className="text-lg font-bold text-stone-100 group-hover:text-primary-300 transition-colors">
+                                                        {displayName}
+                                                    </h4>
+                                                    <div className="flex gap-2 flex-wrap">
+                                                        {isLimited && (
+                                                            <span className="px-2 py-0.5 text-[10px] uppercase font-bold tracking-wider bg-red-900/20 text-red-400 rounded border border-red-500/20">
+                                                                Limité
+                                                            </span>
+                                                        )}
+                                                        {capacity.isSpell && (
+                                                            <span className="px-2 py-0.5 text-[10px] uppercase font-bold tracking-wider bg-blue-900/20 text-blue-400 rounded border border-blue-500/20">
+                                                                Sort
+                                                            </span>
+                                                        )}
+                                                        {capacity.active ? (
+                                                            <span className="px-2 py-0.5 text-[10px] uppercase font-bold tracking-wider bg-amber-900/20 text-amber-400 rounded border border-amber-500/20">
+                                                                Actif
+                                                            </span>
+                                                        ) : (
+                                                            <span className="px-2 py-0.5 text-[10px] uppercase font-bold tracking-wider bg-stone-800 text-stone-400 rounded border border-white/5">
+                                                                Passif
+                                                            </span>
+                                                        )}
+                                                    </div>
                                                 </div>
+                                                <div className="h-[1px] flex-1 bg-white/5 mx-4 hidden md:block"></div>
                                             </div>
-                                            <p className="text-stone-300 leading-relaxed whitespace-pre-line">
+                                            <p className="text-stone-300 leading-relaxed whitespace-pre-line pl-9">
                                                 {capacity.description}
                                             </p>
+                                            <DynamicDetailsRenderer details={capacity.details} className="pl-9 mt-4" />
                                         </div>
                                     );
                                 })}

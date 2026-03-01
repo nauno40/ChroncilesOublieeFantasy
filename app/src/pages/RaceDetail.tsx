@@ -1,94 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import type { Race, Voie, Capacity } from '../types/normalized';
-import { ArrowLeft, HelpCircle } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { DataService } from '../services/dataService';
-
-const DynamicDetailsRenderer = ({ details }: { details: any }) => {
-    if (!details) return null;
-
-    return (
-        <div className="space-y-4 mt-4">
-            {Object.entries(details).map(([key, value]: [string, any]) => {
-                if (key.startsWith('statistiques_')) {
-                    const title = key.replace('statistiques_', '').replace(/_/g, ' ');
-                    return (
-                        <div key={key} className="bg-black/40 rounded-lg p-4 border border-white/10 text-sm">
-                            <strong className="block text-primary-400 uppercase tracking-wider text-xs font-bold mb-3 border-b border-primary-500/20 pb-1">
-                                Statistiques : {title}
-                            </strong>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2">
-                                {Object.entries(value).map(([statKey, statValue]: [string, any]) => (
-                                    <div key={statKey} className="flex flex-col border-b border-white/5 pb-1">
-                                        <span className="text-stone-500 text-[10px] uppercase font-bold">{statKey.replace(/_/g, ' ')}</span>
-                                        <span className="text-stone-300 font-medium">{String(statValue)}</span>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    );
-                }
-
-                if (key === 'note_speciale' || key === 'note') {
-                    return (
-                        <div key={key} className="p-3 bg-yellow-900/10 border border-yellow-700/20 rounded-lg flex gap-3">
-                            <div className="shrink-0 pt-0.5">
-                                <HelpCircle className="w-4 h-4 text-yellow-500" />
-                            </div>
-                            <div>
-                                <span className="text-stone-300 text-sm italic">
-                                    {String(value)}
-                                </span>
-                            </div>
-                        </div>
-                    );
-                }
-
-                if (key === 'choix_capacite' || key.startsWith('choix_')) {
-                    return (
-                        <div key={key} className="bg-primary-950/20 rounded-lg p-3 border border-primary-500/10 text-sm">
-                            <strong className="block text-primary-300 mb-2 font-display text-xs uppercase tracking-wider">
-                                {key.replace(/_/g, ' ')}
-                            </strong>
-                            {Array.isArray(value) ? (
-                                <ul className="list-disc list-inside space-y-1 pl-2">
-                                    {value.map((v: any, i: number) => <li key={i} className="text-stone-300">{String(v)}</li>)}
-                                </ul>
-                            ) : (
-                                <span className="text-stone-300 italic">{String(value)}</span>
-                            )}
-                        </div>
-                    );
-                }
-
-                if (key === 'options_origines' || key.startsWith('options_')) {
-                    return (
-                        <div key={key} className="bg-stone-900/40 rounded-lg p-3 border border-white/5 text-sm">
-                            <strong className="block text-stone-400 mb-2 font-display text-xs uppercase tracking-wider">
-                                {key.replace('options_', '').replace(/_/g, ' ')}
-                            </strong>
-                            <ul className="space-y-1">
-                                {Array.isArray(value) ? value.map((v: any, i: number) => (
-                                    <li key={i} className="flex items-start gap-2 text-stone-300">
-                                        <div className="w-1 h-1 rounded-full bg-primary-500 mt-2 shrink-0"></div>
-                                        <span>{String(v)}</span>
-                                    </li>
-                                )) : <span className="text-stone-300">{String(value)}</span>}
-                            </ul>
-                        </div>
-                    );
-                }
-
-                return (
-                    <div key={key} className="text-xs text-stone-500 border-l-2 border-white/10 pl-2">
-                        <span className="font-bold uppercase mr-1">{key.replace(/_/g, ' ')}:</span>
-                        <span className="italic">{typeof value === 'object' ? JSON.stringify(value) : String(value)}</span>
-                    </div>
-                );
-            })}
-        </div>
-    );
-};
+import { DynamicDetailsRenderer } from '../components/common';
 
 export const RaceDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();

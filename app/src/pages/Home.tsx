@@ -1,12 +1,14 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { BookOpen, Swords, Scroll, Skull, ChevronRight, Users, Play } from 'lucide-react';
+import { BookOpen, Swords, Scroll, Skull, ChevronRight, Users, Play, Loader2 } from 'lucide-react';
 import { getCampaigns } from '../utils/campaignService';
 import { DataService } from '../services/dataService';
 
 export const Home: React.FC = () => {
     const navigate = useNavigate();
     const [stats, setStats] = useState({ creatures: 0, voies: 0, profiles: 0 });
+    const [campaigns, setCampaigns] = useState<any[]>([]);
+    const [loadingCampaigns, setLoadingCampaigns] = useState(true);
 
     useEffect(() => {
         Promise.all([
@@ -20,10 +22,14 @@ export const Home: React.FC = () => {
                 profiles: p.length
             });
         }).catch(console.error);
+
+        getCampaigns().then(data => {
+            setCampaigns(data);
+            setLoadingCampaigns(false);
+        });
     }, []);
 
     // Load data
-    const campaigns = useMemo(() => getCampaigns(), []);
     const creaturesCount = stats.creatures;
     const voiesCount = stats.voies;
     const profilesCount = stats.profiles;
@@ -49,7 +55,12 @@ export const Home: React.FC = () => {
                     </p>
 
                     <div className="flex flex-wrap gap-4">
-                        {lastCampaign ? (
+                        {loadingCampaigns ? (
+                            <div className="flex items-center gap-3 px-6 py-3 rounded-xl bg-white/5 border border-white/5">
+                                <Loader2 className="animate-spin text-primary-500" size={20} />
+                                <span className="text-stone-400">Chargement...</span>
+                            </div>
+                        ) : lastCampaign ? (
                             <button
                                 onClick={() => navigate(`/campaign/${lastCampaign.id}`)}
                                 className="bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-500 hover:to-primary-600 text-stone-950 font-bold px-6 py-3 rounded-xl flex items-center gap-3 transition-all shadow-lg hover:shadow-primary-500/20 hover:-translate-y-0.5"

@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 
 export const Campaign: React.FC = () => {
     const [campaigns, setCampaigns] = useState<CampaignType[]>([]);
+    const [loading, setLoading] = useState(true);
     const [showCreateForm, setShowCreateForm] = useState(false);
     const [newCampaignName, setNewCampaignName] = useState('');
     const [newCampaignDesc, setNewCampaignDesc] = useState('');
@@ -14,24 +15,27 @@ export const Campaign: React.FC = () => {
         loadCampaigns();
     }, []);
 
-    const loadCampaigns = () => {
-        setCampaigns(getCampaigns());
+    const loadCampaigns = async () => {
+        setLoading(true);
+        const data = await getCampaigns();
+        setCampaigns(data);
+        setLoading(false);
     };
 
-    const handleCreate = (e: React.FormEvent) => {
+    const handleCreate = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!newCampaignName.trim()) return;
-        createCampaign(newCampaignName, newCampaignDesc);
+        await createCampaign(newCampaignName, newCampaignDesc);
         setNewCampaignName('');
         setNewCampaignDesc('');
         setShowCreateForm(false);
         loadCampaigns();
     };
 
-    const handleDelete = (id: string, e: React.MouseEvent) => {
+    const handleDelete = async (id: string, e: React.MouseEvent) => {
         e.preventDefault();
         if (confirm('Êtes-vous sûr de vouloir supprimer cette campagne ?')) {
-            deleteCampaign(id);
+            await deleteCampaign(id);
             loadCampaigns();
         }
     };
@@ -91,7 +95,11 @@ export const Campaign: React.FC = () => {
                 </div>
             )}
 
-            {campaigns.length === 0 ? (
+            {loading ? (
+                <div className="flex justify-center py-20">
+                    <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-500"></div>
+                </div>
+            ) : campaigns.length === 0 ? (
                 <div className="text-center py-20 bg-black/20 rounded-3xl border border-white/5 backdrop-blur-sm">
                     <div className="bg-stone-900/50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 border border-white/5">
                         <Users size={40} className="text-stone-600 opacity-50" />

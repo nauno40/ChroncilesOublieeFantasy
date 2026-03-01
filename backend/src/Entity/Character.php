@@ -51,6 +51,15 @@ class Character
     #[Groups(['character:read'])]
     private ?\DateTimeImmutable $updatedAt = null;
 
+    #[ORM\ManyToOne(inversedBy: 'characters')]
+    #[Groups(['character:read', 'character:write', 'campaign:read', 'campaign:write'])]
+    private ?Campaign $campaign = null;
+
+    #[ORM\ManyToOne(inversedBy: 'characters')]
+    #[ORM\JoinColumn(nullable: true)] # Nullable for legacy characters
+    #[Groups(['character:read', 'character:write'])]
+    private ?User $owner = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -137,5 +146,17 @@ class Character
     public function setUpdatedAtValue(): void
     {
         $this->updatedAt = new \DateTimeImmutable();
+    }
+
+    public function getOwner(): ?User
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(?User $owner): static
+    {
+        $this->owner = $owner;
+
+        return $this;
     }
 }

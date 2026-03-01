@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Layout } from './components/layout/Layout';
 import { Home } from './pages/Home';
 import { Bestiary } from './pages/Bestiary';
@@ -24,40 +24,58 @@ import { Rules } from './pages/Rules';
 import { SoundboardPage } from './pages/SoundboardPage';
 import { CharacterList } from './pages/CharacterList';
 import { CharacterSheet } from './pages/CharacterSheet';
+import { LandingPage } from './pages/LandingPage';
+import { LoginPage } from './pages/LoginPage';
+import { RegisterPage } from './pages/RegisterPage';
+import { AuthProvider } from './context/AuthContext';
+import { ProtectedRoute } from './components/auth/ProtectedRoute';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="bestiary" element={<Bestiary />} />
-          <Route path="bestiary/:id" element={<CreatureDetail />} />
-          <Route path="campaign" element={<Campaign />} />
-          <Route path="campaign/:id" element={<CampaignDetail />} />
-          <Route path="tools" element={<Tools />} />
-          <Route path="tools/tracker" element={<CombatTracker />} />
-          <Route path="tools/soundboard" element={<SoundboardPage />} />
-          <Route path="races" element={<Races />} />
-          <Route path="races/:id" element={<RaceDetail />} />
-          <Route path="classes" element={<Classes />} />
-          <Route path="classes/:id" element={<ClassDetail />} />
-          <Route path="voies" element={<Voies />} />
-          <Route path="voies/:id" element={<VoieDetail />} />
-          <Route path="capacites" element={<Capacites />} />
-          <Route path="capacites/:id" element={<CapaciteDetail />} />
-          <Route path="equipment" element={<Equipment />} />
-          <Route path="mounts" element={<Mounts />} />
-          <Route path="provisions" element={<Provisions />} />
-          <Route path="tools/dice" element={<Dice />} />
-          <Route path="states" element={<States />} />
-          <Route path="rules" element={<Rules />} />
-          <Route path="characters" element={<CharacterList />} />
-          <Route path="characters/new" element={<CharacterSheet />} />
-          <Route path="characters/:id" element={<CharacterSheet />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          {/* Public Routes */}
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+
+          {/* Protected App Routes */}
+          <Route element={<ProtectedRoute />}>
+            <Route element={<Layout />}>
+              <Route path="/dashboard" element={<Home />} />
+              <Route path="bestiary" element={<Bestiary />} />
+              <Route path="bestiary/:id" element={<CreatureDetail />} />
+              <Route path="campaign" element={<Campaign />} />
+              <Route path="campaign/:id" element={<CampaignDetail />} />
+              <Route path="tools" element={<Tools />} />
+              <Route path="tools/tracker" element={<CombatTracker />} />
+              <Route path="tools/soundboard" element={<SoundboardPage />} />
+              <Route path="races" element={<Races />} />
+              <Route path="races/:id" element={<RaceDetail />} />
+              <Route path="classes" element={<Classes />} />
+              <Route path="classes/:id" element={<ClassDetail />} />
+              <Route path="voies" element={<Voies />} />
+              <Route path="voies/:id" element={<VoieDetail />} />
+              <Route path="capacites" element={<Capacites />} />
+              <Route path="capacites/:id" element={<CapaciteDetail />} />
+              <Route path="equipment" element={<Equipment />} />
+              <Route path="mounts" element={<Mounts />} />
+              <Route path="provisions" element={<Provisions />} />
+              <Route path="tools/dice" element={<Dice />} />
+              <Route path="states" element={<States />} />
+              <Route path="rules" element={<Rules />} />
+              <Route path="characters" element={<CharacterList />} />
+              <Route path="characters/new" element={<CharacterSheet />} />
+              <Route path="characters/:id" element={<CharacterSheet />} />
+            </Route>
+          </Route>
+
+          {/* Fallback */}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 

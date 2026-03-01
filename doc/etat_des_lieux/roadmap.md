@@ -46,8 +46,8 @@ Certaines fonctionnalités sont très bien designées côte UI mais manquent de 
 Pour transformer l'application d'un *Compagnon local* à une véritable *Virtual TableTop / Hub de jeu communautaire*, voici les prochaines étapes logiques :
 
 ### Phase 1 : Persistance et Backend
-- [ ] **Modèles Backend pour la Campagne** : Créer les entités Symfony (API Platform) pour `Campaign`, `Quest`, `Clue`, `Session` afin de remplacer le `localStorage` de l'UI actuelle par l'API.
-- [ ] **Système de Comptes (Auth)** : Implémenter l'inscription, la connexion (JWT), et lier les entités `Character` et `Campaign` à un `User`.
+- [x] **Modèles Backend pour la Campagne** : Créer les entités Symfony (API Platform) pour `Campaign`, `Quest`, `Clue`, `Session` afin de remplacer le `localStorage` de l'UI actuelle par l'API.
+- [x] **Système de Comptes (Auth)** : Implémenter l'inscription, la connexion (JWT), et lier les entités `Character` et `Campaign` à un `User`.
 
 ### Phase 2 : Temps Réel (Multi-joueurs)
 - [ ] **Mercure / WebSockets** : Intégrer Symfony Mercure pour avoir du vrai temps réel.

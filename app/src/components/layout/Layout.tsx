@@ -6,10 +6,12 @@ import type { NavItem } from './NavItem';
 import { NavItemComponent } from './NavItem';
 import { DiceRoller, GlobalNotes, Soundboard, DraggableWindow, GlobalSearch } from '../common';
 import { useToggle } from '../../hooks/useToggle';
-import { Dices, StickyNote, Music, Search } from 'lucide-react';
+import { Dices, StickyNote, Music, Search, LogOut, User as UserIcon } from 'lucide-react';
+import { useAuth } from '../../context/AuthContext';
 
 export const Layout: React.FC = () => {
     const location = useLocation();
+    const { logout, user } = useAuth();
     const [isDiceRollerOpen, toggleDiceRoller] = useToggle(false);
     const [isNotesOpen, toggleNotes] = useToggle(false);
     const [isSoundboardOpen, toggleSoundboard] = useToggle(false);
@@ -92,12 +94,21 @@ export const Layout: React.FC = () => {
                     <h1 className="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-400 to-primary-600 font-display tracking-wider drop-shadow-sm">
                         CHRONIQUES OUBLIÉES FANTASY
                     </h1>
-                    <button
-                        onClick={toggleSearch}
-                        className="p-2 text-primary-400 hover:bg-primary-500/10 rounded-lg transition-colors"
-                    >
-                        <Search size={20} />
-                    </button>
+                    <div className="flex items-center gap-2">
+                        <button
+                            onClick={toggleSearch}
+                            className="p-2 text-primary-400 hover:bg-primary-500/10 rounded-lg transition-colors"
+                        >
+                            <Search size={20} />
+                        </button>
+                        <button
+                            onClick={logout}
+                            className="p-2 text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"
+                            title="Déconnexion"
+                        >
+                            <LogOut size={20} />
+                        </button>
+                    </div>
                 </div>
             </header>
 
@@ -136,8 +147,24 @@ export const Layout: React.FC = () => {
                         })}
                     </nav>
 
-                    <div className="p-4 text-center border-t border-white/5">
-                        <div className="text-xs text-stone-600 font-display">v1.0.0 Alpha</div>
+                    <div className="p-4 mt-auto border-t border-white/5">
+                        <div className="glass-panel p-3 rounded-xl border border-white/5 flex items-center gap-3 group/profile hover:border-primary-500/20 transition-colors">
+                            <div className="size-10 rounded-lg bg-primary-500/10 border border-primary-500/20 flex items-center justify-center text-primary-400 group-hover/profile:bg-primary-500/20 transition-colors">
+                                <UserIcon size={20} />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                                <div className="text-sm font-bold truncate text-stone-100">{user?.email?.split('@')[0]}</div>
+                                <div className="text-[10px] text-stone-500 truncate">{user?.email}</div>
+                            </div>
+                            <button
+                                onClick={logout}
+                                className="p-2 rounded-lg text-stone-500 hover:text-red-400 hover:bg-red-500/10 transition-all"
+                                title="Déconnexion"
+                            >
+                                <LogOut size={18} />
+                            </button>
+                        </div>
+                        <div className="text-[10px] text-stone-600 font-display text-center pt-3 italic">v1.0.0 Alpha</div>
                     </div>
                 </div>
             </aside>

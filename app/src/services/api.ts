@@ -23,7 +23,8 @@ export const ApiService = {
 
         const response = await fetch(url, {
             headers: {
-                'Accept': 'application/ld+json'
+                'Accept': 'application/ld+json',
+                'Authorization': localStorage.getItem('co_auth_token') ? `Bearer ${localStorage.getItem('co_auth_token')}` : ''
             }
         });
         if (!response.ok) {
@@ -93,7 +94,8 @@ export const ApiService = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Accept': 'application/ld+json'
+                'Accept': 'application/ld+json',
+                'Authorization': localStorage.getItem('co_auth_token') ? `Bearer ${localStorage.getItem('co_auth_token')}` : ''
             },
             body: JSON.stringify(data)
         });
@@ -109,7 +111,8 @@ export const ApiService = {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                'Accept': 'application/ld+json'
+                'Accept': 'application/ld+json',
+                'Authorization': localStorage.getItem('co_auth_token') ? `Bearer ${localStorage.getItem('co_auth_token')}` : ''
             },
             body: JSON.stringify(data)
         });
@@ -124,7 +127,8 @@ export const ApiService = {
         const response = await fetch(url, {
             method: 'DELETE',
             headers: {
-                'Accept': 'application/ld+json'
+                'Accept': 'application/ld+json',
+                'Authorization': localStorage.getItem('co_auth_token') ? `Bearer ${localStorage.getItem('co_auth_token')}` : ''
             }
         });
         if (!response.ok) {

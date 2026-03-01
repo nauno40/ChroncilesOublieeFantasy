@@ -1,42 +1,198 @@
+import { ApiService } from '../services/api';
 import type { Campaign } from '../types/campaign';
 
-const STORAGE_KEY = 'co_campaigns';
+const RESOURCE = 'campaigns';
 
-export const getCampaigns = (): Campaign[] => {
-    const data = localStorage.getItem(STORAGE_KEY);
-    return data ? JSON.parse(data) : [];
-};
-
-export const saveCampaign = (campaign: Campaign): void => {
-    const campaigns = getCampaigns();
-    const index = campaigns.findIndex(c => c.id === campaign.id);
-    if (index >= 0) {
-        campaigns[index] = campaign;
-    } else {
-        campaigns.push(campaign);
+export const getCampaigns = async (): Promise<Campaign[]> => {
+    try {
+        const data = await ApiService.getAll<any>(RESOURCE);
+        return data.map(mapBackendToFrontend);
+    } catch (error) {
+        console.error("Failed to fetch campaigns", error);
+        return [];
     }
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(campaigns));
 };
 
-export const deleteCampaign = (id: string): void => {
-    const campaigns = getCampaigns().filter(c => c.id !== id);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(campaigns));
+export const getCampaign = async (id: string): Promise<Campaign | null> => {
+    try {
+        const data = await ApiService.getOne<any>(RESOURCE, id);
+        return mapBackendToFrontend(data);
+    } catch (error) {
+        console.error(`Failed to fetch campaign ${id}`, error);
+        return null;
+    }
 };
 
-export const createCampaign = (name: string, description: string): Campaign => {
-    const campaign: Campaign = {
-        id: crypto.randomUUID(),
+export const saveCampaign = async (campaign: Campaign): Promise<Campaign> => {
+    const backendData = mapFrontendToBackend(campaign);
+    try {
+        if (campaign.id && !campaign.id.includes('-')) { // Simple check if it's a backend ID (int) vs temp UUID
+            const data = await ApiService.put<any>(RESOURCE, campaign.id, backendData);
+            return mapBackendToFrontend(data);
+        } else {
+            // New campaign
+            const data = await ApiService.post<any>(RESOURCE, backendData);
+            return mapBackendToFrontend(data);
+        }
+    } catch (error) {
+        console.error("Failed to save campaign", error);
+        throw error;
+    }
+};
+
+export const createCampaign = async (name: string, description: string): Promise<Campaign> => {
+    const newCampaign = {
         name,
         description,
-        created_at: Date.now(),
-        updated_at: Date.now(),
-        characters: [],
-        encounters: [],
-        sessions: [],
-        notes: '',
         quests: [],
-        clues: []
+        clues: [],
+        sessions: [],
+        notes: ''
     };
-    saveCampaign(campaign);
-    return campaign;
+    try {
+        const data = await ApiService.post<any>(RESOURCE, newCampaign);
+        return mapBackendToFrontend(data);
+    } catch (error) {
+        console.error("Failed to create campaign", error);
+        throw error;
+    }
+};
+
+export const deleteCampaign = async (id: string): Promise<void> => {
+    try {
+        await ApiService.delete(RESOURCE, id);
+    } catch (error) {
+        console.error(`Failed to delete campaign ${id}`, error);
+        throw error;
+    }
+};
+
+// Mapping Helpers
+const mapBackendToFrontend = (b: any): Campaign => {
+    const parseDate = (dateStr: string | null | undefined) => {
+        if (!dateStr) return new Date().getTime();
+        const d = new Date(dateStr);
+        return isNaN(d.getTime()) ? new Date().getTime() : d.getTime();
+    };
+
+    const formatDate = (dateStr: string | null | undefined) => {
+        if (!dateStr) return undefined;
+        const d = new Date(dateStr);
+        if (isNaN(d.getTime())) return undefined;
+        return d.toISOString().split('T')[0];
+    };
+
+    return {
+        id: b.id.toString(),
+        name: b.name,
+        description: b.description || '',
+        created_at: parseDate(b.createdAt),
+        updated_at: parseDate(b.updatedAt),
+        characters: (b.characters || []).map((c: any) => ({
+            id: (c.id || '').toString(),
+            name: c.name || 'Sans nom',
+            level: c.level || 1,
+            race: c.race?.name || '',
+            profile: c.profile?.name || '',
+            data: c.data || {}
+        })),
+        encounters: [],
+        notes: b.notes || '',
+        quests: (b.quests || []).map((q: any) => ({
+            id: (q.id || '').toString(),
+            title: q.title || 'Sans titre',
+            description: q.description || '',
+            type: q.type || 'main',
+            status: q.status || 'active'
+        })),
+        clues: (b.clues || []).map((c: any) => ({
+            id: (c.id || '').toString(),
+            content: c.content || '',
+            found_at: formatDate(c.foundAt),
+            status: c.status || 'unsolved'
+        })),
+        sessions: (b.sessions || []).map((s: any) => ({
+            id: (s.id || '').toString(),
+            title: s.title || 'Session sans titre',
+            date: formatDate(s.date) || new Date().toISOString().split('T')[0],
+            duration: s.duration || '',
+            level: s.level || '',
+            summary: s.summary || ''
+        }))
+    };
+};
+
+const mapFrontendToBackend = (f: any): any => {
+    const b: any = {
+        name: f.name,
+        description: f.description,
+        notes: f.notes
+    };
+
+    const isBackendId = (id: string | number | undefined) => {
+        if (!id) return false;
+        const s = id.toString();
+        return s !== '' && !s.includes('-');
+    };
+
+    if (f.quests) {
+        b.quests = f.quests.map((q: any) => {
+            const item: any = {
+                title: q.title,
+                description: q.description,
+                type: q.type,
+                status: q.status
+            };
+            if (isBackendId(q.id)) {
+                item['@id'] = `/api/quests/${q.id}`;
+            }
+            return item;
+        });
+    }
+
+    if (f.clues) {
+        b.clues = f.clues.map((c: any) => {
+            const item: any = {
+                content: c.content,
+                foundAt: c.found_at ? new Date(c.found_at).toISOString() : null,
+                status: c.status
+            };
+            if (isBackendId(c.id)) {
+                item['@id'] = `/api/clues/${c.id}`;
+            }
+            return item;
+        });
+    }
+
+    if (f.sessions) {
+        b.sessions = f.sessions.map((s: any) => {
+            const item: any = {
+                title: s.title,
+                date: s.date ? new Date(s.date).toISOString() : new Date().toISOString(),
+                duration: s.duration,
+                level: s.level,
+                summary: s.summary
+            };
+            if (isBackendId(s.id)) {
+                item['@id'] = `/api/sessions/${s.id}`;
+            }
+            return item;
+        });
+    }
+
+    if (f.characters) {
+        b.characters = f.characters.map((c: any) => {
+            const item: any = {
+                name: c.name,
+                level: c.level,
+                data: c.data
+            };
+            if (isBackendId(c.id)) {
+                item['@id'] = `/api/characters/${c.id}`;
+            }
+            return item;
+        });
+    }
+
+    return b;
 };

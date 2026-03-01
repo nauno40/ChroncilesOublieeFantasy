@@ -93,13 +93,9 @@ export const CapaciteDetail: React.FC = () => {
                                             Limité
                                         </Badge>
                                     )}
-                                    {capacite.active ? (
+                                    {capacite.active && (
                                         <Badge variant="warning" size="lg">
                                             Actif
-                                        </Badge>
-                                    ) : (
-                                        <Badge variant="secondary" size="lg">
-                                            Passif
                                         </Badge>
                                     )}
                                 </>

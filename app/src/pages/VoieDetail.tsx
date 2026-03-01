@@ -124,13 +124,9 @@ export const VoieDetail: React.FC = () => {
                                                                 Sort
                                                             </span>
                                                         )}
-                                                        {capacity.active ? (
+                                                        {capacity.active && (
                                                             <span className="px-2 py-0.5 text-[10px] uppercase font-bold tracking-wider bg-amber-900/20 text-amber-400 rounded border border-amber-500/20">
                                                                 Actif
-                                                            </span>
-                                                        ) : (
-                                                            <span className="px-2 py-0.5 text-[10px] uppercase font-bold tracking-wider bg-stone-800 text-stone-400 rounded border border-white/5">
-                                                                Passif
                                                             </span>
                                                         )}
                                                     </div>

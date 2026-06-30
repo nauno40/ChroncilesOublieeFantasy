@@ -40,3 +40,24 @@ export const computeModifiers = (stats: Stats): Stats => ({
 });
 
 export const computeMaxHp = (baseHp: number, conMod: number): number => baseHp * 2 + conMod;
+
+export const computeRecoveryDie = (profileName: string | undefined, conMod: number): string => {
+  if (!profileName) return '—';
+  const family = PROFILE_FAMILIES[profileName];
+  if (!family) return '—';
+  let qty = family.base + conMod;
+  if (qty < 0) qty = 0;
+  return `${qty} ${family.die}`;
+};
+
+export const computeLuckPoints = (
+  profileName: string | undefined,
+  chaMod: number,
+  racialVoie?: { name?: string; ranks?: boolean[] },
+): number => {
+  let pc = 2 + chaMod;
+  if (pc < 1) pc = 0;
+  if (profileName && PROFILE_FAMILIES[profileName]?.id === 'aventuriers') pc += 1;
+  if (racialVoie && racialVoie.name === "Voie de l'humain" && racialVoie.ranks?.[0]) pc += 1;
+  return pc;
+};

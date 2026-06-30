@@ -50,7 +50,8 @@ Suite à l'analyse approfondie du code source frontend et backend (juin 2026), v
 - **Limite** : Pas de temps réel — fonctionne uniquement sur l'écran du MJ
 
 ### Tests
-- **Aucun test écrit** (Playwright configuré, PHPUnit configuré, mais zéro fichier de test). Les correctifs de sécurité récents ont été validés manuellement, pas encore couverts automatiquement.
+- **Backend** : suite fonctionnelle PHPUnit couvrant les règles de sécurité (User / Campaign / Character / compendium public) dans `backend/tests/Api/` — 23 tests. Le reste du backend n'est pas encore couvert.
+- **Frontend** : Playwright configuré mais aucun test écrit.
 
 ## 3. Roadmap suggérée 🚀
 
@@ -76,7 +77,8 @@ Suite à l'analyse approfondie du code source frontend et backend (juin 2026), v
 - [ ] **Refactoring CharacterSheet** : Diviser le fichier de 2109 lignes en composants plus petits
 - [x] **Clefs JWT** : présentes dans `config/jwt/` (regénérables via `lexik:jwt:generate-keypair`)
 - [x] **Sécurisation fine de l'API** : User, Campaign et Character restreints par utilisateur / rôle
-- [ ] **Tests automatisés** : couvrir notamment les règles de sécurité (actuellement vérifiées manuellement)
+- [x] **Tests automatisés des règles de sécurité** : suite PHPUnit dans `backend/tests/Api/`
+- [ ] **Étendre la couverture de tests** : reste du backend + tests E2E frontend (Playwright)
 
 ---
 *Ce document propose un état des lieux orienté fonctionnalités et produit pour l'application Chroniques Oubliées Fantasy.*

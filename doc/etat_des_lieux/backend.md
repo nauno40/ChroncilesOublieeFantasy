@@ -132,7 +132,7 @@ src/
 ## 9. Points d'attention
 
 - **Sécurité des entités utilisateur** : User, Campaign et Character sont désormais protégés (par propriétaire / rôle) ; les entités du compendium restent volontairement publiques en lecture
-- **Tests** : Seulement `bootstrap.php` (aucun test écrit) — les correctifs de sécurité ont été vérifiés manuellement via curl, pas encore couverts par des tests automatisés
+- **Tests** : suite fonctionnelle des règles de sécurité dans `tests/Api/` (23 tests, basée sur `ApiTestCase`). Lancement : `php bin/phpunit tests/Api` (DB de test à créer une fois via `php bin/console doctrine:database:create --env=test`). Le reste de l'application n'est pas encore couvert.
 - **Messenger** : Transport Doctrine configuré (async + failed), routage pour SendEmailMessage, ChatMessage, SmsMessage
 - **Pas de Services/EventSubscriber/Voter** dédiés pour le moment
 

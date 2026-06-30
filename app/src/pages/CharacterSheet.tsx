@@ -10,7 +10,10 @@ import { CharacterToolbar } from '../components/character/CharacterToolbar';
 import { AttributesPanel } from '../components/character/AttributesPanel';
 import { MainStatsPanel } from '../components/character/MainStatsPanel';
 import { IdentityBlock } from '../components/character/IdentityBlock';
-import { getMaxArmorDef } from '../utils/cofRules';
+import { RoleplaySection } from '../components/character/RoleplaySection';
+import { ProtectionSection } from '../components/character/ProtectionSection';
+import { WeaponsSection } from '../components/character/WeaponsSection';
+import { InventorySection } from '../components/character/InventorySection';
 
 export const CharacterSheet: React.FC = () => {
     const { id } = useParams<{ id: string }>();
@@ -107,216 +110,22 @@ export const CharacterSheet: React.FC = () => {
 
 
                     {/* Roleplay Section */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="glass-panel p-6 rounded-2xl border-white/5 bg-stone-900/10 space-y-3">
-                            <label className="text-xs uppercase font-black text-primary-500/60 tracking-[0.2em] ml-1">Idéal Héroïque</label>
-                            <textarea
-                                className="w-full bg-stone-950/40 border border-stone-800/50 rounded-xl p-4 text-stone-300 focus:border-primary-500/30 focus:bg-stone-900/40 outline-none h-32 resize-none transition-all font-body leading-relaxed placeholder:text-stone-800"
-                                placeholder="Ce qui anime votre héros..."
-                                value={character.data?.rp?.ideal || ''}
-                                onChange={e => setCharacter({ ...character, data: { ...character.data!, rp: { ...character.data!.rp!, ideal: e.target.value } } })}
-                            />
-                        </div>
-                        <div className="glass-panel p-6 rounded-2xl border-white/5 bg-stone-900/10 space-y-3">
-                            <label className="text-xs uppercase font-black text-red-900/60 tracking-[0.2em] ml-1">Travers / Défaut</label>
-                            <textarea
-                                className="w-full bg-stone-950/40 border border-stone-800/50 rounded-xl p-4 text-stone-300 focus:border-red-900/30 focus:bg-stone-900/40 outline-none h-32 resize-none transition-all font-body leading-relaxed placeholder:text-stone-800"
-                                placeholder="Les ombres de votre passé..."
-                                value={character.data?.rp?.flaw || ''}
-                                onChange={e => setCharacter({ ...character, data: { ...character.data!, rp: { ...character.data!.rp!, flaw: e.target.value } } })}
-                            />
-                        </div>
-                    </div>
+                    <RoleplaySection character={character} setCharacter={setCharacter} />
 
 
                     {/* Protection Section */}
-                    <div className="glass-panel p-6 rounded-2xl border-white/5 bg-stone-900/10 space-y-5">
-                        <div className="flex justify-between items-center border-b border-primary-500/10 pb-3">
-                            <h3 className="text-stone-400 font-display font-bold uppercase text-xs tracking-[0.2em] flex items-center gap-2">
-                                <div className="w-1.5 h-1.5 bg-stone-500 rounded-full" />
-                                Équipement & Inventaire
-                            </h3>
-                            <div className="flex items-center gap-2 bg-stone-900/50 px-3 py-1 rounded-full border border-yellow-500/20">
-                                <span className="text-[10px] uppercase font-bold text-yellow-500/60 tracking-wider">Argent</span>
-                                <span className="text-sm font-mono font-bold text-yellow-500">{character.data?.money?.pa || 0} pa</span>
-                            </div>
-                        </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label className="text-[10px] uppercase font-bold text-stone-500 tracking-wider block mb-1">Armure</label>
-                                <select
-                                    className="w-full bg-stone-950/30 border border-stone-800 rounded-lg px-3 py-2 text-stone-300 outline-none focus:border-primary-500/50"
-                                    value={character.data?.protection?.armor?.name || ''}
-                                    onChange={e => {
-                                        const val = e.target.value;
-                                        const found = allArmors.find(a => a.name === val);
-                                        setCharacter(prev => ({
-                                            ...prev,
-                                            data: {
-                                                ...prev.data!,
-                                                protection: {
-                                                    ...prev.data!.protection!,
-                                                    armor: { name: val, def: found ? (parseInt(found.value) || 0) : 0 }
-                                                }
-                                            }
-                                        }));
-                                    }}
-                                >
-                                    <option value="">Aucune</option>
-                                    {allArmors.filter(a => {
-                                        if (a.type.includes('Bouclier')) return false;
-
-                                        const pId = (character.profile as any)?.['@id'] || (typeof character.profile === 'string' ? character.profile : '');
-                                        const profile = profiles.find(p => p['@id'] === pId || p.id === pId || p.name === pId || p['@id']?.includes(pId) || pId?.includes(p['@id'] || ''));
-                                        const profileName = profile?.name || '';
-                                        const maxDef = getMaxArmorDef(profileName);
-
-                                        const armorDef = a.defense || 0;
-                                        return armorDef <= maxDef;
-                                    }).map((a: any) => (
-                                        <option key={a.id} value={a.name}>{a.name} (+{a.value || a.defense || 0})</option>
-                                    ))}
-                                </select>
-                            </div>
-                            <div>
-                                <label className="text-[10px] uppercase font-bold text-stone-500 tracking-wider block mb-1">Bouclier</label>
-                                <select
-                                    className="w-full bg-stone-950/30 border border-stone-800 rounded-lg px-3 py-2 text-stone-300 outline-none focus:border-primary-500/50"
-                                    value={character.data?.protection?.shield?.name || ''}
-                                    onChange={e => {
-                                        const val = e.target.value;
-                                        const found = allArmors.find(a => a.name === val);
-                                        setCharacter(prev => ({
-                                            ...prev,
-                                            data: {
-                                                ...prev.data!,
-                                                protection: {
-                                                    ...prev.data!.protection!,
-                                                    shield: { name: val, def: found ? (parseInt(found.value) || 0) : 0 }
-                                                }
-                                            }
-                                        }));
-                                    }}
-                                >
-                                    <option value="">Aucun</option>
-                                    {allArmors.filter(a => a.type.includes('Bouclier')).map((a: any) => (
-                                        <option key={a.id} value={a.name}>{a.name} (+{a.value})</option>
-                                    ))}
-                                </select>
-                            </div>
-                        </div>
-                    </div>
+                    <ProtectionSection
+                        character={character}
+                        setCharacter={setCharacter}
+                        allArmors={allArmors}
+                        profiles={profiles}
+                    />
 
                     {/* Weapons Section */}
-                    <div className="glass-panel p-6 rounded-2xl border-white/5 bg-stone-900/10 space-y-5">
-                        <h3 className="text-primary-400 font-display font-bold uppercase text-xs tracking-[0.2em] border-b border-primary-500/10 pb-3 flex items-center gap-2">
-                            <div className="w-1.5 h-1.5 bg-primary-500 rounded-full animate-pulse" />
-                            Armes & Attaques
-                        </h3>
-
-                        <div className="space-y-3">
-                            {/* Header */}
-                            <div className="grid grid-cols-12 gap-4 text-[9px] uppercase font-black text-stone-500 px-3 tracking-widest">
-                                <div className="col-span-4">Arme / Instrument</div>
-                                <div className="col-span-2 text-center">Mod.</div>
-                                <div className="col-span-2 text-center">Dégâts</div>
-                                <div className="col-span-4 pl-2">Propriétés</div>
-                            </div>
-
-                            {/* Rows */}
-                            {(character.data?.attack?.weapons || []).concat([{ name: '', atkMod: 0, dmg: '', special: '' }, { name: '', atkMod: 0, dmg: '', special: '' }]).slice(0, 4).map((weapon, idx) => (
-                                <div key={idx} className="grid grid-cols-12 gap-4 items-center bg-stone-950/40 p-3 rounded-xl border border-white/5 hover:border-primary-500/20 hover:bg-stone-900/40 transition-all group">
-                                    <div className="col-span-4 relative">
-                                        <input // Keep input for manual entry or search
-                                            list={`weapons-list-${idx}`}
-                                            type="text"
-                                            className="w-full bg-stone-900/50 border border-stone-800 rounded px-2 py-1 text-sm font-bold text-white outline-none focus:border-primary-500/50 placeholder:text-stone-700"
-                                            placeholder="Nom de l'arme..."
-                                            value={weapon.name}
-                                            onChange={(e) => {
-                                                const val = e.target.value;
-                                                const newWeapons = [...(character.data?.attack?.weapons || [])];
-                                                if (!newWeapons[idx]) newWeapons[idx] = { name: '', atkMod: 0, dmg: '', special: '' };
-                                                newWeapons[idx].name = val;
-
-                                                // Auto-fill if match found
-                                                const found = allWeapons.find(w => w.name === val);
-                                                if (found) {
-                                                    newWeapons[idx].dmg = found.damage;
-                                                    newWeapons[idx].special = `${found.range ? `Portée ${found.range}, ` : ''}${found.critical ? `Crit ${found.critical}` : ''}`;
-                                                }
-
-                                                setCharacter(prev => ({ ...prev, data: { ...prev.data!, attack: { ...prev.data!.attack!, weapons: newWeapons } } }));
-                                            }}
-                                        />
-                                        <datalist id={`weapons-list-${idx}`}>
-                                            {allWeapons.map((w: any) => (
-                                                <option key={w.id} value={w.name}>{w.type} - {w.damage}</option>
-                                            ))}
-                                        </datalist>
-                                    </div>
-                                    <div className="col-span-2 flex items-center justify-center">
-                                        <div className="flex items-center bg-stone-900 border border-stone-800 rounded px-2 py-1 shadow-inner">
-                                            <span className="text-stone-600 font-bold text-xs mr-1">+</span>
-                                            <input
-                                                type="number"
-                                                className="w-8 bg-transparent text-center font-mono font-bold text-primary-400 outline-none"
-                                                value={weapon.atkMod || 0}
-                                                onChange={(e) => {
-                                                    const newWeapons = [...(character.data?.attack?.weapons || [])];
-                                                    if (!newWeapons[idx]) newWeapons[idx] = { name: '', atkMod: 0, dmg: '', special: '' };
-                                                    newWeapons[idx].atkMod = parseInt(e.target.value);
-                                                    setCharacter(prev => ({ ...prev, data: { ...prev.data!, attack: { ...prev.data!.attack!, weapons: newWeapons } } }));
-                                                }}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="col-span-2">
-                                        <input
-                                            type="text"
-                                            className="w-full bg-transparent text-center border-none outline-none text-stone-300 font-mono placeholder:text-stone-800"
-                                            placeholder="1d8"
-                                            value={weapon.dmg}
-                                            onChange={(e) => {
-                                                const newWeapons = [...(character.data?.attack?.weapons || [])];
-                                                if (!newWeapons[idx]) newWeapons[idx] = { name: '', atkMod: 0, dmg: '', special: '' };
-                                                newWeapons[idx].dmg = e.target.value;
-                                                setCharacter(prev => ({ ...prev, data: { ...prev.data!, attack: { ...prev.data!.attack!, weapons: newWeapons } } }));
-                                            }}
-                                        />
-                                    </div>
-                                    <div className="col-span-4">
-                                        <input
-                                            type="text"
-                                            className="w-full bg-transparent border-none outline-none text-[11px] text-stone-500 italic placeholder:text-stone-800"
-                                            placeholder="Critique, portée..."
-                                            value={weapon.special}
-                                            onChange={(e) => {
-                                                const newWeapons = [...(character.data?.attack?.weapons || [])];
-                                                if (!newWeapons[idx]) newWeapons[idx] = { name: '', atkMod: 0, dmg: '', special: '' };
-                                                newWeapons[idx].special = e.target.value;
-                                                setCharacter(prev => ({ ...prev, data: { ...prev.data!, attack: { ...prev.data!.attack!, weapons: newWeapons } } }));
-                                            }}
-                                        />
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
+                    <WeaponsSection character={character} setCharacter={setCharacter} allWeapons={allWeapons} />
 
                     {/* Equipment Section */}
-                    <div className="glass-panel p-6 rounded-2xl border-white/5 bg-stone-900/10 space-y-4">
-                        <h3 className="text-stone-400 font-display font-bold uppercase text-[10px] tracking-[0.2em] border-b border-white/5 pb-2">Inventaire & Sac à Dos</h3>
-                        <textarea
-                            className="w-full bg-stone-950/30 border border-stone-800/50 rounded-xl p-5 text-stone-400 min-h-[180px] outline-none focus:border-primary-500/20 focus:bg-stone-900/30 transition-all resize-y font-body text-sm leading-relaxed placeholder:text-stone-800"
-                            placeholder="Vos richesses et vos fardeaux..."
-                            value={character.data?.equipment?.join('\n') || ''}
-                            onChange={(e) => {
-                                const lines = e.target.value.split('\n');
-                                setCharacter(prev => ({ ...prev, data: { ...prev.data!, equipment: lines } }));
-                            }}
-                        />
-                    </div>
+                    <InventorySection character={character} setCharacter={setCharacter} />
 
                     {/* Voies Section (Page 2 style) */}
                     <div className="space-y-6 pt-8 border-t border-white/10 overflow-visible">

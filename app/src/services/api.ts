@@ -1,5 +1,44 @@
 const API_BASE_URL = (import.meta.env.VITE_API_URL || 'http://localhost:8000/api').replace(/\/$/, '');
 
+const TOKEN_KEY = 'co_auth_token';
+const USER_KEY = 'co_auth_user';
+
+// Build request headers, only attaching the Authorization header when a token is
+// actually stored. Sending a stale/empty token to the public compendium routes
+// makes the JWT authenticator reject the request with 401 (see handleUnauthorized).
+const buildHeaders = (extra: Record<string, string> = {}): Record<string, string> => {
+    const token = localStorage.getItem(TOKEN_KEY);
+    return {
+        'Accept': 'application/ld+json',
+        ...extra,
+        ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
+    };
+};
+
+// A 401 means the stored JWT is missing/expired/invalid (e.g. the backend JWT
+// keypair was regenerated). Because ApiService attaches the token to every
+// request — including the otherwise-public compendium endpoints — a stale token
+// would silently break the whole app. So we purge it and bounce to /login, which
+// lets a stale token self-heal. We touch localStorage directly rather than
+// importing AuthService to avoid a circular dependency.
+const handleUnauthorized = () => {
+    const hadToken = !!localStorage.getItem(TOKEN_KEY);
+    localStorage.removeItem(TOKEN_KEY);
+    localStorage.removeItem(USER_KEY);
+    if (hadToken && typeof window !== 'undefined' && window.location.pathname !== '/login') {
+        window.location.href = '/login';
+    }
+};
+
+const ensureOk = (response: Response) => {
+    if (response.status === 401) {
+        handleUnauthorized();
+    }
+    if (!response.ok) {
+        throw new Error(`API Error: ${response.statusText}`);
+    }
+};
+
 export const ApiService = {
     async get<T>(resource: string): Promise<T> {
         let url = resource;
@@ -22,14 +61,9 @@ export const ApiService = {
         }
 
         const response = await fetch(url, {
-            headers: {
-                'Accept': 'application/ld+json',
-                'Authorization': localStorage.getItem('co_auth_token') ? `Bearer ${localStorage.getItem('co_auth_token')}` : ''
-            }
+            headers: buildHeaders()
         });
-        if (!response.ok) {
-            throw new Error(`API Error: ${response.statusText}`);
-        }
+        ensureOk(response);
         return response.json();
     },
 
@@ -92,16 +126,10 @@ export const ApiService = {
         const url = `${API_BASE_URL}/${resource}`.replace(/([^:]\/)\/+/g, "$1");
         const response = await fetch(url, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/ld+json',
-                'Authorization': localStorage.getItem('co_auth_token') ? `Bearer ${localStorage.getItem('co_auth_token')}` : ''
-            },
+            headers: buildHeaders({ 'Content-Type': 'application/json' }),
             body: JSON.stringify(data)
         });
-        if (!response.ok) {
-            throw new Error(`API Error: ${response.statusText}`);
-        }
+        ensureOk(response);
         return response.json();
     },
 
@@ -109,16 +137,10 @@ export const ApiService = {
         const url = `${API_BASE_URL}/${resource}/${id}`.replace(/([^:]\/)\/+/g, "$1");
         const response = await fetch(url, {
             method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/ld+json',
-                'Authorization': localStorage.getItem('co_auth_token') ? `Bearer ${localStorage.getItem('co_auth_token')}` : ''
-            },
+            headers: buildHeaders({ 'Content-Type': 'application/json' }),
             body: JSON.stringify(data)
         });
-        if (!response.ok) {
-            throw new Error(`API Error: ${response.statusText}`);
-        }
+        ensureOk(response);
         return response.json();
     },
 
@@ -126,13 +148,8 @@ export const ApiService = {
         const url = `${API_BASE_URL}/${resource}/${id}`.replace(/([^:]\/)\/+/g, "$1");
         const response = await fetch(url, {
             method: 'DELETE',
-            headers: {
-                'Accept': 'application/ld+json',
-                'Authorization': localStorage.getItem('co_auth_token') ? `Bearer ${localStorage.getItem('co_auth_token')}` : ''
-            }
+            headers: buildHeaders()
         });
-        if (!response.ok) {
-            throw new Error(`API Error: ${response.statusText}`);
-        }
+        ensureOk(response);
     }
 };

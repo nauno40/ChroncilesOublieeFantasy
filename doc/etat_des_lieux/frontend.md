@@ -1,48 +1,184 @@
 # État des lieux : Frontend (Application Web)
 
-Le répertoire `./app` héberge une application moderne et réactive servant de "Compagnon Joueur et Meneur de Jeu".
+Le répertoire `./app` héberge une application monopage (SPA) moderne et réactive servant de "Compagnon Joueur et Meneur de Jeu".
 
 ## 1. Stack Technique
 
-- **Moteur de Build** : Vite.js 7.2 (très rapide, HMR intégré).
-- **Framework UI** : React 19 (la toute dernière version) avec TypeScript (`~5.9`).
-- **Styling** : Tailwind CSS 4 (`@tailwindcss/postcss`). Il inclut `tailwindcss-animate` et `tailwind-merge` (stack classique pour les composants type *shadcn/ui*).
-- **Composants d'interface** : Utilisation de `lucide-react` pour les icônes vectorielles et `react-rnd` potentiellement pour des fenêtres redimensionnables/draggables (très utile pour des Trackers de combat ou fenêtres de jets de dés).
-- **Routing** : React Router DOM 7.
-- **Tests** : Configuration `@playwright/test` pour les tests E2E potentiels, plus `eslint` v9 en version "flat config" (`eslint.config.js`).
+| Technologie | Version | Usage |
+|---|---|---|
+| **React** | ^19.2.0 | Framework UI |
+| **TypeScript** | ~5.9.3 | Langage |
+| **Vite** | ^7.2.4 | Bundler / dev server |
+| **Tailwind CSS** | ^4.1.17 | Styling (via `@tailwindcss/postcss`) |
+| **React Router DOM** | ^7.10.1 | Routing SPA |
+| **Lucide React** | ^0.556.0 | Icônes vectorielles |
+| **react-rnd** | ^10.5.2 | Fenêtres redimensionnables/déplaçables |
+| **clsx** | ^2.1.1 | Classes CSS conditionnelles |
+| **tailwind-merge** | ^3.4.0 | Fusion intelligente de classes Tailwind |
+| **tailwindcss-animate** | ^1.0.7 | Animations |
+| **ESLint** | v9 (flat config) | Linting |
+| **Playwright** | ^1.58.2 | Tests E2E (configuré) |
 
-## 2. Structure et Pages
+## 2. Architecture des Dossiers
 
-L'interface de l'application est extrêmement riche et propose des vues distinctes que l'on retrouve dans `src/pages/` :
+```
+src/
+├── components/
+│   ├── auth/
+│   │   └── ProtectedRoute.tsx    # Garde de route (redirection si non-auth)
+│   ├── common/                   # 17 composants partagés
+│   ├── layout/
+│   │   ├── Layout.tsx            # Layout principal (sidebar + mobile nav)
+│   │   └── NavItem.tsx           # Élément de navigation (sous-menus)
+│   └── EquipmentChoiceModal.tsx  # Modal de choix d'équipement
+├── context/
+│   └── AuthContext.tsx           # Contexte d'authentification React
+├── constants/
+│   └── rules.ts                  # Index des règles (47 entrées)
+├── data/
+│   └── capabilityModifiers.ts    # Modificateurs de capacités (Init/DEF)
+├── hooks/
+│   ├── useSearch.ts              # Hook de filtrage générique
+│   └── useToggle.ts              # Hook toggle booléen
+├── pages/                        # 27 pages (voir section 3)
+├── services/
+│   ├── api.ts                    # Service API REST (CRUD générique)
+│   ├── AuthService.ts            # Auth JWT (login/register/logout)
+│   ├── dataService.ts            # Couche d'accès centralisée aux données
+│   └── utils/campaignService.ts  # Service campagnes (mapping API)
+├── types/
+│   ├── normalized.ts             # Types normalisés (279 lignes)
+│   ├── character.ts              # Types pour la fiche personnage
+│   └── campaign.ts               # Types pour les campagnes
+├── App.tsx                       # Routes + AuthProvider
+├── index.css                     # Thème Tailwind v4 + styles globaux
+└── main.tsx                      # Point d'entrée React
+```
 
-- **Meneur de Jeu (MJ) / Outils avancés** :
-  - `Campaign.tsx` & `CampaignDetail.tsx` : Gestion globale d'une campagne.
-  - `CombatTracker.tsx` : Outil de suivi de l'initiative, des tours et points de vie très prisé sur les VTT (Virtual TableTops).
-  - `Bestiary.tsx` & `CreatureDetail.tsx` : Interface pour consulter tous les monstres, intégrée au Tracker.
-  - `SoundboardPage.tsx` : Une page pour envoyer des effets sonores/musique à la table.
+## 3. Routes et Pages (27 pages)
 
-- **Joueurs / Personnages** :
-  - `CharacterSheet.tsx` : Fiche de personnage interactive (très lourd fichier de 135ko, central à l'application).
-  - `CharacterList.tsx` : Liste des personnages du joueur.
+### Pages publiques (sans authentification)
 
-- **Encyclopédie Règles / Compendium** :
-  - `Classes.tsx` & `ClassDetail.tsx` (ou Profils)
-  - `Races.tsx` & `RaceDetail.tsx`
-  - `Voies.tsx` & `VoieDetail.tsx` & `Capacites.tsx`
-  - `Equipment.tsx`, `Mounts.tsx`, `Provisions.tsx` (Boutique et Inventaire)
-  - `States.tsx` (États préjudiciables)
-  - `Rules/` (Dossier contenant les textes du livre de règles).
+| Route | Page | Description |
+|---|---|---|
+| `/` | `LandingPage` | Page d'accueil publique (hero, features, stats, CTA) |
+| `/login` | `LoginPage` | Connexion (email/password) |
+| `/register` | `RegisterPage` | Inscription (auto-login après) |
 
-- **Outils transverses** :
-  - `Dice.tsx` : Probablement un lanceur de dés 3D ou 2D accessible rapidement.
-  - `Tools.tsx` : Outils annexes divers.
+### Pages protégées (authentification requise)
 
-## 3. Communication avec l'API
+#### Dashboard & Personnages
+| Route | Page | Description |
+|---|---|---|
+| `/dashboard` | `Home` | Tableau de bord (stats, dernières campagnes, quick actions) |
+| `/characters` | `CharacterList` | Liste des personnages du joueur |
+| `/characters/new` | `CharacterSheet` | Création de personnage |
+| `/characters/:id` | `CharacterSheet` | Édition de personnage (2109 lignes) |
 
-L'application communique probablement via le dossier `src/services/` ou des hooks customs (`src/hooks/`) vers le backend Symfony `http://localhost:8000/api` de manière dynamique. Des fichiers de données en dur pourraient aussi être chargés via `src/data/` pour un usage offline partiel (particulièrement utile pour consulter les règles sans nécessiter d'API).
+#### Encyclopédie / Compendium
+| Route | Page | Description |
+|---|---|---|
+| `/bestiary` | `Bestiary` | Bestiaire (grille, filtres : famille, catégorie, environnement, taille, NC) |
+| `/bestiary/:id` | `CreatureDetail` | Détail d'une créature |
+| `/races` | `Races` | Liste des races |
+| `/races/:id` | `RaceDetail` | Détail d'une race (lore, stats, voies, capacités) |
+| `/classes` | `Classes` | Liste des classes/profils |
+| `/classes/:id` | `ClassDetail` | Détail d'une classe (573 lignes) |
+| `/voies` | `Voies` | Liste des voies |
+| `/voies/:id` | `VoieDetail` | Détail d'une voie |
+| `/capacites` | `Capacites` | Liste des capacités |
+| `/capacites/:id` | `CapaciteDetail` | Détail d'une capacité |
+| `/equipment` | `Equipment` | Équipement (onglets Armes/Armures/Matériel) |
+| `/mounts` | `Mounts` | Montures |
+| `/provisions` | `Provisions` | Provisions (onglets Nourriture/Logement) |
+| `/states` | `States` | États préjudiciables |
+| `/rules` | `Rules` | Règles (sidebar + 10 sections : Intro, Bases, Combat, Magie, etc.) |
 
-> [!NOTE] 
-> La complexité de `CharacterSheet.tsx` et l'utilisation de `react-rnd` indiquent qu'il ne s'agit pas d'un simple CRUD, mais d'un outil extrêmement complet visant à remplaçer le papier durant une partie (lancés de dés cliquables, suivi des PV en direct, fenêtres volantes, etc.).
+#### Outils MJ (Virtual Table)
+| Route | Page | Description |
+|---|---|---|
+| `/tools` | `Tools` | Index des outils MJ |
+| `/tools/tracker` | `CombatTracker` | Tracker d'initiative (tours, rounds, PV) |
+| `/tools/soundboard` | `SoundboardPage` | Pistes audio personnalisables |
+| `/tools/dice` | `Dice` | Lanceur de dés (mode plein écran) |
+| `/campaign` | `Campaign` | Liste des campagnes (CRUD) |
+| `/campaign/:id` | `CampaignDetail` | Détail campagne (quêtes, indices, sessions, notes) |
+
+## 4. Composants Communs (17)
+
+| Composant | Fonctionnalité |
+|---|---|
+| **Badge** | Badge avec variants (primary/secondary/success/warning/danger/outline) et tailles (sm/md/lg) |
+| **Card** | Carte cliquable/lien avec image, hover effects, fallback SVG |
+| **DiceRoller** | Lanceur de dés avec historique, formules XdY+Z, critique (20/1), popup/inline |
+| **DraggableWindow** | Fenêtre déplaçable/redimensionnable (react-rnd), persistance localStorage |
+| **DynamicDetailsRenderer** | Rendu de données JSON structurées (statistiques, mécaniques, options) |
+| **EmptyState** | État vide avec icône, titre, message, action |
+| **FilterPanel** | Panneau de filtres repliable avec compteur |
+| **GlobalNotes** | Éditeur de notes persistantes (localStorage), auto-save différé |
+| **GlobalSearch** | Recherche globale (Cmd+K) : créatures, capacités, profils, races, voies, règles, états, équipement |
+| **ItemTable** | Tableau nom/prix |
+| **PageContainer** | Conteneur max-w-6xl centré |
+| **PageHeader** | Titre + icône + sous-titre + recherche + actions |
+| **SearchBar** | Barre de recherche avec icône loupe |
+| **Soundboard** | Pistes audio personnalisables (YouTube/URL), localStorage |
+| **TabGroup** | Onglets avec rendu conditionnel |
+| **Tooltip** | Infobulle au survol (portal React, themes primary/amber) |
+| **EquipmentChoiceModal** | Modal de choix d'équipement de départ |
+
+## 5. Services
+
+- **`api.ts`** : Service REST générique (get/getAll/getOne/post/put/delete), support pagination API Platform (`hydra:member`), headers JWT
+- **`AuthService.ts`** : Login (POST `/login_check`), Register (POST `/users`), logout, gestion token JWT dans localStorage
+- **`dataService.ts`** : Couche d'accès centralisée (`getWeapons`, `getArmors`, `getCreatures`, `getRaces`, `getProfiles`, `getVoies`, `getCapabilities`, `getStates`, etc.)
+- **`campaignService.ts`** : Mapping bidirectionnel frontend/backend pour les campagnes
+
+## 6. State Management
+
+L'application n'utilise **pas** Redux ou Zustand. La gestion d'état repose sur :
+
+- **React Context** : `AuthContext` pour l'authentification (utilisateur, token, login/logout)
+- **localStorage** : Token JWT (`co_auth_token`), utilisateur (`co_auth_user`), notes (`co_global_notes`), pistes audio (`co_soundboard_tracks`), positions fenêtres (`window_state_*`)
+- **Hooks locaux** : `useState`, `useEffect`, `useMemo`, `useRef`, `useCallback` dans chaque page
+- **Hooks customs** : `useSearch<T>` (filtrage), `useToggle` (toggle booléen)
+
+## 7. Styling et Thème
+
+- **Tailwind CSS v4** : Configuration via `@theme` dans `index.css` (pas de fichier `tailwind.config.js`)
+- **Couleur primaire** : Ambre/or (hsl(35, 90%, ...)) du 50 au 900
+- **Polices** : Cinzel (serif, titres) + Inter (sans-serif, corps)
+- **Design system** : Glassmorphism (fond semi-transparent, blur, bordures ambre), background image `bg.png`
+- **Animations** : `float`, `pulse-glow`, `fade-in`
+
+## 8. Authentification
+
+- **Contexte** : `AuthContext` avec `AuthProvider` englobant l'application
+- **Stockage** : `localStorage` (token + utilisateur)
+- **Guard** : `ProtectedRoute` redirige vers `/login` si non authentifié
+- **Auto-redirect** : `LandingPage` → `/dashboard` si déjà authentifié
+- **Backend** : LexikJWTAuthenticationBundle (Symfony)
+
+## 9. Fiche Personnage (CharacterSheet.tsx — 2109 lignes)
+
+Le fichier le plus massif de l'application. Fonctionnalités clés :
+
+- Création et édition complète de personnage
+- Calcul automatique des modificateurs de caractéristiques
+- Sélection race/profil avec familles
+- Gestion des voies (raciale, profil, prestige)
+- Points de vie, mana, chance, récupération
+- Attaque (contact, distance, magique), défense, initiative
+- Protection (armure, bouclier) avec limites par profil
+- Modificateurs de capacités (depuis `capabilityModifiers.ts`)
+- Modal de choix d'équipement de départ
+- Persistance via API
+
+## 10. Points d'attention
+
+- **Tests** : Playwright configuré mais aucun fichier de test écrit
+- **Fiche personnage massive** : `CharacterSheet.tsx` (2109 lignes) — candidat idéal pour un refactoring
+- **Campagne** : `campaignService.ts` est désormais branché sur l'API backend (`ApiService`, persistance en base) avec mapping bidirectionnel frontend/backend — plus de `localStorage`
+- **TypeScript** : Mode strict, `verbatimModuleSyntax`, `erasableSyntaxOnly`
 
 ---
-*Ce document fait partie de l'état des lieux global généré pour le projet Chroniques Oubliées.*
+*Ce document fait partie de l'état des lieux global généré pour le projet Chroniques Oubliées Fantasy.*

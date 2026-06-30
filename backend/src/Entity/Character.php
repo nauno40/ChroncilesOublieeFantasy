@@ -3,7 +3,14 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Delete;
 use App\Repository\CharacterRepository;
+use App\State\CharacterStateProcessor;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -11,6 +18,14 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: CharacterRepository::class)]
 #[ORM\Table(name: '`character`')]
 #[ApiResource(
+    operations: [
+        new GetCollection(security: "is_granted('ROLE_USER')"),
+        new Post(security: "is_granted('ROLE_USER')", processor: CharacterStateProcessor::class),
+        new Get(security: "is_granted('ROLE_USER') and object.getOwner() == user"),
+        new Put(security: "is_granted('ROLE_USER') and object.getOwner() == user", processor: CharacterStateProcessor::class),
+        new Patch(security: "is_granted('ROLE_USER') and object.getOwner() == user", processor: CharacterStateProcessor::class),
+        new Delete(security: "is_granted('ROLE_USER') and object.getOwner() == user"),
+    ],
     normalizationContext: ['groups' => ['character:read']],
     denormalizationContext: ['groups' => ['character:write']]
 )]
@@ -57,7 +72,7 @@ class Character
 
     #[ORM\ManyToOne(inversedBy: 'characters')]
     #[ORM\JoinColumn(nullable: true)] # Nullable for legacy characters
-    #[Groups(['character:read', 'character:write'])]
+    #[Groups(['character:read'])]
     private ?User $owner = null;
 
     public function getId(): ?int

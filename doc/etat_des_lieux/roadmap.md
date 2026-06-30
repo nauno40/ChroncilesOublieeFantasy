@@ -1,63 +1,82 @@
 # Fonctionnalités et Roadmap
 
-Suite à l'analyse approfondie du code source frontend et backend, voici l'état actuel des fonctionnalités de l'application Chroniques Oubliées.
+Suite à l'analyse approfondie du code source frontend et backend (juin 2026), voici l'état actuel des fonctionnalités de l'application Chroniques Oubliées Fantasy.
 
 ## 1. Ce qui est implémenté et qui fonctionne ✅
 
-L'application est déjà très riche visuellement et propose un grand nombre d'outils indispensables pour une partie de jeu de rôle :
+### Encyclopédie / Compendium (Connecté à l'API)
+- **Bestiaire** : Visualisation complète des monstres avec filtrage avancé (famille, catégorie, environnement, taille, NC) et détails de fiche
+- **Profils/Classes & Races** : Listes explicatives complètes avec dés de vie, bonus, voies associées, lore
+- **Voies & Capacités** : Catalogue détaillé avec filtres (rang, profil, voie), rendu dynamique des détails
+- **Équipement** : Armes, armures, matériel, nourriture, logement, montures
+- **Règles** : Module complet avec 10 sections (Introduction, Bases, Combat, Magie, Environnement, Aventure, Objets Magiques, Opposition, Devenir MJ, Conversion COF1→COF2)
 
-- **Encyclopédie / Compendium (Connecté à l'API/JSON)**
-  - **Bestiaire** : Visualisation complète des monstres avec filtrage, pagination et détails de fiches.
-  - **Profils/Classes & Races** : Listes explicatives complètes tirées des règles, avec le détail des Dés de vie, bonus, voies associées.
-  - **Voies & Capacités** : Catalogue détaillé des différentes voies de développement de personnages.
-  - **Équipement** : Listes des armes, armures, provisions et montures.
-  - **Règles** : Accès au texte formaté des règles ORC.
+### Fiche de Personnage
+- Outil extrêmement complet (`CharacterSheet.tsx` — 2109 lignes)
+- Calcul automatisé des modificateurs de caractéristiques
+- Intégration des bonus liés aux capacités (système `CAPABILITY_MODIFIERS`)
+- Lancer de dés intégré directement depuis la fiche
+- Gestion de l'inventaire, équipement, monnaie, protection
+- Sauvegarde en base de données via API
 
-- **Fiche de Personnage (Outil Principal)**
-  - Outil extrêmement complet (`CharacterSheet.tsx`).
-  - Calcul automatisé des modificateurs de caractéristiques.
-  - Intégration des bonus liés aux Capacités (via un système de parsing `CAPABILITY_MODIFIERS`).
-  - Lancer de dés intégré directement depuis la fiche.
-  - Gestion de l'inventaire, de l'équipement équipé, de la monnaie corporelle et des protections.
-  - Sauvegarde en base de données gérée via le `ApiService` vers le backend.
+### Outils de Table (Virtual Table)
+- **Lanceur de dés** (DiceRoller) : formules XdY+Z, historique, détection critique, popup flottant
+- **Panneau de Sons** (Soundboard) : pistes personnalisables (YouTube/URL), persistance localStorage
+- **Fenêtres flottantes** (DraggableWindow) : redimensionnables, déplaçables, position persistée
+- **Notes globales** : éditeur avec auto-save, localStorage
+- **Recherche globale** (Cmd+K) : parcourt créatures, capacités, profils, races, voies, règles, états, équipement
+- **États préjudiciables** : référence rapide avec images
 
-- **Outils de Table (VT - Virtual Table)**
-  - **Lanceur de dés (Dice Roller)** 
-  - **Panneau de Sons (Soundboard)** 
-  - **États préjudiciables** : Référence rapide pour le MJ (Meneur de Jeu).
+### Authentification et Comptes
+- Système JWT complet (login/register)
+- Routes protégées côté frontend (ProtectedRoute)
+- Backend : entité User, password hasher, JWT tokens
+- Compte admin de seed fonctionnel (`admin@example.com` / `admin`, mot de passe réellement hashé)
+- **Sécurité fine de l'API** : User (par rôle / propre compte, inscription publique), Campaign et Character sécurisés par propriétaire ; compendium public en lecture
+
+### Gestion de Campagne
+- **Backend + Frontend connectés à l'API** : quêtes, indices, sessions et notes persistés en base via `campaignService.ts` (mapping bidirectionnel), sécurisés par propriétaire — plus de `localStorage`
+
+### Backend / API
+- API REST complète pour toutes les entités (API Platform + Swagger/ReDoc)
+- CRUD administrateur via EasyAdmin (10 contrôleurs)
+- Modèles de données pour le système de jeu (21 entités)
+- Fixtures complètes (14 profils, 8 races, centaines de créatures et capacités)
 
 ## 2. Ce qui fonctionne partiellement ou avec des limitations ⚠️
 
-Certaines fonctionnalités sont très bien designées côte UI mais manquent de persistance côté serveur (Backend) :
+### Tracker de Combat (`CombatTracker.tsx`)
+- **Fonctionnel** : Initiative, tours, rounds, gestion des PV, ajout de PJ et monstres
+- **Limite** : Pas de temps réel — fonctionne uniquement sur l'écran du MJ
 
-- **Gestion de Campagne** (`CampaignDetail.tsx`) : 
-  - *Fonctionnement complet en local* : L'interface permet de gérer des quêtes, des indices, des sessions (avec notes auto-sauvegardées) et l'ajout de joueurs.
-  - *La limite* : Les données sont pour le moment stockées dans le `localStorage` du navigateur (`campaignService.ts`). Si on change de PC ou de navigateur, on perd la campagne.
-  
-- **Tracker de Combat (Initiative Tracker)** (`CombatTracker.tsx`) :
-  - *Fonctionnement* : Permet au MJ d'ajouter des joueurs et monstres, de générer de l'initiative et de traquer la vie des monstres.
-  - *La limite* : Il n'est pas "live". Il fonctionne juste sur l'écran du MJ. Les joueurs ne voient pas le tracker se mettre à jour sur leur propre écran.
+### Tests
+- **Aucun test écrit** (Playwright configuré, PHPUnit configuré, mais zéro fichier de test). Les correctifs de sécurité récents ont été validés manuellement, pas encore couverts automatiquement.
 
-- **Système d'Authentification** : 
-  - Les fiches de personnages sont sauvegardées via API, mais il semble manquer la notion "d'appartenance" stricte (Login Utilisateur).
+## 3. Roadmap suggérée 🚀
 
-## 3. Ce qu'il faudrait ajouter (Roadmap suggérée) 🚀
-
-Pour transformer l'application d'un *Compagnon local* à une véritable *Virtual TableTop / Hub de jeu communautaire*, voici les prochaines étapes logiques :
-
-### Phase 1 : Persistance et Backend
-- [x] **Modèles Backend pour la Campagne** : Créer les entités Symfony (API Platform) pour `Campaign`, `Quest`, `Clue`, `Session` afin de remplacer le `localStorage` de l'UI actuelle par l'API.
-- [x] **Système de Comptes (Auth)** : Implémenter l'inscription, la connexion (JWT), et lier les entités `Character` et `Campaign` à un `User`.
+### Phase 1 : Persistance et Backend (Terminée)
+- [x] Modèles backend pour la campagne (Campaign, Quest, Clue, Session)
+- [x] Système de comptes (JWT) — inscription, connexion
+- [x] Lier Character et Campaign à un User
 
 ### Phase 2 : Temps Réel (Multi-joueurs)
-- [ ] **Mercure / WebSockets** : Intégrer Symfony Mercure pour avoir du vrai temps réel.
-- [ ] **Tracker de combat synchronisé** : Faire en sorte que quand le MJ passe au tour du joueur X, l'écran du joueur X se mette à clignoter ou affiche un pop-up "C'est à votre tour !".
-- [ ] **Lancers de dés partagés** : Si un joueur clique sur sa fiche pour attaquer avec son Épée, le MJ voit le résultat du dé dans un "Chat de partie" commun.
+- [x] **Persistance des campagnes via l'API** (remplacement du localStorage) — préalable à la collaboration
+- [ ] **Mercure / WebSockets** : Intégrer Symfony Mercure pour le temps réel
+- [ ] **Tracker de combat synchronisé** : Quand le MJ passe au tour d'un joueur, notification sur son écran
+- [ ] **Lancers de dés partagés** : Résultats visibles dans un chat de partie commun
+- [ ] **Campagne collaborative** : partage d'une campagne entre plusieurs joueurs (au-delà du propriétaire)
 
-### Phase 3 : Nouvelles features
-- [ ] **Import/Export PDF** : Pouvoir imprimer la fiche de personnage joliment générée.
-- [ ] **Mapping/Grille de combat basique** : Ajouter un canvas où on peut uploader une image (map) et bouger des pions (tokens) représentant les monstres et les joueurs du Tracker de Combat.
-- [ ] **Créateur de Monstre Custom** : Interface pour créer un monstre n'étant pas dans le Bestiaire SRD et le sauvegarder dans la Campagne.
+### Phase 3 : Nouvelles Features
+- [ ] **Import/Export PDF** : Générer une fiche de personnage imprimable
+- [ ] **Mapping / Grille de combat** : Canvas avec upload d'image (map) et pions déplaçables
+- [ ] **Créateur de monstre custom** : Interface pour créer un monstre hors SRD et le sauvegarder dans la campagne
+- [ ] **Tests automatisés** : Écrire des tests E2E (Playwright) et unitaires (PHPUnit)
+
+### Améliorations techniques
+- [ ] **Refactoring CharacterSheet** : Diviser le fichier de 2109 lignes en composants plus petits
+- [x] **Clefs JWT** : présentes dans `config/jwt/` (regénérables via `lexik:jwt:generate-keypair`)
+- [x] **Sécurisation fine de l'API** : User, Campaign et Character restreints par utilisateur / rôle
+- [ ] **Tests automatisés** : couvrir notamment les règles de sécurité (actuellement vérifiées manuellement)
 
 ---
-*Ce document propose un état des lieux orienté fonctionnalités et produit pour l'application Chroniques Oubliées.*
+*Ce document propose un état des lieux orienté fonctionnalités et produit pour l'application Chroniques Oubliées Fantasy.*

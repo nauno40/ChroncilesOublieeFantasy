@@ -7,6 +7,7 @@ use ApiPlatform\Doctrine\Orm\Extension\QueryItemExtensionInterface;
 use ApiPlatform\Doctrine\Orm\Util\QueryNameGeneratorInterface;
 use ApiPlatform\Metadata\Operation;
 use App\Entity\Campaign;
+use App\Entity\Character;
 use App\Entity\Quest;
 use App\Entity\Clue;
 use App\Entity\Session;
@@ -34,6 +35,7 @@ final readonly class CurrentUserExtension implements QueryCollectionExtensionInt
     {
         if (
             Campaign::class !== $resourceClass &&
+            Character::class !== $resourceClass &&
             Quest::class !== $resourceClass &&
             Clue::class !== $resourceClass &&
             Session::class !== $resourceClass
@@ -48,7 +50,8 @@ final readonly class CurrentUserExtension implements QueryCollectionExtensionInt
 
         $rootAlias = $queryBuilder->getRootAliases()[0];
 
-        if (Campaign::class === $resourceClass) {
+        if (Campaign::class === $resourceClass || Character::class === $resourceClass) {
+            // Owner is a direct relation on these entities
             $queryBuilder->andWhere(sprintf('%s.owner = :current_user', $rootAlias));
             $queryBuilder->setParameter('current_user', $user);
         } else {

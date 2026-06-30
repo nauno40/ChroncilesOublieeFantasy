@@ -1,44 +1,116 @@
 # Architecture Globale et Infrastructure
 
-Cet état des lieux concerne l'application **Chroniques Oubliées**, un outil d'accompagnement numérique (compagnon RPG) pour le jeu de rôle du même nom, basé potentiellement sur les règles sous licence libre (ORC).
+Cet état des lieux concerne l'application **Chroniques Oubliées Fantasy**, un outil d'accompagnement numérique (compagnon RPG) pour le jeu de rôle du même nom, basé sur les règles sous licence libre (ORC).
 
 ## 1. Vue d'ensemble du Projet
 
 L'application est découpée en deux grandes parties totalement séparées :
-- **Backend** : Une API RESTful propulsant la logique serveur et la base de données.
-- **Frontend** : Une application web monopage (SPA) très riche gérant les entités côté client (fiche de personnage, bestiaire, etc.).
+- **Backend** : Une API REST Symfony propulsant la logique serveur et la base de données.
+- **Frontend** : Une application web monopage (SPA) React très riche gérant les entités côté client (fiche de personnage, bestiaire, etc.).
+
+Le tout est orchestré via Docker Compose pour le développement.
 
 ## 2. Déploiement et Infrastructure (Docker)
 
-Le projet repose sur **Docker Compose** pour l'orchestration des conteneurs en développement (et potentiellement en production). Le fichier `docker-compose.yml` définit 4 services clés :
+Le projet repose sur **Docker Compose** pour l'orchestration des conteneurs. Le fichier `docker-compose.yml` définit 4 services clés :
 
-1. **`database` (PostgreSQL 15)** : 
+1. **`database` (PostgreSQL 15 Alpine)** :
    - Image : `postgres:15-alpine`
    - Volume persistant : `db-data`
-   - Expose le port standard 5432.
-2. **`backend` (Symfony / PHP 8.2+)** :
-   - Construit à partir du répertoire `./backend`.
-   - Inclut des volumes pour la synchronisation du code et un dossier `./backend/data`.
-   - Se connecte directement au conteneur `database`.
+   - Port : 5432
+   - Base : `app`, user : `app`, mot de passe : `!ChangeMe!`
+
+2. **`backend` (PHP 8.3 FPM / Symfony)** :
+   - Construit à partir du `backend/Dockerfile` (base `php:8.3-fpm-alpine`)
+   - Extensions PHP : intl, pdo_pgsql, zip, opcache
+   - Volumes : `./backend:/app` (code) + `./backend/data:/app/data` (données de jeu)
+   - Variables : `DATABASE_URL`, `APP_ENV=dev`
+   - Dépend de : `database`
+
 3. **`nginx` (Serveur Web API)** :
    - Image : `nginx:alpine`
-   - Expose le port **8000**.
-   - Sert de proxy inverse (reverse proxy) pour le conteneur `backend` (lit le dossier `public` de Symfony).
-4. **`frontend` (Node/Vite)** :
-   - Construit à partir du répertoire `./app`.
-   - Expose le port **5173** (port par défaut de Vite).
-   - Utilise HMR (Hot Module Replacement) pour le développement (`npm run dev`).
-   - Configure automatiquement l'URL de l'API via la variable d'environnement `VITE_API_URL=http://localhost:8000/api`.
+   - Port : **8000** (point d'accès public pour l'API)
+   - Sert le dossier `public/` de Symfony en proxy inverse vers `backend:9000`
+   - Configuration : `backend/nginx.conf`
 
-> [!NOTE] 
-> Cette architecture micro-services permet un développement fluide où l'API backend et l'interface React peuvent évoluer indépendamment.
+4. **`frontend` (Vite Dev Server)** :
+   - Construit à partir du `app/Dockerfile` (target `build`, base `node:22-alpine`)
+   - Port : **5173** (HMR actif)
+   - Variables : `VITE_API_URL=http://localhost:8000/api`
+   - Dépend de : `backend`
 
-## 3. Données Statiques et Documentation
+> [!NOTE]
+> Le Dockerfile frontend est multi-stage : build avec node:22-alpine → production avec nginx:alpine. Actuellement seul le stage de développement est utilisé.
 
-Le dossier `doc/` et la racine du projet contiennent plusieurs ressources importantes :
-- **Documents de Game Design** : `mcd.md`, `regles_orc.md` (règles de base).
-- **Données JSON (`doc/datas/`)** : Des extractions ou données de référence (`capabilities.json`, `creatures.json`, `equipment.json`, `profiles.json`, `races.json`, `voies.json`, etc.). 
-- **Scripts Python/JS** : `extract_monstres.py`, `compare_names.py`, `count_tags.js` servent probablement à nettoyer, parser et importer les données brutes des règles vers ces fichiers JSON exploitables par l'application (et possiblement l'API/Base de données via des fixtures Doctrine).
+## 3. Structure du Projet
+
+```
+.
+├── app/                          # Frontend React
+│   ├── src/
+│   │   ├── components/           # Composants UI (layout, common, auth)
+│   │   ├── pages/                # 27 pages + module Rules/ (10 sections)
+│   │   ├── services/             # api.ts, AuthService, dataService, campaignService
+│   │   ├── hooks/                # useSearch, useToggle
+│   │   ├── types/                # normalized.ts (279 lignes), campaign.ts, character.ts
+│   │   ├── context/              # AuthContext (React Context)
+│   │   ├── data/                 # capabilityModifiers.ts
+│   │   └── constants/            # rules.ts (index des règles)
+│   ├── scripts/                  # Scripts de refactoring de données (JS/CJS)
+│   ├── public/assets/            # Images (créatures, profils, races, états)
+│   ├── Dockerfile                # Multi-stage (node:22 → nginx)
+│   └── nginx.conf                # SPA fallback
+│
+├── backend/                      # Backend Symfony
+│   ├── src/
+│   │   ├── Entity/               # 21 entités Doctrine
+│   │   ├── Repository/           # 18 repositories
+│   │   ├── Controller/Admin/     # 10 CRUD controllers EasyAdmin
+│   │   ├── DataFixtures/         # AppFixtures.php (645 lignes)
+│   │   ├── State/                # 2 state processors (UserPasswordHasher, CampaignStateProcessor)
+│   │   └── Doctrine/             # CurrentUserExtension
+│   ├── config/
+│   │   ├── packages/             # 23 fichiers de config
+│   │   └── routes/               # 5 fichiers de routes
+│   ├── data/                     # Données JSON (Profils/, Races/, armors, creatures, etc.)
+│   ├── migrations/               # 3 migrations
+│   ├── Dockerfile                # php:8.3-fpm-alpine
+│   └── nginx.conf
+│
+├── doc/                          # Documentation
+│   ├── etat_des_lieux/           # Ce dossier
+│   ├── datas/                    # Données de jeu historiques (JSON)
+│   ├── mcd.md                    # Modèle Conceptuel de Données
+│   ├── regles_orc.md             # Règles du jeu (complet)
+│   └── walkthrough.md            # Résumé du travail MCD
+│
+└── docker-compose.yml            # Orchestration des 4 conteneurs
+```
+
+## 4. Données Statiques et Scripts
+
+Le projet contient plusieurs sources de données :
+
+- **`backend/data/`** : Fichiers JSON normalisés chargés par les DataFixtures Doctrine
+  - `armors.json`, `weapons.json`, `creatures.json`, `creatures_v2.json`
+  - `food.json`, `lodging.json`, `materials.json`, `mounts.json`
+  - `families.json`, `profile_families.json`, `states.json`
+  - `Profils/` (14 fichiers JSON, un par classe)
+  - `Races/` (8 fichiers JSON : DemiElfe, DemiOrc, ElfeHaut, ElfeSylvain, Gnome, Halfelin, Humain, Nain)
+
+- **`doc/datas/`** : Données historiques (versions antérieures des fichiers)
+  - `capabilities.json`, `creatures.json`, `equipment.json`, `profiles.json`, `races.json`, `voies.json`, `tables.json`
+
+- **Scripts de refactoring** (`app/scripts/`) :
+  - `refactor_data.cjs` : Normalisation des structures JSON
+  - `refine_capacities_v4.js` : Raffinage des capacités avec détection d'action types
+  - `refine_materials.js` : Nettoyage des données de matériaux
+
+## 5. Configurations Transverses
+
+- **CORS** (NelmioCorsBundle) : Autorise les origines `localhost` et `127.0.0.1` sur tous les ports
+- **Variables d'environnement** : `.env` backend (DB, JWT, CORS, Messenger), `VITE_API_URL` frontend
+- **Git** : `.gitignore` ignore `Ressources/*`
 
 ---
-*Ce document fait partie de l'état des lieux global généré pour le projet Chroniques Oubliées.*
+*Ce document fait partie de l'état des lieux global généré pour le projet Chroniques Oubliées Fantasy.*

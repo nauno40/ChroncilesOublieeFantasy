@@ -22,12 +22,13 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\Table(name: '`user`')]
 #[ApiResource(
     operations: [
-        new GetCollection(),
+        new GetCollection(security: "is_granted('ROLE_ADMIN')"),
+        // Registration must stay public so new users can sign up.
         new Post(processor: UserPasswordHasher::class, validationContext: ['groups' => ['Default', 'user:create']]),
-        new Get(),
-        new Put(processor: UserPasswordHasher::class),
-        new Patch(processor: UserPasswordHasher::class),
-        new Delete(),
+        new Get(security: "is_granted('ROLE_ADMIN') or object == user"),
+        new Put(security: "is_granted('ROLE_ADMIN') or object == user", processor: UserPasswordHasher::class),
+        new Patch(security: "is_granted('ROLE_ADMIN') or object == user", processor: UserPasswordHasher::class),
+        new Delete(security: "is_granted('ROLE_ADMIN') or object == user"),
     ],
     normalizationContext: ['groups' => ['user:read']],
     denormalizationContext: ['groups' => ['user:create', 'user:update']],

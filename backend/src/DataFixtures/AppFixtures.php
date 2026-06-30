@@ -15,13 +15,15 @@ use App\Entity\HarmfulState;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
     private string $dataDir;
 
-    public function __construct()
-    {
+    public function __construct(
+        private readonly UserPasswordHasherInterface $passwordHasher,
+    ) {
         // Docker environment (volume mounted at /app/data)
         if (is_dir('/app/data')) {
             $this->dataDir = '/app/data';
@@ -580,8 +582,8 @@ class AppFixtures extends Fixture
         $user = new \App\Entity\User();
         $user->setEmail('admin@example.com');
         $user->setRoles(['ROLE_ADMIN']);
-        $user->setPassword('$2y$13$XyQ/DummyHashForNow...'); 
-        
+        $user->setPassword($this->passwordHasher->hashPassword($user, 'admin'));
+
         $manager->persist($user);
     }
 

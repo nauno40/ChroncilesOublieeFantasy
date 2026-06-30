@@ -6,6 +6,8 @@ import {
   computeMaxHp,
   computeRecoveryDie,
   computeLuckPoints,
+  computeFinalStats,
+  computeSpentPoints,
 } from './cofRules';
 
 describe('calculateMod', () => {
@@ -72,5 +74,52 @@ describe('computeLuckPoints', () => {
   });
   it('clamps below 1 to 0', () => {
     expect(computeLuckPoints('Magicien', -2)).toBe(0);
+  });
+});
+
+describe('computeFinalStats', () => {
+  const base = { FOR: 10, AGI: 10, CON: 10, INT: 10, PER: 10, CHA: 10, VOL: 10 };
+
+  it('returns base unchanged when there are no modifiers', () => {
+    expect(computeFinalStats(base, undefined, {})).toEqual(base);
+  });
+  it('applies a fixed racial modifier', () => {
+    const r = computeFinalStats(base, [{ type: 'fixed', stat: 'FOR', value: 2 }], {});
+    expect(r.FOR).toBe(12);
+  });
+  it('applies a chosen modifier when the choice matches an option', () => {
+    const mods = [{ type: 'choice', stat: null, value: 1, options: ['AGI', 'PER'] }];
+    const r = computeFinalStats(base, mods, { bonus_0: 'AGI' });
+    expect(r.AGI).toBe(11);
+  });
+  it('applies add_to_lowest choices by index', () => {
+    const mods = [{ type: 'logic', logic: 'add_to_lowest', value: 1, count: 1 }];
+    const r = computeFinalStats(base, mods, { bonus_0_0: 'INT' });
+    expect(r.INT).toBe(11);
+  });
+});
+
+describe('computeSpentPoints', () => {
+  it('is 0 when level is not 0', () => {
+    expect(computeSpentPoints({}, 1, false)).toBe(0);
+  });
+  it('gives a free rank 1 on the racial voie', () => {
+    const voies = { racial: { name: 'X', ranks: [true, false, false, false, false] }, profile: [] };
+    expect(computeSpentPoints(voies, 0, false)).toBe(0); // rank 1 is free
+  });
+  it('counts a second racial rank for a non-mage', () => {
+    const voies = { racial: { name: 'X', ranks: [true, true, false, false, false] }, profile: [] };
+    expect(computeSpentPoints(voies, 0, false)).toBe(1);
+  });
+  it('gives a mage a free rank 2 (once)', () => {
+    const voies = { racial: { name: 'X', ranks: [true, true, false, false, false] }, profile: [] };
+    expect(computeSpentPoints(voies, 0, true)).toBe(0);
+  });
+  it('counts profile ranks', () => {
+    const voies = {
+      racial: { name: 'X', ranks: [false, false, false, false, false] },
+      profile: [{ name: 'P', ranks: [true, true, false, false, false] }],
+    };
+    expect(computeSpentPoints(voies, 0, false)).toBe(2);
   });
 });

@@ -125,3 +125,82 @@ export const computeSpentPoints = (voies: any, level: number | undefined, isMage
   }
   return count;
 };
+
+export const computeManaPoints = (voies: any, races: any[], profiles: any[], volMod: number): number => {
+  const isSpell = (voieName: string, rank: number): boolean => {
+    for (const race of races) {
+      const v = race.availableVoies?.find((x: any) => x.name === voieName);
+      const cap = v?.capabilities?.find((c: any) => c.rank === rank);
+      if (cap?.isSpell) return true;
+    }
+    for (const profile of profiles) {
+      const v = profile.voies?.find((x: any) => x.name === voieName);
+      const cap = v?.capabilities?.find((c: any) => c.rank === rank);
+      if (cap?.isSpell) return true;
+    }
+    return false;
+  };
+
+  let spellCount = 0;
+  if (voies?.racial) {
+    voies.racial.ranks?.forEach((learned: boolean, idx: number) => {
+      if (learned && isSpell(voies.racial.name || '', idx + 1)) spellCount++;
+    });
+  }
+  voies?.profile?.forEach((v: any) => {
+    v.ranks?.forEach((learned: boolean, idx: number) => {
+      if (learned && isSpell(v.name, idx + 1)) spellCount++;
+    });
+  });
+
+  return spellCount > 0 ? volMod + spellCount : 0;
+};
+
+export const computeCombatStats = (args: {
+  voies: any;
+  protection: any;
+  races: any[];
+  profiles: any[];
+  perMod: number;
+  agiMod: number;
+  capabilityModifiers: Record<string, (rank: number) => { init?: number; def?: number }>;
+}): { init: number; def: number } => {
+  const { voies, protection, races, profiles, perMod, agiMod, capabilityModifiers } = args;
+  let init = 10 + perMod;
+  let def = 10 + agiMod + (protection?.armor?.def || 0) + (protection?.shield?.def || 0);
+
+  const applyBonus = (voieName: string, subRanks: boolean[]) => {
+    if (!voieName) return;
+    subRanks.forEach((learned, idx) => {
+      if (!learned) return;
+      const rank = idx + 1;
+      let capName = '';
+      const race = races.find((r: any) => r.availableVoies?.some((v: any) => v.name === voieName));
+      if (race) {
+        const v = race.availableVoies.find((v: any) => v.name === voieName);
+        const c = v?.capabilities?.find((c: any) => c.rank === rank);
+        if (c) capName = c.name;
+      }
+      if (!capName) {
+        const profile = profiles.find((p: any) => p.voies?.some((v: any) => v.name === voieName));
+        if (profile) {
+          const v = profile.voies.find((v: any) => v.name === voieName);
+          const c = v?.capabilities?.find((c: any) => c.rank === rank);
+          if (c) capName = c.name;
+        }
+      }
+      if (capName && capabilityModifiers[capName]) {
+        const bonus = capabilityModifiers[capName](rank);
+        if (bonus.init) init += bonus.init;
+        if (bonus.def) def += bonus.def;
+      }
+    });
+  };
+
+  if (voies?.racial?.name && voies.racial.ranks) applyBonus(voies.racial.name, voies.racial.ranks);
+  voies?.profile?.forEach((v: any) => {
+    if (v.name && v.ranks) applyBonus(v.name, v.ranks);
+  });
+
+  return { init, def };
+};

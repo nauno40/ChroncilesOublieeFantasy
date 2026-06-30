@@ -8,6 +8,8 @@ import {
   computeLuckPoints,
   computeFinalStats,
   computeSpentPoints,
+  computeManaPoints,
+  computeCombatStats,
 } from './cofRules';
 
 describe('calculateMod', () => {
@@ -121,5 +123,32 @@ describe('computeSpentPoints', () => {
       profile: [{ name: 'P', ranks: [true, true, false, false, false] }],
     };
     expect(computeSpentPoints(voies, 0, false)).toBe(2);
+  });
+});
+
+const spellRace = [{
+  availableVoies: [{ name: 'Voie magique', capabilities: [{ rank: 1, isSpell: true }] }],
+}];
+
+describe('computeManaPoints', () => {
+  it('is 0 when no spells are learned', () => {
+    const voies = { racial: { name: 'Voie magique', ranks: [false] }, profile: [] };
+    expect(computeManaPoints(voies, spellRace, [], 3)).toBe(0);
+  });
+  it('is volMod + spellCount when spells are learned', () => {
+    const voies = { racial: { name: 'Voie magique', ranks: [true] }, profile: [] };
+    expect(computeManaPoints(voies, spellRace, [], 3)).toBe(4); // 3 + 1
+  });
+});
+
+describe('computeCombatStats', () => {
+  it('is base 10 + mods + protection with no capability bonuses', () => {
+    const r = computeCombatStats({
+      voies: { racial: { name: '', ranks: [] }, profile: [] },
+      protection: { armor: { def: 3 }, shield: { def: 1 } },
+      races: [], profiles: [], perMod: 2, agiMod: 1, capabilityModifiers: {},
+    });
+    expect(r.init).toBe(12); // 10 + 2
+    expect(r.def).toBe(15);  // 10 + 1 + 3 + 1
   });
 });

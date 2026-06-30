@@ -6,10 +6,18 @@ import { Save, ChevronLeft, RefreshCw, Trash2 } from 'lucide-react';
 import { Tooltip } from '../components/common';
 import { EquipmentChoiceModal } from '../components/EquipmentChoiceModal';
 import { CAPABILITY_MODIFIERS } from '../data/capabilityModifiers';
-
-
-// Helper for modifiers
-const calculateMod = (val: number) => Math.floor((val - 10) / 2);
+import {
+  calculateMod,
+  getMaxArmorDef,
+  computeModifiers,
+  computeMaxHp,
+  computeRecoveryDie,
+  computeLuckPoints,
+  computeFinalStats,
+  computeSpentPoints,
+  computeManaPoints,
+  computeCombatStats,
+} from '../utils/cofRules';
 
 const defaultData: CharacterData = {
     stats: { FOR: 10, AGI: 10, CON: 10, INT: 10, PER: 10, CHA: 10, VOL: 10 },
@@ -42,35 +50,6 @@ const ADVENTURER_PACK = [
     "Outre",
     "Gamelle"
 ];
-
-const PROFILE_FAMILIES: Record<string, { id: string, die: string, base: number }> = {
-    'Arquebusier': { id: 'aventuriers', die: 'd8', base: 2 },
-    'Barde': { id: 'aventuriers', die: 'd8', base: 2 },
-    'Rôdeur': { id: 'aventuriers', die: 'd8', base: 2 },
-    'Voleur': { id: 'aventuriers', die: 'd8', base: 2 },
-    'Barbare': { id: 'combattants', die: 'd10', base: 2 },
-    'Chevalier': { id: 'combattants', die: 'd10', base: 2 },
-    'Guerrier': { id: 'combattants', die: 'd10', base: 2 },
-    'Ensorceleur': { id: 'mages', die: 'd6', base: 2 },
-    'Forgesort': { id: 'mages', die: 'd6', base: 2 },
-    'Magicien': { id: 'mages', die: 'd6', base: 2 },
-    'Sorcier': { id: 'mages', die: 'd6', base: 2 },
-    'Druide': { id: 'mystiques', die: 'd8', base: 3 },
-    'Moine': { id: 'mystiques', die: 'd8', base: 3 },
-    'Prêtre': { id: 'mystiques', die: 'd8', base: 3 },
-};
-
-const getMaxArmorDef = (profileName: string): number => {
-    // Mages: None (0)
-    if (['Magicien', 'Ensorceleur', 'Forgesort', 'Sorcier'].includes(profileName)) return 0;
-    // Light profiles: Up to Cuir renforcé (+3)
-    if (['Voleur', 'Rôdeur', 'Barde', 'Barbare'].includes(profileName)) return 3;
-    // Heavy profiles: Up to Chemise de mailles (+4) or higher
-    // Chevalier explicitly mentioned to be the only one with Plaque (+8) at lvl 1
-    if (profileName === 'Chevalier') return 8;
-    if (['Guerrier', 'Prêtre'].includes(profileName)) return 4;
-    return 3; // Default
-};
 
 export const CharacterSheet: React.FC = () => {
     const { id } = useParams<{ id: string }>();
@@ -211,15 +190,7 @@ export const CharacterSheet: React.FC = () => {
 
     // Derived Calculations
     const stats = character.data?.stats || defaultData.stats;
-    const mods = useMemo(() => ({
-        FOR: calculateMod(stats.FOR),
-        AGI: calculateMod(stats.AGI),
-        CON: calculateMod(stats.CON),
-        INT: calculateMod(stats.INT),
-        PER: calculateMod(stats.PER),
-        CHA: calculateMod(stats.CHA),
-        VOL: calculateMod(stats.VOL),
-    }), [stats]);
+    const mods = useMemo(() => computeModifiers(stats), [stats]);
 
     // Effect to update stored modifiers when stats change
     useEffect(() => {
@@ -253,8 +224,7 @@ export const CharacterSheet: React.FC = () => {
 
 
         if (baseHp) {
-            const conMod = mods.CON;
-            const maxHp = (baseHp * 2) + conMod;
+            const maxHp = computeMaxHp(baseHp, mods.CON);
 
             if (character.data?.hp?.max !== maxHp) {
 
@@ -343,47 +313,7 @@ export const CharacterSheet: React.FC = () => {
     // Points Logic
     const maxStartingPoints = 2; // Fixed to 2 for everyone now (Racial Rank 1 is free)
 
-    const spentPoints = useMemo(() => {
-        if (character.level !== 0) return 0;
-        let count = 0;
-        let mageRank2Found = false;
-
-        // Count Racial
-        if (character.data?.voies?.racial?.ranks) {
-            let racialRanks = character.data.voies.racial.ranks.filter(Boolean).length;
-            // Universal Free Rank 1 for Racial/Mage replacement
-            if (character.data.voies.racial.ranks[0]) {
-                racialRanks = Math.max(0, racialRanks - 1);
-            }
-
-            // Check for Rank 2 in Racial/Mage replacement (only if Mage family)
-            if (character.data.voies.racial.ranks[1]) {
-                if (isMageFamily && !mageRank2Found) {
-                    racialRanks = Math.max(0, racialRanks - 1);
-                    mageRank2Found = true;
-                }
-            }
-
-            count += racialRanks;
-        }
-        // Count Profile
-        if (character.data?.voies?.profile) {
-            character.data.voies.profile.forEach(p => {
-                if (p.ranks) {
-                    let profileRanks = p.ranks.filter(Boolean).length;
-                    // Check for Rank 2
-                    if (p.ranks[1]) {
-                        if (isMageFamily && !mageRank2Found) {
-                            profileRanks = Math.max(0, profileRanks - 1);
-                            mageRank2Found = true;
-                        }
-                    }
-                    count += profileRanks;
-                }
-            });
-        }
-        return count;
-    }, [character.data, character.level, isMageFamily]);
+    const spentPoints = useMemo(() => computeSpentPoints(character.data?.voies, character.level, isMageFamily), [character.data, character.level, isMageFamily]);
 
     // Sync selectedVoies to character.data.voies
     useEffect(() => {
@@ -594,140 +524,25 @@ export const CharacterSheet: React.FC = () => {
 
     // Calculate Final Stats (Base + Race)
     const finalStats = useMemo(() => {
-        const base = { ...stats };
-        if (!character.race) return base;
-
-        // Find race data
         const selectedRace = races.find(r => (r.name || r.nom) === character.race || r['@id'] === character.race);
-        if (selectedRace && selectedRace.modifiers) {
-            selectedRace.modifiers.forEach((mod: any, idx: number) => {
-                if (mod.type === 'fixed' && mod.stat) {
-                    base[mod.stat as keyof typeof base] = (base[mod.stat as keyof typeof base] || 0) + mod.value;
-                } else if (mod.type === 'choice' && mod.options) {
-                    const choiceKey = `bonus_${idx}`;
-                    const choice = racialBonusChoices[choiceKey];
-                    if (choice && mod.options.includes(choice)) {
-                        base[choice as keyof typeof base] = (base[choice as keyof typeof base] || 0) + mod.value;
-                    }
-                } else if ((mod.type === 'special' && mod.stat === 'Lowest') || (mod.type === 'logic' && mod.logic === 'add_to_lowest')) {
-                    // Human: +1 to one of the lowest
-                    // We look for a choice named "bonus_{idx}" (or "Lowest" for backward compat if needed, but sticking to index is safer)
-
-                    const count = mod.count || 1;
-
-                    for (let i = 0; i < count; i++) {
-                        // Check for new format first: bonus_{idx}_{i}
-                        let choiceKey = `bonus_${idx}_${i}`;
-                        let choice = racialBonusChoices[choiceKey];
-
-                        // Fallback to old format if i=0 and new format not found (though UI writes new format now)
-                        if (!choice && i === 0) {
-                            choiceKey = `bonus_${idx}`;
-                            choice = racialBonusChoices[choiceKey];
-                        }
-
-                        if (choice) {
-                            base[choice as keyof typeof base] = (base[choice as keyof typeof base] || 0) + mod.value;
-                        }
-                    }
-                }
-            });
-        }
-        return base;
+        return computeFinalStats(stats, selectedRace?.modifiers, racialBonusChoices);
     }, [stats, character.race, races, racialBonusChoices]);
 
 
     // Calculate Recovery Die
     const recoveryDieString = useMemo(() => {
         const profileName = profiles.find(p => p['@id'] === ((character.profile as any)?.['@id'] || character.profile))?.name;
-        if (!profileName) return "—";
-
-        const family = PROFILE_FAMILIES[profileName];
-        if (!family) return "—";
-
-        let qty = family.base + mods.CON;
-        if (qty < 0) qty = 0;
-
-        return `${qty} ${family.die}`;
+        return computeRecoveryDie(profileName, mods.CON);
     }, [character.profile, profiles, mods.CON]);
 
     // Calculate Luck Points (PC)
     const luckPoints = useMemo(() => {
         const profileName = profiles.find(p => p['@id'] === ((character.profile as any)?.['@id'] || character.profile))?.name;
-
-        let pc = 2 + mods.CHA;
-        if (pc < 1) pc = 0; // Assuming min 0, rule says "possède seulement 2 – 1 = 1 PC". Wait, 2-1=1. But if CHA is -2, 2-2=0. Min 0.
-
-        // Family Bonus (Aventuriers +1)
-        if (profileName && PROFILE_FAMILIES[profileName]?.id === 'aventuriers') {
-            pc += 1;
-        }
-
-        // Racial Bonus (Voie de l'humain Rank 1 "Diversité")
-        const racialVoie = character.data?.voies?.racial;
-        if (racialVoie && racialVoie.name === "Voie de l'humain" && racialVoie.ranks?.[0]) {
-            pc += 1;
-        }
-
-        return pc;
+        return computeLuckPoints(profileName, mods.CHA, character.data?.voies?.racial);
     }, [character.profile, character.data?.voies?.racial, profiles, mods.CHA]);
 
     // Calculate Mana Points (PM)
-    const manaPoints = useMemo(() => {
-        let spellCount = 0;
-
-        // Helper to check if a capability is a spell
-        const isSpell = (voieName: string, rank: number) => {
-            // Retrieve capability data from `races` or `profiles` which should now have `isSpell` field from API
-
-            // Check Racial Voies
-            for (const race of races) {
-                if (race.availableVoies) {
-                    const foundVoie = race.availableVoies.find((v: any) => v.name === voieName);
-                    if (foundVoie && foundVoie.capabilities) {
-                        const cap = foundVoie.capabilities.find((c: any) => c.rank === rank);
-                        if (cap && cap.isSpell) return true;
-                    }
-                }
-            }
-
-            // Check Profile Voies
-            for (const profile of profiles) {
-                if (profile.voies) {
-                    const foundVoie = profile.voies.find((v: any) => v.name === voieName);
-                    if (foundVoie && foundVoie.capabilities) {
-                        const cap = foundVoie.capabilities.find((c: any) => c.rank === rank);
-                        if (cap && cap.isSpell) return true;
-                    }
-                }
-            }
-            return false;
-        };
-
-        // Count learned spells
-        // Racial
-        if (character.data?.voies?.racial) {
-            character.data.voies.racial.ranks?.forEach((learned, idx) => {
-                if (learned && isSpell(character.data?.voies?.racial?.name || '', idx + 1)) {
-                    spellCount++;
-                }
-            });
-        }
-        // Profile
-        character.data?.voies?.profile?.forEach(v => {
-            v.ranks?.forEach((learned, idx) => {
-                if (learned && isSpell(v.name, idx + 1)) {
-                    spellCount++;
-                }
-            });
-        });
-
-        if (spellCount > 0) {
-            return mods.VOL + spellCount;
-        }
-        return 0;
-
-    }, [character.data?.voies, races, profiles, mods.VOL]);
+    const manaPoints = useMemo(() => computeManaPoints(character.data?.voies, races, profiles, mods.VOL), [character.data?.voies, races, profiles, mods.VOL]);
 
     // Effect: Sync Luck Points and Recovery Die to Data
     useEffect(() => {
@@ -801,57 +616,15 @@ export const CharacterSheet: React.FC = () => {
 
 
     // Calculate Final Combat Stats (Init & Def)
-    const combatStats = useMemo(() => {
-        let init = 10 + mods.PER;
-        let def = 10 + mods.AGI + (character.data?.protection?.armor?.def || 0) + (character.data?.protection?.shield?.def || 0);
-
-        // Helper to apply capability modifiers
-        const applyBonus = (voieName: string, subRanks: boolean[]) => {
-            if (!voieName) return;
-            subRanks.forEach((learned, idx) => {
-                if (learned) {
-                    const rank = idx + 1;
-                    let capName = '';
-
-                    // Search Races
-                    const race = races.find(r => r.availableVoies?.some((v: any) => v.name === voieName));
-                    if (race) {
-                        const v = race.availableVoies.find((v: any) => v.name === voieName);
-                        const c = v?.capabilities?.find((c: any) => c.rank === rank);
-                        if (c) capName = c.name;
-                    }
-
-                    // Search Profiles
-                    if (!capName) {
-                        const profile = profiles.find(p => p.voies?.some((v: any) => v.name === voieName));
-                        if (profile) {
-                            const v = profile.voies.find((v: any) => v.name === voieName);
-                            const c = v?.capabilities?.find((c: any) => c.rank === rank);
-                            if (c) capName = c.name;
-                        }
-                    }
-
-                    if (capName && CAPABILITY_MODIFIERS[capName]) {
-                        const bonus = CAPABILITY_MODIFIERS[capName](rank);
-                        if (bonus.init) init += bonus.init;
-                        if (bonus.def) def += bonus.def;
-                    }
-                }
-            });
-        };
-
-        // Racial Voie
-        if (character.data?.voies?.racial?.name && character.data.voies.racial.ranks) {
-            applyBonus(character.data.voies.racial.name, character.data.voies.racial.ranks);
-        }
-
-        // Profile Voies
-        character.data?.voies?.profile?.forEach(v => {
-            if (v.name && v.ranks) applyBonus(v.name, v.ranks);
-        });
-
-        return { init, def };
-    }, [mods.PER, mods.AGI, character.data?.protection, character.data?.voies, races, profiles]);
+    const combatStats = useMemo(() => computeCombatStats({
+        voies: character.data?.voies,
+        protection: character.data?.protection,
+        races,
+        profiles,
+        perMod: mods.PER,
+        agiMod: mods.AGI,
+        capabilityModifiers: CAPABILITY_MODIFIERS,
+    }), [mods.PER, mods.AGI, character.data?.protection, character.data?.voies, races, profiles]);
 
     // Sync Init/Def to Data
     useEffect(() => {

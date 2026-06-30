@@ -1,6 +1,7 @@
 import React from 'react';
 import { RefreshCw, Trash2 } from 'lucide-react';
 import { Tooltip } from '../common';
+import { CapabilityNode } from './CapabilityNode';
 import type { Character } from '../../types/character';
 import type {
     GetCapabilityName,
@@ -121,112 +122,86 @@ export const VoiesTree: React.FC<Props> = ({
                                         const isActive = character.data?.voies?.racial?.ranks?.[rank - 1] || false;
 
                                         return (
-                                            <div key={rank} className="relative">
-                                                {/* Connecting Line */}
-                                                {rank < 5 && (
-                                                    <div className={`absolute left-[22px] top-10 bottom-0 w-0.5 z-0 transition-colors duration-500 ${isActive && (character.data?.voies?.racial?.ranks?.[rank] || false) ? 'bg-primary-500/30' : 'bg-stone-800/30'}`} />
+                                            <CapabilityNode
+                                                key={rank}
+                                                rank={rank}
+                                                isActive={isActive}
+                                                nextActive={character.data?.voies?.racial?.ranks?.[rank] || false}
+                                                cap={cap}
+                                                theme="primary"
+                                                shape="round"
+                                                onChange={e => {
+                                                    if (character.level === 0 && rank === 1) return; // Locked / Free / Auto
+
+                                                    // Mage Bonus Point for Rank 2
+                                                    // Handled by generic point calculation check below
+                                                    if (character.level === 0 && rank === 2 && isMageFamily) {
+                                                        // Allow if not already taken or if we have points
+                                                        // But we need to check limit.
+                                                        // Calculate effective cost:
+                                                        let cost = 1;
+                                                        // Check if we ALREADY have a Rank 2 somewhere else (excluding this one if we are unchecking? No, unchecking is always allowed)
+                                                        // If checking:
+                                                        if (e.target.checked) {
+                                                            let hasRank2 = false;
+
+                                                            // Check Profile
+                                                            if (character.data?.voies?.profile) {
+                                                                character.data.voies.profile.forEach(p => {
+                                                                    if (p.ranks?.[1]) hasRank2 = true;
+                                                                });
+                                                            }
+
+                                                            // If this is the FIRST Rank 2, cost is 0
+                                                            if (!hasRank2) cost = 0;
+                                                        }
+
+                                                        if (spentPoints + cost > maxStartingPoints) {
+                                                            alert(`Vous avez déjà dépensé vos ${maxStartingPoints} points !`);
+                                                            return;
+                                                        }
+                                                    } else if (character.level === 0 && rank !== 1) {
+                                                        // Normal check for non-mage rank 2 or other ranks
+                                                        if (spentPoints >= maxStartingPoints && e.target.checked) {
+                                                            alert(`Vous avez déjà dépensé vos ${maxStartingPoints} points !`);
+                                                            return;
+                                                        }
+                                                    }
+
+                                                    const newRanks = [...(character.data?.voies?.racial?.ranks || [])];
+
+                                                    // Rule: Prerequisite
+                                                    if (e.target.checked && rank > 1 && !newRanks[rank - 2]) {
+                                                        alert("Vous devez posséder le rang précédent !");
+                                                        return;
+                                                    }
+
+                                                    newRanks[rank - 1] = e.target.checked;
+                                                    setCharacter(prev => ({
+                                                        ...prev,
+                                                        data: {
+                                                            ...prev.data!,
+                                                            voies: {
+                                                                ...prev.data!.voies!,
+                                                                racial: { ...prev.data!.voies!.racial!, ranks: newRanks }
+                                                            }
+                                                        }
+                                                    }));
+                                                }}
+                                                badge={isMageFamily && rank === 2 && character.level === 0 && (
+                                                    (() => {
+                                                        const hasOtherRank2 = character.data?.voies?.profile?.some(p => p.ranks?.[1]);
+                                                        const isThisSelected = isActive;
+                                                        // Show badge if:
+                                                        // 1. This is selected (it IS the free one)
+                                                        // 2. OR No other rank 2 is selected (it COULD be the free one) AND Rank 1 is selected
+                                                        if (isThisSelected || (!hasOtherRank2 && character.data?.voies?.racial?.ranks?.[0])) {
+                                                            return <span className="text-green-400 ml-2 animate-pulse">(Gratuit)</span>;
+                                                        }
+                                                        return null;
+                                                    })()
                                                 )}
-
-                                                <Tooltip content={cap ? { name: cap.name, description: cap.description } : { name: `Rang ${rank}`, description: '' }} theme="primary">
-                                                    <label className={`relative z-10 flex items-start gap-4 p-3 rounded-xl border transition-all duration-300 cursor-pointer ${isActive
-                                                        ? 'bg-primary-950/20 border-primary-500/40 shadow-[0_0_20px_-5px_rgba(234,179,8,0.2)]'
-                                                        : 'bg-stone-950/40 border-white/5 hover:bg-stone-900/60 hover:border-white/10'
-                                                        }`}>
-                                                        <input
-                                                            type="checkbox"
-                                                            className="hidden"
-                                                            checked={isActive}
-                                                            onChange={e => {
-                                                                if (character.level === 0 && rank === 1) return; // Locked / Free / Auto
-
-                                                                // Mage Bonus Point for Rank 2
-                                                                // Handled by generic point calculation check below
-                                                                if (character.level === 0 && rank === 2 && isMageFamily) {
-                                                                    // Allow if not already taken or if we have points
-                                                                    // But we need to check limit.
-                                                                    // Calculate effective cost:
-                                                                    let cost = 1;
-                                                                    // Check if we ALREADY have a Rank 2 somewhere else (excluding this one if we are unchecking? No, unchecking is always allowed)
-                                                                    // If checking:
-                                                                    if (e.target.checked) {
-                                                                        let hasRank2 = false;
-
-                                                                        // Check Profile
-                                                                        if (character.data?.voies?.profile) {
-                                                                            character.data.voies.profile.forEach(p => {
-                                                                                if (p.ranks?.[1]) hasRank2 = true;
-                                                                            });
-                                                                        }
-
-                                                                        // If this is the FIRST Rank 2, cost is 0
-                                                                        if (!hasRank2) cost = 0;
-                                                                    }
-
-                                                                    if (spentPoints + cost > maxStartingPoints) {
-                                                                        alert(`Vous avez déjà dépensé vos ${maxStartingPoints} points !`);
-                                                                        return;
-                                                                    }
-                                                                } else if (character.level === 0 && rank !== 1) {
-                                                                    // Normal check for non-mage rank 2 or other ranks
-                                                                    if (spentPoints >= maxStartingPoints && e.target.checked) {
-                                                                        alert(`Vous avez déjà dépensé vos ${maxStartingPoints} points !`);
-                                                                        return;
-                                                                    }
-                                                                }
-
-                                                                const newRanks = [...(character.data?.voies?.racial?.ranks || [])];
-
-                                                                // Rule: Prerequisite
-                                                                if (e.target.checked && rank > 1 && !newRanks[rank - 2]) {
-                                                                    alert("Vous devez posséder le rang précédent !");
-                                                                    return;
-                                                                }
-
-                                                                newRanks[rank - 1] = e.target.checked;
-                                                                setCharacter(prev => ({
-                                                                    ...prev,
-                                                                    data: {
-                                                                        ...prev.data!,
-                                                                        voies: {
-                                                                            ...prev.data!.voies!,
-                                                                            racial: { ...prev.data!.voies!.racial!, ranks: newRanks }
-                                                                        }
-                                                                    }
-                                                                }));
-                                                            }}
-                                                        />
-
-                                                        {/* Custom Checkbox UI */}
-                                                        <div className={`mt-0.5 w-5 h-5 rounded-full border transition-all duration-300 flex items-center justify-center ${isActive
-                                                            ? 'bg-gradient-to-br from-primary-400 to-primary-600 border-primary-300 shadow-[0_0_15px_rgba(234,179,8,0.6)]'
-                                                            : 'bg-stone-900 border-stone-600 hover:border-primary-500/50'
-                                                            }`}>
-                                                            {isActive && <div className="w-2 h-2 bg-white rounded-full shadow-[0_0_5px_rgba(255,255,255,0.8)] animate-pulse" />}
-                                                        </div>
-
-                                                        <div className="flex flex-col leading-tight pt-0.5">
-                                                            <span className={`font-bold text-[10px] uppercase tracking-[0.1em] ${isActive ? 'text-primary-400' : 'text-stone-500'}`}>
-                                                                Rang {rank}
-                                                                {/* Mage Free Rank 2 Badge */}
-                                                                {isMageFamily && rank === 2 && character.level === 0 && (
-                                                                    (() => {
-                                                                        const hasOtherRank2 = character.data?.voies?.profile?.some(p => p.ranks?.[1]);
-                                                                        const isThisSelected = isActive;
-                                                                        // Show badge if:
-                                                                        // 1. This is selected (it IS the free one)
-                                                                        // 2. OR No other rank 2 is selected (it COULD be the free one) AND Rank 1 is selected
-                                                                        if (isThisSelected || (!hasOtherRank2 && character.data?.voies?.racial?.ranks?.[0])) {
-                                                                            return <span className="text-green-400 ml-2 animate-pulse">(Gratuit)</span>;
-                                                                        }
-                                                                        return null;
-                                                                    })()
-                                                                )}
-                                                            </span>
-                                                            {cap && <span className={`font-display text-sm transition-colors duration-300 ${isActive ? 'text-white text-shadow-md' : 'text-stone-400'}`}>{cap.name}</span>}
-                                                        </div>
-                                                    </label>
-                                                </Tooltip>
-                                            </div>
+                                            />
                                         );
                                     })}
                                 </div>
@@ -295,128 +270,102 @@ export const VoiesTree: React.FC<Props> = ({
                                                 const isActive = voie.ranks?.[rank - 1] || false;
 
                                                 return (
-                                                    <div key={rank} className="relative">
-                                                        {/* Connecting Line */}
-                                                        {rank < 5 && (
-                                                            <div className={`absolute left-[22px] top-10 bottom-0 w-0.5 z-0 transition-colors duration-500 ${isActive && (voie.ranks?.[rank] || false) ? 'bg-primary-500/30' : 'bg-stone-800/30'}`} />
-                                                        )}
+                                                    <CapabilityNode
+                                                        key={rank}
+                                                        rank={rank}
+                                                        isActive={isActive}
+                                                        nextActive={voie.ranks?.[rank] || false}
+                                                        cap={cap}
+                                                        theme="primary"
+                                                        shape="gem"
+                                                        onChange={e => {
+                                                            const newProfileVoies = [...(character.data?.voies?.profile || [])];
+                                                            const newRanks = [...(newProfileVoies[vIdx].ranks || [])];
 
-                                                        <Tooltip content={cap ? { name: cap.name, description: cap.description } : { name: `Rang ${rank}`, description: '' }} theme="primary">
-                                                            <label className={`relative z-10 flex items-start gap-4 p-3 rounded-xl border transition-all duration-300 cursor-pointer ${isActive
-                                                                ? 'bg-primary-950/20 border-primary-500/40 shadow-[0_0_20px_-5px_rgba(234,179,8,0.2)]'
-                                                                : 'bg-stone-950/40 border-white/5 hover:bg-stone-900/60 hover:border-white/10'
-                                                                }`}>
-                                                                <input
-                                                                    type="checkbox"
-                                                                    className="hidden"
-                                                                    checked={isActive}
-                                                                    onChange={e => {
-                                                                        const newProfileVoies = [...(character.data?.voies?.profile || [])];
-                                                                        const newRanks = [...(newProfileVoies[vIdx].ranks || [])];
+                                                            // Level 0 Logic
+                                                            if (character.level === 0) {
+                                                                // Only Rank 1 and 2 allowed
+                                                                if (rank > 2) {
+                                                                    alert("Au niveau 0, seuls les Rangs 1 et 2 sont accessibles.");
+                                                                    return;
+                                                                }
 
-                                                                        // Level 0 Logic
-                                                                        if (character.level === 0) {
-                                                                            // Only Rank 1 and 2 allowed
-                                                                            if (rank > 2) {
-                                                                                alert("Au niveau 0, seuls les Rangs 1 et 2 sont accessibles.");
-                                                                                return;
-                                                                            }
+                                                                if (e.target.checked) {
+                                                                    // Check limits
+                                                                    let cost = 1;
 
-                                                                            if (e.target.checked) {
-                                                                                // Check limits
-                                                                                let cost = 1;
+                                                                    // Mage Free Rank 2 Logic
+                                                                    if (rank === 2 && isMageFamily) {
+                                                                        let hasRank2 = false;
+                                                                        // Check Racial
+                                                                        if (character.data?.voies?.racial?.ranks?.[1]) hasRank2 = true;
 
-                                                                                // Mage Free Rank 2 Logic
-                                                                                if (rank === 2 && isMageFamily) {
-                                                                                    let hasRank2 = false;
-                                                                                    // Check Racial
-                                                                                    if (character.data?.voies?.racial?.ranks?.[1]) hasRank2 = true;
-
-                                                                                    // Check Profiles (excluding this one? No, current state doesn't have it yet)
-                                                                                    if (!hasRank2 && character.data?.voies?.profile) {
-                                                                                        character.data.voies.profile.forEach((p, idx) => {
-                                                                                            if (idx !== vIdx && p.ranks?.[1]) hasRank2 = true;
-                                                                                        });
-                                                                                    }
-                                                                                    if (!hasRank2) cost = 0;
-                                                                                }
-
-                                                                                if (spentPoints + cost > maxStartingPoints) {
-                                                                                    alert(`Vous avez déjà dépensé vos ${maxStartingPoints} points !`);
-                                                                                    return;
-                                                                                }
-                                                                                // Prerequisite constraint for Rank 2
-                                                                                if (rank === 2 && !newRanks[0]) {
-                                                                                    alert("Vous devez prendre le Rang 1 avant le Rang 2.");
-                                                                                    return;
-                                                                                }
-                                                                            } else {
-                                                                                // Deselecting
-                                                                                // If deselecting Rank 1, must deselect Rank 2 if present
-                                                                                if (rank === 1 && newRanks[1]) {
-                                                                                    newRanks[1] = false;
-                                                                                }
-                                                                            }
-
-                                                                        } else {
-                                                                            // Normal Play
-                                                                            if (e.target.checked && rank > 1 && !newRanks[rank - 2]) {
-                                                                                alert("Vous devez posséder le rang précédent !");
-                                                                                return;
-                                                                            }
+                                                                        // Check Profiles (excluding this one? No, current state doesn't have it yet)
+                                                                        if (!hasRank2 && character.data?.voies?.profile) {
+                                                                            character.data.voies.profile.forEach((p, idx) => {
+                                                                                if (idx !== vIdx && p.ranks?.[1]) hasRank2 = true;
+                                                                            });
                                                                         }
+                                                                        if (!hasRank2) cost = 0;
+                                                                    }
 
-                                                                        newRanks[rank - 1] = e.target.checked;
-                                                                        newProfileVoies[vIdx].ranks = newRanks;
+                                                                    if (spentPoints + cost > maxStartingPoints) {
+                                                                        alert(`Vous avez déjà dépensé vos ${maxStartingPoints} points !`);
+                                                                        return;
+                                                                    }
+                                                                    // Prerequisite constraint for Rank 2
+                                                                    if (rank === 2 && !newRanks[0]) {
+                                                                        alert("Vous devez prendre le Rang 1 avant le Rang 2.");
+                                                                        return;
+                                                                    }
+                                                                } else {
+                                                                    // Deselecting
+                                                                    // If deselecting Rank 1, must deselect Rank 2 if present
+                                                                    if (rank === 1 && newRanks[1]) {
+                                                                        newRanks[1] = false;
+                                                                    }
+                                                                }
 
-                                                                        setCharacter(prev => ({
-                                                                            ...prev,
-                                                                            data: {
-                                                                                ...prev.data!,
-                                                                                voies: { ...prev.data!.voies!, profile: newProfileVoies }
-                                                                            }
-                                                                        }));
-                                                                    }}
-                                                                />
+                                                            } else {
+                                                                // Normal Play
+                                                                if (e.target.checked && rank > 1 && !newRanks[rank - 2]) {
+                                                                    alert("Vous devez posséder le rang précédent !");
+                                                                    return;
+                                                                }
+                                                            }
 
-                                                                {/* Custom Checkbox UI (Gem Node) */}
-                                                                <div className={`mt-0.5 w-5 h-5 rounded rotate-45 border transition-all duration-300 flex items-center justify-center ${isActive
-                                                                    ? 'bg-gradient-to-br from-primary-400 to-primary-600 border-primary-300 shadow-[0_0_15px_rgba(234,179,8,0.6)]'
-                                                                    : 'bg-stone-900 border-stone-600 hover:border-primary-500/50'
-                                                                    }`}>
-                                                                    {isActive && <div className="w-2 h-2 bg-white rounded-full shadow-[0_0_5px_rgba(255,255,255,0.8)] animate-pulse" />}
-                                                                </div>
+                                                            newRanks[rank - 1] = e.target.checked;
+                                                            newProfileVoies[vIdx].ranks = newRanks;
 
-                                                                <div className="flex flex-col leading-tight pt-0.5">
-                                                                    <span className={`font-bold text-[10px] uppercase tracking-[0.1em] ${isActive ? 'text-primary-400' : 'text-stone-500'}`}>
-                                                                        Rang {rank}
-                                                                        {/* Mage Free Rank 2 Badge */}
-                                                                        {isMageFamily && rank === 2 && character.level === 0 && (
-                                                                            (() => {
-                                                                                // Check if Racial has Rank 2
-                                                                                const racialHasRank2 = character.data?.voies?.racial?.ranks?.[1];
-                                                                                // Check if any OTHER Profile has Rank 2
-                                                                                const otherProfileHasRank2 = character.data?.voies?.profile?.some((p, idx) => idx !== vIdx && p.ranks?.[1]);
+                                                            setCharacter(prev => ({
+                                                                ...prev,
+                                                                data: {
+                                                                    ...prev.data!,
+                                                                    voies: { ...prev.data!.voies!, profile: newProfileVoies }
+                                                                }
+                                                            }));
+                                                        }}
+                                                        badge={isMageFamily && rank === 2 && character.level === 0 && (
+                                                            (() => {
+                                                                // Check if Racial has Rank 2
+                                                                const racialHasRank2 = character.data?.voies?.racial?.ranks?.[1];
+                                                                // Check if any OTHER Profile has Rank 2
+                                                                const otherProfileHasRank2 = character.data?.voies?.profile?.some((p, idx) => idx !== vIdx && p.ranks?.[1]);
 
-                                                                                const hasOtherRank2 = racialHasRank2 || otherProfileHasRank2;
-                                                                                const isThisSelected = isActive;
-                                                                                const isRank1Selected = voie.ranks?.[0];
+                                                                const hasOtherRank2 = racialHasRank2 || otherProfileHasRank2;
+                                                                const isThisSelected = isActive;
+                                                                const isRank1Selected = voie.ranks?.[0];
 
-                                                                                // Show badge if:
-                                                                                // 1. This is selected (it IS the free one)
-                                                                                // 2. OR No other rank 2 is selected (it COULD be the free one) AND Rank 1 is selected
-                                                                                if (isThisSelected || (!hasOtherRank2 && isRank1Selected)) {
-                                                                                    return <span className="text-green-400 ml-2 animate-pulse">(Gratuit)</span>;
-                                                                                }
-                                                                                return null;
-                                                                            })()
-                                                                        )}
-                                                                    </span>
-                                                                    {cap && <span className={`font-display text-sm transition-colors duration-300 ${isActive ? 'text-white text-shadow-md' : 'text-stone-400'}`}>{cap.name}</span>}
-                                                                </div>
-                                                            </label>
-                                                        </Tooltip>
-                                                    </div>
+                                                                // Show badge if:
+                                                                // 1. This is selected (it IS the free one)
+                                                                // 2. OR No other rank 2 is selected (it COULD be the free one) AND Rank 1 is selected
+                                                                if (isThisSelected || (!hasOtherRank2 && isRank1Selected)) {
+                                                                    return <span className="text-green-400 ml-2 animate-pulse">(Gratuit)</span>;
+                                                                }
+                                                                return null;
+                                                            })()
+                                                        )}
+                                                    />
                                                 );
                                             })}
                                         </div>
@@ -473,48 +422,25 @@ export const VoiesTree: React.FC<Props> = ({
                                                     const isActive = voie.ranks?.[rank - 1] || false;
 
                                                     return (
-                                                        <div key={rank} className="relative">
-                                                            {/* Connecting Line */}
-                                                            {rank < 5 && (
-                                                                <div className={`absolute left-[22px] top-10 bottom-0 w-0.5 z-0 transition-colors duration-500 ${isActive && (voie.ranks?.[rank] || false) ? 'bg-amber-500/30' : 'bg-stone-800/30'}`} />
-                                                            )}
-
-                                                            <Tooltip content={cap ? { name: cap.name, description: cap.description } : { name: `Rang ${rank}`, description: '' }} theme="amber">
-                                                                <label className={`relative z-10 flex items-start gap-4 p-3 rounded-xl border transition-all duration-300 cursor-pointer ${isActive
-                                                                    ? 'bg-amber-950/20 border-amber-500/40 shadow-[0_0_20px_-5px_rgba(245,158,11,0.2)]'
-                                                                    : 'bg-stone-950/40 border-white/5 hover:bg-stone-900/60 hover:border-white/10'
-                                                                    }`}>
-                                                                    <input
-                                                                        type="checkbox"
-                                                                        className="hidden"
-                                                                        checked={isActive}
-                                                                        onChange={e => {
-                                                                            const newPrestige = [...(character.data?.voies?.prestige || [])];
-                                                                            const newRanks = [...(newPrestige[vIdx].ranks || [false, false, false, false, false])];
-                                                                            newRanks[rank - 1] = e.target.checked;
-                                                                            newPrestige[vIdx].ranks = newRanks;
-                                                                            setCharacter(prev => ({
-                                                                                ...prev,
-                                                                                data: { ...prev.data!, voies: { ...prev.data!.voies!, prestige: newPrestige } }
-                                                                            }));
-                                                                        }}
-                                                                    />
-                                                                    {/* Custom Checkbox UI (Gem Node) */}
-                                                                    <div className={`mt-0.5 w-5 h-5 rounded rotate-45 border transition-all duration-300 flex items-center justify-center ${isActive
-                                                                        ? 'bg-gradient-to-br from-amber-400 to-amber-600 border-amber-300 shadow-[0_0_15px_rgba(245,158,11,0.6)]'
-                                                                        : 'bg-stone-900 border-stone-600 hover:border-amber-500/50'
-                                                                        }`}>
-                                                                        {isActive && <div className="w-2 h-2 bg-white rounded-full shadow-[0_0_5px_rgba(255,255,255,0.8)] animate-pulse" />}
-                                                                    </div>
-                                                                    <div className="flex flex-col leading-tight pt-0.5">
-                                                                        <span className={`font-bold text-[10px] uppercase tracking-[0.1em] ${isActive ? 'text-amber-400' : 'text-stone-500'}`}>
-                                                                            Rang {rank}
-                                                                        </span>
-                                                                        {cap && <span className={`font-display text-sm transition-colors duration-300 ${isActive ? 'text-white text-shadow-md' : 'text-stone-400'}`}>{cap.name}</span>}
-                                                                    </div>
-                                                                </label>
-                                                            </Tooltip>
-                                                        </div>
+                                                        <CapabilityNode
+                                                            key={rank}
+                                                            rank={rank}
+                                                            isActive={isActive}
+                                                            nextActive={voie.ranks?.[rank] || false}
+                                                            cap={cap}
+                                                            theme="amber"
+                                                            shape="gem"
+                                                            onChange={e => {
+                                                                const newPrestige = [...(character.data?.voies?.prestige || [])];
+                                                                const newRanks = [...(newPrestige[vIdx].ranks || [false, false, false, false, false])];
+                                                                newRanks[rank - 1] = e.target.checked;
+                                                                newPrestige[vIdx].ranks = newRanks;
+                                                                setCharacter(prev => ({
+                                                                    ...prev,
+                                                                    data: { ...prev.data!, voies: { ...prev.data!.voies!, prestige: newPrestige } }
+                                                                }));
+                                                            }}
+                                                        />
                                                     );
                                                 })}
                                             </div>

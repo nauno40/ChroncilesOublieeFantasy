@@ -21,3 +21,5 @@ export type EquipmentChoiceQueueSetter = SheetState['setEquipmentChoiceQueue'];
 export type GetCapabilityName = SheetState['getCapabilityName'];
 export type SelectedVoiesSetter = SheetState['setSelectedVoies'];
 export type PrestigeSelectorSetter = SheetState['setShowPrestigeSelector'];
+export type IsMageFamily = SheetState['isMageFamily'];
+export type RacialVoieOptions = SheetState['racialVoieOptions'];

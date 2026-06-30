@@ -73,7 +73,7 @@ src/
 | `/dashboard` | `Home` | Tableau de bord (stats, dernières campagnes, quick actions) |
 | `/characters` | `CharacterList` | Liste des personnages du joueur |
 | `/characters/new` | `CharacterSheet` | Création de personnage |
-| `/characters/:id` | `CharacterSheet` | Édition de personnage (2109 lignes) |
+| `/characters/:id` | `CharacterSheet` | Édition de personnage (orchestrateur ~180 lignes) |
 
 #### Encyclopédie / Compendium
 | Route | Page | Description |
@@ -158,9 +158,23 @@ L'application n'utilise **pas** Redux ou Zustand. La gestion d'état repose sur 
 - **Auto-redirect** : `LandingPage` → `/dashboard` si déjà authentifié
 - **Backend** : LexikJWTAuthenticationBundle (Symfony)
 
-## 9. Fiche Personnage (CharacterSheet.tsx — 2109 lignes)
+## 9. Fiche Personnage (CharacterSheet.tsx)
 
-Le fichier le plus massif de l'application. Fonctionnalités clés :
+Anciennement un god component de ~2100 lignes, désormais **refactorisé** en
+orchestrateur léger (~180 lignes) + règles pures + hooks + composants présentationnels :
+
+- **Règles COF2 pures** — `src/utils/cofRules.ts` : fonctions sans React (modificateurs,
+  PV, dé de récupération, points de chance, stats finales, points dépensés, mana, init/déf),
+  couvertes par des tests Vitest (`cofRules.test.ts`).
+- **Hooks** — `src/hooks/useCharacterData.ts` (chargement compendium : races/profils/équipement/voies)
+  et `src/hooks/useCharacterSheet.ts` (état de formulaire, valeurs dérivées, effets de synchronisation,
+  handlers).
+- **Composants présentationnels** — `src/components/character/` : `CharacterToolbar`,
+  `AttributesPanel`, `MainStatsPanel`, `IdentityBlock`, `RoleplaySection`, `ProtectionSection`,
+  `WeaponsSection`, `InventorySection`, `VoiesTree` (+ `CapabilityNode`). Types de props partagés
+  dans `character/types.ts`. `CharacterSheet.tsx` câble les hooks et dispose ces composants.
+
+Fonctionnalités clés (inchangées) :
 
 - Création et édition complète de personnage
 - Calcul automatique des modificateurs de caractéristiques
@@ -175,8 +189,10 @@ Le fichier le plus massif de l'application. Fonctionnalités clés :
 
 ## 10. Points d'attention
 
-- **Tests** : Playwright configuré mais aucun fichier de test écrit
-- **Fiche personnage massive** : `CharacterSheet.tsx` (2109 lignes) — candidat idéal pour un refactoring
+- **Tests** : Vitest ajouté avec une suite unitaire sur les règles pures (`cofRules.test.ts`) ;
+  Playwright configuré mais aucun test E2E écrit
+- **Fiche personnage** : `CharacterSheet.tsx` a été refactorisé (god component → orchestrateur +
+  `cofRules` + hooks + `components/character/`, cf. §9)
 - **Campagne** : `campaignService.ts` est désormais branché sur l'API backend (`ApiService`, persistance en base) avec mapping bidirectionnel frontend/backend — plus de `localStorage`
 - **TypeScript** : Mode strict, `verbatimModuleSyntax`, `erasableSyntaxOnly`
 

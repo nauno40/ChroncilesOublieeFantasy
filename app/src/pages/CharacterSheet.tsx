@@ -1,11 +1,12 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ApiService } from '../services/api';
-import { Save, ChevronLeft, RefreshCw, Trash2 } from 'lucide-react';
+import { RefreshCw, Trash2 } from 'lucide-react';
 import { Tooltip } from '../components/common';
 import { EquipmentChoiceModal } from '../components/EquipmentChoiceModal';
 import { useCharacterData } from '../hooks/useCharacterData';
 import { useCharacterSheet, ADVENTURER_PACK } from '../hooks/useCharacterSheet';
+import { CharacterToolbar } from '../components/character/CharacterToolbar';
 import { calculateMod, getMaxArmorDef } from '../utils/cofRules';
 
 export const CharacterSheet: React.FC = () => {
@@ -42,48 +43,19 @@ export const CharacterSheet: React.FC = () => {
         <div className="max-w-[95%] mx-auto space-y-6 pb-24 pt-6 px-4 animate-fade-in">
 
             {/* Header / Toolbar */}
-            <div className="flex flex-col md:flex-row justify-between items-center gap-4 bg-stone-900/60 backdrop-blur-md p-5 rounded-2xl border border-white/5 shadow-2xl">
-                <div className="flex items-center gap-5">
-                    <button
-                        onClick={() => navigate('/characters')}
-                        className="w-10 h-10 rounded-xl glass-panel flex items-center justify-center text-stone-500 hover:text-primary-400 hover:border-primary-500/30 transition-all group border border-white/5"
-                    >
-                        <ChevronLeft size={20} className="group-hover:-translate-x-0.5 transition-transform" />
-                    </button>
-                    <div>
-                        <h1 className="text-3xl font-bold font-display text-gradient-gold tracking-widest leading-none">
-                            {isNew ? 'Nouveau Héros' : character.name}
-                        </h1>
-                        <p className="text-[10px] uppercase font-black text-stone-500 tracking-[0.3em] mt-2 ml-0.5 opacity-70">
-                            Chroniqueur de Légendes
-                        </p>
-                    </div>
-                </div>
-                <div className="flex items-center gap-3 w-full md:w-auto">
-                    <button
-                        onClick={handleSave}
-                        disabled={saving}
-                        className="flex-1 md:flex-none flex items-center justify-center gap-3 bg-primary-600 hover:bg-primary-500 text-stone-950 font-display font-black uppercase text-xs tracking-widest px-8 py-3 rounded-xl transition-all shadow-lg shadow-primary-900/20 active:scale-95 disabled:opacity-50 border border-primary-400/20"
-                    >
-                        {saving ? <RefreshCw className="animate-spin" size={16} /> : <Save size={16} />}
-                        {saving ? 'Incantation...' : 'Enregistrer'}
-                    </button>
-                    {!isNew && (
-                        <button
-                            onClick={async () => {
-                                if (confirm("Bannir ce héros définitivement ?")) {
-                                    await ApiService.delete('characters', id!);
-                                    navigate('/characters');
-                                }
-                            }}
-                            className="p-3 glass-panel text-stone-600 hover:text-red-500 hover:border-red-900/30 transition-all rounded-xl border border-white/5"
-                            title="Supprimer"
-                        >
-                            <Trash2 size={20} />
-                        </button>
-                    )}
-                </div>
-            </div>
+            <CharacterToolbar
+                name={character.name || ''}
+                isNew={isNew}
+                saving={saving}
+                onBack={() => navigate('/characters')}
+                onSave={handleSave}
+                onDelete={async () => {
+                    if (confirm("Bannir ce héros définitivement ?")) {
+                        await ApiService.delete('characters', id!);
+                        navigate('/characters');
+                    }
+                }}
+            />
 
             {/* Main Sheet Layout - Mimicking the PDF */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">

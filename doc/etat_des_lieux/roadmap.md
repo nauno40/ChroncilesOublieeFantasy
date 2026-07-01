@@ -51,7 +51,7 @@ Suite à l'analyse approfondie du code source frontend et backend (juin 2026), v
 
 ### Tests
 - **Backend** : suite fonctionnelle PHPUnit couvrant les règles de sécurité (User / Campaign / Character / compendium public) dans `backend/tests/Api/` — 23 tests. Le reste du backend n'est pas encore couvert.
-- **Frontend** : Playwright configuré mais aucun test écrit.
+- **Frontend** : suite E2E Playwright (`app/e2e/`) couvrant les parcours critiques — authentification (inscription/connexion/déconnexion), régression du fix 401 (JWT périmé auto-purgé), compendium chargé depuis la BDD (races/classes/bestiaire), rendu de la fiche personnage. Lancée via `bash scripts/e2e.sh` (image Playwright officielle en `network_mode: host`, cf. `frontend.md` §10). Tests unitaires purs (règles COF2) via Vitest (`cofRules.test.ts`).
 
 ## 3. Roadmap suggérée 🚀
 
@@ -71,14 +71,14 @@ Suite à l'analyse approfondie du code source frontend et backend (juin 2026), v
 - [ ] **Import/Export PDF** : Générer une fiche de personnage imprimable
 - [ ] **Mapping / Grille de combat** : Canvas avec upload d'image (map) et pions déplaçables
 - [ ] **Créateur de monstre custom** : Interface pour créer un monstre hors SRD et le sauvegarder dans la campagne
-- [ ] **Tests automatisés** : Écrire des tests E2E (Playwright) et unitaires (PHPUnit)
+- [x] **Tests automatisés** : première suite E2E Playwright (`app/e2e/`) + tests unitaires règles (Vitest) et sécurité (PHPUnit). À étendre.
 
 ### Améliorations techniques
 - [ ] **Refactoring CharacterSheet** : Diviser le fichier de 2109 lignes en composants plus petits
 - [x] **Clefs JWT** : présentes dans `config/jwt/` (regénérables via `lexik:jwt:generate-keypair`)
 - [x] **Sécurisation fine de l'API** : User, Campaign et Character restreints par utilisateur / rôle
 - [x] **Tests automatisés des règles de sécurité** : suite PHPUnit dans `backend/tests/Api/`
-- [ ] **Étendre la couverture de tests** : reste du backend + tests E2E frontend (Playwright)
+- [ ] **Étendre la couverture de tests** : reste du backend (PHPUnit) + élargir la suite E2E frontend (Playwright configurée, cf. `app/e2e/`)
 
 ---
 *Ce document propose un état des lieux orienté fonctionnalités et produit pour l'application Chroniques Oubliées Fantasy.*

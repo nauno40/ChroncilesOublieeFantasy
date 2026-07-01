@@ -17,7 +17,8 @@ Le répertoire `./app` héberge une application monopage (SPA) moderne et réact
 | **tailwind-merge** | ^3.4.0 | Fusion intelligente de classes Tailwind |
 | **tailwindcss-animate** | ^1.0.7 | Animations |
 | **ESLint** | v9 (flat config) | Linting |
-| **Playwright** | ^1.58.2 | Tests E2E (configuré) |
+| **Playwright** | ^1.58.2 | Tests E2E (`app/e2e/`, cf. §10) |
+| **Vitest** | ^3.2.6 | Tests unitaires (règles COF2 pures) |
 
 ## 2. Architecture des Dossiers
 
@@ -189,8 +190,19 @@ Fonctionnalités clés (inchangées) :
 
 ## 10. Points d'attention
 
-- **Tests** : Vitest ajouté avec une suite unitaire sur les règles pures (`cofRules.test.ts`) ;
-  Playwright configuré mais aucun test E2E écrit
+- **Tests** :
+  - *Unitaires* — Vitest sur les règles pures COF2 (`src/utils/cofRules.test.ts`), lancés via
+    `npm run test:run` (config `src/**/*.test.ts`).
+  - *E2E* — suite Playwright dans `app/e2e/` : `auth.spec.ts` (inscription/connexion/déconnexion),
+    `stale-token.spec.ts` (régression du fix 401 : un JWT périmé est purgé + redirige vers `/login`),
+    `compendium.spec.ts` (races/classes/bestiaire chargés depuis la BDD, sans erreur API),
+    `character-sheet.spec.ts` (rendu de la fiche + alimentation du sélecteur de race). Helpers partagés
+    dans `e2e/fixtures.ts`, config `playwright.config.ts` (`baseURL` via `PW_BASE_URL`).
+  - *Lancer les E2E* — `bash scripts/e2e.sh` depuis la racine (stack `docker compose up -d` requis + base
+    seedée). Le conteneur `frontend` étant Alpine (musl) ne peut pas exécuter les navigateurs ; le script
+    utilise l'image officielle `mcr.microsoft.com/playwright:vX-jammy` en `network_mode: host` pour que le
+    XHR du navigateur vers l'API en dur (`http://localhost:8000/api`) atteigne nginx. Cibler un fichier :
+    `bash scripts/e2e.sh e2e/stale-token.spec.ts`.
 - **Fiche personnage** : `CharacterSheet.tsx` a été refactorisé (god component → orchestrateur +
   `cofRules` + hooks + `components/character/`, cf. §9)
 - **Campagne** : `campaignService.ts` est désormais branché sur l'API backend (`ApiService`, persistance en base) avec mapping bidirectionnel frontend/backend — plus de `localStorage`

@@ -29,6 +29,20 @@ final class CampaignSecurityTest extends ApiSecurityTestCase
         $this->assertJsonContains(['owner' => '/api/users/'.$user->getId()]);
     }
 
+    public function testCreateSetsUpdatedAtTimestamp(): void
+    {
+        $user = $this->createUser('player@example.com');
+
+        $response = $this->client->request('POST', '/api/campaigns', [
+            'headers' => $this->authHeaders($user),
+            'json' => ['name' => 'The Lost Mine'],
+        ]);
+
+        // CampaignStateProcessor stamps updatedAt on write.
+        $this->assertResponseStatusCodeSame(201);
+        $this->assertNotNull($response->toArray()['updatedAt'] ?? null);
+    }
+
     public function testOwnerCanReadOwnCampaign(): void
     {
         $user = $this->createUser('player@example.com');

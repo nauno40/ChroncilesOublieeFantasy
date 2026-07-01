@@ -87,9 +87,9 @@ src/
 
 ### Sécurité des endpoints
 
-- **Accès public** : Race, Family, Profile, Voie, Capability, Creature, CreatureFamily, Equipment, Material, HarmfulState, Food, Lodging, Mount
+- **Compendium** : Race, Family, Profile, Voie, Capability, Creature, CreatureFamily, CreatureVoie, Equipment, Material, HarmfulState, Food, Lodging, Mount — **lecture publique**, mais **écritures (POST/PUT/PATCH/DELETE) réservées à ROLE_ADMIN** (règle `access_control` par chemin+méthode dans `security.yaml`)
 - **Authentifié** : Campaign, Quest, Clue, Session, Character (ROLE_USER)
-- **Sécurisation par propriétaire** (ROLE_USER + `object.getOwner() == user` sur les opérations item) : **Campaign** et **Character**
+- **Sécurisation par propriétaire** (ROLE_USER + contrôle du owner sur les opérations item) : **Campaign** et **Character** (`object.getOwner() == user`) ; **Quest / Clue / Session** (`object.getCampaign().getOwner() == user`, via `securityPostDenormalize` sur les écritures) + collection en `ROLE_USER`
 - **User** :
   - `Post` (inscription) reste **public** — nécessaire pour créer un compte
   - `GetCollection` réservé à **ROLE_ADMIN** (ne plus exposer la liste des emails)
@@ -104,7 +104,7 @@ src/
 - **Firewalls** :
   - `login` → `/api/login` (stateless, json_login)
   - `api` → `/api` (stateless, JWT)
-- **Accès** : `/api/login` en PUBLIC_ACCESS, `/api` en PUBLIC_ACCESS — la protection est appliquée au niveau de chaque opération `#[ApiResource]` (expressions `security`) et par `CurrentUserExtension`
+- **Accès** : `/api/login` en PUBLIC_ACCESS, `/api` en PUBLIC_ACCESS (lecture compendium) ; une règle `access_control` intermédiaire réserve les **écritures compendium** à ROLE_ADMIN. La protection fine du domaine campagne est appliquée par opération `#[ApiResource]` (expressions `security`) + `CurrentUserExtension`
 - **Clefs** : private.pem / public.pem présentes dans `config/jwt/` (regénérables via `lexik:jwt:generate-keypair`)
 - **Passphrase** : stockée dans `.env`
 - **Compte admin de seed** : `admin@example.com` / `admin` (mot de passe défini dans les fixtures — à changer hors développement)
@@ -131,8 +131,8 @@ src/
 
 ## 9. Points d'attention
 
-- **Sécurité des entités utilisateur** : User, Campaign et Character sont désormais protégés (par propriétaire / rôle) ; les entités du compendium restent volontairement publiques en lecture
-- **Tests** : suite fonctionnelle des règles de sécurité dans `tests/Api/` (23 tests, basée sur `ApiTestCase`). Lancement : `php bin/phpunit tests/Api` (DB de test à créer une fois via `php bin/console doctrine:database:create --env=test`). Le reste de l'application n'est pas encore couvert.
+- **Sécurité des entités** : User, Campaign, Character **et** Quest/Clue/Session sont protégés (par propriétaire / rôle) ; le compendium reste public **en lecture** mais ses écritures sont réservées à ROLE_ADMIN
+- **Tests** : suite fonctionnelle dans `tests/Api/` (**40 tests**, basée sur `ApiTestCase`) — règles de sécurité (User/Campaign/Character/Quest, écritures compendium admin-only, sous-ressources campagne non listables sans auth), inscription+login JWT et hachage du mot de passe, timestamp `updatedAt`. Lancement : `php bin/phpunit` (DB de test à créer une fois via `php bin/console doctrine:database:create --env=test`). Le reste de l'application n'est pas encore couvert.
 - **Messenger** : Transport Doctrine configuré (async + failed), routage pour SendEmailMessage, ChatMessage, SmsMessage
 - **Pas de Services/EventSubscriber/Voter** dédiés pour le moment
 

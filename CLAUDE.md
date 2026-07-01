@@ -28,9 +28,9 @@ The data splits into two domains that behave very differently:
 
 **The API is declarative — driven by `#[ApiResource]` attributes on entities in `src/Entity/`, not by controllers.** To add or change an endpoint, edit the attribute on the entity. `src/Controller/` holds only the EasyAdmin `Admin/` CRUD controllers; `src/ApiResource/` is empty. Serialization groups (e.g. `campaign:read`/`campaign:write`, `character:read/write`, `user:read/create/update`) gate field exposure.
 
-**Auth/authorization is layered and unusual** — `security.yaml`'s `access_control` deliberately leaves `^/api` as `PUBLIC_ACCESS` (to keep the compendium readable). Real enforcement for the campaign domain comes from:
+**Auth/authorization is layered and unusual** — `security.yaml`'s `access_control` leaves `^/api` as `PUBLIC_ACCESS` so the compendium stays *readable*, but an intermediate rule restricts compendium **writes** (POST/PUT/PATCH/DELETE on `races|profiles|voies|…`) to `ROLE_ADMIN`. Real enforcement for the campaign domain comes from:
 - `src/Doctrine/CurrentUserExtension.php` — a Doctrine query extension that auto-scopes all `Campaign`/`Quest`/`Clue`/`Session` queries to the logged-in user (the others via their `campaign.owner` join).
-- Per-operation `security:` expressions on entities (e.g. `Campaign` item ops check `object.getOwner() == user`).
+- Per-operation `security:` expressions on entities: `Campaign`/`Character` item ops check `object.getOwner() == user`; `Quest`/`Clue`/`Session` require `ROLE_USER` (collection) and check `object.getCampaign().getOwner() == user` (item ops + `securityPostDenormalize` on writes).
 - `src/State/CampaignStateProcessor.php` (sets owner + `updatedAt` on create) and `src/State/UserPasswordHasher.php` (hashes password on write).
 
 **Fixtures:** a single `src/DataFixtures/AppFixtures.php` (~645 lines) reads JSON from `backend/data/` (auto-detects `/app/data` in Docker vs `../../data` locally) and hydrates the compendium in dependency order. Source data: top-level `*.json` plus per-class files in `data/Profils/` (14) and per-race files in `data/Races/` (8). Helpers `getValue`/`getLabelOrValue` flatten a Drupal-style `[{value,label}]` export shape.
@@ -43,7 +43,7 @@ Schema is managed by Doctrine migrations in `backend/migrations/`.
 bin/console doctrine:migrations:migrate   # apply schema
 bin/console doctrine:fixtures:load        # seed compendium from data/*.json (DESTRUCTIVE: purges tables)
 bin/console lexik:jwt:generate-keypair    # REQUIRED on first setup — config/jwt/ ships empty
-bin/phpunit                               # tests (currently only bootstrap; none written yet)
+bin/phpunit                               # API security/authorization test suite (tests/Api/, ~40 tests; needs a test DB — see below)
 ```
 
 ## Frontend (`app/`)

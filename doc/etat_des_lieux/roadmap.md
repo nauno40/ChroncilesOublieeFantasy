@@ -50,7 +50,7 @@ Suite à l'analyse approfondie du code source frontend et backend (juin 2026), v
 - **Limite** : Pas de temps réel — fonctionne uniquement sur l'écran du MJ
 
 ### Tests
-- **Backend** : suite fonctionnelle PHPUnit couvrant les règles de sécurité (User / Campaign / Character / compendium public) dans `backend/tests/Api/` — 23 tests. Le reste du backend n'est pas encore couvert.
+- **Backend** : suite fonctionnelle PHPUnit dans `backend/tests/Api/` — **40 tests** couvrant les règles de sécurité (User / Campaign / Character / Quest), le durcissement des autorisations (écritures compendium réservées à ROLE_ADMIN, sous-ressources campagne non listables sans auth), l'inscription + login JWT avec hachage du mot de passe, et le timestamp `updatedAt`. Le reste du backend n'est pas encore couvert.
 - **Frontend** : suite E2E Playwright (`app/e2e/`) couvrant les parcours critiques — authentification (inscription/connexion/déconnexion), régression du fix 401 (JWT périmé auto-purgé), compendium chargé depuis la BDD (races/classes/bestiaire), rendu de la fiche personnage. Lancée via `bash scripts/e2e.sh` (image Playwright officielle en `network_mode: host`, cf. `frontend.md` §10). Tests unitaires purs (règles COF2) via Vitest (`cofRules.test.ts`).
 
 ## 3. Roadmap suggérée 🚀

@@ -3,6 +3,11 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
 use App\Repository\QuestRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -11,6 +16,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: QuestRepository::class)]
 #[ApiResource(
+    operations: [
+        new GetCollection(security: "is_granted('ROLE_USER')"),
+        new Post(securityPostDenormalize: "is_granted('ROLE_USER') and object.getCampaign() != null and object.getCampaign().getOwner() == user"),
+        new Get(security: "is_granted('ROLE_USER') and object.getCampaign() != null and object.getCampaign().getOwner() == user"),
+        new Patch(securityPostDenormalize: "is_granted('ROLE_USER') and object.getCampaign() != null and object.getCampaign().getOwner() == user"),
+        new Delete(security: "is_granted('ROLE_USER') and object.getCampaign() != null and object.getCampaign().getOwner() == user"),
+    ],
     normalizationContext: ['groups' => ['campaign:read']],
     denormalizationContext: ['groups' => ['campaign:write']]
 )]

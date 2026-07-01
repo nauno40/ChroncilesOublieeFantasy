@@ -6,6 +6,7 @@ use ApiPlatform\Symfony\Bundle\Test\ApiTestCase;
 use ApiPlatform\Symfony\Bundle\Test\Client;
 use App\Entity\Campaign;
 use App\Entity\Character;
+use App\Entity\Quest;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\SchemaTool;
@@ -94,5 +95,17 @@ abstract class ApiSecurityTestCase extends ApiTestCase
         $this->em->flush();
 
         return $character;
+    }
+
+    protected function createQuest(Campaign $campaign, string $title = 'Quest'): Quest
+    {
+        $quest = new Quest();
+        $quest->setTitle($title);
+        $quest->setCampaign($campaign);
+
+        $this->em->persist($quest);
+        $this->em->flush();
+
+        return $quest;
     }
 }

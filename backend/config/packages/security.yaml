@@ -28,4 +28,8 @@ security:
             provider: app_user_provider
     access_control:
         - { path: ^/api/login, roles: PUBLIC_ACCESS }
-        - { path: ^/api,       roles: PUBLIC_ACCESS } # For now, let's keep public access to allow viewing compendium. We will protect specific routes later.
+        # Compendium (game reference data) stays publicly readable, but writes are
+        # admin-only. Campaign-domain resources (campaigns/characters/quests/...) are
+        # NOT listed here — they enforce ownership via per-operation security.
+        - { path: '^/api/(races|profiles|voies|capabilities|creatures|creature_families|creature_voies|equipment|materials|foods|lodgings|mounts|states|families)(/|$)', methods: [POST, PUT, PATCH, DELETE], roles: ROLE_ADMIN }
+        - { path: ^/api,       roles: PUBLIC_ACCESS } # Compendium reads stay public; campaign domain is guarded per-operation.

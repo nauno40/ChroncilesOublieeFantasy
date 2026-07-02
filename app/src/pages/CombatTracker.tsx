@@ -1,53 +1,72 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Sword, RefreshCw, Trash2, Shield } from 'lucide-react';
 import type { Combatant } from '../types/campaign';
+import type { TrackerState } from '../utils/combatTracker';
+import { sortByInitiative, nextTurn, removeById, applyHp } from '../utils/combatTracker';
 
-// Mock data generator
-const generateCombatant = (type: 'player' | 'monster', name: string): Combatant => ({
-    id: crypto.randomUUID(),
-    name,
-    type,
-    initiative: Math.floor(Math.random() * 20) + 1,
-    hp: { current: type === 'player' ? 30 : 50, max: type === 'player' ? 30 : 50 },
-    ac: 15
-});
+const STORAGE_KEY = 'co_combat_tracker';
+
+const loadState = (): TrackerState => {
+    try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) return JSON.parse(saved) as TrackerState;
+    } catch {
+        // stockage corrompu : on repart propre
+    }
+    return { round: 1, activeId: null, combatants: [] };
+};
 
 export const CombatTracker: React.FC = () => {
-    const [combatants, setCombatants] = useState<Combatant[]>([]);
-    const [round, setRound] = useState(1);
-    const [activeTurn, setActiveTurn] = useState(0);
-    const [newItemName, setNewItemName] = useState('');
+    const [state, setState] = useState<TrackerState>(loadState);
+    const [hpInputs, setHpInputs] = useState<Record<string, string>>({});
 
-    const addCombatant = (type: 'player' | 'monster') => {
-        if (!newItemName) return;
-        const newC = generateCombatant(type, newItemName);
-        setCombatants(prev => [...prev, newC].sort((a, b) => b.initiative - a.initiative));
-        setNewItemName('');
+    // Formulaire d'ajout manuel
+    const [name, setName] = useState('');
+    const [init, setInit] = useState('');
+    const [hp, setHp] = useState('');
+    const [def, setDef] = useState('');
+    const [type, setType] = useState<'player' | 'monster'>('monster');
+
+    useEffect(() => {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }, [state]);
+
+    const ordered = sortByInitiative(state.combatants);
+
+    const addCombatant = (c: Combatant) =>
+        setState(s => ({ ...s, combatants: [...s.combatants, c] }));
+
+    const addManual = () => {
+        if (!name.trim()) return;
+        const maxHp = parseInt(hp) || 0;
+        addCombatant({
+            id: crypto.randomUUID(),
+            name: name.trim(),
+            type,
+            initiative: parseInt(init) || 0,
+            hp: { current: maxHp, max: maxHp },
+            def: parseInt(def) || 0,
+            states: [],
+            source: 'manual',
+        });
+        setName(''); setInit(''); setHp(''); setDef('');
     };
 
-    const nextTurn = () => {
-        if (activeTurn >= combatants.length - 1) {
-            setActiveTurn(0);
-            setRound(r => r + 1);
-        } else {
-            setActiveTurn(t => t + 1);
-        }
+    const handleNext = () => setState(s => nextTurn(s));
+    const handleRemove = (id: string) => setState(s => removeById(s, id));
+    const changeHp = (id: string, delta: number) =>
+        setState(s => ({ ...s, combatants: applyHp(s.combatants, id, delta) }));
+
+    const applyInput = (id: string, sign: 1 | -1) => {
+        const amount = parseInt(hpInputs[id] || '');
+        if (!amount) return;
+        changeHp(id, sign * amount);
+        setHpInputs(prev => ({ ...prev, [id]: '' }));
     };
 
-    const removeCombatant = (id: string) => {
-        setCombatants(prev => prev.filter(c => c.id !== id));
-        if (activeTurn >= combatants.length - 1) {
-            setActiveTurn(0);
-        }
-    };
-
-    const updateHp = (id: string, delta: number) => {
-        setCombatants(prev => prev.map(c => {
-            if (c.id === id) {
-                return { ...c, hp: { ...c.hp, current: Math.max(0, c.hp.current + delta) } };
-            }
-            return c;
-        }));
+    const resetCombat = () => {
+        if (state.combatants.length && !window.confirm('Vider le combat en cours ?')) return;
+        setState({ round: 1, activeId: null, combatants: [] });
     };
 
     return (
@@ -57,97 +76,107 @@ export const CombatTracker: React.FC = () => {
                     <h1 className="text-3xl font-display font-bold text-primary-400 flex items-center gap-3 drop-shadow-md">
                         <Sword className="text-primary-600" size={32} /> Suivi de Combat
                     </h1>
-                    <div className="text-stone-400 font-mono text-sm mt-1 ml-1">ROUND <span className="text-primary-300 font-bold text-lg">{round}</span></div>
+                    <div className="text-stone-400 font-mono text-sm mt-1 ml-1">
+                        ROUND <span className="text-primary-300 font-bold text-lg">{state.round}</span>
+                    </div>
                 </div>
-                <button
-                    onClick={nextTurn}
-                    className="bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-500 hover:to-primary-600 text-stone-950 px-6 py-2 rounded-xl flex items-center gap-2 font-bold cursor-pointer transition-all shadow-lg hover:shadow-primary-500/20 active:scale-95"
-                >
-                    <RefreshCw size={20} className={activeTurn === 0 ? "animate-spin-slow" : ""} /> Tour Suivant
-                </button>
+                <div className="flex gap-2">
+                    <button onClick={resetCombat}
+                        className="bg-stone-800 hover:bg-stone-700 text-stone-300 px-4 py-2 rounded-xl text-sm font-bold border border-white/10 transition-colors">
+                        Réinitialiser
+                    </button>
+                    <button onClick={handleNext}
+                        className="bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-500 hover:to-primary-600 text-stone-950 px-6 py-2 rounded-xl flex items-center gap-2 font-bold cursor-pointer transition-all shadow-lg hover:shadow-primary-500/20 active:scale-95">
+                        <RefreshCw size={20} /> Tour Suivant
+                    </button>
+                </div>
             </header>
 
-            {/* Add Controls */}
-            <div className="glass-panel p-4 rounded-xl flex gap-3 shadow-lg">
-                <input
-                    type="text"
-                    value={newItemName}
-                    onChange={(e) => setNewItemName(e.target.value)}
-                    placeholder="Nom du combattant (ex: Goblin, Aragorn)"
-                    className="flex-1 bg-black/40 border border-white/10 text-stone-100 rounded-lg px-4 focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500 placeholder-stone-600"
-                    onKeyDown={(e) => e.key === 'Enter' && addCombatant('monster')}
-                />
-                <button onClick={() => addCombatant('player')} className="bg-blue-900/40 hover:bg-blue-800/60 text-blue-200 px-4 py-2 rounded-lg text-sm font-bold border border-blue-500/30 transition-colors uppercase tracking-wide">
-                    + PJ
-                </button>
-                <button onClick={() => addCombatant('monster')} className="bg-red-900/40 hover:bg-red-800/60 text-red-200 px-4 py-2 rounded-lg text-sm font-bold border border-red-500/30 transition-colors uppercase tracking-wide">
-                    + Monstre
+            {/* Ajout manuel */}
+            <div className="glass-panel p-4 rounded-xl flex flex-wrap gap-3 shadow-lg items-end">
+                <input type="text" value={name} onChange={e => setName(e.target.value)}
+                    placeholder="Nom du combattant"
+                    className="flex-1 min-w-[160px] bg-black/40 border border-white/10 text-stone-100 rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-primary-500 placeholder-stone-600"
+                    onKeyDown={e => e.key === 'Enter' && addManual()} />
+                <input type="number" value={init} onChange={e => setInit(e.target.value)} placeholder="INIT"
+                    className="w-20 bg-black/40 border border-white/10 text-stone-100 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary-500 placeholder-stone-600" />
+                <input type="number" value={hp} onChange={e => setHp(e.target.value)} placeholder="PV"
+                    className="w-20 bg-black/40 border border-white/10 text-stone-100 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary-500 placeholder-stone-600" />
+                <input type="number" value={def} onChange={e => setDef(e.target.value)} placeholder="DEF"
+                    className="w-20 bg-black/40 border border-white/10 text-stone-100 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary-500 placeholder-stone-600" />
+                <select value={type} onChange={e => setType(e.target.value as 'player' | 'monster')}
+                    className="bg-black/40 border border-white/10 text-stone-100 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary-500">
+                    <option value="monster">Adversaire</option>
+                    <option value="player">Personnage</option>
+                </select>
+                <button onClick={addManual}
+                    className="bg-primary-900/40 hover:bg-primary-800/60 text-primary-200 px-4 py-2 rounded-lg text-sm font-bold border border-primary-500/30 transition-colors uppercase tracking-wide">
+                    + Ajouter
                 </button>
             </div>
 
-            {/* List */}
+            {/* Liste */}
             <div className="space-y-3">
-                {combatants.map((c, idx) => (
-                    <div
-                        key={c.id}
-                        className={`
-                            relative flex items-center p-4 rounded-xl border transition-all duration-300 backdrop-blur-md
-                            ${idx === activeTurn
+                {ordered.map(c => (
+                    <div key={c.id}
+                        className={`relative flex flex-wrap items-center gap-3 p-4 rounded-xl border transition-all duration-300 backdrop-blur-md ${
+                            c.id === state.activeId
                                 ? 'bg-primary-900/20 border-primary-500/50 shadow-[0_0_20px_rgba(245,158,11,0.15)] scale-[1.02] z-10'
-                                : 'bg-stone-900/40 border-white/5 opacity-80 hover:opacity-100 hover:bg-stone-800/60'}
-                        `}
-                    >
-                        {idx === activeTurn && (
-                            <div className="absolute -left-1 top-1/2 -translate-y-1/2 w-1 h-12 bg-primary-500 rounded-r shadow-[0_0_10px_#f59e0b]"></div>
+                                : 'bg-stone-900/40 border-white/5 opacity-80 hover:opacity-100 hover:bg-stone-800/60'
+                        }`}>
+                        {c.id === state.activeId && (
+                            <div className="absolute -left-1 top-1/2 -translate-y-1/2 w-1 h-12 bg-primary-500 rounded-r shadow-[0_0_10px_#f59e0b]" />
                         )}
 
-                        {/* Initiative */}
-                        <div className="w-14 text-center mr-4">
+                        <div className="w-14 text-center">
                             <span className="text-[10px] text-stone-500 uppercase block font-bold mb-0.5">INIT</span>
-                            <div className="text-2xl font-display font-bold text-stone-300 border-2 border-white/10 rounded-lg py-1 bg-black/20">
-                                {c.initiative}
-                            </div>
+                            <div className="text-2xl font-display font-bold text-stone-300 border-2 border-white/10 rounded-lg py-1 bg-black/20">{c.initiative}</div>
                         </div>
 
-                        {/* Info */}
-                        <div className="flex-1">
-                            <div className={`font-bold text-lg font-display ${c.type === 'player' ? 'text-blue-300 drop-shadow-sm' : 'text-red-300 drop-shadow-sm'}`}>
-                                {c.name}
-                            </div>
-                            <div className="text-xs text-stone-500 flex items-center gap-4 mt-1">
+                        <div className="flex-1 min-w-[120px]">
+                            <div className={`font-bold text-lg font-display ${c.type === 'player' ? 'text-blue-300' : 'text-red-300'}`}>{c.name}</div>
+                            <div className="text-xs text-stone-500 flex items-center gap-2 mt-1">
                                 <span className="flex items-center gap-1 bg-black/30 px-2 py-0.5 rounded border border-white/5">
-                                    <Shield size={12} className="text-stone-400" /> <span className="text-stone-300 font-mono font-bold">AC {c.ac}</span>
+                                    <Shield size={12} className="text-stone-400" /> <span className="text-stone-300 font-mono font-bold">DEF {c.def}</span>
                                 </span>
-                                <span className="uppercase tracking-widest text-[9px] opacity-60">{c.type === 'player' ? 'Personnage' : 'Adversaire'}</span>
                             </div>
                         </div>
 
-                        {/* HP Control */}
-                        <div className="flex items-center gap-4 bg-black/20 p-2 rounded-lg border border-white/5 mx-4">
+                        {/* PV : ±1 rapides + saisie libre dégâts/soins */}
+                        <div className="flex items-center gap-3 bg-black/20 p-2 rounded-lg border border-white/5">
                             <div className="flex flex-col items-center w-16">
                                 <span className="text-[9px] text-stone-500 uppercase font-bold mb-0.5">PV</span>
                                 <div className={`font-mono text-xl font-bold ${c.hp.current < c.hp.max / 2 ? 'text-red-500' : 'text-green-500'}`}>
-                                    {c.hp.current}
-                                    <span className="text-xs text-stone-600 font-normal ml-0.5">/{c.hp.max}</span>
+                                    {c.hp.current}<span className="text-xs text-stone-600 font-normal ml-0.5">/{c.hp.max}</span>
                                 </div>
                             </div>
                             <div className="flex flex-col gap-1">
-                                <button onClick={() => updateHp(c.id, 1)} className="bg-stone-800 hover:bg-green-900/50 text-green-500 w-8 h-6 rounded flex items-center justify-center text-xs border border-stone-700 hover:border-green-500/50 transition-all active:scale-95">+</button>
-                                <button onClick={() => updateHp(c.id, -1)} className="bg-stone-800 hover:bg-red-900/50 text-red-500 w-8 h-6 rounded flex items-center justify-center text-xs border border-stone-700 hover:border-red-500/50 transition-all active:scale-95">-</button>
+                                <button onClick={() => changeHp(c.id, 1)} className="bg-stone-800 hover:bg-green-900/50 text-green-500 w-8 h-6 rounded flex items-center justify-center text-xs border border-stone-700 transition-all active:scale-95">+</button>
+                                <button onClick={() => changeHp(c.id, -1)} className="bg-stone-800 hover:bg-red-900/50 text-red-500 w-8 h-6 rounded flex items-center justify-center text-xs border border-stone-700 transition-all active:scale-95">-</button>
+                            </div>
+                            <div className="flex flex-col gap-1">
+                                <input type="number" value={hpInputs[c.id] || ''}
+                                    onChange={e => setHpInputs(prev => ({ ...prev, [c.id]: e.target.value }))}
+                                    placeholder="±"
+                                    className="w-14 bg-black/40 border border-white/10 text-stone-100 rounded px-2 py-0.5 text-sm focus:outline-none focus:ring-1 focus:ring-primary-500 placeholder-stone-600" />
+                                <div className="flex gap-1">
+                                    <button onClick={() => applyInput(c.id, -1)} className="flex-1 bg-red-900/40 hover:bg-red-800/60 text-red-200 rounded text-[10px] font-bold py-0.5 border border-red-500/30">Dég.</button>
+                                    <button onClick={() => applyInput(c.id, 1)} className="flex-1 bg-green-900/40 hover:bg-green-800/60 text-green-200 rounded text-[10px] font-bold py-0.5 border border-green-500/30">Soin</button>
+                                </div>
                             </div>
                         </div>
 
-                        <button onClick={() => removeCombatant(c.id)} className="text-stone-600 hover:text-red-500 p-2 rounded-full hover:bg-stone-900/50 transition-colors">
+                        <button onClick={() => handleRemove(c.id)} className="text-stone-600 hover:text-red-500 p-2 rounded-full hover:bg-stone-900/50 transition-colors">
                             <Trash2 size={18} />
                         </button>
                     </div>
                 ))}
 
-                {combatants.length === 0 && (
+                {ordered.length === 0 && (
                     <div className="text-center py-16 px-4 rounded-2xl border-2 border-dashed border-stone-800/50 bg-stone-900/20 backdrop-blur-sm">
                         <Sword size={48} className="mx-auto mb-4 text-stone-700 opacity-50" />
                         <p className="text-stone-400 font-display text-lg">Le champ de bataille est vide.</p>
-                        <p className="text-stone-600 text-sm mt-1">Préparez-vous à l'affrontement.</p>
+                        <p className="text-stone-600 text-sm mt-1">Ajoutez des combattants pour commencer.</p>
                     </div>
                 )}
             </div>

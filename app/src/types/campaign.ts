@@ -60,6 +60,8 @@ export interface Combatant {
     type: 'player' | 'npc' | 'monster';
     initiative: number;
     hp: { current: number; max: number };
-    ac: number;
-    referenceId?: string; // ID in the JSON data for monsters
+    def: number;
+    states: string[];
+    source?: 'manual' | 'bestiary' | 'character';
+    referenceId?: string; // ID source (bestiaire/perso)
 }

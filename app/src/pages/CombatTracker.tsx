@@ -3,6 +3,10 @@ import { Sword, RefreshCw, Trash2, Shield } from 'lucide-react';
 import type { Combatant } from '../types/campaign';
 import type { TrackerState } from '../utils/combatTracker';
 import { sortByInitiative, nextTurn, removeById, applyHp } from '../utils/combatTracker';
+import { DataService } from '../services/dataService';
+import { ApiService } from '../services/api';
+import type { Creature } from '../types/normalized';
+import type { Character } from '../types/character';
 
 const STORAGE_KEY = 'co_combat_tracker';
 
@@ -27,6 +31,18 @@ export const CombatTracker: React.FC = () => {
     const [def, setDef] = useState('');
     const [type, setType] = useState<'player' | 'monster'>('monster');
 
+    // Import bestiaire / PJ
+    const [creatures, setCreatures] = useState<Creature[]>([]);
+    const [characters, setCharacters] = useState<Character[]>([]);
+    const [creatureId, setCreatureId] = useState('');
+    const [quantity, setQuantity] = useState('1');
+    const [characterId, setCharacterId] = useState('');
+
+    useEffect(() => {
+        DataService.getCreatures().then(setCreatures).catch(() => setCreatures([]));
+        ApiService.getAll<Character>('characters').then(setCharacters).catch(() => setCharacters([]));
+    }, []);
+
     useEffect(() => {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
     }, [state]);
@@ -50,6 +66,43 @@ export const CombatTracker: React.FC = () => {
             source: 'manual',
         });
         setName(''); setInit(''); setHp(''); setDef('');
+    };
+
+    const addFromBestiary = () => {
+        const creature = creatures.find(c => String(c.id) === creatureId);
+        if (!creature) return;
+        const qty = Math.max(1, parseInt(quantity) || 1);
+        const additions: Combatant[] = Array.from({ length: qty }, () => ({
+            id: crypto.randomUUID(),
+            name: qty > 1 ? '' : creature.name, // numéroté juste après
+            type: 'monster' as const,
+            initiative: creature.init,
+            hp: { current: creature.hp, max: creature.hp },
+            def: creature.def,
+            states: [],
+            source: 'bestiary' as const,
+            referenceId: String(creature.id),
+        }));
+        // Numérotation : « Gobelin 1 », « Gobelin 2 » si quantité > 1, sinon nom brut
+        additions.forEach((c, i) => { c.name = qty > 1 ? `${creature.name} ${i + 1}` : creature.name; });
+        setState(s => ({ ...s, combatants: [...s.combatants, ...additions] }));
+        setQuantity('1');
+    };
+
+    const addFromCharacter = () => {
+        const character = characters.find(c => String(c.id) === characterId);
+        if (!character) return;
+        addCombatant({
+            id: crypto.randomUUID(),
+            name: character.name,
+            type: 'player',
+            initiative: character.data.init,
+            hp: { current: character.data.hp.current, max: character.data.hp.max },
+            def: character.data.def,
+            states: [],
+            source: 'character',
+            referenceId: String(character.id),
+        });
     };
 
     const handleNext = () => setState(s => nextTurn(s));
@@ -113,6 +166,32 @@ export const CombatTracker: React.FC = () => {
                     className="bg-primary-900/40 hover:bg-primary-800/60 text-primary-200 px-4 py-2 rounded-lg text-sm font-bold border border-primary-500/30 transition-colors uppercase tracking-wide">
                     + Ajouter
                 </button>
+            </div>
+
+            {/* Import bestiaire / PJ */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div className="glass-panel p-4 rounded-xl flex flex-wrap gap-2 items-end shadow-lg">
+                    <div className="text-xs text-stone-400 uppercase font-bold w-full">Bestiaire</div>
+                    <select value={creatureId} onChange={e => setCreatureId(e.target.value)}
+                        className="flex-1 min-w-[140px] bg-black/40 border border-white/10 text-stone-100 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary-500">
+                        <option value="">— Créature —</option>
+                        {creatures.map(c => <option key={c.id} value={String(c.id)}>{c.name}</option>)}
+                    </select>
+                    <input type="number" min="1" value={quantity} onChange={e => setQuantity(e.target.value)}
+                        className="w-16 bg-black/40 border border-white/10 text-stone-100 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary-500" />
+                    <button onClick={addFromBestiary}
+                        className="bg-red-900/40 hover:bg-red-800/60 text-red-200 px-4 py-2 rounded-lg text-sm font-bold border border-red-500/30 transition-colors">+ Monstre</button>
+                </div>
+                <div className="glass-panel p-4 rounded-xl flex flex-wrap gap-2 items-end shadow-lg">
+                    <div className="text-xs text-stone-400 uppercase font-bold w-full">Personnages</div>
+                    <select value={characterId} onChange={e => setCharacterId(e.target.value)}
+                        className="flex-1 min-w-[140px] bg-black/40 border border-white/10 text-stone-100 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary-500">
+                        <option value="">— Personnage —</option>
+                        {characters.map(c => <option key={c.id} value={String(c.id)}>{c.name}</option>)}
+                    </select>
+                    <button onClick={addFromCharacter}
+                        className="bg-blue-900/40 hover:bg-blue-800/60 text-blue-200 px-4 py-2 rounded-lg text-sm font-bold border border-blue-500/30 transition-colors">+ PJ</button>
+                </div>
             </div>
 
             {/* Liste */}

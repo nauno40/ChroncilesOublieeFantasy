@@ -6,11 +6,25 @@ export interface TrackerState {
     combatants: Combatant[];
 }
 
-/** Tri par initiative décroissante, stable en cas d'égalité (ordre d'insertion). */
+const isPlayer = (c: Combatant): boolean => c.type === 'player';
+
+/**
+ * Ordre d'action COF2 : initiative décroissante, puis départage à égalité —
+ * PJ avant PNJ, sinon plus haute PER, sinon le 1d20 stocké (le plus haut d'abord).
+ * Retourne <0 si `a` agit avant `b`.
+ */
+export const compareCombatants = (a: Combatant, b: Combatant): number => {
+    if (b.initiative !== a.initiative) return b.initiative - a.initiative; // INIT décroissante
+    if (isPlayer(a) !== isPlayer(b)) return isPlayer(a) ? -1 : 1;           // PJ > PNJ
+    if (b.per !== a.per) return b.per - a.per;                              // plus haute PER
+    return b.tiebreak - a.tiebreak;                                        // sinon 1d20
+};
+
+/** Tri par ordre d'action COF2 ; l'ordre d'insertion départage l'ultime égalité (stable). */
 export const sortByInitiative = (combatants: Combatant[]): Combatant[] =>
     combatants
         .map((c, i) => ({ c, i }))
-        .sort((a, b) => b.c.initiative - a.c.initiative || a.i - b.i)
+        .sort((a, b) => compareCombatants(a.c, b.c) || a.i - b.i)
         .map(({ c }) => c);
 
 /** Avance au combattant suivant dans l'ordre d'initiative ; wrap => round + 1. */

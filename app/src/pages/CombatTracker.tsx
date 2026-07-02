@@ -10,10 +10,23 @@ import type { Character } from '../types/character';
 
 const STORAGE_KEY = 'co_combat_tracker';
 
+/** 1d20 stocké par combattant pour le départage final COF2 (stable entre les rendus). */
+const rollTiebreak = (): number => Math.floor(Math.random() * 20) + 1;
+
 const loadState = (): TrackerState => {
     try {
         const saved = localStorage.getItem(STORAGE_KEY);
-        if (saved) return JSON.parse(saved) as TrackerState;
+        if (saved) {
+            const parsed = JSON.parse(saved) as TrackerState;
+            // Compat : d'anciens combattants persistés peuvent manquer de per/tiebreak/states.
+            parsed.combatants = (parsed.combatants ?? []).map(c => ({
+                ...c,
+                states: Array.isArray(c.states) ? c.states : [],
+                per: typeof c.per === 'number' ? c.per : 0,
+                tiebreak: typeof c.tiebreak === 'number' ? c.tiebreak : rollTiebreak(),
+            }));
+            return parsed;
+        }
     } catch {
         // stockage corrompu : on repart propre
     }
@@ -29,6 +42,7 @@ export const CombatTracker: React.FC = () => {
     const [init, setInit] = useState('');
     const [hp, setHp] = useState('');
     const [def, setDef] = useState('');
+    const [per, setPer] = useState('');
     const [type, setType] = useState<'player' | 'monster'>('monster');
 
     // Import bestiaire / PJ
@@ -68,10 +82,12 @@ export const CombatTracker: React.FC = () => {
             initiative: parseInt(init) || 0,
             hp: { current: maxHp, max: maxHp },
             def: parseInt(def) || 0,
+            per: parseInt(per) || 0,
+            tiebreak: rollTiebreak(),
             states: [],
             source: 'manual',
         });
-        setName(''); setInit(''); setHp(''); setDef('');
+        setName(''); setInit(''); setHp(''); setDef(''); setPer('');
     };
 
     const addFromBestiary = () => {
@@ -85,6 +101,8 @@ export const CombatTracker: React.FC = () => {
             initiative: creature.init,
             hp: { current: creature.hp, max: creature.hp },
             def: creature.def,
+            per: creature.stats?.SAG ?? 0, // les créatures utilisent SAG comme Perception
+            tiebreak: rollTiebreak(),
             states: [],
             source: 'bestiary' as const,
             referenceId: String(creature.id),
@@ -105,6 +123,8 @@ export const CombatTracker: React.FC = () => {
             initiative: character.data.init,
             hp: { current: character.data.hp.current, max: character.data.hp.max },
             def: character.data.def,
+            per: character.data.stats?.PER ?? 0,
+            tiebreak: rollTiebreak(),
             states: [],
             source: 'character',
             referenceId: String(character.id),
@@ -179,6 +199,9 @@ export const CombatTracker: React.FC = () => {
                 <input type="number" value={hp} onChange={e => setHp(e.target.value)} placeholder="PV"
                     className="w-20 bg-black/40 border border-white/10 text-stone-100 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary-500 placeholder-stone-600" />
                 <input type="number" value={def} onChange={e => setDef(e.target.value)} placeholder="DEF"
+                    className="w-20 bg-black/40 border border-white/10 text-stone-100 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary-500 placeholder-stone-600" />
+                <input type="number" value={per} onChange={e => setPer(e.target.value)} placeholder="PER"
+                    title="Perception — départage à initiative égale"
                     className="w-20 bg-black/40 border border-white/10 text-stone-100 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary-500 placeholder-stone-600" />
                 <select value={type} onChange={e => setType(e.target.value as 'player' | 'monster')}
                     className="bg-black/40 border border-white/10 text-stone-100 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary-500">

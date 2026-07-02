@@ -5,7 +5,18 @@ import { sortByInitiative, nextTurn, removeById, applyHp } from './combatTracker
 
 const mk = (id: string, initiative: number, hp = 10): Combatant => ({
     id, name: id, type: 'monster', initiative,
-    hp: { current: hp, max: hp }, def: 10, states: [],
+    hp: { current: hp, max: hp }, def: 10, per: 0, tiebreak: 0, states: [],
+});
+
+// Combattant avec type/PER/1d20 explicites pour tester le départage COF2.
+const mkFull = (
+    id: string,
+    initiative: number,
+    opts: { type?: Combatant['type']; per?: number; tiebreak?: number } = {},
+): Combatant => ({
+    id, name: id, type: opts.type ?? 'monster', initiative,
+    hp: { current: 10, max: 10 }, def: 10,
+    per: opts.per ?? 0, tiebreak: opts.tiebreak ?? 0, states: [],
 });
 
 const state = (combatants: Combatant[], activeId: string | null, round = 1): TrackerState =>
@@ -16,9 +27,40 @@ describe('sortByInitiative', () => {
         const r = sortByInitiative([mk('a', 5), mk('b', 12), mk('c', 8)]);
         expect(r.map(c => c.id)).toEqual(['b', 'c', 'a']);
     });
-    it('conserve l\'ordre d\'insertion en cas d\'égalité (stable)', () => {
+    it('conserve l\'ordre d\'insertion en dernier recours (tout égal)', () => {
         const r = sortByInitiative([mk('a', 10), mk('b', 10), mk('c', 10)]);
         expect(r.map(c => c.id)).toEqual(['a', 'b', 'c']);
+    });
+});
+
+describe('sortByInitiative — départage COF2 à initiative égale', () => {
+    it('PJ agit avant PNJ', () => {
+        const r = sortByInitiative([
+            mkFull('mob', 10, { type: 'monster' }),
+            mkFull('pj', 10, { type: 'player' }),
+        ]);
+        expect(r.map(c => c.id)).toEqual(['pj', 'mob']);
+    });
+    it('entre deux PJ, la plus haute PER agit en premier', () => {
+        const r = sortByInitiative([
+            mkFull('bas', 10, { type: 'player', per: 1 }),
+            mkFull('haut', 10, { type: 'player', per: 3 }),
+        ]);
+        expect(r.map(c => c.id)).toEqual(['haut', 'bas']);
+    });
+    it('PER égale : le plus haut 1d20 stocké départage', () => {
+        const r = sortByInitiative([
+            mkFull('d5', 10, { type: 'player', per: 2, tiebreak: 5 }),
+            mkFull('d18', 10, { type: 'player', per: 2, tiebreak: 18 }),
+        ]);
+        expect(r.map(c => c.id)).toEqual(['d18', 'd5']);
+    });
+    it('l\'INIT prime toujours sur le départage (PNJ à INIT plus haute passe devant un PJ)', () => {
+        const r = sortByInitiative([
+            mkFull('pj', 10, { type: 'player', per: 9 }),
+            mkFull('mob', 12, { type: 'monster', per: 0 }),
+        ]);
+        expect(r.map(c => c.id)).toEqual(['mob', 'pj']);
     });
 });
 

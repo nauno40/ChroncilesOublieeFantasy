@@ -25,6 +25,7 @@ Le projet repose sur **Docker Compose** pour l'orchestration des conteneurs. Le 
    - Extensions PHP : intl, pdo_pgsql, zip, opcache
    - Volumes : `./backend:/app` (code) + `./backend/data:/app/data` (données de jeu)
    - Variables : `DATABASE_URL`, `APP_ENV=dev`
+   - **Entrypoint dev** (`backend/docker/dev-entrypoint.sh`, câblé via `docker-compose.yml`) : attend la base, applique les migrations, puis crée/actualise un utilisateur de test (`bin/console app:create-test-user`) avant de lancer `php-fpm` — la création n'a lieu que si `APP_ENV=dev` (le `Dockerfile` de prod reste inchangé)
    - Dépend de : `database`
 
 3. **`nginx` (Serveur Web API)** :

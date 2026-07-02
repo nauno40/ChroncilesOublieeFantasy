@@ -132,7 +132,15 @@ export const CombatTracker: React.FC = () => {
     };
 
     const handleNext = () => setState(s => nextTurn(s));
-    const handleRemove = (id: string) => setState(s => removeById(s, id));
+    const handleRemove = (id: string) => {
+        setState(s => removeById(s, id));
+        setHpInputs(prev => {
+            if (!(id in prev)) return prev;
+            const rest = { ...prev };
+            delete rest[id];
+            return rest;
+        });
+    };
     const changeHp = (id: string, delta: number) =>
         setState(s => ({ ...s, combatants: applyHp(s.combatants, id, delta) }));
 
@@ -163,6 +171,7 @@ export const CombatTracker: React.FC = () => {
     const resetCombat = () => {
         if (state.combatants.length && !window.confirm('Vider le combat en cours ?')) return;
         setState({ round: 1, activeId: null, combatants: [] });
+        setHpInputs({});
     };
 
     return (

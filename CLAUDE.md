@@ -71,7 +71,7 @@ npm run lint      # eslint . (flat config, typescript-eslint + react-hooks)
 npm run preview   # serve production build
 ```
 
-No `test` script and no tests exist, despite Playwright being installed.
+Tests: `npm test` / `npm run test:run` (Vitest unit tests, e.g. `src/utils/*.test.ts`) and `npm run e2e` (Playwright, `app/e2e/`; run against the running stack via `scripts/e2e.sh`).
 
 ## Dev environment (Docker Compose)
 
@@ -90,4 +90,5 @@ The Dockerfiles are multi-stage/prod-capable (backend Dockerfile sets `APP_ENV=p
 
 - **JWT keys ship empty** — run `lexik:jwt:generate-keypair` in the backend container before auth will work.
 - After first `docker compose up`: run migrations, then fixtures, then generate JWT keys.
-- The seeded `admin@example.com` user has a placeholder password hash (not a usable login).
+- The seeded `admin@example.com` user is a usable login (password `admin`, `ROLE_ADMIN`), hashed by `AppFixtures::loadUsers()`.
+- In dev, the backend entrypoint (`backend/docker/dev-entrypoint.sh`) waits for the DB, runs migrations, then auto-creates/updates a test user `test@test.com` / `password` (`ROLE_ADMIN`) via `bin/console app:create-test-user` on every `docker compose up`.

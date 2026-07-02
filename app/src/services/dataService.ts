@@ -1,4 +1,4 @@
-import type { Weapon, Armor, Food, Lodging, Mount, Creature, Race, Profile, Voie, Capacity, Material, Family } from '../types/normalized';
+import type { Weapon, Armor, Food, Lodging, Mount, Creature, Race, Profile, Voie, Capacity, Material, Family, HarmfulState } from '../types/normalized';
 // Renaming Capacity to Capability for API consistency if needed, or stick to Capacity
 import { ApiService } from './api';
 
@@ -40,7 +40,7 @@ export const DataService = {
     getCapabilities: () => ApiService.getAll<Capacity>('capabilities?pagination=false&itemsPerPage=500'),
     getCapabilityById: (id: string | number) => ApiService.getOne<Capacity>('capabilities', id),
     getCapabilitiesByVoie: (voieId: string | number) => ApiService.getAll<Capacity>(`capabilities?voie=${voieId}&pagination=false`),
-    getStates: () => ApiService.getAll<any>('states?pagination=false&itemsPerPage=500'), // Use HarmfulState type if avail
+    getStates: () => ApiService.getAll<HarmfulState>('states?pagination=false&itemsPerPage=500'),
 
     // Provision helper (combines food and lodging)
     getProvisions: async (): Promise<(Food | Lodging)[]> => {

@@ -5,7 +5,7 @@ import type { TrackerState } from '../utils/combatTracker';
 import { sortByInitiative, nextTurn, removeById, applyHp } from '../utils/combatTracker';
 import { DataService } from '../services/dataService';
 import { ApiService } from '../services/api';
-import type { Creature } from '../types/normalized';
+import type { Creature, HarmfulState } from '../types/normalized';
 import type { Character } from '../types/character';
 
 const STORAGE_KEY = 'co_combat_tracker';
@@ -38,9 +38,15 @@ export const CombatTracker: React.FC = () => {
     const [quantity, setQuantity] = useState('1');
     const [characterId, setCharacterId] = useState('');
 
+    const [harmfulStates, setHarmfulStates] = useState<HarmfulState[]>([]);
+
     useEffect(() => {
         DataService.getCreatures().then(setCreatures).catch(() => setCreatures([]));
         ApiService.getAll<Character>('characters').then(setCharacters).catch(() => setCharacters([]));
+    }, []);
+
+    useEffect(() => {
+        DataService.getStates().then(setHarmfulStates).catch(() => setHarmfulStates([]));
     }, []);
 
     useEffect(() => {
@@ -109,6 +115,23 @@ export const CombatTracker: React.FC = () => {
     const handleRemove = (id: string) => setState(s => removeById(s, id));
     const changeHp = (id: string, delta: number) =>
         setState(s => ({ ...s, combatants: applyHp(s.combatants, id, delta) }));
+
+    const addState = (id: string, stateName: string) => {
+        if (!stateName) return;
+        setState(s => ({
+            ...s,
+            combatants: s.combatants.map(c =>
+                c.id === id && !c.states.includes(stateName)
+                    ? { ...c, states: [...c.states, stateName] } : c),
+        }));
+    };
+
+    const removeState = (id: string, stateName: string) =>
+        setState(s => ({
+            ...s,
+            combatants: s.combatants.map(c =>
+                c.id === id ? { ...c, states: c.states.filter(n => n !== stateName) } : c),
+        }));
 
     const applyInput = (id: string, sign: 1 | -1) => {
         const amount = parseInt(hpInputs[id] || '');
@@ -218,6 +241,20 @@ export const CombatTracker: React.FC = () => {
                                 <span className="flex items-center gap-1 bg-black/30 px-2 py-0.5 rounded border border-white/5">
                                     <Shield size={12} className="text-stone-400" /> <span className="text-stone-300 font-mono font-bold">DEF {c.def}</span>
                                 </span>
+                            </div>
+                            <div className="flex flex-wrap items-center gap-1 mt-1">
+                                {c.states.map(stateName => (
+                                    <button key={stateName} onClick={() => removeState(c.id, stateName)}
+                                        title="Retirer l'état"
+                                        className="text-[10px] uppercase tracking-wide bg-purple-900/40 hover:bg-red-900/50 text-purple-200 hover:text-red-200 px-2 py-0.5 rounded border border-purple-500/30 transition-colors">
+                                        {stateName} ✕
+                                    </button>
+                                ))}
+                                <select value="" onChange={e => { addState(c.id, e.target.value); e.target.value = ''; }}
+                                    className="text-[10px] bg-black/40 border border-white/10 text-stone-400 rounded px-1 py-0.5 focus:outline-none focus:ring-1 focus:ring-primary-500">
+                                    <option value="">+ État</option>
+                                    {harmfulStates.map(hs => <option key={hs.id} value={hs.name}>{hs.name}</option>)}
+                                </select>
                             </div>
                         </div>
 

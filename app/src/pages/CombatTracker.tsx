@@ -136,7 +136,7 @@ export const CombatTracker: React.FC = () => {
     const applyInput = (id: string, sign: 1 | -1) => {
         const amount = parseInt(hpInputs[id] || '');
         if (!amount) return;
-        changeHp(id, sign * amount);
+        changeHp(id, sign * Math.abs(amount));
         setHpInputs(prev => ({ ...prev, [id]: '' }));
     };
 

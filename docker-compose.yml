@@ -14,6 +14,7 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
+    entrypoint: ["sh", "docker/dev-entrypoint.sh"]
     volumes:
       - ./backend:/app
       - ./backend/data:/app/data

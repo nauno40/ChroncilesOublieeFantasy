@@ -99,7 +99,7 @@ src/
 | Route | Page | Description |
 |---|---|---|
 | `/tools` | `Tools` | Index des outils MJ |
-| `/tools/tracker` | `CombatTracker` | Tracker d'initiative (tours, rounds, PV) |
+| `/tools/tracker` | `CombatTracker` | Suivi de Combat : ordre d'initiative COF2 (départage PJ>PNJ / PER / 1d20), tours & rounds, PV (dégâts/soins en saisie libre + ±1), import bestiaire (quantité + auto-numérotation) et PJ, états préjudiciables, persistance localStorage. Logique pure testée (`utils/combatTracker.ts`) |
 | `/tools/soundboard` | `SoundboardPage` | Pistes audio personnalisables |
 | `/tools/dice` | `Dice` | Lanceur de dés (mode plein écran) |
 | `/campaign` | `Campaign` | Liste des campagnes (CRUD) |
@@ -139,7 +139,7 @@ src/
 L'application n'utilise **pas** Redux ou Zustand. La gestion d'état repose sur :
 
 - **React Context** : `AuthContext` pour l'authentification (utilisateur, token, login/logout)
-- **localStorage** : Token JWT (`co_auth_token`), utilisateur (`co_auth_user`), notes (`co_global_notes`), pistes audio (`co_soundboard_tracks`), positions fenêtres (`window_state_*`)
+- **localStorage** : Token JWT (`co_auth_token`), utilisateur (`co_auth_user`), notes (`co_global_notes`), pistes audio (`co_soundboard_tracks`), suivi de combat (`co_combat_tracker`), positions fenêtres (`window_state_*`)
 - **Hooks locaux** : `useState`, `useEffect`, `useMemo`, `useRef`, `useCallback` dans chaque page
 - **Hooks customs** : `useSearch<T>` (filtrage), `useToggle` (toggle booléen)
 

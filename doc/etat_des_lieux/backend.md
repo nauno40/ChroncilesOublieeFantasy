@@ -24,6 +24,8 @@ Le backend, situé dans `./backend`, a pour rôle de stocker, structurer et dist
 
 ```
 src/
+├── Command/
+│   └── CreateTestUserCommand.php  # `app:create-test-user` (idempotent, dev)
 ├── Controller/Admin/        # CRUD EasyAdmin (10 contrôleurs)
 │   ├── DashboardController.php
 │   ├── UserCrudController.php
@@ -108,6 +110,7 @@ src/
 - **Clefs** : private.pem / public.pem présentes dans `config/jwt/` (regénérables via `lexik:jwt:generate-keypair`)
 - **Passphrase** : stockée dans `.env`
 - **Compte admin de seed** : `admin@example.com` / `admin` (mot de passe défini dans les fixtures — à changer hors développement)
+- **Utilisateur de test (dev)** : recréé/actualisé à chaque `docker compose up` par l'entrypoint dev (`backend/docker/dev-entrypoint.sh` → `bin/console app:create-test-user`) — `test@test.com` / `password` / `ROLE_ADMIN`. Commande idempotente (options `--email/--password/--role`).
 
 ## 6. EasyAdmin (Back Office)
 

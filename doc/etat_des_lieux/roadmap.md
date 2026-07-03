@@ -12,7 +12,7 @@ Suite à l'analyse approfondie du code source frontend et backend (juin 2026), v
 - **Règles** : Module complet avec 10 sections (Introduction, Bases, Combat, Magie, Environnement, Aventure, Objets Magiques, Opposition, Devenir MJ, Conversion COF1→COF2)
 
 ### Fiche de Personnage
-- Outil extrêmement complet (`CharacterSheet.tsx` — 2109 lignes)
+- Outil extrêmement complet — `CharacterSheet.tsx` refactorisé (2109 → ~176 lignes), découpé en composants + hook `useCharacterSheet`
 - Calcul automatisé des modificateurs de caractéristiques
 - Intégration des bonus liés aux capacités (système `CAPABILITY_MODIFIERS`)
 - Lancer de dés intégré directement depuis la fiche
@@ -74,7 +74,7 @@ Suite à l'analyse approfondie du code source frontend et backend (juin 2026), v
 - [x] **Tests automatisés** : première suite E2E Playwright (`app/e2e/`) + tests unitaires règles (Vitest) et sécurité (PHPUnit). À étendre.
 
 ### Améliorations techniques
-- [ ] **Refactoring CharacterSheet** : Diviser le fichier de 2109 lignes en composants plus petits
+- [x] **Refactoring CharacterSheet** : fait (PR #1) — fichier divisé (2109 → ~176 lignes) en composants (`CharacterToolbar`, `AttributesPanel`, `MainStatsPanel`, `IdentityBlock`, `VoiesTree`, `CapabilityNode`, sections Roleplay/Protection/Weapons/Inventory) + hook `useCharacterSheet`
 - [x] **Clefs JWT** : présentes dans `config/jwt/` (regénérables via `lexik:jwt:generate-keypair`)
 - [x] **Sécurisation fine de l'API** : User, Campaign et Character restreints par utilisateur / rôle
 - [x] **Tests automatisés des règles de sécurité** : suite PHPUnit dans `backend/tests/Api/`

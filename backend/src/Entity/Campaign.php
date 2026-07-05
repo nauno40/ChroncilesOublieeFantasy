@@ -10,6 +10,7 @@ use ApiPlatform\Metadata\Put;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Delete;
 use App\State\CampaignStateProcessor;
+use App\State\RegenerateInviteProcessor;
 use App\Repository\CampaignRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -27,6 +28,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new Put(security: "is_granted('ROLE_USER') and object.getOwner() == user", processor: CampaignStateProcessor::class),
         new Patch(security: "is_granted('ROLE_USER') and object.getOwner() == user", processor: CampaignStateProcessor::class),
         new Delete(security: "is_granted('ROLE_USER') and object.getOwner() == user"),
+        new Post(
+            uriTemplate: '/campaigns/{id}/regenerate_invite',
+            status: 200,
+            security: "is_granted('ROLE_USER') and object != null and object.getOwner() == user",
+            processor: RegenerateInviteProcessor::class,
+            read: true,
+        ),
     ],
     normalizationContext: ['groups' => ['campaign:read']],
     denormalizationContext: ['groups' => ['campaign:write']]

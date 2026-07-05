@@ -59,11 +59,11 @@ Suite à l'analyse approfondie du code source frontend et backend (juin 2026), v
 - [x] Système de comptes (JWT) — inscription, connexion
 - [x] Lier Character et Campaign à un User
 
-### Phase 2 : Partage asynchrone MJ ⇄ Joueurs
+### Phase 2 : Partage asynchrone MJ ⇄ Joueurs (fait)
 - [x] **Persistance des campagnes via l'API** (remplacement du localStorage)
-- [ ] **Partage des résumés de campagne aux joueurs** : le MJ diffuse en lecture seule les résumés de séances (`Session.summary` existe déjà) aux joueurs concernés
-- [ ] **Personnages créés par les joueurs, partagés au MJ** : un joueur crée sa fiche et la rattache à la campagne du MJ, qui y accède en lecture (`Character` a déjà `owner` + `campaign`)
-- [ ] **Notion de membres de campagne / partage inter-utilisateurs** (prérequis technique) : lever le scope strict « propriétaire » (`CurrentUserExtension` + `security` owner-only) pour autoriser un accès partagé et contrôlé
+- [x] **Notion de membres de campagne / partage inter-utilisateurs** : entité `CampaignMembership` + code d'invitation (`Campaign.inviteCode`, régénérable). Un joueur rejoint par code (`POST /api/shared_campaigns/join`) ; scoping via `CurrentUserExtension` (le membre voit ses adhésions, le MJ voit les membres de ses campagnes)
+- [x] **Partage des résumés de campagne aux joueurs** : ressource read-only dédiée `SharedCampaign` (`GET /api/shared_campaigns`) qui n'expose que le nom + les résumés de séances (aucune fuite de `notes`/quêtes/indices ; la ressource `Campaign` reste owner-scopée)
+- [x] **Personnages créés par les joueurs, partagés au MJ** : le joueur rattache sa fiche via le champ `campaignId` (validé par l'appartenance) ; le MJ lit **et** édite les fiches de ses membres (`Character` sécurité élargie à `owner` ou MJ ; `Delete` reste propriétaire)
 
 ### Phase 3 : Nouvelles Features
 - [ ] **Import/Export PDF** : Générer une fiche de personnage imprimable

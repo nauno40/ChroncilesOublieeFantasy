@@ -48,6 +48,7 @@ cd app && npm run build && npm run lint
 - `backend/src/ApiResource/SharedCampaign.php` — DTO read-model joueur
 - `backend/src/ApiResource/SharedSession.php` — DTO résumé de séance
 - `backend/src/ApiResource/JoinCampaignInput.php` — DTO d'entrée `{ code }`
+- `backend/src/Factory/SharedCampaignFactory.php` — mapping Campaign→DTO partagé (source unique)
 - `backend/src/State/SharedCampaignProvider.php` — provider lecture (membre)
 - `backend/src/State/JoinCampaignProcessor.php` — rejoindre par code
 - `backend/src/State/RegenerateInviteProcessor.php` — régénérer le code
@@ -572,7 +573,7 @@ git commit -m "feat(campaign): opération regenerate_invite (révocation du code
 ## Task 4 : Ressource `SharedCampaign` + rejoindre par code
 
 **Files:**
-- Create: `backend/src/ApiResource/SharedCampaign.php`, `SharedSession.php`, `JoinCampaignInput.php`, `backend/src/State/SharedCampaignProvider.php`, `backend/src/State/JoinCampaignProcessor.php`
+- Create: `backend/src/ApiResource/SharedCampaign.php`, `SharedSession.php`, `JoinCampaignInput.php`, `backend/src/Factory/SharedCampaignFactory.php`, `backend/src/State/SharedCampaignProvider.php`, `backend/src/State/JoinCampaignProcessor.php`
 - Test: `backend/tests/Api/SharedCampaignTest.php`
 
 **Interfaces:**
@@ -581,6 +582,7 @@ git commit -m "feat(campaign): opération regenerate_invite (révocation du code
   - `GET /api/shared_campaigns`, `GET /api/shared_campaigns/{id}` (provider `SharedCampaignProvider`).
   - `POST /api/shared_campaigns/join` body `{ "code": "..." }` (processor `JoinCampaignProcessor`) → `SharedCampaign`.
   - DTO `SharedCampaign { int $id; string $name; string $gameMaster; SharedSession[] $sessions }`.
+  - `SharedCampaignFactory::fromCampaign(Campaign): SharedCampaign` — mapping partagé (source unique), injecté dans le provider ET le processor.
 
 - [ ] **Step 1 : Écrire les tests qui échouent**
 
@@ -808,62 +810,26 @@ final class SharedCampaign
 }
 ```
 
-- [ ] **Step 4 : Créer le provider (lecture)**
+- [ ] **Step 4 : Créer le mapper partagé `SharedCampaignFactory`**
 
-`backend/src/State/SharedCampaignProvider.php` :
+`backend/src/Factory/SharedCampaignFactory.php` — **source unique** du mapping, réutilisée par le provider et le processor :
 ```php
 <?php
 
-namespace App\State;
+namespace App\Factory;
 
-use ApiPlatform\Metadata\CollectionOperationInterface;
-use ApiPlatform\Metadata\Operation;
-use ApiPlatform\State\ProviderInterface;
 use App\ApiResource\SharedCampaign;
 use App\ApiResource\SharedSession;
 use App\Entity\Campaign;
 use App\Entity\Session;
-use App\Repository\CampaignMembershipRepository;
-use Symfony\Bundle\SecurityBundle\Security;
 
 /**
- * Alimente la vue joueur (SharedCampaign) à partir des campagnes où l'utilisateur
- * courant est membre. Lit les entités au repository, hors du scope propriétaire,
- * et ne mappe que le nom et les résumés de séances.
+ * Convertit une Campaign en vue joueur (SharedCampaign) : nom + résumés uniquement.
+ * Aucune donnée secrète (notes, indices, quêtes) n'est mappée.
  */
-final readonly class SharedCampaignProvider implements ProviderInterface
+final class SharedCampaignFactory
 {
-    public function __construct(
-        private Security $security,
-        private CampaignMembershipRepository $memberships,
-    ) {
-    }
-
-    public function provide(Operation $operation, array $uriVariables = [], array $context = []): object|array|null
-    {
-        $user = $this->security->getUser();
-        if (null === $user) {
-            return $operation instanceof CollectionOperationInterface ? [] : null;
-        }
-
-        if ($operation instanceof CollectionOperationInterface) {
-            return array_map(
-                fn (Campaign $c) => $this->toDto($c),
-                $this->memberships->findCampaignsForPlayer($user),
-            );
-        }
-
-        $id = $uriVariables['id'] ?? null;
-        foreach ($this->memberships->findCampaignsForPlayer($user) as $campaign) {
-            if ($campaign->getId() === (int) $id) {
-                return $this->toDto($campaign);
-            }
-        }
-
-        return null; // non-membre ou inconnu -> 404
-    }
-
-    private function toDto(Campaign $campaign): SharedCampaign
+    public function fromCampaign(Campaign $campaign): SharedCampaign
     {
         $dto = new SharedCampaign();
         $dto->id = $campaign->getId();
@@ -889,7 +855,62 @@ final readonly class SharedCampaignProvider implements ProviderInterface
 }
 ```
 
-- [ ] **Step 5 : Créer le processor de join**
+- [ ] **Step 5 : Créer le provider (lecture)**
+
+`backend/src/State/SharedCampaignProvider.php` :
+```php
+<?php
+
+namespace App\State;
+
+use ApiPlatform\Metadata\CollectionOperationInterface;
+use ApiPlatform\Metadata\Operation;
+use ApiPlatform\State\ProviderInterface;
+use App\Entity\Campaign;
+use App\Factory\SharedCampaignFactory;
+use App\Repository\CampaignMembershipRepository;
+use Symfony\Bundle\SecurityBundle\Security;
+
+/**
+ * Alimente la vue joueur (SharedCampaign) à partir des campagnes où l'utilisateur
+ * courant est membre. Lit les entités au repository, hors du scope propriétaire.
+ */
+final readonly class SharedCampaignProvider implements ProviderInterface
+{
+    public function __construct(
+        private Security $security,
+        private CampaignMembershipRepository $memberships,
+        private SharedCampaignFactory $factory,
+    ) {
+    }
+
+    public function provide(Operation $operation, array $uriVariables = [], array $context = []): object|array|null
+    {
+        $user = $this->security->getUser();
+        if (null === $user) {
+            return $operation instanceof CollectionOperationInterface ? [] : null;
+        }
+
+        if ($operation instanceof CollectionOperationInterface) {
+            return array_map(
+                fn (Campaign $c) => $this->factory->fromCampaign($c),
+                $this->memberships->findCampaignsForPlayer($user),
+            );
+        }
+
+        $id = $uriVariables['id'] ?? null;
+        foreach ($this->memberships->findCampaignsForPlayer($user) as $campaign) {
+            if ($campaign->getId() === (int) $id) {
+                return $this->factory->fromCampaign($campaign);
+            }
+        }
+
+        return null; // non-membre ou inconnu -> 404
+    }
+}
+```
+
+- [ ] **Step 6 : Créer le processor de join**
 
 `backend/src/State/JoinCampaignProcessor.php` :
 ```php
@@ -901,10 +922,8 @@ use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
 use App\ApiResource\JoinCampaignInput;
 use App\ApiResource\SharedCampaign;
-use App\ApiResource\SharedSession;
-use App\Entity\Campaign;
 use App\Entity\CampaignMembership;
-use App\Entity\Session;
+use App\Factory\SharedCampaignFactory;
 use App\Repository\CampaignMembershipRepository;
 use App\Repository\CampaignRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -924,6 +943,7 @@ final readonly class JoinCampaignProcessor implements ProcessorInterface
         private CampaignRepository $campaigns,
         private CampaignMembershipRepository $memberships,
         private EntityManagerInterface $em,
+        private SharedCampaignFactory $factory,
     ) {
     }
 
@@ -948,39 +968,20 @@ final readonly class JoinCampaignProcessor implements ProcessorInterface
             $this->em->flush();
         }
 
-        return $this->toDto($campaign);
-    }
-
-    private function toDto(Campaign $campaign): SharedCampaign
-    {
-        $dto = new SharedCampaign();
-        $dto->id = $campaign->getId();
-        $dto->name = $campaign->getName();
-        $dto->gameMaster = $campaign->getOwner()?->getPseudo();
-        $dto->sessions = $campaign->getSessions()->map(function (Session $s): SharedSession {
-            $out = new SharedSession();
-            $out->id = $s->getId();
-            $out->title = $s->getTitle();
-            $out->date = $s->getDate()?->format('Y-m-d');
-            $out->summary = $s->getSummary();
-
-            return $out;
-        })->toArray();
-
-        return $dto;
+        return $this->factory->fromCampaign($campaign);
     }
 }
 ```
 
-- [ ] **Step 6 : Lancer, vérifier le succès**
+- [ ] **Step 7 : Lancer, vérifier le succès**
 
 Run: `docker compose exec -T backend bin/phpunit --filter SharedCampaignTest`
 Expected: PASS (6 tests).
 
-- [ ] **Step 7 : Commit**
+- [ ] **Step 8 : Commit**
 
 ```bash
-git add backend/src/ApiResource/ backend/src/State/SharedCampaignProvider.php backend/src/State/JoinCampaignProcessor.php backend/tests/Api/SharedCampaignTest.php
+git add backend/src/ApiResource/ backend/src/Factory/SharedCampaignFactory.php backend/src/State/SharedCampaignProvider.php backend/src/State/JoinCampaignProcessor.php backend/tests/Api/SharedCampaignTest.php
 git commit -m "feat(sharing): ressource SharedCampaign (lecture résumés) + rejoindre par code"
 ```
 

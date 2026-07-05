@@ -491,8 +491,9 @@ Dans `backend/tests/Api/InviteAndJoinTest.php`, ajouter :
             'headers' => $this->authHeaders($intrus),
             'json' => [],
         ]);
-        // Scopé hors requête par CurrentUserExtension -> 404
-        $this->assertResponseStatusCodeSame(404);
+        // Refusé par l'expression de sécurité : l'objet est hors du scope du non-propriétaire
+        // (object == null) ; un POST item-op ne peut pas renvoyer 404 proprement ici -> 403.
+        $this->assertResponseStatusCodeSame(403);
     }
 ```
 > Note : `createCampaign` (helper existant) ne pose pas de `inviteCode` — c'est voulu, on le fixe explicitement dans le test.
@@ -550,9 +551,10 @@ et une opération dans le tableau `operations:` (après le `Delete`) :
 ```php
         new Post(
             uriTemplate: '/campaigns/{id}/regenerate_invite',
-            security: "is_granted('ROLE_USER') and object.getOwner() == user",
+            security: "is_granted('ROLE_USER') and object != null and object.getOwner() == user",
             processor: RegenerateInviteProcessor::class,
             read: true,
+            status: 200,
         ),
 ```
 

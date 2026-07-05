@@ -7,6 +7,7 @@ use ApiPlatform\Doctrine\Orm\Extension\QueryItemExtensionInterface;
 use ApiPlatform\Doctrine\Orm\Util\QueryNameGeneratorInterface;
 use ApiPlatform\Metadata\Operation;
 use App\Entity\Campaign;
+use App\Entity\CampaignMembership;
 use App\Entity\Character;
 use App\Entity\Quest;
 use App\Entity\Clue;
@@ -38,7 +39,8 @@ final readonly class CurrentUserExtension implements QueryCollectionExtensionInt
             Character::class !== $resourceClass &&
             Quest::class !== $resourceClass &&
             Clue::class !== $resourceClass &&
-            Session::class !== $resourceClass
+            Session::class !== $resourceClass &&
+            CampaignMembership::class !== $resourceClass
         ) {
             return;
         }
@@ -50,15 +52,26 @@ final readonly class CurrentUserExtension implements QueryCollectionExtensionInt
 
         $rootAlias = $queryBuilder->getRootAliases()[0];
 
-        if (Campaign::class === $resourceClass || Character::class === $resourceClass) {
-            // Owner is a direct relation on these entities
+        if (Campaign::class === $resourceClass) {
+            // Strictement propriétaire : les joueurs passent par SharedCampaign.
             $queryBuilder->andWhere(sprintf('%s.owner = :current_user', $rootAlias));
-            $queryBuilder->setParameter('current_user', $user);
+        } elseif (Character::class === $resourceClass) {
+            // Propriétaire de la fiche OU MJ de la campagne à laquelle elle est rattachée.
+            $queryBuilder
+                ->leftJoin(sprintf('%s.campaign', $rootAlias), 'char_camp')
+                ->andWhere(sprintf('%s.owner = :current_user OR char_camp.owner = :current_user', $rootAlias));
+        } elseif (CampaignMembership::class === $resourceClass) {
+            // Le joueur voit ses adhésions ; le MJ voit les membres de ses campagnes.
+            $queryBuilder
+                ->leftJoin(sprintf('%s.campaign', $rootAlias), 'ms_camp')
+                ->andWhere(sprintf('%s.player = :current_user OR ms_camp.owner = :current_user', $rootAlias));
         } else {
-            // For Quest, Clue, Session - filter by their campaign's owner
-            $queryBuilder->join(sprintf('%s.campaign', $rootAlias), 'c');
-            $queryBuilder->andWhere('c.owner = :current_user');
-            $queryBuilder->setParameter('current_user', $user);
+            // Quest, Clue, Session : filtrés par le propriétaire de leur campagne.
+            $queryBuilder
+                ->join(sprintf('%s.campaign', $rootAlias), 'c')
+                ->andWhere('c.owner = :current_user');
         }
+
+        $queryBuilder->setParameter('current_user', $user);
     }
 }

@@ -30,12 +30,23 @@ const handleUnauthorized = () => {
     }
 };
 
-const ensureOk = (response: Response) => {
+// On error, API Platform responds with a JSON(-LD)/RFC7807 body carrying the
+// actual message under `detail` (or `hydra:description` for older clients).
+// We surface that message so callers can show it to the user (e.g. "Code
+// d'invitation invalide.") instead of a generic HTTP status text.
+const ensureOk = async (response: Response) => {
     if (response.status === 401) {
         handleUnauthorized();
     }
     if (!response.ok) {
-        throw new Error(`API Error: ${response.statusText}`);
+        let message = response.statusText || `Erreur ${response.status}`;
+        try {
+            const body = await response.clone().json();
+            message = body?.detail || body?.['hydra:description'] || body?.message || message;
+        } catch {
+            // Response body isn't JSON (or empty) — keep the status-based message.
+        }
+        throw new Error(message);
     }
 };
 
@@ -63,7 +74,7 @@ export const ApiService = {
         const response = await fetch(url, {
             headers: buildHeaders()
         });
-        ensureOk(response);
+        await ensureOk(response);
         return response.json();
     },
 
@@ -129,7 +140,7 @@ export const ApiService = {
             headers: buildHeaders({ 'Content-Type': 'application/json' }),
             body: JSON.stringify(data)
         });
-        ensureOk(response);
+        await ensureOk(response);
         return response.json();
     },
 
@@ -140,7 +151,20 @@ export const ApiService = {
             headers: buildHeaders({ 'Content-Type': 'application/json' }),
             body: JSON.stringify(data)
         });
-        ensureOk(response);
+        await ensureOk(response);
+        return response.json();
+    },
+
+    // API Platform's default PATCH format is `application/merge-patch+json`
+    // (see backend config/packages/api_platform.yaml — no patch_formats override).
+    async patch<T>(resource: string, id: string | number, data: any): Promise<T> {
+        const url = `${API_BASE_URL}/${resource}/${id}`.replace(/([^:]\/)\/+/g, "$1");
+        const response = await fetch(url, {
+            method: 'PATCH',
+            headers: buildHeaders({ 'Content-Type': 'application/merge-patch+json' }),
+            body: JSON.stringify(data)
+        });
+        await ensureOk(response);
         return response.json();
     },
 
@@ -150,6 +174,6 @@ export const ApiService = {
             method: 'DELETE',
             headers: buildHeaders()
         });
-        ensureOk(response);
+        await ensureOk(response);
     }
 };

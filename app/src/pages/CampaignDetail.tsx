@@ -1,14 +1,44 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getCampaign, saveCampaign } from '../utils/campaignService';
-import { ArrowLeft, Users, Sword, Plus, X, Calendar, Clock, Trophy, FileText, Check, Edit, Trash2, Scroll, HelpCircle, CheckSquare, Square, Search, MapPin, Loader2 } from 'lucide-react';
+import { ApiService } from '../services/api';
+import { SharingService, type Membership } from '../services/sharingService';
+import { ArrowLeft, Users, Sword, Plus, X, Calendar, Clock, Trophy, FileText, Check, Edit, Trash2, Scroll, HelpCircle, CheckSquare, Square, Search, MapPin, Loader2, KeyRound, Copy, RefreshCw, UserX } from 'lucide-react';
 import type { Campaign, Session, Quest, Clue } from '../types/campaign';
 import { clsx } from 'clsx';
+
+// Formes brutes (non re-mappées par campaignService) utilisées uniquement pour le
+// partage MJ : inviteCode/owner sur Campaign et owner sur Character ne font pas partie
+// des types applicatifs `Campaign`/`Character` (voir types/campaign.ts), donc on les
+// lit directement via ApiService sous forme JSON-LD brute (relations = IRI string).
+interface RawCampaign {
+    id: number;
+    inviteCode: string | null;
+    owner: string; // IRI, ex: /api/users/5
+}
+
+interface RawCharacter {
+    id: number;
+    name: string;
+    level: number;
+    campaign: string | null; // IRI
+    owner: string | null; // IRI
+}
+
+// Extrait l'identifiant numérique final d'une IRI API Platform (ex: /api/users/5 -> 5).
+const idFromIri = (iri: string): number => Number(iri.split('/').pop());
 
 export const CampaignDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const [campaign, setCampaign] = useState<Campaign | null>(null);
     const [loading, setLoading] = useState(true);
+
+    // State for sharing (invite code + members + their character sheets)
+    const [inviteCode, setInviteCode] = useState<string | null>(null);
+    const [memberships, setMemberships] = useState<Membership[]>([]);
+    const [memberCharacters, setMemberCharacters] = useState<RawCharacter[]>([]);
+    const [inviteCopied, setInviteCopied] = useState(false);
+    const [regeneratingInvite, setRegeneratingInvite] = useState(false);
 
     // State for Notes
     const [notes, setNotes] = useState('');
@@ -41,6 +71,78 @@ export const CampaignDetail: React.FC = () => {
         };
         load();
     }, [id]);
+
+    // Load sharing data: invite code, members (memberships) and the character
+    // sheets belonging to players (i.e. not owned by the GM). Fetched separately
+    // via ApiService/SharingService since campaignService's mapped `Campaign`
+    // does not expose `inviteCode`/`owner` (see RawCampaign/RawCharacter above).
+    useEffect(() => {
+        const loadSharingData = async () => {
+            if (!id) return;
+            try {
+                const campaignIri = `/api/campaigns/${id}`;
+                const [rawCampaign, allMemberships, allCharacters] = await Promise.all([
+                    ApiService.getOne<RawCampaign>('campaigns', id),
+                    SharingService.getMemberships(),
+                    ApiService.getAll<RawCharacter>('characters'),
+                ]);
+
+                setInviteCode(rawCampaign.inviteCode);
+                setMemberships(allMemberships.filter(m => m.campaign === campaignIri));
+                setMemberCharacters(
+                    allCharacters.filter(c => c.campaign === campaignIri && !!c.owner && c.owner !== rawCampaign.owner)
+                );
+            } catch (error) {
+                console.error('Failed to load sharing data', error);
+            }
+        };
+        loadSharingData();
+    }, [id]);
+
+    const getPlayerId = (m: Membership): number | null =>
+        typeof m.player === 'string' ? idFromIri(m.player) : m.player.id;
+
+    const getPlayerPseudo = (m: Membership): string =>
+        typeof m.player === 'string' ? m.player : m.player.pseudo;
+
+    const charactersForMember = (m: Membership): RawCharacter[] => {
+        const playerId = getPlayerId(m);
+        return memberCharacters.filter(c => c.owner && idFromIri(c.owner) === playerId);
+    };
+
+    const handleCopyInvite = async () => {
+        if (!inviteCode) return;
+        try {
+            await navigator.clipboard.writeText(inviteCode);
+            setInviteCopied(true);
+            setTimeout(() => setInviteCopied(false), 2000);
+        } catch (error) {
+            console.error('Failed to copy invite code', error);
+        }
+    };
+
+    const handleRegenerateInvite = async () => {
+        if (!campaign) return;
+        setRegeneratingInvite(true);
+        try {
+            const { inviteCode: newCode } = await SharingService.regenerateInvite(Number(campaign.id));
+            setInviteCode(newCode);
+        } catch (error) {
+            console.error('Failed to regenerate invite code', error);
+        } finally {
+            setRegeneratingInvite(false);
+        }
+    };
+
+    const handleRemoveMembership = async (membershipId: number) => {
+        if (!confirm('Exclure ce joueur de la campagne ?')) return;
+        try {
+            await SharingService.deleteMembership(membershipId);
+            setMemberships(prev => prev.filter(m => m.id !== membershipId));
+        } catch (error) {
+            console.error('Failed to delete membership', error);
+        }
+    };
 
     // Auto-save Notes logic
     const handleNotesChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -246,6 +348,81 @@ export const CampaignDetail: React.FC = () => {
                 <h1 className="text-5xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary-100 to-primary-400 drop-shadow-lg mb-2">{campaign.name}</h1>
                 <p className="text-stone-400 text-lg max-w-full leading-relaxed whitespace-pre-line">{campaign.description || "Aucune description."}</p>
             </header>
+
+            {/* Partage : code d'invitation + membres et leurs fiches */}
+            <div className="grid lg:grid-cols-3 gap-6 mb-8">
+                <div className="glass-panel p-6 rounded-2xl border-primary-500/20">
+                    <div className="flex items-center gap-3 mb-4">
+                        <div className="bg-primary-900/30 p-3 rounded-xl border border-primary-500/20">
+                            <KeyRound size={24} className="text-primary-400" />
+                        </div>
+                        <h3 className="font-display font-bold text-xl text-stone-200">Inviter des joueurs</h3>
+                    </div>
+                    <div className="flex flex-wrap items-center gap-2 mb-3">
+                        <code className="bg-stone-950 border border-white/10 rounded-lg px-4 py-2 text-lg font-mono text-primary-300 tracking-widest">
+                            {inviteCode || '—'}
+                        </code>
+                        <button
+                            onClick={handleCopyInvite}
+                            disabled={!inviteCode}
+                            className="bg-stone-800 hover:bg-stone-700 text-stone-300 px-3 py-2 rounded-lg text-xs font-bold uppercase flex items-center gap-2 disabled:opacity-50 transition-colors"
+                        >
+                            <Copy size={14} /> {inviteCopied ? 'Copié !' : 'Copier'}
+                        </button>
+                        <button
+                            onClick={handleRegenerateInvite}
+                            disabled={regeneratingInvite}
+                            className="bg-stone-800 hover:bg-stone-700 text-stone-300 px-3 py-2 rounded-lg text-xs font-bold uppercase flex items-center gap-2 disabled:opacity-50 transition-colors"
+                        >
+                            <RefreshCw size={14} className={clsx(regeneratingInvite && "animate-spin")} /> Régénérer
+                        </button>
+                    </div>
+                    <p className="text-stone-500 text-xs">Partagez ce code : vos joueurs rejoignent la campagne depuis leur compte.</p>
+                </div>
+
+                <div className="lg:col-span-2 glass-panel p-6 rounded-2xl border-primary-500/20">
+                    <div className="flex items-center gap-3 mb-4">
+                        <div className="bg-primary-900/30 p-3 rounded-xl border border-primary-500/20">
+                            <Users size={24} className="text-primary-400" />
+                        </div>
+                        <h3 className="font-display font-bold text-xl text-stone-200">Membres</h3>
+                    </div>
+                    {memberships.length === 0 ? (
+                        <p className="text-stone-600 text-sm italic">Aucun joueur n'a encore rejoint cette campagne.</p>
+                    ) : (
+                        <div className="space-y-3">
+                            {memberships.map((m) => (
+                                <div key={m.id} className="bg-stone-900/50 p-4 rounded-xl border border-white/5">
+                                    <div className="flex justify-between items-center gap-3">
+                                        <span className="font-bold text-stone-200">{getPlayerPseudo(m)}</span>
+                                        <button
+                                            onClick={() => handleRemoveMembership(m.id)}
+                                            className="text-stone-500 hover:text-red-500 text-xs font-bold uppercase flex items-center gap-1 transition-colors shrink-0"
+                                        >
+                                            <UserX size={14} /> Exclure
+                                        </button>
+                                    </div>
+                                    <div className="mt-2 flex flex-wrap gap-2">
+                                        {charactersForMember(m).length === 0 ? (
+                                            <span className="text-stone-600 text-xs italic">Aucune fiche de personnage</span>
+                                        ) : (
+                                            charactersForMember(m).map((c) => (
+                                                <Link
+                                                    key={c.id}
+                                                    to={`/characters/${c.id}`}
+                                                    className="text-xs bg-stone-800 hover:bg-primary-900/40 text-primary-300 px-2 py-1 rounded-lg border border-white/5 hover:border-primary-500/40 transition-colors"
+                                                >
+                                                    {c.name} (Niv {c.level})
+                                                </Link>
+                                            ))
+                                        )}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                </div>
+            </div>
 
             <div className="grid md:grid-cols-2 gap-6 mb-8">
                 <div className="glass-panel p-6 rounded-2xl border-primary-500/20 hover:border-primary-500/40 transition-colors group">

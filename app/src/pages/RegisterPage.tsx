@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Mail, Lock, ArrowLeft, AlertCircle, Loader2, Sparkles } from 'lucide-react';
+import { Mail, Lock, User, ArrowLeft, AlertCircle, Loader2, Sparkles } from 'lucide-react';
 import { AuthService } from '../services/AuthService';
 
 export const RegisterPage: React.FC = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
+    const [pseudo, setPseudo] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -16,7 +17,7 @@ export const RegisterPage: React.FC = () => {
         setIsLoading(true);
 
         try {
-            await AuthService.register(email, password);
+            await AuthService.register(email, password, pseudo);
             navigate('/');
         } catch (err: any) {
             setError(err.message || "Une erreur est survenue lors de l'inscription");
@@ -70,6 +71,23 @@ export const RegisterPage: React.FC = () => {
                                     onChange={(e) => setEmail(e.target.value)}
                                     className="block w-full bg-stone-900/50 border border-white/5 rounded-2xl py-3.5 pl-11 pr-4 text-stone-100 placeholder-stone-600 focus:outline-none focus:ring-2 focus:ring-primary-600/50 focus:border-primary-600/50 transition-all sm:text-sm"
                                     placeholder="maitre.du.jeu@exemple.com"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="space-y-2">
+                            <label className="text-xs font-bold uppercase tracking-widest text-stone-500 ml-1">Pseudo</label>
+                            <div className="relative">
+                                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-stone-600">
+                                    <User size={18} />
+                                </div>
+                                <input
+                                    type="text"
+                                    required
+                                    value={pseudo}
+                                    onChange={(e) => setPseudo(e.target.value)}
+                                    className="block w-full bg-stone-900/50 border border-white/5 rounded-2xl py-3.5 pl-11 pr-4 text-stone-100 placeholder-stone-600 focus:outline-none focus:ring-2 focus:ring-primary-600/50 focus:border-primary-600/50 transition-all sm:text-sm"
+                                    placeholder="Aragorn"
                                 />
                             </div>
                         </div>

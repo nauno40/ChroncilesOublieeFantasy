@@ -36,9 +36,9 @@ export const AuthService = {
         return token;
     },
 
-    async register(email: string, password: string): Promise<void> {
+    async register(email: string, password: string, pseudo: string): Promise<void> {
         // API Platform POST to /users
-        await ApiService.post('users', { email, password });
+        await ApiService.post('users', { email, password, pseudo });
         // Automatically login after registration
         await this.login(email, password);
     },

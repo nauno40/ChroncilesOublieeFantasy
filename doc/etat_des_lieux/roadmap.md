@@ -2,6 +2,8 @@
 
 Suite à l'analyse approfondie du code source frontend et backend (juin 2026), voici l'état actuel des fonctionnalités de l'application Chroniques Oubliées Fantasy.
 
+> **Cadrage produit** : le site est une **aide de table pour le MJ** — on n'y joue pas en direct. Pas de temps réel, pas de partie multijoueur en ligne. Les seuls échanges avec les joueurs sont **asynchrones** : le MJ diffuse les résumés de campagne, et les joueurs créent leurs personnages pour les partager au MJ.
+
 ## 1. Ce qui est implémenté et qui fonctionne ✅
 
 ### Encyclopédie / Compendium (Connecté à l'API)
@@ -20,7 +22,7 @@ Suite à l'analyse approfondie du code source frontend et backend (juin 2026), v
 - Sauvegarde en base de données via API
 
 ### Outils de Table (Virtual Table)
-- **Suivi de Combat** (CombatTracker) : ordre d'initiative COF2 avec départage à égalité (PJ > PNJ, puis PER, puis 1d20 stocké), tours et rounds, PV avec dégâts/soins en saisie libre (+ ±1), import du bestiaire (quantité + auto-numérotation « Gobelin 1/2 ») et des PJ (INIT/DEF/PV réels), états préjudiciables en badges, persistance localStorage (`co_combat_tracker`). Logique pure testée (`combatTracker.test.ts`)
+- **Suivi de Combat** (CombatTracker) : ordre d'initiative COF2 avec départage à égalité (PJ > PNJ, puis PER, puis 1d20 stocké), tours et rounds, PV avec dégâts/soins en saisie libre (+ ±1), import du bestiaire (quantité + auto-numérotation « Gobelin 1/2 ») et des PJ (INIT/DEF/PV réels), états préjudiciables en badges, persistance localStorage (`co_combat_tracker`). Logique pure testée (`combatTracker.test.ts`). Outil **volontairement mono-écran** (aide MJ) : pas de diffusion temps réel vers les joueurs — c'est un choix de design, pas une limitation
 - **Lanceur de dés** (DiceRoller) : formules XdY+Z, historique, détection critique, popup flottant
 - **Panneau de Sons** (Soundboard) : pistes personnalisables (YouTube/URL), persistance localStorage
 - **Fenêtres flottantes** (DraggableWindow) : redimensionnables, déplaçables, position persistée
@@ -46,9 +48,6 @@ Suite à l'analyse approfondie du code source frontend et backend (juin 2026), v
 
 ## 2. Ce qui fonctionne partiellement ou avec des limitations ⚠️
 
-### Suivi de Combat — synchronisation temps réel
-- L'outil est complet côté MJ (cf. §1), mais reste **mono-écran** : pas de partage en temps réel vers les joueurs. La synchronisation est prévue en Phase 2 (Mercure).
-
 ### Tests
 - **Backend** : suite fonctionnelle PHPUnit dans `backend/tests/Api/` — **40 tests** couvrant les règles de sécurité (User / Campaign / Character / Quest), le durcissement des autorisations (écritures compendium réservées à ROLE_ADMIN, sous-ressources campagne non listables sans auth), l'inscription + login JWT avec hachage du mot de passe, et le timestamp `updatedAt`. Le reste du backend n'est pas encore couvert.
 - **Frontend** : suite E2E Playwright (`app/e2e/`) couvrant les parcours critiques — authentification (inscription/connexion/déconnexion), régression du fix 401 (JWT périmé auto-purgé), compendium chargé depuis la BDD (races/classes/bestiaire), rendu de la fiche personnage. Lancée via `bash scripts/e2e.sh` (image Playwright officielle en `network_mode: host`, cf. `frontend.md` §10). Tests unitaires purs via Vitest (`cofRules.test.ts` pour les règles COF2, `combatTracker.test.ts` pour l'ordre d'initiative et le départage du Suivi de Combat).
@@ -60,12 +59,11 @@ Suite à l'analyse approfondie du code source frontend et backend (juin 2026), v
 - [x] Système de comptes (JWT) — inscription, connexion
 - [x] Lier Character et Campaign à un User
 
-### Phase 2 : Temps Réel (Multi-joueurs)
-- [x] **Persistance des campagnes via l'API** (remplacement du localStorage) — préalable à la collaboration
-- [ ] **Mercure / WebSockets** : Intégrer Symfony Mercure pour le temps réel
-- [ ] **Tracker de combat synchronisé** : le Suivi de Combat local est en place (§1) ; reste à diffuser l'état en temps réel — quand le MJ passe au tour d'un joueur, notification sur son écran
-- [ ] **Lancers de dés partagés** : Résultats visibles dans un chat de partie commun
-- [ ] **Campagne collaborative** : partage d'une campagne entre plusieurs joueurs (au-delà du propriétaire)
+### Phase 2 : Partage asynchrone MJ ⇄ Joueurs
+- [x] **Persistance des campagnes via l'API** (remplacement du localStorage)
+- [ ] **Partage des résumés de campagne aux joueurs** : le MJ diffuse en lecture seule les résumés de séances (`Session.summary` existe déjà) aux joueurs concernés
+- [ ] **Personnages créés par les joueurs, partagés au MJ** : un joueur crée sa fiche et la rattache à la campagne du MJ, qui y accède en lecture (`Character` a déjà `owner` + `campaign`)
+- [ ] **Notion de membres de campagne / partage inter-utilisateurs** (prérequis technique) : lever le scope strict « propriétaire » (`CurrentUserExtension` + `security` owner-only) pour autoriser un accès partagé et contrôlé
 
 ### Phase 3 : Nouvelles Features
 - [ ] **Import/Export PDF** : Générer une fiche de personnage imprimable

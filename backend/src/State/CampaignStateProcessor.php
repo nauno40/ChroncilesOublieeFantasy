@@ -13,7 +13,8 @@ final readonly class CampaignStateProcessor implements ProcessorInterface
     public function __construct(
         #[Autowire(service: 'api_platform.doctrine.orm.state.persist_processor')]
         private ProcessorInterface $persistProcessor,
-        private Security $security
+        private Security $security,
+        private \App\Service\InviteCodeGenerator $inviteCodeGenerator,
     ) {
     }
 
@@ -27,6 +28,10 @@ final readonly class CampaignStateProcessor implements ProcessorInterface
             if ($user) {
                 $data->setOwner($user);
             }
+        }
+
+        if ($data instanceof Campaign && null === $data->getInviteCode()) {
+            $data->setInviteCode($this->inviteCodeGenerator->generate());
         }
 
         // Handle timestamps manually if not using Gedmo/Stof

@@ -60,6 +60,13 @@ class Campaign
     private ?string $notes = null;
 
     #[Groups(['campaign:read'])]
+    #[ORM\Column(length: 16, unique: true, nullable: true)]
+    private ?string $inviteCode = null;
+
+    #[ORM\OneToMany(mappedBy: 'campaign', targetEntity: CampaignMembership::class, orphanRemoval: true)]
+    private Collection $memberships;
+
+    #[Groups(['campaign:read'])]
     #[ORM\ManyToOne(inversedBy: 'campaigns')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $owner = null;
@@ -86,6 +93,7 @@ class Campaign
         $this->clues = new ArrayCollection();
         $this->sessions = new ArrayCollection();
         $this->characters = new ArrayCollection();
+        $this->memberships = new ArrayCollection();
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
     }
@@ -285,5 +293,25 @@ class Campaign
         }
 
         return $this;
+    }
+
+    public function getInviteCode(): ?string
+    {
+        return $this->inviteCode;
+    }
+
+    public function setInviteCode(?string $inviteCode): static
+    {
+        $this->inviteCode = $inviteCode;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CampaignMembership>
+     */
+    public function getMemberships(): Collection
+    {
+        return $this->memberships;
     }
 }

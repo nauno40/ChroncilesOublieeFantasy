@@ -1530,6 +1530,7 @@ git commit -m "feat(app): écran MJ — code d'invitation, membres et leurs fich
 Dans `app/src/pages/Campaign.tsx` :
 - Un champ de saisie de code + bouton **Rejoindre** → `SharingService.joinCampaign(code)` ; sur succès, ajouter la `SharedCampaign` à la liste ; sur 404/400, afficher le message d'erreur renvoyé.
 - Une section « Campagnes rejointes » alimentée par `getSharedCampaigns()` : pour chaque campagne, le nom, le `gameMaster` (pseudo), et la liste des séances (`title`, `date`, `summary`) en **lecture seule**.
+- **Rattacher une fiche à la campagne** : le joueur rattache une de ses fiches en envoyant le champ **`campaignId`** (entier, write-only) sur le `Character` — **pas** l'IRI `campaign` (une campagne rejointe est owner-scopée et son IRI n'est pas résoluble par le membre). Concrètement, `ApiService.post('characters', { ..., campaignId })` à la création, ou `patch` avec `{ campaignId }` sur une fiche existante. Le backend (T6) résout et valide l'appartenance ; un rattachement à une campagne non rejointe renvoie 403.
 
 - [ ] **Step 2 : Vérification manuelle**
 

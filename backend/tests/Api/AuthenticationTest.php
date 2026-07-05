@@ -13,7 +13,7 @@ final class AuthenticationTest extends ApiSecurityTestCase
     public function testRegisteredUserCanLogIn(): void
     {
         $this->client->request('POST', '/api/users', [
-            'json' => ['email' => 'newcomer@example.com', 'password' => 'secret123'],
+            'json' => ['email' => 'newcomer@example.com', 'password' => 'secret123', 'pseudo' => 'Newcomer'],
         ]);
         $this->assertResponseStatusCodeSame(201);
 
@@ -27,7 +27,7 @@ final class AuthenticationTest extends ApiSecurityTestCase
     public function testLoginWithWrongPasswordFails(): void
     {
         $this->client->request('POST', '/api/users', [
-            'json' => ['email' => 'newcomer@example.com', 'password' => 'secret123'],
+            'json' => ['email' => 'newcomer@example.com', 'password' => 'secret123', 'pseudo' => 'Newcomer'],
         ]);
 
         $this->client->request('POST', '/api/login_check', [
@@ -39,7 +39,7 @@ final class AuthenticationTest extends ApiSecurityTestCase
     public function testPasswordIsHashedOnRegistration(): void
     {
         $this->client->request('POST', '/api/users', [
-            'json' => ['email' => 'newcomer@example.com', 'password' => 'secret123'],
+            'json' => ['email' => 'newcomer@example.com', 'password' => 'secret123', 'pseudo' => 'Newcomer'],
         ]);
         $this->assertResponseStatusCodeSame(201);
 

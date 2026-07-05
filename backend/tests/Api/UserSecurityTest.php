@@ -13,7 +13,7 @@ final class UserSecurityTest extends ApiSecurityTestCase
     public function testRegistrationIsPublic(): void
     {
         $this->client->request('POST', '/api/users', [
-            'json' => ['email' => 'newcomer@example.com', 'password' => 'password'],
+            'json' => ['email' => 'newcomer@example.com', 'password' => 'password', 'pseudo' => 'Newcomer'],
         ]);
 
         $this->assertResponseStatusCodeSame(201);

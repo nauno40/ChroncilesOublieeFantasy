@@ -1,12 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Skull, Plus, Trash2, Pencil, Save, X, Swords, Sparkles } from 'lucide-react';
 import { PageContainer, PageHeader, EmptyState } from '../components/common';
 import { getMonsters, createMonster, updateMonster, deleteMonster } from '../services/monsterService';
-import type { CustomCreature, CustomCreatureAttack, CustomCreatureCapability } from '../types';
+import { DataService } from '../services/dataService';
+import type { CustomCreature, CustomCreatureAttack, CustomCreatureCapability, Creature } from '../types';
 
 const inputClass =
     'w-full bg-black/40 border border-white/10 text-stone-100 rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-primary-500';
 const labelClass = 'block text-sm font-medium text-stone-300 mb-1';
+
+// Identifiants des <datalist> (suggestions « ce qui existe déjà » : SRD + monstres du MJ).
+const LIST = {
+    category: 'cm-categories',
+    environment: 'cm-environments',
+    archetype: 'cm-archetypes',
+    size: 'cm-sizes',
+    attack: 'cm-attack-names',
+    capability: 'cm-capability-names',
+} as const;
+
+// Valeurs distinctes, non vides, triées (casse-insensible, locale FR).
+const distinctSorted = (values: (string | null | undefined)[]): string[] =>
+    Array.from(new Set(values.map((v) => (v ?? '').trim()).filter(Boolean))).sort((a, b) =>
+        a.localeCompare(b, 'fr', { sensitivity: 'base' }),
+    );
 
 const STAT_KEYS = ['FOR', 'DEX', 'CON', 'INT', 'SAG', 'CHA'] as const;
 type StatKey = (typeof STAT_KEYS)[number];
@@ -91,6 +108,7 @@ const toPayload = (form: MonsterForm): Partial<CustomCreature> => ({
 
 export const CustomMonsters: React.FC = () => {
     const [monsters, setMonsters] = useState<CustomCreature[]>([]);
+    const [srdCreatures, setSrdCreatures] = useState<Creature[]>([]);
     const [loading, setLoading] = useState(true);
     const [form, setForm] = useState<MonsterForm | null>(null);
     const [saving, setSaving] = useState(false);
@@ -104,6 +122,30 @@ export const CustomMonsters: React.FC = () => {
     };
 
     useEffect(load, []);
+
+    // Bestiaire SRD : alimente les suggestions des <datalist> (chargé une fois).
+    useEffect(() => {
+        DataService.getCreatures().then(setSrdCreatures).catch(() => setSrdCreatures([]));
+    }, []);
+
+    // Valeurs « qui existent déjà » = union du SRD et des monstres du MJ.
+    const suggestions = useMemo(() => {
+        const both = [...srdCreatures, ...monsters];
+        return {
+            category: distinctSorted(both.map((c) => c.category)),
+            environment: distinctSorted(both.map((c) => c.environment)),
+            archetype: distinctSorted(both.map((c) => c.archetype)),
+            size: distinctSorted(both.map((c) => c.size)),
+            // Les créatures SRD nomment l'attaque via `name` et la capacité via `label`
+            // (les monstres custom utilisent `name` pour les deux).
+            attack: distinctSorted(
+                both.flatMap((c) => (c.attacks ?? []).map((a) => a?.name)),
+            ),
+            capability: distinctSorted(
+                both.flatMap((c) => (c.capabilities ?? []).map((cap) => cap?.name ?? cap?.label)),
+            ),
+        };
+    }, [srdCreatures, monsters]);
 
     const startCreate = () => {
         setError(null);
@@ -210,6 +252,14 @@ export const CustomMonsters: React.FC = () => {
                         </div>
                     )}
 
+                    {/* Suggestions partagées (« ce qui existe déjà » : SRD + monstres du MJ). */}
+                    <datalist id={LIST.category}>{suggestions.category.map((v) => <option key={v} value={v} />)}</datalist>
+                    <datalist id={LIST.environment}>{suggestions.environment.map((v) => <option key={v} value={v} />)}</datalist>
+                    <datalist id={LIST.archetype}>{suggestions.archetype.map((v) => <option key={v} value={v} />)}</datalist>
+                    <datalist id={LIST.size}>{suggestions.size.map((v) => <option key={v} value={v} />)}</datalist>
+                    <datalist id={LIST.attack}>{suggestions.attack.map((v) => <option key={v} value={v} />)}</datalist>
+                    <datalist id={LIST.capability}>{suggestions.capability.map((v) => <option key={v} value={v} />)}</datalist>
+
                     {/* Identité */}
                     <div className="grid md:grid-cols-2 gap-4">
                         <div>
@@ -300,23 +350,23 @@ export const CustomMonsters: React.FC = () => {
                         </div>
                     </div>
 
-                    {/* Classification */}
+                    {/* Classification — champs libres avec suggestions (datalist). */}
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                         <div>
                             <label className={labelClass}>Catégorie</label>
-                            <input className={inputClass} value={form.category} onChange={(e) => patch({ category: e.target.value })} />
+                            <input list={LIST.category} className={inputClass} value={form.category} onChange={(e) => patch({ category: e.target.value })} />
                         </div>
                         <div>
                             <label className={labelClass}>Environnement</label>
-                            <input className={inputClass} value={form.environment} onChange={(e) => patch({ environment: e.target.value })} />
+                            <input list={LIST.environment} className={inputClass} value={form.environment} onChange={(e) => patch({ environment: e.target.value })} />
                         </div>
                         <div>
                             <label className={labelClass}>Archétype</label>
-                            <input className={inputClass} value={form.archetype} onChange={(e) => patch({ archetype: e.target.value })} />
+                            <input list={LIST.archetype} className={inputClass} value={form.archetype} onChange={(e) => patch({ archetype: e.target.value })} />
                         </div>
                         <div>
                             <label className={labelClass}>Taille</label>
-                            <input className={inputClass} value={form.size} onChange={(e) => patch({ size: e.target.value })} />
+                            <input list={LIST.size} className={inputClass} value={form.size} onChange={(e) => patch({ size: e.target.value })} />
                         </div>
                     </div>
 
@@ -335,6 +385,7 @@ export const CustomMonsters: React.FC = () => {
                             {form.attacks.map((atk, i) => (
                                 <div key={i} className="grid grid-cols-12 gap-2 items-start">
                                     <input
+                                        list={LIST.attack}
                                         className={`${inputClass} col-span-4`}
                                         placeholder="Nom (Griffe…)"
                                         value={atk.name}
@@ -385,6 +436,7 @@ export const CustomMonsters: React.FC = () => {
                             {form.capabilities.map((cap, i) => (
                                 <div key={i} className="grid grid-cols-12 gap-2 items-start">
                                     <input
+                                        list={LIST.capability}
                                         className={`${inputClass} col-span-4`}
                                         placeholder="Nom"
                                         value={cap.name}

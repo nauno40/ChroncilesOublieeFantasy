@@ -1,10 +1,9 @@
-import { test, expect, login } from './fixtures';
+import { test, expect, register, uniqueEmail } from './fixtures';
 
-// Utilise le compte de dev seedé au démarrage (dev-entrypoint : test@test.com / password),
-// plutôt que l'inscription — le helper register() ne renseigne pas le pseudo désormais requis.
+// Compte MJ frais à chaque test (isolation : pas de dépendance à des données partagées).
 test.describe('Monstres custom (MJ)', () => {
     test.beforeEach(async ({ page }) => {
-        await login(page, 'test@test.com', 'password');
+        await register(page, uniqueEmail('mj'));
     });
 
     test('créer un monstre puis le retrouver dans le Suivi de Combat', async ({ page }) => {

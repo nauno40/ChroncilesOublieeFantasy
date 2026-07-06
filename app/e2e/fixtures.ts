@@ -17,8 +17,14 @@ export function getToken(page: Page): Promise<string | null> {
     return page.evaluate((key) => localStorage.getItem(key), TOKEN_KEY);
 }
 
-async function submitCredentials(page: Page, email: string, password: string): Promise<void> {
+// Remplit le formulaire d'auth et attend l'apparition du JWT. Sur /register un
+// champ « Pseudo » (input[type=text]) est requis ; on le renseigne quand un pseudo
+// est fourni. La page /login n'a pas ce champ, d'où l'argument optionnel.
+async function submitCredentials(page: Page, email: string, password: string, pseudo?: string): Promise<void> {
     await page.locator('input[type="email"]').fill(email);
+    if (pseudo !== undefined) {
+        await page.locator('input[type="text"]').fill(pseudo);
+    }
     await page.locator('input[type="password"]').fill(password);
     await page.locator('form button[type="submit"]').click();
     // AuthService stores the JWT, then the page navigates to '/'. A cold backend
@@ -26,9 +32,10 @@ async function submitCredentials(page: Page, email: string, password: string): P
     await expect.poll(() => getToken(page), { timeout: 20_000 }).not.toBeNull();
 }
 
-export async function register(page: Page, email: string, password = DEFAULT_PASSWORD): Promise<void> {
+export async function register(page: Page, email: string, password = DEFAULT_PASSWORD, pseudo?: string): Promise<void> {
     await page.goto('/register');
-    await submitCredentials(page, email, password);
+    // Le pseudo est obligatoire à l'inscription ; on en dérive un déterministe de l'email.
+    await submitCredentials(page, email, password, pseudo ?? email.split('@')[0]);
 }
 
 export async function login(page: Page, email: string, password = DEFAULT_PASSWORD): Promise<void> {

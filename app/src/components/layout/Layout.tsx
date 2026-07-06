@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
-import { Book, Sword, Users, Home, BookOpen, GraduationCap, Sparkles, Zap, Package, Truck, UtensilsCrossed, AlertCircle, ScrollText } from 'lucide-react';
+import { Book, Sword, Users, Home, BookOpen, GraduationCap, Sparkles, Zap, Package, Truck, UtensilsCrossed, AlertCircle, ScrollText, Skull } from 'lucide-react';
 import clsx from 'clsx';
 import type { NavItem } from './NavItem';
 import { NavItemComponent } from './NavItem';
@@ -68,6 +68,7 @@ export const Layout: React.FC = () => {
             ]
         },
         { path: '/tools', icon: Sword, label: 'Outils' },
+        { path: '/tools/monsters', icon: Skull, label: 'Mes Monstres' },
     ], []);
 
     // Effect to set initial open section based on URL

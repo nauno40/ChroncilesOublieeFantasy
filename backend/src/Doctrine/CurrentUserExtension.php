@@ -9,6 +9,7 @@ use ApiPlatform\Metadata\Operation;
 use App\Entity\Campaign;
 use App\Entity\CampaignMembership;
 use App\Entity\Character;
+use App\Entity\CustomCreature;
 use App\Entity\Quest;
 use App\Entity\Clue;
 use App\Entity\Session;
@@ -37,6 +38,7 @@ final readonly class CurrentUserExtension implements QueryCollectionExtensionInt
         if (
             Campaign::class !== $resourceClass &&
             Character::class !== $resourceClass &&
+            CustomCreature::class !== $resourceClass &&
             Quest::class !== $resourceClass &&
             Clue::class !== $resourceClass &&
             Session::class !== $resourceClass &&
@@ -54,6 +56,9 @@ final readonly class CurrentUserExtension implements QueryCollectionExtensionInt
 
         if (Campaign::class === $resourceClass) {
             // Strictement propriétaire : les joueurs passent par SharedCampaign.
+            $queryBuilder->andWhere(sprintf('%s.owner = :current_user', $rootAlias));
+        } elseif (CustomCreature::class === $resourceClass) {
+            // Monstres « maison » : strictement propriétaire (global au compte du MJ).
             $queryBuilder->andWhere(sprintf('%s.owner = :current_user', $rootAlias));
         } elseif (Character::class === $resourceClass) {
             // Propriétaire de la fiche OU MJ de la campagne à laquelle elle est rattachée.

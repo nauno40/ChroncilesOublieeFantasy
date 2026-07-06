@@ -277,3 +277,46 @@ export interface Creature {
     archetype?: string;
     size?: string;
 }
+
+export interface CustomCreatureAttack {
+    name: string;
+    atk?: string; // bonus/test d'attaque (texte libre, ex. "+5")
+    dm?: string; // dégâts (ex. "1d6+2")
+    special?: string;
+}
+
+export interface CustomCreatureCapability {
+    name: string;
+    rank?: number;
+    description?: string;
+}
+
+// Monstre « maison » créé par un MJ (hors compendium SRD), owner-scopé côté API.
+// Reprend la forme de Creature pour rester importable dans le Suivi de Combat.
+export interface CustomCreature {
+    id: number;
+    name: string;
+    description?: string;
+    nc: number;
+    hp: number;
+    def: number;
+    init: number;
+    stats?: {
+        FOR: number;
+        DEX: number;
+        CON: number;
+        INT: number;
+        SAG: number;
+        CHA: number;
+    };
+    specialAbilities?: {
+        text: string;
+    };
+    attacks?: CustomCreatureAttack[];
+    capabilities?: CustomCreatureCapability[];
+    picture?: string;
+    category?: string;
+    environment?: string;
+    archetype?: string;
+    size?: string;
+}

@@ -12,6 +12,14 @@ use App\Entity\Capability;
 use App\Entity\Equipment;
 use App\Entity\Material;
 use App\Entity\HarmfulState;
+use App\Entity\User;
+use App\Entity\Campaign;
+use App\Entity\CampaignMembership;
+use App\Entity\Quest;
+use App\Entity\Clue;
+use App\Entity\Session;
+use App\Entity\Character;
+use App\Entity\CustomCreature;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Finder\Finder;
@@ -59,7 +67,11 @@ class AppFixtures extends Fixture
         // 6. Load Creatures
         $this->loadCreatures($manager, $familyContext['monsterMap']);
         
-        $this->loadUsers($manager);
+        $admin = $this->loadUsers($manager);
+
+        // 7. Données de démo « vivantes » : campagnes, quêtes, indices, séances,
+        //    joueurs, personnages et monstres maison (owner = admin).
+        $this->loadCampaignDemo($manager, $admin, $races, $profiles);
 
         $manager->flush();
     }
@@ -577,14 +589,17 @@ class AppFixtures extends Fixture
         }
     }
 
-    private function loadUsers(ObjectManager $manager): void
+    private function loadUsers(ObjectManager $manager): User
     {
-        $user = new \App\Entity\User();
+        $user = new User();
         $user->setEmail('admin@example.com');
+        $user->setPseudo('Maître du Jeu');
         $user->setRoles(['ROLE_ADMIN']);
         $user->setPassword($this->passwordHasher->hashPassword($user, 'admin'));
 
         $manager->persist($user);
+
+        return $user;
     }
 
     private function loadCreatures(ObjectManager $manager, array $monsterMap): void
@@ -640,8 +655,230 @@ class AppFixtures extends Fixture
             if (isset($monsterMap[$name])) {
                 $e->setFamily($monsterMap[$name]);
             }
-            
+
             $manager->persist($e);
         }
+    }
+
+    /**
+     * Données de démo pour rendre l'application vivante : deux campagnes du MJ
+     * (admin) avec quêtes, indices, séances, joueurs membres, personnages et
+     * monstres maison. Rechargé à chaque `doctrine:fixtures:load` (destructif).
+     *
+     * @param array<int|string, Race>    $races    map des races chargées
+     * @param array<string, Profile>     $profiles map des profils chargés
+     */
+    private function loadCampaignDemo(ObjectManager $manager, User $admin, array $races, array $profiles): void
+    {
+        $raceList = array_values($races);
+        $profileList = array_values($profiles);
+        $pickRace = fn (int $i): ?Race => $raceList[$i % max(1, count($raceList))] ?? null;
+        $pickProfile = fn (int $i): ?Profile => $profileList[$i % max(1, count($profileList))] ?? null;
+
+        // --- Joueurs ---
+        $players = [];
+        foreach ([
+            ['alice@example.com', 'Alice'],
+            ['bjorn@example.com', 'Bjorn'],
+            ['lyra@example.com', 'Lyra'],
+        ] as [$email, $pseudo]) {
+            $p = new User();
+            $p->setEmail($email);
+            $p->setPseudo($pseudo);
+            $p->setRoles([]);
+            $p->setPassword($this->passwordHasher->hashPassword($p, 'password'));
+            $manager->persist($p);
+            $players[] = $p;
+        }
+
+        // ============================================================
+        // Campagne 1 — riche (« un peu de tout »)
+        // ============================================================
+        $c1 = new Campaign();
+        $c1->setName('Les Ombres de Val-Gelé');
+        $c1->setDescription("Un hiver interminable étouffe la vallée de Val-Gelé. Des caravanes disparaissent, un culte oublié se réveille, et le Prieuré sur les hauteurs n'a plus donné signe de vie depuis deux lunes.");
+        $c1->setNotes("Fil rouge : le Culte de l'Hiver cherche à réveiller la Liche du Prieuré.\nPNJ clés : Padrig (marchand), Dame Ysolde (guet).\nRécompense finale : le Sceau de Givre.");
+        $c1->setOwner($admin);
+        $c1->setInviteCode('VALGELE1');
+        $c1->setCreatedAt(new \DateTime('-40 days'));
+        $c1->setUpdatedAt(new \DateTime('-2 days'));
+        $manager->persist($c1);
+
+        foreach ([
+            ['Retrouver la caravane disparue', "La caravane de Padrig n'est jamais arrivée à Bourg-Neige. Suivre sa piste dans les cols enneigés.", 'main', 'active'],
+            ['Le sceau brisé du temple', 'Enquêter sur le sceau profané du temple de Val-Gelé.', 'main', 'completed'],
+            ['La dette du forgeron', 'Le forgeron Halbrand doit de l’argent à un usurier peu recommandable.', 'secondary', 'active'],
+            ['Herboriste en détresse', 'Rapporter des baies de givre à l’herboriste avant la nuit.', 'secondary', 'completed'],
+        ] as [$title, $desc, $type, $status]) {
+            $q = new Quest();
+            $q->setTitle($title);
+            $q->setDescription($desc);
+            $q->setType($type);
+            $q->setStatus($status);
+            $q->setCampaign($c1);
+            $manager->persist($q);
+        }
+
+        foreach ([
+            ['Une écaille de givre surnaturelle a été trouvée près des corps.', 'solved', '-30 days'],
+            ['Le symbole du Culte de l’Hiver gravé sur une pierre dressée.', 'unsolved', '-18 days'],
+            ['Un fragment de lettre mentionnant « le Prieuré » et une date.', 'unsolved', '-6 days'],
+        ] as [$content, $status, $when]) {
+            $cl = new Clue();
+            $cl->setContent($content);
+            $cl->setStatus($status);
+            $cl->setFoundAt(new \DateTime($when));
+            $cl->setCampaign($c1);
+            $manager->persist($cl);
+        }
+
+        foreach ([
+            ['Séance 1 — Le départ', '-35 days', '3h', '1', "Les héros acceptent la mission de Padrig et quittent Val-Gelé. Première escarmouche contre des loups des glaces sur la route du col."],
+            ['Séance 2 — Les neiges éternelles', '-21 days', '4h', '2', "Découverte de la caravane pillée. Un survivant évoque des silhouettes encapuchonnées. Le groupe trouve le symbole du Culte de l'Hiver."],
+            ['Séance 3 — Le Prieuré', '-7 days', '3h30', '2', "Ascension jusqu'au Prieuré abandonné. Les portes sont scellées par une magie de givre. Cliffhanger : une voix murmure derrière la porte."],
+        ] as [$title, $date, $duration, $level, $summary]) {
+            $s = new Session();
+            $s->setTitle($title);
+            $s->setDate(new \DateTime($date));
+            $s->setDuration($duration);
+            $s->setLevel($level);
+            $s->setSummary($summary);
+            $s->setCampaign($c1);
+            $manager->persist($s);
+        }
+
+        foreach ($players as $p) {
+            $m = new CampaignMembership();
+            $m->setCampaign($c1);
+            $m->setPlayer($p);
+            $manager->persist($m);
+        }
+
+        $charDefs = [
+            ['Aria la Vive', 3, ['FOR' => 11, 'AGI' => 15, 'CON' => 12, 'INT' => 10, 'PER' => 13, 'CHA' => 9, 'VOL' => 10], 28, 15, 16, ['name' => 'Arc court', 'atkMod' => 5, 'dmg' => '1d6+2', 'special' => '']],
+            ['Bjornsson', 4, ['FOR' => 16, 'AGI' => 11, 'CON' => 15, 'INT' => 8, 'PER' => 10, 'CHA' => 10, 'VOL' => 12], 44, 16, 11, ['name' => 'Hache à deux mains', 'atkMod' => 7, 'dmg' => '1d12+3', 'special' => '']],
+            ['Lyra Feuille-d’Argent', 3, ['FOR' => 9, 'AGI' => 12, 'CON' => 11, 'INT' => 14, 'PER' => 13, 'CHA' => 13, 'VOL' => 15], 24, 13, 12, ['name' => 'Bâton runique', 'atkMod' => 3, 'dmg' => '1d6', 'special' => 'Sortilèges']],
+        ];
+        foreach ($players as $i => $p) {
+            [$name, $level, $stats, $hp, $def, $init, $weapon] = $charDefs[$i];
+            $ch = new Character();
+            $ch->setName($name);
+            $ch->setLevel($level);
+            $ch->setRace($pickRace($i));
+            $ch->setProfile($pickProfile($i));
+            $ch->setData($this->buildCharacterData($stats, $hp, $def, $init, $weapon));
+            $ch->setOwner($p);
+            $ch->setCampaign($c1);
+            $manager->persist($ch);
+        }
+
+        foreach ([
+            ['Loup des Glaces', 2, 18, 13, 12, ['FOR' => 13, 'DEX' => 14, 'CON' => 12, 'INT' => 3, 'SAG' => 12, 'CHA' => 6], [['name' => 'Morsure gelée', 'atk' => '+5', 'dm' => '1d6+2', 'special' => 'CON ou Ralenti']], 'Vivante', 'Montagne', 'Rapide', 'Moyen'],
+            ['Liche du Prieuré', 8, 90, 18, 14, ['FOR' => 10, 'DEX' => 12, 'CON' => 16, 'INT' => 18, 'SAG' => 16, 'CHA' => 15], [['name' => 'Toucher glacial', 'atk' => '+10', 'dm' => '2d6+4', 'special' => 'Draine 1 niveau']], 'Non-vivante', 'Souterrain', 'Puissant', 'Moyen'],
+        ] as [$name, $nc, $hp, $def, $init, $stats, $attacks, $cat, $env, $arch, $size]) {
+            $cc = new CustomCreature();
+            $cc->setName($name);
+            $cc->setNc($nc);
+            $cc->setHp($hp);
+            $cc->setDef($def);
+            $cc->setInit($init);
+            $cc->setStats($stats);
+            $cc->setAttacks($attacks);
+            $cc->setCategory($cat);
+            $cc->setEnvironment($env);
+            $cc->setArchetype($arch);
+            $cc->setSize($size);
+            $cc->setOwner($admin);
+            $manager->persist($cc);
+        }
+
+        // ============================================================
+        // Campagne 2 — plus légère (variété)
+        // ============================================================
+        $c2 = new Campaign();
+        $c2->setName('La Route des Caravanes');
+        $c2->setDescription('Escorte marchande le long de la Route des Caravanes, entre embuscades de bandits et péages douteux.');
+        $c2->setNotes('Ton plus léger, orienté voyage et négociation.');
+        $c2->setOwner($admin);
+        $c2->setInviteCode('CARAVAN1');
+        $c2->setCreatedAt(new \DateTime('-12 days'));
+        $c2->setUpdatedAt(new \DateTime('-1 day'));
+        $manager->persist($c2);
+
+        foreach ([
+            ['Escorter le marchand Padrig', 'main', 'active'],
+            ['Le péage du pont brisé', 'secondary', 'active'],
+        ] as [$title, $type, $status]) {
+            $q = new Quest();
+            $q->setTitle($title);
+            $q->setType($type);
+            $q->setStatus($status);
+            $q->setCampaign($c2);
+            $manager->persist($q);
+        }
+
+        $s2 = new Session();
+        $s2->setTitle('Séance 1 — En route');
+        $s2->setDate(new \DateTime('-3 days'));
+        $s2->setDuration('2h30');
+        $s2->setLevel('1');
+        $s2->setSummary('Le convoi quitte la cité. Première nuit de veille, un éclaireur bandit est repéré près du campement.');
+        $s2->setCampaign($c2);
+        $manager->persist($s2);
+
+        $npc = new Character();
+        $npc->setName('Padrig le Marchand');
+        $npc->setLevel(2);
+        $npc->setRace($pickRace(3));
+        $npc->setProfile($pickProfile(1));
+        $npc->setData($this->buildCharacterData(['FOR' => 10, 'AGI' => 10, 'CON' => 11, 'INT' => 13, 'PER' => 12, 'CHA' => 15, 'VOL' => 11], 16, 11, 10, ['name' => 'Dague', 'atkMod' => 2, 'dmg' => '1d4', 'special' => '']));
+        $npc->setOwner($admin);
+        $npc->setCampaign($c2);
+        $manager->persist($npc);
+    }
+
+    /**
+     * Construit la structure `data` (JSON) d'un personnage conforme à ce qu'attend
+     * le frontend (cf. CharacterData / useCharacterSheet), pour des fiches valides.
+     *
+     * @param array<string, int> $stats  les 7 caractéristiques COF (FOR, AGI, CON, INT, PER, CHA, VOL)
+     * @param array{name: string, atkMod: int, dmg: string, special: string} $weapon
+     * @return array<string, mixed>
+     */
+    private function buildCharacterData(array $stats, int $hp, int $def, int $init, array $weapon): array
+    {
+        $mods = [];
+        foreach ($stats as $key => $value) {
+            $mods[$key] = intdiv($value - 10, 2);
+        }
+
+        return [
+            'stats' => $stats,
+            'modifiers' => $mods,
+            'hp' => ['current' => $hp, 'max' => $hp],
+            'mp' => ['current' => 0, 'max' => 0],
+            'attack' => [
+                'contact' => $mods['FOR'],
+                'distance' => $mods['AGI'],
+                'magic' => $mods['INT'],
+                'weapons' => [$weapon],
+            ],
+            'def' => $def,
+            'init' => $init,
+            'rp' => ['ideal' => '', 'flaw' => ''],
+            'luck' => ['current' => 3, 'max' => 3],
+            'protection' => [
+                'armor' => ['name' => '', 'def' => 0],
+                'shield' => ['name' => '', 'def' => 0],
+            ],
+            'recovery' => ['die' => 'd8', 'value' => 4],
+            'voies' => [
+                'racial' => ['name' => '', 'ranks' => [false, false, false, false, false]],
+                'profile' => [],
+                'prestige' => [],
+            ],
+            'money' => ['pa' => 50],
+            'equipment' => [],
+        ];
     }
 }

@@ -67,11 +67,11 @@ class AppFixtures extends Fixture
         // 6. Load Creatures
         $this->loadCreatures($manager, $familyContext['monsterMap']);
         
-        $admin = $this->loadUsers($manager);
+        $mj = $this->loadUsers($manager);
 
         // 7. Données de démo « vivantes » : campagnes, quêtes, indices, séances,
-        //    joueurs, personnages et monstres maison (owner = admin).
-        $this->loadCampaignDemo($manager, $admin, $races, $profiles);
+        //    joueurs, personnages et monstres maison (owner = le MJ Nauno).
+        $this->loadCampaignDemo($manager, $mj, $races, $profiles);
 
         $manager->flush();
     }
@@ -589,17 +589,29 @@ class AppFixtures extends Fixture
         }
     }
 
+    /**
+     * Crée les comptes de base et renvoie le MJ propriétaire des données de démo.
+     */
     private function loadUsers(ObjectManager $manager): User
     {
-        $user = new User();
-        $user->setEmail('admin@example.com');
-        $user->setPseudo('Maître du Jeu');
-        $user->setRoles(['ROLE_ADMIN']);
-        $user->setPassword($this->passwordHasher->hashPassword($user, 'admin'));
+        // Compte admin générique (login de secours).
+        $admin = new User();
+        $admin->setEmail('admin@example.com');
+        $admin->setPseudo('Maître du Jeu');
+        $admin->setRoles(['ROLE_ADMIN']);
+        $admin->setPassword($this->passwordHasher->hashPassword($admin, 'admin'));
+        $manager->persist($admin);
 
-        $manager->persist($user);
+        // Compte personnel de Nauno — MJ propriétaire des campagnes de démo.
+        // Mot de passe de dev à changer après première connexion.
+        $nauno = new User();
+        $nauno->setEmail('nauno40@gmail.com');
+        $nauno->setPseudo('Nauno');
+        $nauno->setRoles(['ROLE_ADMIN']);
+        $nauno->setPassword($this->passwordHasher->hashPassword($nauno, 'chroniques'));
+        $manager->persist($nauno);
 
-        return $user;
+        return $nauno;
     }
 
     private function loadCreatures(ObjectManager $manager, array $monsterMap): void
@@ -668,7 +680,7 @@ class AppFixtures extends Fixture
      * @param array<int|string, Race>    $races    map des races chargées
      * @param array<string, Profile>     $profiles map des profils chargés
      */
-    private function loadCampaignDemo(ObjectManager $manager, User $admin, array $races, array $profiles): void
+    private function loadCampaignDemo(ObjectManager $manager, User $owner, array $races, array $profiles): void
     {
         $raceList = array_values($races);
         $profileList = array_values($profiles);
@@ -698,7 +710,7 @@ class AppFixtures extends Fixture
         $c1->setName('Les Ombres de Val-Gelé');
         $c1->setDescription("Un hiver interminable étouffe la vallée de Val-Gelé. Des caravanes disparaissent, un culte oublié se réveille, et le Prieuré sur les hauteurs n'a plus donné signe de vie depuis deux lunes.");
         $c1->setNotes("Fil rouge : le Culte de l'Hiver cherche à réveiller la Liche du Prieuré.\nPNJ clés : Padrig (marchand), Dame Ysolde (guet).\nRécompense finale : le Sceau de Givre.");
-        $c1->setOwner($admin);
+        $c1->setOwner($owner);
         $c1->setInviteCode('VALGELE1');
         $c1->setCreatedAt(new \DateTime('-40 days'));
         $c1->setUpdatedAt(new \DateTime('-2 days'));
@@ -788,7 +800,7 @@ class AppFixtures extends Fixture
             $cc->setEnvironment($env);
             $cc->setArchetype($arch);
             $cc->setSize($size);
-            $cc->setOwner($admin);
+            $cc->setOwner($owner);
             $manager->persist($cc);
         }
 
@@ -799,7 +811,7 @@ class AppFixtures extends Fixture
         $c2->setName('La Route des Caravanes');
         $c2->setDescription('Escorte marchande le long de la Route des Caravanes, entre embuscades de bandits et péages douteux.');
         $c2->setNotes('Ton plus léger, orienté voyage et négociation.');
-        $c2->setOwner($admin);
+        $c2->setOwner($owner);
         $c2->setInviteCode('CARAVAN1');
         $c2->setCreatedAt(new \DateTime('-12 days'));
         $c2->setUpdatedAt(new \DateTime('-1 day'));
@@ -832,7 +844,7 @@ class AppFixtures extends Fixture
         $npc->setRace($pickRace(3));
         $npc->setProfile($pickProfile(1));
         $npc->setData($this->buildCharacterData(['FOR' => 10, 'AGI' => 10, 'CON' => 11, 'INT' => 13, 'PER' => 12, 'CHA' => 15, 'VOL' => 11], 16, 11, 10, ['name' => 'Dague', 'atkMod' => 2, 'dmg' => '1d4', 'special' => '']));
-        $npc->setOwner($admin);
+        $npc->setOwner($owner);
         $npc->setCampaign($c2);
         $manager->persist($npc);
     }

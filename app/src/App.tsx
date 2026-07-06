@@ -7,6 +7,7 @@ import { CampaignDetail } from './pages/CampaignDetail';
 import { Campaign } from './pages/Campaign';
 import { Tools } from './pages/Tools';
 import { CombatTracker } from './pages/CombatTracker';
+import { CustomMonsters } from './pages/CustomMonsters';
 import { Races } from './pages/Races';
 import { RaceDetail } from './pages/RaceDetail';
 import { Classes } from './pages/Classes';
@@ -50,6 +51,7 @@ function App() {
               <Route path="campaign/:id" element={<CampaignDetail />} />
               <Route path="tools" element={<Tools />} />
               <Route path="tools/tracker" element={<CombatTracker />} />
+              <Route path="tools/monsters" element={<CustomMonsters />} />
               <Route path="tools/soundboard" element={<SoundboardPage />} />
               <Route path="races" element={<Races />} />
               <Route path="races/:id" element={<RaceDetail />} />

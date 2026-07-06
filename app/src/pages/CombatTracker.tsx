@@ -5,8 +5,12 @@ import type { TrackerState } from '../utils/combatTracker';
 import { sortByInitiative, nextTurn, removeById, applyHp } from '../utils/combatTracker';
 import { DataService } from '../services/dataService';
 import { ApiService } from '../services/api';
-import type { Creature, HarmfulState } from '../types/normalized';
+import { getMonsters } from '../services/monsterService';
+import type { Creature, CustomCreature, HarmfulState } from '../types/normalized';
 import type { Character } from '../types/character';
+
+/** Préfixe distinguant un monstre « maison » d'une créature SRD dans le sélecteur d'import. */
+const CUSTOM_PREFIX = 'custom-';
 
 const STORAGE_KEY = 'co_combat_tracker';
 
@@ -47,6 +51,7 @@ export const CombatTracker: React.FC = () => {
 
     // Import bestiaire / PJ
     const [creatures, setCreatures] = useState<Creature[]>([]);
+    const [customMonsters, setCustomMonsters] = useState<CustomCreature[]>([]);
     const [characters, setCharacters] = useState<Character[]>([]);
     const [creatureId, setCreatureId] = useState('');
     const [quantity, setQuantity] = useState('1');
@@ -56,6 +61,7 @@ export const CombatTracker: React.FC = () => {
 
     useEffect(() => {
         DataService.getCreatures().then(setCreatures).catch(() => setCreatures([]));
+        getMonsters().then(setCustomMonsters).catch(() => setCustomMonsters([]));
         ApiService.getAll<Character>('characters').then(setCharacters).catch(() => setCharacters([]));
     }, []);
 
@@ -91,7 +97,11 @@ export const CombatTracker: React.FC = () => {
     };
 
     const addFromBestiary = () => {
-        const creature = creatures.find(c => String(c.id) === creatureId);
+        // Une créature SRD (bestiaire) ou un monstre « maison » (préfixe custom-).
+        const isCustom = creatureId.startsWith(CUSTOM_PREFIX);
+        const creature = isCustom
+            ? customMonsters.find(c => `${CUSTOM_PREFIX}${c.id}` === creatureId)
+            : creatures.find(c => String(c.id) === creatureId);
         if (!creature) return;
         const qty = Math.max(1, parseInt(quantity) || 1);
         const additions: Combatant[] = Array.from({ length: qty }, () => ({
@@ -105,7 +115,7 @@ export const CombatTracker: React.FC = () => {
             tiebreak: rollTiebreak(),
             states: [],
             source: 'bestiary' as const,
-            referenceId: String(creature.id),
+            referenceId: creatureId,
         }));
         // Numérotation : « Gobelin 1 », « Gobelin 2 » si quantité > 1, sinon nom brut
         additions.forEach((c, i) => { c.name = qty > 1 ? `${creature.name} ${i + 1}` : creature.name; });
@@ -230,6 +240,13 @@ export const CombatTracker: React.FC = () => {
                     <select value={creatureId} onChange={e => setCreatureId(e.target.value)}
                         className="flex-1 min-w-[140px] bg-black/40 border border-white/10 text-stone-100 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary-500">
                         <option value="">— Créature —</option>
+                        {customMonsters.length > 0 && (
+                            <optgroup label="Mes monstres">
+                                {customMonsters.map(c => (
+                                    <option key={`${CUSTOM_PREFIX}${c.id}`} value={`${CUSTOM_PREFIX}${c.id}`}>{c.name}</option>
+                                ))}
+                            </optgroup>
+                        )}
                         {creatures.map(c => <option key={c.id} value={String(c.id)}>{c.name}</option>)}
                     </select>
                     <input type="number" min="1" value={quantity} onChange={e => setQuantity(e.target.value)}

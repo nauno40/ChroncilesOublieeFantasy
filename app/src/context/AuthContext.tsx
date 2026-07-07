@@ -4,7 +4,7 @@ import { AuthService, type User } from '../services/AuthService';
 interface AuthContextType {
     user: User | null;
     isAuthenticated: boolean;
-    login: (token: string) => void;
+    login: () => void;
     logout: () => void;
     isLoading: boolean;
 }

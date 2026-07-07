@@ -5,8 +5,8 @@ import { ApiService } from '../services/api';
 import { SharingService, type Membership } from '../services/sharingService';
 import { DataService } from '../services/dataService';
 import { getMonsters } from '../services/monsterService';
-import { loadEncounterIntoTracker, trackerHasCombat } from '../utils/encounters';
-import { ArrowLeft, Users, Sword, Plus, X, Calendar, Clock, Trophy, FileText, Check, Edit, Trash2, Scroll, HelpCircle, CheckSquare, Square, Search, MapPin, Loader2, KeyRound, Copy, RefreshCw, UserX, Play, ChevronDown, StickyNote } from 'lucide-react';
+import { loadEncounterIntoTracker, trackerHasCombat, generateEncounter, threatLabel, DIFFICULTIES, type EncounterDifficulty, type GeneratorCreature } from '../utils/encounters';
+import { ArrowLeft, Users, Sword, Plus, X, Calendar, Clock, Trophy, FileText, Check, Edit, Trash2, Scroll, HelpCircle, CheckSquare, Square, Search, MapPin, Loader2, KeyRound, Copy, RefreshCw, UserX, Play, ChevronDown, StickyNote, Sparkles } from 'lucide-react';
 import type { Campaign, Session, Quest, Clue, Encounter, EncounterCombatant } from '../types/campaign';
 import type { Creature, CustomCreature } from '../types/normalized';
 import { clsx } from 'clsx';
@@ -27,10 +27,23 @@ interface RawCharacter {
     level: number;
     campaign: string | null; // IRI
     owner: string | null; // IRI
+    race?: string | null; // IRI compendium
+    profile?: string | null; // IRI compendium (classe)
+    data?: {
+        hp?: { current?: number; max?: number };
+        def?: number;
+        init?: number;
+        attack?: { contact?: number; distance?: number; magic?: number };
+        stats?: Record<string, number>;
+        modifiers?: Record<string, number>;
+    };
 }
 
 // Extrait l'identifiant numérique final d'une IRI API Platform (ex: /api/users/5 -> 5).
 const idFromIri = (iri: string): number => Number(iri.split('/').pop());
+
+// Ordre d'affichage des caractéristiques COF2 sur les cartes de personnage.
+const STAT_KEYS = ['FOR', 'AGI', 'CON', 'INT', 'PER', 'CHA', 'VOL'] as const;
 
 export const CampaignDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
@@ -61,9 +74,25 @@ export const CampaignDetail: React.FC = () => {
     const [pickerId, setPickerId] = useState('');
     const [pickerQty, setPickerQty] = useState('1');
 
+    // Générateur de rencontre : environnement + difficulté, calibré sur le groupe.
+    const [genEnv, setGenEnv] = useState('');
+    const [genDifficulty, setGenDifficulty] = useState<EncounterDifficulty>('normale');
+    const [genPartySize, setGenPartySize] = useState('');
+    const [genAvgLevel, setGenAvgLevel] = useState('');
+
+    // Résolution IRI → nom pour afficher race & classe sur les cartes PJ.
+    const [raceNames, setRaceNames] = useState<Record<string, string>>({});
+    const [profileNames, setProfileNames] = useState<Record<string, string>>({});
+
     useEffect(() => {
         DataService.getCreatures().then(setCreatures).catch(() => setCreatures([]));
         getMonsters().then(setCustomMonsters).catch(() => setCustomMonsters([]));
+        DataService.getRaces()
+            .then(rs => setRaceNames(Object.fromEntries(rs.map(r => [`/api/races/${r.id}`, r.name]))))
+            .catch(() => setRaceNames({}));
+        DataService.getProfiles()
+            .then(ps => setProfileNames(Object.fromEntries(ps.map(p => [`/api/profiles/${p.id}`, p.name]))))
+            .catch(() => setProfileNames({}));
     }, []);
     const [inviteCopied, setInviteCopied] = useState(false);
     const [regeneratingInvite, setRegeneratingInvite] = useState(false);
@@ -223,13 +252,56 @@ export const CampaignDetail: React.FC = () => {
     const CUSTOM_PREFIX = 'custom-';
     const encounters = campaign?.encounters || [];
 
+    // Groupe de la campagne (défauts du générateur) + pool de créatures + environnements.
+    const partySize = campaignCharacters.length;
+    const partyAvgLevel = partySize > 0
+        ? Math.round(campaignCharacters.reduce((s, c) => s + (c.level || 1), 0) / partySize)
+        : 0;
+    const availableEnvironments = Array.from(
+        new Set(creatures.map(c => c.environment).filter((e): e is string => !!e && e.trim() !== '')),
+    ).sort((a, b) => a.localeCompare(b));
+    const creaturePool: GeneratorCreature[] = [
+        ...creatures.map(c => ({
+            referenceId: String(c.id), name: c.name, source: 'bestiary' as const,
+            nc: c.nc, hp: c.hp, def: c.def, init: c.init, per: c.stats?.SAG ?? 0, environment: c.environment,
+        })),
+        ...customMonsters.map(c => ({
+            referenceId: `${CUSTOM_PREFIX}${c.id}`, name: c.name, source: 'custom' as const,
+            nc: c.nc, hp: c.hp, def: c.def, init: c.init, per: c.stats?.SAG ?? 0, environment: c.environment,
+        })),
+    ];
+    // Base groupe effective (saisie du générateur, sinon défaut campagne).
+    const effPartySize = Math.max(1, parseInt(genPartySize) || partySize || 4);
+    const effAvgLevel = Math.max(1, parseInt(genAvgLevel) || partyAvgLevel || 1);
+
     const openCreateEncounter = () => {
         setEditingEncounterId(null);
         setEncounterName('');
         setEncounterRoster([]);
         setPickerId('');
         setPickerQty('1');
+        setGenPartySize(partySize > 0 ? String(partySize) : '');
+        setGenAvgLevel(partyAvgLevel > 0 ? String(partyAvgLevel) : '');
+        setGenEnv(availableEnvironments[0] || '');
+        setGenDifficulty('normale');
         setShowEncounterModal(true);
+    };
+
+    const handleGenerate = () => {
+        if (!genEnv) return;
+        const roster = generateEncounter({
+            pool: creaturePool,
+            environment: genEnv,
+            difficulty: genDifficulty,
+            partySize: effPartySize,
+            avgLevel: effAvgLevel,
+        });
+        if (roster.length === 0) {
+            alert("Aucune créature de cet environnement ne rentre dans le budget. Essaie une autre difficulté ou un autre environnement.");
+            return;
+        }
+        setEncounterRoster(roster);
+        if (!encounterName.trim()) setEncounterName(`Rencontre — ${genEnv} (${genDifficulty})`);
     };
 
     const openEditEncounter = (enc: Encounter) => {
@@ -257,6 +329,7 @@ export const CampaignDetail: React.FC = () => {
             hp: creature.hp,
             def: creature.def,
             per: creature.stats?.SAG ?? 0,
+            nc: creature.nc,
         }]);
         setPickerId('');
         setPickerQty('1');
@@ -841,20 +914,45 @@ export const CampaignDetail: React.FC = () => {
                             </div>
                             {campaignCharacters.length > 0 && (
                                 <ul className="space-y-2 mb-3">
-                                    {campaignCharacters.map(c => (
-                                        <li key={c.id} className="flex items-center justify-between gap-2 bg-black/20 rounded-lg px-3 py-2">
-                                            <Link to={`/characters/${c.id}`} className="min-w-0 truncate text-stone-200 hover:text-primary-400 transition-colors">
-                                                {c.name} <span className="text-stone-500 text-sm">· Niv {c.level}</span>
-                                            </Link>
-                                            <button
-                                                onClick={() => handleDetachCharacter(c.id)}
-                                                className="shrink-0 text-stone-500 hover:text-red-400 transition-colors"
-                                                title="Détacher de la campagne"
-                                            >
-                                                <X size={16} />
-                                            </button>
-                                        </li>
-                                    ))}
+                                    {campaignCharacters.map(c => {
+                                        const race = c.race ? raceNames[c.race] : undefined;
+                                        const klass = c.profile ? profileNames[c.profile] : undefined;
+                                        const meta = [race, klass].filter(Boolean).join(' · ');
+                                        const d = c.data || {};
+                                        const st = d.stats || {};
+                                        return (
+                                            <li key={c.id} className="bg-black/20 rounded-lg px-3 py-2.5">
+                                                <div className="flex items-start justify-between gap-2">
+                                                    <Link to={`/characters/${c.id}`} className="min-w-0 group/pj">
+                                                        <div className="truncate text-stone-200 font-medium group-hover/pj:text-primary-400 transition-colors">{c.name}</div>
+                                                        <div className="text-xs text-stone-500 truncate">{meta ? `${meta} · ` : ''}Niv {c.level}</div>
+                                                    </Link>
+                                                    <button
+                                                        onClick={() => handleDetachCharacter(c.id)}
+                                                        className="shrink-0 text-stone-500 hover:text-red-400 transition-colors"
+                                                        title="Détacher de la campagne"
+                                                    >
+                                                        <X size={16} />
+                                                    </button>
+                                                </div>
+                                                <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5 mt-2 text-xs font-mono">
+                                                    {d.hp?.max != null && <span className="text-red-300">PV {d.hp.max}</span>}
+                                                    {d.def != null && <span className="text-sky-300">DEF {d.def}</span>}
+                                                    {d.attack && <span className="text-amber-300">ATK {d.attack.contact ?? 0}/{d.attack.distance ?? 0}</span>}
+                                                    {d.init != null && <span className="text-stone-400">INIT {d.init}</span>}
+                                                </div>
+                                                {Object.keys(st).length > 0 && (
+                                                    <div className="mt-1.5 flex flex-wrap gap-1">
+                                                        {STAT_KEYS.filter(k => st[k] != null).map(k => (
+                                                            <span key={k} className="text-[10px] text-stone-400 bg-stone-800/60 rounded px-1.5 py-0.5">
+                                                                <span className="text-stone-500">{k}</span> {st[k]}
+                                                            </span>
+                                                        ))}
+                                                    </div>
+                                                )}
+                                            </li>
+                                        );
+                                    })}
                                 </ul>
                             )}
                             <button
@@ -878,22 +976,40 @@ export const CampaignDetail: React.FC = () => {
                                 <ul className="space-y-2 mb-3">
                                     {encounters.map(enc => {
                                         const total = enc.combatants.reduce((n, c) => n + (c.quantity || 1), 0);
+                                        const threat = threatLabel(enc.combatants, partySize, partyAvgLevel);
                                         return (
-                                            <li key={enc.id} className="flex items-center justify-between gap-2 bg-black/20 rounded-lg px-3 py-2">
-                                                <div className="min-w-0">
-                                                    <div className="truncate text-stone-200">{enc.name}</div>
-                                                    <div className="text-xs text-stone-500">{total} créature{total > 1 ? 's' : ''}</div>
-                                                </div>
-                                                <div className="flex items-center gap-1 shrink-0">
-                                                    <button onClick={() => handleLaunchEncounter(enc)} className="p-1.5 text-red-300 hover:text-red-200 hover:bg-red-900/30 rounded-lg transition-colors" title="Lancer dans le Suivi de Combat">
-                                                        <Play size={16} />
-                                                    </button>
-                                                    <button onClick={() => openEditEncounter(enc)} className="p-1.5 text-stone-400 hover:text-primary-400 transition-colors" title="Modifier">
-                                                        <Edit size={16} />
-                                                    </button>
-                                                    <button onClick={() => handleDeleteEncounter(enc.id)} className="p-1.5 text-stone-500 hover:text-red-400 transition-colors" title="Supprimer">
-                                                        <Trash2 size={16} />
-                                                    </button>
+                                            <li key={enc.id} className="bg-black/20 rounded-lg px-3 py-2.5">
+                                                <div className="flex items-start justify-between gap-2">
+                                                    <div className="min-w-0 flex-1">
+                                                        <div className="flex items-center gap-2 flex-wrap">
+                                                            <span className="truncate text-stone-200 font-medium">{enc.name}</span>
+                                                            {threat && (
+                                                                <span className={clsx("text-[10px] font-bold uppercase tracking-wide px-1.5 py-0.5 rounded border", threat.tone)}>
+                                                                    {threat.label}
+                                                                </span>
+                                                            )}
+                                                        </div>
+                                                        {/* Composition en pastilles */}
+                                                        <div className="flex flex-wrap gap-1 mt-1.5">
+                                                            {enc.combatants.map((cb, i) => (
+                                                                <span key={i} className="text-[11px] text-stone-400 bg-stone-800/60 rounded px-1.5 py-0.5">
+                                                                    {cb.quantity > 1 && <span className="text-red-300 font-bold">{cb.quantity}× </span>}{cb.name}
+                                                                </span>
+                                                            ))}
+                                                        </div>
+                                                        <div className="text-[10px] text-stone-600 mt-1">{total} créature{total > 1 ? 's' : ''}</div>
+                                                    </div>
+                                                    <div className="flex items-center gap-1 shrink-0">
+                                                        <button onClick={() => handleLaunchEncounter(enc)} className="p-1.5 text-red-300 hover:text-red-200 hover:bg-red-900/30 rounded-lg transition-colors" title="Lancer dans le Suivi de Combat">
+                                                            <Play size={16} />
+                                                        </button>
+                                                        <button onClick={() => openEditEncounter(enc)} className="p-1.5 text-stone-400 hover:text-primary-400 transition-colors" title="Modifier">
+                                                            <Edit size={16} />
+                                                        </button>
+                                                        <button onClick={() => handleDeleteEncounter(enc.id)} className="p-1.5 text-stone-500 hover:text-red-400 transition-colors" title="Supprimer">
+                                                            <Trash2 size={16} />
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </li>
                                         );
@@ -1067,6 +1183,67 @@ export const CampaignDetail: React.FC = () => {
                                     placeholder="Embuscade sur la route du col"
                                     className="w-full bg-black/40 border border-white/10 text-stone-100 rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-primary-500"
                                 />
+                            </div>
+
+                            {/* ⚡ Générateur : environnement + difficulté, calibré sur le groupe */}
+                            <div className="rounded-lg border border-primary-500/20 bg-primary-900/10 p-4 space-y-3">
+                                <div className="flex items-center gap-2 text-sm font-bold text-primary-300">
+                                    <Sparkles size={16} /> Générer une rencontre
+                                </div>
+                                <div className="grid grid-cols-2 gap-3">
+                                    <label className="text-xs text-stone-400">
+                                        Taille du groupe
+                                        <input
+                                            type="number" min="1" value={genPartySize}
+                                            onChange={e => setGenPartySize(e.target.value)}
+                                            placeholder={partySize > 0 ? String(partySize) : '4'}
+                                            className="mt-1 w-full bg-black/40 border border-white/10 text-stone-100 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-primary-500"
+                                        />
+                                    </label>
+                                    <label className="text-xs text-stone-400">
+                                        Niveau moyen
+                                        <input
+                                            type="number" min="1" value={genAvgLevel}
+                                            onChange={e => setGenAvgLevel(e.target.value)}
+                                            placeholder={partyAvgLevel > 0 ? String(partyAvgLevel) : '1'}
+                                            className="mt-1 w-full bg-black/40 border border-white/10 text-stone-100 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-primary-500"
+                                        />
+                                    </label>
+                                </div>
+                                <label className="block text-xs text-stone-400">
+                                    Environnement
+                                    <select
+                                        value={genEnv}
+                                        onChange={e => setGenEnv(e.target.value)}
+                                        className="mt-1 w-full bg-black/40 border border-white/10 text-stone-100 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-primary-500"
+                                    >
+                                        {availableEnvironments.length === 0 && <option value="">—</option>}
+                                        {availableEnvironments.map(env => <option key={env} value={env}>{env}</option>)}
+                                    </select>
+                                </label>
+                                <div className="flex flex-wrap gap-1.5">
+                                    {DIFFICULTIES.map(d => (
+                                        <button
+                                            key={d} type="button" onClick={() => setGenDifficulty(d)}
+                                            className={clsx(
+                                                "px-2.5 py-1 rounded-lg text-xs font-bold capitalize border transition-colors",
+                                                genDifficulty === d ? "bg-primary-600 text-stone-950 border-primary-500" : "bg-stone-800/60 text-stone-400 border-white/10 hover:text-stone-200",
+                                            )}
+                                        >
+                                            {d}
+                                        </button>
+                                    ))}
+                                </div>
+                                <button
+                                    type="button" onClick={handleGenerate} disabled={!genEnv}
+                                    className="w-full flex items-center justify-center gap-2 bg-primary-600 hover:bg-primary-500 disabled:opacity-40 disabled:cursor-not-allowed text-stone-950 font-bold rounded-lg px-4 py-2 transition-colors"
+                                >
+                                    <Sparkles size={16} /> Générer{encounterRoster.length > 0 ? ' (remplace le roster)' : ''}
+                                </button>
+                            </div>
+
+                            <div className="flex items-center gap-3 text-xs uppercase tracking-wider text-stone-500">
+                                <div className="h-px flex-1 bg-white/10" /> ou composer à la main <div className="h-px flex-1 bg-white/10" />
                             </div>
 
                             {/* Sélecteur de créature + quantité */}

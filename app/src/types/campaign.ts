@@ -56,6 +56,7 @@ export interface EncounterCombatant {
     hp: number; // PV max par unité
     def: number;
     per: number;
+    nc?: number; // niveau de challenge (pour la jauge de menace)
 }
 
 // Rencontre préparée par le MJ : un roster nommé, lançable dans le Suivi de Combat.

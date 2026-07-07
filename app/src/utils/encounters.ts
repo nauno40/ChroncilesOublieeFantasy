@@ -93,22 +93,39 @@ export const generateEncounter = (params: {
     );
     if (candidates.length === 0) return [];
 
-    const MAX_TYPES = 4;
-    const MAX_TOTAL = 10;
+    const MAX_TYPES = 5;
+    // On autorise plus de figurines pour les gros groupes, sans rendre la table ingérable.
+    const MAX_TOTAL = Math.min(12, Math.max(8, partySize * 2));
     const roster = new Map<string, EncounterCombatant>();
     let remaining = budget;
     let total = 0;
     let guard = 0;
 
-    while (remaining >= 1 && total < MAX_TOTAL && guard < 80) {
+    while (remaining >= 1 && total < MAX_TOTAL && guard < 200) {
         guard++;
-        // Au plafond de types distincts, on renforce plutôt les types déjà présents.
+        // NC moyen à viser par emplacement restant pour tenir le budget.
+        const slotsLeft = MAX_TOTAL - total;
+        const needPerSlot = remaining / slotsLeft;
+        // Au plafond de types, on renforce les types présents — sauf si le budget
+        // réclame une créature plus forte que celles déjà choisies (gros groupes).
         const atTypeCap = roster.size >= MAX_TYPES;
         const affordable = candidates.filter(
-            c => c.nc <= remaining && (!atTypeCap || roster.has(c.referenceId)),
+            c => c.nc <= remaining && (!atTypeCap || roster.has(c.referenceId) || c.nc >= needPerSlot),
         );
         if (affordable.length === 0) break;
-        const pick = affordable[Math.floor(Math.random() * affordable.length)];
+
+        // Préfère des créatures assez fortes pour combler le budget dans les
+        // emplacements restants ; sinon prend les plus hauts NC disponibles.
+        // Pour les petits budgets, needPerSlot est faible → toutes qualifient (variété).
+        const strong = affordable.filter(c => c.nc >= needPerSlot);
+        let pick: GeneratorCreature;
+        if (strong.length > 0) {
+            pick = strong[Math.floor(Math.random() * strong.length)];
+        } else {
+            const maxNc = Math.max(...affordable.map(c => c.nc));
+            const top = affordable.filter(c => c.nc >= maxNc - 1);
+            pick = top[Math.floor(Math.random() * top.length)];
+        }
 
         const existing = roster.get(pick.referenceId);
         if (existing) {

@@ -3,8 +3,12 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { getCampaign, saveCampaign } from '../utils/campaignService';
 import { ApiService } from '../services/api';
 import { SharingService, type Membership } from '../services/sharingService';
-import { ArrowLeft, Users, Sword, Plus, X, Calendar, Clock, Trophy, FileText, Check, Edit, Trash2, Scroll, HelpCircle, CheckSquare, Square, Search, MapPin, Loader2, KeyRound, Copy, RefreshCw, UserX } from 'lucide-react';
-import type { Campaign, Session, Quest, Clue } from '../types/campaign';
+import { DataService } from '../services/dataService';
+import { getMonsters } from '../services/monsterService';
+import { loadEncounterIntoTracker, trackerHasCombat } from '../utils/encounters';
+import { ArrowLeft, Users, Sword, Plus, X, Calendar, Clock, Trophy, FileText, Check, Edit, Trash2, Scroll, HelpCircle, CheckSquare, Square, Search, MapPin, Loader2, KeyRound, Copy, RefreshCw, UserX, Play } from 'lucide-react';
+import type { Campaign, Session, Quest, Clue, Encounter, EncounterCombatant } from '../types/campaign';
+import type { Creature, CustomCreature } from '../types/normalized';
 import { clsx } from 'clsx';
 
 // Formes brutes (non re-mappées par campaignService) utilisées uniquement pour le
@@ -44,6 +48,21 @@ export const CampaignDetail: React.FC = () => {
     const [campaignOwnerIri, setCampaignOwnerIri] = useState<string | null>(null);
     // UI « Ajouter un PJ » : une seule modale (créer un nouveau / rattacher un existant).
     const [showAddPjModal, setShowAddPjModal] = useState(false);
+
+    // Rencontres : bestiaire (SRD + monstres custom) pour le sélecteur + état du formulaire.
+    const [creatures, setCreatures] = useState<Creature[]>([]);
+    const [customMonsters, setCustomMonsters] = useState<CustomCreature[]>([]);
+    const [showEncounterModal, setShowEncounterModal] = useState(false);
+    const [editingEncounterId, setEditingEncounterId] = useState<string | null>(null);
+    const [encounterName, setEncounterName] = useState('');
+    const [encounterRoster, setEncounterRoster] = useState<EncounterCombatant[]>([]);
+    const [pickerId, setPickerId] = useState('');
+    const [pickerQty, setPickerQty] = useState('1');
+
+    useEffect(() => {
+        DataService.getCreatures().then(setCreatures).catch(() => setCreatures([]));
+        getMonsters().then(setCustomMonsters).catch(() => setCustomMonsters([]));
+    }, []);
     const [inviteCopied, setInviteCopied] = useState(false);
     const [regeneratingInvite, setRegeneratingInvite] = useState(false);
 
@@ -196,6 +215,81 @@ export const CampaignDetail: React.FC = () => {
             console.error('Failed to detach character', error);
             alert("Impossible de détacher ce personnage.");
         }
+    };
+
+    // --- Rencontres ---
+    const CUSTOM_PREFIX = 'custom-';
+    const encounters = campaign?.encounters || [];
+
+    const openCreateEncounter = () => {
+        setEditingEncounterId(null);
+        setEncounterName('');
+        setEncounterRoster([]);
+        setPickerId('');
+        setPickerQty('1');
+        setShowEncounterModal(true);
+    };
+
+    const openEditEncounter = (enc: Encounter) => {
+        setEditingEncounterId(enc.id);
+        setEncounterName(enc.name);
+        setEncounterRoster(enc.combatants.map(c => ({ ...c })));
+        setShowEncounterModal(true);
+    };
+
+    // Ajoute une créature (SRD ou monstre custom) au roster, avec sa quantité.
+    const addRosterEntry = () => {
+        const isCustom = pickerId.startsWith(CUSTOM_PREFIX);
+        const source: EncounterCombatant['source'] = isCustom ? 'custom' : 'bestiary';
+        const creature = isCustom
+            ? customMonsters.find(c => `${CUSTOM_PREFIX}${c.id}` === pickerId)
+            : creatures.find(c => String(c.id) === pickerId);
+        if (!creature) return;
+        const qty = Math.max(1, parseInt(pickerQty) || 1);
+        setEncounterRoster(prev => [...prev, {
+            name: creature.name,
+            source,
+            referenceId: pickerId,
+            quantity: qty,
+            initiative: creature.init,
+            hp: creature.hp,
+            def: creature.def,
+            per: creature.stats?.SAG ?? 0,
+        }]);
+        setPickerId('');
+        setPickerQty('1');
+    };
+
+    const removeRosterEntry = (index: number) =>
+        setEncounterRoster(prev => prev.filter((_, i) => i !== index));
+
+    const handleSaveEncounter = async () => {
+        if (!campaign || !encounterName.trim() || encounterRoster.length === 0) return;
+        const encounter: Encounter = {
+            id: editingEncounterId || crypto.randomUUID(),
+            name: encounterName.trim(),
+            combatants: encounterRoster,
+        };
+        const updated = editingEncounterId
+            ? encounters.map(e => (e.id === editingEncounterId ? encounter : e))
+            : [...encounters, encounter];
+        const saved = await saveCampaign({ ...campaign, encounters: updated });
+        setCampaign(saved);
+        setShowEncounterModal(false);
+    };
+
+    const handleDeleteEncounter = async (encounterId: string) => {
+        if (!campaign) return;
+        if (!confirm('Supprimer cette rencontre ?')) return;
+        const updated = encounters.filter(e => e.id !== encounterId);
+        const saved = await saveCampaign({ ...campaign, encounters: updated });
+        setCampaign(saved);
+    };
+
+    const handleLaunchEncounter = (enc: Encounter) => {
+        if (trackerHasCombat() && !confirm('Un combat est déjà en cours dans le Suivi de Combat. Le remplacer par cette rencontre ?')) return;
+        loadEncounterIntoTracker(enc);
+        navigate('/tools/tracker');
     };
 
     // Auto-save Notes logic
@@ -528,10 +622,42 @@ export const CampaignDetail: React.FC = () => {
                             </div>
                             <h3 className="font-display font-bold text-xl text-stone-200">Rencontres</h3>
                         </div>
-                        <span className="text-3xl font-display font-bold text-stone-200">{campaign.encounters?.length || 0}</span>
+                        <span className="text-3xl font-display font-bold text-stone-200">{encounters.length}</span>
                     </div>
                     <div className="h-px w-full bg-white/5 mb-4"></div>
-                    <button className="w-full py-2 rounded-lg border border-dashed border-stone-700 text-stone-500 hover:border-red-500 hover:text-red-400 transition-all text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2">
+
+                    {/* Liste des rencontres préparées */}
+                    {encounters.length > 0 && (
+                        <ul className="space-y-2 mb-4">
+                            {encounters.map(enc => {
+                                const total = enc.combatants.reduce((n, c) => n + (c.quantity || 1), 0);
+                                return (
+                                    <li key={enc.id} className="flex items-center justify-between gap-2 bg-black/20 rounded-lg px-3 py-2">
+                                        <div className="min-w-0">
+                                            <div className="truncate text-stone-200">{enc.name}</div>
+                                            <div className="text-xs text-stone-500">{total} créature{total > 1 ? 's' : ''}</div>
+                                        </div>
+                                        <div className="flex items-center gap-1 shrink-0">
+                                            <button onClick={() => handleLaunchEncounter(enc)} className="p-1.5 text-red-300 hover:text-red-200 hover:bg-red-900/30 rounded-lg transition-colors" title="Lancer dans le Suivi de Combat">
+                                                <Play size={16} />
+                                            </button>
+                                            <button onClick={() => openEditEncounter(enc)} className="p-1.5 text-stone-400 hover:text-primary-400 transition-colors" title="Modifier">
+                                                <Edit size={16} />
+                                            </button>
+                                            <button onClick={() => handleDeleteEncounter(enc.id)} className="p-1.5 text-stone-500 hover:text-red-400 transition-colors" title="Supprimer">
+                                                <Trash2 size={16} />
+                                            </button>
+                                        </div>
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                    )}
+
+                    <button
+                        onClick={openCreateEncounter}
+                        className="w-full py-2 rounded-lg border border-dashed border-stone-700 text-stone-500 hover:border-red-500 hover:text-red-400 transition-all text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2"
+                    >
                         <Plus size={16} /> Créer une rencontre
                     </button>
                 </div>
@@ -912,6 +1038,94 @@ export const CampaignDetail: React.FC = () => {
                                     ))}
                                 </ul>
                             )}
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Modale « Créer / modifier une rencontre » */}
+            {showEncounterModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4" onClick={() => setShowEncounterModal(false)}>
+                    <div className="glass-panel rounded-2xl border border-white/10 w-full max-w-lg max-h-[85vh] overflow-hidden flex flex-col" onClick={e => e.stopPropagation()}>
+                        <div className="flex items-center justify-between px-6 py-4 border-b border-white/10">
+                            <h3 className="font-display font-bold text-lg text-stone-100">{editingEncounterId ? 'Modifier la rencontre' : 'Créer une rencontre'}</h3>
+                            <button onClick={() => setShowEncounterModal(false)} className="text-stone-400 hover:text-stone-200">
+                                <X size={20} />
+                            </button>
+                        </div>
+                        <div className="p-6 overflow-y-auto space-y-4">
+                            <div>
+                                <label className="block text-sm font-medium text-stone-300 mb-1">Nom de la rencontre</label>
+                                <input
+                                    value={encounterName}
+                                    onChange={e => setEncounterName(e.target.value)}
+                                    placeholder="Embuscade sur la route du col"
+                                    className="w-full bg-black/40 border border-white/10 text-stone-100 rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-primary-500"
+                                />
+                            </div>
+
+                            {/* Sélecteur de créature + quantité */}
+                            <div className="flex flex-wrap gap-2 items-end">
+                                <select
+                                    value={pickerId}
+                                    onChange={e => setPickerId(e.target.value)}
+                                    className="flex-1 min-w-[160px] bg-black/40 border border-white/10 text-stone-100 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary-500"
+                                >
+                                    <option value="">— Créature —</option>
+                                    {customMonsters.length > 0 && (
+                                        <optgroup label="Mes monstres">
+                                            {customMonsters.map(c => (
+                                                <option key={`${CUSTOM_PREFIX}${c.id}`} value={`${CUSTOM_PREFIX}${c.id}`}>{c.name}</option>
+                                            ))}
+                                        </optgroup>
+                                    )}
+                                    {creatures.map(c => <option key={c.id} value={String(c.id)}>{c.name}</option>)}
+                                </select>
+                                <input
+                                    type="number" min="1" value={pickerQty}
+                                    onChange={e => setPickerQty(e.target.value)}
+                                    className="w-16 bg-black/40 border border-white/10 text-stone-100 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary-500"
+                                />
+                                <button
+                                    onClick={addRosterEntry}
+                                    disabled={!pickerId}
+                                    className="bg-red-900/40 hover:bg-red-800/60 disabled:opacity-40 disabled:cursor-not-allowed text-red-200 px-4 py-2 rounded-lg text-sm font-bold border border-red-500/30 transition-colors"
+                                >
+                                    + Ajouter
+                                </button>
+                            </div>
+
+                            {/* Roster */}
+                            {encounterRoster.length === 0 ? (
+                                <p className="text-stone-500 text-sm italic">Ajoute des créatures au roster.</p>
+                            ) : (
+                                <ul className="space-y-2">
+                                    {encounterRoster.map((entry, i) => (
+                                        <li key={i} className="flex items-center justify-between gap-2 bg-black/30 border border-white/5 rounded-lg px-3 py-2">
+                                            <span className="text-stone-200">
+                                                {entry.quantity > 1 && <span className="text-red-300 font-bold">{entry.quantity}× </span>}
+                                                {entry.name}
+                                                <span className="text-stone-500 text-sm"> · PV {entry.hp} · DEF {entry.def} · INIT {entry.initiative}</span>
+                                            </span>
+                                            <button onClick={() => removeRosterEntry(i)} className="shrink-0 text-stone-400 hover:text-red-400" aria-label="Retirer">
+                                                <X size={16} />
+                                            </button>
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
+                        </div>
+                        <div className="flex justify-end gap-3 px-6 py-4 border-t border-white/10">
+                            <button onClick={() => setShowEncounterModal(false)} className="border border-white/10 text-stone-300 hover:bg-white/5 rounded-lg px-4 py-2 transition-colors">
+                                Annuler
+                            </button>
+                            <button
+                                onClick={handleSaveEncounter}
+                                disabled={!encounterName.trim() || encounterRoster.length === 0}
+                                className="bg-primary-600 hover:bg-primary-500 disabled:opacity-50 disabled:cursor-not-allowed text-stone-950 font-bold rounded-lg px-4 py-2 transition-colors"
+                            >
+                                Enregistrer
+                            </button>
                         </div>
                     </div>
                 </div>

@@ -1,5 +1,13 @@
 import { ApiService } from '../services/api';
-import type { Campaign } from '../types/campaign';
+import type { Campaign, Encounter } from '../types/campaign';
+
+// Forme brute d'une rencontre côté API (relations/JSON non typés strictement).
+interface RawEncounter {
+    id?: number | string;
+    name?: string;
+    notes?: string;
+    combatants?: unknown;
+}
 
 const RESOURCE = 'campaigns';
 
@@ -27,7 +35,10 @@ export const saveCampaign = async (campaign: Campaign): Promise<Campaign> => {
     const backendData = mapFrontendToBackend(campaign);
     try {
         if (campaign.id && !campaign.id.includes('-')) { // Simple check if it's a backend ID (int) vs temp UUID
-            const data = await ApiService.put<any>(RESOURCE, campaign.id, backendData);
+            // PATCH (mise à jour partielle) et non PUT : un PUT réinitialise les champs
+            // hors payload (dont inviteCode, non exposé en écriture), ce qui pousse
+            // CampaignStateProcessor à régénérer le code d'invitation → collision d'unicité.
+            const data = await ApiService.patch<any>(RESOURCE, campaign.id, backendData);
             return mapBackendToFrontend(data);
         } else {
             // New campaign
@@ -96,7 +107,12 @@ const mapBackendToFrontend = (b: any): Campaign => {
             profile: c.profile?.name || '',
             data: c.data || {}
         })),
-        encounters: [],
+        encounters: (b.encounters || []).map((e: RawEncounter) => ({
+            id: String(e.id ?? ''),
+            name: e.name || 'Rencontre',
+            notes: e.notes || '',
+            combatants: Array.isArray(e.combatants) ? e.combatants : []
+        })),
         notes: b.notes || '',
         quests: (b.quests || []).map((q: any) => ({
             id: (q.id || '').toString(),
@@ -180,19 +196,25 @@ const mapFrontendToBackend = (f: any): any => {
         });
     }
 
-    if (f.characters) {
-        b.characters = f.characters.map((c: any) => {
-            const item: any = {
-                name: c.name,
-                level: c.level,
-                data: c.data
+    if (f.encounters) {
+        b.encounters = f.encounters.map((e: Encounter) => {
+            const item: Record<string, unknown> = {
+                name: e.name,
+                notes: e.notes || null,
+                combatants: e.combatants || []
             };
-            if (isBackendId(c.id)) {
-                item['@id'] = `/api/characters/${c.id}`;
+            if (isBackendId(e.id)) {
+                item['@id'] = `/api/encounters/${e.id}`;
             }
             return item;
         });
     }
+
+    // NB : on n'envoie PAS `characters` dans la sauvegarde de campagne. Les fiches
+    // sont gérées via leur propre endpoint (rattachement/détachement = PATCH
+    // characters/{id}). De plus, la campagne sérialise les persos avec `@id` mais
+    // sans `id` (groupe character:read), donc les renvoyer ici en merge-patch
+    // recréerait des personnages vides (name NOT NULL) au lieu de les rattacher.
 
     return b;
 };

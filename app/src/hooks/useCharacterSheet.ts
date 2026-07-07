@@ -56,6 +56,8 @@ interface UseCharacterSheetArgs {
     id: string | undefined;
     isNew: boolean;
     navigate: NavigateFunction;
+    /** Rattache la fiche à une campagne à la création (bouton « Ajouter un PJ » côté MJ). */
+    campaignId?: number;
 }
 
 /**
@@ -63,7 +65,7 @@ interface UseCharacterSheetArgs {
  * de la fiche de personnage. Extrait verbatim de CharacterSheet.tsx — aucun
  * changement de comportement.
  */
-export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, navigate }: UseCharacterSheetArgs) => {
+export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, navigate, campaignId }: UseCharacterSheetArgs) => {
     const [loading, setLoading] = useState(!isNew);
     const [saving, setSaving] = useState(false);
 
@@ -386,8 +388,10 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
         setSaving(true);
         try {
             if (isNew) {
-                const res = await ApiService.post<Character>('characters', character);
-                navigate(`/characters/${res.id}`);
+                // Rattachement à une campagne si la fiche est créée depuis « Ajouter un PJ ».
+                const payload = campaignId ? { ...character, campaignId } : character;
+                const res = await ApiService.post<Character>('characters', payload);
+                navigate(campaignId ? `/campaign/${campaignId}` : `/characters/${res.id}`);
             } else if (id) {
                 await ApiService.put<Character>('characters', id, character);
             }

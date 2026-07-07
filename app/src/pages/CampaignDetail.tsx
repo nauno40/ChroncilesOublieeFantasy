@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { getCampaign, saveCampaign } from '../utils/campaignService';
 import { ApiService } from '../services/api';
 import { SharingService, type Membership } from '../services/sharingService';
@@ -30,6 +30,7 @@ const idFromIri = (iri: string): number => Number(iri.split('/').pop());
 
 export const CampaignDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
+    const navigate = useNavigate();
     const [campaign, setCampaign] = useState<Campaign | null>(null);
     const [loading, setLoading] = useState(true);
 
@@ -37,6 +38,12 @@ export const CampaignDetail: React.FC = () => {
     const [inviteCode, setInviteCode] = useState<string | null>(null);
     const [memberships, setMemberships] = useState<Membership[]>([]);
     const [memberCharacters, setMemberCharacters] = useState<RawCharacter[]>([]);
+    // Tous les persos visibles + IRI du propriétaire (MJ) : pour lister les PJ rattachés
+    // à la campagne et proposer d'y rattacher un perso existant du MJ.
+    const [allCharacters, setAllCharacters] = useState<RawCharacter[]>([]);
+    const [campaignOwnerIri, setCampaignOwnerIri] = useState<string | null>(null);
+    // UI « Ajouter un PJ » : une seule modale (créer un nouveau / rattacher un existant).
+    const [showAddPjModal, setShowAddPjModal] = useState(false);
     const [inviteCopied, setInviteCopied] = useState(false);
     const [regeneratingInvite, setRegeneratingInvite] = useState(false);
 
@@ -76,28 +83,31 @@ export const CampaignDetail: React.FC = () => {
     // sheets belonging to players (i.e. not owned by the GM). Fetched separately
     // via ApiService/SharingService since campaignService's mapped `Campaign`
     // does not expose `inviteCode`/`owner` (see RawCampaign/RawCharacter above).
-    useEffect(() => {
-        const loadSharingData = async () => {
-            if (!id) return;
-            try {
-                const campaignIri = `/api/campaigns/${id}`;
-                const [rawCampaign, allMemberships, allCharacters] = await Promise.all([
-                    ApiService.getOne<RawCampaign>('campaigns', id),
-                    SharingService.getMemberships(),
-                    ApiService.getAll<RawCharacter>('characters'),
-                ]);
+    const loadSharingData = useCallback(async () => {
+        if (!id) return;
+        try {
+            const campaignIri = `/api/campaigns/${id}`;
+            const [rawCampaign, allMemberships, characters] = await Promise.all([
+                ApiService.getOne<RawCampaign>('campaigns', id),
+                SharingService.getMemberships(),
+                ApiService.getAll<RawCharacter>('characters'),
+            ]);
 
-                setInviteCode(rawCampaign.inviteCode);
-                setMemberships(allMemberships.filter(m => m.campaign === campaignIri));
-                setMemberCharacters(
-                    allCharacters.filter(c => c.campaign === campaignIri && !!c.owner && c.owner !== rawCampaign.owner)
-                );
-            } catch (error) {
-                console.error('Failed to load sharing data', error);
-            }
-        };
-        loadSharingData();
+            setInviteCode(rawCampaign.inviteCode);
+            setCampaignOwnerIri(rawCampaign.owner);
+            setAllCharacters(characters);
+            setMemberships(allMemberships.filter(m => m.campaign === campaignIri));
+            setMemberCharacters(
+                characters.filter(c => c.campaign === campaignIri && !!c.owner && c.owner !== rawCampaign.owner)
+            );
+        } catch (error) {
+            console.error('Failed to load sharing data', error);
+        }
     }, [id]);
+
+    useEffect(() => {
+        loadSharingData();
+    }, [loadSharingData]);
 
     const getPlayerId = (m: Membership): number | null =>
         typeof m.player === 'string' ? idFromIri(m.player) : m.player.id;
@@ -141,6 +151,50 @@ export const CampaignDetail: React.FC = () => {
             setMemberships(prev => prev.filter(m => m.id !== membershipId));
         } catch (error) {
             console.error('Failed to delete membership', error);
+        }
+    };
+
+    // --- Personnages rattachés à la campagne ---
+    const campaignIri = `/api/campaigns/${id}`;
+    // Tous les persos de la campagne (MJ + joueurs), pour la liste du panneau Personnages.
+    const campaignCharacters = allCharacters.filter(c => c.campaign === campaignIri);
+    // Persos du MJ pas encore rattachés à cette campagne → candidats au rattachement.
+    const attachCandidates = allCharacters.filter(
+        c => c.campaign !== campaignIri && !!c.owner && c.owner === campaignOwnerIri,
+    );
+
+    const reloadCampaign = async () => {
+        if (!id) return;
+        const data = await getCampaign(id);
+        setCampaign(data);
+    };
+
+    const handleCreateNewPj = () => {
+        setShowAddPjModal(false);
+        navigate(`/characters/new?campaign=${id}`);
+    };
+
+    const handleAttachCharacter = async (characterId: number) => {
+        if (!id) return;
+        try {
+            await ApiService.patch('characters', characterId, { campaignId: Number(id) });
+            setShowAddPjModal(false);
+            await Promise.all([loadSharingData(), reloadCampaign()]);
+        } catch (error) {
+            console.error('Failed to attach character', error);
+            alert("Impossible de rattacher ce personnage.");
+        }
+    };
+
+    const handleDetachCharacter = async (characterId: number) => {
+        if (!confirm('Détacher ce personnage de la campagne ?')) return;
+        try {
+            // campaignId (write-only) ignore null ; on remet la relation `campaign` à null.
+            await ApiService.patch('characters', characterId, { campaign: null });
+            await Promise.all([loadSharingData(), reloadCampaign()]);
+        } catch (error) {
+            console.error('Failed to detach character', error);
+            alert("Impossible de détacher ce personnage.");
         }
     };
 
@@ -433,10 +487,35 @@ export const CampaignDetail: React.FC = () => {
                             </div>
                             <h3 className="font-display font-bold text-xl text-stone-200">Personnages</h3>
                         </div>
-                        <span className="text-3xl font-display font-bold text-stone-200">{campaign.characters?.length || 0}</span>
+                        <span className="text-3xl font-display font-bold text-stone-200">{campaignCharacters.length}</span>
                     </div>
                     <div className="h-px w-full bg-white/5 mb-4"></div>
-                    <button className="w-full py-2 rounded-lg border border-dashed border-stone-700 text-stone-500 hover:border-primary-500 hover:text-primary-400 transition-all text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2">
+
+                    {/* Liste des personnages rattachés */}
+                    {campaignCharacters.length > 0 && (
+                        <ul className="space-y-2 mb-4">
+                            {campaignCharacters.map(c => (
+                                <li key={c.id} className="flex items-center justify-between gap-2 bg-black/20 rounded-lg px-3 py-2">
+                                    <Link to={`/characters/${c.id}`} className="min-w-0 truncate text-stone-200 hover:text-primary-400 transition-colors">
+                                        {c.name} <span className="text-stone-500 text-sm">· Niv {c.level}</span>
+                                    </Link>
+                                    <button
+                                        onClick={() => handleDetachCharacter(c.id)}
+                                        className="shrink-0 text-stone-500 hover:text-red-400 transition-colors"
+                                        title="Détacher de la campagne"
+                                    >
+                                        <X size={16} />
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+
+                    {/* Bouton « Ajouter un PJ » → modale (créer / rattacher) */}
+                    <button
+                        onClick={() => setShowAddPjModal(true)}
+                        className="w-full py-2 rounded-lg border border-dashed border-stone-700 text-stone-500 hover:border-primary-500 hover:text-primary-400 transition-all text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2"
+                    >
                         <Plus size={16} /> Ajouter un PJ
                     </button>
                 </div>
@@ -791,6 +870,52 @@ export const CampaignDetail: React.FC = () => {
                 </div>
                 <p className="text-stone-400 italic">Des fonctionnalités avancées de gestion de campagne (fiches de personnages, journal de quête...) arrivent bientôt.</p>
             </div>
+
+            {/* Modale « Ajouter un PJ » : créer un nouveau OU rattacher un existant */}
+            {showAddPjModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4" onClick={() => setShowAddPjModal(false)}>
+                    <div className="glass-panel rounded-2xl border border-white/10 w-full max-w-md max-h-[80vh] overflow-hidden flex flex-col" onClick={e => e.stopPropagation()}>
+                        <div className="flex items-center justify-between px-6 py-4 border-b border-white/10">
+                            <h3 className="font-display font-bold text-lg text-stone-100">Ajouter un personnage</h3>
+                            <button onClick={() => setShowAddPjModal(false)} className="text-stone-400 hover:text-stone-200">
+                                <X size={20} />
+                            </button>
+                        </div>
+                        <div className="p-4 overflow-y-auto space-y-4">
+                            <button
+                                onClick={handleCreateNewPj}
+                                className="w-full flex items-center justify-center gap-2 bg-primary-600 hover:bg-primary-500 text-stone-950 font-bold rounded-lg px-4 py-3 transition-colors"
+                            >
+                                <Plus size={16} /> Créer un nouveau personnage
+                            </button>
+
+                            <div className="flex items-center gap-3 text-xs uppercase tracking-wider text-stone-500">
+                                <div className="h-px flex-1 bg-white/10" /> ou rattacher un existant <div className="h-px flex-1 bg-white/10" />
+                            </div>
+
+                            {attachCandidates.length === 0 ? (
+                                <p className="text-stone-400 text-sm text-center py-4">
+                                    Aucun de tes personnages n'est disponible (déjà tous rattachés à une campagne).
+                                </p>
+                            ) : (
+                                <ul className="space-y-2">
+                                    {attachCandidates.map(c => (
+                                        <li key={c.id}>
+                                            <button
+                                                onClick={() => handleAttachCharacter(c.id)}
+                                                className="w-full flex items-center justify-between gap-2 bg-black/30 hover:bg-primary-900/30 border border-white/5 hover:border-primary-500/40 rounded-lg px-4 py-3 transition-colors text-left"
+                                            >
+                                                <span className="text-stone-200">{c.name} <span className="text-stone-500 text-sm">· Niv {c.level}</span></span>
+                                                <Plus size={16} className="text-primary-400 shrink-0" />
+                                            </button>
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

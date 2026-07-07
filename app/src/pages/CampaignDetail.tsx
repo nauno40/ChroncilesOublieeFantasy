@@ -6,7 +6,7 @@ import { SharingService, type Membership } from '../services/sharingService';
 import { DataService } from '../services/dataService';
 import { getMonsters } from '../services/monsterService';
 import { loadEncounterIntoTracker, trackerHasCombat } from '../utils/encounters';
-import { ArrowLeft, Users, Sword, Plus, X, Calendar, Clock, Trophy, FileText, Check, Edit, Trash2, Scroll, HelpCircle, CheckSquare, Square, Search, MapPin, Loader2, KeyRound, Copy, RefreshCw, UserX, Play } from 'lucide-react';
+import { ArrowLeft, Users, Sword, Plus, X, Calendar, Clock, Trophy, FileText, Check, Edit, Trash2, Scroll, HelpCircle, CheckSquare, Square, Search, MapPin, Loader2, KeyRound, Copy, RefreshCw, UserX, Play, ChevronDown, StickyNote } from 'lucide-react';
 import type { Campaign, Session, Quest, Clue, Encounter, EncounterCombatant } from '../types/campaign';
 import type { Creature, CustomCreature } from '../types/normalized';
 import { clsx } from 'clsx';
@@ -48,6 +48,8 @@ export const CampaignDetail: React.FC = () => {
     const [campaignOwnerIri, setCampaignOwnerIri] = useState<string | null>(null);
     // UI « Ajouter un PJ » : une seule modale (créer un nouveau / rattacher un existant).
     const [showAddPjModal, setShowAddPjModal] = useState(false);
+    // Section « Joueurs & partage » : administrative → repliée par défaut, en bas de page.
+    const [showSharing, setShowSharing] = useState(false);
 
     // Rencontres : bestiaire (SRD + monstres custom) pour le sélecteur + état du formulaire.
     const [creatures, setCreatures] = useState<Creature[]>([]);
@@ -497,176 +499,13 @@ export const CampaignDetail: React.FC = () => {
                 <p className="text-stone-400 text-lg max-w-full leading-relaxed whitespace-pre-line">{campaign.description || "Aucune description."}</p>
             </header>
 
-            {/* Partage : code d'invitation + membres et leurs fiches */}
-            <div className="grid lg:grid-cols-3 gap-6 mb-8">
-                <div className="glass-panel p-6 rounded-2xl border-primary-500/20">
-                    <div className="flex items-center gap-3 mb-4">
-                        <div className="bg-primary-900/30 p-3 rounded-xl border border-primary-500/20">
-                            <KeyRound size={24} className="text-primary-400" />
-                        </div>
-                        <h3 className="font-display font-bold text-xl text-stone-200">Inviter des joueurs</h3>
-                    </div>
-                    <div className="flex flex-wrap items-center gap-2 mb-3">
-                        <code className="bg-stone-950 border border-white/10 rounded-lg px-4 py-2 text-lg font-mono text-primary-300 tracking-widest">
-                            {inviteCode || '—'}
-                        </code>
-                        <button
-                            onClick={handleCopyInvite}
-                            disabled={!inviteCode}
-                            className="bg-stone-800 hover:bg-stone-700 text-stone-300 px-3 py-2 rounded-lg text-xs font-bold uppercase flex items-center gap-2 disabled:opacity-50 transition-colors"
-                        >
-                            <Copy size={14} /> {inviteCopied ? 'Copié !' : 'Copier'}
-                        </button>
-                        <button
-                            onClick={handleRegenerateInvite}
-                            disabled={regeneratingInvite}
-                            className="bg-stone-800 hover:bg-stone-700 text-stone-300 px-3 py-2 rounded-lg text-xs font-bold uppercase flex items-center gap-2 disabled:opacity-50 transition-colors"
-                        >
-                            <RefreshCw size={14} className={clsx(regeneratingInvite && "animate-spin")} /> Régénérer
-                        </button>
-                    </div>
-                    <p className="text-stone-500 text-xs">Partagez ce code : vos joueurs rejoignent la campagne depuis leur compte.</p>
-                </div>
+            {/* Pilotage de la campagne : colonne principale (jeu) + colonne annexe (allégée) */}
+            <div className="grid lg:grid-cols-3 gap-6">
+                {/* Colonne principale — le contenu vivant de la campagne */}
+                <div className="lg:col-span-2 space-y-6">
 
-                <div className="lg:col-span-2 glass-panel p-6 rounded-2xl border-primary-500/20">
-                    <div className="flex items-center gap-3 mb-4">
-                        <div className="bg-primary-900/30 p-3 rounded-xl border border-primary-500/20">
-                            <Users size={24} className="text-primary-400" />
-                        </div>
-                        <h3 className="font-display font-bold text-xl text-stone-200">Membres</h3>
-                    </div>
-                    {memberships.length === 0 ? (
-                        <p className="text-stone-600 text-sm italic">Aucun joueur n'a encore rejoint cette campagne.</p>
-                    ) : (
-                        <div className="space-y-3">
-                            {memberships.map((m) => (
-                                <div key={m.id} className="bg-stone-900/50 p-4 rounded-xl border border-white/5">
-                                    <div className="flex justify-between items-center gap-3">
-                                        <span className="font-bold text-stone-200">{getPlayerPseudo(m)}</span>
-                                        <button
-                                            onClick={() => handleRemoveMembership(m.id)}
-                                            className="text-stone-500 hover:text-red-500 text-xs font-bold uppercase flex items-center gap-1 transition-colors shrink-0"
-                                        >
-                                            <UserX size={14} /> Exclure
-                                        </button>
-                                    </div>
-                                    <div className="mt-2 flex flex-wrap gap-2">
-                                        {charactersForMember(m).length === 0 ? (
-                                            <span className="text-stone-600 text-xs italic">Aucune fiche de personnage</span>
-                                        ) : (
-                                            charactersForMember(m).map((c) => (
-                                                <Link
-                                                    key={c.id}
-                                                    to={`/characters/${c.id}`}
-                                                    className="text-xs bg-stone-800 hover:bg-primary-900/40 text-primary-300 px-2 py-1 rounded-lg border border-white/5 hover:border-primary-500/40 transition-colors"
-                                                >
-                                                    {c.name} (Niv {c.level})
-                                                </Link>
-                                            ))
-                                        )}
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    )}
-                </div>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-6 mb-8">
-                <div className="glass-panel p-6 rounded-2xl border-primary-500/20 hover:border-primary-500/40 transition-colors group">
-                    <div className="flex justify-between items-start mb-4">
-                        <div className="flex items-center gap-3">
-                            <div className="bg-primary-900/30 p-3 rounded-xl border border-primary-500/20 group-hover:bg-primary-900/50 transition-colors">
-                                <Users size={24} className="text-primary-400" />
-                            </div>
-                            <h3 className="font-display font-bold text-xl text-stone-200">Personnages</h3>
-                        </div>
-                        <span className="text-3xl font-display font-bold text-stone-200">{campaignCharacters.length}</span>
-                    </div>
-                    <div className="h-px w-full bg-white/5 mb-4"></div>
-
-                    {/* Liste des personnages rattachés */}
-                    {campaignCharacters.length > 0 && (
-                        <ul className="space-y-2 mb-4">
-                            {campaignCharacters.map(c => (
-                                <li key={c.id} className="flex items-center justify-between gap-2 bg-black/20 rounded-lg px-3 py-2">
-                                    <Link to={`/characters/${c.id}`} className="min-w-0 truncate text-stone-200 hover:text-primary-400 transition-colors">
-                                        {c.name} <span className="text-stone-500 text-sm">· Niv {c.level}</span>
-                                    </Link>
-                                    <button
-                                        onClick={() => handleDetachCharacter(c.id)}
-                                        className="shrink-0 text-stone-500 hover:text-red-400 transition-colors"
-                                        title="Détacher de la campagne"
-                                    >
-                                        <X size={16} />
-                                    </button>
-                                </li>
-                            ))}
-                        </ul>
-                    )}
-
-                    {/* Bouton « Ajouter un PJ » → modale (créer / rattacher) */}
-                    <button
-                        onClick={() => setShowAddPjModal(true)}
-                        className="w-full py-2 rounded-lg border border-dashed border-stone-700 text-stone-500 hover:border-primary-500 hover:text-primary-400 transition-all text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2"
-                    >
-                        <Plus size={16} /> Ajouter un PJ
-                    </button>
-                </div>
-
-                <div className="glass-panel p-6 rounded-2xl border-primary-500/20 hover:border-primary-500/40 transition-colors group">
-                    <div className="flex justify-between items-start mb-4">
-                        <div className="flex items-center gap-3">
-                            <div className="bg-red-900/20 p-3 rounded-xl border border-red-500/20 group-hover:bg-red-900/30 transition-colors">
-                                <Sword size={24} className="text-red-400" />
-                            </div>
-                            <h3 className="font-display font-bold text-xl text-stone-200">Rencontres</h3>
-                        </div>
-                        <span className="text-3xl font-display font-bold text-stone-200">{encounters.length}</span>
-                    </div>
-                    <div className="h-px w-full bg-white/5 mb-4"></div>
-
-                    {/* Liste des rencontres préparées */}
-                    {encounters.length > 0 && (
-                        <ul className="space-y-2 mb-4">
-                            {encounters.map(enc => {
-                                const total = enc.combatants.reduce((n, c) => n + (c.quantity || 1), 0);
-                                return (
-                                    <li key={enc.id} className="flex items-center justify-between gap-2 bg-black/20 rounded-lg px-3 py-2">
-                                        <div className="min-w-0">
-                                            <div className="truncate text-stone-200">{enc.name}</div>
-                                            <div className="text-xs text-stone-500">{total} créature{total > 1 ? 's' : ''}</div>
-                                        </div>
-                                        <div className="flex items-center gap-1 shrink-0">
-                                            <button onClick={() => handleLaunchEncounter(enc)} className="p-1.5 text-red-300 hover:text-red-200 hover:bg-red-900/30 rounded-lg transition-colors" title="Lancer dans le Suivi de Combat">
-                                                <Play size={16} />
-                                            </button>
-                                            <button onClick={() => openEditEncounter(enc)} className="p-1.5 text-stone-400 hover:text-primary-400 transition-colors" title="Modifier">
-                                                <Edit size={16} />
-                                            </button>
-                                            <button onClick={() => handleDeleteEncounter(enc.id)} className="p-1.5 text-stone-500 hover:text-red-400 transition-colors" title="Supprimer">
-                                                <Trash2 size={16} />
-                                            </button>
-                                        </div>
-                                    </li>
-                                );
-                            })}
-                        </ul>
-                    )}
-
-                    <button
-                        onClick={openCreateEncounter}
-                        className="w-full py-2 rounded-lg border border-dashed border-stone-700 text-stone-500 hover:border-red-500 hover:text-red-400 transition-all text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2"
-                    >
-                        <Plus size={16} /> Créer une rencontre
-                    </button>
-                </div>
-            </div>
-
-            {/* Quests and Clues */}
-            <div className="grid lg:grid-cols-3 gap-6 mb-6">
-                {/* Quest Log */}
-                <div className="lg:col-span-2 glass-panel p-6 rounded-2xl border-primary-500/20 relative group">
+                {/* Journal de Quêtes */}
+                <div className="glass-panel p-6 rounded-2xl border-primary-500/20 relative group">
                     <div className="flex justify-between items-center mb-6">
                         <div className="flex items-center gap-3">
                             <div className="bg-amber-900/30 p-2 rounded-lg border border-amber-500/20">
@@ -758,66 +597,11 @@ export const CampaignDetail: React.FC = () => {
                     </div>
                 </div>
 
-                {/* Clues & Rumors */}
-                <div className="glass-panel p-6 rounded-2xl border-primary-500/20 flex flex-col h-full bg-stone-950/40 relative group">
-                    <div className="flex justify-between items-center mb-4">
-                        <div className="flex items-center gap-2">
-                            <Search size={18} className="text-stone-400" />
-                            <h2 className="text-lg font-display font-bold text-stone-300">Indices & Rumeurs</h2>
-                        </div>
-                        <button
-                            onClick={() => setShowClueForm(!showClueForm)}
-                            className="bg-stone-800 hover:bg-stone-700 text-stone-300 p-1 rounded-lg transition-colors"
-                        >
-                            {showClueForm ? <X size={14} /> : <Plus size={14} />}
-                        </button>
-                    </div>
-
-                    {showClueForm && (
-                        <div className="mb-4">
-                            <textarea
-                                className="w-full bg-stone-950 border border-white/10 rounded-lg px-3 py-2 text-sm text-stone-200 focus:border-stone-500 outline-none min-h-[60px] mb-2"
-                                placeholder="Nouvelle rumeur..."
-                                value={newClue}
-                                onChange={e => setNewClue(e.target.value)}
-                                autoFocus
-                            />
-                            <button onClick={handleAddClue} disabled={!newClue} className="w-full bg-stone-800 hover:bg-stone-700 text-stone-300 py-1.5 rounded text-xs font-bold uppercase disabled:opacity-50">Ajouter</button>
-                        </div>
-                    )}
-
-                    <div className="space-y-3 flex-1 overflow-y-auto custom-scrollbar pr-1 max-h-[400px]">
-                        {(campaign.clues || []).length === 0 && (
-                            <div className="text-center py-8 text-stone-600 text-sm">
-                                <HelpCircle className="mx-auto mb-2 opacity-50" size={24} />
-                                Rien à signaler...
-                            </div>
-                        )}
-                        {(campaign.clues || []).map((clue: Clue) => (
-                            <div key={clue.id} className={clsx("p-3 rounded-lg border text-sm relative group/clue", clue.status === 'solved' ? "bg-green-900/10 border-green-500/20" : "bg-stone-900/50 border-white/5")}>
-                                <p className={clsx("mb-2", clue.status === 'solved' ? "text-stone-500 line-through" : "text-stone-300")}>{clue.content}</p>
-                                <div className="flex justify-between items-center text-[10px] text-stone-600">
-                                    <span className="flex items-center gap-1"><MapPin size={10} /> Trouvé le {formatDateSafe(clue.found_at)}</span>
-                                    <div className="flex gap-2">
-                                        <button onClick={() => handleToggleClue(clue.id)} className={clsx("hover:underline", clue.status === 'solved' ? "text-stone-500" : "text-green-600")}>
-                                            {clue.status === 'solved' ? "Rouvrir" : "Résoudre"}
-                                        </button>
-                                        <button onClick={() => handleDeleteClue(clue.id)} className="text-stone-600 hover:text-red-500 opacity-0 group-hover/clue:opacity-100 transition-opacity">Suppr.</button>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
-
-            {/* Session Journal & Notes */}
-            <div className="grid lg:grid-cols-3 gap-6">
-                {/* Journal Section */}
-                <div className="lg:col-span-2 space-y-4">
+                {/* Journal de séances */}
+                <div className="space-y-4">
                     <div className="flex justify-between items-center">
-                        <h2 className="text-2xl font-display font-bold text-stone-200 flex items-center gap-2">
-                            Journal de Campagne
+                        <h2 className="text-xl font-display font-bold text-stone-200 flex items-center gap-2">
+                            <FileText size={20} className="text-primary-400" /> Journal de séances
                         </h2>
                         {!showSessionForm && (
                             <button
@@ -961,40 +745,261 @@ export const CampaignDetail: React.FC = () => {
                     </div>
                 </div>
 
-                {/* Quick Notes */}
-                <div className="space-y-4">
-                    <h2 className="text-2xl font-display font-bold text-stone-200 flex items-center gap-2">
-                        Notes Rapides
-                    </h2>
-                    <div className={clsx(
-                        "glass-panel p-1 rounded-xl border h-[400px] flex flex-col bg-stone-900/40 transition-colors",
-                        isSavingNotes ? "border-primary-500/50" : "border-primary-500/20"
-                    )}>
-                        <textarea
-                            className="w-full h-full bg-transparent p-4 resize-none focus:outline-none text-stone-300 placeholder-stone-600 font-mono text-sm leading-relaxed"
-                            placeholder="Idées en vrac, PNJ improvisés, loot à distribuer..."
-                            value={notes}
-                            onChange={handleNotesChange}
-                        />
-                        <div className="px-3 py-2 text-[10px] text-stone-600 border-t border-white/5 flex justify-between items-center bg-black/20 rounded-b-lg">
-                            <span className="flex items-center gap-1">
-                                {isSavingNotes ? (
-                                    <>Enregistrement...</>
-                                ) : (
-                                    <><Check size={10} className="text-green-500" /> Sauvegardé</>
-                                )}
-                            </span>
-                            <span>{notes.length} caractères</span>
+                </div>
+                {/* fin de la colonne principale */}
+
+                {/* Colonne annexe — panneaux secondaires allégés */}
+                <div className="space-y-6">
+
+                    {/* Notes rapides */}
+                    <div>
+                        <h3 className="text-sm font-bold uppercase tracking-wider text-stone-400 flex items-center gap-2 mb-3">
+                            <StickyNote size={16} className="text-primary-400" /> Notes rapides
+                        </h3>
+                        <div className={clsx(
+                            "rounded-xl border h-[240px] flex flex-col bg-stone-900/40 transition-colors",
+                            isSavingNotes ? "border-primary-500/40" : "border-white/10"
+                        )}>
+                            <textarea
+                                className="w-full h-full bg-transparent p-4 resize-none focus:outline-none text-stone-300 placeholder-stone-600 font-mono text-sm leading-relaxed"
+                                placeholder="Idées en vrac, PNJ improvisés, loot à distribuer..."
+                                value={notes}
+                                onChange={handleNotesChange}
+                            />
+                            <div className="px-3 py-2 text-[10px] text-stone-600 border-t border-white/5 flex justify-between items-center bg-black/20 rounded-b-xl">
+                                <span className="flex items-center gap-1">
+                                    {isSavingNotes ? (
+                                        <>Enregistrement...</>
+                                    ) : (
+                                        <><Check size={10} className="text-green-500" /> Sauvegardé</>
+                                    )}
+                                </span>
+                                <span>{notes.length} caractères</span>
+                            </div>
                         </div>
                     </div>
+
+                    {/* Indices & Rumeurs */}
+                    <div className="bg-stone-900/30 border border-white/5 rounded-xl p-5 flex flex-col relative group">
+                        <div className="flex justify-between items-center mb-4">
+                            <h3 className="text-sm font-bold uppercase tracking-wider text-stone-400 flex items-center gap-2">
+                                <Search size={16} /> Indices & Rumeurs
+                            </h3>
+                            <button
+                                onClick={() => setShowClueForm(!showClueForm)}
+                                className="bg-stone-800 hover:bg-stone-700 text-stone-300 p-1 rounded-lg transition-colors"
+                            >
+                                {showClueForm ? <X size={14} /> : <Plus size={14} />}
+                            </button>
+                        </div>
+
+                        {showClueForm && (
+                            <div className="mb-4">
+                                <textarea
+                                    className="w-full bg-stone-950 border border-white/10 rounded-lg px-3 py-2 text-sm text-stone-200 focus:border-stone-500 outline-none min-h-[60px] mb-2"
+                                    placeholder="Nouvelle rumeur..."
+                                    value={newClue}
+                                    onChange={e => setNewClue(e.target.value)}
+                                    autoFocus
+                                />
+                                <button onClick={handleAddClue} disabled={!newClue} className="w-full bg-stone-800 hover:bg-stone-700 text-stone-300 py-1.5 rounded text-xs font-bold uppercase disabled:opacity-50">Ajouter</button>
+                            </div>
+                        )}
+
+                        <div className="space-y-3 flex-1 overflow-y-auto custom-scrollbar pr-1 max-h-[280px]">
+                            {(campaign.clues || []).length === 0 && (
+                                <div className="text-center py-8 text-stone-600 text-sm">
+                                    <HelpCircle className="mx-auto mb-2 opacity-50" size={24} />
+                                    Rien à signaler...
+                                </div>
+                            )}
+                            {(campaign.clues || []).map((clue: Clue) => (
+                                <div key={clue.id} className={clsx("p-3 rounded-lg border text-sm relative group/clue", clue.status === 'solved' ? "bg-green-900/10 border-green-500/20" : "bg-stone-900/50 border-white/5")}>
+                                    <p className={clsx("mb-2", clue.status === 'solved' ? "text-stone-500 line-through" : "text-stone-300")}>{clue.content}</p>
+                                    <div className="flex justify-between items-center text-[10px] text-stone-600">
+                                        <span className="flex items-center gap-1"><MapPin size={10} /> Trouvé le {formatDateSafe(clue.found_at)}</span>
+                                        <div className="flex gap-2">
+                                            <button onClick={() => handleToggleClue(clue.id)} className={clsx("hover:underline", clue.status === 'solved' ? "text-stone-500" : "text-green-600")}>
+                                                {clue.status === 'solved' ? "Rouvrir" : "Résoudre"}
+                                            </button>
+                                            <button onClick={() => handleDeleteClue(clue.id)} className="text-stone-600 hover:text-red-500 opacity-0 group-hover/clue:opacity-100 transition-opacity">Suppr.</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Préparation : Personnages & Rencontres (compact) */}
+                    <div className="bg-stone-900/30 border border-white/5 rounded-xl p-5 space-y-5">
+                        {/* Personnages */}
+                        <div>
+                            <div className="flex items-center gap-2 mb-3">
+                                <Users size={16} className="text-primary-400" />
+                                <h3 className="text-sm font-bold uppercase tracking-wider text-stone-400">Personnages</h3>
+                                <span className="text-xs text-stone-600">{campaignCharacters.length}</span>
+                            </div>
+                            {campaignCharacters.length > 0 && (
+                                <ul className="space-y-2 mb-3">
+                                    {campaignCharacters.map(c => (
+                                        <li key={c.id} className="flex items-center justify-between gap-2 bg-black/20 rounded-lg px-3 py-2">
+                                            <Link to={`/characters/${c.id}`} className="min-w-0 truncate text-stone-200 hover:text-primary-400 transition-colors">
+                                                {c.name} <span className="text-stone-500 text-sm">· Niv {c.level}</span>
+                                            </Link>
+                                            <button
+                                                onClick={() => handleDetachCharacter(c.id)}
+                                                className="shrink-0 text-stone-500 hover:text-red-400 transition-colors"
+                                                title="Détacher de la campagne"
+                                            >
+                                                <X size={16} />
+                                            </button>
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
+                            <button
+                                onClick={() => setShowAddPjModal(true)}
+                                className="w-full py-2 rounded-lg border border-dashed border-stone-700 text-stone-500 hover:border-primary-500 hover:text-primary-400 transition-all text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2"
+                            >
+                                <Plus size={16} /> Ajouter un PJ
+                            </button>
+                        </div>
+
+                        <div className="h-px w-full bg-white/5"></div>
+
+                        {/* Rencontres */}
+                        <div>
+                            <div className="flex items-center gap-2 mb-3">
+                                <Sword size={16} className="text-red-400" />
+                                <h3 className="text-sm font-bold uppercase tracking-wider text-stone-400">Rencontres</h3>
+                                <span className="text-xs text-stone-600">{encounters.length}</span>
+                            </div>
+                            {encounters.length > 0 && (
+                                <ul className="space-y-2 mb-3">
+                                    {encounters.map(enc => {
+                                        const total = enc.combatants.reduce((n, c) => n + (c.quantity || 1), 0);
+                                        return (
+                                            <li key={enc.id} className="flex items-center justify-between gap-2 bg-black/20 rounded-lg px-3 py-2">
+                                                <div className="min-w-0">
+                                                    <div className="truncate text-stone-200">{enc.name}</div>
+                                                    <div className="text-xs text-stone-500">{total} créature{total > 1 ? 's' : ''}</div>
+                                                </div>
+                                                <div className="flex items-center gap-1 shrink-0">
+                                                    <button onClick={() => handleLaunchEncounter(enc)} className="p-1.5 text-red-300 hover:text-red-200 hover:bg-red-900/30 rounded-lg transition-colors" title="Lancer dans le Suivi de Combat">
+                                                        <Play size={16} />
+                                                    </button>
+                                                    <button onClick={() => openEditEncounter(enc)} className="p-1.5 text-stone-400 hover:text-primary-400 transition-colors" title="Modifier">
+                                                        <Edit size={16} />
+                                                    </button>
+                                                    <button onClick={() => handleDeleteEncounter(enc.id)} className="p-1.5 text-stone-500 hover:text-red-400 transition-colors" title="Supprimer">
+                                                        <Trash2 size={16} />
+                                                    </button>
+                                                </div>
+                                            </li>
+                                        );
+                                    })}
+                                </ul>
+                            )}
+                            <button
+                                onClick={openCreateEncounter}
+                                className="w-full py-2 rounded-lg border border-dashed border-stone-700 text-stone-500 hover:border-red-500 hover:text-red-400 transition-all text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2"
+                            >
+                                <Plus size={16} /> Créer une rencontre
+                            </button>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
-            <div className="glass-panel p-8 rounded-2xl border-white/5 text-center">
-                <div className="bg-stone-900/50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 border border-white/5">
-                    <Sword size={24} className="text-stone-600" />
-                </div>
-                <p className="text-stone-400 italic">Des fonctionnalités avancées de gestion de campagne (fiches de personnages, journal de quête...) arrivent bientôt.</p>
+            {/* Joueurs & partage — administratif, donc replié par défaut et en bas */}
+            <div className="glass-panel rounded-2xl border-white/5 overflow-hidden">
+                <button
+                    onClick={() => setShowSharing(v => !v)}
+                    className="w-full flex items-center justify-between px-6 py-4 hover:bg-white/5 transition-colors"
+                >
+                    <span className="flex items-center gap-3">
+                        <span className="bg-primary-900/30 p-2 rounded-lg border border-primary-500/20">
+                            <Users size={18} className="text-primary-400" />
+                        </span>
+                        <span className="font-display font-bold text-stone-200">Joueurs & partage</span>
+                        <span className="text-xs text-stone-500">
+                            {memberships.length} membre{memberships.length > 1 ? 's' : ''}{inviteCode ? ` · code ${inviteCode}` : ''}
+                        </span>
+                    </span>
+                    <ChevronDown size={20} className={clsx("text-stone-400 transition-transform", showSharing && "rotate-180")} />
+                </button>
+                {showSharing && (
+                    <div className="px-6 pb-6 pt-2 border-t border-white/5 grid lg:grid-cols-3 gap-6">
+                        {/* Inviter des joueurs */}
+                        <div>
+                            <h4 className="text-sm font-bold uppercase tracking-wider text-stone-400 flex items-center gap-2 mb-3">
+                                <KeyRound size={16} className="text-primary-400" /> Inviter des joueurs
+                            </h4>
+                            <div className="flex flex-wrap items-center gap-2 mb-3">
+                                <code className="bg-stone-950 border border-white/10 rounded-lg px-4 py-2 text-lg font-mono text-primary-300 tracking-widest">
+                                    {inviteCode || '—'}
+                                </code>
+                                <button
+                                    onClick={handleCopyInvite}
+                                    disabled={!inviteCode}
+                                    className="bg-stone-800 hover:bg-stone-700 text-stone-300 px-3 py-2 rounded-lg text-xs font-bold uppercase flex items-center gap-2 disabled:opacity-50 transition-colors"
+                                >
+                                    <Copy size={14} /> {inviteCopied ? 'Copié !' : 'Copier'}
+                                </button>
+                                <button
+                                    onClick={handleRegenerateInvite}
+                                    disabled={regeneratingInvite}
+                                    className="bg-stone-800 hover:bg-stone-700 text-stone-300 px-3 py-2 rounded-lg text-xs font-bold uppercase flex items-center gap-2 disabled:opacity-50 transition-colors"
+                                >
+                                    <RefreshCw size={14} className={clsx(regeneratingInvite && "animate-spin")} /> Régénérer
+                                </button>
+                            </div>
+                            <p className="text-stone-500 text-xs">Partagez ce code : vos joueurs rejoignent la campagne depuis leur compte.</p>
+                        </div>
+
+                        {/* Membres */}
+                        <div className="lg:col-span-2">
+                            <h4 className="text-sm font-bold uppercase tracking-wider text-stone-400 flex items-center gap-2 mb-3">
+                                <Users size={16} className="text-primary-400" /> Membres
+                            </h4>
+                            {memberships.length === 0 ? (
+                                <p className="text-stone-600 text-sm italic">Aucun joueur n'a encore rejoint cette campagne.</p>
+                            ) : (
+                                <div className="space-y-3">
+                                    {memberships.map((m) => (
+                                        <div key={m.id} className="bg-stone-900/50 p-4 rounded-xl border border-white/5">
+                                            <div className="flex justify-between items-center gap-3">
+                                                <span className="font-bold text-stone-200">{getPlayerPseudo(m)}</span>
+                                                <button
+                                                    onClick={() => handleRemoveMembership(m.id)}
+                                                    className="text-stone-500 hover:text-red-500 text-xs font-bold uppercase flex items-center gap-1 transition-colors shrink-0"
+                                                >
+                                                    <UserX size={14} /> Exclure
+                                                </button>
+                                            </div>
+                                            <div className="mt-2 flex flex-wrap gap-2">
+                                                {charactersForMember(m).length === 0 ? (
+                                                    <span className="text-stone-600 text-xs italic">Aucune fiche de personnage</span>
+                                                ) : (
+                                                    charactersForMember(m).map((c) => (
+                                                        <Link
+                                                            key={c.id}
+                                                            to={`/characters/${c.id}`}
+                                                            className="text-xs bg-stone-800 hover:bg-primary-900/40 text-primary-300 px-2 py-1 rounded-lg border border-white/5 hover:border-primary-500/40 transition-colors"
+                                                        >
+                                                            {c.name} (Niv {c.level})
+                                                        </Link>
+                                                    ))
+                                                )}
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                )}
             </div>
 
             {/* Modale « Ajouter un PJ » : créer un nouveau OU rattacher un existant */}

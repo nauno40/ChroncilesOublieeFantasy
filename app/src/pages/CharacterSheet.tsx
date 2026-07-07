@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import { ApiService } from '../services/api';
 import { EquipmentChoiceModal } from '../components/EquipmentChoiceModal';
 import { useCharacterData } from '../hooks/useCharacterData';
@@ -17,7 +17,11 @@ import { VoiesTree } from '../components/character/VoiesTree';
 export const CharacterSheet: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
     const isNew = !id;
+    // Créée depuis « Ajouter un PJ » d'une campagne → on rattache la fiche à sa création.
+    const campaignParam = searchParams.get('campaign');
+    const campaignId = campaignParam ? Number(campaignParam) : undefined;
 
     // Compendium reference data (races/profiles/equipment/voies)
     const { races, profiles, allWeapons, allArmors, allVoies, prestigePaths } = useCharacterData();
@@ -40,7 +44,7 @@ export const CharacterSheet: React.FC = () => {
         currentChoiceIndex, setCurrentChoiceIndex,
         profileValues,
         handleSave, updateStat, getCapabilityName, addEquipmentItem,
-    } = useCharacterSheet({ races, profiles, allVoies, id, isNew, navigate });
+    } = useCharacterSheet({ races, profiles, allVoies, id, isNew, navigate, campaignId });
 
     if (loading) return <div className="p-8 text-center text-primary-200">Chargement...</div>;
 

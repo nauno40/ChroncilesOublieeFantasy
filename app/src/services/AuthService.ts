@@ -43,6 +43,33 @@ export const AuthService = {
         await this.login(email, password);
     },
 
+    // Demande un e-mail de réinitialisation. Réponse volontairement neutre côté API
+    // (ne révèle pas si l'adresse a un compte) ; on renvoie le message affiché.
+    async forgotPassword(email: string): Promise<string> {
+        const base = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
+        const response = await fetch(`${base}/forgot-password`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({ email })
+        });
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(data.message || "Une erreur est survenue.");
+        return data.message || "Si un compte existe, un e-mail vient d'être envoyé.";
+    },
+
+    // Réinitialise le mot de passe à partir du jeton reçu par e-mail.
+    async resetPassword(token: string, password: string): Promise<string> {
+        const base = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
+        const response = await fetch(`${base}/reset-password`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({ token, password })
+        });
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(data.message || 'Lien invalide ou expiré.');
+        return data.message || 'Mot de passe réinitialisé.';
+    },
+
     logout(): void {
         localStorage.removeItem(TOKEN_KEY);
         localStorage.removeItem(USER_KEY);

@@ -77,7 +77,7 @@ export const LoginPage: React.FC = () => {
                         <div className="space-y-2">
                             <div className="flex justify-between">
                                 <label className="text-xs font-bold uppercase tracking-widest text-stone-500 ml-1">Mot de passe</label>
-                                <a href="#" className="text-xs font-bold text-primary-500 hover:text-primary-400">Oublié ?</a>
+                                <Link to="/forgot-password" className="text-xs font-bold text-primary-500 hover:text-primary-400">Oublié ?</Link>
                             </div>
                             <div className="relative">
                                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-stone-600">

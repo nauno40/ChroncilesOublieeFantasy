@@ -75,14 +75,15 @@ Tests: `npm test` / `npm run test:run` (Vitest unit tests, e.g. `src/utils/*.tes
 
 ## Dev environment (Docker Compose)
 
-`docker compose up` from the repo root starts four services:
+`docker compose up` from the repo root starts five services:
 
 | Service    | Port   | Notes |
 |------------|--------|-------|
 | `database` | 5432   | postgres:15-alpine, db/user `app`, password `!ChangeMe!` |
-| `backend`  | (9000) | php:8.3-fpm; mounts `./backend` and `./backend/data` |
+| `backend`  | (9000) | php:8.3-fpm; mounts `./backend` and `./backend/data`; `MAILER_DSN=smtp://mailpit:1025` |
 | `nginx`    | 8000   | public API entry → serves `backend/public`, API root `http://localhost:8000/api`, Swagger/ReDoc under `/api`, admin at `/admin` |
 | `frontend` | 5173   | Vite dev (`npm run dev -- --host`), `VITE_API_URL=http://localhost:8000/api` |
+| `mailpit`  | 8025 / 1025 | dev SMTP catcher — outgoing e-mails (password-reset link) land in the web UI at `http://localhost:8025` (SMTP on 1025) |
 
 The Dockerfiles are multi-stage/prod-capable (backend Dockerfile sets `APP_ENV=prod`, runs `composer install --no-dev`; frontend uses its `build` target for dev). Compose overrides the backend to `APP_ENV=dev`. `vite.config.ts` uses `usePolling`/`host: true` for container file-watching.
 

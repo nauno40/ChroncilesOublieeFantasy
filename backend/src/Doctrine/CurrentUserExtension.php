@@ -10,6 +10,7 @@ use App\Entity\Campaign;
 use App\Entity\CampaignMembership;
 use App\Entity\Character;
 use App\Entity\CustomCreature;
+use App\Entity\Encounter;
 use App\Entity\Quest;
 use App\Entity\Clue;
 use App\Entity\Session;
@@ -42,6 +43,7 @@ final readonly class CurrentUserExtension implements QueryCollectionExtensionInt
             Quest::class !== $resourceClass &&
             Clue::class !== $resourceClass &&
             Session::class !== $resourceClass &&
+            Encounter::class !== $resourceClass &&
             CampaignMembership::class !== $resourceClass
         ) {
             return;
@@ -71,7 +73,7 @@ final readonly class CurrentUserExtension implements QueryCollectionExtensionInt
                 ->leftJoin(sprintf('%s.campaign', $rootAlias), 'ms_camp')
                 ->andWhere(sprintf('%s.player = :current_user OR ms_camp.owner = :current_user', $rootAlias));
         } else {
-            // Quest, Clue, Session : filtrés par le propriétaire de leur campagne.
+            // Quest, Clue, Session, Encounter : filtrés par le propriétaire de leur campagne.
             $queryBuilder
                 ->join(sprintf('%s.campaign', $rootAlias), 'c')
                 ->andWhere('c.owner = :current_user');

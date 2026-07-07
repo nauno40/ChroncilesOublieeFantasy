@@ -46,12 +46,24 @@ export interface Campaign {
     clues?: Clue[];
 }
 
+// Une entrée du roster d'une rencontre préparée (créature + quantité).
+export interface EncounterCombatant {
+    name: string;
+    source: 'bestiary' | 'custom' | 'manual';
+    referenceId?: string; // id SRD ("12") ou monstre custom ("custom-3")
+    quantity: number;
+    initiative: number;
+    hp: number; // PV max par unité
+    def: number;
+    per: number;
+}
+
+// Rencontre préparée par le MJ : un roster nommé, lançable dans le Suivi de Combat.
 export interface Encounter {
     id: string;
     name: string;
-    status: 'planned' | 'active' | 'completed';
-    round: number;
-    combatants: Combatant[];
+    notes?: string;
+    combatants: EncounterCombatant[];
 }
 
 export interface Combatant {

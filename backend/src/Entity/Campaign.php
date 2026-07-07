@@ -95,12 +95,17 @@ class Campaign
     #[ORM\OneToMany(mappedBy: 'campaign', targetEntity: Character::class, cascade: ['persist'])]
     private Collection $characters;
 
+    #[Groups(['campaign:read', 'campaign:write'])]
+    #[ORM\OneToMany(mappedBy: 'campaign', targetEntity: Encounter::class, orphanRemoval: true, cascade: ['persist'])]
+    private Collection $encounters;
+
     public function __construct()
     {
         $this->quests = new ArrayCollection();
         $this->clues = new ArrayCollection();
         $this->sessions = new ArrayCollection();
         $this->characters = new ArrayCollection();
+        $this->encounters = new ArrayCollection();
         $this->memberships = new ArrayCollection();
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
@@ -179,6 +184,35 @@ class Campaign
     public function setOwner(?User $owner): static
     {
         $this->owner = $owner;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Encounter>
+     */
+    public function getEncounters(): Collection
+    {
+        return $this->encounters;
+    }
+
+    public function addEncounter(Encounter $encounter): static
+    {
+        if (!$this->encounters->contains($encounter)) {
+            $this->encounters->add($encounter);
+            $encounter->setCampaign($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEncounter(Encounter $encounter): static
+    {
+        if ($this->encounters->removeElement($encounter)) {
+            if ($encounter->getCampaign() === $this) {
+                $encounter->setCampaign(null);
+            }
+        }
 
         return $this;
     }

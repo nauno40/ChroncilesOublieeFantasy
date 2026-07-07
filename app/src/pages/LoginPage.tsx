@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Mail, Lock, LogIn, ArrowLeft, AlertCircle, Loader2 } from 'lucide-react';
 import { AuthService } from '../services/AuthService';
+import { useAuth } from '../context/AuthContext';
 
 export const LoginPage: React.FC = () => {
     const navigate = useNavigate();
+    const { login } = useAuth();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState<string | null>(null);
@@ -17,7 +19,8 @@ export const LoginPage: React.FC = () => {
 
         try {
             await AuthService.login(email, password);
-            navigate('/');
+            login(); // synchronise le contexte (isAuthenticated) avant la navigation SPA
+            navigate('/dashboard');
         } catch (err: any) {
             setError(err.message || 'Identifiants invalides');
         } finally {

@@ -6,7 +6,8 @@ test.describe('Authentification', () => {
         await register(page, email);
 
         expect(await getToken(page)).not.toBeNull();
-        await expect(page).not.toHaveURL(/\/register$/);
+        // Redirection SPA (sans rechargement) vers l'app après inscription.
+        await expect(page).toHaveURL(/\/dashboard/);
         await expectLoggedIn(page, email);
     });
 
@@ -30,6 +31,8 @@ test.describe('Authentification', () => {
 
         await login(page, email);
         expect(await getToken(page)).not.toBeNull();
+        // Redirection SPA (sans rechargement) vers l'app après connexion.
+        await expect(page).toHaveURL(/\/dashboard/);
         await expectLoggedIn(page, email);
     });
 });

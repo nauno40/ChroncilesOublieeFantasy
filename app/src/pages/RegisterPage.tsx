@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Mail, Lock, User, ArrowLeft, AlertCircle, Loader2, Sparkles } from 'lucide-react';
 import { AuthService } from '../services/AuthService';
+import { useAuth } from '../context/AuthContext';
 
 export const RegisterPage: React.FC = () => {
     const navigate = useNavigate();
+    const { login } = useAuth();
     const [email, setEmail] = useState('');
     const [pseudo, setPseudo] = useState('');
     const [password, setPassword] = useState('');
@@ -18,7 +20,8 @@ export const RegisterPage: React.FC = () => {
 
         try {
             await AuthService.register(email, password, pseudo);
-            navigate('/');
+            login(); // synchronise le contexte (isAuthenticated) avant la navigation SPA
+            navigate('/dashboard');
         } catch (err: any) {
             setError(err.message || "Une erreur est survenue lors de l'inscription");
         } finally {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { BookOpen, Swords, Shield, Scroll, Play, ChevronRight, Sparkles, Zap, Users } from 'lucide-react';
+import { BookOpen, Swords, Shield, Scroll, Play, ChevronRight, Sparkles, Zap } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 export const LandingPage: React.FC = () => {
@@ -168,9 +168,9 @@ export const LandingPage: React.FC = () => {
                         description="Système de lancer intégré avec modificateurs automatiques directement depuis la fiche."
                     />
                     <FeatureCard
-                        icon={Users}
-                        title="Mode Multijoueur"
-                        description="Multi-joueurs et synchronisation en temps réel (Bientôt disponible)."
+                        icon={Sparkles}
+                        title="Générateur de Rencontres"
+                        description="Composez des combats équilibrés selon l'environnement et le niveau de votre groupe."
                     />
                 </div>
             </section>
@@ -183,12 +183,6 @@ export const LandingPage: React.FC = () => {
                             <Scroll size={18} />
                         </div>
                         <span className="font-display font-bold">ChroniquesOubliées</span>
-                    </div>
-
-                    <div className="flex items-center gap-8 text-sm text-stone-500 font-medium">
-                        <a href="#" className="hover:text-primary-400 transition-colors">Mentions Légales</a>
-                        <a href="#" className="hover:text-primary-400 transition-colors">Contact</a>
-                        <a href="#" className="hover:text-primary-400 transition-colors">Taverne des Joueurs</a>
                     </div>
 
                     <div className="text-xs text-stone-600">

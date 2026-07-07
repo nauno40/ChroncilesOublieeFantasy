@@ -120,7 +120,7 @@ export const Home: React.FC = () => {
             {/* Quick Actions */}
             <div className="grid md:grid-cols-3 gap-6">
                 <QuickActionCard
-                    to="/combat"
+                    to="/tools/tracker"
                     title="Combat Tracker"
                     description="Gérez l'initiative et les PV en temps réel."
                     icon={Swords}

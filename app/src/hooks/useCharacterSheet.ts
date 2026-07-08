@@ -254,69 +254,62 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
 
     const spentPoints = useMemo(() => computeSpentPoints(character.data?.voies, character.level, isMageFamily), [character.data, character.level, isMageFamily]);
 
-    // Sync selectedVoies to character.data.voies
+    // Sync des voies du personnage depuis le profil sélectionné.
+    //
+    // Les noms/emplacements des voies de profil sont des données de référence
+    // dérivées du profil : on les reconstruit quel que soit le niveau, sinon en
+    // rouvrant un perso de niveau ≥ 1 seules les voies sauvegardées s'affichent
+    // et les autres emplacements restent vides.
     useEffect(() => {
-        if (character.level !== 0) return; // Only for creation
-
         setCharacter(prev => {
             const currentData = prev.data || defaultData;
             const currentProfileVoies = [...(currentData.voies?.profile || [])];
+            const isCreation = character.level === 0;
 
-            // Sync Profile Voies directly from selected Profile
+            // Reconstruire les voies de profil depuis le profil sélectionné.
             const profileId = (character.profile as any)?.['@id'] || (typeof character.profile === 'string' ? character.profile : null);
             if (profileId) {
                 const profile = profiles.find(p => p['@id'] === profileId);
-                if (profile && profile.voies && allVoies.length > 0) {
-                    // Map the 5 profile voies to the character data
+                // profile.voies contient des objets complets (nom + capacités) ;
+                // allVoies ne sert que de repli au cas où ce seraient des IRIs.
+                if (profile && profile.voies) {
                     profile.voies.forEach((vOrId: any, idx: number) => {
                         if (idx >= 5) return;
 
                         const voieData = typeof vOrId === 'object' ? vOrId : allVoies.find(v => v.id === vOrId || v['@id'] === vOrId || v.id === parseInt(vOrId));
+                        if (!voieData) return;
 
-                        if (voieData) {
-                            // Preserve existing ranks if the name matches
-                            if (currentProfileVoies[idx]?.name !== voieData.name) {
-                                currentProfileVoies[idx] = {
-                                    name: voieData.name,
-                                    ranks: [false, false, false, false, false]
-                                };
+                        const existing = currentProfileVoies[idx];
+                        const isEmpty = !existing || !existing.name;
+
+                        if (isCreation) {
+                            // Création : (re)construire depuis le profil ; réinitialiser les
+                            // rangs si le nom change (ex. changement de profil).
+                            if (existing?.name !== voieData.name) {
+                                currentProfileVoies[idx] = { name: voieData.name, ranks: [false, false, false, false, false] };
                             }
-                            // Apply Mage Bonus if applicable to this voie
-                            // Logic moved to derived spentPoints calculation
-                            // if (mageBonusPointSpent === voieData.name) {
-                            //    currentProfileVoies[idx].ranks[1] = true;
-                            // }
+                        } else if (isEmpty) {
+                            // Édition (niveau ≥ 1) : ne remplir que les emplacements vides,
+                            // pour préserver les rangs acquis et les voies de prestige
+                            // ayant remplacé une voie de profil.
+                            currentProfileVoies[idx] = { name: voieData.name, ranks: [false, false, false, false, false] };
                         }
                     });
                 }
             }
 
-            // Sync Slot 3 to Racial Voie
-            const currentRacialVoie = { ...currentData.voies?.racial, name: selectedVoies[2] || '' };
-            if (selectedVoies[2]) {
-                // Determine if we should preserve existing selections or reset
-                // For simplicity in this logic: if name changed, reset.
-                // But we want Rank 1 to be TRUE by default because it's free.
-
-                // If the voie name in data matches selected, keep ranks, BUT ensure Rank 1 is true if level 0?
-                // Actually, the previous logic was resetting ranks on change.
-
-                // We want to force Rank 1 = true for Racial Voie at Level 0
-                if (character.level === 0) {
-                    // If we are initializing or changing, ensuring Rank 1 is true.
-                    // But we should respect if user *deselected* it?
-                    // User said "automatiquement obtenue". So force it true.
+            // La voie raciale n'est pilotée par selectedVoies que pendant la
+            // création ; en édition on conserve la valeur sauvegardée.
+            let currentRacialVoie = currentData.voies?.racial || { name: '', ranks: [false, false, false, false, false] };
+            if (isCreation) {
+                currentRacialVoie = { ...currentRacialVoie, name: selectedVoies[2] || '' };
+                if (selectedVoies[2]) {
+                    // Rang 1 racial automatiquement obtenu au niveau 0.
                     if (!currentRacialVoie.ranks) currentRacialVoie.ranks = [true, false, false, false, false];
                     currentRacialVoie.ranks[0] = true;
+                } else {
+                    currentRacialVoie.ranks = [false, false, false, false, false];
                 }
-
-                // If Mage replaced, allow bonus point here too logic remains
-                // Logic moved to derived spentPoints calculation
-                // if (mageBonusPointSpent === selectedVoies[2]) {
-                //     currentRacialVoie.ranks[1] = true;
-                // }
-            } else {
-                currentRacialVoie.ranks = [false, false, false, false, false];
             }
 
             return {

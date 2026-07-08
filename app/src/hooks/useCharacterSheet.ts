@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import type { NavigateFunction } from 'react-router-dom';
 import { ApiService } from '../services/api';
 import type { Character, CharacterData } from '../types/character';
@@ -254,20 +254,31 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
 
     const spentPoints = useMemo(() => computeSpentPoints(character.data?.voies, character.level, isMageFamily), [character.data, character.level, isMageFamily]);
 
+    // Mémorise le dernier profil traité pour détecter un changement de classe.
+    const lastProfileIdRef = useRef<string | null>(null);
+
     // Sync des voies du personnage depuis le profil sélectionné.
     //
     // Les noms/emplacements des voies de profil sont des données de référence
-    // dérivées du profil : on les reconstruit quel que soit le niveau, sinon en
-    // rouvrant un perso de niveau ≥ 1 seules les voies sauvegardées s'affichent
-    // et les autres emplacements restent vides.
+    // dérivées du profil. On distingue deux situations, quel que soit le niveau :
+    //  - changement de classe : on reconstruit les 5 voies depuis le nouveau
+    //    profil (les rangs de l'ancienne classe ne s'appliquent plus) ;
+    //  - chargement initial / réouverture : on ne remplit que les emplacements
+    //    vides ou encore sur le libellé par défaut « Voie N », ce qui préserve
+    //    les rangs acquis et les voies de prestige ayant remplacé une voie.
     useEffect(() => {
+        const profileId = (character.profile as any)?.['@id'] || (typeof character.profile === 'string' ? character.profile : null);
+        // Vrai changement de classe (≠ premier chargement) : l'ancien profil
+        // mémorisé diffère du nouveau.
+        const profileChanged = !!profileId && lastProfileIdRef.current !== null && lastProfileIdRef.current !== profileId;
+        if (profileId) lastProfileIdRef.current = profileId;
+
         setCharacter(prev => {
             const currentData = prev.data || defaultData;
             const currentProfileVoies = [...(currentData.voies?.profile || [])];
             const isCreation = character.level === 0;
 
             // Reconstruire les voies de profil depuis le profil sélectionné.
-            const profileId = (character.profile as any)?.['@id'] || (typeof character.profile === 'string' ? character.profile : null);
             if (profileId) {
                 const profile = profiles.find(p => p['@id'] === profileId);
                 // profile.voies contient des objets complets (nom + capacités) ;
@@ -280,20 +291,18 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
                         if (!voieData) return;
 
                         const existing = currentProfileVoies[idx];
-                        const isEmpty = !existing || !existing.name;
+                        const name = existing?.name || '';
+                        const isEmptyOrDefault = !name || /^Voie \d$/.test(name);
 
-                        if (isCreation) {
-                            // Création : (re)construire depuis le profil ; réinitialiser les
-                            // rangs si le nom change (ex. changement de profil).
-                            if (existing?.name !== voieData.name) {
-                                currentProfileVoies[idx] = { name: voieData.name, ranks: [false, false, false, false, false] };
-                            }
-                        } else if (isEmpty) {
-                            // Édition (niveau ≥ 1) : ne remplir que les emplacements vides,
-                            // pour préserver les rangs acquis et les voies de prestige
-                            // ayant remplacé une voie de profil.
+                        if (profileChanged) {
+                            // Nouvelle classe : remplacer et repartir de zéro.
                             currentProfileVoies[idx] = { name: voieData.name, ranks: [false, false, false, false, false] };
+                        } else if (isEmptyOrDefault) {
+                            // Emplacement vide ou libellé par défaut : le renseigner
+                            // depuis le profil, en conservant d'éventuels rangs déjà posés.
+                            currentProfileVoies[idx] = { name: voieData.name, ranks: existing?.ranks || [false, false, false, false, false] };
                         }
+                        // sinon : conserver (rangs acquis + voies de prestige)
                     });
                 }
             }

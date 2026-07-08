@@ -1,46 +1,82 @@
+import { type Page } from '@playwright/test';
 import { test, expect, register, uniqueEmail, getToken } from './fixtures';
 
-// Régression : en rouvrant un personnage de niveau ≥ 1 dont seule une partie des
-// voies de profil avait été sauvegardée, les 5 voies du profil doivent toujours
-// s'afficher (les emplacements manquants sont reconstruits depuis le profil).
-test('rouvrir un perso niveau ≥ 1 recharge les 5 voies de profil', async ({ page }) => {
-    await register(page, uniqueEmail('voies'));
-    const token = await getToken(page);
-
-    // IRI du profil Guerrier
+// Helpers partagés
+async function profileIriResolver(page: Page) {
     const profs = await (await page.request.get('http://localhost:8000/api/profiles?pagination=false', {
         headers: { Accept: 'application/ld+json' },
     })).json();
     const members: Array<{ name: string; '@id': string }> = profs.member || profs['hydra:member'];
-    const guerrier = members.find((p) => p.name === 'Guerrier')!['@id'];
+    return (name: string) => members.find((p) => p.name === name)!['@id'];
+}
 
-    // Perso niveau 1 avec seulement 2 voies de profil sauvegardées.
+async function createCharacter(page: Page, token: string, body: Record<string, unknown>) {
     const res = await page.request.post('http://localhost:8000/api/characters', {
         headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/ld+json', Accept: 'application/ld+json' },
-        data: {
-            name: 'Vétéran', level: 1, profile: guerrier,
-            data: {
-                voies: {
-                    profile: [
-                        { name: 'Voie du Bouclier', ranks: [true, true, false, false, false] },
-                        { name: 'Voie du Combat', ranks: [true, false, false, false, false] },
-                    ],
-                    racial: { name: '', ranks: [false, false, false, false, false] },
-                },
-            },
-        },
+        data: body,
     });
-    const id = (await res.json())['@id'].split('/').pop();
+    return (await res.json())['@id'].split('/').pop();
+}
+
+const GUERRIER = ['Voie du Bouclier', 'Voie du Combat', "Voie du Maître d'Armes", 'Voie de la Résistance', 'Voie du Soldat'];
+const DRUIDE = ['Voie des Animaux', 'Voie du Fauve', 'Voie de la Nature', 'Voie du Protecteur', 'Voie des Végétaux'];
+
+// Régression : en rouvrant un perso de niveau ≥ 1 dont seule une partie des voies
+// de profil avait été sauvegardée, les 5 voies du profil doivent s'afficher.
+test('rouvrir un perso niveau ≥ 1 recharge les 5 voies de profil', async ({ page }) => {
+    await register(page, uniqueEmail('voies'));
+    const token = await getToken(page);
+    const iri = await profileIriResolver(page);
+
+    const id = await createCharacter(page, token, {
+        name: 'Vétéran', level: 1, profile: iri('Guerrier'),
+        data: { voies: { profile: [
+            { name: 'Voie du Bouclier', ranks: [true, true, false, false, false] },
+            { name: 'Voie du Combat', ranks: [true, false, false, false, false] },
+        ], racial: { name: '', ranks: [false, false, false, false, false] } } },
+    });
 
     await page.goto(`/characters/${id}`);
     await page.waitForLoadState('networkidle');
 
-    // Les 5 voies du Guerrier doivent être présentes, y compris celles non sauvegardées.
-    for (const name of ['Voie du Bouclier', 'Voie du Combat', "Voie du Maître d'Armes", 'Voie de la Résistance', 'Voie du Soldat']) {
+    for (const name of GUERRIER) {
         await expect(page.getByText(name, { exact: true }).first()).toBeVisible({ timeout: 15_000 });
     }
-    // Aucun emplacement de voie de profil vide (« ... »).
     await expect(page.locator('h3', { hasText: /Voie de Profil/i })).toHaveCount(5);
-    const emptySlots = await page.locator('h3:has-text("Voie de Profil") ~ * >> text="..."').count().catch(() => 0);
-    expect(emptySlots).toBe(0);
+});
+
+// Régression : choisir / changer la classe d'un perso existant met à jour les voies.
+test('choisir ou changer la classe met à jour les voies de profil', async ({ page }) => {
+    await register(page, uniqueEmail('cls'));
+    const token = await getToken(page);
+    const iri = await profileIriResolver(page);
+    const classSelect = () => page.locator('select').filter({ hasText: 'Choisir un profil' }).first();
+
+    // Cas 1 : perso sans classe (voies « Voie 1..5 » par défaut) → choisir Guerrier.
+    const idA = await createCharacter(page, token, {
+        name: 'SansClasse', level: 1, profile: null,
+        data: { voies: { profile: [1, 2, 3, 4, 5].map(i => ({ name: `Voie ${i}`, ranks: [false, false, false, false, false] })), racial: { name: '', ranks: [false, false, false, false, false] } } },
+    });
+    await page.goto(`/characters/${idA}`);
+    await page.waitForLoadState('networkidle');
+    await classSelect().selectOption(iri('Guerrier'));
+    await page.keyboard.press('Escape'); // fermer une éventuelle modale d'équipement
+    for (const name of GUERRIER) {
+        await expect(page.getByText(name, { exact: true }).first()).toBeVisible({ timeout: 15_000 });
+    }
+
+    // Cas 2 : changer de classe (Guerrier → Druide) remplace les voies.
+    const idB = await createCharacter(page, token, {
+        name: 'ChangeClasse', level: 1, profile: iri('Guerrier'),
+        data: { voies: { profile: [{ name: 'Voie du Bouclier', ranks: [true, false, false, false, false] }], racial: { name: '', ranks: [false, false, false, false, false] } } },
+    });
+    await page.goto(`/characters/${idB}`);
+    await page.waitForLoadState('networkidle');
+    await classSelect().selectOption(iri('Druide'));
+    await page.keyboard.press('Escape');
+    for (const name of DRUIDE) {
+        await expect(page.getByText(name, { exact: true }).first()).toBeVisible({ timeout: 15_000 });
+    }
+    // Plus aucune voie du Guerrier ne subsiste.
+    await expect(page.getByText('Voie du Bouclier', { exact: true })).toHaveCount(0);
 });

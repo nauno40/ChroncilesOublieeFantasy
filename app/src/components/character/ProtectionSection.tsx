@@ -18,9 +18,22 @@ export const ProtectionSection: React.FC<Props> = ({ character, setCharacter, al
                     <div className="w-1.5 h-1.5 bg-stone-500 rounded-full" />
                     Équipement & Inventaire
                 </h3>
-                <div className="flex items-center gap-2 bg-stone-900/50 px-3 py-1 rounded-full border border-yellow-500/20">
+                <div className="flex items-center gap-1.5 bg-stone-900/50 px-3 py-1 rounded-full border border-yellow-500/20 focus-within:border-yellow-500/50 transition-colors">
                     <span className="text-[10px] uppercase font-bold text-yellow-500/60 tracking-wider">Argent</span>
-                    <span className="text-sm font-mono font-bold text-yellow-500">{character.data?.money?.pa || 0} pa</span>
+                    <input
+                        type="number"
+                        min="0"
+                        className="w-16 bg-transparent text-right text-sm font-mono font-bold text-yellow-500 outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none"
+                        value={character.data?.money?.pa ?? 0}
+                        onChange={e => {
+                            const val = Math.max(0, parseInt(e.target.value) || 0);
+                            setCharacter(prev => ({
+                                ...prev,
+                                data: { ...prev.data!, money: { ...prev.data!.money!, pa: val } }
+                            }));
+                        }}
+                    />
+                    <span className="text-[10px] font-bold text-yellow-500/60">pa</span>
                 </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

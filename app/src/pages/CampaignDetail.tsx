@@ -64,6 +64,12 @@ export const CampaignDetail: React.FC = () => {
     // Section « Joueurs & partage » : administrative → repliée par défaut, en bas de page.
     const [showSharing, setShowSharing] = useState(false);
 
+    // Édition en place du nom / de la description de la campagne.
+    const [editingHeader, setEditingHeader] = useState(false);
+    const [draftName, setDraftName] = useState('');
+    const [draftDesc, setDraftDesc] = useState('');
+    const [savingHeader, setSavingHeader] = useState(false);
+
     // Rencontres : bestiaire (SRD + monstres custom) pour le sélecteur + état du formulaire.
     const [creatures, setCreatures] = useState<Creature[]>([]);
     const [customMonsters, setCustomMonsters] = useState<CustomCreature[]>([]);
@@ -217,6 +223,25 @@ export const CampaignDetail: React.FC = () => {
         if (!id) return;
         const data = await getCampaign(id);
         setCampaign(data);
+    };
+
+    const startEditHeader = () => {
+        if (!campaign) return;
+        setDraftName(campaign.name);
+        setDraftDesc(campaign.description || '');
+        setEditingHeader(true);
+    };
+
+    const handleSaveHeader = async () => {
+        if (!campaign || !draftName.trim()) return;
+        setSavingHeader(true);
+        try {
+            const saved = await saveCampaign({ ...campaign, name: draftName.trim(), description: draftDesc.trim() });
+            setCampaign(saved);
+            setEditingHeader(false);
+        } finally {
+            setSavingHeader(false);
+        }
     };
 
     const handleCreateNewPj = () => {
@@ -568,8 +593,53 @@ export const CampaignDetail: React.FC = () => {
                 <Link to="/campaign" className="inline-flex items-center text-primary-400 hover:text-primary-300 transition-colors mb-4 group font-display text-sm uppercase tracking-widest">
                     <ArrowLeft size={16} className="mr-2 group-hover:-translate-x-1 transition-transform" /> Retour aux campagnes
                 </Link>
-                <h1 className="text-5xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary-100 to-primary-400 drop-shadow-lg mb-2">{campaign.name}</h1>
-                <p className="text-stone-400 text-lg max-w-full leading-relaxed whitespace-pre-line">{campaign.description || "Aucune description."}</p>
+                {editingHeader ? (
+                    <div className="space-y-3 max-w-3xl mx-auto md:mx-0">
+                        <input
+                            type="text"
+                            className="w-full bg-stone-950/50 border border-primary-500/40 rounded-lg px-4 py-3 text-3xl font-display font-bold text-white outline-none focus:border-primary-500 transition-all"
+                            value={draftName}
+                            onChange={e => setDraftName(e.target.value)}
+                            placeholder="Nom de la campagne"
+                            autoFocus
+                        />
+                        <textarea
+                            className="w-full bg-stone-950/50 border border-white/10 rounded-lg px-4 py-3 text-stone-300 outline-none focus:border-primary-500/50 transition-all resize-y min-h-[80px] leading-relaxed"
+                            value={draftDesc}
+                            onChange={e => setDraftDesc(e.target.value)}
+                            placeholder="Description de la campagne (optionnelle)"
+                        />
+                        <div className="flex gap-2 justify-center md:justify-start">
+                            <button
+                                onClick={handleSaveHeader}
+                                disabled={savingHeader || !draftName.trim()}
+                                className="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-500 disabled:opacity-50 text-stone-950 font-bold px-4 py-2 rounded-lg transition-colors"
+                            >
+                                <Check size={16} /> Enregistrer
+                            </button>
+                            <button
+                                onClick={() => setEditingHeader(false)}
+                                className="inline-flex items-center gap-2 bg-stone-800 hover:bg-stone-700 text-stone-300 px-4 py-2 rounded-lg transition-colors"
+                            >
+                                <X size={16} /> Annuler
+                            </button>
+                        </div>
+                    </div>
+                ) : (
+                    <div className="group/header inline-flex flex-col items-center md:items-start relative">
+                        <div className="flex items-center gap-3">
+                            <h1 className="text-5xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary-100 to-primary-400 drop-shadow-lg mb-2">{campaign.name}</h1>
+                            <button
+                                onClick={startEditHeader}
+                                title="Modifier le nom et la description"
+                                className="text-stone-600 hover:text-primary-400 transition-colors opacity-0 group-hover/header:opacity-100 focus:opacity-100 p-1.5 rounded-lg hover:bg-stone-900/50 mb-2"
+                            >
+                                <Edit size={20} />
+                            </button>
+                        </div>
+                        <p className="text-stone-400 text-lg max-w-full leading-relaxed whitespace-pre-line">{campaign.description || "Aucune description."}</p>
+                    </div>
+                )}
             </header>
 
             {/* Pilotage de la campagne : colonne principale (jeu) + colonne annexe (allégée) */}

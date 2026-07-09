@@ -70,6 +70,12 @@ export const CampaignDetail: React.FC = () => {
     const [draftDesc, setDraftDesc] = useState('');
     const [savingHeader, setSavingHeader] = useState(false);
 
+    // Édition en place du texte d'une quête / d'un indice.
+    const [editingQuestId, setEditingQuestId] = useState<string | null>(null);
+    const [editQuestTitle, setEditQuestTitle] = useState('');
+    const [editingClueId, setEditingClueId] = useState<string | null>(null);
+    const [editClueText, setEditClueText] = useState('');
+
     // Rencontres : bestiaire (SRD + monstres custom) pour le sélecteur + état du formulaire.
     const [creatures, setCreatures] = useState<Creature[]>([]);
     const [customMonsters, setCustomMonsters] = useState<CustomCreature[]>([]);
@@ -460,6 +466,21 @@ export const CampaignDetail: React.FC = () => {
         setCampaign(saved);
     };
 
+    const startEditQuest = (quest: Quest) => {
+        setEditingQuestId(quest.id);
+        setEditQuestTitle(quest.title);
+    };
+
+    const handleSaveQuestEdit = async () => {
+        if (!campaign || !editingQuestId || !editQuestTitle.trim()) return;
+        const updatedQuests = (campaign.quests || []).map((q: Quest) =>
+            q.id === editingQuestId ? { ...q, title: editQuestTitle.trim() } : q
+        );
+        const saved = await saveCampaign({ ...campaign, quests: updatedQuests });
+        setCampaign(saved);
+        setEditingQuestId(null);
+    };
+
     // --- Clue Logic ---
     const [newClue, setNewClue] = useState('');
     const [showClueForm, setShowClueForm] = useState(false);
@@ -493,6 +514,21 @@ export const CampaignDetail: React.FC = () => {
         const updatedClues = (campaign.clues || []).filter((c: Clue) => c.id !== clueId);
         const saved = await saveCampaign({ ...campaign, clues: updatedClues });
         setCampaign(saved);
+    };
+
+    const startEditClue = (clue: Clue) => {
+        setEditingClueId(clue.id);
+        setEditClueText(clue.content);
+    };
+
+    const handleSaveClueEdit = async () => {
+        if (!campaign || !editingClueId || !editClueText.trim()) return;
+        const updatedClues = (campaign.clues || []).map((c: Clue) =>
+            c.id === editingClueId ? { ...c, content: editClueText.trim() } : c
+        );
+        const saved = await saveCampaign({ ...campaign, clues: updatedClues });
+        setCampaign(saved);
+        setEditingClueId(null);
     };
 
     const handleSaveSession = async () => {
@@ -658,6 +694,7 @@ export const CampaignDetail: React.FC = () => {
                         </div>
                         <button
                             onClick={() => setShowQuestForm(!showQuestForm)}
+                            title={showQuestForm ? "Fermer" : "Ajouter une quête"}
                             className="bg-stone-800 hover:bg-stone-700 text-stone-300 p-1.5 rounded-lg transition-colors"
                         >
                             {showQuestForm ? <X size={16} /> : <Plus size={16} />}
@@ -709,10 +746,27 @@ export const CampaignDetail: React.FC = () => {
                                         <button onClick={() => handleToggleQuest(quest.id)} className="mt-0.5 text-stone-500 hover:text-amber-500 transition-colors">
                                             {quest.status === 'completed' ? <CheckSquare size={18} /> : <Square size={18} />}
                                         </button>
-                                        <div className="flex-1">
-                                            <p className={clsx("text-stone-200 leading-snug", quest.status === 'completed' && "line-through text-stone-500")}>{quest.title}</p>
-                                        </div>
-                                        <button onClick={() => handleDeleteQuest(quest.id)} className="text-stone-600 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"><X size={14} /></button>
+                                        {editingQuestId === quest.id ? (
+                                            <>
+                                                <input
+                                                    autoFocus
+                                                    value={editQuestTitle}
+                                                    onChange={e => setEditQuestTitle(e.target.value)}
+                                                    onKeyDown={e => { if (e.key === 'Enter') handleSaveQuestEdit(); if (e.key === 'Escape') setEditingQuestId(null); }}
+                                                    className="flex-1 bg-stone-950 border border-amber-500/40 rounded px-2 py-1 text-stone-200 outline-none focus:border-amber-500"
+                                                />
+                                                <button onClick={handleSaveQuestEdit} title="Enregistrer" className="text-green-500 hover:text-green-400"><Check size={16} /></button>
+                                                <button onClick={() => setEditingQuestId(null)} title="Annuler" className="text-stone-500 hover:text-white"><X size={16} /></button>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <div className="flex-1">
+                                                    <p className={clsx("text-stone-200 leading-snug", quest.status === 'completed' && "line-through text-stone-500")}>{quest.title}</p>
+                                                </div>
+                                                <button onClick={() => startEditQuest(quest)} title="Modifier" className="text-stone-600 hover:text-amber-500 opacity-0 group-hover:opacity-100 transition-opacity"><Edit size={13} /></button>
+                                                <button onClick={() => handleDeleteQuest(quest.id)} title="Supprimer" className="text-stone-600 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"><X size={14} /></button>
+                                            </>
+                                        )}
                                     </div>
                                 ))}
                             </div>
@@ -729,10 +783,27 @@ export const CampaignDetail: React.FC = () => {
                                         <button onClick={() => handleToggleQuest(quest.id)} className="mt-0.5 text-stone-600 hover:text-stone-400 transition-colors">
                                             {quest.status === 'completed' ? <CheckSquare size={16} /> : <Square size={16} />}
                                         </button>
-                                        <div className="flex-1">
-                                            <p className={clsx("text-sm text-stone-300 leading-snug", quest.status === 'completed' && "line-through text-stone-600")}>{quest.title}</p>
-                                        </div>
-                                        <button onClick={() => handleDeleteQuest(quest.id)} className="text-stone-600 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"><X size={14} /></button>
+                                        {editingQuestId === quest.id ? (
+                                            <>
+                                                <input
+                                                    autoFocus
+                                                    value={editQuestTitle}
+                                                    onChange={e => setEditQuestTitle(e.target.value)}
+                                                    onKeyDown={e => { if (e.key === 'Enter') handleSaveQuestEdit(); if (e.key === 'Escape') setEditingQuestId(null); }}
+                                                    className="flex-1 bg-stone-950 border border-stone-600 rounded px-2 py-1 text-sm text-stone-300 outline-none focus:border-stone-400"
+                                                />
+                                                <button onClick={handleSaveQuestEdit} title="Enregistrer" className="text-green-500 hover:text-green-400"><Check size={14} /></button>
+                                                <button onClick={() => setEditingQuestId(null)} title="Annuler" className="text-stone-500 hover:text-white"><X size={14} /></button>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <div className="flex-1">
+                                                    <p className={clsx("text-sm text-stone-300 leading-snug", quest.status === 'completed' && "line-through text-stone-600")}>{quest.title}</p>
+                                                </div>
+                                                <button onClick={() => startEditQuest(quest)} title="Modifier" className="text-stone-600 hover:text-stone-300 opacity-0 group-hover:opacity-100 transition-opacity"><Edit size={12} /></button>
+                                                <button onClick={() => handleDeleteQuest(quest.id)} title="Supprimer" className="text-stone-600 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"><X size={14} /></button>
+                                            </>
+                                        )}
                                     </div>
                                 ))}
                             </div>
@@ -930,6 +1001,7 @@ export const CampaignDetail: React.FC = () => {
                             </h3>
                             <button
                                 onClick={() => setShowClueForm(!showClueForm)}
+                                title={showClueForm ? "Fermer" : "Ajouter un indice"}
                                 className="bg-stone-800 hover:bg-stone-700 text-stone-300 p-1 rounded-lg transition-colors"
                             >
                                 {showClueForm ? <X size={14} /> : <Plus size={14} />}
@@ -958,13 +1030,32 @@ export const CampaignDetail: React.FC = () => {
                             )}
                             {(campaign.clues || []).map((clue: Clue) => (
                                 <div key={clue.id} className={clsx("p-3 rounded-lg border text-sm relative group/clue", clue.status === 'solved' ? "bg-green-900/10 border-green-500/20" : "bg-stone-900/50 border-white/5")}>
-                                    <p className={clsx("mb-2", clue.status === 'solved' ? "text-stone-500 line-through" : "text-stone-300")}>{clue.content}</p>
+                                    {editingClueId === clue.id ? (
+                                        <div className="mb-2 flex flex-col gap-1.5">
+                                            <textarea
+                                                autoFocus
+                                                value={editClueText}
+                                                onChange={e => setEditClueText(e.target.value)}
+                                                onKeyDown={e => { if (e.key === 'Escape') setEditingClueId(null); }}
+                                                className="w-full bg-stone-950 border border-stone-500 rounded px-2 py-1 text-stone-200 outline-none focus:border-stone-400 min-h-[50px]"
+                                            />
+                                            <div className="flex gap-3 justify-end text-[10px] font-bold uppercase">
+                                                <button onClick={handleSaveClueEdit} className="text-green-500 hover:text-green-400">Enregistrer</button>
+                                                <button onClick={() => setEditingClueId(null)} className="text-stone-500 hover:text-white">Annuler</button>
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <p className={clsx("mb-2", clue.status === 'solved' ? "text-stone-500 line-through" : "text-stone-300")}>{clue.content}</p>
+                                    )}
                                     <div className="flex justify-between items-center text-[10px] text-stone-600">
                                         <span className="flex items-center gap-1"><MapPin size={10} /> Trouvé le {formatDateSafe(clue.found_at)}</span>
                                         <div className="flex gap-2">
                                             <button onClick={() => handleToggleClue(clue.id)} className={clsx("hover:underline", clue.status === 'solved' ? "text-stone-500" : "text-green-600")}>
                                                 {clue.status === 'solved' ? "Rouvrir" : "Résoudre"}
                                             </button>
+                                            {editingClueId !== clue.id && (
+                                                <button onClick={() => startEditClue(clue)} className="text-stone-600 hover:text-stone-300 opacity-0 group-hover/clue:opacity-100 transition-opacity">Modifier</button>
+                                            )}
                                             <button onClick={() => handleDeleteClue(clue.id)} className="text-stone-600 hover:text-red-500 opacity-0 group-hover/clue:opacity-100 transition-opacity">Suppr.</button>
                                         </div>
                                     </div>

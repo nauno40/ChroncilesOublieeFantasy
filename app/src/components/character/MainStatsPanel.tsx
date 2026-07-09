@@ -69,15 +69,10 @@ export const MainStatsPanel: React.FC<Props> = ({ character, setCharacter, comba
             <div className="glass-panel p-3 rounded-xl text-center border-blue-900/40 bg-blue-950/5 relative overflow-hidden transition-all hover:bg-blue-950/10">
                 <div className="absolute top-0 left-0 w-full h-1 bg-blue-500/30" />
                 <label className="text-[9px] uppercase font-black text-blue-500 tracking-[0.2em] block mb-1">Mana</label>
-                <div className="flex items-center justify-center gap-2">
-                    <input
-                        type="number"
-                        className="w-16 bg-transparent text-center text-2xl font-display font-bold text-blue-400 outline-none"
-                        value={character.data?.mp?.max || 0}
-                        readOnly={true}
-                    />
+                <div className="text-2xl font-display font-bold text-blue-400">
+                    {character.data?.mp?.max || 0}
                 </div>
-                <div className="text-[8px] text-blue-900/60 font-bold uppercase mt-1">PM MAX</div>
+                <div className="text-[8px] text-blue-900/60 font-bold uppercase mt-1">PM MAX (calculé)</div>
             </div>
 
             {/* Row 4: Recovery (Full Width) */}

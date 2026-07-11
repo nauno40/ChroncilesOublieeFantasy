@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Character } from '../../types/character';
-import { calculateMod, type Stats } from '../../utils/cofRules';
+import { MIN_STAT, MAX_STAT, type Stats } from '../../utils/cofRules';
 import type { RaceList } from './types';
 
 interface Props {
@@ -186,9 +186,8 @@ export const AttributesPanel: React.FC<Props> = ({
                 const finalVal = finalStats[stat];
                 const baseVal = stats[stat];
                 const diff = finalVal - baseVal;
-
-                // Re-calculate mod based on Final Stat
-                const mod = calculateMod(finalVal);
+                // COF2 : la valeur de caractéristique EST la valeur de jeu (pas de « modificateur » séparé).
+                const withSign = (n: number) => `${n > 0 ? '+' : ''}${n}`;
 
                 return (
                     <div key={stat} className="flex items-center justify-between group">
@@ -201,15 +200,15 @@ export const AttributesPanel: React.FC<Props> = ({
                                     <button
                                         onClick={() => updateStat(stat, (baseVal - 1).toString())}
                                         className="w-6 h-6 flex items-center justify-center rounded bg-stone-900 text-stone-400 hover:bg-stone-800 hover:text-white transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-                                        disabled={baseVal <= 9}
+                                        disabled={baseVal <= MIN_STAT}
                                     >
                                         -
                                     </button>
-                                    <span className="w-8 text-center font-bold text-white text-lg">{baseVal}</span>
+                                    <span className="w-8 text-center font-bold text-white text-lg">{withSign(baseVal)}</span>
                                     <button
                                         onClick={() => updateStat(stat, (baseVal + 1).toString())}
                                         className="w-6 h-6 flex items-center justify-center rounded bg-stone-900 text-stone-400 hover:bg-stone-800 hover:text-white transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-                                        disabled={baseVal >= 14}
+                                        disabled={baseVal >= MAX_STAT}
                                     >
                                         +
                                     </button>
@@ -220,14 +219,14 @@ export const AttributesPanel: React.FC<Props> = ({
                                     )}
                                 </div>
                             ) : (
-                                <span className="text-lg font-bold text-white w-12 text-center">{finalVal}</span>
+                                <span className="text-lg font-bold text-white w-12 text-center">{withSign(finalVal)}</span>
                             )}
                         </div>
                         <div className="flex items-center gap-4">
                             <div className="flex items-center gap-2">
-                                <span className="text-zinc-500 text-xs uppercase tracking-wider font-semibold">Mod.</span>
-                                <span className={`w-10 text-right font-display font-bold text-lg ${mod > 0 ? 'text-primary-400' : 'text-stone-500'}`}>
-                                    {mod > 0 ? '+' : ''}{mod}
+                                <span className="text-zinc-500 text-xs uppercase tracking-wider font-semibold">Valeur</span>
+                                <span className={`w-10 text-right font-display font-bold text-lg ${finalVal > 0 ? 'text-primary-400' : 'text-stone-500'}`}>
+                                    {withSign(finalVal)}
                                 </span>
                             </div>
                         </div>

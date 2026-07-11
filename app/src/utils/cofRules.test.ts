@@ -10,18 +10,15 @@ import {
   computeSpentPoints,
   computeManaPoints,
   computeCombatStats,
+  migrateLegacyStats,
 } from './cofRules';
 
-describe('calculateMod', () => {
-  it('is 0 at 10 and 11', () => {
-    expect(calculateMod(10)).toBe(0);
-    expect(calculateMod(11)).toBe(0);
-  });
-  it('handles positive and negative', () => {
-    expect(calculateMod(14)).toBe(2);
-    expect(calculateMod(13)).toBe(1);
-    expect(calculateMod(8)).toBe(-1);
-    expect(calculateMod(7)).toBe(-2);
+describe('calculateMod (COF2 : la valeur EST le modificateur)', () => {
+  it('renvoie la valeur telle quelle (identité)', () => {
+    expect(calculateMod(0)).toBe(0);
+    expect(calculateMod(2)).toBe(2);
+    expect(calculateMod(-1)).toBe(-1);
+    expect(calculateMod(5)).toBe(5);
   });
 });
 
@@ -51,9 +48,51 @@ describe('getMaxArmorDef', () => {
 });
 
 describe('computeModifiers', () => {
-  it('maps each stat through calculateMod', () => {
-    const mods = computeModifiers({ FOR: 14, AGI: 10, CON: 12, INT: 8, PER: 11, CHA: 7, VOL: 16 });
-    expect(mods).toEqual({ FOR: 2, AGI: 0, CON: 1, INT: -1, PER: 0, CHA: -2, VOL: 3 });
+  it('renvoie les valeurs de caractéristiques inchangées (identité COF2)', () => {
+    const stats = { FOR: 3, AGI: 1, CON: 2, INT: 0, PER: 1, CHA: -1, VOL: 1 };
+    expect(computeModifiers(stats)).toEqual(stats);
+  });
+});
+
+describe('migrateLegacyStats', () => {
+  it('convertit les persos hérités (scores 9-14) en valeurs COF via leurs modifiers', () => {
+    const legacyStats = { FOR: 14, AGI: 10, CON: 12, INT: 8, PER: 11, CHA: 7, VOL: 16 };
+    const legacyMods = { FOR: 2, AGI: 0, CON: 1, INT: -1, PER: 0, CHA: -2, VOL: 3 };
+    expect(migrateLegacyStats(legacyStats, legacyMods)).toEqual(legacyMods);
+  });
+  it('laisse les valeurs COF (‑2..+5) intactes', () => {
+    const cof = { FOR: 3, AGI: 1, CON: 2, INT: 0, PER: 1, CHA: -1, VOL: 1 };
+    expect(migrateLegacyStats(cof, cof)).toEqual(cof);
+  });
+});
+
+// Vérifie les valeurs dérivées de bout en bout contre les exemples chiffrés du livre
+// (chapitre « Création du personnage »).
+describe('exemples du livre (fidélité COF2)', () => {
+  it('Lhagva (barbare) : PV 12, DR 4 d10, PC 2, Init 11, attaque contact +4', () => {
+    const stats = { FOR: 3, AGI: 1, CON: 2, INT: 0, PER: 1, CHA: -1, VOL: 1 };
+    const mods = computeModifiers(stats);
+    expect(computeMaxHp(5, mods.CON)).toBe(12);              // combattants base 5
+    expect(computeRecoveryDie('Barbare', mods.CON)).toBe('4 d10');
+    // humaine : voie de l'humain rang 1 (Diversité) -> +1 PC
+    expect(computeLuckPoints('Barbare', mods.CHA, { name: "Voie de l'humain", ranks: [true] })).toBe(2);
+    const combat = computeCombatStats({
+      voies: { racial: { name: '', ranks: [] }, profile: [] },
+      protection: { armor: { def: 0 }, shield: { def: 0 } },
+      races: [], profiles: [], perMod: mods.PER, agiMod: mods.AGI, capabilityModifiers: {},
+    });
+    expect(combat.init).toBe(11);                            // 10 + PER(1)
+    expect(1 + mods.FOR).toBe(4);                            // attaque contact = niveau + FOR
+  });
+
+  it('Ionas (ensorceleur/mage) : PV 7, DR 3 d6, PC 6, attaque magique +3', () => {
+    const stats = { FOR: -2, AGI: 1, CON: 1, INT: 0, PER: 0, CHA: 4, VOL: 2 };
+    const mods = computeModifiers(stats);
+    expect(computeMaxHp(3, mods.CON)).toBe(7);               // mages base 3
+    expect(computeRecoveryDie('Ensorceleur', mods.CON)).toBe('3 d6');
+    expect(computeLuckPoints('Ensorceleur', mods.CHA)).toBe(6); // 2 + CHA(4)
+    expect(1 + mods.VOL).toBe(3);                            // attaque magique = niveau + VOL
+    expect(1 + mods.FOR).toBe(-1);                           // attaque contact = niveau + FOR
   });
 });
 

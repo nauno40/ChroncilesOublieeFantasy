@@ -48,7 +48,8 @@ interface MonsterForm {
     size: string;
 }
 
-const emptyStats = (): Stats => ({ FOR: 10, DEX: 10, CON: 10, INT: 10, SAG: 10, CHA: 10 });
+// Échelle COF2 : les caractéristiques sont des valeurs (0 = moyen), pas des scores 3‑18.
+const emptyStats = (): Stats => ({ FOR: 0, DEX: 0, CON: 0, INT: 0, SAG: 0, CHA: 0 });
 
 const emptyForm = (): MonsterForm => ({
     name: '',

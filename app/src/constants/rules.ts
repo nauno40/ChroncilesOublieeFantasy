@@ -92,7 +92,7 @@ export const RULES_INDEX = [
     {
         "id": "combat-attaque",
         "title": "Attaque & Défense",
-        "description": "Attaque au contact (FOR), distance (DEX), magique. Calcul Défense",
+        "description": "Attaque au contact (FOR), distance (AGI), magique. Calcul Défense",
         "url": "/rules#resolution-attaques"
     },
     {

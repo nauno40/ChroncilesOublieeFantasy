@@ -142,34 +142,98 @@ export const computeFinalStats = (
   return base;
 };
 
-export const computeSpentPoints = (voies: any, level: number | undefined, isMageFamily: boolean): number => {
-  if (level !== 0) return 0;
-  let count = 0;
-  let mageRank2Found = false;
+// --- Progression : points de capacité, coûts et niveaux requis (COF2, chap. Progression) ---
 
-  if (voies?.racial?.ranks) {
-    let racialRanks = voies.racial.ranks.filter(Boolean).length;
-    if (voies.racial.ranks[0]) racialRanks = Math.max(0, racialRanks - 1);
-    if (voies.racial.ranks[1] && isMageFamily && !mageRank2Found) {
-      racialRanks = Math.max(0, racialRanks - 1);
-      mageRank2Found = true;
-    }
-    count += racialRanks;
+// Niveau minimal requis pour acquérir une capacité d'un rang donné dans une voie normale.
+// Rang 1→1, 2→2, 3→3, 4→5, 5→7 (les rangs 6-8 sont réservés aux voies de prestige).
+export const RANK_REQUIRED_LEVEL: Record<number, number> = { 1: 1, 2: 2, 3: 3, 4: 5, 5: 7, 6: 9, 7: 11, 8: 13 };
+// Voies de prestige : les 5 rangs affichés (1..5) correspondent aux rangs réels 4..8.
+export const PRESTIGE_RANK_REQUIRED_LEVEL: Record<number, number> = { 1: 5, 2: 7, 3: 9, 4: 11, 5: 13 };
+
+// Coût en points de capacité : 1 pour un rang 1-2, 2 pour un rang 3 ou plus.
+export const capacityCost = (rank: number): number => (rank <= 2 ? 1 : 2);
+
+// Budget total de points de capacité à un niveau : 2 par niveau. Le niveau 0 (création)
+// équivaut au niveau 1. La capacité de rang 1 de la voie de peuple et la capacité de rang 2
+// gratuite des mages ne sont pas décomptées (cf. computeSpentPoints).
+export const capacityBudget = (level: number | undefined): number => 2 * Math.max(1, level || 0);
+
+export type VoieKind = 'racial' | 'profile' | 'prestige';
+
+// Niveau à partir duquel un rang devient accessible (verrou structurel, hors budget).
+// Tient compte de l'exception mage (rang 2 dès le niveau 1).
+export const rankUnlockLevel = (rank: number, voieKind: VoieKind, isMageFamily: boolean): number => {
+  if (voieKind === 'prestige') return PRESTIGE_RANK_REQUIRED_LEVEL[rank] ?? 99;
+  if (rank === 2 && isMageFamily) return 1;
+  return RANK_REQUIRED_LEVEL[rank] ?? 99;
+};
+export type AcquireResult = { ok: true } | { ok: false; reason: string };
+
+export interface AcquireContext {
+  level: number | undefined;
+  isMageFamily: boolean;
+  spentPoints: number;
+  budget: number;
+  hasOtherRank2: boolean; // un rang 2 est-il déjà pris dans une autre voie (bonus mage) ?
+}
+
+// Coût d'une capacité selon la voie (rang 1 de peuple gratuit ; prestige = rang réel ≥ 4).
+export const rankCost = (rank: number, voieKind: VoieKind): number => {
+  if (voieKind === 'racial' && rank === 1) return 0;
+  if (voieKind === 'prestige') return 2;
+  return capacityCost(rank);
+};
+
+// Valide l'acquisition d'un rang : prérequis de rang, niveau minimal, puis budget.
+export const canAcquireRank = (
+  rank: number,
+  prevRankOwned: boolean,
+  voieKind: VoieKind,
+  ctx: AcquireContext,
+): AcquireResult => {
+  if (rank > 1 && !prevRankOwned) return { ok: false, reason: 'Vous devez posséder le rang précédent.' };
+
+  const effLevel = Math.max(1, ctx.level || 0);
+  const prestige = voieKind === 'prestige';
+  const actualRank = prestige ? rank + 3 : rank;
+  // Exception mage : la capacité de rang 2 bonus est accessible dès le niveau 1.
+  const mageRank2 = !prestige && rank === 2 && ctx.isMageFamily;
+  const reqLevel = prestige ? PRESTIGE_RANK_REQUIRED_LEVEL[rank] : RANK_REQUIRED_LEVEL[rank];
+  if (!mageRank2 && effLevel < (reqLevel ?? 99)) {
+    return { ok: false, reason: `Niveau ${reqLevel} requis pour une capacité de rang ${actualRank}.` };
   }
 
-  if (voies?.profile) {
-    voies.profile.forEach((p: any) => {
-      if (p.ranks) {
-        let profileRanks = p.ranks.filter(Boolean).length;
-        if (p.ranks[1] && isMageFamily && !mageRank2Found) {
-          profileRanks = Math.max(0, profileRanks - 1);
-          mageRank2Found = true;
-        }
-        count += profileRanks;
+  // La capacité de rang 2 gratuite des mages ne coûte rien (une seule fois).
+  const cost = mageRank2 && !ctx.hasOtherRank2 ? 0 : rankCost(rank, voieKind);
+  if (ctx.spentPoints + cost > ctx.budget) {
+    return { ok: false, reason: 'Plus assez de points de capacité pour ce niveau.' };
+  }
+  return { ok: true };
+};
+
+// Total des points de capacité dépensés, tous niveaux confondus : somme des coûts de
+// chaque rang acquis, hors rang 1 gratuit de la voie de peuple et hors rang 2 gratuit
+// des mages (une seule fois).
+export const computeSpentPoints = (voies: any, _level: number | undefined, isMageFamily: boolean): number => {
+  let spent = 0;
+  let mageFreeRank2Used = false;
+
+  const addVoie = (ranks: boolean[] | undefined, voieKind: VoieKind): void => {
+    ranks?.forEach((learned: boolean, idx: number) => {
+      if (!learned) return;
+      const rank = idx + 1;
+      if (voieKind !== 'prestige' && rank === 2 && isMageFamily && !mageFreeRank2Used) {
+        mageFreeRank2Used = true; // rang 2 gratuit du mage
+        return;
       }
+      spent += rankCost(rank, voieKind);
     });
-  }
-  return count;
+  };
+
+  addVoie(voies?.racial?.ranks, 'racial');
+  voies?.profile?.forEach((p: { ranks?: boolean[] }) => addVoie(p?.ranks, 'profile'));
+  voies?.prestige?.forEach((p: { ranks?: boolean[] }) => addVoie(p?.ranks, 'prestige'));
+  return spent;
 };
 
 export const computeManaPoints = (voies: any, races: any[], profiles: any[], volMod: number): number => {

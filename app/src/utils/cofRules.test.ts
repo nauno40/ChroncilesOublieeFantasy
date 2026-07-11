@@ -11,6 +11,9 @@ import {
   computeManaPoints,
   computeCombatStats,
   migrateLegacyStats,
+  capacityBudget,
+  capacityCost,
+  canAcquireRank,
 } from './cofRules';
 
 describe('calculateMod (COF2 : la valeur EST le modificateur)', () => {
@@ -156,27 +159,83 @@ describe('computeFinalStats', () => {
 });
 
 describe('computeSpentPoints', () => {
-  it('is 0 when level is not 0', () => {
+  it('vide = 0 point dépensé', () => {
     expect(computeSpentPoints({}, 1, false)).toBe(0);
   });
-  it('gives a free rank 1 on the racial voie', () => {
+  it('rang 1 de la voie de peuple gratuit', () => {
     const voies = { racial: { name: 'X', ranks: [true, false, false, false, false] }, profile: [] };
-    expect(computeSpentPoints(voies, 0, false)).toBe(0); // rank 1 is free
+    expect(computeSpentPoints(voies, 0, false)).toBe(0);
   });
-  it('counts a second racial rank for a non-mage', () => {
+  it('compte un second rang de voie de peuple pour un non-mage', () => {
     const voies = { racial: { name: 'X', ranks: [true, true, false, false, false] }, profile: [] };
     expect(computeSpentPoints(voies, 0, false)).toBe(1);
   });
-  it('gives a mage a free rank 2 (once)', () => {
+  it('offre un rang 2 gratuit au mage (une seule fois)', () => {
     const voies = { racial: { name: 'X', ranks: [true, true, false, false, false] }, profile: [] };
     expect(computeSpentPoints(voies, 0, true)).toBe(0);
   });
-  it('counts profile ranks', () => {
+  it('compte les rangs de profil (rang 3+ = 2 points)', () => {
     const voies = {
       racial: { name: 'X', ranks: [false, false, false, false, false] },
-      profile: [{ name: 'P', ranks: [true, true, false, false, false] }],
+      // rangs 1,2 (1 pt chacun) + rang 3 (2 pts) = 4
+      profile: [{ name: 'P', ranks: [true, true, true, false, false] }],
     };
-    expect(computeSpentPoints(voies, 0, false)).toBe(2);
+    expect(computeSpentPoints(voies, 5, false)).toBe(4);
+  });
+  it('compte les rangs de prestige à 2 points chacun', () => {
+    const voies = {
+      racial: { name: 'X', ranks: [false, false, false, false, false] },
+      profile: [],
+      prestige: [{ name: 'Pr', ranks: [true, true, false, false, false] }],
+    };
+    expect(computeSpentPoints(voies, 7, false)).toBe(4);
+  });
+});
+
+describe('capacityBudget & capacityCost', () => {
+  it('budget = 2 par niveau (création niv 0 = niv 1)', () => {
+    expect(capacityBudget(0)).toBe(2);
+    expect(capacityBudget(1)).toBe(2);
+    expect(capacityBudget(5)).toBe(10);
+  });
+  it('coût : 1 pour rang 1-2, 2 pour rang 3+', () => {
+    expect(capacityCost(1)).toBe(1);
+    expect(capacityCost(2)).toBe(1);
+    expect(capacityCost(3)).toBe(2);
+    expect(capacityCost(5)).toBe(2);
+  });
+});
+
+describe('canAcquireRank', () => {
+  const ctx = (over: Partial<Parameters<typeof canAcquireRank>[3]> = {}) => ({
+    level: 1, isMageFamily: false, spentPoints: 0, budget: 2, hasOtherRank2: false, ...over,
+  });
+  it('refuse un rang sans le rang précédent', () => {
+    expect(canAcquireRank(2, false, 'profile', ctx({ level: 2 }))).toEqual({ ok: false, reason: expect.stringContaining('rang précédent') });
+  });
+  it('applique le tableau des niveaux requis (rang 3 → niveau 3)', () => {
+    expect(canAcquireRank(3, true, 'profile', ctx({ level: 2, budget: 10 })).ok).toBe(false);
+    expect(canAcquireRank(3, true, 'profile', ctx({ level: 3, budget: 10 })).ok).toBe(true);
+  });
+  it('rang 5 exige le niveau 7', () => {
+    expect(canAcquireRank(5, true, 'profile', ctx({ level: 6, budget: 20 })).ok).toBe(false);
+    expect(canAcquireRank(5, true, 'profile', ctx({ level: 7, budget: 20 })).ok).toBe(true);
+  });
+  it('exception mage : rang 2 accessible dès le niveau 1', () => {
+    expect(canAcquireRank(2, true, 'profile', ctx({ level: 1, isMageFamily: true })).ok).toBe(true);
+    // et gratuit si aucun autre rang 2 (budget serré de 1 pt)
+    expect(canAcquireRank(2, true, 'profile', ctx({ level: 1, isMageFamily: true, spentPoints: 1, budget: 1 })).ok).toBe(true);
+  });
+  it('bloque le rang 2 non-mage au niveau 1', () => {
+    expect(canAcquireRank(2, true, 'profile', ctx({ level: 1, budget: 10 })).ok).toBe(false);
+  });
+  it('refuse si le budget est dépassé', () => {
+    expect(canAcquireRank(1, true, 'profile', ctx({ spentPoints: 2, budget: 2 })).ok).toBe(false);
+  });
+  it('prestige : rang affiché 1 (=rang 4) exige le niveau 5 et coûte 2', () => {
+    expect(canAcquireRank(1, true, 'prestige', ctx({ level: 4, budget: 20 })).ok).toBe(false);
+    expect(canAcquireRank(1, true, 'prestige', ctx({ level: 5, budget: 20 })).ok).toBe(true);
+    expect(canAcquireRank(1, true, 'prestige', ctx({ level: 5, spentPoints: 9, budget: 10 })).ok).toBe(false);
   });
 });
 

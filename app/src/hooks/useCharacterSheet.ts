@@ -14,6 +14,7 @@ import {
   computeManaPoints,
   computeCombatStats,
   migrateLegacyStats,
+  capacityBudget,
   MIN_STAT,
   MAX_STAT,
   STAT_SERIES,
@@ -260,8 +261,8 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
         }
     }, [isMageFamily]);
 
-    // Points Logic
-    const maxStartingPoints = 2; // Fixed to 2 for everyone now (Racial Rank 1 is free)
+    // Points de capacité : 2 par niveau (le niveau 0 de création équivaut au niveau 1).
+    const maxStartingPoints = capacityBudget(character.level);
 
     const spentPoints = useMemo(() => computeSpentPoints(character.data?.voies, character.level, isMageFamily), [character.data, character.level, isMageFamily]);
 

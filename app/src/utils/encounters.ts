@@ -20,6 +20,7 @@ export const encounterToCombatants = (encounter: Encounter): Combatant[] => {
                 initiative: entry.initiative,
                 hp: { current: entry.hp, max: entry.hp },
                 def: entry.def,
+                level: entry.nc, // NC — départage d'initiative COF2
                 per: entry.per,
                 tiebreak: rollTiebreak(),
                 states: [],

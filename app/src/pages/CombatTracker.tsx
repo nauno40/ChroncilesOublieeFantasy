@@ -112,7 +112,7 @@ export const CombatTracker: React.FC = () => {
             hp: { current: creature.hp, max: creature.hp },
             def: creature.def,
             level: creature.nc ?? 0, // NC de la créature — départage d'initiative COF2
-            per: creature.stats?.SAG ?? 0, // les créatures utilisent SAG comme Perception
+            per: creature.stats?.PER ?? 0,
             tiebreak: rollTiebreak(),
             states: [],
             source: 'bestiary' as const,

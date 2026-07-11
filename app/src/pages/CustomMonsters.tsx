@@ -25,7 +25,8 @@ const distinctSorted = (values: (string | null | undefined)[]): string[] =>
         a.localeCompare(b, 'fr', { sensitivity: 'base' }),
     );
 
-const STAT_KEYS = ['FOR', 'DEX', 'CON', 'INT', 'SAG', 'CHA'] as const;
+// Caractéristiques COF2 (7), dans l'ordre du profil de créature du livre.
+const STAT_KEYS = ['AGI', 'CON', 'FOR', 'PER', 'CHA', 'INT', 'VOL'] as const;
 type StatKey = (typeof STAT_KEYS)[number];
 type Stats = Record<StatKey, number>;
 
@@ -49,7 +50,7 @@ interface MonsterForm {
 }
 
 // Échelle COF2 : les caractéristiques sont des valeurs (0 = moyen), pas des scores 3‑18.
-const emptyStats = (): Stats => ({ FOR: 0, DEX: 0, CON: 0, INT: 0, SAG: 0, CHA: 0 });
+const emptyStats = (): Stats => ({ AGI: 0, CON: 0, FOR: 0, PER: 0, CHA: 0, INT: 0, VOL: 0 });
 
 const emptyForm = (): MonsterForm => ({
     name: '',

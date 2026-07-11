@@ -8,12 +8,13 @@
     "def": 19,
     "init": 14,
     "stats": {
-      "FOR": 6,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 6,
+      "FOR": 6,
+      "PER": 0,
+      "CHA": -2,
       "INT": -2,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Marécage",
@@ -59,12 +60,13 @@
     "def": 14,
     "init": 12,
     "stats": {
-      "FOR": 1,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 1,
+      "FOR": 1,
+      "PER": -2,
+      "CHA": -4,
       "INT": -4,
-      "SAG": -2,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -103,12 +105,13 @@
     "def": 16,
     "init": 12,
     "stats": {
-      "FOR": 6,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 6,
+      "FOR": 6,
+      "PER": -2,
+      "CHA": -4,
       "INT": -4,
-      "SAG": -2,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -156,12 +159,13 @@
     "def": 24,
     "init": 22,
     "stats": {
-      "FOR": 8,
-      "DEX": 6,
+      "AGI": 6,
       "CON": 8,
+      "FOR": 8,
+      "PER": 6,
+      "CHA": 6,
       "INT": 6,
-      "SAG": 6,
-      "CHA": 6
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Spécial",
@@ -252,12 +256,13 @@
     "def": 16,
     "init": 17,
     "stats": {
-      "FOR": 6,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 6,
+      "FOR": 6,
+      "PER": 2,
+      "CHA": -4,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Souterrain",
@@ -296,12 +301,13 @@
     "def": 15,
     "init": 17,
     "stats": {
-      "FOR": -3,
-      "DEX": 3,
+      "AGI": 3,
       "CON": 3,
+      "FOR": -3,
+      "PER": 4,
+      "CHA": 0,
       "INT": -4,
-      "SAG": 4,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -340,12 +346,13 @@
     "def": 16,
     "init": 12,
     "stats": {
-      "FOR": 6,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 6,
+      "FOR": 6,
+      "PER": 4,
+      "CHA": 0,
       "INT": -2,
-      "SAG": 4,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Montagne",
@@ -393,12 +400,13 @@
     "def": 24,
     "init": 14,
     "stats": {
-      "FOR": 12,
-      "DEX": 2,
+      "AGI": 2,
       "CON": 12,
+      "FOR": 12,
+      "PER": 4,
+      "CHA": -2,
       "INT": 2,
-      "SAG": 4,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Montagne",
@@ -455,12 +463,13 @@
     "def": 14,
     "init": 12,
     "stats": {
-      "FOR": 1,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 1,
+      "FOR": 1,
+      "PER": 0,
+      "CHA": 0,
       "INT": 0,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Forêt",
@@ -496,12 +505,13 @@
     "def": 15,
     "init": 10,
     "stats": {
-      "FOR": 3,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 3,
+      "FOR": 3,
+      "PER": 0,
+      "CHA": 0,
       "INT": 0,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Forêt",
@@ -537,12 +547,13 @@
     "def": 17,
     "init": 14,
     "stats": {
-      "FOR": 3,
-      "DEX": 2,
+      "AGI": 2,
       "CON": 3,
+      "FOR": 3,
+      "PER": 0,
+      "CHA": 0,
       "INT": 0,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Forêt",
@@ -578,12 +589,13 @@
     "def": 17,
     "init": 15,
     "stats": {
-      "FOR": 3,
-      "DEX": 2,
+      "AGI": 2,
       "CON": 3,
+      "FOR": 3,
+      "PER": 2,
+      "CHA": 2,
       "INT": 2,
-      "SAG": 2,
-      "CHA": 2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Forêt",
@@ -619,12 +631,13 @@
     "def": 17,
     "init": 10,
     "stats": {
-      "FOR": 3,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 3,
+      "FOR": 3,
+      "PER": 2,
+      "CHA": 0,
       "INT": -4,
-      "SAG": 2,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Montagne",
@@ -653,12 +666,13 @@
     "def": 22,
     "init": 15,
     "stats": {
-      "FOR": 11,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 11,
+      "FOR": 11,
+      "PER": 2,
+      "CHA": -4,
       "INT": -2,
-      "SAG": 2,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Montagne",
@@ -706,12 +720,13 @@
     "def": 22,
     "init": 16,
     "stats": {
-      "FOR": 8,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 8,
+      "FOR": 8,
+      "PER": 2,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -759,12 +774,13 @@
     "def": 13,
     "init": 10,
     "stats": {
-      "FOR": 4,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 4,
+      "FOR": 4,
+      "PER": 2,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -803,12 +819,13 @@
     "def": 16,
     "init": 10,
     "stats": {
-      "FOR": 6,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 6,
+      "FOR": 6,
+      "PER": 2,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -847,12 +864,13 @@
     "def": 18,
     "init": 16,
     "stats": {
-      "FOR": 6,
-      "DEX": 3,
+      "AGI": 3,
       "CON": 6,
+      "FOR": 6,
+      "PER": 1,
+      "CHA": -4,
       "INT": -4,
-      "SAG": 1,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Aquatique",
@@ -881,12 +899,13 @@
     "def": 14,
     "init": 15,
     "stats": {
-      "FOR": 6,
-      "DEX": 2,
+      "AGI": 2,
       "CON": 6,
+      "FOR": 6,
+      "PER": 1,
+      "CHA": 0,
       "INT": -1,
-      "SAG": 1,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -939,12 +958,13 @@
     "def": 14,
     "init": 15,
     "stats": {
-      "FOR": 6,
-      "DEX": 2,
+      "AGI": 2,
       "CON": 6,
+      "FOR": 6,
+      "PER": 2,
+      "CHA": 0,
       "INT": 0,
-      "SAG": 2,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -1051,12 +1071,13 @@
     "def": 16,
     "init": 18,
     "stats": {
-      "FOR": -1,
-      "DEX": 4,
+      "AGI": 4,
       "CON": -1,
+      "FOR": -1,
+      "PER": 4,
+      "CHA": -4,
       "INT": -4,
-      "SAG": 4,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Souterrain",
@@ -1085,12 +1106,13 @@
     "def": 13,
     "init": 10,
     "stats": {
-      "FOR": 4,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 4,
+      "FOR": 4,
+      "PER": 0,
+      "CHA": 0,
       "INT": -4,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -1119,12 +1141,13 @@
     "def": 13,
     "init": 10,
     "stats": {
-      "FOR": 4,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 4,
+      "FOR": 4,
+      "PER": 2,
+      "CHA": 0,
       "INT": -4,
-      "SAG": 2,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -1153,12 +1176,13 @@
     "def": 15,
     "init": 10,
     "stats": {
-      "FOR": 4,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 4,
+      "FOR": 4,
+      "PER": 2,
+      "CHA": 0,
       "INT": -4,
-      "SAG": 2,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -1187,12 +1211,13 @@
     "def": 15,
     "init": 11,
     "stats": {
-      "FOR": 3,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 3,
+      "FOR": 3,
+      "PER": 2,
+      "CHA": 0,
       "INT": -2,
-      "SAG": 2,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Forêt",
@@ -1231,12 +1256,13 @@
     "def": 15,
     "init": 11,
     "stats": {
-      "FOR": 3,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 3,
+      "FOR": 3,
+      "PER": 2,
+      "CHA": 0,
       "INT": -2,
-      "SAG": 2,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Spécial",
@@ -1282,12 +1308,13 @@
     "def": 20,
     "init": 12,
     "stats": {
-      "FOR": 6,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 6,
+      "FOR": 6,
+      "PER": 2,
+      "CHA": -4,
       "INT": -2,
-      "SAG": 2,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Montagne",
@@ -1342,12 +1369,13 @@
     "def": 17,
     "init": 16,
     "stats": {
-      "FOR": -2,
-      "DEX": 3,
+      "AGI": 3,
       "CON": -2,
+      "FOR": -2,
+      "PER": 1,
+      "CHA": -1,
       "INT": -4,
-      "SAG": 1,
-      "CHA": -1
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -1376,12 +1404,13 @@
     "def": 15,
     "init": 15,
     "stats": {
-      "FOR": 3,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 3,
+      "FOR": 3,
+      "PER": 2,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Marécage",
@@ -1420,12 +1449,13 @@
     "def": 20,
     "init": 15,
     "stats": {
-      "FOR": 11,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 11,
+      "FOR": 11,
+      "PER": 0,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Marécage",
@@ -1482,12 +1512,13 @@
     "def": 16,
     "init": 2,
     "stats": {
-      "FOR": 7,
-      "DEX": -4,
+      "AGI": -4,
       "CON": 7,
+      "FOR": 7,
+      "PER": -4,
+      "CHA": -4,
       "INT": 0,
-      "SAG": -4,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Souterrain",
@@ -1516,12 +1547,13 @@
     "def": 28,
     "init": 17,
     "stats": {
-      "FOR": 9,
-      "DEX": 3,
+      "AGI": 3,
       "CON": 9,
+      "FOR": 9,
+      "PER": 6,
+      "CHA": 6,
       "INT": 6,
-      "SAG": 6,
-      "CHA": 6
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Spécial",
@@ -1612,12 +1644,13 @@
     "def": 20,
     "init": 20,
     "stats": {
-      "FOR": 6,
-      "DEX": 5,
+      "AGI": 5,
       "CON": 6,
+      "FOR": 6,
+      "PER": 2,
+      "CHA": 4,
       "INT": 4,
-      "SAG": 2,
-      "CHA": 4
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Spécial",
@@ -1683,12 +1716,13 @@
     "def": 15,
     "init": 17,
     "stats": {
-      "FOR": -2,
-      "DEX": 3,
+      "AGI": 3,
       "CON": -2,
+      "FOR": -2,
+      "PER": 2,
+      "CHA": 0,
       "INT": 0,
-      "SAG": 2,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Spécial",
@@ -1754,12 +1788,13 @@
     "def": 18,
     "init": 16,
     "stats": {
-      "FOR": 1,
-      "DEX": 3,
+      "AGI": 3,
       "CON": 1,
+      "FOR": 1,
+      "PER": 2,
+      "CHA": 6,
       "INT": 2,
-      "SAG": 2,
-      "CHA": 6
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Spécial",
@@ -1852,12 +1887,13 @@
     "def": 15,
     "init": 14,
     "stats": {
-      "FOR": 4,
-      "DEX": 2,
+      "AGI": 2,
       "CON": 4,
+      "FOR": 4,
+      "PER": 2,
+      "CHA": 0,
       "INT": 0,
-      "SAG": 2,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Spécial",
@@ -1905,12 +1941,13 @@
     "def": 26,
     "init": 10,
     "stats": {
-      "FOR": 15,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 15,
+      "FOR": 15,
+      "PER": 0,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -1967,12 +2004,13 @@
     "def": 15,
     "init": 18,
     "stats": {
-      "FOR": 3,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 3,
+      "FOR": 3,
+      "PER": 2,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Forêt",
@@ -2011,12 +2049,13 @@
     "def": 20,
     "init": 16,
     "stats": {
-      "FOR": 9,
-      "DEX": 3,
+      "AGI": 3,
       "CON": 9,
+      "FOR": 9,
+      "PER": 2,
+      "CHA": -4,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Montagne",
@@ -2073,12 +2112,13 @@
     "def": 25,
     "init": 8,
     "stats": {
-      "FOR": 13,
-      "DEX": -1,
+      "AGI": -1,
       "CON": 13,
+      "FOR": 13,
+      "PER": 0,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -2135,12 +2175,13 @@
     "def": 24,
     "init": 19,
     "stats": {
-      "FOR": 11,
-      "DEX": 2,
+      "AGI": 2,
       "CON": 11,
+      "FOR": 11,
+      "PER": 2,
+      "CHA": -4,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -2197,12 +2238,13 @@
     "def": 16,
     "init": 13,
     "stats": {
-      "FOR": 1,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 1,
+      "FOR": 1,
+      "PER": 1,
+      "CHA": 2,
       "INT": 2,
-      "SAG": 1,
-      "CHA": 2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Spécial",
@@ -2245,12 +2287,13 @@
     "def": 20,
     "init": 23,
     "stats": {
-      "FOR": 5,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 5,
+      "FOR": 5,
+      "PER": 4,
+      "CHA": 0,
       "INT": 0,
-      "SAG": 4,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Spécial",
@@ -2314,12 +2357,13 @@
     "def": 24,
     "init": 17,
     "stats": {
-      "FOR": 9,
-      "DEX": 3,
+      "AGI": 3,
       "CON": 9,
+      "FOR": 9,
+      "PER": 4,
+      "CHA": 2,
       "INT": 2,
-      "SAG": 4,
-      "CHA": 2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Spécial",
@@ -2392,12 +2436,13 @@
     "def": 28,
     "init": 15,
     "stats": {
-      "FOR": 12,
-      "DEX": 2,
+      "AGI": 2,
       "CON": 12,
+      "FOR": 12,
+      "PER": 4,
+      "CHA": 4,
       "INT": 4,
-      "SAG": 4,
-      "CHA": 4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Spécial",
@@ -2479,12 +2524,13 @@
     "def": 32,
     "init": 11,
     "stats": {
-      "FOR": 15,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 15,
+      "FOR": 15,
+      "PER": 6,
+      "CHA": 6,
       "INT": 6,
-      "SAG": 6,
-      "CHA": 6
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Spécial",
@@ -2575,12 +2621,13 @@
     "def": 20,
     "init": 23,
     "stats": {
-      "FOR": 5,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 5,
+      "FOR": 5,
+      "PER": 2,
+      "CHA": -2,
       "INT": 2,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Souterrain",
@@ -2671,12 +2718,13 @@
     "def": 16,
     "init": 18,
     "stats": {
-      "FOR": 0,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 0,
+      "FOR": 0,
+      "PER": 2,
+      "CHA": 4,
       "INT": 2,
-      "SAG": 2,
-      "CHA": 4
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Forêt",
@@ -2776,12 +2824,13 @@
     "def": 15,
     "init": 17,
     "stats": {
-      "FOR": -1,
-      "DEX": 5,
+      "AGI": 5,
       "CON": -1,
+      "FOR": -1,
+      "PER": 0,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -2820,12 +2869,13 @@
     "def": 16,
     "init": 15,
     "stats": {
-      "FOR": 1,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 1,
+      "FOR": 1,
+      "PER": 0,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -2864,12 +2914,13 @@
     "def": 18,
     "init": 15,
     "stats": {
-      "FOR": 6,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 6,
+      "FOR": 6,
+      "PER": 0,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -2917,12 +2968,13 @@
     "def": 22,
     "init": 13,
     "stats": {
-      "FOR": 11,
-      "DEX": 3,
+      "AGI": 3,
       "CON": 11,
+      "FOR": 11,
+      "PER": 0,
+      "CHA": 0,
       "INT": -2,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -2979,12 +3031,13 @@
     "def": 28,
     "init": 13,
     "stats": {
-      "FOR": 15,
-      "DEX": 3,
+      "AGI": 3,
       "CON": 15,
+      "FOR": 15,
+      "PER": 0,
+      "CHA": 0,
       "INT": -2,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -3050,12 +3103,13 @@
     "def": 15,
     "init": 14,
     "stats": {
-      "FOR": -1,
-      "DEX": 2,
+      "AGI": 2,
       "CON": -1,
+      "FOR": -1,
+      "PER": 0,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -3094,12 +3148,13 @@
     "def": 16,
     "init": 12,
     "stats": {
-      "FOR": 1,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 1,
+      "FOR": 1,
+      "PER": 0,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -3138,12 +3193,13 @@
     "def": 18,
     "init": 12,
     "stats": {
-      "FOR": 6,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 6,
+      "FOR": 6,
+      "PER": 0,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -3191,12 +3247,13 @@
     "def": 22,
     "init": 10,
     "stats": {
-      "FOR": 11,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 11,
+      "FOR": 11,
+      "PER": 0,
+      "CHA": 0,
       "INT": -2,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -3253,12 +3310,13 @@
     "def": 28,
     "init": 10,
     "stats": {
-      "FOR": 15,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 15,
+      "FOR": 15,
+      "PER": 0,
+      "CHA": 0,
       "INT": -2,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -3324,12 +3382,13 @@
     "def": 15,
     "init": 14,
     "stats": {
-      "FOR": -1,
-      "DEX": 2,
+      "AGI": 2,
       "CON": -1,
+      "FOR": -1,
+      "PER": 0,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -3368,12 +3427,13 @@
     "def": 16,
     "init": 12,
     "stats": {
-      "FOR": 1,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 1,
+      "FOR": 1,
+      "PER": 0,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -3412,12 +3472,13 @@
     "def": 18,
     "init": 12,
     "stats": {
-      "FOR": 6,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 6,
+      "FOR": 6,
+      "PER": 0,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -3465,12 +3526,13 @@
     "def": 22,
     "init": 10,
     "stats": {
-      "FOR": 11,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 11,
+      "FOR": 11,
+      "PER": 0,
+      "CHA": 0,
       "INT": -2,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -3527,12 +3589,13 @@
     "def": 28,
     "init": 10,
     "stats": {
-      "FOR": 15,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 15,
+      "FOR": 15,
+      "PER": 0,
+      "CHA": 0,
       "INT": -2,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -3598,12 +3661,13 @@
     "def": 18,
     "init": 14,
     "stats": {
-      "FOR": -1,
-      "DEX": 2,
+      "AGI": 2,
       "CON": -1,
+      "FOR": -1,
+      "PER": 0,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -3642,12 +3706,13 @@
     "def": 19,
     "init": 12,
     "stats": {
-      "FOR": 1,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 1,
+      "FOR": 1,
+      "PER": 0,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -3686,12 +3751,13 @@
     "def": 21,
     "init": 12,
     "stats": {
-      "FOR": 6,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 6,
+      "FOR": 6,
+      "PER": 0,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -3739,12 +3805,13 @@
     "def": 25,
     "init": 10,
     "stats": {
-      "FOR": 11,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 11,
+      "FOR": 11,
+      "PER": 0,
+      "CHA": 0,
       "INT": -2,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -3801,12 +3868,13 @@
     "def": 31,
     "init": 10,
     "stats": {
-      "FOR": 15,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 15,
+      "FOR": 15,
+      "PER": 0,
+      "CHA": 0,
       "INT": -2,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -3872,12 +3940,13 @@
     "def": 20,
     "init": 10,
     "stats": {
-      "FOR": 11,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 11,
+      "FOR": 11,
+      "PER": 1,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 1,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -3916,12 +3985,13 @@
     "def": 22,
     "init": 8,
     "stats": {
-      "FOR": 13,
-      "DEX": -1,
+      "AGI": -1,
       "CON": 13,
+      "FOR": 13,
+      "PER": 1,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 1,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -3960,12 +4030,13 @@
     "def": 17,
     "init": 23,
     "stats": {
-      "FOR": 0,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 0,
+      "FOR": 0,
+      "PER": 2,
+      "CHA": 2,
       "INT": 2,
-      "SAG": 2,
-      "CHA": 2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Forêt",
@@ -4011,12 +4082,13 @@
     "def": 17,
     "init": 23,
     "stats": {
-      "FOR": 0,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 0,
+      "FOR": 0,
+      "PER": 2,
+      "CHA": 0,
       "INT": 0,
-      "SAG": 2,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Souterrain",
@@ -4062,12 +4134,13 @@
     "def": 19,
     "init": 23,
     "stats": {
-      "FOR": 1,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 1,
+      "FOR": 1,
+      "PER": 2,
+      "CHA": 2,
       "INT": 2,
-      "SAG": 2,
-      "CHA": 2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Souterrain",
@@ -4122,12 +4195,13 @@
     "def": 21,
     "init": 18,
     "stats": {
-      "FOR": 2,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 2,
+      "FOR": 2,
+      "PER": 4,
+      "CHA": 2,
       "INT": 2,
-      "SAG": 4,
-      "CHA": 2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Souterrain",
@@ -4218,12 +4292,13 @@
     "def": 20,
     "init": 10,
     "stats": {
-      "FOR": 8,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 8,
+      "FOR": 8,
+      "PER": -2,
+      "CHA": -2,
       "INT": -2,
-      "SAG": -2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Montagne",
@@ -4262,12 +4337,13 @@
     "def": 14,
     "init": 12,
     "stats": {
-      "FOR": 1,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 1,
+      "FOR": 1,
+      "PER": 2,
+      "CHA": -2,
       "INT": 0,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -4306,12 +4382,13 @@
     "def": 14,
     "init": 12,
     "stats": {
-      "FOR": 1,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 1,
+      "FOR": 1,
+      "PER": 2,
+      "CHA": -2,
       "INT": 0,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -4359,12 +4436,13 @@
     "def": 17,
     "init": 15,
     "stats": {
-      "FOR": 3,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 3,
+      "FOR": 3,
+      "PER": 2,
+      "CHA": -2,
       "INT": 0,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -4412,12 +4490,13 @@
     "def": 18,
     "init": 10,
     "stats": {
-      "FOR": 8,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 7,
+      "FOR": 8,
+      "PER": 0,
+      "CHA": -2,
       "INT": -2,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Forêt",
@@ -4463,12 +4542,13 @@
     "def": 23,
     "init": 10,
     "stats": {
-      "FOR": 11,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 11,
+      "FOR": 11,
+      "PER": 0,
+      "CHA": 0,
       "INT": 0,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Montagne",
@@ -4523,12 +4603,13 @@
     "def": 24,
     "init": 8,
     "stats": {
-      "FOR": 13,
-      "DEX": -1,
+      "AGI": -1,
       "CON": 13,
+      "FOR": 13,
+      "PER": 2,
+      "CHA": 0,
       "INT": 0,
-      "SAG": 2,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Montagne",
@@ -4583,12 +4664,13 @@
     "def": 28,
     "init": 10,
     "stats": {
-      "FOR": 15,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 15,
+      "FOR": 15,
+      "PER": 4,
+      "CHA": 2,
       "INT": 2,
-      "SAG": 4,
-      "CHA": 2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Montagne",
@@ -4652,12 +4734,13 @@
     "def": 18,
     "init": 12,
     "stats": {
-      "FOR": 6,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 6,
+      "FOR": 6,
+      "PER": 2,
+      "CHA": 4,
       "INT": 2,
-      "SAG": 2,
-      "CHA": 4
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Spécial",
@@ -4712,12 +4795,13 @@
     "def": 18,
     "init": 12,
     "stats": {
-      "FOR": 6,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 6,
+      "FOR": 6,
+      "PER": 2,
+      "CHA": 4,
       "INT": 2,
-      "SAG": 2,
-      "CHA": 4
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Spécial",
@@ -4790,12 +4874,13 @@
     "def": 15,
     "init": 10,
     "stats": {
-      "FOR": 3,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 3,
+      "FOR": 3,
+      "PER": 0,
+      "CHA": -2,
       "INT": -2,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Plaine",
@@ -4824,12 +4909,13 @@
     "def": 19,
     "init": 10,
     "stats": {
-      "FOR": 5,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 3,
+      "FOR": 5,
+      "PER": 0,
+      "CHA": -2,
       "INT": -2,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Plaine",
@@ -4877,12 +4963,13 @@
     "def": 14,
     "init": 15,
     "stats": {
-      "FOR": -1,
-      "DEX": 2,
+      "AGI": 2,
       "CON": -1,
+      "FOR": -1,
+      "PER": 0,
+      "CHA": -2,
       "INT": -2,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Forêt",
@@ -4911,12 +4998,13 @@
     "def": 15,
     "init": 15,
     "stats": {
-      "FOR": -1,
-      "DEX": 2,
+      "AGI": 2,
       "CON": -1,
+      "FOR": -1,
+      "PER": 0,
+      "CHA": -2,
       "INT": -2,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Forêt",
@@ -4945,12 +5033,13 @@
     "def": 15,
     "init": 13,
     "stats": {
-      "FOR": 1,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 1,
+      "FOR": 1,
+      "PER": 0,
+      "CHA": -2,
       "INT": 0,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Forêt",
@@ -4979,12 +5068,13 @@
     "def": 17,
     "init": 10,
     "stats": {
-      "FOR": 4,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 4,
+      "FOR": 4,
+      "PER": 0,
+      "CHA": -2,
       "INT": -2,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Forêt",
@@ -5013,12 +5103,13 @@
     "def": 20,
     "init": 12,
     "stats": {
-      "FOR": 6,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 6,
+      "FOR": 6,
+      "PER": 0,
+      "CHA": -4,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -5075,12 +5166,13 @@
     "def": 24,
     "init": 10,
     "stats": {
-      "FOR": 8,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 8,
+      "FOR": 8,
+      "PER": 0,
+      "CHA": -4,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -5128,12 +5220,13 @@
     "def": 26,
     "init": 10,
     "stats": {
-      "FOR": 11,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 11,
+      "FOR": 11,
+      "PER": 0,
+      "CHA": -4,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -5190,12 +5283,13 @@
     "def": 18,
     "init": 18,
     "stats": {
-      "FOR": 5,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 5,
+      "FOR": 5,
+      "PER": 5,
+      "CHA": -2,
       "INT": -3,
-      "SAG": 5,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Forêt",
@@ -5234,12 +5328,13 @@
     "def": 24,
     "init": 16,
     "stats": {
-      "FOR": 9,
-      "DEX": 3,
+      "AGI": 3,
       "CON": 9,
+      "FOR": 9,
+      "PER": 2,
+      "CHA": -2,
       "INT": -2,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Forêt",
@@ -5305,12 +5400,13 @@
     "def": 15,
     "init": 12,
     "stats": {
-      "FOR": 1,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 1,
+      "FOR": 1,
+      "PER": 2,
+      "CHA": -4,
       "INT": 0,
-      "SAG": 2,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -5339,12 +5435,13 @@
     "def": 18,
     "init": 16,
     "stats": {
-      "FOR": 6,
-      "DEX": 3,
+      "AGI": 3,
       "CON": 6,
+      "FOR": 6,
+      "PER": 2,
+      "CHA": 0,
       "INT": -2,
-      "SAG": 2,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Forêt",
@@ -5383,12 +5480,13 @@
     "def": 16,
     "init": 16,
     "stats": {
-      "FOR": 1,
-      "DEX": 3,
+      "AGI": 3,
       "CON": 1,
+      "FOR": 1,
+      "PER": 0,
+      "CHA": 4,
       "INT": 0,
-      "SAG": 0,
-      "CHA": 4
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Marécage",
@@ -5427,12 +5525,13 @@
     "def": 16,
     "init": 12,
     "stats": {
-      "FOR": 6,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 6,
+      "FOR": 6,
+      "PER": 2,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -5471,12 +5570,13 @@
     "def": 14,
     "init": 12,
     "stats": {
-      "FOR": 1,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 1,
+      "FOR": 1,
+      "PER": 0,
+      "CHA": -2,
       "INT": 0,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Montagne",
@@ -5505,12 +5605,13 @@
     "def": 18,
     "init": 12,
     "stats": {
-      "FOR": 3,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 1,
+      "FOR": 3,
+      "PER": 0,
+      "CHA": -2,
       "INT": 0,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Montagne",
@@ -5558,12 +5659,13 @@
     "def": 15,
     "init": 10,
     "stats": {
-      "FOR": 3,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 3,
+      "FOR": 3,
+      "PER": 0,
+      "CHA": -2,
       "INT": -2,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Marécage",
@@ -5599,12 +5701,13 @@
     "def": 17,
     "init": 11,
     "stats": {
-      "FOR": 4,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 3,
+      "FOR": 4,
+      "PER": 0,
+      "CHA": 0,
       "INT": -2,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Marécage",
@@ -5643,12 +5746,13 @@
     "def": 18,
     "init": 10,
     "stats": {
-      "FOR": 8,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 8,
+      "FOR": 8,
+      "PER": 0,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Marécage",
@@ -5677,12 +5781,13 @@
     "def": 18,
     "init": 10,
     "stats": {
-      "FOR": 8,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 8,
+      "FOR": 8,
+      "PER": 0,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Marécage",
@@ -5711,12 +5816,13 @@
     "def": 15,
     "init": 19,
     "stats": {
-      "FOR": 1,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 1,
+      "FOR": 1,
+      "PER": 2,
+      "CHA": -4,
       "INT": -2,
-      "SAG": 2,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": null,
@@ -5745,12 +5851,13 @@
     "def": 17,
     "init": 17,
     "stats": {
-      "FOR": 3,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 3,
+      "FOR": 3,
+      "PER": 2,
+      "CHA": -4,
       "INT": -2,
-      "SAG": 2,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": null,
@@ -5779,12 +5886,13 @@
     "def": 18,
     "init": 17,
     "stats": {
-      "FOR": 8,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 8,
+      "FOR": 8,
+      "PER": 2,
+      "CHA": -4,
       "INT": -2,
-      "SAG": 2,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": null,
@@ -5813,12 +5921,13 @@
     "def": 20,
     "init": 16,
     "stats": {
-      "FOR": 12,
-      "DEX": 3,
+      "AGI": 3,
       "CON": 12,
+      "FOR": 12,
+      "PER": 2,
+      "CHA": -4,
       "INT": -2,
-      "SAG": 2,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": null,
@@ -5847,12 +5956,13 @@
     "def": 24,
     "init": 14,
     "stats": {
-      "FOR": 15,
-      "DEX": 3,
+      "AGI": 3,
       "CON": 15,
+      "FOR": 15,
+      "PER": 2,
+      "CHA": -4,
       "INT": -2,
-      "SAG": 2,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": null,
@@ -5881,12 +5991,13 @@
     "def": 14,
     "init": 15,
     "stats": {
-      "FOR": -1,
-      "DEX": 2,
+      "AGI": 2,
       "CON": -1,
+      "FOR": -1,
+      "PER": 0,
+      "CHA": -2,
       "INT": 0,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Forêt",
@@ -5922,12 +6033,13 @@
     "def": 16,
     "init": 15,
     "stats": {
-      "FOR": -1,
-      "DEX": 2,
+      "AGI": 2,
       "CON": -1,
+      "FOR": -1,
+      "PER": 2,
+      "CHA": -2,
       "INT": 0,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Forêt",
@@ -5973,12 +6085,13 @@
     "def": 16,
     "init": 15,
     "stats": {
-      "FOR": -1,
-      "DEX": 2,
+      "AGI": 2,
       "CON": -1,
+      "FOR": -1,
+      "PER": 2,
+      "CHA": -2,
       "INT": 0,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Forêt",
@@ -6017,12 +6130,13 @@
     "def": 21,
     "init": 15,
     "stats": {
-      "FOR": 3,
-      "DEX": 2,
+      "AGI": 2,
       "CON": 3,
+      "FOR": 3,
+      "PER": 2,
+      "CHA": -2,
       "INT": 4,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -6131,12 +6245,13 @@
     "def": 18,
     "init": 18,
     "stats": {
-      "FOR": 5,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 5,
+      "FOR": 5,
+      "PER": 4,
+      "CHA": 4,
       "INT": 0,
-      "SAG": 4,
-      "CHA": 4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Forêt",
@@ -6165,12 +6280,13 @@
     "def": 18,
     "init": 23,
     "stats": {
-      "FOR": 5,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 5,
+      "FOR": 5,
+      "PER": 2,
+      "CHA": -2,
       "INT": -3,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -6218,12 +6334,13 @@
     "def": 20,
     "init": 18,
     "stats": {
-      "FOR": 6,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 5,
+      "FOR": 6,
+      "PER": 2,
+      "CHA": 2,
       "INT": -4,
-      "SAG": 2,
-      "CHA": 2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -6271,12 +6388,13 @@
     "def": 21,
     "init": 18,
     "stats": {
-      "FOR": 6,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 5,
+      "FOR": 6,
+      "PER": 2,
+      "CHA": 2,
       "INT": -4,
-      "SAG": 2,
-      "CHA": 2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Forêt",
@@ -6324,12 +6442,13 @@
     "def": 22,
     "init": 23,
     "stats": {
-      "FOR": 8,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 8,
+      "FOR": 8,
+      "PER": 1,
+      "CHA": -4,
       "INT": -4,
-      "SAG": 1,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Montagne",
@@ -6377,12 +6496,13 @@
     "def": 14,
     "init": 12,
     "stats": {
-      "FOR": 1,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 1,
+      "FOR": 1,
+      "PER": 2,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Forêt",
@@ -6421,12 +6541,13 @@
     "def": 15,
     "init": 17,
     "stats": {
-      "FOR": 3,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 3,
+      "FOR": 3,
+      "PER": 2,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Forêt",
@@ -6465,12 +6586,13 @@
     "def": 17,
     "init": 17,
     "stats": {
-      "FOR": 3,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 3,
+      "FOR": 3,
+      "PER": 2,
+      "CHA": -2,
       "INT": -2,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Forêt",
@@ -6509,12 +6631,13 @@
     "def": 16,
     "init": 17,
     "stats": {
-      "FOR": 6,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 6,
+      "FOR": 6,
+      "PER": 2,
+      "CHA": -4,
       "INT": -3,
-      "SAG": 2,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Forêt",
@@ -6562,12 +6685,13 @@
     "def": 18,
     "init": 17,
     "stats": {
-      "FOR": 6,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 6,
+      "FOR": 6,
+      "PER": 2,
+      "CHA": -2,
       "INT": -2,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Montagne",
@@ -6631,12 +6755,13 @@
     "def": 15,
     "init": 17,
     "stats": {
-      "FOR": 3,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 3,
+      "FOR": 3,
+      "PER": 2,
+      "CHA": -2,
       "INT": -2,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Forêt",
@@ -6675,12 +6800,13 @@
     "def": 17,
     "init": 17,
     "stats": {
-      "FOR": 4,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 3,
+      "FOR": 4,
+      "PER": 2,
+      "CHA": -2,
       "INT": 0,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Forêt",
@@ -6726,12 +6852,13 @@
     "def": 14,
     "init": 18,
     "stats": {
-      "FOR": 1,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 1,
+      "FOR": 1,
+      "PER": 2,
+      "CHA": -4,
       "INT": -2,
-      "SAG": 2,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Marécage",
@@ -6760,12 +6887,13 @@
     "def": 16,
     "init": 22,
     "stats": {
-      "FOR": 1,
-      "DEX": 3,
+      "AGI": 3,
       "CON": 1,
+      "FOR": 1,
+      "PER": 2,
+      "CHA": -4,
       "INT": 0,
-      "SAG": 2,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Marécage",
@@ -6801,12 +6929,13 @@
     "def": 18,
     "init": 16,
     "stats": {
-      "FOR": 6,
-      "DEX": 3,
+      "AGI": 3,
       "CON": 6,
+      "FOR": 6,
+      "PER": 2,
+      "CHA": -2,
       "INT": -2,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Montagne",
@@ -6852,12 +6981,13 @@
     "def": 16,
     "init": 17,
     "stats": {
-      "FOR": 1,
-      "DEX": 3,
+      "AGI": 3,
       "CON": 1,
+      "FOR": 1,
+      "PER": 2,
+      "CHA": 4,
       "INT": 2,
-      "SAG": 2,
-      "CHA": 4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Marécage",
@@ -6900,12 +7030,13 @@
     "def": 16,
     "init": 13,
     "stats": {
-      "FOR": 6,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 6,
+      "FOR": 6,
+      "PER": 2,
+      "CHA": -2,
       "INT": -2,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Souterrain",
@@ -6951,12 +7082,13 @@
     "def": 18,
     "init": 13,
     "stats": {
-      "FOR": 6,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 6,
+      "FOR": 6,
+      "PER": 2,
+      "CHA": -2,
       "INT": -2,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Souterrain",
@@ -7020,12 +7152,13 @@
     "def": 17,
     "init": 13,
     "stats": {
-      "FOR": 5,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 3,
+      "FOR": 5,
+      "PER": 2,
+      "CHA": -2,
       "INT": -2,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": null,
@@ -7064,12 +7197,13 @@
     "def": 18,
     "init": 16,
     "stats": {
-      "FOR": 6,
-      "DEX": 3,
+      "AGI": 3,
       "CON": 6,
+      "FOR": 6,
+      "PER": 4,
+      "CHA": 4,
       "INT": 4,
-      "SAG": 4,
-      "CHA": 4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Marécage",
@@ -7223,12 +7357,13 @@
     "def": 18,
     "init": 16,
     "stats": {
-      "FOR": 6,
-      "DEX": 3,
+      "AGI": 3,
       "CON": 6,
+      "FOR": 6,
+      "PER": 4,
+      "CHA": 4,
       "INT": 4,
-      "SAG": 4,
-      "CHA": 4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Marécage",
@@ -7382,12 +7517,13 @@
     "def": 18,
     "init": 16,
     "stats": {
-      "FOR": 6,
-      "DEX": 3,
+      "AGI": 3,
       "CON": 6,
+      "FOR": 6,
+      "PER": 4,
+      "CHA": 4,
       "INT": 4,
-      "SAG": 4,
-      "CHA": 4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Marécage",
@@ -7541,12 +7677,13 @@
     "def": 15,
     "init": 10,
     "stats": {
-      "FOR": 3,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 3,
+      "FOR": 3,
+      "PER": 0,
+      "CHA": 0,
       "INT": 0,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Souterrain",
@@ -7592,12 +7729,13 @@
     "def": 15,
     "init": 10,
     "stats": {
-      "FOR": 3,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 3,
+      "FOR": 3,
+      "PER": 0,
+      "CHA": 0,
       "INT": 0,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Souterrain",
@@ -7633,12 +7771,13 @@
     "def": 16,
     "init": 18,
     "stats": {
-      "FOR": 0,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 0,
+      "FOR": 0,
+      "PER": 0,
+      "CHA": -4,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Marécage",
@@ -7667,12 +7806,13 @@
     "def": 16,
     "init": 18,
     "stats": {
-      "FOR": 0,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 0,
+      "FOR": 0,
+      "PER": 0,
+      "CHA": -4,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -7701,12 +7841,13 @@
     "def": 16,
     "init": 18,
     "stats": {
-      "FOR": 0,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 0,
+      "FOR": 0,
+      "PER": 0,
+      "CHA": -4,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -7735,12 +7876,13 @@
     "def": 16,
     "init": 18,
     "stats": {
-      "FOR": 0,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 0,
+      "FOR": 0,
+      "PER": 0,
+      "CHA": -4,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Forêt",
@@ -7769,12 +7911,13 @@
     "def": 16,
     "init": 18,
     "stats": {
-      "FOR": 0,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 0,
+      "FOR": 0,
+      "PER": 0,
+      "CHA": -4,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Forêt",
@@ -7803,12 +7946,13 @@
     "def": 16,
     "init": 18,
     "stats": {
-      "FOR": 0,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 0,
+      "FOR": 0,
+      "PER": 4,
+      "CHA": 6,
       "INT": 2,
-      "SAG": 4,
-      "CHA": 6
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Forêt",
@@ -7960,12 +8104,13 @@
     "def": 16,
     "init": 12,
     "stats": {
-      "FOR": 6,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 6,
+      "FOR": 6,
+      "PER": 0,
+      "CHA": -2,
       "INT": -2,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Forêt",
@@ -8004,12 +8149,13 @@
     "def": 20,
     "init": 12,
     "stats": {
-      "FOR": 6,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 6,
+      "FOR": 6,
+      "PER": 0,
+      "CHA": -2,
       "INT": -2,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Forêt",
@@ -8066,12 +8212,13 @@
     "def": 16,
     "init": 12,
     "stats": {
-      "FOR": 6,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 6,
+      "FOR": 6,
+      "PER": 2,
+      "CHA": 4,
       "INT": 2,
-      "SAG": 2,
-      "CHA": 4
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Montagne",
@@ -8189,12 +8336,13 @@
     "def": 14,
     "init": 12,
     "stats": {
-      "FOR": 1,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 1,
+      "FOR": 1,
+      "PER": 0,
+      "CHA": -2,
       "INT": -2,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Souterrain",
@@ -8223,12 +8371,13 @@
     "def": 15,
     "init": 10,
     "stats": {
-      "FOR": 3,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 3,
+      "FOR": 3,
+      "PER": 0,
+      "CHA": -2,
       "INT": -2,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Souterrain",
@@ -8257,12 +8406,13 @@
     "def": 15,
     "init": 10,
     "stats": {
-      "FOR": 3,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 3,
+      "FOR": 3,
+      "PER": 0,
+      "CHA": -2,
       "INT": -2,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Souterrain",
@@ -8291,12 +8441,13 @@
     "def": 17,
     "init": 10,
     "stats": {
-      "FOR": 4,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 3,
+      "FOR": 4,
+      "PER": 0,
+      "CHA": 0,
       "INT": -2,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Souterrain",
@@ -8335,12 +8486,13 @@
     "def": 16,
     "init": 12,
     "stats": {
-      "FOR": 1,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 1,
+      "FOR": 1,
+      "PER": 4,
+      "CHA": -2,
       "INT": -2,
-      "SAG": 4,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Souterrain",
@@ -8395,12 +8547,13 @@
     "def": 19,
     "init": 10,
     "stats": {
-      "FOR": 5,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 5,
+      "FOR": 5,
+      "PER": 0,
+      "CHA": 0,
       "INT": 0,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Souterrain",
@@ -8457,12 +8610,13 @@
     "def": 17,
     "init": 15,
     "stats": {
-      "FOR": 3,
-      "DEX": 2,
+      "AGI": 2,
       "CON": 3,
+      "FOR": 3,
+      "PER": 2,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Forêt",
@@ -8491,12 +8645,13 @@
     "def": 18,
     "init": 12,
     "stats": {
-      "FOR": 6,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 6,
+      "FOR": 6,
+      "PER": 2,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Forêt",
@@ -8535,12 +8690,13 @@
     "def": 22,
     "init": 10,
     "stats": {
-      "FOR": 11,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 11,
+      "FOR": 11,
+      "PER": 2,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Montagne",
@@ -8588,12 +8744,13 @@
     "def": 20,
     "init": 11,
     "stats": {
-      "FOR": 8,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 8,
+      "FOR": 8,
+      "PER": 2,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Montagne",
@@ -8641,12 +8798,13 @@
     "def": 16,
     "init": 12,
     "stats": {
-      "FOR": 6,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 6,
+      "FOR": 6,
+      "PER": 2,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Forêt",
@@ -8694,12 +8852,13 @@
     "def": 16,
     "init": 23,
     "stats": {
-      "FOR": 2,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 2,
+      "FOR": 2,
+      "PER": 2,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Forêt",
@@ -8738,12 +8897,13 @@
     "def": 15,
     "init": 10,
     "stats": {
-      "FOR": 4,
-      "DEX": 2,
+      "AGI": 2,
       "CON": 4,
+      "FOR": 4,
+      "PER": 2,
+      "CHA": 2,
       "INT": -4,
-      "SAG": 2,
-      "CHA": 2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -8782,12 +8942,13 @@
     "def": 22,
     "init": 16,
     "stats": {
-      "FOR": 9,
-      "DEX": 3,
+      "AGI": 3,
       "CON": 9,
+      "FOR": 9,
+      "PER": 2,
+      "CHA": -4,
       "INT": -2,
-      "SAG": 2,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Aquatique",
@@ -8816,12 +8977,13 @@
     "def": 15,
     "init": 24,
     "stats": {
-      "FOR": -2,
-      "DEX": 4,
+      "AGI": 4,
       "CON": -2,
+      "FOR": -2,
+      "PER": 2,
+      "CHA": 2,
       "INT": 2,
-      "SAG": 2,
-      "CHA": 2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Forêt",
@@ -8860,12 +9022,13 @@
     "def": 15,
     "init": 19,
     "stats": {
-      "FOR": -2,
-      "DEX": 4,
+      "AGI": 4,
       "CON": -2,
+      "FOR": -2,
+      "PER": 2,
+      "CHA": 2,
       "INT": 2,
-      "SAG": 2,
-      "CHA": 2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Forêt",
@@ -8983,12 +9146,13 @@
     "def": 13,
     "init": 13,
     "stats": {
-      "FOR": 1,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 1,
+      "FOR": 1,
+      "PER": 2,
+      "CHA": -4,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Marécage",
@@ -9017,12 +9181,13 @@
     "def": 18,
     "init": 10,
     "stats": {
-      "FOR": 8,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 8,
+      "FOR": 8,
+      "PER": 0,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -9061,12 +9226,13 @@
     "def": 15,
     "init": 10,
     "stats": {
-      "FOR": 3,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 3,
+      "FOR": 3,
+      "PER": 2,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Forêt",
@@ -9114,12 +9280,13 @@
     "def": 18,
     "init": 12,
     "stats": {
-      "FOR": 6,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 6,
+      "FOR": 6,
+      "PER": 2,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Forêt",
@@ -9176,12 +9343,13 @@
     "def": 15,
     "init": 15,
     "stats": {
-      "FOR": 3,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 3,
+      "FOR": 3,
+      "PER": 1,
+      "CHA": -4,
       "INT": -4,
-      "SAG": 1,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Forêt",
@@ -9220,12 +9388,13 @@
     "def": 15,
     "init": 21,
     "stats": {
-      "FOR": -3,
-      "DEX": 2,
+      "AGI": 2,
       "CON": 0,
+      "FOR": -3,
+      "PER": 2,
+      "CHA": -4,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -9264,12 +9433,13 @@
     "def": 10,
     "init": 10,
     "stats": {
-      "FOR": 8,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 8,
+      "FOR": 8,
+      "PER": 0,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Marécage",
@@ -9298,12 +9468,13 @@
     "def": 18,
     "init": 18,
     "stats": {
-      "FOR": 0,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 6,
+      "FOR": 0,
+      "PER": 2,
+      "CHA": 2,
       "INT": 0,
-      "SAG": 2,
-      "CHA": 2
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -9351,12 +9522,13 @@
     "def": 15,
     "init": 12,
     "stats": {
-      "FOR": -3,
-      "DEX": 3,
+      "AGI": 3,
       "CON": -3,
+      "FOR": -3,
+      "PER": 2,
+      "CHA": -4,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Marécage",
@@ -9385,12 +9557,13 @@
     "def": 22,
     "init": 8,
     "stats": {
-      "FOR": 13,
-      "DEX": -1,
+      "AGI": -1,
       "CON": 13,
+      "FOR": 13,
+      "PER": 4,
+      "CHA": 2,
       "INT": 2,
-      "SAG": 4,
-      "CHA": 2
+      "VOL": 0
     },
     "category": "Végétative",
     "environment": "Forêt",
@@ -9419,12 +9592,13 @@
     "def": 13,
     "init": 10,
     "stats": {
-      "FOR": 4,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 4,
+      "FOR": 4,
+      "PER": 2,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -9463,12 +9637,13 @@
     "def": 16,
     "init": 10,
     "stats": {
-      "FOR": 6,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 6,
+      "FOR": 6,
+      "PER": 2,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -9507,12 +9682,13 @@
     "def": 34,
     "init": 8,
     "stats": {
-      "FOR": 18,
-      "DEX": -1,
+      "AGI": -1,
       "CON": 18,
+      "FOR": 18,
+      "PER": 6,
+      "CHA": 6,
       "INT": 6,
-      "SAG": 6,
-      "CHA": 6
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Montagne",
@@ -9603,12 +9779,13 @@
     "def": 20,
     "init": 18,
     "stats": {
-      "FOR": 5,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 5,
+      "FOR": 5,
+      "PER": 4,
+      "CHA": 4,
       "INT": 4,
-      "SAG": 4,
-      "CHA": 4
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -9665,12 +9842,13 @@
     "def": 20,
     "init": 18,
     "stats": {
-      "FOR": 5,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 5,
+      "FOR": 5,
+      "PER": 4,
+      "CHA": 6,
       "INT": 6,
-      "SAG": 4,
-      "CHA": 6
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -9833,12 +10011,13 @@
     "def": 17,
     "init": 15,
     "stats": {
-      "FOR": 3,
-      "DEX": 2,
+      "AGI": 2,
       "CON": 3,
+      "FOR": 3,
+      "PER": 0,
+      "CHA": 0,
       "INT": 0,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -9877,12 +10056,13 @@
     "def": 18,
     "init": 13,
     "stats": {
-      "FOR": 8,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 8,
+      "FOR": 8,
+      "PER": 2,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Forêt",
@@ -9937,12 +10117,13 @@
     "def": 10,
     "init": 8,
     "stats": {
-      "FOR": 1,
-      "DEX": -1,
+      "AGI": -1,
       "CON": 1,
+      "FOR": 1,
+      "PER": -2,
+      "CHA": -4,
       "INT": -4,
-      "SAG": -2,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -9971,12 +10152,13 @@
     "def": 12,
     "init": 10,
     "stats": {
-      "FOR": 6,
-      "DEX": -1,
+      "AGI": -1,
       "CON": 6,
+      "FOR": 6,
+      "PER": 2,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -10005,12 +10187,13 @@
     "def": 12,
     "init": 13,
     "stats": {
-      "FOR": -2,
-      "DEX": 1,
+      "AGI": 1,
       "CON": -2,
+      "FOR": -2,
+      "PER": 0,
+      "CHA": 0,
       "INT": 0,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": null,
@@ -10039,12 +10222,13 @@
     "def": 10,
     "init": 10,
     "stats": {
-      "FOR": 0,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 0,
+      "FOR": 0,
+      "PER": 0,
+      "CHA": 0,
       "INT": 0,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": null,
@@ -10073,12 +10257,13 @@
     "def": 14,
     "init": 10,
     "stats": {
-      "FOR": 1,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 1,
+      "FOR": 1,
+      "PER": 0,
+      "CHA": 0,
       "INT": -2,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": null,
@@ -10107,12 +10292,13 @@
     "def": 10,
     "init": 11,
     "stats": {
-      "FOR": -1,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 0,
+      "FOR": -1,
+      "PER": 0,
+      "CHA": 2,
       "INT": 2,
-      "SAG": 0,
-      "CHA": 2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": null,
@@ -10151,12 +10337,13 @@
     "def": 15,
     "init": 10,
     "stats": {
-      "FOR": 3,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 3,
+      "FOR": 3,
+      "PER": 0,
+      "CHA": 0,
       "INT": 0,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": null,
@@ -10185,12 +10372,13 @@
     "def": 17,
     "init": 10,
     "stats": {
-      "FOR": 3,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 3,
+      "FOR": 3,
+      "PER": 0,
+      "CHA": 0,
       "INT": 0,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": null,
@@ -10229,12 +10417,13 @@
     "def": 19,
     "init": 10,
     "stats": {
-      "FOR": 3,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 3,
+      "FOR": 3,
+      "PER": 0,
+      "CHA": 0,
       "INT": 0,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": null,
@@ -10282,12 +10471,13 @@
     "def": 15,
     "init": 10,
     "stats": {
-      "FOR": 3,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 3,
+      "FOR": 3,
+      "PER": 0,
+      "CHA": 0,
       "INT": 0,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": null,
@@ -10353,12 +10543,13 @@
     "def": 19,
     "init": 10,
     "stats": {
-      "FOR": 3,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 3,
+      "FOR": 3,
+      "PER": 0,
+      "CHA": 0,
       "INT": 0,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": null,
@@ -10451,12 +10642,13 @@
     "def": 16,
     "init": 18,
     "stats": {
-      "FOR": 0,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 0,
+      "FOR": 0,
+      "PER": 2,
+      "CHA": 0,
       "INT": 0,
-      "SAG": 2,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": null,
@@ -10485,12 +10677,13 @@
     "def": 16,
     "init": 18,
     "stats": {
-      "FOR": 0,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 0,
+      "FOR": 0,
+      "PER": 2,
+      "CHA": 0,
       "INT": 0,
-      "SAG": 2,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": null,
@@ -10519,12 +10712,13 @@
     "def": 15,
     "init": 10,
     "stats": {
-      "FOR": 3,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 3,
+      "FOR": 3,
+      "PER": 0,
+      "CHA": 0,
       "INT": 0,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": null,
@@ -10563,12 +10757,13 @@
     "def": 18,
     "init": 18,
     "stats": {
-      "FOR": 0,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 0,
+      "FOR": 0,
+      "PER": 2,
+      "CHA": 0,
       "INT": 2,
-      "SAG": 2,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": null,
@@ -10607,12 +10802,13 @@
     "def": 18,
     "init": 18,
     "stats": {
-      "FOR": 0,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 0,
+      "FOR": 0,
+      "PER": 2,
+      "CHA": 0,
       "INT": 2,
-      "SAG": 2,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": null,
@@ -10651,12 +10847,13 @@
     "def": 20,
     "init": 18,
     "stats": {
-      "FOR": 0,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 0,
+      "FOR": 0,
+      "PER": 2,
+      "CHA": 0,
       "INT": 2,
-      "SAG": 2,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": null,
@@ -10704,12 +10901,13 @@
     "def": 22,
     "init": 18,
     "stats": {
-      "FOR": 0,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 0,
+      "FOR": 0,
+      "PER": 4,
+      "CHA": 0,
       "INT": 2,
-      "SAG": 4,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": null,
@@ -10766,12 +10964,13 @@
     "def": 26,
     "init": 18,
     "stats": {
-      "FOR": 0,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 0,
+      "FOR": 0,
+      "PER": 4,
+      "CHA": 2,
       "INT": 2,
-      "SAG": 4,
-      "CHA": 2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": null,
@@ -10846,12 +11045,13 @@
     "def": 16,
     "init": 19,
     "stats": {
-      "FOR": -4,
-      "DEX": 4,
+      "AGI": 4,
       "CON": -4,
+      "FOR": -4,
+      "PER": 0,
+      "CHA": 0,
       "INT": 0,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": null,
@@ -10880,12 +11080,13 @@
     "def": 15,
     "init": 17,
     "stats": {
-      "FOR": -3,
-      "DEX": 3,
+      "AGI": 3,
       "CON": -3,
+      "FOR": -3,
+      "PER": 0,
+      "CHA": 0,
       "INT": 0,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": null,

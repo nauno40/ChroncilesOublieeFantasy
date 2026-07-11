@@ -294,11 +294,11 @@ export const CampaignDetail: React.FC = () => {
     const creaturePool: GeneratorCreature[] = [
         ...creatures.map(c => ({
             referenceId: String(c.id), name: c.name, source: 'bestiary' as const,
-            nc: c.nc, hp: c.hp, def: c.def, init: c.init, per: c.stats?.SAG ?? 0, environment: c.environment,
+            nc: c.nc, hp: c.hp, def: c.def, init: c.init, per: c.stats?.PER ?? 0, environment: c.environment,
         })),
         ...customMonsters.map(c => ({
             referenceId: `${CUSTOM_PREFIX}${c.id}`, name: c.name, source: 'custom' as const,
-            nc: c.nc, hp: c.hp, def: c.def, init: c.init, per: c.stats?.SAG ?? 0, environment: c.environment,
+            nc: c.nc, hp: c.hp, def: c.def, init: c.init, per: c.stats?.PER ?? 0, environment: c.environment,
         })),
     ];
     // Base groupe effective (saisie du générateur, sinon défaut campagne).
@@ -359,7 +359,7 @@ export const CampaignDetail: React.FC = () => {
             initiative: creature.init,
             hp: creature.hp,
             def: creature.def,
-            per: creature.stats?.SAG ?? 0,
+            per: creature.stats?.PER ?? 0,
             nc: creature.nc,
         }]);
         setPickerId('');

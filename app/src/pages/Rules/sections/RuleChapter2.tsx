@@ -249,7 +249,7 @@ export const RuleChapter2: React.FC = () => {
                                 <strong>Inconscient :</strong> Perte de 1 DR immédiatement.
                                 <div className="text-xs text-stone-400 mt-1">
                                     <strong>Mort :</strong> Si pas de soins sous 1 heure (ou achevé).<br />
-                                    <strong>Stabilisation :</strong> Test de SAG diff 10 (ou soins magiques).
+                                    <strong>Premiers soins :</strong> Test d'INT (Médecine) diff. 10 (ou soins magiques).
                                 </div>
                             </div>
                         </div>

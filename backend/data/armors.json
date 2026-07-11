@@ -52,23 +52,23 @@
     "name": "Cotte de mailles",
     "type": "Corps",
     "defense": "+5 ",
-    "price": "20 pa",
-    "comments": ""
+    "price": "25 pa",
+    "comments": "AGI max +3."
   },
   {
-    "id": "demiplaque",
-    "name": "Demi-plaque",
+    "id": "armure_de_plaques",
+    "name": "Armure de plaques",
     "type": "Corps",
     "defense": "+6 ",
-    "price": "50 pa",
-    "comments": "Très rare."
+    "price": "60 pa",
+    "comments": "AGI max +2."
   },
   {
     "id": "plaque_complete",
     "name": "Plaque complète",
     "type": "Corps",
-    "defense": "+8 ",
+    "defense": "+7 ",
     "price": "200 pa",
-    "comments": "Très rare. Fabriquée sur mesure, seul le profil de Chevalier est formé au port de cette armure au niveau 1."
+    "comments": "AGI max +1. Fabriquée sur mesure ; seul le chevalier peut la porter, grâce à la capacité de rang 3 de la voie de la noblesse."
   }
 ]

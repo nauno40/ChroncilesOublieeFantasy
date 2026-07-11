@@ -25,10 +25,10 @@
     "id": "arbalete_lourde",
     "name": "Arbalète lourde",
     "type": "Distance (simple)",
-    "damage": "3d4",
+    "damage": "2d6",
     "range": "60 m",
     "critical": "20",
-    "price": "12 pa",
+    "price": "15 pa",
     "isRanged": true,
     "reload": "Action limitée"
   },
@@ -50,10 +50,10 @@
     "damage": "1d8",
     "range": "50 m",
     "critical": "20",
-    "price": "5 pa",
+    "price": "8 pa",
     "isRanged": true,
     "reload": "Pas d'action",
-    "requirements": "FOR min. 13"
+    "requirements": "Valeur minimale de +1 en FOR"
   },
   {
     "id": "baton",

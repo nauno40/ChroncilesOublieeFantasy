@@ -253,12 +253,14 @@ export interface Creature {
     def: number;
     init: number;
     stats: {
-        FOR: number;
-        DEX: number;
+        // Caractéristiques COF2 (7) — ordre du profil de créature du livre.
+        AGI: number;
         CON: number;
-        INT: number;
-        SAG: number;
+        FOR: number;
+        PER: number;
         CHA: number;
+        INT: number;
+        VOL: number;
     };
     family?: {
         id: number;
@@ -302,12 +304,14 @@ export interface CustomCreature {
     def: number;
     init: number;
     stats?: {
-        FOR: number;
-        DEX: number;
+        // Caractéristiques COF2 (7) — ordre du profil de créature du livre.
+        AGI: number;
         CON: number;
-        INT: number;
-        SAG: number;
+        FOR: number;
+        PER: number;
         CHA: number;
+        INT: number;
+        VOL: number;
     };
     specialAbilities?: {
         text: string;

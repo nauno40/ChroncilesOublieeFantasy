@@ -1,5 +1,266 @@
 [
   {
+    "id": "baton",
+    "name": "Bâton",
+    "type": "Contact",
+    "damage": "1d4",
+    "range": "",
+    "critical": "20",
+    "price": "",
+    "isRanged": false,
+    "reload": "Pas d'action"
+  },
+  {
+    "id": "baton_ferre",
+    "name": "Bâton ferré",
+    "type": "Contact",
+    "damage": "1d6",
+    "range": "",
+    "critical": "20",
+    "price": "2 pa",
+    "isRanged": false,
+    "reload": "Pas d'action"
+  },
+  {
+    "id": "dague",
+    "name": "Dague",
+    "type": "Contact",
+    "damage": "1d4",
+    "range": "5 m",
+    "critical": "20",
+    "price": "3 pa",
+    "isRanged": true,
+    "reload": "Pas d'action"
+  },
+  {
+    "id": "fleau",
+    "name": "Fléau",
+    "type": "Contact",
+    "damage": "1d6",
+    "range": "",
+    "critical": "20",
+    "price": "5 pa",
+    "isRanged": false,
+    "reload": "Pas d'action",
+    "comments": "Relance une attaque ratée/combat contre un adversaire avec bouclier ou arme"
+  },
+  {
+    "id": "fleau_a_2_mains",
+    "name": "Fléau à deux mains",
+    "type": "Contact",
+    "damage": "1d10",
+    "range": "",
+    "critical": "20",
+    "price": "8 pa",
+    "isRanged": false,
+    "reload": "Pas d'action",
+    "comments": "Arme à deux mains ; relance une attaque ratée/combat"
+  },
+  {
+    "id": "gourdin",
+    "name": "Gourdin",
+    "type": "Contact",
+    "damage": "1d4",
+    "range": "",
+    "critical": "20",
+    "price": "1 pa",
+    "isRanged": false,
+    "reload": "Pas d'action"
+  },
+  {
+    "id": "hache_a_1_main",
+    "name": "Hache à 1 main",
+    "type": "Contact",
+    "damage": "1d8",
+    "range": "",
+    "critical": "20",
+    "price": "6 pa",
+    "isRanged": false,
+    "reload": "Pas d'action"
+  },
+  {
+    "id": "hache_a_2_mains",
+    "name": "Hache à 2 mains",
+    "type": "Contact",
+    "damage": "2d6",
+    "range": "",
+    "critical": "20",
+    "price": "10 pa",
+    "isRanged": false,
+    "reload": "Pas d'action"
+  },
+  {
+    "id": "katana",
+    "name": "Katana",
+    "type": "Contact",
+    "damage": "1d10",
+    "range": "",
+    "critical": "19",
+    "price": "12 pa",
+    "isRanged": false,
+    "reload": "Pas d'action"
+  },
+  {
+    "id": "lance",
+    "name": "Lance",
+    "type": "Contact",
+    "damage": "1d6 à 1 main, 1d10 à 2 mains",
+    "range": "10 m",
+    "critical": "20",
+    "price": "4 pa",
+    "isRanged": true,
+    "reload": "Pas d'action",
+    "comments": "Arme à une ou deux mains ; lancée 1d6 à 10 m"
+  },
+  {
+    "id": "lance_de_cavalerie",
+    "name": "Lance de cavalerie",
+    "type": "Contact",
+    "damage": "2d6",
+    "range": "",
+    "critical": "20",
+    "price": "10 pa",
+    "isRanged": false,
+    "reload": "Pas d'action",
+    "requirements": "Utilisable uniquement à cheval ; dé malus au contact classique"
+  },
+  {
+    "id": "mains_nues",
+    "name": "Mains nues",
+    "type": "Contact",
+    "damage": "1d3",
+    "range": "",
+    "critical": "20",
+    "price": "",
+    "isRanged": false,
+    "reload": "Pas d'action",
+    "comments": "DM temporaires"
+  },
+  {
+    "id": "marteau_de_guerre",
+    "name": "Marteau de guerre",
+    "type": "Contact",
+    "damage": "1d6",
+    "range": "",
+    "critical": "20",
+    "price": "4 pa",
+    "isRanged": false,
+    "reload": "Pas d'action"
+  },
+  {
+    "id": "masse_d_armes",
+    "name": "Masse d'armes",
+    "type": "Contact",
+    "damage": "1d6",
+    "range": "",
+    "critical": "20",
+    "price": "4 pa",
+    "isRanged": false,
+    "reload": "Pas d'action"
+  },
+  {
+    "id": "pique",
+    "name": "Pique",
+    "type": "Contact",
+    "damage": "1d10",
+    "range": "",
+    "critical": "20",
+    "price": "5 pa",
+    "isRanged": false,
+    "reload": "Pas d'action",
+    "comments": "Arme à deux mains ; double les DM contre une grande créature qui charge ; permet d'attaquer depuis le second rang (-5)"
+  },
+  {
+    "id": "rapiere",
+    "name": "Rapière",
+    "type": "Contact",
+    "damage": "1d6",
+    "range": "",
+    "critical": "19",
+    "price": "6 pa",
+    "isRanged": false,
+    "reload": "Pas d'action"
+  },
+  {
+    "id": "stylet",
+    "name": "Stylet",
+    "type": "Contact",
+    "damage": "1d3",
+    "range": "",
+    "critical": "20",
+    "price": "1 pa",
+    "isRanged": false,
+    "reload": "Pas d'action",
+    "comments": "Arme légère ; pas de FOR aux DM ; 1d6+AGI si l'adversaire est surpris (taille moyenne/petite)"
+  },
+  {
+    "id": "vivelame",
+    "name": "Vivelame",
+    "type": "Contact",
+    "damage": "1d10",
+    "range": "",
+    "critical": "19",
+    "price": "15 pa",
+    "isRanged": false,
+    "reload": "Pas d'action"
+  },
+  {
+    "id": "epieu",
+    "name": "Épieu",
+    "type": "Contact",
+    "damage": "1d6 à 1 main, 1d10 à 2 mains",
+    "range": "10 m",
+    "critical": "20",
+    "price": "4 pa",
+    "isRanged": true,
+    "reload": "Pas d'action",
+    "comments": "Arme à une ou deux mains ; lancée 1d6 à 10 m"
+  },
+  {
+    "id": "epee_batarde",
+    "name": "Épée bâtarde",
+    "type": "Contact",
+    "damage": "1d8 à 1 main, 1d12 à 2 mains",
+    "range": "",
+    "critical": "20",
+    "price": "9 pa",
+    "isRanged": false,
+    "reload": "Pas d'action"
+  },
+  {
+    "id": "epee_courte",
+    "name": "Épée courte",
+    "type": "Contact",
+    "damage": "1d6",
+    "range": "",
+    "critical": "20",
+    "price": "5 pa",
+    "isRanged": false,
+    "reload": "Pas d'action"
+  },
+  {
+    "id": "epee_longue",
+    "name": "Épée longue",
+    "type": "Contact",
+    "damage": "1d8",
+    "range": "",
+    "critical": "20",
+    "price": "6 pa",
+    "isRanged": false,
+    "reload": "Pas d'action"
+  },
+  {
+    "id": "epee_a_2_mains",
+    "name": "Épée à 2 mains",
+    "type": "Contact",
+    "damage": "2d6",
+    "range": "",
+    "critical": "20",
+    "price": "10 pa",
+    "isRanged": false,
+    "reload": "Pas d'action"
+  },
+  {
     "id": "arbalete_de_poing",
     "name": "Arbalète de poing",
     "type": "Distance (simple)",
@@ -8,7 +269,18 @@
     "critical": "20",
     "price": "8 pa",
     "isRanged": true,
-    "reload": "Action simple"
+    "reload": "Action de mouvement"
+  },
+  {
+    "id": "arbalete_lourde",
+    "name": "Arbalète lourde",
+    "type": "Distance (simple)",
+    "damage": "2d6",
+    "range": "60 m",
+    "critical": "20",
+    "price": "15 pa",
+    "isRanged": true,
+    "reload": "Action limitée"
   },
   {
     "id": "arbalete_legere",
@@ -19,18 +291,7 @@
     "critical": "20",
     "price": "10 pa",
     "isRanged": true,
-    "reload": "Action simple"
-  },
-  {
-    "id": "arbalete_lourde",
-    "name": "Arbalète lourde",
-    "type": "Distance (simple)",
-    "damage": "3d4",
-    "range": "60 m",
-    "critical": "20",
-    "price": "12 pa",
-    "isRanged": true,
-    "reload": "Action limitée"
+    "reload": "Action de mouvement"
   },
   {
     "id": "arc_court",
@@ -50,87 +311,22 @@
     "damage": "1d8",
     "range": "50 m",
     "critical": "20",
-    "price": "5 pa",
+    "price": "8 pa",
     "isRanged": true,
     "reload": "Pas d'action",
-    "requirements": "FOR min. 13"
+    "requirements": "Valeur minimale de +1 en FOR"
   },
   {
-    "id": "baton",
-    "name": "Bâton",
-    "type": "Contact",
+    "id": "couteaux_de_lancer",
+    "name": "Couteaux de lancer",
+    "type": "Distance (simple)",
     "damage": "1d4",
-    "range": "",
-    "critical": "20",
-    "price": "",
-    "isRanged": true,
-    "reload": "Pas d'action"
-  },
-  {
-    "id": "baton_ferre",
-    "name": "Bâton ferré",
-    "type": "Contact",
-    "damage": "1d6",
-    "range": "",
-    "critical": "20",
-    "price": "2 pa",
-    "isRanged": true,
-    "reload": "Pas d'action"
-  },
-  {
-    "id": "dague",
-    "name": "Dague",
-    "type": "Contact",
-    "damage": "1d4",
-    "range": "5 m",
+    "range": "10 m",
     "critical": "20",
     "price": "3 pa",
     "isRanged": true,
-    "reload": "Pas d'action"
-  },
-  {
-    "id": "epee_a_2_mains",
-    "name": "Épée à 2 mains",
-    "type": "Contact",
-    "damage": "2d6",
-    "range": "",
-    "critical": "20",
-    "price": "10 pa",
-    "isRanged": true,
-    "reload": "Pas d'action"
-  },
-  {
-    "id": "epee_batarde",
-    "name": "Épée bâtarde",
-    "type": "Contact",
-    "damage": "1d8 à 1 main, 1d12 à 2 mains",
-    "range": "",
-    "critical": "20",
-    "price": "9 pa",
-    "isRanged": true,
-    "reload": "Pas d'action"
-  },
-  {
-    "id": "epee_courte",
-    "name": "Épée courte",
-    "type": "Contact",
-    "damage": "1d6",
-    "range": "",
-    "critical": "20",
-    "price": "5 pa",
-    "isRanged": true,
-    "reload": "Pas d'action"
-  },
-  {
-    "id": "epee_longue",
-    "name": "Épée longue",
-    "type": "Contact",
-    "damage": "1d8",
-    "range": "",
-    "critical": "20",
-    "price": "6 pa",
-    "isRanged": true,
-    "reload": "Pas d'action"
+    "reload": "Pas d'action",
+    "comments": "1d3 au contact ; jusqu'à 3 couteaux en une action limitée (+AGI aux DM)"
   },
   {
     "id": "fronde",
@@ -140,39 +336,6 @@
     "range": "20 m",
     "critical": "20",
     "price": "",
-    "isRanged": true,
-    "reload": "Pas d'action"
-  },
-  {
-    "id": "gourdin",
-    "name": "Gourdin",
-    "type": "Contact",
-    "damage": "1d4",
-    "range": "",
-    "critical": "20",
-    "price": "1 pa",
-    "isRanged": true,
-    "reload": "Pas d'action"
-  },
-  {
-    "id": "hache_a_1_main",
-    "name": "Hache à 1 main",
-    "type": "Contact",
-    "damage": "1d8",
-    "range": "",
-    "critical": "20",
-    "price": "6 pa",
-    "isRanged": true,
-    "reload": "Pas d'action"
-  },
-  {
-    "id": "hache_a_2_mains",
-    "name": "Hache à 2 mains",
-    "type": "Contact",
-    "damage": "2d6",
-    "range": "",
-    "critical": "20",
-    "price": "10 pa",
     "isRanged": true,
     "reload": "Pas d'action"
   },
@@ -194,42 +357,21 @@
     "damage": "1d6",
     "range": "20 m",
     "critical": "20",
-    "price": "6 pa",
+    "price": "1 pa",
     "isRanged": true,
     "reload": "Pas d'action"
   },
   {
-    "id": "katana",
-    "name": "Katana",
-    "type": "Contact",
-    "damage": "1d10",
-    "range": "",
-    "critical": "19",
-    "price": "12 pa",
-    "isRanged": true,
-    "reload": "Pas d'action"
-  },
-  {
-    "id": "marteau_de_guerre",
-    "name": "Marteau de guerre",
-    "type": "Contact",
-    "damage": "1d6",
-    "range": "",
+    "id": "lance_pierre",
+    "name": "Lance-pierre",
+    "type": "Distance (simple)",
+    "damage": "1d3",
+    "range": "10 m",
     "critical": "20",
-    "price": "4 pa",
+    "price": "1 pc",
     "isRanged": true,
-    "reload": "Pas d'action"
-  },
-  {
-    "id": "masse_d_armes",
-    "name": "Masse d'armes",
-    "type": "Contact",
-    "damage": "1d6",
-    "range": "",
-    "critical": "20",
-    "price": "4 pa",
-    "isRanged": true,
-    "reload": "Pas d'action"
+    "reload": "Pas d'action",
+    "comments": ""
   },
   {
     "id": "mousquet",
@@ -238,7 +380,7 @@
     "damage": "2d6",
     "range": "50 m",
     "critical": "20",
-    "price": "20 pa",
+    "price": "100 pa",
     "isRanged": true,
     "reload": "Action limitée"
   },
@@ -249,42 +391,8 @@
     "damage": "1d10",
     "range": "20 m",
     "critical": "20",
-    "price": "15 pa",
+    "price": "50 pa",
     "isRanged": true,
     "reload": "Action limitée"
-  },
-  {
-    "id": "rapiere",
-    "name": "Rapière",
-    "type": "Contact",
-    "damage": "1d6",
-    "range": "",
-    "critical": "19",
-    "price": "6 pa",
-    "isRanged": true,
-    "reload": "Pas d'action"
-  },
-  {
-    "id": "vivelame",
-    "name": "Vivelame",
-    "type": "Contact",
-    "damage": "1d10",
-    "range": "",
-    "critical": "19",
-    "price": "12 pa",
-    "isRanged": true,
-    "reload": "Pas d'action"
-  },
-  {
-    "id": "lance_de_cavalerie",
-    "name": "Lance de cavalerie",
-    "type": "Contact",
-    "damage": "2d6",
-    "range": "",
-    "critical": "20",
-    "price": "10 pa",
-    "isRanged": false,
-    "reload": "Pas d'action",
-    "requirements": "Chevalier uniquement"
   }
 ]

@@ -18,6 +18,10 @@ interface Props {
     shape: 'round' | 'gem';
     /** Optional badge rendered after "Rang N" (e.g. mage free-rank-2 marker). */
     badge?: React.ReactNode;
+    /** Rang verrouillé par le niveau (non encore accessible) : grisé, non sélectionnable. */
+    locked?: boolean;
+    /** Libellé du verrou (ex. « Niv. 5 »), affiché quand `locked` et inactif. */
+    lockedLabel?: string;
 }
 
 const THEME = {
@@ -37,9 +41,10 @@ const THEME = {
     },
 };
 
-export const CapabilityNode: React.FC<Props> = ({ rank, isActive, nextActive, cap, onChange, theme, shape, badge }) => {
+export const CapabilityNode: React.FC<Props> = ({ rank, isActive, nextActive, cap, onChange, theme, shape, badge, locked, lockedLabel }) => {
     const t = THEME[theme];
     const shapeClass = shape === 'round' ? 'rounded-full' : 'rounded rotate-45';
+    const isLocked = !!locked && !isActive;
 
     return (
         <div className="relative">
@@ -49,9 +54,11 @@ export const CapabilityNode: React.FC<Props> = ({ rank, isActive, nextActive, ca
             )}
 
             <Tooltip content={cap ? { name: cap.name, description: cap.description } : { name: `Rang ${rank}`, description: '' }} theme={theme}>
-                <label className={`relative z-10 flex items-start gap-4 p-3 rounded-xl border transition-all duration-300 cursor-pointer ${isActive
-                    ? t.activeLabel
-                    : 'bg-stone-950/40 border-white/5 hover:bg-stone-900/60 hover:border-white/10'
+                <label className={`relative z-10 flex items-start gap-4 p-3 rounded-xl border transition-all duration-300 ${isActive
+                    ? t.activeLabel + ' cursor-pointer'
+                    : isLocked
+                        ? 'bg-stone-950/40 border-white/5 opacity-40 cursor-not-allowed'
+                        : 'bg-stone-950/40 border-white/5 hover:bg-stone-900/60 hover:border-white/10 cursor-pointer'
                     }`}>
                     <input
                         type="checkbox"
@@ -72,6 +79,9 @@ export const CapabilityNode: React.FC<Props> = ({ rank, isActive, nextActive, ca
                         <span className={`font-bold text-[10px] uppercase tracking-[0.1em] ${isActive ? t.rank : 'text-stone-500'}`}>
                             Rang {rank}
                             {badge}
+                            {isLocked && lockedLabel && (
+                                <span className="ml-2 text-stone-500 normal-case tracking-normal">🔒 {lockedLabel}</span>
+                            )}
                         </span>
                         {cap && <span className={`font-display text-sm transition-colors duration-300 ${isActive ? 'text-white text-shadow-md' : 'text-stone-400'}`}>{cap.name}</span>}
                     </div>

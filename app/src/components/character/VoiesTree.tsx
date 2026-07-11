@@ -2,6 +2,7 @@ import React from 'react';
 import { RefreshCw, Trash2 } from 'lucide-react';
 import { Tooltip } from '../common';
 import { CapabilityNode } from './CapabilityNode';
+import { canAcquireRank, rankUnlockLevel, type VoieKind } from '../../utils/cofRules';
 import type { Character } from '../../types/character';
 import type {
     GetCapabilityName,
@@ -45,18 +46,60 @@ export const VoiesTree: React.FC<Props> = ({
     setShowPrestigeSelector,
     prestigePaths,
 }) => {
+    const level = character.level ?? 0;
+
+    // Un rang 2 est-il déjà pris dans une autre voie normale (pour le bonus mage) ?
+    const countRank2 = (excludeKind: VoieKind, excludeIdx?: number): number => {
+        let n = 0;
+        if (excludeKind !== 'racial' && character.data?.voies?.racial?.ranks?.[1]) n++;
+        character.data?.voies?.profile?.forEach((p, i) => {
+            if (excludeKind === 'profile' && i === excludeIdx) return;
+            if (p.ranks?.[1]) n++;
+        });
+        return n;
+    };
+
+    // Valide l'acquisition d'un rang (prérequis, niveau requis, budget) via les règles COF2.
+    const validateAcquire = (
+        rank: number,
+        prevRanks: boolean[],
+        voieKind: VoieKind,
+        excludeIdx?: number,
+    ): boolean => {
+        const res = canAcquireRank(rank, rank === 1 || !!prevRanks[rank - 2], voieKind, {
+            level,
+            isMageFamily,
+            spentPoints,
+            budget: maxStartingPoints,
+            hasOtherRank2: countRank2(voieKind, excludeIdx) > 0,
+        });
+        if (!res.ok) {
+            alert(res.reason);
+            return false;
+        }
+        return true;
+    };
+
+    // Décocher un rang retire aussi tous les rangs supérieurs (pas de voie à trous).
+    const clearFromRank = (ranks: boolean[], rank: number): boolean[] =>
+        ranks.map((v, i) => (i >= rank - 1 ? false : v));
+
+    // Props de verrouillage visuel d'un rang selon le niveau requis (COF2).
+    const lockProps = (rank: number, voieKind: VoieKind) => {
+        const req = rankUnlockLevel(rank, voieKind, isMageFamily);
+        return { locked: Math.max(1, level) < req, lockedLabel: `Niv. ${req}` };
+    };
+
     return (
                     <div className="space-y-6 pt-8 border-t border-white/10 overflow-visible">
                         <h2 className="text-2xl font-display font-bold text-white mb-6 flex items-center justify-between">
                             <span>Voies & Progression</span>
-                            {character.level === 0 && (
-                                <span className={`text-base px-3 py-1 rounded-full border ${spentPoints > maxStartingPoints ? 'bg-red-900/30 border-red-500 text-red-200' :
-                                    spentPoints === maxStartingPoints ? 'bg-green-900/30 border-green-500 text-green-200' :
-                                        'bg-primary-900/30 border-primary-500 text-primary-200'
-                                    }`}>
-                                    Points à répartir : {maxStartingPoints - spentPoints} / {maxStartingPoints}
-                                </span>
-                            )}
+                            <span className={`text-base px-3 py-1 rounded-full border ${spentPoints > maxStartingPoints ? 'bg-red-900/30 border-red-500 text-red-200' :
+                                spentPoints === maxStartingPoints ? 'bg-green-900/30 border-green-500 text-green-200' :
+                                    'bg-primary-900/30 border-primary-500 text-primary-200'
+                                }`}>
+                                Points de capacité : {maxStartingPoints - spentPoints} / {maxStartingPoints}
+                            </span>
                         </h2>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 overflow-visible">
@@ -130,53 +173,18 @@ export const VoiesTree: React.FC<Props> = ({
                                                 cap={cap}
                                                 theme="primary"
                                                 shape="round"
+                                                {...lockProps(rank, 'racial')}
                                                 onChange={e => {
                                                     if (character.level === 0 && rank === 1) return; // Locked / Free / Auto
 
-                                                    // Mage Bonus Point for Rank 2
-                                                    // Handled by generic point calculation check below
-                                                    if (character.level === 0 && rank === 2 && isMageFamily) {
-                                                        // Allow if not already taken or if we have points
-                                                        // But we need to check limit.
-                                                        // Calculate effective cost:
-                                                        let cost = 1;
-                                                        // Check if we ALREADY have a Rank 2 somewhere else (excluding this one if we are unchecking? No, unchecking is always allowed)
-                                                        // If checking:
-                                                        if (e.target.checked) {
-                                                            let hasRank2 = false;
+                                                    let newRanks = [...(character.data?.voies?.racial?.ranks || [])];
 
-                                                            // Check Profile
-                                                            if (character.data?.voies?.profile) {
-                                                                character.data.voies.profile.forEach(p => {
-                                                                    if (p.ranks?.[1]) hasRank2 = true;
-                                                                });
-                                                            }
-
-                                                            // If this is the FIRST Rank 2, cost is 0
-                                                            if (!hasRank2) cost = 0;
-                                                        }
-
-                                                        if (spentPoints + cost > maxStartingPoints) {
-                                                            alert(`Vous avez déjà dépensé vos ${maxStartingPoints} points !`);
-                                                            return;
-                                                        }
-                                                    } else if (character.level === 0 && rank !== 1) {
-                                                        // Normal check for non-mage rank 2 or other ranks
-                                                        if (spentPoints >= maxStartingPoints && e.target.checked) {
-                                                            alert(`Vous avez déjà dépensé vos ${maxStartingPoints} points !`);
-                                                            return;
-                                                        }
+                                                    if (e.target.checked) {
+                                                        if (!validateAcquire(rank, newRanks, 'racial')) return;
+                                                        newRanks[rank - 1] = true;
+                                                    } else {
+                                                        newRanks = clearFromRank(newRanks, rank);
                                                     }
-
-                                                    const newRanks = [...(character.data?.voies?.racial?.ranks || [])];
-
-                                                    // Rule: Prerequisite
-                                                    if (e.target.checked && rank > 1 && !newRanks[rank - 2]) {
-                                                        alert("Vous devez posséder le rang précédent !");
-                                                        return;
-                                                    }
-
-                                                    newRanks[rank - 1] = e.target.checked;
                                                     setCharacter(prev => ({
                                                         ...prev,
                                                         data: {
@@ -278,63 +286,17 @@ export const VoiesTree: React.FC<Props> = ({
                                                         cap={cap}
                                                         theme="primary"
                                                         shape="gem"
+                                                        {...lockProps(rank, 'profile')}
                                                         onChange={e => {
                                                             const newProfileVoies = [...(character.data?.voies?.profile || [])];
-                                                            const newRanks = [...(newProfileVoies[vIdx].ranks || [])];
+                                                            let newRanks = [...(newProfileVoies[vIdx].ranks || [])];
 
-                                                            // Level 0 Logic
-                                                            if (character.level === 0) {
-                                                                // Only Rank 1 and 2 allowed
-                                                                if (rank > 2) {
-                                                                    alert("Au niveau 0, seuls les Rangs 1 et 2 sont accessibles.");
-                                                                    return;
-                                                                }
-
-                                                                if (e.target.checked) {
-                                                                    // Check limits
-                                                                    let cost = 1;
-
-                                                                    // Mage Free Rank 2 Logic
-                                                                    if (rank === 2 && isMageFamily) {
-                                                                        let hasRank2 = false;
-                                                                        // Check Racial
-                                                                        if (character.data?.voies?.racial?.ranks?.[1]) hasRank2 = true;
-
-                                                                        // Check Profiles (excluding this one? No, current state doesn't have it yet)
-                                                                        if (!hasRank2 && character.data?.voies?.profile) {
-                                                                            character.data.voies.profile.forEach((p, idx) => {
-                                                                                if (idx !== vIdx && p.ranks?.[1]) hasRank2 = true;
-                                                                            });
-                                                                        }
-                                                                        if (!hasRank2) cost = 0;
-                                                                    }
-
-                                                                    if (spentPoints + cost > maxStartingPoints) {
-                                                                        alert(`Vous avez déjà dépensé vos ${maxStartingPoints} points !`);
-                                                                        return;
-                                                                    }
-                                                                    // Prerequisite constraint for Rank 2
-                                                                    if (rank === 2 && !newRanks[0]) {
-                                                                        alert("Vous devez prendre le Rang 1 avant le Rang 2.");
-                                                                        return;
-                                                                    }
-                                                                } else {
-                                                                    // Deselecting
-                                                                    // If deselecting Rank 1, must deselect Rank 2 if present
-                                                                    if (rank === 1 && newRanks[1]) {
-                                                                        newRanks[1] = false;
-                                                                    }
-                                                                }
-
+                                                            if (e.target.checked) {
+                                                                if (!validateAcquire(rank, newRanks, 'profile', vIdx)) return;
+                                                                newRanks[rank - 1] = true;
                                                             } else {
-                                                                // Normal Play
-                                                                if (e.target.checked && rank > 1 && !newRanks[rank - 2]) {
-                                                                    alert("Vous devez posséder le rang précédent !");
-                                                                    return;
-                                                                }
+                                                                newRanks = clearFromRank(newRanks, rank);
                                                             }
-
-                                                            newRanks[rank - 1] = e.target.checked;
                                                             newProfileVoies[vIdx].ranks = newRanks;
 
                                                             setCharacter(prev => ({
@@ -430,10 +392,16 @@ export const VoiesTree: React.FC<Props> = ({
                                                             cap={cap}
                                                             theme="amber"
                                                             shape="gem"
+                                                            {...lockProps(rank, 'prestige')}
                                                             onChange={e => {
                                                                 const newPrestige = [...(character.data?.voies?.prestige || [])];
-                                                                const newRanks = [...(newPrestige[vIdx].ranks || [false, false, false, false, false])];
-                                                                newRanks[rank - 1] = e.target.checked;
+                                                                let newRanks = [...(newPrestige[vIdx].ranks || [false, false, false, false, false])];
+                                                                if (e.target.checked) {
+                                                                    if (!validateAcquire(rank, newRanks, 'prestige')) return;
+                                                                    newRanks[rank - 1] = true;
+                                                                } else {
+                                                                    newRanks = clearFromRank(newRanks, rank);
+                                                                }
                                                                 newPrestige[vIdx].ranks = newRanks;
                                                                 setCharacter(prev => ({
                                                                     ...prev,

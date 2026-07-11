@@ -4,16 +4,17 @@
     "name": "Troll",
     "description": "Les trolls sont de grands humanoïdes de 2,70 m à la peau caoutchouteuse verdâtre ou violacée couverte d’excroissances et de plaques suppurantes.\nNon seulement, les armes rebondissent sur cette épaisse peau élastique mais en plus les blessures infligées se referment comme par magie. Aussi, le troll est un monstre dénué de peur, confiant en sa capacité à échapper à la mort et il combat férocement.",
     "nc": 5,
-    "hp": 60,
+    "hp": 70,
     "def": 19,
-    "init": 14,
+    "init": 10,
     "stats": {
-      "FOR": 6,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 6,
+      "FOR": 6,
+      "PER": 0,
+      "CHA": -2,
       "INT": -2,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 2
     },
     "category": "Humanoïde",
     "environment": "Marécage",
@@ -56,15 +57,16 @@
     "description": "",
     "nc": 1,
     "hp": 9,
-    "def": 14,
-    "init": 12,
+    "def": 13,
+    "init": 9,
     "stats": {
-      "FOR": 1,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 1,
+      "FOR": 1,
+      "PER": -2,
+      "CHA": -4,
       "INT": -4,
-      "SAG": -2,
-      "CHA": -4
+      "VOL": 6
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -100,15 +102,16 @@
     "description": "Un squelette d’ogre ou de troll de presque 3 mètres de haut…",
     "nc": 4,
     "hp": 60,
-    "def": 16,
-    "init": 12,
+    "def": 18,
+    "init": 9,
     "stats": {
-      "FOR": 6,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 6,
+      "FOR": 6,
+      "PER": -2,
+      "CHA": -4,
       "INT": -4,
-      "SAG": -2,
-      "CHA": -4
+      "VOL": 6
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -156,12 +159,13 @@
     "def": 24,
     "init": 22,
     "stats": {
-      "FOR": 8,
-      "DEX": 6,
+      "AGI": 6,
       "CON": 8,
+      "FOR": 8,
+      "PER": 6,
+      "CHA": 6,
       "INT": 6,
-      "SAG": 6,
-      "CHA": 6
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Spécial",
@@ -252,12 +256,13 @@
     "def": 16,
     "init": 17,
     "stats": {
-      "FOR": 6,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 6,
+      "FOR": 6,
+      "PER": 2,
+      "CHA": -4,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Souterrain",
@@ -296,12 +301,13 @@
     "def": 15,
     "init": 17,
     "stats": {
-      "FOR": -3,
-      "DEX": 3,
+      "AGI": 3,
       "CON": 3,
+      "FOR": -3,
+      "PER": 4,
+      "CHA": 0,
       "INT": -4,
-      "SAG": 4,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -340,12 +346,13 @@
     "def": 16,
     "init": 12,
     "stats": {
-      "FOR": 6,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 6,
+      "FOR": 6,
+      "PER": 4,
+      "CHA": 0,
       "INT": -2,
-      "SAG": 4,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Montagne",
@@ -393,12 +400,13 @@
     "def": 24,
     "init": 14,
     "stats": {
-      "FOR": 12,
-      "DEX": 2,
+      "AGI": 2,
       "CON": 12,
+      "FOR": 12,
+      "PER": 4,
+      "CHA": -2,
       "INT": 2,
-      "SAG": 4,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Montagne",
@@ -450,17 +458,18 @@
     "id": 9,
     "name": "Bandit de base",
     "description": "",
-    "nc": 0,
+    "nc": 1,
     "hp": 9,
-    "def": 14,
-    "init": 12,
+    "def": 12,
+    "init": 10,
     "stats": {
-      "FOR": 1,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 1,
+      "FOR": 1,
+      "PER": 0,
+      "CHA": 0,
       "INT": 0,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Forêt",
@@ -493,15 +502,16 @@
     "description": "Un bandit vétéran peut servir de chef à un groupe de petites frappes (augmentez son CHA à +2). Si vous voulez des bandits plus dangereux, ajoutez-leur un ou plusieurs rangs dans la Voie de la meute (le rang 2, Attaque en traître est un incontournable).",
     "nc": 1,
     "hp": 15,
-    "def": 15,
-    "init": 10,
+    "def": 14,
+    "init": 13,
     "stats": {
-      "FOR": 3,
-      "DEX": 0,
+      "AGI": 1,
       "CON": 3,
+      "FOR": 2,
+      "PER": 0,
+      "CHA": 0,
       "INT": 0,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Forêt",
@@ -533,16 +543,17 @@
     "name": "Chef Bandit",
     "description": "Vous pouvez facilement augmenter la puissance du chef bandit en lui ajoutant des niveaux de Boss ou des rangs dans la Voie du chef d’armée ou la Voie du PNJ récurrent.",
     "nc": 2,
-    "hp": 35,
-    "def": 17,
-    "init": 14,
+    "hp": 25,
+    "def": 16,
+    "init": 13,
     "stats": {
-      "FOR": 3,
-      "DEX": 2,
+      "AGI": 2,
       "CON": 3,
+      "FOR": 3,
+      "PER": 0,
+      "CHA": 2,
       "INT": 0,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 2
     },
     "category": "Humanoïde",
     "environment": "Forêt",
@@ -578,12 +589,13 @@
     "def": 17,
     "init": 15,
     "stats": {
-      "FOR": 3,
-      "DEX": 2,
+      "AGI": 2,
       "CON": 3,
+      "FOR": 3,
+      "PER": 2,
+      "CHA": 2,
       "INT": 2,
-      "SAG": 2,
-      "CHA": 2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Forêt",
@@ -615,16 +627,17 @@
     "name": "Basilic",
     "description": "Le basilic est un reptile à 8 pattes d’environ 150 kg particulièrement hideux.\nToutefois, peu de personnes peuvent se vanter de connaître son apparence exacte car son regard pétrifiant rend son observation directe particulièrement mortelle. Un basilic voit dans le noir.",
     "nc": 3,
-    "hp": 36,
+    "hp": 30,
     "def": 17,
-    "init": 10,
+    "init": 12,
     "stats": {
-      "FOR": 3,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 3,
+      "FOR": 3,
+      "PER": 2,
+      "CHA": 0,
       "INT": -4,
-      "SAG": 2,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Montagne",
@@ -653,12 +666,13 @@
     "def": 22,
     "init": 15,
     "stats": {
-      "FOR": 11,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 11,
+      "FOR": 11,
+      "PER": 2,
+      "CHA": -4,
       "INT": -2,
-      "SAG": 2,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Montagne",
@@ -706,12 +720,13 @@
     "def": 22,
     "init": 16,
     "stats": {
-      "FOR": 8,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 8,
+      "FOR": 8,
+      "PER": 2,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -755,16 +770,17 @@
     "name": "Bison",
     "description": "",
     "nc": 2,
-    "hp": 20,
-    "def": 13,
-    "init": 10,
+    "hp": 30,
+    "def": 14,
+    "init": 12,
     "stats": {
-      "FOR": 4,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 4,
+      "FOR": 4,
+      "PER": 2,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -799,16 +815,17 @@
     "name": "Bison, Grand mâle",
     "description": "Un grand mâle mesure environ 1,80 m au garrot pour une tonne.",
     "nc": 3,
-    "hp": 30,
-    "def": 16,
-    "init": 10,
+    "hp": 40,
+    "def": 15,
+    "init": 12,
     "stats": {
-      "FOR": 6,
-      "DEX": 1,
+      "AGI": 0,
       "CON": 6,
+      "FOR": 6,
+      "PER": 2,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -847,12 +864,13 @@
     "def": 18,
     "init": 16,
     "stats": {
-      "FOR": 6,
-      "DEX": 3,
+      "AGI": 3,
       "CON": 6,
+      "FOR": 6,
+      "PER": 1,
+      "CHA": -4,
       "INT": -4,
-      "SAG": 1,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Aquatique",
@@ -881,12 +899,13 @@
     "def": 14,
     "init": 15,
     "stats": {
-      "FOR": 6,
-      "DEX": 2,
+      "AGI": 2,
       "CON": 6,
+      "FOR": 6,
+      "PER": 1,
+      "CHA": 0,
       "INT": -1,
-      "SAG": 1,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -939,12 +958,13 @@
     "def": 14,
     "init": 15,
     "stats": {
-      "FOR": 6,
-      "DEX": 2,
+      "AGI": 2,
       "CON": 6,
+      "FOR": 6,
+      "PER": 2,
+      "CHA": 0,
       "INT": 0,
-      "SAG": 2,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -1051,12 +1071,13 @@
     "def": 16,
     "init": 18,
     "stats": {
-      "FOR": -1,
-      "DEX": 4,
+      "AGI": 4,
       "CON": -1,
+      "FOR": -1,
+      "PER": 4,
+      "CHA": -4,
       "INT": -4,
-      "SAG": 4,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Souterrain",
@@ -1081,16 +1102,17 @@
     "name": "Cheval de selle",
     "description": "Un cheval de selle n’est pas apte à subir le stress du combat. Dans ce type de situation, le cavalier doit utiliser une action de mouvement et réussir un test de CHA difficulté 10 pour réussir à le maîtriser à chaque tour. En cas d’échec, le cheval prend la fuite. Animal domestique, le cheval n’est pas habitué à se défendre, il reçoit un malus de -2 en combat (déjà pris en compte dans ses Caractéristiques).",
     "nc": 1,
-    "hp": 15,
-    "def": 13,
+    "hp": 14,
+    "def": 11,
     "init": 10,
     "stats": {
-      "FOR": 4,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 4,
+      "FOR": 4,
+      "PER": 0,
+      "CHA": 0,
       "INT": -4,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -1119,12 +1141,13 @@
     "def": 13,
     "init": 10,
     "stats": {
-      "FOR": 4,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 4,
+      "FOR": 4,
+      "PER": 2,
+      "CHA": 0,
       "INT": -4,
-      "SAG": 2,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -1153,12 +1176,13 @@
     "def": 15,
     "init": 10,
     "stats": {
-      "FOR": 4,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 4,
+      "FOR": 4,
+      "PER": 2,
+      "CHA": 0,
       "INT": -4,
-      "SAG": 2,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -1187,12 +1211,13 @@
     "def": 15,
     "init": 11,
     "stats": {
-      "FOR": 3,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 3,
+      "FOR": 3,
+      "PER": 2,
+      "CHA": 0,
       "INT": -2,
-      "SAG": 2,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Forêt",
@@ -1231,12 +1256,13 @@
     "def": 15,
     "init": 11,
     "stats": {
-      "FOR": 3,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 3,
+      "FOR": 3,
+      "PER": 2,
+      "CHA": 0,
       "INT": -2,
-      "SAG": 2,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Spécial",
@@ -1278,16 +1304,17 @@
     "name": "Chimère",
     "description": "La chimère est un monstre improbable, mélange de pas moins de 3 créatures. On pourrait la comparer à un dragon de petite taille pourvu de trois têtes dont une de lion et une de bouc mais les mots peinent à décrire une créature issue des pires cauchemars.\nLa chimère fait la taille d’un énorme taureau, elle voit dans le noir et comprend le draconien, il semblerait que certains spécimens soient même capables de le parler. Le souffle d’une chimère dépend de la couleur de sa tête de dragon : par exemple du feu pour une tête de dragon rouge.",
     "nc": 7,
-    "hp": 70,
-    "def": 20,
-    "init": 12,
+    "hp": 100,
+    "def": 21,
+    "init": 15,
     "stats": {
-      "FOR": 6,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 6,
+      "FOR": 6,
+      "PER": 2,
+      "CHA": -4,
       "INT": -2,
-      "SAG": 2,
-      "CHA": -4
+      "VOL": 2
     },
     "category": "Vivante",
     "environment": "Montagne",
@@ -1342,12 +1369,13 @@
     "def": 17,
     "init": 16,
     "stats": {
-      "FOR": -2,
-      "DEX": 3,
+      "AGI": 3,
       "CON": -2,
+      "FOR": -2,
+      "PER": 1,
+      "CHA": -1,
       "INT": -4,
-      "SAG": 1,
-      "CHA": -1
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -1376,12 +1404,13 @@
     "def": 15,
     "init": 15,
     "stats": {
-      "FOR": 3,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 3,
+      "FOR": 4,
+      "PER": 2,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 2
     },
     "category": "Vivante",
     "environment": "Marécage",
@@ -1420,12 +1449,13 @@
     "def": 20,
     "init": 15,
     "stats": {
-      "FOR": 11,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 11,
+      "FOR": 11,
+      "PER": 0,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Marécage",
@@ -1482,12 +1512,13 @@
     "def": 16,
     "init": 2,
     "stats": {
-      "FOR": 7,
-      "DEX": -4,
+      "AGI": -4,
       "CON": 7,
+      "FOR": 7,
+      "PER": -4,
+      "CHA": -4,
       "INT": 0,
-      "SAG": -4,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Souterrain",
@@ -1516,12 +1547,13 @@
     "def": 28,
     "init": 17,
     "stats": {
-      "FOR": 9,
-      "DEX": 3,
+      "AGI": 3,
       "CON": 9,
+      "FOR": 9,
+      "PER": 6,
+      "CHA": 6,
       "INT": 6,
-      "SAG": 6,
-      "CHA": 6
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Spécial",
@@ -1612,12 +1644,13 @@
     "def": 20,
     "init": 20,
     "stats": {
-      "FOR": 6,
-      "DEX": 5,
+      "AGI": 5,
       "CON": 6,
+      "FOR": 6,
+      "PER": 2,
+      "CHA": 4,
       "INT": 4,
-      "SAG": 2,
-      "CHA": 4
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Spécial",
@@ -1683,12 +1716,13 @@
     "def": 15,
     "init": 17,
     "stats": {
-      "FOR": -2,
-      "DEX": 3,
+      "AGI": 3,
       "CON": -2,
+      "FOR": -2,
+      "PER": 2,
+      "CHA": 0,
       "INT": 0,
-      "SAG": 2,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Spécial",
@@ -1754,12 +1788,13 @@
     "def": 18,
     "init": 16,
     "stats": {
-      "FOR": 1,
-      "DEX": 3,
+      "AGI": 3,
       "CON": 1,
+      "FOR": 1,
+      "PER": 2,
+      "CHA": 6,
       "INT": 2,
-      "SAG": 2,
-      "CHA": 6
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Spécial",
@@ -1852,12 +1887,13 @@
     "def": 15,
     "init": 14,
     "stats": {
-      "FOR": 4,
-      "DEX": 2,
+      "AGI": 2,
       "CON": 4,
+      "FOR": 4,
+      "PER": 2,
+      "CHA": 0,
       "INT": 0,
-      "SAG": 2,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Spécial",
@@ -1905,12 +1941,13 @@
     "def": 26,
     "init": 10,
     "stats": {
-      "FOR": 15,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 15,
+      "FOR": 15,
+      "PER": 0,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -1967,12 +2004,13 @@
     "def": 15,
     "init": 18,
     "stats": {
-      "FOR": 3,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 3,
+      "FOR": 3,
+      "PER": 2,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Forêt",
@@ -2011,12 +2049,13 @@
     "def": 20,
     "init": 16,
     "stats": {
-      "FOR": 9,
-      "DEX": 3,
+      "AGI": 3,
       "CON": 9,
+      "FOR": 9,
+      "PER": 2,
+      "CHA": -4,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Montagne",
@@ -2073,12 +2112,13 @@
     "def": 25,
     "init": 8,
     "stats": {
-      "FOR": 13,
-      "DEX": -1,
+      "AGI": -1,
       "CON": 13,
+      "FOR": 13,
+      "PER": 0,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -2135,12 +2175,13 @@
     "def": 24,
     "init": 19,
     "stats": {
-      "FOR": 11,
-      "DEX": 2,
+      "AGI": 2,
       "CON": 11,
+      "FOR": 11,
+      "PER": 2,
+      "CHA": -4,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -2197,12 +2238,13 @@
     "def": 16,
     "init": 13,
     "stats": {
-      "FOR": 1,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 1,
+      "FOR": 1,
+      "PER": 1,
+      "CHA": 2,
       "INT": 2,
-      "SAG": 1,
-      "CHA": 2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Spécial",
@@ -2245,12 +2287,13 @@
     "def": 20,
     "init": 23,
     "stats": {
-      "FOR": 5,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 5,
+      "FOR": 5,
+      "PER": 4,
+      "CHA": 0,
       "INT": 0,
-      "SAG": 4,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Spécial",
@@ -2314,12 +2357,13 @@
     "def": 24,
     "init": 17,
     "stats": {
-      "FOR": 9,
-      "DEX": 3,
+      "AGI": 3,
       "CON": 9,
+      "FOR": 9,
+      "PER": 4,
+      "CHA": 2,
       "INT": 2,
-      "SAG": 4,
-      "CHA": 2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Spécial",
@@ -2392,12 +2436,13 @@
     "def": 28,
     "init": 15,
     "stats": {
-      "FOR": 12,
-      "DEX": 2,
+      "AGI": 2,
       "CON": 12,
+      "FOR": 12,
+      "PER": 4,
+      "CHA": 4,
       "INT": 4,
-      "SAG": 4,
-      "CHA": 4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Spécial",
@@ -2479,12 +2524,13 @@
     "def": 32,
     "init": 11,
     "stats": {
-      "FOR": 15,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 15,
+      "FOR": 15,
+      "PER": 6,
+      "CHA": 6,
       "INT": 6,
-      "SAG": 6,
-      "CHA": 6
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Spécial",
@@ -2575,12 +2621,13 @@
     "def": 20,
     "init": 23,
     "stats": {
-      "FOR": 5,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 5,
+      "FOR": 5,
+      "PER": 2,
+      "CHA": -2,
       "INT": 2,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Souterrain",
@@ -2671,12 +2718,13 @@
     "def": 16,
     "init": 18,
     "stats": {
-      "FOR": 0,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 0,
+      "FOR": 0,
+      "PER": 2,
+      "CHA": 4,
       "INT": 2,
-      "SAG": 2,
-      "CHA": 4
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Forêt",
@@ -2776,12 +2824,13 @@
     "def": 15,
     "init": 17,
     "stats": {
-      "FOR": -1,
-      "DEX": 5,
+      "AGI": 5,
       "CON": -1,
+      "FOR": -1,
+      "PER": 0,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -2820,12 +2869,13 @@
     "def": 16,
     "init": 15,
     "stats": {
-      "FOR": 1,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 1,
+      "FOR": 1,
+      "PER": 0,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -2864,12 +2914,13 @@
     "def": 18,
     "init": 15,
     "stats": {
-      "FOR": 6,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 6,
+      "FOR": 6,
+      "PER": 0,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -2917,12 +2968,13 @@
     "def": 22,
     "init": 13,
     "stats": {
-      "FOR": 11,
-      "DEX": 3,
+      "AGI": 3,
       "CON": 11,
+      "FOR": 11,
+      "PER": 0,
+      "CHA": 0,
       "INT": -2,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -2979,12 +3031,13 @@
     "def": 28,
     "init": 13,
     "stats": {
-      "FOR": 15,
-      "DEX": 3,
+      "AGI": 3,
       "CON": 15,
+      "FOR": 15,
+      "PER": 0,
+      "CHA": 0,
       "INT": -2,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -3050,12 +3103,13 @@
     "def": 15,
     "init": 14,
     "stats": {
-      "FOR": -1,
-      "DEX": 2,
+      "AGI": 2,
       "CON": -1,
+      "FOR": -1,
+      "PER": 0,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -3094,12 +3148,13 @@
     "def": 16,
     "init": 12,
     "stats": {
-      "FOR": 1,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 1,
+      "FOR": 1,
+      "PER": 0,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -3134,16 +3189,17 @@
     "name": "Elémentaire d'eau, grand",
     "description": "",
     "nc": 5,
-    "hp": 60,
-    "def": 18,
-    "init": 12,
+    "hp": 70,
+    "def": 19,
+    "init": 10,
     "stats": {
-      "FOR": 6,
-      "DEX": 1,
+      "AGI": 2,
       "CON": 6,
+      "FOR": 6,
+      "PER": 0,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 4
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -3191,12 +3247,13 @@
     "def": 22,
     "init": 10,
     "stats": {
-      "FOR": 11,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 11,
+      "FOR": 11,
+      "PER": 0,
+      "CHA": 0,
       "INT": -2,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -3253,12 +3310,13 @@
     "def": 28,
     "init": 10,
     "stats": {
-      "FOR": 15,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 15,
+      "FOR": 15,
+      "PER": 0,
+      "CHA": 0,
       "INT": -2,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -3324,12 +3382,13 @@
     "def": 15,
     "init": 14,
     "stats": {
-      "FOR": -1,
-      "DEX": 2,
+      "AGI": 2,
       "CON": -1,
+      "FOR": -1,
+      "PER": 0,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -3368,12 +3427,13 @@
     "def": 16,
     "init": 12,
     "stats": {
-      "FOR": 1,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 1,
+      "FOR": 1,
+      "PER": 0,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -3412,12 +3472,13 @@
     "def": 18,
     "init": 12,
     "stats": {
-      "FOR": 6,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 6,
+      "FOR": 6,
+      "PER": 0,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -3465,12 +3526,13 @@
     "def": 22,
     "init": 10,
     "stats": {
-      "FOR": 11,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 11,
+      "FOR": 11,
+      "PER": 0,
+      "CHA": 0,
       "INT": -2,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -3527,12 +3589,13 @@
     "def": 28,
     "init": 10,
     "stats": {
-      "FOR": 15,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 15,
+      "FOR": 15,
+      "PER": 0,
+      "CHA": 0,
       "INT": -2,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -3598,12 +3661,13 @@
     "def": 18,
     "init": 14,
     "stats": {
-      "FOR": -1,
-      "DEX": 2,
+      "AGI": 2,
       "CON": -1,
+      "FOR": -1,
+      "PER": 0,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -3642,12 +3706,13 @@
     "def": 19,
     "init": 12,
     "stats": {
-      "FOR": 1,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 1,
+      "FOR": 1,
+      "PER": 0,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -3686,12 +3751,13 @@
     "def": 21,
     "init": 12,
     "stats": {
-      "FOR": 6,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 6,
+      "FOR": 6,
+      "PER": 0,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -3739,12 +3805,13 @@
     "def": 25,
     "init": 10,
     "stats": {
-      "FOR": 11,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 11,
+      "FOR": 11,
+      "PER": 0,
+      "CHA": 0,
       "INT": -2,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -3801,12 +3868,13 @@
     "def": 31,
     "init": 10,
     "stats": {
-      "FOR": 15,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 15,
+      "FOR": 15,
+      "PER": 0,
+      "CHA": 0,
       "INT": -2,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -3868,16 +3936,17 @@
     "name": "Eléphant",
     "description": "Ce Profil correspond à un éléphant d’Afrique moyen.",
     "nc": 6,
-    "hp": 100,
-    "def": 20,
-    "init": 10,
+    "hp": 90,
+    "def": 21,
+    "init": 11,
     "stats": {
-      "FOR": 11,
-      "DEX": 0,
-      "CON": 11,
+      "AGI": 0,
+      "CON": 10,
+      "FOR": 10,
+      "PER": 1,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 1,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -3916,12 +3985,13 @@
     "def": 22,
     "init": 8,
     "stats": {
-      "FOR": 13,
-      "DEX": -1,
+      "AGI": -1,
       "CON": 13,
+      "FOR": 13,
+      "PER": 1,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 1,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -3960,12 +4030,13 @@
     "def": 17,
     "init": 23,
     "stats": {
-      "FOR": 0,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 0,
+      "FOR": 0,
+      "PER": 2,
+      "CHA": 2,
       "INT": 2,
-      "SAG": 2,
-      "CHA": 2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Forêt",
@@ -4011,12 +4082,13 @@
     "def": 17,
     "init": 23,
     "stats": {
-      "FOR": 0,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 0,
+      "FOR": 0,
+      "PER": 2,
+      "CHA": 0,
       "INT": 0,
-      "SAG": 2,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Souterrain",
@@ -4062,12 +4134,13 @@
     "def": 19,
     "init": 23,
     "stats": {
-      "FOR": 1,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 1,
+      "FOR": 1,
+      "PER": 2,
+      "CHA": 2,
       "INT": 2,
-      "SAG": 2,
-      "CHA": 2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Souterrain",
@@ -4122,12 +4195,13 @@
     "def": 21,
     "init": 18,
     "stats": {
-      "FOR": 2,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 2,
+      "FOR": 2,
+      "PER": 4,
+      "CHA": 2,
       "INT": 2,
-      "SAG": 4,
-      "CHA": 2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Souterrain",
@@ -4218,12 +4292,13 @@
     "def": 20,
     "init": 10,
     "stats": {
-      "FOR": 8,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 8,
+      "FOR": 8,
+      "PER": -2,
+      "CHA": -2,
       "INT": -2,
-      "SAG": -2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Montagne",
@@ -4262,12 +4337,13 @@
     "def": 14,
     "init": 12,
     "stats": {
-      "FOR": 1,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 1,
+      "FOR": 1,
+      "PER": 2,
+      "CHA": -2,
       "INT": 0,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -4306,12 +4382,13 @@
     "def": 14,
     "init": 12,
     "stats": {
-      "FOR": 1,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 1,
+      "FOR": 1,
+      "PER": 2,
+      "CHA": -2,
       "INT": 0,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -4359,12 +4436,13 @@
     "def": 17,
     "init": 15,
     "stats": {
-      "FOR": 3,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 3,
+      "FOR": 3,
+      "PER": 2,
+      "CHA": -2,
       "INT": 0,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -4412,12 +4490,13 @@
     "def": 18,
     "init": 10,
     "stats": {
-      "FOR": 8,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 7,
+      "FOR": 8,
+      "PER": 0,
+      "CHA": -2,
       "INT": -2,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Forêt",
@@ -4463,12 +4542,13 @@
     "def": 23,
     "init": 10,
     "stats": {
-      "FOR": 11,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 11,
+      "FOR": 11,
+      "PER": 0,
+      "CHA": 0,
       "INT": 0,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Montagne",
@@ -4523,12 +4603,13 @@
     "def": 24,
     "init": 8,
     "stats": {
-      "FOR": 13,
-      "DEX": -1,
+      "AGI": -1,
       "CON": 13,
+      "FOR": 13,
+      "PER": 2,
+      "CHA": 0,
       "INT": 0,
-      "SAG": 2,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Montagne",
@@ -4583,12 +4664,13 @@
     "def": 28,
     "init": 10,
     "stats": {
-      "FOR": 15,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 15,
+      "FOR": 15,
+      "PER": 4,
+      "CHA": 2,
       "INT": 2,
-      "SAG": 4,
-      "CHA": 2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Montagne",
@@ -4652,12 +4734,13 @@
     "def": 18,
     "init": 12,
     "stats": {
-      "FOR": 6,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 6,
+      "FOR": 6,
+      "PER": 2,
+      "CHA": 4,
       "INT": 2,
-      "SAG": 2,
-      "CHA": 4
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Spécial",
@@ -4712,12 +4795,13 @@
     "def": 18,
     "init": 12,
     "stats": {
-      "FOR": 6,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 6,
+      "FOR": 6,
+      "PER": 2,
+      "CHA": 4,
       "INT": 2,
-      "SAG": 2,
-      "CHA": 4
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Spécial",
@@ -4787,15 +4871,16 @@
     "description": "Le gnoll est un humanoïde puissant de plus de 2 mètres dont la particularité est une tête d’hyène et une fourrure jaune sale.",
     "nc": 1,
     "hp": 15,
-    "def": 15,
+    "def": 14,
     "init": 10,
     "stats": {
-      "FOR": 3,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 3,
+      "FOR": 3,
+      "PER": 0,
+      "CHA": -2,
       "INT": -2,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Plaine",
@@ -4820,16 +4905,17 @@
     "name": "Chef Gnoll",
     "description": "Le gnoll est un humanoïde puissant de plus de 2 mètres dont la particularité est une tête d’hyène et une fourrure jaune sale.",
     "nc": 4,
-    "hp": 55,
-    "def": 19,
+    "hp": 50,
+    "def": 17,
     "init": 10,
     "stats": {
-      "FOR": 5,
-      "DEX": 0,
-      "CON": 3,
+      "AGI": 0,
+      "CON": 4,
+      "FOR": 4,
+      "PER": 0,
+      "CHA": -2,
       "INT": -2,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Plaine",
@@ -4874,15 +4960,16 @@
     "description": "",
     "nc": 0,
     "hp": 3,
-    "def": 14,
-    "init": 15,
+    "def": 12,
+    "init": 13,
     "stats": {
-      "FOR": -1,
-      "DEX": 2,
+      "AGI": 2,
       "CON": -1,
+      "FOR": -1,
+      "PER": 0,
+      "CHA": -2,
       "INT": -2,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Forêt",
@@ -4906,17 +4993,18 @@
     "id": 88,
     "name": "Gobelin élite",
     "description": "",
-    "nc": 0,
-    "hp": 13,
-    "def": 15,
-    "init": 15,
+    "nc": 1,
+    "hp": 9,
+    "def": 13,
+    "init": 13,
     "stats": {
-      "FOR": -1,
-      "DEX": 2,
-      "CON": -1,
+      "AGI": 2,
+      "CON": 0,
+      "FOR": 0,
+      "PER": 0,
+      "CHA": -2,
       "INT": -2,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Forêt",
@@ -4940,17 +5028,18 @@
     "id": 89,
     "name": "Chef gobelin",
     "description": "",
-    "nc": 1,
-    "hp": 24,
-    "def": 15,
+    "nc": 2,
+    "hp": 22,
+    "def": 16,
     "init": 13,
     "stats": {
-      "FOR": 1,
-      "DEX": 1,
+      "AGI": 2,
       "CON": 1,
+      "FOR": 1,
+      "PER": 0,
+      "CHA": 1,
       "INT": 0,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Forêt",
@@ -4979,12 +5068,13 @@
     "def": 17,
     "init": 10,
     "stats": {
-      "FOR": 4,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 4,
+      "FOR": 4,
+      "PER": 0,
+      "CHA": -2,
       "INT": -2,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Forêt",
@@ -5009,16 +5099,17 @@
     "name": "Golem de chair",
     "description": "Créature à la fois pitoyable et effrayante, le golem est une créature imposante mesurant presque 2,50 mètres constituée de l’assemblage grossier de divers cadavres.\nUn golem de chair ressemble approximativement au monstre de Frankenstein. Il fait preuve d’une force inhumaine.",
     "nc": 7,
-    "hp": 70,
+    "hp": 90,
     "def": 20,
-    "init": 12,
+    "init": 10,
     "stats": {
-      "FOR": 6,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 6,
+      "FOR": 6,
+      "PER": 0,
+      "CHA": -4,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -4
+      "VOL": 6
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -5075,12 +5166,13 @@
     "def": 24,
     "init": 10,
     "stats": {
-      "FOR": 8,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 8,
+      "FOR": 8,
+      "PER": 0,
+      "CHA": -4,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -5128,12 +5220,13 @@
     "def": 26,
     "init": 10,
     "stats": {
-      "FOR": 11,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 11,
+      "FOR": 11,
+      "PER": 0,
+      "CHA": -4,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -5188,14 +5281,15 @@
     "nc": 3,
     "hp": 30,
     "def": 18,
-    "init": 18,
+    "init": 12,
     "stats": {
-      "FOR": 5,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 5,
+      "FOR": 5,
+      "PER": 2,
+      "CHA": -2,
       "INT": -3,
-      "SAG": 5,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Forêt",
@@ -5234,12 +5328,13 @@
     "def": 24,
     "init": 16,
     "stats": {
-      "FOR": 9,
-      "DEX": 3,
+      "AGI": 3,
       "CON": 9,
+      "FOR": 9,
+      "PER": 2,
+      "CHA": -2,
       "INT": -2,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Forêt",
@@ -5305,12 +5400,13 @@
     "def": 15,
     "init": 12,
     "stats": {
-      "FOR": 1,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 1,
+      "FOR": 1,
+      "PER": 2,
+      "CHA": -4,
       "INT": 0,
-      "SAG": 2,
-      "CHA": -4
+      "VOL": 2
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -5337,14 +5433,15 @@
     "nc": 4,
     "hp": 50,
     "def": 18,
-    "init": 16,
+    "init": 15,
     "stats": {
-      "FOR": 6,
-      "DEX": 3,
+      "AGI": 3,
       "CON": 6,
+      "FOR": 6,
+      "PER": 2,
+      "CHA": 0,
       "INT": -2,
-      "SAG": 2,
-      "CHA": 0
+      "VOL": 1
     },
     "category": "Vivante",
     "environment": "Forêt",
@@ -5383,12 +5480,13 @@
     "def": 16,
     "init": 16,
     "stats": {
-      "FOR": 1,
-      "DEX": 3,
+      "AGI": 3,
       "CON": 1,
+      "FOR": 1,
+      "PER": 0,
+      "CHA": 4,
       "INT": 0,
-      "SAG": 0,
-      "CHA": 4
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Marécage",
@@ -5427,12 +5525,13 @@
     "def": 16,
     "init": 12,
     "stats": {
-      "FOR": 6,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 6,
+      "FOR": 6,
+      "PER": 2,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -5471,12 +5570,13 @@
     "def": 14,
     "init": 12,
     "stats": {
-      "FOR": 1,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 1,
+      "FOR": 1,
+      "PER": 0,
+      "CHA": -2,
       "INT": 0,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Montagne",
@@ -5505,12 +5605,13 @@
     "def": 18,
     "init": 12,
     "stats": {
-      "FOR": 3,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 1,
+      "FOR": 3,
+      "PER": 0,
+      "CHA": -2,
       "INT": 0,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Montagne",
@@ -5558,12 +5659,13 @@
     "def": 15,
     "init": 10,
     "stats": {
-      "FOR": 3,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 3,
+      "FOR": 3,
+      "PER": 0,
+      "CHA": -2,
       "INT": -2,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Marécage",
@@ -5599,12 +5701,13 @@
     "def": 17,
     "init": 11,
     "stats": {
-      "FOR": 4,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 3,
+      "FOR": 4,
+      "PER": 0,
+      "CHA": 0,
       "INT": -2,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Marécage",
@@ -5643,12 +5746,13 @@
     "def": 18,
     "init": 10,
     "stats": {
-      "FOR": 8,
-      "DEX": 0,
-      "CON": 8,
+      "AGI": 0,
+      "CON": 10,
+      "FOR": 10,
+      "PER": 0,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Marécage",
@@ -5677,12 +5781,13 @@
     "def": 18,
     "init": 10,
     "stats": {
-      "FOR": 8,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 8,
+      "FOR": 8,
+      "PER": 0,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Marécage",
@@ -5711,12 +5816,13 @@
     "def": 15,
     "init": 19,
     "stats": {
-      "FOR": 1,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 1,
+      "FOR": 1,
+      "PER": 2,
+      "CHA": -4,
       "INT": -2,
-      "SAG": 2,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": null,
@@ -5745,12 +5851,13 @@
     "def": 17,
     "init": 17,
     "stats": {
-      "FOR": 3,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 3,
+      "FOR": 3,
+      "PER": 2,
+      "CHA": -4,
       "INT": -2,
-      "SAG": 2,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": null,
@@ -5779,12 +5886,13 @@
     "def": 18,
     "init": 17,
     "stats": {
-      "FOR": 8,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 8,
+      "FOR": 8,
+      "PER": 2,
+      "CHA": -4,
       "INT": -2,
-      "SAG": 2,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": null,
@@ -5813,12 +5921,13 @@
     "def": 20,
     "init": 16,
     "stats": {
-      "FOR": 12,
-      "DEX": 3,
+      "AGI": 3,
       "CON": 12,
+      "FOR": 12,
+      "PER": 2,
+      "CHA": -4,
       "INT": -2,
-      "SAG": 2,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": null,
@@ -5847,12 +5956,13 @@
     "def": 24,
     "init": 14,
     "stats": {
-      "FOR": 15,
-      "DEX": 3,
+      "AGI": 3,
       "CON": 15,
+      "FOR": 15,
+      "PER": 2,
+      "CHA": -4,
       "INT": -2,
-      "SAG": 2,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": null,
@@ -5878,15 +5988,16 @@
     "description": "",
     "nc": 0,
     "hp": 3,
-    "def": 14,
-    "init": 15,
+    "def": 12,
+    "init": 11,
     "stats": {
-      "FOR": -1,
-      "DEX": 2,
+      "AGI": 2,
       "CON": -1,
+      "FOR": -1,
+      "PER": 1,
+      "CHA": -2,
       "INT": 0,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Forêt",
@@ -5918,16 +6029,17 @@
     "name": "Prêtre kobold",
     "description": "",
     "nc": 2,
-    "hp": 23,
-    "def": 16,
-    "init": 15,
+    "hp": 30,
+    "def": 15,
+    "init": 11,
     "stats": {
-      "FOR": -1,
-      "DEX": 2,
+      "AGI": 2,
       "CON": -1,
+      "FOR": -1,
+      "PER": 1,
+      "CHA": 1,
       "INT": 0,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 1
     },
     "category": "Humanoïde",
     "environment": "Forêt",
@@ -5968,17 +6080,18 @@
     "id": 113,
     "name": "Chef kobold",
     "description": "",
-    "nc": 2,
-    "hp": 23,
-    "def": 16,
-    "init": 15,
+    "nc": 1,
+    "hp": 15,
+    "def": 13,
+    "init": 11,
     "stats": {
-      "FOR": -1,
-      "DEX": 2,
-      "CON": -1,
+      "AGI": 2,
+      "CON": 0,
+      "FOR": 0,
+      "PER": 1,
+      "CHA": 1,
       "INT": 0,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Forêt",
@@ -6017,12 +6130,13 @@
     "def": 21,
     "init": 15,
     "stats": {
-      "FOR": 3,
-      "DEX": 2,
+      "AGI": 2,
       "CON": 3,
+      "FOR": 3,
+      "PER": 2,
+      "CHA": -2,
       "INT": 4,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -6127,16 +6241,17 @@
     "name": "Licorne",
     "description": "La licorne ressemble à un cheval aux proportions parfaites et à la robe immaculée et elle est pourvue d’une corne torsadée unique.\nLa licorne est un animal féérique majestueux qui peuple les forêts sauvages et vierges. Il est très rare de l’apercevoir tant elle est discrète et prompt à s’éclipser. La corne de la licorne conserve ses propriétés magiques même si elle est sectionnée ce qui pousse souvent les créatures sans scrupules comme les orques et même les humains à la chasser. Les légendes disent que la licorne accepte parfois de servir de monture à une jeune fille au cœur pur.",
     "nc": 3,
-    "hp": 30,
+    "hp": 35,
     "def": 18,
-    "init": 18,
+    "init": 17,
     "stats": {
-      "FOR": 5,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 5,
+      "FOR": 5,
+      "PER": 4,
+      "CHA": 4,
       "INT": 0,
-      "SAG": 4,
-      "CHA": 4
+      "VOL": 4
     },
     "category": "Vivante",
     "environment": "Forêt",
@@ -6160,17 +6275,18 @@
     "id": 116,
     "name": "Lion",
     "description": "Ce Profil correspond à un jeune lion ou à une lionne d’environ 150 kg.",
-    "nc": 4,
+    "nc": 3,
     "hp": 30,
-    "def": 18,
-    "init": 23,
+    "def": 17,
+    "init": 15,
     "stats": {
-      "FOR": 5,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 5,
+      "FOR": 5,
+      "PER": 2,
+      "CHA": -2,
       "INT": -3,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -6213,17 +6329,18 @@
     "id": 117,
     "name": "Grand mâle, lion",
     "description": "Un lion mâle peut peser jusqu’à 300 kg.",
-    "nc": 5,
+    "nc": 4,
     "hp": 50,
-    "def": 20,
-    "init": 18,
+    "def": 18,
+    "init": 15,
     "stats": {
+      "AGI": 4,
+      "CON": 6,
       "FOR": 6,
-      "DEX": 4,
-      "CON": 5,
+      "PER": 2,
+      "CHA": 2,
       "INT": -4,
-      "SAG": 2,
-      "CHA": 2
+      "VOL": 2
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -6271,12 +6388,13 @@
     "def": 21,
     "init": 18,
     "stats": {
-      "FOR": 6,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 5,
+      "FOR": 6,
+      "PER": 2,
+      "CHA": 2,
       "INT": -4,
-      "SAG": 2,
-      "CHA": 2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Forêt",
@@ -6324,12 +6442,13 @@
     "def": 22,
     "init": 23,
     "stats": {
-      "FOR": 8,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 8,
+      "FOR": 8,
+      "PER": 1,
+      "CHA": -4,
       "INT": -4,
-      "SAG": 1,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Montagne",
@@ -6374,15 +6493,16 @@
     "description": "Seul, le loup n’a pas usage de la Voie de la meute et son NC passe à ½. Ce Profil correspond à un loup d’une cinquantaine de kilos.",
     "nc": 1,
     "hp": 9,
-    "def": 14,
-    "init": 12,
+    "def": 13,
+    "init": 15,
     "stats": {
-      "FOR": 1,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 1,
+      "FOR": 1,
+      "PER": 2,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Forêt",
@@ -6419,14 +6539,15 @@
     "nc": 2,
     "hp": 15,
     "def": 15,
-    "init": 17,
+    "init": 15,
     "stats": {
-      "FOR": 3,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 3,
+      "FOR": 3,
+      "PER": 2,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 2
     },
     "category": "Vivante",
     "environment": "Forêt",
@@ -6463,14 +6584,15 @@
     "nc": 3,
     "hp": 35,
     "def": 17,
-    "init": 17,
+    "init": 15,
     "stats": {
-      "FOR": 3,
-      "DEX": 1,
-      "CON": 3,
+      "AGI": 1,
+      "CON": 5,
+      "FOR": 5,
+      "PER": 2,
+      "CHA": -2,
       "INT": -2,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 2
     },
     "category": "Vivante",
     "environment": "Forêt",
@@ -6509,12 +6631,13 @@
     "def": 16,
     "init": 17,
     "stats": {
-      "FOR": 6,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 6,
+      "FOR": 6,
+      "PER": 2,
+      "CHA": -4,
       "INT": -3,
-      "SAG": 2,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Forêt",
@@ -6562,12 +6685,13 @@
     "def": 18,
     "init": 17,
     "stats": {
-      "FOR": 6,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 6,
+      "FOR": 6,
+      "PER": 2,
+      "CHA": -2,
       "INT": -2,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Montagne",
@@ -6631,12 +6755,13 @@
     "def": 15,
     "init": 17,
     "stats": {
-      "FOR": 3,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 3,
+      "FOR": 3,
+      "PER": 2,
+      "CHA": -2,
       "INT": -2,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Forêt",
@@ -6675,12 +6800,13 @@
     "def": 17,
     "init": 17,
     "stats": {
-      "FOR": 4,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 3,
+      "FOR": 4,
+      "PER": 2,
+      "CHA": -2,
       "INT": 0,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Forêt",
@@ -6726,12 +6852,13 @@
     "def": 14,
     "init": 18,
     "stats": {
-      "FOR": 1,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 1,
+      "FOR": 1,
+      "PER": 2,
+      "CHA": -4,
       "INT": -2,
-      "SAG": 2,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Marécage",
@@ -6760,12 +6887,13 @@
     "def": 16,
     "init": 22,
     "stats": {
-      "FOR": 1,
-      "DEX": 3,
+      "AGI": 3,
       "CON": 1,
+      "FOR": 1,
+      "PER": 2,
+      "CHA": -4,
       "INT": 0,
-      "SAG": 2,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Marécage",
@@ -6801,12 +6929,13 @@
     "def": 18,
     "init": 16,
     "stats": {
-      "FOR": 6,
-      "DEX": 3,
+      "AGI": 3,
       "CON": 6,
+      "FOR": 6,
+      "PER": 2,
+      "CHA": -2,
       "INT": -2,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Montagne",
@@ -6852,12 +6981,13 @@
     "def": 16,
     "init": 17,
     "stats": {
-      "FOR": 1,
-      "DEX": 3,
+      "AGI": 3,
       "CON": 1,
+      "FOR": 1,
+      "PER": 2,
+      "CHA": 4,
       "INT": 2,
-      "SAG": 2,
-      "CHA": 4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Marécage",
@@ -6900,12 +7030,13 @@
     "def": 16,
     "init": 13,
     "stats": {
-      "FOR": 6,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 6,
+      "FOR": 6,
+      "PER": 2,
+      "CHA": -2,
       "INT": -2,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Souterrain",
@@ -6951,12 +7082,13 @@
     "def": 18,
     "init": 13,
     "stats": {
-      "FOR": 6,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 6,
+      "FOR": 6,
+      "PER": 2,
+      "CHA": -2,
       "INT": -2,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Souterrain",
@@ -7016,16 +7148,17 @@
     "name": "Momie",
     "description": "La momie est un mort-vivant couvert de bandelettes, un cadavre animé par une magie antique qui permet à un humanoïde une parodie de vie après la mort. La momie doit rester éternellement immobile au fond de son sarcophage et elle ne peut que rarement trouver l’énergie de s’en extraire. Toutefois lorsque cela arrive, elle fait preuve d’une haine des vivants qui dérangent son sommeil et d’une force impie qui défie les lois de la physique.",
     "nc": 5,
-    "hp": 55,
-    "def": 17,
-    "init": 13,
+    "hp": 70,
+    "def": 20,
+    "init": 11,
     "stats": {
-      "FOR": 5,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 3,
+      "FOR": 5,
+      "PER": 1,
+      "CHA": -2,
       "INT": -2,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 4
     },
     "category": "Non-vivante",
     "environment": null,
@@ -7064,12 +7197,13 @@
     "def": 18,
     "init": 16,
     "stats": {
-      "FOR": 6,
-      "DEX": 3,
+      "AGI": 3,
       "CON": 6,
+      "FOR": 6,
+      "PER": 4,
+      "CHA": 4,
       "INT": 4,
-      "SAG": 4,
-      "CHA": 4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Marécage",
@@ -7223,12 +7357,13 @@
     "def": 18,
     "init": 16,
     "stats": {
-      "FOR": 6,
-      "DEX": 3,
+      "AGI": 3,
       "CON": 6,
+      "FOR": 6,
+      "PER": 4,
+      "CHA": 4,
       "INT": 4,
-      "SAG": 4,
-      "CHA": 4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Marécage",
@@ -7382,12 +7517,13 @@
     "def": 18,
     "init": 16,
     "stats": {
-      "FOR": 6,
-      "DEX": 3,
+      "AGI": 3,
       "CON": 6,
+      "FOR": 6,
+      "PER": 4,
+      "CHA": 4,
       "INT": 4,
-      "SAG": 4,
-      "CHA": 4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Marécage",
@@ -7541,12 +7677,13 @@
     "def": 15,
     "init": 10,
     "stats": {
-      "FOR": 3,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 3,
+      "FOR": 3,
+      "PER": 0,
+      "CHA": 0,
       "INT": 0,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Souterrain",
@@ -7592,12 +7729,13 @@
     "def": 15,
     "init": 10,
     "stats": {
-      "FOR": 3,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 3,
+      "FOR": 3,
+      "PER": 0,
+      "CHA": 0,
       "INT": 0,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Souterrain",
@@ -7633,12 +7771,13 @@
     "def": 16,
     "init": 18,
     "stats": {
-      "FOR": 0,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 0,
+      "FOR": 0,
+      "PER": 0,
+      "CHA": -4,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Marécage",
@@ -7667,12 +7806,13 @@
     "def": 16,
     "init": 18,
     "stats": {
-      "FOR": 0,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 0,
+      "FOR": 0,
+      "PER": 0,
+      "CHA": -4,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -7701,12 +7841,13 @@
     "def": 16,
     "init": 18,
     "stats": {
-      "FOR": 0,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 0,
+      "FOR": 0,
+      "PER": 0,
+      "CHA": -4,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -7735,12 +7876,13 @@
     "def": 16,
     "init": 18,
     "stats": {
-      "FOR": 0,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 0,
+      "FOR": 0,
+      "PER": 0,
+      "CHA": -4,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Forêt",
@@ -7769,12 +7911,13 @@
     "def": 16,
     "init": 18,
     "stats": {
-      "FOR": 0,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 0,
+      "FOR": 0,
+      "PER": 0,
+      "CHA": -4,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Forêt",
@@ -7803,12 +7946,13 @@
     "def": 16,
     "init": 18,
     "stats": {
-      "FOR": 0,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 0,
+      "FOR": 0,
+      "PER": 4,
+      "CHA": 6,
       "INT": 2,
-      "SAG": 4,
-      "CHA": 6
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Forêt",
@@ -7960,12 +8104,13 @@
     "def": 16,
     "init": 12,
     "stats": {
-      "FOR": 6,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 6,
+      "FOR": 6,
+      "PER": 0,
+      "CHA": -2,
       "INT": -2,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Forêt",
@@ -7999,17 +8144,18 @@
     "id": 146,
     "name": "Chef ogre",
     "description": "",
-    "nc": 7,
+    "nc": 6,
     "hp": 70,
     "def": 20,
-    "init": 12,
+    "init": 10,
     "stats": {
-      "FOR": 6,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 6,
+      "FOR": 6,
+      "PER": 0,
+      "CHA": -2,
       "INT": -2,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 1
     },
     "category": "Humanoïde",
     "environment": "Forêt",
@@ -8066,12 +8212,13 @@
     "def": 16,
     "init": 12,
     "stats": {
-      "FOR": 6,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 6,
+      "FOR": 6,
+      "PER": 2,
+      "CHA": 4,
       "INT": 2,
-      "SAG": 2,
-      "CHA": 4
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Montagne",
@@ -8189,12 +8336,13 @@
     "def": 14,
     "init": 12,
     "stats": {
-      "FOR": 1,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 1,
+      "FOR": 1,
+      "PER": 0,
+      "CHA": -2,
       "INT": -2,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Souterrain",
@@ -8223,12 +8371,13 @@
     "def": 15,
     "init": 10,
     "stats": {
-      "FOR": 3,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 3,
+      "FOR": 3,
+      "PER": 0,
+      "CHA": -2,
       "INT": -2,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 1
     },
     "category": "Humanoïde",
     "environment": "Souterrain",
@@ -8253,16 +8402,17 @@
     "name": "Berserker orque",
     "description": "",
     "nc": 2,
-    "hp": 25,
-    "def": 15,
+    "hp": 15,
+    "def": 13,
     "init": 10,
     "stats": {
-      "FOR": 3,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 3,
+      "FOR": 3,
+      "PER": 0,
+      "CHA": -2,
       "INT": -2,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 4
     },
     "category": "Humanoïde",
     "environment": "Souterrain",
@@ -8291,12 +8441,13 @@
     "def": 17,
     "init": 10,
     "stats": {
-      "FOR": 4,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 3,
+      "FOR": 4,
+      "PER": 0,
+      "CHA": 0,
       "INT": -2,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Souterrain",
@@ -8331,16 +8482,17 @@
     "name": "Shaman orque",
     "description": "",
     "nc": 3,
-    "hp": 29,
-    "def": 16,
-    "init": 12,
+    "hp": 40,
+    "def": 17,
+    "init": 13,
     "stats": {
+      "AGI": 0,
+      "CON": 3,
       "FOR": 1,
-      "DEX": 1,
-      "CON": 1,
-      "INT": -2,
-      "SAG": 4,
-      "CHA": -2
+      "PER": 3,
+      "CHA": -2,
+      "INT": 0,
+      "VOL": 3
     },
     "category": "Humanoïde",
     "environment": "Souterrain",
@@ -8391,16 +8543,17 @@
     "name": "Chef orque",
     "description": "",
     "nc": 6,
-    "hp": 55,
-    "def": 19,
+    "hp": 60,
+    "def": 20,
     "init": 10,
     "stats": {
-      "FOR": 5,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 5,
+      "FOR": 5,
+      "PER": 0,
+      "CHA": 1,
       "INT": 0,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 2
     },
     "category": "Humanoïde",
     "environment": "Souterrain",
@@ -8455,14 +8608,15 @@
     "nc": 2,
     "hp": 35,
     "def": 17,
-    "init": 15,
+    "init": 12,
     "stats": {
-      "FOR": 3,
-      "DEX": 2,
+      "AGI": 2,
       "CON": 3,
+      "FOR": 3,
+      "PER": 2,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Forêt",
@@ -8491,12 +8645,13 @@
     "def": 18,
     "init": 12,
     "stats": {
-      "FOR": 6,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 6,
+      "FOR": 6,
+      "PER": 2,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 1
     },
     "category": "Vivante",
     "environment": "Forêt",
@@ -8535,12 +8690,13 @@
     "def": 22,
     "init": 10,
     "stats": {
-      "FOR": 11,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 11,
+      "FOR": 11,
+      "PER": 2,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Montagne",
@@ -8584,16 +8740,17 @@
     "name": "Ours polaire",
     "description": "Avec des mensurations moyennes de 500kg pour 3m le grand ours polaire mâle est le plus gros prédateur terrestre avec l’ours Kodiak (encore un peu plus gros).",
     "nc": 6,
-    "hp": 70,
+    "hp": 80,
     "def": 20,
-    "init": 11,
+    "init": 12,
     "stats": {
-      "FOR": 8,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 8,
+      "FOR": 8,
+      "PER": 2,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 1
     },
     "category": "Vivante",
     "environment": "Montagne",
@@ -8641,12 +8798,13 @@
     "def": 16,
     "init": 12,
     "stats": {
-      "FOR": 6,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 6,
+      "FOR": 6,
+      "PER": 2,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Forêt",
@@ -8692,14 +8850,15 @@
     "nc": 2,
     "hp": 15,
     "def": 16,
-    "init": 23,
+    "init": 15,
     "stats": {
-      "FOR": 2,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 2,
+      "FOR": 2,
+      "PER": 2,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 1
     },
     "category": "Vivante",
     "environment": "Forêt",
@@ -8738,12 +8897,13 @@
     "def": 15,
     "init": 10,
     "stats": {
-      "FOR": 4,
-      "DEX": 2,
+      "AGI": 2,
       "CON": 4,
+      "FOR": 4,
+      "PER": 2,
+      "CHA": 2,
       "INT": -4,
-      "SAG": 2,
-      "CHA": 2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -8782,12 +8942,13 @@
     "def": 22,
     "init": 16,
     "stats": {
-      "FOR": 9,
-      "DEX": 3,
+      "AGI": 3,
       "CON": 9,
+      "FOR": 9,
+      "PER": 2,
+      "CHA": -4,
       "INT": -2,
-      "SAG": 2,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Aquatique",
@@ -8816,12 +8977,13 @@
     "def": 15,
     "init": 24,
     "stats": {
-      "FOR": -2,
-      "DEX": 4,
+      "AGI": 4,
       "CON": -2,
+      "FOR": -2,
+      "PER": 2,
+      "CHA": 2,
       "INT": 2,
-      "SAG": 2,
-      "CHA": 2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Forêt",
@@ -8860,12 +9022,13 @@
     "def": 15,
     "init": 19,
     "stats": {
-      "FOR": -2,
-      "DEX": 4,
+      "AGI": 4,
       "CON": -2,
+      "FOR": -2,
+      "PER": 2,
+      "CHA": 2,
       "INT": 2,
-      "SAG": 2,
-      "CHA": 2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Forêt",
@@ -8978,17 +9141,18 @@
     "id": 164,
     "name": "Rat géant",
     "description": "Aussi appelé RTI – Rat de Taille Inhabituelle – (Cf. le film Princess Bride), ce rongeur de la taille d’un chien est beaucoup plus agressif qu’un rat ordinaire. Il pue autant qu’il est laid. Et il est particulièrement laid.",
-    "nc": 0,
+    "nc": 1,
     "hp": 4,
     "def": 13,
-    "init": 13,
+    "init": 15,
     "stats": {
-      "FOR": 1,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 1,
+      "FOR": 1,
+      "PER": 2,
+      "CHA": -4,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Marécage",
@@ -9017,12 +9181,13 @@
     "def": 18,
     "init": 10,
     "stats": {
-      "FOR": 8,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 8,
+      "FOR": 8,
+      "PER": 0,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -9057,16 +9222,17 @@
     "name": "Sanglier",
     "description": "Les sangliers mâles pèsent généralement autour de 150 kg mais on peut rencontrer des spécimens de 200 à 300 kg (ajouter un niveau de Boss).",
     "nc": 3,
-    "hp": 16,
-    "def": 15,
-    "init": 10,
+    "hp": 20,
+    "def": 16,
+    "init": 11,
     "stats": {
-      "FOR": 3,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 3,
+      "FOR": 3,
+      "PER": 1,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 2
     },
     "category": "Vivante",
     "environment": "Forêt",
@@ -9114,12 +9280,13 @@
     "def": 18,
     "init": 12,
     "stats": {
-      "FOR": 6,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 6,
+      "FOR": 6,
+      "PER": 2,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Forêt",
@@ -9172,16 +9339,17 @@
     "name": "Serpent constricteur",
     "description": "Ce Profil correspond au boa ou au python, toutefois cette famille de serpents comprend de grandes disparités de taille et de poids, allant de 2 mètres pour une quinzaine de kilos à plus de 6 mètres pour 150 kg et au-delà. Les Caractéristiques présentées ici correspondent à un spécimen d’environ 4 m pour 80 kg.",
     "nc": 3,
-    "hp": 15,
+    "hp": 30,
     "def": 15,
-    "init": 15,
+    "init": 13,
     "stats": {
-      "FOR": 3,
-      "DEX": 0,
-      "CON": 3,
+      "AGI": 0,
+      "CON": 4,
+      "FOR": 4,
+      "PER": 0,
+      "CHA": -4,
       "INT": -4,
-      "SAG": 1,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Forêt",
@@ -9215,17 +9383,18 @@
     "id": 169,
     "name": "Serpent venimeux",
     "description": "Ce Profil correspond à un serpent d’environ un mètre de long : crotale, vipère, etc.",
-    "nc": 2,
+    "nc": 1,
     "hp": 2,
     "def": 15,
-    "init": 21,
+    "init": 12,
     "stats": {
-      "FOR": -3,
-      "DEX": 2,
+      "AGI": 3,
       "CON": 0,
+      "FOR": -3,
+      "PER": 2,
+      "CHA": -4,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -9264,12 +9433,13 @@
     "def": 10,
     "init": 10,
     "stats": {
-      "FOR": 8,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 8,
+      "FOR": 8,
+      "PER": 0,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 0,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Marécage",
@@ -9298,12 +9468,13 @@
     "def": 18,
     "init": 18,
     "stats": {
-      "FOR": 0,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 6,
+      "FOR": 0,
+      "PER": 2,
+      "CHA": 2,
       "INT": 0,
-      "SAG": 2,
-      "CHA": 2
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -9351,12 +9522,13 @@
     "def": 15,
     "init": 12,
     "stats": {
-      "FOR": -3,
-      "DEX": 3,
+      "AGI": 3,
       "CON": -3,
+      "FOR": -3,
+      "PER": 2,
+      "CHA": -4,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -4
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Marécage",
@@ -9385,12 +9557,13 @@
     "def": 22,
     "init": 8,
     "stats": {
-      "FOR": 13,
-      "DEX": -1,
+      "AGI": -1,
       "CON": 13,
+      "FOR": 13,
+      "PER": 4,
+      "CHA": 2,
       "INT": 2,
-      "SAG": 4,
-      "CHA": 2
+      "VOL": 0
     },
     "category": "Végétative",
     "environment": "Forêt",
@@ -9419,12 +9592,13 @@
     "def": 13,
     "init": 10,
     "stats": {
-      "FOR": 4,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 4,
+      "FOR": 4,
+      "PER": 2,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -9463,12 +9637,13 @@
     "def": 16,
     "init": 10,
     "stats": {
-      "FOR": 6,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 6,
+      "FOR": 6,
+      "PER": 2,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Plaine",
@@ -9507,12 +9682,13 @@
     "def": 34,
     "init": 8,
     "stats": {
-      "FOR": 18,
-      "DEX": -1,
+      "AGI": -1,
       "CON": 18,
+      "FOR": 18,
+      "PER": 6,
+      "CHA": 6,
       "INT": 6,
-      "SAG": 6,
-      "CHA": 6
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": "Montagne",
@@ -9598,17 +9774,18 @@
     "id": 177,
     "name": "Vampire",
     "description": "",
-    "nc": 7,
-    "hp": 50,
+    "nc": 8,
+    "hp": 70,
     "def": 20,
-    "init": 18,
+    "init": 17,
     "stats": {
-      "FOR": 5,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 5,
+      "FOR": 5,
+      "PER": 4,
+      "CHA": 4,
       "INT": 4,
-      "SAG": 4,
-      "CHA": 4
+      "VOL": 4
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -9660,17 +9837,18 @@
     "id": 178,
     "name": "Vampire ancien",
     "description": "Après plusieurs siècles ou même quelques millénaires un vampire devient un puissant lanceur de sort mais surtout une créature vicieuse, calculatrice et dominatrice capable de contrôler un mortel d’un seul regard. La plupart des vampires anciens sont magiciens bien qu’on rencontre quelques exceptions tournées vers les Profils de Guerrier ou de Chevalier. La Voie du méchant récurrent est aussi parfaitement adaptée et conseillée pour ce type de PNJ majeur.",
-    "nc": 11,
-    "hp": 98,
-    "def": 20,
-    "init": 18,
+    "nc": 13,
+    "hp": 160,
+    "def": 25,
+    "init": 17,
     "stats": {
-      "FOR": 5,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 5,
-      "INT": 6,
-      "SAG": 4,
-      "CHA": 6
+      "FOR": 5,
+      "PER": 4,
+      "CHA": 4,
+      "INT": 4,
+      "VOL": 6
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -9831,14 +10009,15 @@
     "nc": 4,
     "hp": 35,
     "def": 17,
-    "init": 15,
+    "init": 10,
     "stats": {
-      "FOR": 3,
-      "DEX": 2,
+      "AGI": 2,
       "CON": 3,
+      "FOR": 3,
+      "PER": 0,
+      "CHA": 1,
       "INT": 0,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 2
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -9877,12 +10056,13 @@
     "def": 18,
     "init": 13,
     "stats": {
-      "FOR": 8,
-      "DEX": 1,
+      "AGI": 1,
       "CON": 8,
+      "FOR": 8,
+      "PER": 2,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": "Forêt",
@@ -9937,12 +10117,13 @@
     "def": 10,
     "init": 8,
     "stats": {
-      "FOR": 1,
-      "DEX": -1,
+      "AGI": -1,
       "CON": 1,
+      "FOR": 2,
+      "PER": -2,
+      "CHA": -4,
       "INT": -4,
-      "SAG": -2,
-      "CHA": -4
+      "VOL": 6
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -9971,12 +10152,13 @@
     "def": 12,
     "init": 10,
     "stats": {
-      "FOR": 6,
-      "DEX": -1,
+      "AGI": -1,
       "CON": 6,
+      "FOR": 6,
+      "PER": 2,
+      "CHA": -2,
       "INT": -4,
-      "SAG": 2,
-      "CHA": -2
+      "VOL": 0
     },
     "category": "Non-vivante",
     "environment": "Spécial",
@@ -10005,12 +10187,13 @@
     "def": 12,
     "init": 13,
     "stats": {
-      "FOR": -2,
-      "DEX": 1,
+      "AGI": 1,
       "CON": -2,
+      "FOR": -2,
+      "PER": 0,
+      "CHA": 0,
       "INT": 0,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": null,
@@ -10039,12 +10222,13 @@
     "def": 10,
     "init": 10,
     "stats": {
-      "FOR": 0,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 0,
+      "FOR": 0,
+      "PER": 0,
+      "CHA": 0,
       "INT": 0,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": null,
@@ -10068,17 +10252,18 @@
     "id": 185,
     "name": "Milicien",
     "description": "",
-    "nc": 0,
+    "nc": 1,
     "hp": 9,
     "def": 14,
     "init": 10,
     "stats": {
-      "FOR": 1,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 1,
+      "FOR": 1,
+      "PER": 0,
+      "CHA": 0,
       "INT": -2,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": null,
@@ -10107,12 +10292,13 @@
     "def": 10,
     "init": 11,
     "stats": {
-      "FOR": -1,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 0,
+      "FOR": -1,
+      "PER": 0,
+      "CHA": 2,
       "INT": 2,
-      "SAG": 0,
-      "CHA": 2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": null,
@@ -10151,12 +10337,13 @@
     "def": 15,
     "init": 10,
     "stats": {
-      "FOR": 3,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 3,
+      "FOR": 3,
+      "PER": 0,
+      "CHA": 0,
       "INT": 0,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": null,
@@ -10185,12 +10372,13 @@
     "def": 17,
     "init": 10,
     "stats": {
-      "FOR": 3,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 3,
+      "FOR": 3,
+      "PER": 0,
+      "CHA": 0,
       "INT": 0,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": null,
@@ -10224,17 +10412,18 @@
     "id": 189,
     "name": "Capitaine",
     "description": "",
-    "nc": 5,
-    "hp": 65,
-    "def": 19,
+    "nc": 4,
+    "hp": 50,
+    "def": 18,
     "init": 10,
     "stats": {
+      "AGI": 1,
+      "CON": 2,
       "FOR": 3,
-      "DEX": 0,
-      "CON": 3,
-      "INT": 0,
-      "SAG": 0,
-      "CHA": 0
+      "PER": 0,
+      "CHA": 2,
+      "INT": 1,
+      "VOL": 2
     },
     "category": "Humanoïde",
     "environment": null,
@@ -10277,17 +10466,18 @@
     "id": 190,
     "name": "Garde du corps",
     "description": "",
-    "nc": 2,
-    "hp": 33,
-    "def": 15,
-    "init": 10,
+    "nc": 3,
+    "hp": 45,
+    "def": 20,
+    "init": 13,
     "stats": {
-      "FOR": 3,
-      "DEX": 0,
+      "AGI": 1,
       "CON": 3,
+      "FOR": 3,
+      "PER": 0,
+      "CHA": 0,
       "INT": 0,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 2
     },
     "category": "Humanoïde",
     "environment": null,
@@ -10353,12 +10543,13 @@
     "def": 19,
     "init": 10,
     "stats": {
-      "FOR": 3,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 3,
+      "FOR": 3,
+      "PER": 0,
+      "CHA": 0,
       "INT": 0,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": null,
@@ -10451,12 +10642,13 @@
     "def": 16,
     "init": 18,
     "stats": {
-      "FOR": 0,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 0,
+      "FOR": 0,
+      "PER": 2,
+      "CHA": 0,
       "INT": 0,
-      "SAG": 2,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": null,
@@ -10485,12 +10677,13 @@
     "def": 16,
     "init": 18,
     "stats": {
-      "FOR": 0,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 0,
+      "FOR": 0,
+      "PER": 2,
+      "CHA": 0,
       "INT": 0,
-      "SAG": 2,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": null,
@@ -10519,12 +10712,13 @@
     "def": 15,
     "init": 10,
     "stats": {
-      "FOR": 3,
-      "DEX": 0,
+      "AGI": 0,
       "CON": 3,
+      "FOR": 3,
+      "PER": 0,
+      "CHA": 0,
       "INT": 0,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": null,
@@ -10563,12 +10757,13 @@
     "def": 18,
     "init": 18,
     "stats": {
-      "FOR": 0,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 0,
+      "FOR": 0,
+      "PER": 2,
+      "CHA": 0,
       "INT": 2,
-      "SAG": 2,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": null,
@@ -10607,12 +10802,13 @@
     "def": 18,
     "init": 18,
     "stats": {
-      "FOR": 0,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 0,
+      "FOR": 0,
+      "PER": 2,
+      "CHA": 0,
       "INT": 2,
-      "SAG": 2,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": null,
@@ -10651,12 +10847,13 @@
     "def": 20,
     "init": 18,
     "stats": {
-      "FOR": 0,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 0,
+      "FOR": 0,
+      "PER": 2,
+      "CHA": 0,
       "INT": 2,
-      "SAG": 2,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": null,
@@ -10704,12 +10901,13 @@
     "def": 22,
     "init": 18,
     "stats": {
-      "FOR": 0,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 0,
+      "FOR": 0,
+      "PER": 4,
+      "CHA": 0,
       "INT": 2,
-      "SAG": 4,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": null,
@@ -10766,12 +10964,13 @@
     "def": 26,
     "init": 18,
     "stats": {
-      "FOR": 0,
-      "DEX": 4,
+      "AGI": 4,
       "CON": 0,
+      "FOR": 0,
+      "PER": 4,
+      "CHA": 2,
       "INT": 2,
-      "SAG": 4,
-      "CHA": 2
+      "VOL": 0
     },
     "category": "Humanoïde",
     "environment": null,
@@ -10846,12 +11045,13 @@
     "def": 16,
     "init": 19,
     "stats": {
-      "FOR": -4,
-      "DEX": 4,
+      "AGI": 4,
       "CON": -4,
+      "FOR": -4,
+      "PER": 0,
+      "CHA": 0,
       "INT": 0,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": null,
@@ -10880,12 +11080,13 @@
     "def": 15,
     "init": 17,
     "stats": {
-      "FOR": -3,
-      "DEX": 3,
+      "AGI": 3,
       "CON": -3,
+      "FOR": -3,
+      "PER": 0,
+      "CHA": 0,
       "INT": 0,
-      "SAG": 0,
-      "CHA": 0
+      "VOL": 0
     },
     "category": "Vivante",
     "environment": null,
@@ -10898,6 +11099,699 @@
         "name": "Attaque",
         "test": "+3",
         "dm": "1",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 202,
+    "name": "Assassin",
+    "description": "Ce professionnel du meurtre est un adversaire redoutable, mais il ne s'amuse jamais à attaquer un groupe de PJ de front. Il attaque par surprise et de préférence un PJ solitaire avant de disparaître dans les ombres.",
+    "nc": 4,
+    "hp": 40,
+    "def": 17,
+    "init": 15,
+    "stats": {
+      "AGI": 3,
+      "CON": 3,
+      "FOR": 2,
+      "PER": 2,
+      "CHA": 1,
+      "INT": 1,
+      "VOL": 2
+    },
+    "category": "Humanoïde",
+    "environment": null,
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": "Attaque mortelle (A) : Une attaque qui doit être exécutée dans le dos ou par surprise. L'assassin obtient un dé bonus en attaque et ajoute +4d6 aux DM de sa première attaque (il fait ensuite sa seconde attaque dans des conditions normales).\n\nAssassinat (L) : Au premier round de combat, si la cible est Surprise, une Attaque mortelle réussie l'oblige à réussir un test de CON difficulté 13 ou tomber à 0 PV.\n\nDisparition (L) : L'assassin devient invisible (passage dans les ombres, cape magique, sort, etc.) et peut se déplacer de 20 m. Il réapparaît à son prochain tour et s'il emporte un test opposé d'AGI (discrétion +5) contre la PER (vigilance) de sa cible, il peut effectuer une Attaque mortelle.\n\nEmbuscade : Au premier round de combat, si l'environnement permet de se dissimuler, la cible doit faire un test de PER difficulté 16 ou être surprise.",
+    "picture": "",
+    "attacks": [
+      {
+        "name": "Épée courte (2 attaques)",
+        "test": "+7",
+        "dm": "1d6+3",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 203,
+    "name": "Garde de la ville",
+    "description": "",
+    "nc": 1,
+    "hp": 15,
+    "def": 16,
+    "init": 10,
+    "stats": {
+      "AGI": 0,
+      "CON": 1,
+      "FOR": 2,
+      "PER": 0,
+      "CHA": 0,
+      "INT": 0,
+      "VOL": 0
+    },
+    "category": "Humanoïde",
+    "environment": null,
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": null,
+    "picture": "",
+    "attacks": [
+      {
+        "name": "Épée longue",
+        "test": "+4",
+        "dm": "1d8+2",
+        "special": null,
+        "reach": null
+      },
+      {
+        "name": "Arbalète",
+        "test": "+4",
+        "dm": "2d4",
+        "special": null,
+        "reach": "30"
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 204,
+    "name": "Vétéran ou garde de palais ducal",
+    "description": "",
+    "nc": 2,
+    "hp": 25,
+    "def": 17,
+    "init": 13,
+    "stats": {
+      "AGI": 0,
+      "CON": 2,
+      "FOR": 2,
+      "PER": 0,
+      "CHA": 0,
+      "INT": 0,
+      "VOL": 1
+    },
+    "category": "Humanoïde",
+    "environment": null,
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": "Brise‑genou : Si un adversaire au contact tente de s'éloigner de la créature (généralement pour fuir), elle obtient une attaque de contact gratuite contre lui. Si cette attaque est réussie, en plus des DM habituels, la cible doit réussir un test de CON difficulté 15 ou diviser par deux tous ses déplacements pour le reste du combat.\n\nImparable : Si la créature obtient 15‑20 au d20 d'un test d'attaque (17 à 20 si la créature possède 2 attaques), elle inflige +2d4 DM supplémentaire et l'attaque est automatiquement réussie (quelle que soit la DEF de son adversaire). Les dés bonus ne sont pas multipliés en cas de critique.\n\nSergent (G) : Une fois par round, le sergent peut donner une action supplémentaire à n'importe quel allié sous ses ordres à portée de vue (attaque ou mouvement). Une fois par combat, une attaque qui aurait dû amener le sergent à 0 PV est ignorée.",
+    "picture": "",
+    "attacks": [
+      {
+        "name": "Épée longue",
+        "test": "+6",
+        "dm": "1d8+4",
+        "special": null,
+        "reach": null
+      },
+      {
+        "name": "Arbalète lourde",
+        "test": "+6",
+        "dm": "3d4",
+        "special": null,
+        "reach": "50"
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 205,
+    "name": "Sorcier",
+    "description": "L'archétype du vil sorcier qui trafique avec la mort et les démons, il est forcément coupable de toutes les horreurs dont vos PJ cherchent l'origine… ou pas.",
+    "nc": 5,
+    "hp": 45,
+    "def": 18,
+    "init": 10,
+    "stats": {
+      "AGI": 1,
+      "CON": 1,
+      "FOR": 0,
+      "PER": 0,
+      "CHA": 1,
+      "INT": 3,
+      "VOL": 3
+    },
+    "category": "Humanoïde",
+    "environment": null,
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": "Animer un cadavre (L) : Ce pouvoir permet d'animer le cadavre d'une créature morte (portée 10 m) pendant le combat. La créature conserve son profil, mais elle subit une pénalité de ‑2 en attaque, en DEF et en Initiative. Lorsque le cadavre est à nouveau vaincu, il ne peut pas être réanimé. Le cadavre de la créature animée ne peut être d'un NC supérieur à 2.\n\nInjonction mortelle (L) : Une cible située à une distance maximum de 30 m doit réussir un test de CON difficulté 15 ou tomber à 0 PV (et mourir immédiatement s'il s'agit d'un PNJ). En cas de succès, la cible subit tout de même 2d6+5 DM. Ce pouvoir ne peut prendre une même créature pour cible qu'une seule fois par combat.\n\nPas de l'ombre (L) : Le sorcier se fond dans les ombres et se téléporter à une distance maximum de 100 m jusqu'à 3 fois par combat. Le lieu d'arrivée doit être en ligne de vue ou parfaitement connu (10 minutes pour étudier le lieu).\n\nVampirisation (L) : Le sorcier doit réussir un test opposé d'attaque magique contre une cible vivante à une distance maximum de 30 m. En cas de réussite, la cible subit 2d8 DM et le sorcier régénère autant de PV que de DM infligés. De plus, à chaque fois qu'une créature meurt à moins de 20 mètres de lui, il siphonne son énergie et gagne un nombre de PV égal au double du NC de la créature qui vient de mourir.",
+    "picture": "",
+    "attacks": [
+      {
+        "name": "Dague",
+        "test": "+6",
+        "dm": "1d4+2 +2d6 poison",
+        "special": null,
+        "reach": null
+      },
+      {
+        "name": "Attaque magique",
+        "test": "+10",
+        "dm": null,
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 206,
+    "name": "Requin",
+    "description": "",
+    "nc": 4,
+    "hp": 50,
+    "def": 18,
+    "init": 13,
+    "stats": {
+      "AGI": 3,
+      "CON": 5,
+      "FOR": 5,
+      "PER": 0,
+      "CHA": 0,
+      "INT": 0,
+      "VOL": 2
+    },
+    "category": "Vivante",
+    "environment": "Aquatique",
+    "archetype": "Standard",
+    "size": "Grande",
+    "specialAbilities": "Dévorer : Lorsque le requin réussit une attaque avec un résultat de 15‑20 au d20, il saisit sa proie entre ses crocs et lui inflige immédiatement une attaque gratuite supplémentaire. Si la FOR de la cible est inférieure ou égale au prédateur, elle est de plus immobilisée. Pour se libérer, la victime doit réussir un test de FOR difficulté 15 lors de son tour et cela lui demande une action de mouvement.\n\nCréature aquatique : Le requin ne subit aucune pénalité pour attaquer et se déplacer sous l'eau et il bénéficie d'un bonus de +3 en initiative.",
+    "picture": "",
+    "attacks": [
+      {
+        "name": "Morsure",
+        "test": "+10",
+        "dm": "2d8+5",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 207,
+    "name": "Araignée géante",
+    "description": "Les araignées géantes (arthropodes) sont des monstres terrifiants : rapides, puissants et capables de survivre aux pires blessures. On trouve les araignées géantes dans les forêts sombres et reculées, mais aussi dans les souterrains, surtout les plus grosses d'entre elles. Il en existe de nombreuses variantes, mais celle que nous vous proposons ici fait le poids d'un humain, elle est donc moins haute mais occupe un espace de presque 2 m de diamètre.",
+    "nc": 3,
+    "hp": 30,
+    "def": 17,
+    "init": 12,
+    "stats": {
+      "AGI": 4,
+      "CON": 3,
+      "FOR": 3,
+      "PER": 2,
+      "CHA": 0,
+      "INT": 0,
+      "VOL": 0
+    },
+    "category": "Vivante",
+    "environment": "Souterrain",
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": "Poison mortel : Le poison inflige 2d6 DM supplémentaires à la victime à chaque attaque. Si la victime réussit un test de CON de la difficulté indiquée, elle subit seulement la moitié des DM.\n\nVermine : Une araignée géante peut encore agir un round complet lorsqu'elle atteint 0 PV. Une araignée se déplace de 15 m par action de mouvement.\n\nVariantes : Choisissez un type de poison et soit Toile (L), soit Araignée chasseuse.\n\nAraignée chasseuse : Au premier round de combat, si l'environnement permet à la créature de se dissimuler, la cible doit faire un test de PER difficulté 19 ou être surprise. Si elle attaque avec succès une cible surprise, la créature inflige +1d4 DM et toute créature dont la FOR est inférieure à la sienne est renversée. La créature obtient un bonus de +5 à tous les tests de discrétion.\n\nToile (L) : Sur un test d'attaque réussi (portée 3 m), l'araignée emprisonne sa cible dans une toile gluante et solide. Elle est immobilisée ; se libérer nécessite l'usage d'une action limitée et il faut réussir un test de FOR difficulté 12.",
+    "picture": "",
+    "attacks": [
+      {
+        "name": "Attaque",
+        "test": "+6",
+        "dm": "2d6+4 + poison (2d6, difficulté 12)",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 208,
+    "name": "Démonet",
+    "description": "Le démonet représente l'image d'Épinal d'un démon miniature, de celui qui se perche sur votre épaule pour vous suggérer des actions maléfiques. Il possède une tête humaine, des ailes de chauve‑souris, des cornes et une queue reptilienne fourchue à son extrémité.",
+    "nc": 2,
+    "hp": 15,
+    "def": 15,
+    "init": 15,
+    "stats": {
+      "AGI": 3,
+      "CON": 0,
+      "FOR": 0,
+      "PER": 2,
+      "CHA": 0,
+      "INT": 1,
+      "VOL": 0
+    },
+    "category": "Humanoïde",
+    "environment": null,
+    "archetype": "Standard",
+    "size": "Très petite",
+    "specialAbilities": "Venin : La victime doit réussir un test de CON difficulté 10 ou être affaiblie pendant 1d6 min.\n\nRésistance : Tous les démons réduisent les DM de feu et d'acide de 10 points.\n\nRésistance aux armes : Le démonet possède une RD 5 sur les armes non magiques. Si les PJ ne sont pas équipés des armes appropriées, le NC des démons augmente de 1.\n\nTélépathie : Les démons peuvent communiquer avec toutes les créatures par télépathie à une distance de 50 m sans avoir besoin de partager une langue commune. Ils parlent l'abyssal.\n\nTéléportation (L) : Le démonet peut se téléporter à n'importe quel endroit qu'il voit ou qu'il connaît à une distance maximale de 200 m jusqu'à 3 fois par combat.\n\nTentation du mal : Les démons aiment corrompre les mortels en leur offrant le pouvoir. Un démon peut donner un dé bonus à toutes les actions d'un mortel durant 24 h (ce mortel doit avoir un niveau inférieur au NC du démon). À la fin de cette période, le mortel est affaibli pendant une semaine, ce qui le pousse généralement à négocier un nouveau don de pouvoir. Ce que le démon fait payer de plus en plus cher, jusqu'à obtenir l'âme de sa proie. Après chaque nouvelle période de 24 h, la période d'affaiblissement augmente d'une semaine.\n\nVision dans le noir : Tous les démons voient dans le noir comme en plein jour à une distance de 30 m.\n\nTransformation (L) : Le démonet peut se transformer en n'importe quel animal de taille très petite (chien, chat, rat, corbeau, etc.) aussi longtemps qu'il le souhaite.\n\nInvisibilité (A)\\* : Le démon se rend invisible pendant 1d4 min. Une fois invisible, personne ne peut plus détecter sa présence ou lui porter d'attaque directe. S'il attaque, il redevient visible.\n\nVol : Un démonet peut se déplacer en vol de 10 m par action de mouvement.\n\nDémon : Les démons ne sont pas considérés comme des créatures non vivantes. Toutefois, ils partagent avec celles‑ci de nombreux traits.\n\nTénèbres (L)\\* : Tous les démons peuvent invoquer à volonté une zone fixe de ténèbres magiques de 10 m de diamètre, à une portée de 20 m pour une durée de 1 min. Même les créatures capables de voir dans le noir sont aveuglées dans cette zone. Il ne peut maintenir plus d'une zone de ténèbres à la fois.",
+    "picture": "",
+    "attacks": [
+      {
+        "name": "Griffes et morsure",
+        "test": "+4",
+        "dm": "1d4",
+        "special": null,
+        "reach": null
+      },
+      {
+        "name": "Queue fourchue",
+        "test": "+4",
+        "dm": "1 + venin",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 209,
+    "name": "Dragon des forêts",
+    "description": "Énormes créatures reptiliennes, les dragons possèdent quatre pattes et de grandes ailes membraneuses semblables à celles des chauves‑souris. Les dragons des forêts sont reconnaissables aux patchs de plumes qui poussent au creux de certaines de leurs articulations (cou notamment) et en vieillissant leurs écailles ressemblent à de l'écorce. Leur souffle est un nuage empoisonné et ils utilisent généralement la magie druidique. Le caractère de chaque dragon varie selon l'individu, mais tous sont orgueilleux et attirés par les trésors et ceux qui ont réuni un butin fabuleux évitent de s'en éloigner. Le profil du dragon fourni ci‑dessous, correspond à une jeune femelle d'environ un siècle.",
+    "nc": 10,
+    "hp": 140,
+    "def": 24,
+    "init": 16,
+    "stats": {
+      "AGI": 3,
+      "CON": 8,
+      "FOR": 8,
+      "PER": 3,
+      "CHA": 2,
+      "INT": 2,
+      "VOL": 5
+    },
+    "category": "Vivante",
+    "environment": "Forêt",
+    "archetype": "Standard",
+    "size": "Énorme",
+    "specialAbilities": "Coup de queue (G) : Chaque fois qu'un adversaire attaque le dragon dans le dos, il subit une attaque de queue gratuite équivalant à une attaque avec des DM divisés par deux.\n\nEmporter dans les airs : Sur un résultat de 17 à 20 au test d'attaque, le dragon peut emporter dans les airs une victime de taille inférieure à la sienne au prix d'une action de mouvement. Au premier round, si la victime se libère (test de FOR difficulté 18), elle subit, 4d4° DM de chute. Au round suivant, si la créature décide de prendre de l'altitude, les DM passent à 7d4° et enfin 10d4° aux rounds suivants. Le dé évolutif des DM de chute est indexé sur le niveau de la victime, et non sur celui de la créature.\n\nImmunités : Un dragon des forêts est immunisé au sommeil et à la paralysie et ne subit aucun DM de poison.\n\nInspirer la terreur : Lorsque le dragon attaque pour la première fois, toutes les créatures à moins de 30 m doivent réussir un test d'attaque magique contre 25 ou être submergées par la peur et subir l'état affaibli pendant 1d4 rounds. Si le test est raté avec une marge de 10 plus, la victime doit fuir aussi loin que possible pendant la même durée.\n\nSouffle (L) : Le souffle est un nuage de gaz empoisonné affectant toutes les créatures dans un cône 15 m × 15 m. Retenir sa respiration est inutile, le poison fonctionne par simple contact. L'attaque inflige automatiquement (pas de test d'attaque) 6d6+18 DM de poison. Les DM sont divisés par deux si la victime réussit un test d'AGI difficulté 15. La créature doit attendre 1d4 rounds avant d'utiliser à nouveau son souffle après chaque utilisation.\n\nVol rapide : La créature obtient une action de mouvement supplémentaire par round lorsqu'elle est en vol. Au premier round de combat, la créature obtient un dé bonus en attaque et +1d8 DM si elle est en vol et attaque une créature au sol.",
+    "picture": "",
+    "attacks": [
+      {
+        "name": "Morsure et griffes (2 attaques)",
+        "test": "+14",
+        "dm": "1d12+8",
+        "special": null,
+        "reach": null
+      },
+      {
+        "name": "Attaque magique",
+        "test": "+15",
+        "dm": null,
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 210,
+    "name": "Géant du feu",
+    "description": "Les géants du feu sont de grande créature à la peau charbonneuse, aux cheveux et à la barbe de feu. Le front des mâles est orné de cornes recourbées, plus ou moins longues selon leur âge. Ils aiment arborer des tatouages et des décorations en or.",
+    "nc": 9,
+    "hp": 160,
+    "def": 25,
+    "init": 12,
+    "stats": {
+      "AGI": 0,
+      "CON": 12,
+      "FOR": 12,
+      "PER": 2,
+      "CHA": 0,
+      "INT": 0,
+      "VOL": 0
+    },
+    "category": "Humanoïde",
+    "environment": "Montagne",
+    "archetype": "Standard",
+    "size": "Énorme",
+    "specialAbilities": "Fauchage : Sur 15 à 20 au test d'attaque, si l'attaque est réussie, la victime doit réussir au choix un test de FOR ou d'AGI difficulté 20 ou être renversée.\n\nBalayage : La créature utilise sa grande taille pour affecter deux créatures à son contact d'un seul coup de patte/arme. Faites un seul test et comparez‑le à la DEF des deux cibles. Si les deux cibles sont touchées, la cible secondaire (désignée par le MJ) subit la moitié des DM.\n\nImmunisé au feu : Le géant du feu est immunisé aux DM de feu.",
+    "picture": "",
+    "attacks": [
+      {
+        "name": "Marteau de guerre",
+        "test": "+14",
+        "dm": "4d8+16",
+        "special": null,
+        "reach": null
+      },
+      {
+        "name": "Lancer de rocher",
+        "test": "+14",
+        "dm": "2d8+12",
+        "special": null,
+        "reach": "20"
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 211,
+    "name": "Geoselachis",
+    "description": "Aussi appelé requin terrestre, le geoselachis est un prédateur puissant et très dangereux capable de s'enterrer pour surprendre sa proie. Imaginez une taupe géante dotée d'un exosquelette impénétrable, de la mâchoire d'un grand requin et enfin de la puissance et de la capacité à encorner d'un rhinocéros et vous aurez un aperçu de cette machine à tuer…\nLes multiples dents triangulaires qui constituent la mâchoire du geoselachis sont autant de cristaux transparents semblables à des diamants. La créature possède 50+1d60 dents récupérables (les autres sont en mauvais état), il faut environ 1 min pour retirer une dent sur son cadavre et chaque dent vaut environ 1 pa. Elles sont utilisées pour concevoir des outils tranchants, en particulier dans les tribus du désert qui n'ont pas d'accès à la manufacture de métaux. Chasseur de geoselachis est un des plus dangereux métiers du monde.",
+    "nc": 7,
+    "hp": 110,
+    "def": 22,
+    "init": 15,
+    "stats": {
+      "AGI": 0,
+      "CON": 8,
+      "FOR": 8,
+      "PER": 2,
+      "CHA": 0,
+      "INT": 0,
+      "VOL": 2
+    },
+    "category": "Vivante",
+    "environment": "Aquatique",
+    "archetype": "Standard",
+    "size": "Grande",
+    "specialAbilities": "Embuscade : Au premier round de combat, si le geoselachis peut se dissimuler sous terre, la cible doit faire un test de PER difficulté 15 ou être surprise. Si elle attaque avec succès une cible surprise, la créature inflige +1d6 DM et toute créature dont la FOR est inférieure à la sienne est renversée. La créature obtient un bonus de +5 à tous les tests de discrétion.\n\nEncorner : Lorsque la créature réussit une attaque avec un résultat de 17‑20 au d20, elle encorne sa proie et lui inflige immédiatement une attaque gratuite supplémentaire.\n\nDéplacement sous terre : Le geoselachis est capable de parcourir 5 m par action de mouvement en creusant dans un sol meuble (le tunnel s'effondre derrière lui).",
+    "picture": "",
+    "attacks": [
+      {
+        "name": "Morsure et griffes (2 attaques)",
+        "test": "+13",
+        "dm": "1d12+8",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 212,
+    "name": "Sergent gnoll",
+    "description": "Un sergent gnoll est généralement à la tête de cinq gnolls standard. Ils forment une rencontre de NC 4.",
+    "nc": 2,
+    "hp": 25,
+    "def": 16,
+    "init": 10,
+    "stats": {
+      "AGI": 0,
+      "CON": 4,
+      "FOR": 4,
+      "PER": 0,
+      "CHA": 0,
+      "INT": 0,
+      "VOL": 0
+    },
+    "category": "Humanoïde",
+    "environment": null,
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": "Sergent : Une fois par round, le sergent peut donner une action supplémentaire à n'importe quel allié sous ses ordres à portée de vue (attaque ou mouvement). Une fois par combat, une attaque qui aurait dû amener le sergent à 0 PV est ignorée.",
+    "picture": "",
+    "attacks": [
+      {
+        "name": "Hache",
+        "test": "+6",
+        "dm": "1d8+4",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 213,
+    "name": "Shaman gobelin",
+    "description": "",
+    "nc": 1,
+    "hp": 9,
+    "def": 13,
+    "init": 13,
+    "stats": {
+      "AGI": 2,
+      "CON": 1,
+      "FOR": 0,
+      "PER": 0,
+      "CHA": 1,
+      "INT": 1,
+      "VOL": 1
+    },
+    "category": "Humanoïde",
+    "environment": null,
+    "archetype": "Standard",
+    "size": "Petit",
+    "specialAbilities": "Attaque en meute : Lorsque au moins 2 gobelins attaquent la même cible en même temps, ils bénéficient d'un bonus de +2 en attaque (bonus qui peut s'ajouter à une éventuelle attaque groupée).\n\nAttaque magique (A) : La créature possède un pouvoir magique qui inflige 2d6 DM sur un test d'attaque magique réussi (portée 30 m) sur une cible unique.",
+    "picture": "",
+    "attacks": [
+      {
+        "name": "Arme",
+        "test": "+4",
+        "dm": "1d6",
+        "special": null,
+        "reach": null
+      },
+      {
+        "name": "Attaque magique",
+        "test": "+4",
+        "dm": null,
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 214,
+    "name": "Abomination",
+    "description": "L'abomination est une goule plus puissante, plus ancienne et sans doute un meneur ou un personnage important de son vivant. Avec l'âge, elle a développé des excroissances osseuses acérées au niveau des articulations (coude, genou, épine dorsale) et sa bouche s'est totalement déformée en une gueule immonde.",
+    "nc": 4,
+    "hp": 35,
+    "def": 17,
+    "init": 12,
+    "stats": {
+      "AGI": 1,
+      "CON": 4,
+      "FOR": 4,
+      "PER": 2,
+      "CHA": 0,
+      "INT": 1,
+      "VOL": 4
+    },
+    "category": "Non-vivante",
+    "environment": null,
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": "Paralysie : Une créature blessée par la morsure d'une goule puissante doit réussir un test de CON difficulté 15 ou être paralysée pendant 1d6 rounds.\n\nMiasmes : La goule puissante émet une odeur de cadavre en décomposition absolument infâme et des miasmes toxiques dans un rayon de 2 m. À chaque round, à la fin du tour de la goule, ses adversaires au contact doivent réussir un test de CON difficulté 10 ou être affaiblis et perdre 1d4 PV.\n\nFièvre des goules : Comme pour la goule, avec un test de CON difficulté 18.",
+    "picture": "",
+    "attacks": [
+      {
+        "name": "Morsure",
+        "test": "+9",
+        "dm": "1d6+4",
+        "special": null,
+        "reach": null
+      },
+      {
+        "name": "Griffes",
+        "test": "+9",
+        "dm": "1d6+4",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 215,
+    "name": "Cryohydre à dix têtes",
+    "description": "Une cryohydre est une hydre des glaces capable de souffler un nuage glacial mortel.",
+    "nc": 11,
+    "hp": 150,
+    "def": 23,
+    "init": 10,
+    "stats": {
+      "AGI": 0,
+      "CON": 8,
+      "FOR": 8,
+      "PER": 0,
+      "CHA": 0,
+      "INT": 0,
+      "VOL": 2
+    },
+    "category": "Vivante",
+    "environment": null,
+    "archetype": "Standard",
+    "size": "Énorme",
+    "specialAbilities": "Guérison accélérée : L'hydre guérit de 5 PV par tour au début de son tour, sauf si les DM subis sont de feu.\n\nAttaques multiples : L'hydre peut effectuer un total de 10 attaques, mais pas plus de 4 attaques sur la même cible chaque round. Utilisez la règle des attaques groupées pour gagner du temps (par exemple, +5 pour l'attaque de 2 têtes à la fois).\n\nCréature élémentaire : La cryohydre possède un souffle glacial (voir plus haut), elle est immunisée aux DM de froid et les DM de morsure augmentent de +1d6. Ces éléments augmentent le NC global de la créature de +1. Il existe aussi des hydres de feu, appelées pyrohydre. Elles sont immunisées aux DM de feu et seul l'acide permet de les empêcher de se régénérer.",
+    "picture": "",
+    "attacks": [
+      {
+        "name": "Morsure (10 attaques)",
+        "test": "+13",
+        "dm": "1d8+4+1d6 de froid",
+        "special": null,
+        "reach": null
+      },
+      {
+        "name": "Souffle glacial (cône de 20 m, tous les 1d4 rounds)",
+        "test": "+18",
+        "dm": "6d6+18 (test d'AGI difficulté 15 pour réduire les DM de moitié)",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 216,
+    "name": "Momie auguste",
+    "description": "",
+    "nc": 10,
+    "hp": 160,
+    "def": 24,
+    "init": 12,
+    "stats": {
+      "AGI": 3,
+      "CON": 6,
+      "FOR": 6,
+      "PER": 2,
+      "CHA": 0,
+      "INT": 3,
+      "VOL": 6
+    },
+    "category": "Non-vivante",
+    "environment": null,
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": "Résistance aux DM : La momie réduit de 5 tous les DM subis, sauf par le feu.\n\nPutréfaction : Toute créature blessée par une momie doit réussir un test de CON difficulté 15 ou contracter une horrible maladie qui occasionne le pourrissement rapide de ses chairs. Une sorte de lèpre fulgurante. La victime subit 1d10 DM par round pendant 5 rounds. Tant qu'elle est sous l'effet de la putréfaction, il n'est pas nécessaire de réaliser un nouveau test de CON lorsque la victime est la cible d'une attaque de la momie.\n\nInjonction mortelle (L) : Une cible située à une distance maximale de 30 m doit réussir un test de CON difficulté 15 ou tomber à 0 PV (et mourir immédiatement s'il s'agit d'un PNJ). En cas de succès, la cible subit tout de même 2d8+10 DM. Ce pouvoir ne peut prendre une même créature pour cible qu'une seule fois par combat.\n\nVoie de la magie universelle rang 5 : La momie auguste peut lancer tous les sorts de cette voie à volonté.",
+    "picture": "",
+    "attacks": [
+      {
+        "name": "Coup (2 attaques)",
+        "test": "+16",
+        "dm": "2d6+8 + putréfaction",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 217,
+    "name": "Sergent orque",
+    "description": "",
+    "nc": 3,
+    "hp": 40,
+    "def": 18,
+    "init": 10,
+    "stats": {
+      "AGI": 0,
+      "CON": 3,
+      "FOR": 4,
+      "PER": 0,
+      "CHA": 0,
+      "INT": 0,
+      "VOL": 1
+    },
+    "category": "Vivante",
+    "environment": null,
+    "archetype": "Standard",
+    "size": "Moyen",
+    "specialAbilities": "Imparable : Si la créature obtient 15‑20 sur le d20 d'un test d'attaque, elle inflige +2d4 DM et l'attaque est automatiquement réussie (quelle que soit la DEF de son adversaire). Les dés bonus ne sont pas multipliés en cas de critique.",
+    "picture": "",
+    "attacks": [
+      {
+        "name": "Épée deux mains",
+        "test": "+7",
+        "dm": "2d6+6",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 218,
+    "name": "Ourhible",
+    "description": "Les ourhibles sont des ours mutants dont la tête a été remplacée par celle d'un autre animal : crapaud, sanglier, rapace ou même crocodile. Les ourhibles ont les membres supérieurs hypertrophiés prolongés de griffes puissantes. Très agressifs, ils attaquent sans sommation, les yeux injectés de sang et le regard fou.\n**Dans les Terres d'Osgild :** les ourhibles ont été créés lors de la période sombre des guerres qui ont succédé à la chute de l'empire d'Osgild. Le plus célèbre et plus commun des ourhibles est le terrible choursette, mélange de chouette et d'ours.",
+    "nc": 5,
+    "hp": 70,
+    "def": 18,
+    "init": 12,
+    "stats": {
+      "AGI": 1,
+      "CON": 6,
+      "FOR": 6,
+      "PER": 2,
+      "CHA": 0,
+      "INT": 0,
+      "VOL": 3
+    },
+    "category": "Vivante",
+    "environment": null,
+    "archetype": "Standard",
+    "size": "Grande",
+    "specialAbilities": "Charge (L) : La créature parcourt une distance maximale de 20 m et réalise une attaque avec un dé bonus. Si l'attaque est réussie, en plus des DM normaux, une victime de taille inférieure ou égale à la créature doit réussir un test de FOR difficulté 16 ou être renversée. Dans ce cas, la créature piétine sa victime et les DM sont doublés.\n\nEnragé : Lorsqu'elle reçoit un coup critique, la créature devient enragée. Elle ignore les pénalités de douleur ou la peur, augmente de +3 sa valeur d'attaque au contact et de +1d4 ses DM. Elle peut encore agir un tour complet après avoir atteint 0 PV.",
+    "picture": "",
+    "attacks": [
+      {
+        "name": "Morsure/défense/bec et griffes (2 attaques)",
+        "test": "+10",
+        "dm": "1d8+6",
+        "special": null,
+        "reach": null
+      }
+    ],
+    "capabilities": [],
+    "familyId": null
+  },
+  {
+    "id": 219,
+    "name": "Skrambler",
+    "description": "Le skrambler est une horrible créature souterraine qui ressemble à une énorme mante religieuse. Son corps est muni d'une épaisse carapace de chitine et de huit pattes. Ses pattes antérieures sont similaires à des faux géantes et sont chargées de saisir et découper ses proies. Le skrambler est capable de se déplacer sous terre grâce à un cône d'onde vibratoire qui fracture la roche. Il n'a alors plus qu'à se dégager un passage à l'aide de ses terribles pattes avant. Il mesure environ 3 m pour 400 kg.",
+    "nc": 3,
+    "hp": 30,
+    "def": 17,
+    "init": 14,
+    "stats": {
+      "AGI": 1,
+      "CON": 6,
+      "FOR": 6,
+      "PER": 2,
+      "CHA": 0,
+      "INT": 0,
+      "VOL": 2
+    },
+    "category": "Vivante",
+    "environment": "Souterrain",
+    "archetype": "Standard",
+    "size": "Grande",
+    "specialAbilities": "Creuser (L) : Au prix d'une action limitée, le skrambler est capable de creuser sur une profondeur de 10 m par round. Le tunnel s'effondre derrière lui. Il peut utiliser sa capacité Embuscade pour surgir du sol et attaquer.\n\nEmbuscade : Au premier round de combat, si l'environnement permet à la créature de se dissimuler, la cible doit faire un test de PER difficulté 16 ou être surprise. Si elle attaque avec succès une cible surprise, la créature inflige +1d4 DM et toute créature dont la FOR est inférieure à la sienne est renversée. La créature obtient un bonus de +5 à tous les tests de discrétion et en Init.\n\nOnde dévastatrice (A) : Cette onde fracture la roche dans un cône de 10 m de long pour 3 m de large. Une créature dans la zone d'effet (même s'il n'y a pas de roche !) subit 5d6 DM et peut faire un test de CON difficulté 15 pour diviser les DM par deux.",
+    "picture": "",
+    "attacks": [
+      {
+        "name": "Pattes",
+        "test": "+8",
+        "dm": "2d6+6",
         "special": null,
         "reach": null
       }

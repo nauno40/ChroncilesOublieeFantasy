@@ -5,7 +5,8 @@
     "type": "Bouclier",
     "defense": "+1 ",
     "price": "2 pa",
-    "comments": "La DEF s'additionne à celle de l'armure."
+    "comments": "La DEF s'additionne à celle de l'armure.",
+    "agiMax": "—"
   },
   {
     "id": "tissu_matelasse",
@@ -13,7 +14,8 @@
     "type": "Corps",
     "defense": "+1 ",
     "price": "2 pa",
-    "comments": ""
+    "comments": "",
+    "agiMax": "+7"
   },
   {
     "id": "cuir",
@@ -21,7 +23,8 @@
     "type": "Corps",
     "defense": "+2 ",
     "price": "4 pa",
-    "comments": ""
+    "comments": "",
+    "agiMax": "+6"
   },
   {
     "id": "grand_bouclier",
@@ -29,7 +32,8 @@
     "type": "Bouclier",
     "defense": "+2 ",
     "price": "4 pa",
-    "comments": "La DEF s'additionne à celle de l'armure."
+    "comments": "La DEF s'additionne à celle de l'armure.",
+    "agiMax": "—"
   },
   {
     "id": "cuir_renforce",
@@ -37,7 +41,8 @@
     "type": "Corps",
     "defense": "+3 ",
     "price": "8 pa",
-    "comments": ""
+    "comments": "",
+    "agiMax": "+5"
   },
   {
     "id": "chemise_de_mailles",
@@ -45,30 +50,34 @@
     "type": "Corps",
     "defense": "+4 ",
     "price": "15 pa",
-    "comments": ""
+    "comments": "",
+    "agiMax": "+4"
   },
   {
     "id": "cotte_de_mailles",
     "name": "Cotte de mailles",
     "type": "Corps",
     "defense": "+5 ",
-    "price": "20 pa",
-    "comments": ""
+    "price": "25 pa",
+    "comments": "AGI max +3.",
+    "agiMax": "+3"
   },
   {
-    "id": "demiplaque",
-    "name": "Demi-plaque",
+    "id": "armure_de_plaques",
+    "name": "Armure de plaques",
     "type": "Corps",
     "defense": "+6 ",
-    "price": "50 pa",
-    "comments": "Très rare."
+    "price": "60 pa",
+    "comments": "AGI max +2.",
+    "agiMax": "+2"
   },
   {
     "id": "plaque_complete",
     "name": "Plaque complète",
     "type": "Corps",
-    "defense": "+8 ",
+    "defense": "+7 ",
     "price": "200 pa",
-    "comments": "Très rare. Fabriquée sur mesure, seul le profil de Chevalier est formé au port de cette armure au niveau 1."
+    "comments": "AGI max +1. Fabriquée sur mesure ; seul le chevalier peut la porter, grâce à la capacité de rang 3 de la voie de la noblesse.",
+    "agiMax": "+1"
   }
 ]

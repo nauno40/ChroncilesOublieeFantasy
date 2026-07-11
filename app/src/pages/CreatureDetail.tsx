@@ -47,12 +47,13 @@ export const CreatureDetail: React.FC = () => {
 
     // Mapping stats to display
     const statsConfig = [
-        { label: 'FOR', key: 'FOR' as const },
-        { label: 'DEX', key: 'DEX' as const },
+        { label: 'AGI', key: 'AGI' as const },
         { label: 'CON', key: 'CON' as const },
-        { label: 'INT', key: 'INT' as const },
-        { label: 'SAG', key: 'SAG' as const },
+        { label: 'FOR', key: 'FOR' as const },
+        { label: 'PER', key: 'PER' as const },
         { label: 'CHA', key: 'CHA' as const },
+        { label: 'INT', key: 'INT' as const },
+        { label: 'VOL', key: 'VOL' as const },
     ];
 
     return (

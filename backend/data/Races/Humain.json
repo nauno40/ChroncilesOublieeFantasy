@@ -8,9 +8,9 @@
         {
             "type": "logic",
             "logic": "add_to_lowest",
-            "description": "+1 à la valeur de deux de ses caractéristiques parmi les plus faibles (au choix)",
+            "description": "+1 à la valeur d'une de ses deux plus faibles caractéristiques (au choix)",
             "value": 1,
-            "count": 2
+            "count": 1
         }
     ],
     "minHeight": 150,

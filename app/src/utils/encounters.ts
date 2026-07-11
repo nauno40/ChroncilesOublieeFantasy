@@ -20,6 +20,7 @@ export const encounterToCombatants = (encounter: Encounter): Combatant[] => {
                 initiative: entry.initiative,
                 hp: { current: entry.hp, max: entry.hp },
                 def: entry.def,
+                level: entry.nc, // NC — départage d'initiative COF2
                 per: entry.per,
                 tiebreak: rollTiebreak(),
                 states: [],
@@ -48,7 +49,17 @@ export type EncounterDifficulty = 'facile' | 'normale' | 'difficile' | 'mortelle
 
 export const DIFFICULTIES: EncounterDifficulty[] = ['facile', 'normale', 'difficile', 'mortelle'];
 
-// Chaque créature « coûte » son NC ; le budget = taille × niveau moyen × facteur.
+// Base d'une rencontre « ordinaire » (COF2, partie MJ, « Niveau de créature ») :
+// pour un groupe de 4 PJ, une créature de NC = niveau moyen est une rencontre
+// ordinaire. Les exemples chiffrés du livre (6 loups niv. 5 = NC total 8, 6 worgs
+// niv. 8 = 18, chef ogre + 5 ogres niv. 10 = 21…) montrent qu'un groupe de créatures
+// plus faibles qui totalise ~2× le niveau moyen constitue aussi une rencontre
+// ordinaire (économie d'actions). On retient donc : NC total ordinaire ≈ 2 × niveau
+// moyen, mis à l'échelle du nombre de PJ (référence : 4).
+const ordinaryBudget = (partySize: number, avgLevel: number): number =>
+    (partySize * avgLevel) / 2;
+
+// Chaque créature « coûte » son NC. Facteur appliqué à la base ordinaire (= normale).
 const DIFFICULTY_FACTOR: Record<EncounterDifficulty, number> = {
     facile: 0.5,
     normale: 1.0,
@@ -73,7 +84,7 @@ export const encounterBudget = (
     partySize: number,
     avgLevel: number,
     difficulty: EncounterDifficulty,
-): number => Math.max(1, Math.round(partySize * avgLevel * DIFFICULTY_FACTOR[difficulty]));
+): number => Math.max(1, Math.round(ordinaryBudget(partySize, avgLevel) * DIFFICULTY_FACTOR[difficulty]));
 
 const normalizeEnv = (s?: string): string => (s || '').trim().toLowerCase();
 
@@ -160,7 +171,8 @@ export const threatLabel = (
     avgLevel: number,
 ): { label: string; tone: string } | null => {
     if (roster.some(c => c.nc == null) || partySize < 1 || avgLevel < 1) return null;
-    const ratio = rosterNC(roster) / Math.max(1, partySize * avgLevel);
+    // Menace relative à une rencontre ordinaire (~1.0 = équilibrée), même base que le budget.
+    const ratio = rosterNC(roster) / Math.max(1, ordinaryBudget(partySize, avgLevel));
     if (ratio < 0.75) return { label: 'Facile', tone: 'text-green-400 bg-green-500/10 border-green-500/20' };
     if (ratio < 1.25) return { label: 'Équilibrée', tone: 'text-amber-400 bg-amber-500/10 border-amber-500/20' };
     if (ratio < 1.75) return { label: 'Difficile', tone: 'text-orange-400 bg-orange-500/10 border-orange-500/20' };

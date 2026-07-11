@@ -46,8 +46,8 @@ export const RuleChapter7: React.FC = () => {
                     </div>
                     <div className="grid grid-cols-2 gap-4 mb-2 text-xs">
                         <div>
-                            <span className="block"><strong className="text-stone-300">FOR</strong> +3 <strong className="text-stone-300">DEX</strong> +1 <strong className="text-stone-300">CON</strong> +2</span>
-                            <span className="block"><strong className="text-stone-300">INT</strong> -1 <strong className="text-stone-300">SAG</strong> +0 <strong className="text-stone-300">CHA</strong> -1</span>
+                            <span className="block"><strong className="text-stone-300">AGI</strong> +1 <strong className="text-stone-300">CON</strong> +2 <strong className="text-stone-300">FOR</strong> +3</span>
+                            <span className="block"><strong className="text-stone-300">PER</strong> +0 <strong className="text-stone-300">CHA</strong> -1 <strong className="text-stone-300">INT</strong> -1 <strong className="text-stone-300">VOL</strong> +0</span>
                         </div>
                         <div className="text-right">
                             <span className="block"><strong className="text-stone-300">DEF</strong> 14</span>

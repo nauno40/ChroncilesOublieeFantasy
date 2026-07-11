@@ -13,10 +13,16 @@ import {
   computeSpentPoints,
   computeManaPoints,
   computeCombatStats,
+  migrateLegacyStats,
+  capacityBudget,
+  MIN_STAT,
+  MAX_STAT,
+  STAT_SERIES,
 } from '../utils/cofRules';
 
 export const defaultData: CharacterData = {
-    stats: { FOR: 10, AGI: 10, CON: 10, INT: 10, PER: 10, CHA: 10, VOL: 10 },
+    // COF2 : valeurs de caractéristiques directes (‑2 à +5). 0 = « moyen pour un humain ».
+    stats: { FOR: 0, AGI: 0, CON: 0, INT: 0, PER: 0, CHA: 0, VOL: 0 },
     modifiers: { FOR: 0, AGI: 0, CON: 0, INT: 0, PER: 0, CHA: 0, VOL: 0 },
     hp: { current: 10, max: 10 },
     mp: { current: 0, max: 0 },
@@ -94,11 +100,12 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
     const [mageReplacedRaceVoie, setMageReplacedRaceVoie] = useState(false);
     // Track where the mage bonus point is spent (Rank 2) - No longer needed as state, derived now.
 
+    // COF2 : séries de valeurs de caractéristiques à répartir (‑2 à +5), voir STAT_SERIES.
     const profileValues = useMemo(() => {
         switch (selectedProfileType) {
-            case 'polyvalent': return [12, 12, 12, 11, 11, 10, 9];
-            case 'expert': return [13, 12, 11, 11, 10, 10, 9];
-            case 'specialist': return [14, 12, 11, 10, 10, 9, 9];
+            case 'polyvalent': return STAT_SERIES.polyvalent;
+            case 'expert': return STAT_SERIES.expert;
+            case 'specialist': return STAT_SERIES.specialiste;
         }
     }, [selectedProfileType]);
 
@@ -116,6 +123,11 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
                 .then(data => {
                     // Ensure data structure exists
                     if (!data.data) data.data = defaultData;
+                    // Migration COF2 : convertit les persos créés avec l'ancien modèle
+                    // « score D&D » (9‑14) vers les valeurs de caractéristiques directes.
+                    if (data.data.stats) {
+                        data.data.stats = migrateLegacyStats(data.data.stats, data.data.modifiers);
+                    }
                     setCharacter(data);
                 })
                 .catch(err => {
@@ -249,8 +261,8 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
         }
     }, [isMageFamily]);
 
-    // Points Logic
-    const maxStartingPoints = 2; // Fixed to 2 for everyone now (Racial Rank 1 is free)
+    // Points de capacité : 2 par niveau (le niveau 0 de création équivaut au niveau 1).
+    const maxStartingPoints = capacityBudget(character.level);
 
     const spentPoints = useMemo(() => computeSpentPoints(character.data?.voies, character.level, isMageFamily), [character.data, character.level, isMageFamily]);
 
@@ -436,18 +448,11 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
     const updateStat = (stat: keyof typeof stats, value: string) => {
         const val = parseInt(value) || 0;
 
-        // Point Buy Logic (only if Level 0)
+        // COF2 : la valeur de caractéristique se saisit directement, dans la plage ‑2..+5
+        // (à la création on répartit une des trois séries — voir STAT_SERIES).
         if (character.level === 0) {
-            // Limits: min 9, max 14 (base)
-            if (val < 9) return;
-            if (val > 14) return;
-
-            // Calculate current total points spent
-            // Point count check removed as we use Profile method validation
-
-
-            // Point count check removed as we use Profile method validation
-
+            if (val < MIN_STAT) return;
+            if (val > MAX_STAT) return;
         }
 
         setCharacter(prev => ({

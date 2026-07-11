@@ -7,17 +7,20 @@ export interface TrackerState {
 }
 
 const isPlayer = (c: Combatant): boolean => c.type === 'player';
+const levelOf = (c: Combatant): number => c.level ?? 0;
 
 /**
- * Ordre d'action COF2 : initiative décroissante, puis départage à égalité —
- * PJ avant PNJ, sinon plus haute PER, sinon le 1d20 stocké (le plus haut d'abord).
+ * Ordre d'action COF2 (chap. « Le combat », Initiative) : initiative décroissante,
+ * puis départage à égalité — d'abord le plus haut niveau (NC pour une créature :
+ * un NC 7 passe avant des PJ niveau 5), puis à niveau égal les PJ avant les PNJ,
+ * puis un départage stable (le 1d20 stocké — « les joueurs décident »).
  * Retourne <0 si `a` agit avant `b`.
  */
 export const compareCombatants = (a: Combatant, b: Combatant): number => {
     if (b.initiative !== a.initiative) return b.initiative - a.initiative; // INIT décroissante
-    if (isPlayer(a) !== isPlayer(b)) return isPlayer(a) ? -1 : 1;           // PJ > PNJ
-    if (b.per !== a.per) return b.per - a.per;                              // plus haute PER
-    return b.tiebreak - a.tiebreak;                                        // sinon 1d20
+    if (levelOf(b) !== levelOf(a)) return levelOf(b) - levelOf(a);         // plus haut niveau / NC
+    if (isPlayer(a) !== isPlayer(b)) return isPlayer(a) ? -1 : 1;          // à niveau égal, PJ avant PNJ
+    return b.tiebreak - a.tiebreak;                                        // départage final (1d20)
 };
 
 /** Tri par ordre d'action COF2 ; l'ordre d'insertion départage l'ultime égalité (stable). */

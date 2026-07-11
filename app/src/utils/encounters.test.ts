@@ -28,14 +28,15 @@ const parties = [
 ];
 
 describe('encounterBudget', () => {
-    it('évolue linéairement avec taille × niveau × facteur de difficulté', () => {
-        expect(encounterBudget(4, 3, 'facile')).toBe(6);
-        expect(encounterBudget(4, 3, 'normale')).toBe(12);
-        expect(encounterBudget(4, 3, 'difficile')).toBe(18);
-        expect(encounterBudget(4, 3, 'mortelle')).toBe(24);
+    it('calibré sur la rencontre « ordinaire » COF2 (base = taille × niveau / 2)', () => {
+        // Groupe de 4, niv. 3 : ordinaire (normale) = NC total ~6 (≈ 2 × niveau moyen).
+        expect(encounterBudget(4, 3, 'facile')).toBe(3);
+        expect(encounterBudget(4, 3, 'normale')).toBe(6);
+        expect(encounterBudget(4, 3, 'difficile')).toBe(9);
+        expect(encounterBudget(4, 3, 'mortelle')).toBe(12);
         // Plus de PJ / plus haut niveau → budget plus élevé.
-        expect(encounterBudget(6, 3, 'normale')).toBe(18);
-        expect(encounterBudget(6, 6, 'mortelle')).toBe(72);
+        expect(encounterBudget(6, 3, 'normale')).toBe(9);
+        expect(encounterBudget(6, 6, 'mortelle')).toBe(36);
     });
 });
 

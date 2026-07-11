@@ -8,15 +8,15 @@ const mk = (id: string, initiative: number, hp = 10): Combatant => ({
     hp: { current: hp, max: hp }, def: 10, per: 0, tiebreak: 0, states: [],
 });
 
-// Combattant avec type/PER/1d20 explicites pour tester le départage COF2.
+// Combattant avec type/niveau/1d20 explicites pour tester le départage COF2.
 const mkFull = (
     id: string,
     initiative: number,
-    opts: { type?: Combatant['type']; per?: number; tiebreak?: number } = {},
+    opts: { type?: Combatant['type']; level?: number; per?: number; tiebreak?: number } = {},
 ): Combatant => ({
     id, name: id, type: opts.type ?? 'monster', initiative,
     hp: { current: 10, max: 10 }, def: 10,
-    per: opts.per ?? 0, tiebreak: opts.tiebreak ?? 0, states: [],
+    level: opts.level, per: opts.per ?? 0, tiebreak: opts.tiebreak ?? 0, states: [],
 });
 
 const state = (combatants: Combatant[], activeId: string | null, round = 1): TrackerState =>
@@ -34,31 +34,31 @@ describe('sortByInitiative', () => {
 });
 
 describe('sortByInitiative — départage COF2 à initiative égale', () => {
-    it('PJ agit avant PNJ', () => {
+    it('le plus haut niveau/NC agit en premier — même une créature (NC 7) devant des PJ (niv. 5)', () => {
         const r = sortByInitiative([
-            mkFull('mob', 10, { type: 'monster' }),
-            mkFull('pj', 10, { type: 'player' }),
+            mkFull('pj5', 10, { type: 'player', level: 5 }),
+            mkFull('mobNC7', 10, { type: 'monster', level: 7 }),
+        ]);
+        expect(r.map(c => c.id)).toEqual(['mobNC7', 'pj5']);
+    });
+    it('à niveau égal, le PJ agit avant le PNJ', () => {
+        const r = sortByInitiative([
+            mkFull('mob', 10, { type: 'monster', level: 3 }),
+            mkFull('pj', 10, { type: 'player', level: 3 }),
         ]);
         expect(r.map(c => c.id)).toEqual(['pj', 'mob']);
     });
-    it('entre deux PJ, la plus haute PER agit en premier', () => {
+    it('même niveau et même type : le plus haut 1d20 stocké départage', () => {
         const r = sortByInitiative([
-            mkFull('bas', 10, { type: 'player', per: 1 }),
-            mkFull('haut', 10, { type: 'player', per: 3 }),
-        ]);
-        expect(r.map(c => c.id)).toEqual(['haut', 'bas']);
-    });
-    it('PER égale : le plus haut 1d20 stocké départage', () => {
-        const r = sortByInitiative([
-            mkFull('d5', 10, { type: 'player', per: 2, tiebreak: 5 }),
-            mkFull('d18', 10, { type: 'player', per: 2, tiebreak: 18 }),
+            mkFull('d5', 10, { type: 'player', level: 5, tiebreak: 5 }),
+            mkFull('d18', 10, { type: 'player', level: 5, tiebreak: 18 }),
         ]);
         expect(r.map(c => c.id)).toEqual(['d18', 'd5']);
     });
-    it('l\'INIT prime toujours sur le départage (PNJ à INIT plus haute passe devant un PJ)', () => {
+    it('l\'INIT prime toujours sur le départage (PNJ à INIT plus haute passe devant un PJ de plus haut niveau)', () => {
         const r = sortByInitiative([
-            mkFull('pj', 10, { type: 'player', per: 9 }),
-            mkFull('mob', 12, { type: 'monster', per: 0 }),
+            mkFull('pj', 10, { type: 'player', level: 9 }),
+            mkFull('mob', 12, { type: 'monster', level: 1 }),
         ]);
         expect(r.map(c => c.id)).toEqual(['mob', 'pj']);
     });

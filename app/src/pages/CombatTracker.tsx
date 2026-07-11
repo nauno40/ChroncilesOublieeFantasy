@@ -111,6 +111,7 @@ export const CombatTracker: React.FC = () => {
             initiative: creature.init,
             hp: { current: creature.hp, max: creature.hp },
             def: creature.def,
+            level: creature.nc ?? 0, // NC de la créature — départage d'initiative COF2
             per: creature.stats?.SAG ?? 0, // les créatures utilisent SAG comme Perception
             tiebreak: rollTiebreak(),
             states: [],
@@ -133,6 +134,7 @@ export const CombatTracker: React.FC = () => {
             initiative: character.data.init,
             hp: { current: character.data.hp.current, max: character.data.hp.max },
             def: character.data.def,
+            level: character.level ?? 0, // niveau du PJ — départage d'initiative COF2
             per: character.data.stats?.PER ?? 0,
             tiebreak: rollTiebreak(),
             states: [],

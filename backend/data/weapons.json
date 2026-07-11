@@ -194,7 +194,7 @@
     "damage": "1d6",
     "range": "20 m",
     "critical": "20",
-    "price": "6 pa",
+    "price": "1 pa",
     "isRanged": true,
     "reload": "Pas d'action"
   },
@@ -238,7 +238,7 @@
     "damage": "2d6",
     "range": "50 m",
     "critical": "20",
-    "price": "20 pa",
+    "price": "100 pa",
     "isRanged": true,
     "reload": "Action limitée"
   },
@@ -249,7 +249,7 @@
     "damage": "1d10",
     "range": "20 m",
     "critical": "20",
-    "price": "15 pa",
+    "price": "50 pa",
     "isRanged": true,
     "reload": "Action limitée"
   },
@@ -271,7 +271,7 @@
     "damage": "1d10",
     "range": "",
     "critical": "19",
-    "price": "12 pa",
+    "price": "15 pa",
     "isRanged": true,
     "reload": "Pas d'action"
   },
@@ -285,6 +285,6 @@
     "price": "10 pa",
     "isRanged": false,
     "reload": "Pas d'action",
-    "requirements": "Chevalier uniquement"
+    "requirements": "Utilisable uniquement à cheval ; dé malus au contact classique"
   }
 ]

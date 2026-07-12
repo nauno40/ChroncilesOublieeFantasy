@@ -9,6 +9,20 @@ export interface User {
     roles: string[];
 }
 
+// Décode le payload d'un JWT (base64url) : LexikJWT y expose `username` (e-mail) et
+// `roles`, et notre JwtCreatedSubscriber y ajoute `id`.
+function decodeUserFromToken(token: string): User | null {
+    try {
+        const part = token.split('.')[1];
+        if (!part) return null;
+        const json = atob(part.replace(/-/g, '+').replace(/_/g, '/'));
+        const p = JSON.parse(json);
+        return { id: p.id ?? 0, email: p.username ?? p.email ?? '', roles: p.roles ?? [] };
+    } catch {
+        return null;
+    }
+}
+
 export const AuthService = {
     async login(email: string, password: string): Promise<string> {
         // Symfony LexikJWT login_check path
@@ -29,9 +43,10 @@ export const AuthService = {
         const { token } = await response.json();
         localStorage.setItem(TOKEN_KEY, token);
 
-        // Optionally fetch user info if needed, or decode from JWT
-        // For now, we'll just store the email in a dummy user object
-        localStorage.setItem(USER_KEY, JSON.stringify({ email }));
+        // On peuple id/email/roles depuis le JWT (payload enrichi côté API).
+        const decoded = decodeUserFromToken(token) ?? { id: 0, email, roles: [] };
+        if (!decoded.email) decoded.email = email;
+        localStorage.setItem(USER_KEY, JSON.stringify(decoded));
 
         return token;
     },
@@ -81,8 +96,19 @@ export const AuthService = {
     },
 
     getUser(): User | null {
-        const user = localStorage.getItem(USER_KEY);
-        return user ? JSON.parse(user) : null;
+        const raw = localStorage.getItem(USER_KEY);
+        const stored: Partial<User> | null = raw ? JSON.parse(raw) : null;
+        // Auto-réparation des sessions antérieures stockées sans id : on redécode le jeton.
+        if (stored && !stored.id) {
+            const token = this.getToken();
+            const decoded = token ? decodeUserFromToken(token) : null;
+            if (decoded?.id) {
+                const merged = { ...decoded, email: stored.email || decoded.email };
+                localStorage.setItem(USER_KEY, JSON.stringify(merged));
+                return merged;
+            }
+        }
+        return stored as User | null;
     },
 
     isAuthenticated(): boolean {

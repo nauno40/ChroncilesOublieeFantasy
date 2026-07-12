@@ -5,7 +5,6 @@ import type { Character, CharacterData } from '../types/character';
 import type { useCharacterData } from './useCharacterData';
 import { CAPABILITY_MODIFIERS } from '../data/capabilityModifiers';
 import {
-  computeModifiers,
   computeMaxHp,
   computeRecoveryDie,
   computeLuckPoints,
@@ -142,7 +141,16 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
 
     // Derived Calculations
     const stats = character.data?.stats || defaultData.stats;
-    const mods = useMemo(() => computeModifiers(stats), [stats]);
+
+    // Caractéristiques effectives = valeurs de base + modificateurs de race (COF2). TOUS les
+    // calculs de jeu (PV, DEF, Init, PC, PM, attaques) s'appuient sur ces valeurs, jamais sur
+    // les valeurs de base seules — sinon le bonus racial de caractéristique ne se propagerait pas.
+    const finalStats = useMemo(() => {
+        const selectedRace = races.find(r => (r.name || r.nom) === character.race || r['@id'] === character.race);
+        return computeFinalStats(stats, selectedRace?.modifiers, racialBonusChoices);
+    }, [stats, character.race, races, racialBonusChoices]);
+    // Les calculs de jeu utilisent la caractéristique effective (base + race), pas la base seule.
+    const mods = finalStats;
 
     // Effect to update stored modifiers when stats change
     useEffect(() => {
@@ -477,13 +485,6 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
     };
 
     // Remaining Points logic removed
-
-
-    // Calculate Final Stats (Base + Race)
-    const finalStats = useMemo(() => {
-        const selectedRace = races.find(r => (r.name || r.nom) === character.race || r['@id'] === character.race);
-        return computeFinalStats(stats, selectedRace?.modifiers, racialBonusChoices);
-    }, [stats, character.race, races, racialBonusChoices]);
 
 
     // Calculate Recovery Die

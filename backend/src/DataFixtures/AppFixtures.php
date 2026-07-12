@@ -304,7 +304,9 @@ class AppFixtures extends Fixture
 
     private function loadCreatureFamilies(ObjectManager $manager): array
     {
-        $data = $this->getData('families.json');
+        // Familles de créatures (bestiaire) → CreatureFamily. À ne pas confondre avec
+        // profile_families.json (familles de profils) chargé dans l'entité Family.
+        $data = $this->getData('creature_families.json');
         $entities = [];
         $monsterToFamilyMap = [];
 

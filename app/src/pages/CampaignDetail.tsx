@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { getCampaign, saveCampaign } from '../utils/campaignService';
 import { ApiService } from '../services/api';
@@ -6,7 +6,8 @@ import { SharingService, type Membership } from '../services/sharingService';
 import { DataService } from '../services/dataService';
 import { getMonsters } from '../services/monsterService';
 import { CampaignEncounters } from '../components/campaign/CampaignEncounters';
-import { ArrowLeft, Users, Plus, X, Calendar, Clock, Trophy, FileText, Check, Edit, Trash2, Scroll, HelpCircle, CheckSquare, Square, Search, MapPin, Loader2, KeyRound, Copy, RefreshCw, UserX, ChevronDown, StickyNote } from 'lucide-react';
+import { CampaignNotes } from '../components/campaign/CampaignNotes';
+import { ArrowLeft, Users, Plus, X, Calendar, Clock, Trophy, FileText, Check, Edit, Trash2, Scroll, HelpCircle, CheckSquare, Square, Search, MapPin, Loader2, KeyRound, Copy, RefreshCw, UserX, ChevronDown } from 'lucide-react';
 import type { Campaign, Session, Quest, Clue } from '../types/campaign';
 import type { Creature, CustomCreature } from '../types/normalized';
 import { clsx } from 'clsx';
@@ -97,10 +98,6 @@ export const CampaignDetail: React.FC = () => {
     const [inviteCopied, setInviteCopied] = useState(false);
     const [regeneratingInvite, setRegeneratingInvite] = useState(false);
 
-    // State for Notes
-    const [notes, setNotes] = useState('');
-    const [isSavingNotes, setIsSavingNotes] = useState(false);
-    const saveTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     // State for Sessions
     const [showSessionForm, setShowSessionForm] = useState(false);
@@ -120,9 +117,6 @@ export const CampaignDetail: React.FC = () => {
             if (id) {
                 const data = await getCampaign(id);
                 setCampaign(data);
-                if (data) {
-                    setNotes(data.notes || '');
-                }
                 setLoading(false);
             }
         };
@@ -272,23 +266,6 @@ export const CampaignDetail: React.FC = () => {
     const partyAvgLevel = partySize > 0
         ? Math.round(campaignCharacters.reduce((s, c) => s + (c.level || 1), 0) / partySize)
         : 0;
-    // Auto-save Notes logic
-    const handleNotesChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        const newValue = e.target.value;
-        setNotes(newValue);
-        setIsSavingNotes(true);
-
-        if (saveTimeoutRef.current) clearTimeout(saveTimeoutRef.current);
-
-        saveTimeoutRef.current = setTimeout(async () => {
-            if (campaign) {
-                const updatedCampaign = { ...campaign, notes: newValue };
-                await saveCampaign(updatedCampaign);
-                setIsSavingNotes(false);
-            }
-        }, 1000);
-    };
-
     const handleEditSession = (session: Session) => {
         setNewSession({ ...session });
         setEditingSessionId(session.id);
@@ -839,33 +816,8 @@ export const CampaignDetail: React.FC = () => {
                 {/* Colonne annexe — panneaux secondaires allégés */}
                 <div className="space-y-6">
 
-                    {/* Notes rapides */}
-                    <div>
-                        <h3 className="text-sm font-bold uppercase tracking-wider text-stone-400 flex items-center gap-2 mb-3">
-                            <StickyNote size={16} className="text-primary-400" /> Notes rapides
-                        </h3>
-                        <div className={clsx(
-                            "rounded-xl border h-[240px] flex flex-col bg-stone-900/40 transition-colors",
-                            isSavingNotes ? "border-primary-500/40" : "border-white/10"
-                        )}>
-                            <textarea
-                                className="w-full h-full bg-transparent p-4 resize-none focus:outline-none text-stone-300 placeholder-stone-600 font-mono text-sm leading-relaxed"
-                                placeholder="Idées en vrac, PNJ improvisés, loot à distribuer..."
-                                value={notes}
-                                onChange={handleNotesChange}
-                            />
-                            <div className="px-3 py-2 text-[10px] text-stone-600 border-t border-white/5 flex justify-between items-center bg-black/20 rounded-b-xl">
-                                <span className="flex items-center gap-1">
-                                    {isSavingNotes ? (
-                                        <>Enregistrement...</>
-                                    ) : (
-                                        <><Check size={10} className="text-green-500" /> Sauvegardé</>
-                                    )}
-                                </span>
-                                <span>{notes.length} caractères</span>
-                            </div>
-                        </div>
-                    </div>
+                    {/* Notes rapides (section extraite) */}
+                    <CampaignNotes campaign={campaign} />
 
                     {/* Indices & Rumeurs */}
                     <div className="bg-stone-900/30 border border-white/5 rounded-xl p-5 flex flex-col relative group">

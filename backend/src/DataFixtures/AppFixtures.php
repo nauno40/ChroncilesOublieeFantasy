@@ -202,6 +202,18 @@ class AppFixtures extends Fixture
                 $e->setFamily($family);
             }
 
+            // Seuil de DEF max d'armure autorisée par profil (spec §8 ; -1 = aucune armure).
+            // Clés = class.name exactes (accents inclus).
+            $armorMaxDefByProfile = [
+                'Barbare' => 3, 'Chevalier' => 6, 'Guerrier' => 5,
+                'Magicien' => -1, 'Ensorceleur' => -1, 'Sorcier' => -1, 'Forgesort' => 2,
+                'Druide' => 2, 'Moine' => -1, 'Prêtre' => 4,
+                'Arquebusier' => 4, 'Barde' => 3, 'Rôdeur' => 3, 'Voleur' => 2,
+            ];
+            if (isset($armorMaxDefByProfile[$name])) {
+                $e->setArmorMaxDef($armorMaxDefByProfile[$name]);
+            }
+
             // Lore
             if (isset($classData['lore'])) {
                 $e->setLore($classData['lore']);
@@ -552,12 +564,12 @@ class AppFixtures extends Fixture
              $e->setName($item['name']);
              $e->setType($item['type'] ?? 'Armor');
              $e->setPrice($item['price'] ?? null);
-             
-             // Strip "+ " from defense string "+2 " -> 2
-             $def = trim($item['defense'] ?? '');
-             $def = (int) str_replace(['+', ' '], '', $def);
-             $e->setAcBonus($def);
-             
+
+             // Données numériques propres (spec §8) : defense/agiMax/penalty entiers.
+             $e->setAcBonus($item['defense'] ?? null);
+             $e->setAcMaxAgi($item['agiMax'] ?? null);
+             $e->setAcPenalty($item['penalty'] ?? 0);
+
              $manager->persist($e);
              $entities[$item['id']] = $e;
         }

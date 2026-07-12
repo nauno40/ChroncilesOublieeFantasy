@@ -41,6 +41,11 @@ class Profile
     #[ORM\Column(nullable: true)]
     private ?array $armorAuth = null;
 
+    // Seuil de DEF max d'armure autorisée (spec §8). -1 = aucune armure.
+    #[ORM\Column(nullable: true)]
+    #[Groups(['profile:read'])]
+    private ?int $armorMaxDef = null;
+
     #[ORM\Column(length: 10, nullable: true)]
     private ?string $magicStat = null;
 
@@ -127,6 +132,18 @@ class Profile
     public function setArmorAuth(?array $armorAuth): static
     {
         $this->armorAuth = $armorAuth;
+
+        return $this;
+    }
+
+    public function getArmorMaxDef(): ?int
+    {
+        return $this->armorMaxDef;
+    }
+
+    public function setArmorMaxDef(?int $armorMaxDef): static
+    {
+        $this->armorMaxDef = $armorMaxDef;
 
         return $this;
     }

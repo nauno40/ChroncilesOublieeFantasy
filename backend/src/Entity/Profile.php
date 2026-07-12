@@ -35,17 +35,16 @@ class Profile
     #[ORM\ManyToOne(inversedBy: 'profiles')]
     private ?Family $family = null;
 
-    #[ORM\Column(length: 10)]
-    private ?string $hitDie = null;
-
     #[ORM\Column(nullable: true)]
     private ?array $weaponsAuth = null;
 
     #[ORM\Column(nullable: true)]
     private ?array $armorAuth = null;
 
-    #[ORM\Column]
-    private ?int $skillPoints = null;
+    // Seuil de DEF max d'armure autorisée (spec §8). -1 = aucune armure.
+    #[ORM\Column(nullable: true)]
+    #[Groups(['profile:read'])]
+    private ?int $armorMaxDef = null;
 
     #[ORM\Column(length: 10, nullable: true)]
     private ?string $magicStat = null;
@@ -113,18 +112,6 @@ class Profile
         return $this;
     }
 
-    public function getHitDie(): ?string
-    {
-        return $this->hitDie;
-    }
-
-    public function setHitDie(string $hitDie): static
-    {
-        $this->hitDie = $hitDie;
-
-        return $this;
-    }
-
     public function getWeaponsAuth(): ?array
     {
         return $this->weaponsAuth;
@@ -149,14 +136,14 @@ class Profile
         return $this;
     }
 
-    public function getSkillPoints(): ?int
+    public function getArmorMaxDef(): ?int
     {
-        return $this->skillPoints;
+        return $this->armorMaxDef;
     }
 
-    public function setSkillPoints(int $skillPoints): static
+    public function setArmorMaxDef(?int $armorMaxDef): static
     {
-        $this->skillPoints = $skillPoints;
+        $this->armorMaxDef = $armorMaxDef;
 
         return $this;
     }

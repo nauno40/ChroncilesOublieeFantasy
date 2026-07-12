@@ -2,6 +2,8 @@
 
 namespace App\Tests\Api;
 
+use App\Entity\Voie;
+
 /**
  * Access control on the Character resource:
  *  - authentication required
@@ -73,5 +75,62 @@ final class CharacterSecurityTest extends ApiSecurityTestCase
 
         $this->client->request('DELETE', '/api/characters/'.$character->getId(), ['headers' => $this->authHeaders($bob)]);
         $this->assertResponseStatusCodeSame(404);
+    }
+
+    public function testCharacterNewShapeRoundTrip(): void
+    {
+        $user = $this->createUser('shape@example.com');
+
+        $payload = [
+            'name' => 'Lhagva',
+            'level' => 1,
+            'caracs' => ['AGI' => 1, 'CON' => 2, 'FOR' => 3, 'PER' => 1, 'CHA' => -1, 'INT' => 0, 'VOL' => 1],
+            'playState' => ['hp' => ['current' => 15], 'money' => ['pa' => 12]],
+        ];
+
+        $response = $this->client->request('POST', '/api/characters', [
+            'headers' => $this->authHeaders($user),
+            'json' => $payload,
+        ]);
+
+        $this->assertResponseStatusCodeSame(201);
+        $data = json_decode($response->getContent(), true);
+        $this->assertSame(3, $data['caracs']['FOR']);
+        $this->assertSame(15, $data['playState']['hp']['current']);
+        $this->assertArrayNotHasKey('data', $data);
+    }
+
+    public function testCharacterVoiesRoundTrip(): void
+    {
+        $user = $this->createUser('voies@example.com');
+
+        $voie = new Voie();
+        $voie->setName('Voie du guerrier');
+        $voie->setDescription('Une voie de test.');
+        $voie->setCategory('profil');
+        $voie->setMaxRank(5);
+        $this->em->persist($voie);
+        $this->em->flush();
+
+        $payload = [
+            'name' => 'Lhagva',
+            'level' => 1,
+            'characterVoies' => [
+                ['voie' => '/api/voies/'.$voie->getId(), 'rank' => 1, 'source' => 'profil'],
+            ],
+        ];
+
+        $response = $this->client->request('POST', '/api/characters', [
+            'headers' => $this->authHeaders($user),
+            'json' => $payload,
+        ]);
+
+        $this->assertResponseStatusCodeSame(201);
+        $data = json_decode($response->getContent(), true);
+
+        $this->assertCount(1, $data['characterVoies']);
+        $this->assertSame(1, $data['characterVoies'][0]['rank']);
+        $this->assertSame('profil', $data['characterVoies'][0]['source']);
+        $this->assertSame('/api/voies/'.$voie->getId(), $data['characterVoies'][0]['voie']);
     }
 }

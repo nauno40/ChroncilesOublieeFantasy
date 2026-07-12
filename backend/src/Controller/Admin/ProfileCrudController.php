@@ -26,10 +26,9 @@ class ProfileCrudController extends AbstractCrudController
             TextEditorField::new('description'),
             TextEditorField::new('note'),
             AssociationField::new('family'),
-            TextField::new('hitDie'),
             ArrayField::new('weaponsAuth'),
             ArrayField::new('armorAuth'),
-            IntegerField::new('skillPoints'),
+            IntegerField::new('armorMaxDef'),
             TextField::new('magicStat'),
         ];
     }

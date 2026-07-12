@@ -181,31 +181,37 @@ class AppFixtures extends Fixture
             
             // Stats
             $stats = $classData['stats'] ?? [];
-            if (isset($stats['hitDie'])) {
-                $e->setHitDie($stats['hitDie']);
-            }
             if (isset($stats['magicStat'])) {
-                $e->setMagicStat($stats['magicStat']); 
+                $e->setMagicStat($stats['magicStat']);
             }
-            
+
             // Save remaining stats in JSON
             $extraStats = $stats;
             unset($extraStats['hitDie'], $extraStats['magicStat']);
             if (!empty($extraStats)) {
                 $e->setStats($extraStats);
             }
-            
+
             if (isset($classData['imageUrl'])) {
                 $e->setImageUrl($classData['imageUrl']);
             }
-            
+
             $famId = $familyMap[$name] ?? null;
             if ($famId && isset($families[$famId])) {
                 $family = $families[$famId];
                 $e->setFamily($family);
-                if (!$e->getHitDie()) {
-                     $e->setHitDie($family->getRecoveryDie()); 
-                }
+            }
+
+            // Seuil de DEF max d'armure autorisée par profil (spec §8 ; -1 = aucune armure).
+            // Clés = class.name exactes (accents inclus).
+            $armorMaxDefByProfile = [
+                'Barbare' => 3, 'Chevalier' => 6, 'Guerrier' => 5,
+                'Magicien' => -1, 'Ensorceleur' => -1, 'Sorcier' => -1, 'Forgesort' => 2,
+                'Druide' => 2, 'Moine' => -1, 'Prêtre' => 4,
+                'Arquebusier' => 4, 'Barde' => 3, 'Rôdeur' => 3, 'Voleur' => 2,
+            ];
+            if (isset($armorMaxDefByProfile[$name])) {
+                $e->setArmorMaxDef($armorMaxDefByProfile[$name]);
             }
 
             // Lore
@@ -244,8 +250,6 @@ class AppFixtures extends Fixture
                 $e->setStartingEquipment($data['startingEquipment']);
             }
 
-            $e->setSkillPoints(2); 
-            
             $manager->persist($e);
             
             $key = strtolower($file->getBasename('.json'));
@@ -276,6 +280,7 @@ class AppFixtures extends Fixture
                             $c = new Capability();
                             $c->setName($capData['name']);
                             $c->setDescription($capData['description'] ?? '');
+                            $this->applyEvolutiveDie($c);
                             $c->setRank($capData['rank']);
                             $c->setVoie($v);
                             
@@ -426,6 +431,7 @@ class AppFixtures extends Fixture
                 $cap = new Capability();
                 $cap->setName($capData['name']);
                 $cap->setDescription($capData['description'] ?? '');
+                $this->applyEvolutiveDie($cap);
                 $cap->setRank($capData['rank']); // slot 1-5 (= rang 4-8 du livre)
                 $cap->setLimited(str_contains(strtolower($capData['name'] . ' ' . ($capData['description'] ?? '')), '(l)'));
                 $cap->setIsSpell(str_contains($capData['name'], '*'));
@@ -479,8 +485,9 @@ class AppFixtures extends Fixture
                             $cap = new Capability();
                             $cap->setName($capData['name']);
                             $cap->setDescription($capData['description'] ?? '');
+                            $this->applyEvolutiveDie($cap);
                             $cap->setRank($capData['rank']);
-                            $type = $capData['type'] ?? ''; 
+                            $type = $capData['type'] ?? '';
                             $cap->setLimited(str_contains(strtolower($type), 'limité'));
                             $cap->setIsSpell(str_contains(strtolower($type), 'sort') || str_contains($type, '*'));
                             $cap->setVoie($voie);
@@ -517,6 +524,7 @@ class AppFixtures extends Fixture
             $e = new Capability();
             $e->setName($item['name']);
             $e->setDescription($item['description'] ?? '');
+            $this->applyEvolutiveDie($e);
             $e->setRank($item['rank']);
             
             // "voieId": "voie_de_la_divination"
@@ -530,6 +538,17 @@ class AppFixtures extends Fixture
             $e->setLimited(str_contains($item['name'], '(L)'));
             
             $manager->persist($e);
+        }
+    }
+
+    /**
+     * Détecte un dé évolutif « Nd4° » dans la description d'une capacité (spec §6.4)
+     * et l'enregistre dans effect.evolutiveDie (« d4° » -> count 1, « 2d4° » -> count 2).
+     */
+    private function applyEvolutiveDie(Capability $c): void
+    {
+        if (preg_match('/(\d*)d4°/u', (string) $c->getDescription(), $m)) {
+            $c->setEffect(['evolutiveDie' => ['count' => $m[1] === '' ? 1 : (int) $m[1]]]);
         }
     }
 
@@ -560,12 +579,12 @@ class AppFixtures extends Fixture
              $e->setName($item['name']);
              $e->setType($item['type'] ?? 'Armor');
              $e->setPrice($item['price'] ?? null);
-             
-             // Strip "+ " from defense string "+2 " -> 2
-             $def = trim($item['defense'] ?? '');
-             $def = (int) str_replace(['+', ' '], '', $def);
-             $e->setAcBonus($def);
-             
+
+             // Données numériques propres (spec §8) : defense/agiMax/penalty entiers.
+             $e->setAcBonus($item['defense'] ?? null);
+             $e->setAcMaxAgi($item['agiMax'] ?? null);
+             $e->setAcPenalty($item['penalty'] ?? 0);
+
              $manager->persist($e);
              $entities[$item['id']] = $e;
         }
@@ -807,18 +826,28 @@ class AppFixtures extends Fixture
         }
 
         $charDefs = [
-            ['Aria la Vive', 3, ['FOR' => 11, 'AGI' => 15, 'CON' => 12, 'INT' => 10, 'PER' => 13, 'CHA' => 9, 'VOL' => 10], 28, 15, 16, ['name' => 'Arc court', 'atkMod' => 5, 'dmg' => '1d6+2', 'special' => '']],
-            ['Bjornsson', 4, ['FOR' => 16, 'AGI' => 11, 'CON' => 15, 'INT' => 8, 'PER' => 10, 'CHA' => 10, 'VOL' => 12], 44, 16, 11, ['name' => 'Hache à deux mains', 'atkMod' => 7, 'dmg' => '1d12+3', 'special' => '']],
-            ['Lyra Feuille-d’Argent', 3, ['FOR' => 9, 'AGI' => 12, 'CON' => 11, 'INT' => 14, 'PER' => 13, 'CHA' => 13, 'VOL' => 15], 24, 13, 12, ['name' => 'Bâton runique', 'atkMod' => 3, 'dmg' => '1d6', 'special' => 'Sortilèges']],
+            ['Aria la Vive', 3, ['AGI' => 2, 'CON' => 1, 'FOR' => 0, 'PER' => 1, 'CHA' => 0, 'INT' => 0, 'VOL' => 0], 28],
+            ['Bjornsson', 4, ['AGI' => 0, 'CON' => 2, 'FOR' => 3, 'PER' => 0, 'CHA' => 0, 'INT' => -1, 'VOL' => 1], 44],
+            ['Lyra Feuille-d’Argent', 3, ['AGI' => 1, 'CON' => 0, 'FOR' => 0, 'PER' => 1, 'CHA' => 1, 'INT' => 2, 'VOL' => 2], 24],
         ];
         foreach ($players as $i => $p) {
-            [$name, $level, $stats, $hp, $def, $init, $weapon] = $charDefs[$i];
+            [$name, $level, $caracs, $hp] = $charDefs[$i];
             $ch = new Character();
             $ch->setName($name);
             $ch->setLevel($level);
             $ch->setRace($pickRace($i));
             $ch->setProfile($pickProfile($i));
-            $ch->setData($this->buildCharacterData($stats, $hp, $def, $init, $weapon));
+            $ch->setCaracs($caracs);
+            $ch->setPlayState([
+                'hp' => ['current' => $hp],
+                'mana' => ['current' => 0],
+                'luck' => ['current' => 3],
+                'recovery' => ['used' => 0],
+                'money' => ['po' => 0, 'pa' => 50, 'pc' => 0],
+                'equipment' => [],
+                'rp' => ['ideal' => '', 'flaw' => '', 'secret' => '', 'notes' => ''],
+                'languages' => ['Commun'],
+            ]);
             $ch->setOwner($p);
             $ch->setCampaign($c1);
             $manager->persist($ch);
@@ -883,54 +912,19 @@ class AppFixtures extends Fixture
         $npc->setLevel(2);
         $npc->setRace($pickRace(3));
         $npc->setProfile($pickProfile(1));
-        $npc->setData($this->buildCharacterData(['FOR' => 10, 'AGI' => 10, 'CON' => 11, 'INT' => 13, 'PER' => 12, 'CHA' => 15, 'VOL' => 11], 16, 11, 10, ['name' => 'Dague', 'atkMod' => 2, 'dmg' => '1d4', 'special' => '']));
+        $npc->setCaracs(['AGI' => 0, 'CON' => 0, 'FOR' => 0, 'PER' => 1, 'CHA' => 2, 'INT' => 1, 'VOL' => 0]);
+        $npc->setPlayState([
+            'hp' => ['current' => 16],
+            'mana' => ['current' => 0],
+            'luck' => ['current' => 3],
+            'recovery' => ['used' => 0],
+            'money' => ['po' => 0, 'pa' => 50, 'pc' => 0],
+            'equipment' => [],
+            'rp' => ['ideal' => '', 'flaw' => '', 'secret' => '', 'notes' => ''],
+            'languages' => ['Commun'],
+        ]);
         $npc->setOwner($owner);
         $npc->setCampaign($c2);
         $manager->persist($npc);
-    }
-
-    /**
-     * Construit la structure `data` (JSON) d'un personnage conforme à ce qu'attend
-     * le frontend (cf. CharacterData / useCharacterSheet), pour des fiches valides.
-     *
-     * @param array<string, int> $stats  les 7 caractéristiques COF (FOR, AGI, CON, INT, PER, CHA, VOL)
-     * @param array{name: string, atkMod: int, dmg: string, special: string} $weapon
-     * @return array<string, mixed>
-     */
-    private function buildCharacterData(array $stats, int $hp, int $def, int $init, array $weapon): array
-    {
-        $mods = [];
-        foreach ($stats as $key => $value) {
-            $mods[$key] = intdiv($value - 10, 2);
-        }
-
-        return [
-            'stats' => $stats,
-            'modifiers' => $mods,
-            'hp' => ['current' => $hp, 'max' => $hp],
-            'mp' => ['current' => 0, 'max' => 0],
-            'attack' => [
-                'contact' => $mods['FOR'],
-                'distance' => $mods['AGI'],
-                'magic' => $mods['INT'],
-                'weapons' => [$weapon],
-            ],
-            'def' => $def,
-            'init' => $init,
-            'rp' => ['ideal' => '', 'flaw' => ''],
-            'luck' => ['current' => 3, 'max' => 3],
-            'protection' => [
-                'armor' => ['name' => '', 'def' => 0],
-                'shield' => ['name' => '', 'def' => 0],
-            ],
-            'recovery' => ['die' => 'd8', 'value' => 4],
-            'voies' => [
-                'racial' => ['name' => '', 'ranks' => [false, false, false, false, false]],
-                'profile' => [],
-                'prestige' => [],
-            ],
-            'money' => ['pa' => 50],
-            'equipment' => [],
-        ];
     }
 }

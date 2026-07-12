@@ -807,18 +807,28 @@ class AppFixtures extends Fixture
         }
 
         $charDefs = [
-            ['Aria la Vive', 3, ['FOR' => 11, 'AGI' => 15, 'CON' => 12, 'INT' => 10, 'PER' => 13, 'CHA' => 9, 'VOL' => 10], 28, 15, 16, ['name' => 'Arc court', 'atkMod' => 5, 'dmg' => '1d6+2', 'special' => '']],
-            ['Bjornsson', 4, ['FOR' => 16, 'AGI' => 11, 'CON' => 15, 'INT' => 8, 'PER' => 10, 'CHA' => 10, 'VOL' => 12], 44, 16, 11, ['name' => 'Hache à deux mains', 'atkMod' => 7, 'dmg' => '1d12+3', 'special' => '']],
-            ['Lyra Feuille-d’Argent', 3, ['FOR' => 9, 'AGI' => 12, 'CON' => 11, 'INT' => 14, 'PER' => 13, 'CHA' => 13, 'VOL' => 15], 24, 13, 12, ['name' => 'Bâton runique', 'atkMod' => 3, 'dmg' => '1d6', 'special' => 'Sortilèges']],
+            ['Aria la Vive', 3, ['AGI' => 2, 'CON' => 1, 'FOR' => 0, 'PER' => 1, 'CHA' => 0, 'INT' => 0, 'VOL' => 0], 28],
+            ['Bjornsson', 4, ['AGI' => 0, 'CON' => 2, 'FOR' => 3, 'PER' => 0, 'CHA' => 0, 'INT' => -1, 'VOL' => 1], 44],
+            ['Lyra Feuille-d’Argent', 3, ['AGI' => 1, 'CON' => 0, 'FOR' => 0, 'PER' => 1, 'CHA' => 1, 'INT' => 2, 'VOL' => 2], 24],
         ];
         foreach ($players as $i => $p) {
-            [$name, $level, $stats, $hp, $def, $init, $weapon] = $charDefs[$i];
+            [$name, $level, $caracs, $hp] = $charDefs[$i];
             $ch = new Character();
             $ch->setName($name);
             $ch->setLevel($level);
             $ch->setRace($pickRace($i));
             $ch->setProfile($pickProfile($i));
-            $ch->setData($this->buildCharacterData($stats, $hp, $def, $init, $weapon));
+            $ch->setCaracs($caracs);
+            $ch->setPlayState([
+                'hp' => ['current' => $hp],
+                'mana' => ['current' => 0],
+                'luck' => ['current' => 3],
+                'recovery' => ['used' => 0],
+                'money' => ['po' => 0, 'pa' => 50, 'pc' => 0],
+                'equipment' => [],
+                'rp' => ['ideal' => '', 'flaw' => '', 'secret' => '', 'notes' => ''],
+                'languages' => ['Commun'],
+            ]);
             $ch->setOwner($p);
             $ch->setCampaign($c1);
             $manager->persist($ch);
@@ -883,54 +893,19 @@ class AppFixtures extends Fixture
         $npc->setLevel(2);
         $npc->setRace($pickRace(3));
         $npc->setProfile($pickProfile(1));
-        $npc->setData($this->buildCharacterData(['FOR' => 10, 'AGI' => 10, 'CON' => 11, 'INT' => 13, 'PER' => 12, 'CHA' => 15, 'VOL' => 11], 16, 11, 10, ['name' => 'Dague', 'atkMod' => 2, 'dmg' => '1d4', 'special' => '']));
+        $npc->setCaracs(['AGI' => 0, 'CON' => 0, 'FOR' => 0, 'PER' => 1, 'CHA' => 2, 'INT' => 1, 'VOL' => 0]);
+        $npc->setPlayState([
+            'hp' => ['current' => 16],
+            'mana' => ['current' => 0],
+            'luck' => ['current' => 3],
+            'recovery' => ['used' => 0],
+            'money' => ['po' => 0, 'pa' => 50, 'pc' => 0],
+            'equipment' => [],
+            'rp' => ['ideal' => '', 'flaw' => '', 'secret' => '', 'notes' => ''],
+            'languages' => ['Commun'],
+        ]);
         $npc->setOwner($owner);
         $npc->setCampaign($c2);
         $manager->persist($npc);
-    }
-
-    /**
-     * Construit la structure `data` (JSON) d'un personnage conforme à ce qu'attend
-     * le frontend (cf. CharacterData / useCharacterSheet), pour des fiches valides.
-     *
-     * @param array<string, int> $stats  les 7 caractéristiques COF (FOR, AGI, CON, INT, PER, CHA, VOL)
-     * @param array{name: string, atkMod: int, dmg: string, special: string} $weapon
-     * @return array<string, mixed>
-     */
-    private function buildCharacterData(array $stats, int $hp, int $def, int $init, array $weapon): array
-    {
-        $mods = [];
-        foreach ($stats as $key => $value) {
-            $mods[$key] = intdiv($value - 10, 2);
-        }
-
-        return [
-            'stats' => $stats,
-            'modifiers' => $mods,
-            'hp' => ['current' => $hp, 'max' => $hp],
-            'mp' => ['current' => 0, 'max' => 0],
-            'attack' => [
-                'contact' => $mods['FOR'],
-                'distance' => $mods['AGI'],
-                'magic' => $mods['INT'],
-                'weapons' => [$weapon],
-            ],
-            'def' => $def,
-            'init' => $init,
-            'rp' => ['ideal' => '', 'flaw' => ''],
-            'luck' => ['current' => 3, 'max' => 3],
-            'protection' => [
-                'armor' => ['name' => '', 'def' => 0],
-                'shield' => ['name' => '', 'def' => 0],
-            ],
-            'recovery' => ['die' => 'd8', 'value' => 4],
-            'voies' => [
-                'racial' => ['name' => '', 'ranks' => [false, false, false, false, false]],
-                'profile' => [],
-                'prestige' => [],
-            ],
-            'money' => ['pa' => 50],
-            'equipment' => [],
-        ];
     }
 }

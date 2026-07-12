@@ -15,24 +15,26 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Metadata\ApiProperty;
 
 #[ORM\Entity(repositoryClass: VoieRepository::class)]
-#[ApiResource]
-#[ApiFilter(SearchFilter::class, properties: ['profile' => 'exact'])]
+#[ApiResource(normalizationContext: ['groups' => ['voie:read']])]
+#[ApiFilter(SearchFilter::class, properties: ['profile' => 'exact', 'category' => 'exact'])]
 class Voie
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['race:read', 'profile:read'])]
+    #[Groups(['race:read', 'profile:read', 'voie:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['race:read', 'profile:read'])]
+    #[Groups(['race:read', 'profile:read', 'voie:read'])]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups(['voie:read'])]
     private ?string $description = null;
 
     #[ORM\Column(length: 50)]
+    #[Groups(['voie:read'])]
     private ?string $category = null;
 
     #[ORM\ManyToOne(inversedBy: 'voies')]
@@ -42,14 +44,16 @@ class Voie
     private Collection $races;
 
     #[ORM\Column]
+    #[Groups(['voie:read'])]
     private ?int $maxRank = null;
 
     #[ORM\OneToMany(targetEntity: Capability::class, mappedBy: 'voie', orphanRemoval: true)]
-    #[Groups(['race:read', 'profile:read'])]
+    #[Groups(['race:read', 'profile:read', 'voie:read'])]
     #[ApiProperty(readableLink: true)]
     private Collection $capabilities;
 
     #[ORM\Column(type: Types::JSON, nullable: true)]
+    #[Groups(['voie:read'])]
     private ?array $details = null;
 
     public function __construct()

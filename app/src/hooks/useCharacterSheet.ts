@@ -443,6 +443,14 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
                 }
             }
         }
+
+        // Search in standalone voies (notamment les voies de prestige, hors profil/race)
+        for (const voie of allVoies) {
+            if (voie?.name === voieName && voie.capabilities) {
+                const cap = voie.capabilities.find((c: any) => c.rank === rank);
+                if (cap) return { name: cap.name, description: cap.description };
+            }
+        }
         return null;
     };
 

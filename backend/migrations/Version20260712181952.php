@@ -26,13 +26,13 @@ final class Version20260712181952 extends AbstractMigration
         $this->addSql('ALTER TABLE character_voie ADD CONSTRAINT FK_B280FDE01136BE75 FOREIGN KEY (character_id) REFERENCES "character" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE character_voie ADD CONSTRAINT FK_B280FDE0EAAC89CF FOREIGN KEY (voie_id) REFERENCES voie (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE "character" ADD play_state JSON DEFAULT NULL');
-        $this->addSql('ALTER TABLE "character" RENAME COLUMN data TO caracs');
+        $this->addSql('ALTER TABLE "character" DROP COLUMN data');
+        $this->addSql('ALTER TABLE "character" ADD caracs JSON DEFAULT NULL');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE SCHEMA public');
         $this->addSql('ALTER TABLE character_voie DROP CONSTRAINT FK_B280FDE01136BE75');
         $this->addSql('ALTER TABLE character_voie DROP CONSTRAINT FK_B280FDE0EAAC89CF');
         $this->addSql('DROP TABLE character_voie');

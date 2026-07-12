@@ -6,6 +6,7 @@ use App\Repository\CharacterVoieRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CharacterVoieRepository::class)]
 class CharacterVoie
@@ -23,15 +24,19 @@ class CharacterVoie
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     #[Groups(['character:read', 'character:write'])]
+    #[Assert\NotBlank]
     private ?Voie $voie = null;
 
     #[ORM\Column]
     #[Groups(['character:read', 'character:write'])]
+    #[Assert\GreaterThanOrEqual(0)]
     private ?int $rank = 0;
 
     // profil | peuple | prestige | hybride
     #[ORM\Column(length: 20)]
     #[Groups(['character:read', 'character:write'])]
+    #[Assert\NotBlank]
+    #[Assert\Choice(choices: ['profil', 'peuple', 'prestige', 'hybride'])]
     private ?string $source = null;
 
     #[ORM\Column(type: Types::JSON, nullable: true)]

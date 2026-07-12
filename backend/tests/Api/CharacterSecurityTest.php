@@ -74,4 +74,27 @@ final class CharacterSecurityTest extends ApiSecurityTestCase
         $this->client->request('DELETE', '/api/characters/'.$character->getId(), ['headers' => $this->authHeaders($bob)]);
         $this->assertResponseStatusCodeSame(404);
     }
+
+    public function testCharacterNewShapeRoundTrip(): void
+    {
+        $user = $this->createUser('shape@example.com');
+
+        $payload = [
+            'name' => 'Lhagva',
+            'level' => 1,
+            'caracs' => ['AGI' => 1, 'CON' => 2, 'FOR' => 3, 'PER' => 1, 'CHA' => -1, 'INT' => 0, 'VOL' => 1],
+            'playState' => ['hp' => ['current' => 15], 'money' => ['pa' => 12]],
+        ];
+
+        $response = $this->client->request('POST', '/api/characters', [
+            'headers' => $this->authHeaders($user),
+            'json' => $payload,
+        ]);
+
+        $this->assertResponseStatusCodeSame(201);
+        $data = json_decode($response->getContent(), true);
+        $this->assertSame(3, $data['caracs']['FOR']);
+        $this->assertSame(15, $data['playState']['hp']['current']);
+        $this->assertArrayNotHasKey('data', $data);
+    }
 }

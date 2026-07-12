@@ -12,6 +12,8 @@ use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Delete;
 use App\Repository\CharacterRepository;
 use App\State\CharacterStateProcessor;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -57,7 +59,15 @@ class Character
 
     #[ORM\Column(type: Types::JSON, nullable: true)]
     #[Groups(['character:read', 'character:write'])]
-    private ?array $data = null;
+    private ?array $caracs = null;
+
+    #[ORM\Column(type: Types::JSON, nullable: true)]
+    #[Groups(['character:read', 'character:write'])]
+    private ?array $playState = null;
+
+    #[ORM\OneToMany(targetEntity: CharacterVoie::class, mappedBy: 'character', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[Groups(['character:read', 'character:write'])]
+    private Collection $characterVoies;
 
     #[ORM\Column]
     #[Groups(['character:read'])]
@@ -87,6 +97,11 @@ class Character
     #[ORM\JoinColumn(nullable: true)] # Nullable for legacy characters
     #[Groups(['character:read'])]
     private ?User $owner = null;
+
+    public function __construct()
+    {
+        $this->characterVoies = new ArrayCollection();
+    }
 
     public function getCampaignId(): ?int
     {
@@ -153,14 +168,53 @@ class Character
         return $this;
     }
 
-    public function getData(): ?array
+    public function getCaracs(): ?array
     {
-        return $this->data;
+        return $this->caracs;
     }
 
-    public function setData(?array $data): static
+    public function setCaracs(?array $caracs): static
     {
-        $this->data = $data;
+        $this->caracs = $caracs;
+
+        return $this;
+    }
+
+    public function getPlayState(): ?array
+    {
+        return $this->playState;
+    }
+
+    public function setPlayState(?array $playState): static
+    {
+        $this->playState = $playState;
+
+        return $this;
+    }
+
+    /** @return Collection<int, CharacterVoie> */
+    public function getCharacterVoies(): Collection
+    {
+        return $this->characterVoies;
+    }
+
+    public function addCharacterVoie(CharacterVoie $cv): static
+    {
+        if (!$this->characterVoies->contains($cv)) {
+            $this->characterVoies->add($cv);
+            $cv->setCharacter($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCharacterVoie(CharacterVoie $cv): static
+    {
+        if ($this->characterVoies->removeElement($cv)) {
+            if ($cv->getCharacter() === $this) {
+                $cv->setCharacter(null);
+            }
+        }
 
         return $this;
     }

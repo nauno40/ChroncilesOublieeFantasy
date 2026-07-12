@@ -280,6 +280,7 @@ class AppFixtures extends Fixture
                             $c = new Capability();
                             $c->setName($capData['name']);
                             $c->setDescription($capData['description'] ?? '');
+                            $this->applyEvolutiveDie($c);
                             $c->setRank($capData['rank']);
                             $c->setVoie($v);
                             
@@ -430,6 +431,7 @@ class AppFixtures extends Fixture
                 $cap = new Capability();
                 $cap->setName($capData['name']);
                 $cap->setDescription($capData['description'] ?? '');
+                $this->applyEvolutiveDie($cap);
                 $cap->setRank($capData['rank']); // slot 1-5 (= rang 4-8 du livre)
                 $cap->setLimited(str_contains(strtolower($capData['name'] . ' ' . ($capData['description'] ?? '')), '(l)'));
                 $cap->setIsSpell(str_contains($capData['name'], '*'));
@@ -483,8 +485,9 @@ class AppFixtures extends Fixture
                             $cap = new Capability();
                             $cap->setName($capData['name']);
                             $cap->setDescription($capData['description'] ?? '');
+                            $this->applyEvolutiveDie($cap);
                             $cap->setRank($capData['rank']);
-                            $type = $capData['type'] ?? ''; 
+                            $type = $capData['type'] ?? '';
                             $cap->setLimited(str_contains(strtolower($type), 'limité'));
                             $cap->setIsSpell(str_contains(strtolower($type), 'sort') || str_contains($type, '*'));
                             $cap->setVoie($voie);
@@ -521,6 +524,7 @@ class AppFixtures extends Fixture
             $e = new Capability();
             $e->setName($item['name']);
             $e->setDescription($item['description'] ?? '');
+            $this->applyEvolutiveDie($e);
             $e->setRank($item['rank']);
             
             // "voieId": "voie_de_la_divination"
@@ -534,6 +538,17 @@ class AppFixtures extends Fixture
             $e->setLimited(str_contains($item['name'], '(L)'));
             
             $manager->persist($e);
+        }
+    }
+
+    /**
+     * Détecte un dé évolutif « Nd4° » dans la description d'une capacité (spec §6.4)
+     * et l'enregistre dans effect.evolutiveDie (« d4° » -> count 1, « 2d4° » -> count 2).
+     */
+    private function applyEvolutiveDie(Capability $c): void
+    {
+        if (preg_match('/(\d*)d4°/u', (string) $c->getDescription(), $m)) {
+            $c->setEffect(['evolutiveDie' => ['count' => $m[1] === '' ? 1 : (int) $m[1]]]);
         }
     }
 

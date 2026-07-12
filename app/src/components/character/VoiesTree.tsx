@@ -28,6 +28,8 @@ interface Props {
     showPrestigeSelector: Record<number, boolean>;
     setShowPrestigeSelector: PrestigeSelectorSetter;
     prestigePaths: VoieList;
+    /** Voies disponibles par profil, pour choisir des voies hors profil principal (hybride). */
+    voieOptionsByProfile: { profile: string; voies: string[] }[];
 }
 
 export const VoiesTree: React.FC<Props> = ({
@@ -45,6 +47,7 @@ export const VoiesTree: React.FC<Props> = ({
     showPrestigeSelector,
     setShowPrestigeSelector,
     prestigePaths,
+    voieOptionsByProfile,
 }) => {
     const level = character.level ?? 0;
 
@@ -229,9 +232,41 @@ export const VoiesTree: React.FC<Props> = ({
                                         <div className="mb-5 space-y-2">
                                             <h3 className="text-stone-600/70 font-bold uppercase text-[10px] tracking-[0.2em] ml-1">Voie de Profil {vIdx + 1}</h3>
                                             <div className="flex gap-2 items-center">
-                                                <div className="w-full bg-stone-950/30 border border-stone-800 rounded-lg px-4 py-2 text-lg font-display font-bold text-white shadow-inner">
-                                                    {voie.name || '...'}
-                                                </div>
+                                                {isCreation ? (
+                                                    // À la création, les 5 voies sont celles du profil principal (fixes).
+                                                    <div className="w-full bg-stone-950/30 border border-stone-800 rounded-lg px-4 py-2 text-lg font-display font-bold text-white shadow-inner">
+                                                        {voie.name || '...'}
+                                                    </div>
+                                                ) : (
+                                                    // En jeu : voie choisie parmi tous les profils (profils hybrides, COF2 chap. 9).
+                                                    <select
+                                                        value={voie.name || ''}
+                                                        onChange={(e) => {
+                                                            const newName = e.target.value;
+                                                            if (!newName || newName === voie.name) return;
+                                                            const hasRanks = (voie.ranks || []).some(Boolean);
+                                                            if (hasRanks && !confirm('Changer de voie réinitialisera sa progression. Continuer ?')) return;
+                                                            const newProfileVoies = [...(character.data?.voies?.profile || [])];
+                                                            newProfileVoies[vIdx] = { name: newName, ranks: [false, false, false, false, false] };
+                                                            setCharacter(prev => ({
+                                                                ...prev,
+                                                                data: { ...prev.data!, voies: { ...prev.data!.voies!, profile: newProfileVoies } }
+                                                            }));
+                                                        }}
+                                                        className="w-full bg-stone-950/30 border border-stone-800 rounded-lg px-4 py-2 text-lg font-display font-bold text-white shadow-inner outline-none focus:border-primary-500/50 cursor-pointer appearance-none"
+                                                    >
+                                                        {!voie.name && <option value="">— Choisir une voie —</option>}
+                                                        {voieOptionsByProfile.map(grp => (
+                                                            <optgroup key={grp.profile} label={grp.profile}>
+                                                                {grp.voies.map(vn => <option key={vn} value={vn}>{vn}</option>)}
+                                                            </optgroup>
+                                                        ))}
+                                                        {/* Conserve l'affichage d'une voie hors liste (ex. voie de prestige déjà posée). */}
+                                                        {voie.name && !voieOptionsByProfile.some(g => g.voies.includes(voie.name)) && (
+                                                            <option value={voie.name}>{voie.name}</option>
+                                                        )}
+                                                    </select>
+                                                )}
 
                                                 {!isCreation && (
                                                     <Tooltip content={{ name: "Remplacer par une Voie de Prestige", description: "Cliquez pour choisir une voie de prestige à la place de cette voie." }} theme="primary">

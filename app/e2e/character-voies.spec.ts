@@ -21,6 +21,11 @@ async function createCharacter(page: Page, token: string, body: Record<string, u
 const GUERRIER = ['Voie du Bouclier', 'Voie du Combat', "Voie du Maître d'Armes", 'Voie de la Résistance', 'Voie du Soldat'];
 const DRUIDE = ['Voie des Animaux', 'Voie du Fauve', 'Voie de la Nature', 'Voie du Protecteur', 'Voie des Végétaux'];
 
+// En jeu (niveau ≥ 1), chaque voie de profil est un <select> groupé par profil (profils
+// hybrides) — le seul type de select à contenir des <optgroup>. On lit leurs valeurs.
+const profileVoieValues = (page: Page) =>
+    page.locator('select:has(optgroup)').evaluateAll(els => (els as HTMLSelectElement[]).map(e => e.value));
+
 // Régression : en rouvrant un perso de niveau ≥ 1 dont seule une partie des voies
 // de profil avait été sauvegardée, les 5 voies du profil doivent s'afficher.
 test('rouvrir un perso niveau ≥ 1 recharge les 5 voies de profil', async ({ page }) => {
@@ -39,10 +44,8 @@ test('rouvrir un perso niveau ≥ 1 recharge les 5 voies de profil', async ({ pa
     await page.goto(`/characters/${id}`);
     await page.waitForLoadState('networkidle');
 
-    for (const name of GUERRIER) {
-        await expect(page.getByText(name, { exact: true }).first()).toBeVisible({ timeout: 15_000 });
-    }
     await expect(page.locator('h3', { hasText: /Voie de Profil/i })).toHaveCount(5);
+    await expect.poll(() => profileVoieValues(page), { timeout: 15_000 }).toEqual(expect.arrayContaining(GUERRIER));
 });
 
 // Régression : choisir / changer la classe d'un perso existant met à jour les voies.
@@ -61,9 +64,7 @@ test('choisir ou changer la classe met à jour les voies de profil', async ({ pa
     await page.waitForLoadState('networkidle');
     await classSelect().selectOption(iri('Guerrier'));
     await page.keyboard.press('Escape'); // fermer une éventuelle modale d'équipement
-    for (const name of GUERRIER) {
-        await expect(page.getByText(name, { exact: true }).first()).toBeVisible({ timeout: 15_000 });
-    }
+    await expect.poll(() => profileVoieValues(page), { timeout: 15_000 }).toEqual(expect.arrayContaining(GUERRIER));
 
     // Cas 2 : changer de classe (Guerrier → Druide) remplace les voies.
     const idB = await createCharacter(page, token, {
@@ -74,9 +75,7 @@ test('choisir ou changer la classe met à jour les voies de profil', async ({ pa
     await page.waitForLoadState('networkidle');
     await classSelect().selectOption(iri('Druide'));
     await page.keyboard.press('Escape');
-    for (const name of DRUIDE) {
-        await expect(page.getByText(name, { exact: true }).first()).toBeVisible({ timeout: 15_000 });
-    }
+    await expect.poll(() => profileVoieValues(page), { timeout: 15_000 }).toEqual(expect.arrayContaining(DRUIDE));
     // Plus aucune voie du Guerrier ne subsiste.
-    await expect(page.getByText('Voie du Bouclier', { exact: true })).toHaveCount(0);
+    await expect.poll(() => profileVoieValues(page)).not.toContain('Voie du Bouclier');
 });

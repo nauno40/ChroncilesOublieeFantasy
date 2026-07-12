@@ -46,6 +46,13 @@ export const CharacterSheet: React.FC = () => {
         handleSave, updateStat, getCapabilityName, addEquipmentItem,
     } = useCharacterSheet({ races, profiles, allVoies, id, isNew, navigate, campaignId });
 
+    // Voies groupées par profil, pour permettre le choix de voies hors profil principal
+    // (profils hybrides, COF2 chap. 9). La progression et les PV suivent chaque voie choisie.
+    const voieOptionsByProfile = (profiles as any[])
+        .map(p => ({ profile: p.name as string, voies: ((p.voies || []) as any[]).map(v => v.name).filter(Boolean) as string[] }))
+        .filter(g => g.profile && g.voies.length > 0)
+        .sort((a, b) => a.profile.localeCompare(b.profile));
+
     if (loading) return <div className="p-8 text-center text-primary-200">Chargement...</div>;
 
     return (
@@ -147,6 +154,7 @@ export const CharacterSheet: React.FC = () => {
                         showPrestigeSelector={showPrestigeSelector}
                         setShowPrestigeSelector={setShowPrestigeSelector}
                         prestigePaths={prestigePaths}
+                        voieOptionsByProfile={voieOptionsByProfile}
                     />
                 </div>
                 {/* Equipment Choice Modal */}

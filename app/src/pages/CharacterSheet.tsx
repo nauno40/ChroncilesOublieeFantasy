@@ -30,7 +30,7 @@ export const CharacterSheet: React.FC = () => {
     const {
         character, setCharacter,
         loading, saving,
-        stats, mods, finalStats, combatStats,
+        stats, mods, finalStats, combatStats, evolutiveDie,
         spentPoints, maxStartingPoints,
         selectedVoies, setSelectedVoies,
         selectedProfileType, setSelectedProfileType,
@@ -91,6 +91,7 @@ export const CharacterSheet: React.FC = () => {
                         setCharacter={setCharacter}
                         combatStats={combatStats}
                         mods={mods}
+                        evolutiveDie={evolutiveDie}
                     />
                 </div>
 

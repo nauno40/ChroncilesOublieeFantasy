@@ -158,6 +158,17 @@ export const capacityCost = (rank: number): number => (rank <= 2 ? 1 : 2);
 // gratuite des mages ne sont pas décomptées (cf. computeSpentPoints).
 export const capacityBudget = (level: number | undefined): number => 2 * Math.max(1, level || 0);
 
+// Dé évolutif « d4° » (COF2, Progression) : d4 aux niveaux 1-5, d6 à 6-8, d8 à 9-11,
+// d10 à 12-14, d12 à partir de 15. Beaucoup de capacités infligent des DM en d4°.
+export const evolutiveDie = (level: number | undefined): string => {
+  const l = Math.max(1, level || 1);
+  if (l >= 15) return 'd12';
+  if (l >= 12) return 'd10';
+  if (l >= 9) return 'd8';
+  if (l >= 6) return 'd6';
+  return 'd4';
+};
+
 export type VoieKind = 'racial' | 'profile' | 'prestige';
 
 // Niveau à partir duquel un rang devient accessible (verrou structurel, hors budget).
@@ -236,34 +247,49 @@ export const computeSpentPoints = (voies: any, _level: number | undefined, isMag
   return spent;
 };
 
-export const computeManaPoints = (voies: any, races: any[], profiles: any[], volMod: number): number => {
-  const isSpell = (voieName: string, rank: number): boolean => {
+// PM = VOL + nombre de sorts connus (COF2, Magie et sorts). Le rang 4 « Perception
+// héroïque » des voies druide/ensorceleur ajoute en plus la PER (d'où `perMod`).
+export const computeManaPoints = (voies: any, races: any[], profiles: any[], volMod: number, perMod = 0): number => {
+  const findCap = (voieName: string, rank: number): any => {
     for (const race of races) {
-      const v = race.availableVoies?.find((x: any) => x.name === voieName);
-      const cap = v?.capabilities?.find((c: any) => c.rank === rank);
-      if (cap?.isSpell) return true;
+      const cap = race.availableVoies?.find((x: any) => x.name === voieName)?.capabilities?.find((c: any) => c.rank === rank);
+      if (cap) return cap;
     }
     for (const profile of profiles) {
-      const v = profile.voies?.find((x: any) => x.name === voieName);
-      const cap = v?.capabilities?.find((c: any) => c.rank === rank);
-      if (cap?.isSpell) return true;
+      const cap = profile.voies?.find((x: any) => x.name === voieName)?.capabilities?.find((c: any) => c.rank === rank);
+      if (cap) return cap;
     }
-    return false;
+    return null;
   };
+  const isSpell = (voieName: string, rank: number): boolean => !!findCap(voieName, rank)?.isSpell;
+
+  // Voies des profils druide/ensorceleur dont le rang 4 « Perception héroïque » ajoute la PER aux PM.
+  const perManaVoies = new Set<string>();
+  for (const profile of profiles) {
+    if (profile.name === 'Druide' || profile.name === 'Ensorceleur') {
+      profile.voies?.forEach((v: any) => v?.name && perManaVoies.add(v.name));
+    }
+  }
+  const addsPerToMana = (voieName: string, ranks?: boolean[]): boolean =>
+    !!ranks?.[3] && perManaVoies.has(voieName) && /perception h[ée]ro[ïi]que/i.test(findCap(voieName, 4)?.name || '');
 
   let spellCount = 0;
+  let perBonus = false;
   if (voies?.racial) {
     voies.racial.ranks?.forEach((learned: boolean, idx: number) => {
       if (learned && isSpell(voies.racial.name || '', idx + 1)) spellCount++;
     });
+    if (addsPerToMana(voies.racial.name || '', voies.racial.ranks)) perBonus = true;
   }
   voies?.profile?.forEach((v: any) => {
     v.ranks?.forEach((learned: boolean, idx: number) => {
       if (learned && isSpell(v.name, idx + 1)) spellCount++;
     });
+    if (addsPerToMana(v.name, v.ranks)) perBonus = true;
   });
 
-  return spellCount > 0 ? volMod + spellCount : 0;
+  if (spellCount === 0) return 0;
+  return volMod + spellCount + (perBonus ? perMod : 0);
 };
 
 export const computeCombatStats = (args: {

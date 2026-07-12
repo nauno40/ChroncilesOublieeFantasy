@@ -7,9 +7,11 @@ interface Props {
     setCharacter: React.Dispatch<React.SetStateAction<Partial<Character>>>;
     combatStats: { init: number; def: number };
     mods: Stats;
+    /** Dé évolutif « d4° » courant, dérivé du niveau (d4→d6→d8→d10→d12). */
+    evolutiveDie: string;
 }
 
-export const MainStatsPanel: React.FC<Props> = ({ character, setCharacter, combatStats, mods }) => {
+export const MainStatsPanel: React.FC<Props> = ({ character, setCharacter, combatStats, mods, evolutiveDie }) => {
     return (
         <div className="grid grid-cols-2 gap-3">
             <div className="glass-panel p-3 rounded-xl text-center border-stone-800 relative overflow-hidden bg-stone-900/10">
@@ -75,18 +77,22 @@ export const MainStatsPanel: React.FC<Props> = ({ character, setCharacter, comba
                 <div className="text-[8px] text-blue-900/60 font-bold uppercase mt-1">PM MAX (calculé)</div>
             </div>
 
-            {/* Row 4: Recovery (Full Width) */}
-            <div className="glass-panel p-3 rounded-xl border-white/5 bg-stone-900/20 text-center col-span-2 flex items-center justify-between px-6">
-                <label className="text-[9px] uppercase font-black text-stone-500 tracking-widest block">Récupération</label>
+            {/* Row 4: Recovery + evolutive die (Full Width) */}
+            <div className="glass-panel p-3 rounded-xl border-white/5 bg-stone-900/20 col-span-2 flex items-center justify-around px-6">
                 <div className="flex flex-col items-center">
                     <input
                         type="text"
-                        className="bg-transparent border-b border-stone-800 text-center text-lg font-bold text-white outline-none focus:border-primary-500/50 transition-all font-display w-24"
+                        className="bg-transparent border-b border-stone-800 text-center text-lg font-bold text-white outline-none focus:border-primary-500/50 transition-all font-display w-20"
                         placeholder="ex: d8"
                         value={character.data?.recovery?.die || ''}
                         onChange={e => setCharacter({ ...character, data: { ...character.data!, recovery: { ...character.data!.recovery!, die: e.target.value } } })}
                     />
-                    <div className="text-[8px] text-stone-600 text-center font-bold uppercase mt-1">Dés de vie</div>
+                    <div className="text-[8px] text-stone-600 text-center font-bold uppercase mt-1">Dé de récup.</div>
+                </div>
+                <div className="w-px self-stretch bg-white/5" />
+                <div className="flex flex-col items-center">
+                    <div className="text-lg font-bold text-white font-display w-20 text-center">{evolutiveDie}</div>
+                    <div className="text-[8px] text-stone-600 text-center font-bold uppercase mt-1">Dé évolutif d4°</div>
                 </div>
             </div>
 

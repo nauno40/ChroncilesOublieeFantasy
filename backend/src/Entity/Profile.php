@@ -35,17 +35,11 @@ class Profile
     #[ORM\ManyToOne(inversedBy: 'profiles')]
     private ?Family $family = null;
 
-    #[ORM\Column(length: 10)]
-    private ?string $hitDie = null;
-
     #[ORM\Column(nullable: true)]
     private ?array $weaponsAuth = null;
 
     #[ORM\Column(nullable: true)]
     private ?array $armorAuth = null;
-
-    #[ORM\Column]
-    private ?int $skillPoints = null;
 
     #[ORM\Column(length: 10, nullable: true)]
     private ?string $magicStat = null;
@@ -113,18 +107,6 @@ class Profile
         return $this;
     }
 
-    public function getHitDie(): ?string
-    {
-        return $this->hitDie;
-    }
-
-    public function setHitDie(string $hitDie): static
-    {
-        $this->hitDie = $hitDie;
-
-        return $this;
-    }
-
     public function getWeaponsAuth(): ?array
     {
         return $this->weaponsAuth;
@@ -145,18 +127,6 @@ class Profile
     public function setArmorAuth(?array $armorAuth): static
     {
         $this->armorAuth = $armorAuth;
-
-        return $this;
-    }
-
-    public function getSkillPoints(): ?int
-    {
-        return $this->skillPoints;
-    }
-
-    public function setSkillPoints(int $skillPoints): static
-    {
-        $this->skillPoints = $skillPoints;
 
         return $this;
     }

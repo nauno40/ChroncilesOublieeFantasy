@@ -181,31 +181,25 @@ class AppFixtures extends Fixture
             
             // Stats
             $stats = $classData['stats'] ?? [];
-            if (isset($stats['hitDie'])) {
-                $e->setHitDie($stats['hitDie']);
-            }
             if (isset($stats['magicStat'])) {
-                $e->setMagicStat($stats['magicStat']); 
+                $e->setMagicStat($stats['magicStat']);
             }
-            
+
             // Save remaining stats in JSON
             $extraStats = $stats;
             unset($extraStats['hitDie'], $extraStats['magicStat']);
             if (!empty($extraStats)) {
                 $e->setStats($extraStats);
             }
-            
+
             if (isset($classData['imageUrl'])) {
                 $e->setImageUrl($classData['imageUrl']);
             }
-            
+
             $famId = $familyMap[$name] ?? null;
             if ($famId && isset($families[$famId])) {
                 $family = $families[$famId];
                 $e->setFamily($family);
-                if (!$e->getHitDie()) {
-                     $e->setHitDie($family->getRecoveryDie()); 
-                }
             }
 
             // Lore
@@ -244,8 +238,6 @@ class AppFixtures extends Fixture
                 $e->setStartingEquipment($data['startingEquipment']);
             }
 
-            $e->setSkillPoints(2); 
-            
             $manager->persist($e);
             
             $key = strtolower($file->getBasename('.json'));

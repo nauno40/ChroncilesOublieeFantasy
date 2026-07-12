@@ -363,20 +363,26 @@ export const VoiesTree: React.FC<Props> = ({
                                                         <Trash2 size={12} />
                                                     </button>
                                                 </div>
-                                                <input
-                                                    type="text"
-                                                    className="w-full bg-stone-950/30 border border-stone-800 rounded-lg px-4 py-2 text-lg font-display font-bold text-amber-500 outline-none focus:border-amber-500/50 transition-all shadow-inner"
-                                                    placeholder="Nom de la voie de prestige"
+                                                <select
+                                                    className="w-full bg-stone-950/30 border border-stone-800 rounded-lg px-4 py-2 text-lg font-display font-bold text-amber-500 outline-none focus:border-amber-500/50 transition-all shadow-inner appearance-none cursor-pointer"
                                                     value={voie.name}
                                                     onChange={e => {
                                                         const newPrestige = [...(character.data?.voies?.prestige || [])];
-                                                        newPrestige[vIdx] = { ...newPrestige[vIdx], name: e.target.value };
+                                                        // Changer de voie réinitialise les rangs (capacités différentes).
+                                                        newPrestige[vIdx] = { name: e.target.value, ranks: [false, false, false, false, false] };
                                                         setCharacter(prev => ({
                                                             ...prev,
                                                             data: { ...prev.data!, voies: { ...prev.data!.voies!, prestige: newPrestige } }
                                                         }));
                                                     }}
-                                                />
+                                                >
+                                                    <option value="">— Choisir une voie de prestige —</option>
+                                                    {[...prestigePaths]
+                                                        .sort((a: any, b: any) => (a.name || '').localeCompare(b.name || ''))
+                                                        .map((p: any) => (
+                                                            <option key={p.id ?? p.name} value={p.name}>{p.name}</option>
+                                                        ))}
+                                                </select>
                                             </div>
                                             <div className="space-y-2.5 overflow-visible">
                                                 {[1, 2, 3, 4, 5].map(rank => {

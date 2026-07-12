@@ -64,6 +64,9 @@ class AppFixtures extends Fixture
         // 5.5 Load Shared/Racial Voies (Legacy & Races)
         $this->loadVoies($manager, $profiles, $races);
 
+        // 5.6 Load Prestige Voies (compendium, category = Prestige)
+        $this->loadPrestigeVoies($manager);
+
         // 6. Load Creatures
         $this->loadCreatures($manager, $familyContext['monsterMap']);
         
@@ -304,7 +307,9 @@ class AppFixtures extends Fixture
 
     private function loadCreatureFamilies(ObjectManager $manager): array
     {
-        $data = $this->getData('families.json');
+        // Familles de créatures (bestiaire) → CreatureFamily. À ne pas confondre avec
+        // profile_families.json (familles de profils) chargé dans l'entité Family.
+        $data = $this->getData('creature_families.json');
         $entities = [];
         $monsterToFamilyMap = [];
 
@@ -394,6 +399,41 @@ class AppFixtures extends Fixture
     }
 
 
+
+    /**
+     * Voies de prestige (chap. 8), transcrites depuis les règles. Ce sont des voies
+     * autonomes du compendium (category = « Prestige »), non rattachées à un profil ni
+     * à une race. Leurs 5 rangs affichés (1-5) correspondent aux rangs 4-8 du livre.
+     */
+    private function loadPrestigeVoies(ObjectManager $manager): void
+    {
+        $data = $this->getData('prestige_voies.json');
+
+        foreach ($data as $item) {
+            $voie = new Voie();
+            $voie->setName($item['name']);
+            $voie->setDescription($item['description'] ?? '');
+            $voie->setCategory('Prestige');
+            $voie->setMaxRank(5);
+            // Famille + prérequis conservés dans details (rendus par DynamicDetailsRenderer).
+            $voie->setDetails([
+                'famille' => $item['family'] ?? null,
+                'note_prerequis' => $item['prerequisite'] ?? null,
+            ]);
+            $manager->persist($voie);
+
+            foreach ($item['abilities'] ?? [] as $capData) {
+                $cap = new Capability();
+                $cap->setName($capData['name']);
+                $cap->setDescription($capData['description'] ?? '');
+                $cap->setRank($capData['rank']); // slot 1-5 (= rang 4-8 du livre)
+                $cap->setLimited(str_contains(strtolower($capData['name'] . ' ' . ($capData['description'] ?? '')), '(l)'));
+                $cap->setIsSpell(str_contains($capData['name'], '*'));
+                $cap->setVoie($voie);
+                $manager->persist($cap);
+            }
+        }
+    }
 
     private function loadVoies(ObjectManager $manager, array $profiles, array $races): array
     {

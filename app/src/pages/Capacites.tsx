@@ -57,8 +57,12 @@ export const Capacites: React.FC = () => {
 
     const [selectedRank, setSelectedRank] = useState<string>('all');
     const [selectedProfile, setSelectedProfile] = useState<string>('all');
+    const [selectedType, setSelectedType] = useState<string>('all'); // all | spell | non-spell
 
     const [searchTerm, setSearchTerm] = useState('');
+
+    // Un sort COF2 est signalé par un astérisque dans son nom (ou le flag isSpell de l'API).
+    const isSpellCapacite = (c: Capacity): boolean => c.isSpell ?? c.name.includes('*');
 
     // Filter capacites based on selected filters and search term
     const filteredItems = useMemo(() => {
@@ -70,6 +74,12 @@ export const Capacites: React.FC = () => {
             if (selectedProfile !== 'all' && capacite.profileId !== selectedProfile) {
                 return false;
             }
+            if (selectedType === 'spell' && !isSpellCapacite(capacite)) {
+                return false;
+            }
+            if (selectedType === 'non-spell' && isSpellCapacite(capacite)) {
+                return false;
+            }
 
             // Apply Search
             if (searchTerm && !capacite.name.toLowerCase().includes(searchTerm.toLowerCase())) {
@@ -78,7 +88,7 @@ export const Capacites: React.FC = () => {
 
             return true;
         });
-    }, [capacites, selectedRank, selectedProfile, searchTerm]);
+    }, [capacites, selectedRank, selectedProfile, selectedType, searchTerm]);
 
     // Get unique profiles that have capacites
     const availableProfiles = useMemo(() => {
@@ -88,7 +98,7 @@ export const Capacites: React.FC = () => {
             .sort((a, b) => a.name.localeCompare(b.name));
     }, [capacites, profiles]);
 
-    const activeFiltersCount = [selectedRank, selectedProfile].filter(f => f !== 'all').length;
+    const activeFiltersCount = [selectedRank, selectedProfile, selectedType].filter(f => f !== 'all').length;
 
     if (loading) return <PageContainer><div className="p-8 text-center text-primary-200">Chargement...</div></PageContainer>;
 
@@ -107,9 +117,24 @@ export const Capacites: React.FC = () => {
                 onClearFilters={() => {
                     setSelectedRank('all');
                     setSelectedProfile('all');
+                    setSelectedType('all');
                 }}
             >
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label className="block text-sm font-medium text-stone-300 mb-2">
+                            Type
+                        </label>
+                        <select
+                            value={selectedType}
+                            onChange={(e) => setSelectedType(e.target.value)}
+                            className="w-full px-3 py-2 bg-stone-900/50 border border-stone-700 rounded-lg text-stone-200 focus:border-primary-500 focus:outline-none transition-colors"
+                        >
+                            <option value="all">Toutes les capacités</option>
+                            <option value="spell">Sorts uniquement</option>
+                            <option value="non-spell">Hors sorts</option>
+                        </select>
+                    </div>
                     <div>
                         <label className="block text-sm font-medium text-stone-300 mb-2">
                             Rang
@@ -179,6 +204,11 @@ export const Capacites: React.FC = () => {
                                     {displayName}
                                 </h3>
                                 <div className="flex gap-2 flex-wrap">
+                                    {isSpellCapacite(capacite) && (
+                                        <Badge variant="info">
+                                            ✦ Sort
+                                        </Badge>
+                                    )}
                                     {isLimited && (
                                         <Badge variant="danger">
                                             Limité

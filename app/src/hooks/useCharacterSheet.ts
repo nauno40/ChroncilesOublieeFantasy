@@ -15,6 +15,7 @@ import {
   computeCombatStats,
   migrateLegacyStats,
   capacityBudget,
+  evolutiveDie,
   MIN_STAT,
   MAX_STAT,
   STAT_SERIES,
@@ -442,6 +443,14 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
                 }
             }
         }
+
+        // Search in standalone voies (notamment les voies de prestige, hors profil/race)
+        for (const voie of allVoies) {
+            if (voie?.name === voieName && voie.capabilities) {
+                const cap = voie.capabilities.find((c: any) => c.rank === rank);
+                if (cap) return { name: cap.name, description: cap.description };
+            }
+        }
         return null;
     };
 
@@ -490,7 +499,7 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
     }, [character.profile, character.data?.voies?.racial, profiles, mods.CHA]);
 
     // Calculate Mana Points (PM)
-    const manaPoints = useMemo(() => computeManaPoints(character.data?.voies, races, profiles, mods.VOL), [character.data?.voies, races, profiles, mods.VOL]);
+    const manaPoints = useMemo(() => computeManaPoints(character.data?.voies, races, profiles, mods.VOL, mods.PER), [character.data?.voies, races, profiles, mods.VOL, mods.PER]);
 
     // Effect: Sync Luck Points and Recovery Die to Data
     useEffect(() => {
@@ -592,7 +601,7 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
         character, setCharacter,
         loading, saving,
         stats, mods, finalStats, combatStats,
-        recoveryDieString, luckPoints, manaPoints,
+        recoveryDieString, evolutiveDie: evolutiveDie(character.level), luckPoints, manaPoints,
         spentPoints, maxStartingPoints,
         selectedVoies, setSelectedVoies,
         selectedProfileType, setSelectedProfileType,

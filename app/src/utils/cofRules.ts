@@ -2,6 +2,20 @@ export type Stats = {
   FOR: number; AGI: number; CON: number; INT: number; PER: number; CHA: number; VOL: number;
 };
 
+// --- Formes minimales des données de règles (compendium + état des voies d'un perso) ---
+// Volontairement partielles : les données proviennent de l'API (typage souple) ; on ne
+// décrit ici que les champs réellement lus par les calculs de règles.
+export interface CompendiumCapability { name?: string; rank?: number; description?: string; isSpell?: boolean; }
+export interface CompendiumVoie { name?: string; capabilities?: CompendiumCapability[]; }
+export interface CompendiumProfile { name?: string; voies?: CompendiumVoie[]; }
+export interface CompendiumRace { availableVoies?: CompendiumVoie[]; }
+export interface VoieRanks { name?: string; ranks?: boolean[]; }
+export interface CharacterVoies { racial?: VoieRanks; profile?: VoieRanks[]; prestige?: VoieRanks[]; }
+export interface RaceModifier {
+  type?: string; stat?: string | null; value: number; count?: number; options?: string[]; logic?: string;
+}
+export interface Protection { armor?: { def?: number }; shield?: { def?: number }; }
+
 // COF2 : une caractéristique EST sa valeur de jeu (‑2 à +5). Contrairement à D&D, il n'y a
 // ni score 3‑18 ni conversion : la valeur s'utilise directement partout (PV, DEF, Init, DR,
 // PC, PM, attaques). Le « modificateur » d'une caractéristique est donc égal à sa valeur.
@@ -110,13 +124,13 @@ export const computeLuckPoints = (
 
 export const computeFinalStats = (
   baseStats: Stats,
-  raceModifiers: any[] | undefined,
+  raceModifiers: RaceModifier[] | undefined,
   racialBonusChoices: Record<string, string>,
 ): Stats => {
   const base = { ...baseStats };
   if (!raceModifiers) return base;
 
-  raceModifiers.forEach((mod: any, idx: number) => {
+  raceModifiers.forEach((mod, idx) => {
     if (mod.type === 'fixed' && mod.stat) {
       base[mod.stat as keyof Stats] = (base[mod.stat as keyof Stats] || 0) + mod.value;
     } else if (mod.type === 'choice' && mod.options) {
@@ -157,6 +171,17 @@ export const capacityCost = (rank: number): number => (rank <= 2 ? 1 : 2);
 // équivaut au niveau 1. La capacité de rang 1 de la voie de peuple et la capacité de rang 2
 // gratuite des mages ne sont pas décomptées (cf. computeSpentPoints).
 export const capacityBudget = (level: number | undefined): number => 2 * Math.max(1, level || 0);
+
+// Dé évolutif « d4° » (COF2, Progression) : d4 aux niveaux 1-5, d6 à 6-8, d8 à 9-11,
+// d10 à 12-14, d12 à partir de 15. Beaucoup de capacités infligent des DM en d4°.
+export const evolutiveDie = (level: number | undefined): string => {
+  const l = Math.max(1, level || 1);
+  if (l >= 15) return 'd12';
+  if (l >= 12) return 'd10';
+  if (l >= 9) return 'd8';
+  if (l >= 6) return 'd6';
+  return 'd4';
+};
 
 export type VoieKind = 'racial' | 'profile' | 'prestige';
 
@@ -214,7 +239,7 @@ export const canAcquireRank = (
 // Total des points de capacité dépensés, tous niveaux confondus : somme des coûts de
 // chaque rang acquis, hors rang 1 gratuit de la voie de peuple et hors rang 2 gratuit
 // des mages (une seule fois).
-export const computeSpentPoints = (voies: any, _level: number | undefined, isMageFamily: boolean): number => {
+export const computeSpentPoints = (voies: CharacterVoies | undefined, _level: number | undefined, isMageFamily: boolean): number => {
   let spent = 0;
   let mageFreeRank2Used = false;
 
@@ -236,41 +261,63 @@ export const computeSpentPoints = (voies: any, _level: number | undefined, isMag
   return spent;
 };
 
-export const computeManaPoints = (voies: any, races: any[], profiles: any[], volMod: number): number => {
-  const isSpell = (voieName: string, rank: number): boolean => {
+// PM = VOL + nombre de sorts connus (COF2, Magie et sorts). Le rang 4 « Perception
+// héroïque » des voies druide/ensorceleur ajoute en plus la PER (d'où `perMod`).
+export const computeManaPoints = (
+  voies: CharacterVoies | undefined,
+  races: CompendiumRace[],
+  profiles: CompendiumProfile[],
+  volMod: number,
+  perMod = 0,
+): number => {
+  const findCap = (voieName: string, rank: number): CompendiumCapability | undefined => {
     for (const race of races) {
-      const v = race.availableVoies?.find((x: any) => x.name === voieName);
-      const cap = v?.capabilities?.find((c: any) => c.rank === rank);
-      if (cap?.isSpell) return true;
+      const cap = race.availableVoies?.find(x => x.name === voieName)?.capabilities?.find(c => c.rank === rank);
+      if (cap) return cap;
     }
     for (const profile of profiles) {
-      const v = profile.voies?.find((x: any) => x.name === voieName);
-      const cap = v?.capabilities?.find((c: any) => c.rank === rank);
-      if (cap?.isSpell) return true;
+      const cap = profile.voies?.find(x => x.name === voieName)?.capabilities?.find(c => c.rank === rank);
+      if (cap) return cap;
     }
-    return false;
+    return undefined;
   };
+  const isSpell = (voieName: string, rank: number): boolean => !!findCap(voieName, rank)?.isSpell;
+
+  // Voies des profils druide/ensorceleur dont le rang 4 « Perception héroïque » ajoute la PER aux PM.
+  const perManaVoies = new Set<string>();
+  for (const profile of profiles) {
+    if (profile.name === 'Druide' || profile.name === 'Ensorceleur') {
+      profile.voies?.forEach(v => v?.name && perManaVoies.add(v.name));
+    }
+  }
+  const addsPerToMana = (voieName: string, ranks?: boolean[]): boolean =>
+    !!ranks?.[3] && perManaVoies.has(voieName) && /perception h[ée]ro[ïi]que/i.test(findCap(voieName, 4)?.name || '');
 
   let spellCount = 0;
-  if (voies?.racial) {
-    voies.racial.ranks?.forEach((learned: boolean, idx: number) => {
-      if (learned && isSpell(voies.racial.name || '', idx + 1)) spellCount++;
+  let perBonus = false;
+  const racial = voies?.racial;
+  if (racial) {
+    racial.ranks?.forEach((learned, idx) => {
+      if (learned && isSpell(racial.name || '', idx + 1)) spellCount++;
     });
+    if (addsPerToMana(racial.name || '', racial.ranks)) perBonus = true;
   }
-  voies?.profile?.forEach((v: any) => {
-    v.ranks?.forEach((learned: boolean, idx: number) => {
-      if (learned && isSpell(v.name, idx + 1)) spellCount++;
+  voies?.profile?.forEach(v => {
+    v.ranks?.forEach((learned, idx) => {
+      if (learned && isSpell(v.name || '', idx + 1)) spellCount++;
     });
+    if (addsPerToMana(v.name || '', v.ranks)) perBonus = true;
   });
 
-  return spellCount > 0 ? volMod + spellCount : 0;
+  if (spellCount === 0) return 0;
+  return volMod + spellCount + (perBonus ? perMod : 0);
 };
 
 export const computeCombatStats = (args: {
-  voies: any;
-  protection: any;
-  races: any[];
-  profiles: any[];
+  voies: CharacterVoies | undefined;
+  protection: Protection | undefined;
+  races: CompendiumRace[];
+  profiles: CompendiumProfile[];
   perMod: number;
   agiMod: number;
   capabilityModifiers: Record<string, (rank: number) => { init?: number; def?: number }>;
@@ -285,18 +332,16 @@ export const computeCombatStats = (args: {
       if (!learned) return;
       const rank = idx + 1;
       let capName = '';
-      const race = races.find((r: any) => r.availableVoies?.some((v: any) => v.name === voieName));
+      const race = races.find(r => r.availableVoies?.some(v => v.name === voieName));
       if (race) {
-        const v = race.availableVoies.find((v: any) => v.name === voieName);
-        const c = v?.capabilities?.find((c: any) => c.rank === rank);
-        if (c) capName = c.name;
+        const c = race.availableVoies?.find(v => v.name === voieName)?.capabilities?.find(c => c.rank === rank);
+        if (c?.name) capName = c.name;
       }
       if (!capName) {
-        const profile = profiles.find((p: any) => p.voies?.some((v: any) => v.name === voieName));
+        const profile = profiles.find(p => p.voies?.some(v => v.name === voieName));
         if (profile) {
-          const v = profile.voies.find((v: any) => v.name === voieName);
-          const c = v?.capabilities?.find((c: any) => c.rank === rank);
-          if (c) capName = c.name;
+          const c = profile.voies?.find(v => v.name === voieName)?.capabilities?.find(c => c.rank === rank);
+          if (c?.name) capName = c.name;
         }
       }
       if (capName && capabilityModifiers[capName]) {
@@ -307,8 +352,9 @@ export const computeCombatStats = (args: {
     });
   };
 
-  if (voies?.racial?.name && voies.racial.ranks) applyBonus(voies.racial.name, voies.racial.ranks);
-  voies?.profile?.forEach((v: any) => {
+  const racial = voies?.racial;
+  if (racial?.name && racial.ranks) applyBonus(racial.name, racial.ranks);
+  voies?.profile?.forEach(v => {
     if (v.name && v.ranks) applyBonus(v.name, v.ranks);
   });
 

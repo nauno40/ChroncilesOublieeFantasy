@@ -14,6 +14,7 @@ import {
   capacityBudget,
   capacityCost,
   canAcquireRank,
+  evolutiveDie,
 } from './cofRules';
 
 describe('calculateMod (COF2 : la valeur EST le modificateur)', () => {
@@ -192,6 +193,19 @@ describe('computeSpentPoints', () => {
   });
 });
 
+describe('evolutiveDie', () => {
+  it('suit la table COF2 : d4 (1-5), d6 (6-8), d8 (9-11), d10 (12-14), d12 (15+)', () => {
+    expect(evolutiveDie(1)).toBe('d4');
+    expect(evolutiveDie(5)).toBe('d4');
+    expect(evolutiveDie(6)).toBe('d6');
+    expect(evolutiveDie(8)).toBe('d6');
+    expect(evolutiveDie(9)).toBe('d8');
+    expect(evolutiveDie(12)).toBe('d10');
+    expect(evolutiveDie(15)).toBe('d12');
+    expect(evolutiveDie(0)).toBe('d4'); // création
+  });
+});
+
 describe('capacityBudget & capacityCost', () => {
   it('budget = 2 par niveau (création niv 0 = niv 1)', () => {
     expect(capacityBudget(0)).toBe(2);
@@ -251,6 +265,25 @@ describe('computeManaPoints', () => {
   it('is volMod + spellCount when spells are learned', () => {
     const voies = { racial: { name: 'Voie magique', ranks: [true] }, profile: [] };
     expect(computeManaPoints(voies, spellRace, [], 3)).toBe(4); // 3 + 1
+  });
+  it('ajoute la PER au rang 4 « Perception héroïque » d\'une voie druide/ensorceleur', () => {
+    // Voie de druide dont le rang 1 est un sort et le rang 4 « Perception héroïque ».
+    const druide = {
+      name: 'Druide',
+      voies: [{
+        name: 'Voie des fauves',
+        capabilities: [
+          { rank: 1, name: 'Sort mineur', isSpell: true },
+          { rank: 4, name: 'Perception héroïque', isSpell: false },
+        ],
+      }],
+    };
+    const voies = { racial: { name: '', ranks: [] }, profile: [{ name: 'Voie des fauves', ranks: [true, false, false, true, false] }] };
+    // 1 sort + VOL 3 + PER 2 (grâce au rang 4)
+    expect(computeManaPoints(voies, [], [druide], 3, 2)).toBe(6);
+    // sans le rang 4, pas de bonus PER : 1 + 3 = 4
+    const sansR4 = { racial: { name: '', ranks: [] }, profile: [{ name: 'Voie des fauves', ranks: [true, false, false, false, false] }] };
+    expect(computeManaPoints(sansR4, [], [druide], 3, 2)).toBe(4);
   });
 });
 

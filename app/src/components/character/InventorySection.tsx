@@ -13,10 +13,10 @@ export const InventorySection: React.FC<Props> = ({ character, setCharacter }) =
             <textarea
                 className="w-full bg-stone-950/30 border border-stone-800/50 rounded-xl p-5 text-stone-400 min-h-[180px] outline-none focus:border-primary-500/20 focus:bg-stone-900/30 transition-all resize-y font-body text-sm leading-relaxed placeholder:text-stone-800"
                 placeholder="Vos richesses et vos fardeaux..."
-                value={character.data?.equipment?.join('\n') || ''}
+                value={character.playState?.equipment?.join('\n') || ''}
                 onChange={(e) => {
                     const lines = e.target.value.split('\n');
-                    setCharacter(prev => ({ ...prev, data: { ...prev.data!, equipment: lines } }));
+                    setCharacter(prev => ({ ...prev, playState: { ...prev.playState!, equipment: lines } }));
                 }}
             />
         </div>

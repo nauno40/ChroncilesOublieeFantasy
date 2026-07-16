@@ -24,12 +24,12 @@ export const ProtectionSection: React.FC<Props> = ({ character, setCharacter, al
                         type="number"
                         min="0"
                         className="w-16 bg-transparent text-right text-sm font-mono font-bold text-yellow-500 outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none"
-                        value={character.data?.money?.pa ?? 0}
+                        value={character.playState?.money?.pa ?? 0}
                         onChange={e => {
                             const val = Math.max(0, parseInt(e.target.value) || 0);
                             setCharacter(prev => ({
                                 ...prev,
-                                data: { ...prev.data!, money: { ...prev.data!.money!, pa: val } }
+                                playState: { ...prev.playState!, money: { ...prev.playState!.money, pa: val } }
                             }));
                         }}
                     />
@@ -41,16 +41,16 @@ export const ProtectionSection: React.FC<Props> = ({ character, setCharacter, al
                     <label className="text-[10px] uppercase font-bold text-stone-500 tracking-wider block mb-1">Armure</label>
                     <select
                         className="w-full bg-stone-950/30 border border-stone-800 rounded-lg px-3 py-2 text-stone-300 outline-none focus:border-primary-500/50"
-                        value={character.data?.protection?.armor?.name || ''}
+                        value={character.playState?.protection?.armor?.name || ''}
                         onChange={e => {
                             const val = e.target.value;
                             const found = allArmors.find(a => a.name === val);
                             setCharacter(prev => ({
                                 ...prev,
-                                data: {
-                                    ...prev.data!,
+                                playState: {
+                                    ...prev.playState!,
                                     protection: {
-                                        ...prev.data!.protection!,
+                                        ...prev.playState!.protection,
                                         armor: { name: val, def: found ? (parseInt(found.value) || 0) : 0 }
                                     }
                                 }
@@ -77,16 +77,16 @@ export const ProtectionSection: React.FC<Props> = ({ character, setCharacter, al
                     <label className="text-[10px] uppercase font-bold text-stone-500 tracking-wider block mb-1">Bouclier</label>
                     <select
                         className="w-full bg-stone-950/30 border border-stone-800 rounded-lg px-3 py-2 text-stone-300 outline-none focus:border-primary-500/50"
-                        value={character.data?.protection?.shield?.name || ''}
+                        value={character.playState?.protection?.shield?.name || ''}
                         onChange={e => {
                             const val = e.target.value;
                             const found = allArmors.find(a => a.name === val);
                             setCharacter(prev => ({
                                 ...prev,
-                                data: {
-                                    ...prev.data!,
+                                playState: {
+                                    ...prev.playState!,
                                     protection: {
-                                        ...prev.data!.protection!,
+                                        ...prev.playState!.protection,
                                         shield: { name: val, def: found ? (parseInt(found.value) || 0) : 0 }
                                     }
                                 }

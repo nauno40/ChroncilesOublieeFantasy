@@ -1,13 +1,12 @@
 import React from 'react';
 import { RefreshCw, Trash2 } from 'lucide-react';
-import { Tooltip } from '../common';
 import { CapabilityNode } from './CapabilityNode';
 import { canAcquireRank, rankUnlockLevel, type VoieKind } from '../../utils/cofRules';
-import type { Character } from '../../types/character';
+import type { Character, CharacterVoieRef } from '../../types/character';
 import type {
     GetCapabilityName,
+    GetVoieName,
     SelectedVoiesSetter,
-    PrestigeSelectorSetter,
     IsMageFamily,
     RacialVoieOptions,
     VoieList,
@@ -25,12 +24,13 @@ interface Props {
     selectedVoies: string[];
     setSelectedVoies: SelectedVoiesSetter;
     getCapabilityName: GetCapabilityName;
-    showPrestigeSelector: Record<number, boolean>;
-    setShowPrestigeSelector: PrestigeSelectorSetter;
+    getVoieName: GetVoieName;
     prestigePaths: VoieList;
-    /** Voies disponibles par profil, pour choisir des voies hors profil principal (hybride). */
-    voieOptionsByProfile: { profile: string; voies: string[] }[];
+    /** Voies disponibles par profil (IRI + nom), pour les voies hybrides hors profil principal. */
+    voieOptionsByProfile: { profile: string; voies: { iri: string; name: string }[] }[];
 }
+
+const isProfil = (v: CharacterVoieRef) => v.source === 'profil' || v.source === 'hybride';
 
 export const VoiesTree: React.FC<Props> = ({
     character,
@@ -44,37 +44,29 @@ export const VoiesTree: React.FC<Props> = ({
     selectedVoies,
     setSelectedVoies,
     getCapabilityName,
-    showPrestigeSelector,
-    setShowPrestigeSelector,
+    getVoieName,
     prestigePaths,
     voieOptionsByProfile,
 }) => {
     const level = character.level ?? 0;
+    const voies = character.characterVoies ?? [];
 
-    // Un rang 2 est-il déjà pris dans une autre voie normale (pour le bonus mage) ?
-    const countRank2 = (excludeKind: VoieKind, excludeIdx?: number): number => {
-        let n = 0;
-        if (excludeKind !== 'racial' && character.data?.voies?.racial?.ranks?.[1]) n++;
-        character.data?.voies?.profile?.forEach((p, i) => {
-            if (excludeKind === 'profile' && i === excludeIdx) return;
-            if (p.ranks?.[1]) n++;
-        });
-        return n;
-    };
+    const profilEntries = voies.filter(isProfil);
+    const racialEntry = voies.find(v => v.source === 'peuple');
+    const prestigeEntries = voies.filter(v => v.source === 'prestige');
+
+    // Un rang 2 est-il déjà pris dans une autre voie normale (bonus mage) ?
+    const countRank2 = (excludeVoieIri?: string): number =>
+        voies.filter(v => v.source !== 'prestige' && v.voie !== excludeVoieIri && v.rank >= 2).length;
 
     // Valide l'acquisition d'un rang (prérequis, niveau requis, budget) via les règles COF2.
-    const validateAcquire = (
-        rank: number,
-        prevRanks: boolean[],
-        voieKind: VoieKind,
-        excludeIdx?: number,
-    ): boolean => {
-        const res = canAcquireRank(rank, rank === 1 || !!prevRanks[rank - 2], voieKind, {
+    const validateAcquire = (rank: number, currentRank: number, voieKind: VoieKind, voieIri: string): boolean => {
+        const res = canAcquireRank(rank, rank === 1 || currentRank >= rank - 1, voieKind, {
             level,
             isMageFamily,
             spentPoints,
             budget: maxStartingPoints,
-            hasOtherRank2: countRank2(voieKind, excludeIdx) > 0,
+            hasOtherRank2: countRank2(voieIri) > 0,
         });
         if (!res.ok) {
             alert(res.reason);
@@ -83,15 +75,69 @@ export const VoiesTree: React.FC<Props> = ({
         return true;
     };
 
-    // Décocher un rang retire aussi tous les rangs supérieurs (pas de voie à trous).
-    const clearFromRank = (ranks: boolean[], rank: number): boolean[] =>
-        ranks.map((v, i) => (i >= rank - 1 ? false : v));
-
     // Props de verrouillage visuel d'un rang selon le niveau requis (COF2).
     const lockProps = (rank: number, voieKind: VoieKind) => {
         const req = rankUnlockLevel(rank, voieKind, isMageFamily);
         return { locked: Math.max(1, level) < req, lockedLabel: `Niv. ${req}` };
     };
+
+    // Met à jour le rang de la n-ième voie d'une `source` donnée (par filtre positionnel).
+    const setRankBySourceIndex = (predicate: (v: CharacterVoieRef) => boolean, nth: number, newRank: number) => {
+        setCharacter(prev => {
+            const cv = [...(prev.characterVoies || [])];
+            const globalIdxs = cv.map((v, i) => (predicate(v) ? i : -1)).filter(i => i >= 0);
+            const target = globalIdxs[nth];
+            if (target == null) return prev;
+            cv[target] = { ...cv[target], rank: Math.max(0, newRank) };
+            return { ...prev, characterVoies: cv };
+        });
+    };
+
+    // Remplace (ou crée) la voie de la n-ième entrée de profil et réinitialise son rang.
+    const setProfilVoie = (nth: number, newIri: string) => {
+        setCharacter(prev => {
+            const cv = [...(prev.characterVoies || [])];
+            const globalIdxs = cv.map((v, i) => (isProfil(v) ? i : -1)).filter(i => i >= 0);
+            const target = globalIdxs[nth];
+            if (target != null) {
+                cv[target] = { ...cv[target], voie: newIri, rank: 0 };
+            } else {
+                cv.push({ voie: newIri, rank: 0, source: 'profil' });
+            }
+            return { ...prev, characterVoies: cv };
+        });
+    };
+
+    const setPrestigeVoie = (nth: number, newIri: string) => {
+        setCharacter(prev => {
+            const cv = [...(prev.characterVoies || [])];
+            const globalIdxs = cv.map((v, i) => (v.source === 'prestige' ? i : -1)).filter(i => i >= 0);
+            const target = globalIdxs[nth];
+            if (target == null) return prev;
+            cv[target] = { ...cv[target], voie: newIri, rank: 0 };
+            return { ...prev, characterVoies: cv };
+        });
+    };
+
+    const addPrestige = () =>
+        setCharacter(prev => ({
+            ...prev,
+            characterVoies: [...(prev.characterVoies || []), { voie: '', rank: 0, source: 'prestige' as const }],
+        }));
+
+    const removePrestige = (nth: number) =>
+        setCharacter(prev => {
+            const cv = [...(prev.characterVoies || [])];
+            const globalIdxs = cv.map((v, i) => (v.source === 'prestige' ? i : -1)).filter(i => i >= 0);
+            const target = globalIdxs[nth];
+            if (target == null) return prev;
+            cv.splice(target, 1);
+            return { ...prev, characterVoies: cv };
+        });
+
+    // Voie de peuple affichée : IRI de selectedVoies[2] en création, sinon l'entrée persistée.
+    const racialIri = level === 0 ? (selectedVoies[2] || '') : (racialEntry?.voie || '');
+    const racialRank = racialEntry?.rank || 0;
 
     return (
                     <div className="space-y-6 pt-8 border-t border-white/10 overflow-visible">
@@ -106,7 +152,7 @@ export const VoiesTree: React.FC<Props> = ({
                         </h2>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 overflow-visible">
-                            {/* Racial Voie */}
+                            {/* Racial Voie (voie de peuple) */}
                             <div className="glass-panel p-5 rounded-2xl border-primary-500/20 bg-stone-900/10 hover:border-primary-500/30 transition-all group/voie overflow-visible relative">
                                 {isMageFamily && mageReplacedRaceVoie && (
                                     <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-purple-500/10 to-transparent pointer-events-none rounded-tr-2xl" />
@@ -130,7 +176,7 @@ export const VoiesTree: React.FC<Props> = ({
                                     )}
                                     {isMageFamily && mageReplacedRaceVoie ? (
                                         <div className="w-full bg-stone-950/30 border border-purple-500/50 rounded-lg px-4 py-2 text-lg font-display font-bold text-purple-300 shadow-inner">
-                                            Voie du Mage
+                                            {getVoieName(racialIri) || 'Voie du Mage'}
                                         </div>
                                     ) : (
                                         racialVoieOptions.length > 1 ? (
@@ -144,18 +190,17 @@ export const VoiesTree: React.FC<Props> = ({
                                             >
                                                 <option value="">-- Choisir héritage --</option>
                                                 {racialVoieOptions.map((v: any, idx: number) => (
-                                                    <option key={idx} value={v.name}>{v.name}</option>
+                                                    <option key={idx} value={v['@id']}>{v.name}</option>
                                                 ))}
                                             </select>
                                         ) : (
                                             <div className="w-full bg-stone-950/30 border border-stone-800 rounded-lg px-4 py-2 text-lg font-display font-bold text-white shadow-inner">
-                                                {racialVoieOptions[0]?.name || '...'}
+                                                {getVoieName(racialIri) || racialVoieOptions[0]?.name || '...'}
                                             </div>
                                         )
                                     )}
                                 </div>
                                 <div className="space-y-2.5 overflow-visible">
-                                    {/* Mage Passive Bonus Display */}
                                     {isMageFamily && mageReplacedRaceVoie && (
                                         <div className="text-[10px] text-purple-300/70 italic px-2 pb-2">
                                             Bonus Passif : {racialVoieOptions[0]?.name} (Rang 1) conservé !
@@ -163,50 +208,33 @@ export const VoiesTree: React.FC<Props> = ({
                                     )}
 
                                     {[1, 2, 3, 4, 5].map(rank => {
-                                        const displayedVoieName = mageReplacedRaceVoie ? "Voie du Mage" : selectedVoies[2];
-                                        const cap = getCapabilityName(displayedVoieName, rank);
-                                        const isActive = character.data?.voies?.racial?.ranks?.[rank - 1] || false;
+                                        const cap = getCapabilityName(racialIri, rank);
+                                        const isActive = racialRank >= rank;
 
                                         return (
                                             <CapabilityNode
                                                 key={rank}
                                                 rank={rank}
                                                 isActive={isActive}
-                                                nextActive={character.data?.voies?.racial?.ranks?.[rank] || false}
+                                                nextActive={racialRank >= rank + 1}
                                                 cap={cap}
                                                 theme="primary"
                                                 shape="round"
                                                 {...lockProps(rank, 'racial')}
                                                 onChange={e => {
-                                                    if (character.level === 0 && rank === 1) return; // Locked / Free / Auto
-
-                                                    let newRanks = [...(character.data?.voies?.racial?.ranks || [])];
-
+                                                    if (character.level === 0 && rank === 1) return; // rang 1 gratuit/auto
+                                                    if (!racialEntry) return;
                                                     if (e.target.checked) {
-                                                        if (!validateAcquire(rank, newRanks, 'racial')) return;
-                                                        newRanks[rank - 1] = true;
+                                                        if (!validateAcquire(rank, racialRank, 'racial', racialIri)) return;
+                                                        setRankBySourceIndex(v => v.source === 'peuple', 0, rank);
                                                     } else {
-                                                        newRanks = clearFromRank(newRanks, rank);
+                                                        setRankBySourceIndex(v => v.source === 'peuple', 0, rank - 1);
                                                     }
-                                                    setCharacter(prev => ({
-                                                        ...prev,
-                                                        data: {
-                                                            ...prev.data!,
-                                                            voies: {
-                                                                ...prev.data!.voies!,
-                                                                racial: { ...prev.data!.voies!.racial!, ranks: newRanks }
-                                                            }
-                                                        }
-                                                    }));
                                                 }}
                                                 badge={isMageFamily && rank === 2 && character.level === 0 && (
                                                     (() => {
-                                                        const hasOtherRank2 = character.data?.voies?.profile?.some(p => p.ranks?.[1]);
-                                                        const isThisSelected = isActive;
-                                                        // Show badge if:
-                                                        // 1. This is selected (it IS the free one)
-                                                        // 2. OR No other rank 2 is selected (it COULD be the free one) AND Rank 1 is selected
-                                                        if (isThisSelected || (!hasOtherRank2 && character.data?.voies?.racial?.ranks?.[0])) {
+                                                        const hasOtherRank2 = countRank2(racialIri) > 0;
+                                                        if (isActive || (!hasOtherRank2 && racialRank >= 1)) {
                                                             return <span className="text-green-400 ml-2 animate-pulse">(Gratuit)</span>;
                                                         }
                                                         return null;
@@ -220,12 +248,11 @@ export const VoiesTree: React.FC<Props> = ({
 
                             {/* Profile Voies */}
                             {[0, 1, 2, 3, 4].map((vIdx) => {
-                                const voie = character.data?.voies?.profile?.[vIdx] || { name: '', ranks: [] };
+                                const entry = profilEntries[vIdx];
+                                const iri = entry?.voie || '';
+                                const rank = entry?.rank || 0;
+                                const name = iri ? getVoieName(iri) : '';
                                 const isCreation = character.level === 0;
-
-                                // Fetch Profile and available voies logic removed as we display all
-                                // const profileId = ... (removed)
-                                // const profile = ... (removed)
 
                                 return (
                                     <div key={vIdx} className={`glass-panel p-5 rounded-2xl border-primary-500/10 bg-stone-900/10 transition-all group/voie overflow-visible ${isCreation ? '' : 'hover:border-primary-500/20'}`}>
@@ -233,130 +260,63 @@ export const VoiesTree: React.FC<Props> = ({
                                             <h3 className="text-stone-600/70 font-bold uppercase text-[10px] tracking-[0.2em] ml-1">Voie de Profil {vIdx + 1}</h3>
                                             <div className="flex gap-2 items-center">
                                                 {isCreation ? (
-                                                    // À la création, les 5 voies sont celles du profil principal (fixes).
                                                     <div className="w-full bg-stone-950/30 border border-stone-800 rounded-lg px-4 py-2 text-lg font-display font-bold text-white shadow-inner">
-                                                        {voie.name || '...'}
+                                                        {name || '...'}
                                                     </div>
                                                 ) : (
                                                     // En jeu : voie choisie parmi tous les profils (profils hybrides, COF2 chap. 9).
                                                     <select
-                                                        value={voie.name || ''}
+                                                        value={iri}
                                                         onChange={(e) => {
-                                                            const newName = e.target.value;
-                                                            if (!newName || newName === voie.name) return;
-                                                            const hasRanks = (voie.ranks || []).some(Boolean);
-                                                            if (hasRanks && !confirm('Changer de voie réinitialisera sa progression. Continuer ?')) return;
-                                                            const newProfileVoies = [...(character.data?.voies?.profile || [])];
-                                                            newProfileVoies[vIdx] = { name: newName, ranks: [false, false, false, false, false] };
-                                                            setCharacter(prev => ({
-                                                                ...prev,
-                                                                data: { ...prev.data!, voies: { ...prev.data!.voies!, profile: newProfileVoies } }
-                                                            }));
+                                                            const newIri = e.target.value;
+                                                            if (!newIri || newIri === iri) return;
+                                                            if (rank > 0 && !confirm('Changer de voie réinitialisera sa progression. Continuer ?')) return;
+                                                            setProfilVoie(vIdx, newIri);
                                                         }}
                                                         className="w-full bg-stone-950/30 border border-stone-800 rounded-lg px-4 py-2 text-lg font-display font-bold text-white shadow-inner outline-none focus:border-primary-500/50 cursor-pointer appearance-none"
                                                     >
-                                                        {!voie.name && <option value="">— Choisir une voie —</option>}
+                                                        {!iri && <option value="">— Choisir une voie —</option>}
                                                         {voieOptionsByProfile.map(grp => (
                                                             <optgroup key={grp.profile} label={grp.profile}>
-                                                                {grp.voies.map(vn => <option key={vn} value={vn}>{vn}</option>)}
+                                                                {grp.voies.map(v => <option key={v.iri} value={v.iri}>{v.name}</option>)}
                                                             </optgroup>
                                                         ))}
-                                                        {/* Conserve l'affichage d'une voie hors liste (ex. voie de prestige déjà posée). */}
-                                                        {voie.name && !voieOptionsByProfile.some(g => g.voies.includes(voie.name)) && (
-                                                            <option value={voie.name}>{voie.name}</option>
+                                                        {/* Conserve l'affichage d'une voie hors liste (ex. voie déjà posée). */}
+                                                        {iri && !voieOptionsByProfile.some(g => g.voies.some(v => v.iri === iri)) && (
+                                                            <option value={iri}>{name || '(voie)'}</option>
                                                         )}
                                                     </select>
                                                 )}
-
-                                                {!isCreation && (
-                                                    <Tooltip content={{ name: "Remplacer par une Voie de Prestige", description: "Cliquez pour choisir une voie de prestige à la place de cette voie." }} theme="primary">
-                                                        <button
-                                                            className={`p-2 rounded-lg border transition-all ${showPrestigeSelector[vIdx] ? 'bg-amber-900/20 border-amber-500/50 text-amber-500' : 'bg-stone-900 border-stone-800 text-stone-500 hover:text-amber-500 hover:border-amber-500/50'}`}
-                                                            onClick={() => setShowPrestigeSelector(prev => ({ ...prev, [vIdx]: !prev[vIdx] }))}
-                                                        >
-                                                            <RefreshCw size={18} />
-                                                        </button>
-                                                    </Tooltip>
-                                                )}
                                             </div>
-                                            {showPrestigeSelector[vIdx] && (
-                                                <select
-                                                    className="w-full bg-stone-950/50 border border-amber-900/30 rounded px-3 py-2 text-xs text-amber-500 outline-none focus:border-amber-500/50 transition-all animate-in fade-in slide-in-from-top-1"
-                                                    onChange={(e) => {
-                                                        if (!e.target.value) return;
-                                                        const confirmReplace = confirm("Remplacer la voie actuelle par la voie de prestige sélectionnée ? La progression sera réinitialisée.");
-                                                        if (confirmReplace) {
-                                                            const newProfileVoies = [...(character.data?.voies?.profile || [])];
-                                                            newProfileVoies[vIdx] = { name: e.target.value, ranks: [false, false, false, false, false] };
-                                                            setCharacter(prev => ({
-                                                                ...prev,
-                                                                data: {
-                                                                    ...prev.data!,
-                                                                    voies: { ...prev.data!.voies!, profile: newProfileVoies }
-                                                                }
-                                                            }));
-                                                            setShowPrestigeSelector(prev => ({ ...prev, [vIdx]: false }));
-                                                        }
-                                                        e.target.value = "";
-                                                    }}
-                                                >
-                                                    <option value="">-- Sélectionner une Voie de Prestige --</option>
-                                                    {prestigePaths.map((p: any) => (
-                                                        <option key={p.id} value={p.name}>{p.name}</option>
-                                                    ))}
-                                                </select>
-                                            )}
                                         </div>
                                         <div className="space-y-2.5 overflow-visible">
-                                            {[1, 2, 3, 4, 5].map(rank => {
-                                                const cap = getCapabilityName(voie.name, rank);
-                                                const isActive = voie.ranks?.[rank - 1] || false;
+                                            {[1, 2, 3, 4, 5].map(rk => {
+                                                const cap = getCapabilityName(iri, rk);
+                                                const isActive = rank >= rk;
 
                                                 return (
                                                     <CapabilityNode
-                                                        key={rank}
-                                                        rank={rank}
+                                                        key={rk}
+                                                        rank={rk}
                                                         isActive={isActive}
-                                                        nextActive={voie.ranks?.[rank] || false}
+                                                        nextActive={rank >= rk + 1}
                                                         cap={cap}
                                                         theme="primary"
                                                         shape="gem"
-                                                        {...lockProps(rank, 'profile')}
+                                                        {...lockProps(rk, 'profile')}
                                                         onChange={e => {
-                                                            const newProfileVoies = [...(character.data?.voies?.profile || [])];
-                                                            let newRanks = [...(newProfileVoies[vIdx].ranks || [])];
-
+                                                            if (!entry) return;
                                                             if (e.target.checked) {
-                                                                if (!validateAcquire(rank, newRanks, 'profile', vIdx)) return;
-                                                                newRanks[rank - 1] = true;
+                                                                if (!validateAcquire(rk, rank, 'profile', iri)) return;
+                                                                setRankBySourceIndex(isProfil, vIdx, rk);
                                                             } else {
-                                                                newRanks = clearFromRank(newRanks, rank);
+                                                                setRankBySourceIndex(isProfil, vIdx, rk - 1);
                                                             }
-                                                            newProfileVoies[vIdx].ranks = newRanks;
-
-                                                            setCharacter(prev => ({
-                                                                ...prev,
-                                                                data: {
-                                                                    ...prev.data!,
-                                                                    voies: { ...prev.data!.voies!, profile: newProfileVoies }
-                                                                }
-                                                            }));
                                                         }}
-                                                        badge={isMageFamily && rank === 2 && character.level === 0 && (
+                                                        badge={isMageFamily && rk === 2 && character.level === 0 && (
                                                             (() => {
-                                                                // Check if Racial has Rank 2
-                                                                const racialHasRank2 = character.data?.voies?.racial?.ranks?.[1];
-                                                                // Check if any OTHER Profile has Rank 2
-                                                                const otherProfileHasRank2 = character.data?.voies?.profile?.some((p, idx) => idx !== vIdx && p.ranks?.[1]);
-
-                                                                const hasOtherRank2 = racialHasRank2 || otherProfileHasRank2;
-                                                                const isThisSelected = isActive;
-                                                                const isRank1Selected = voie.ranks?.[0];
-
-                                                                // Show badge if:
-                                                                // 1. This is selected (it IS the free one)
-                                                                // 2. OR No other rank 2 is selected (it COULD be the free one) AND Rank 1 is selected
-                                                                if (isThisSelected || (!hasOtherRank2 && isRank1Selected)) {
+                                                                const hasOtherRank2 = countRank2(iri) > 0;
+                                                                if (isActive || (!hasOtherRank2 && rank >= 1)) {
                                                                     return <span className="text-green-400 ml-2 animate-pulse">(Gratuit)</span>;
                                                                 }
                                                                 return null;
@@ -372,26 +332,23 @@ export const VoiesTree: React.FC<Props> = ({
                         </div>
 
                         {/* Prestige Voies - Separate Section */}
-                        {(character.data?.voies?.prestige && character.data.voies.prestige.length > 0) && (
+                        {prestigeEntries.length > 0 && (
                             <div className="space-y-4 overflow-visible">
                                 <h3 className="text-xl font-display font-bold text-amber-400/80 flex items-center gap-2">
                                     <div className="w-1.5 h-1.5 bg-amber-500 rounded-full animate-pulse" />
                                     Voies de Prestige
                                 </h3>
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 overflow-visible">
-                                    {character.data.voies.prestige.map((voie, vIdx) => (
+                                    {prestigeEntries.map((entry, vIdx) => {
+                                        const iri = entry.voie || '';
+                                        const rank = entry.rank || 0;
+                                        return (
                                         <div key={`prestige-${vIdx}`} className="glass-panel p-5 rounded-2xl border-amber-500/20 bg-stone-900/10 hover:border-amber-500/30 transition-all group/voie overflow-visible">
                                             <div className="mb-5 space-y-2">
                                                 <div className="flex justify-between items-center px-1">
                                                     <h3 className="text-amber-600/70 font-bold uppercase text-[10px] tracking-[0.2em] ml-1">Voie de Prestige</h3>
                                                     <button
-                                                        onClick={() => {
-                                                            const newPrestige = (character.data?.voies?.prestige || []).filter((_, i) => i !== vIdx);
-                                                            setCharacter(prev => ({
-                                                                ...prev,
-                                                                data: { ...prev.data!, voies: { ...prev.data!.voies!, prestige: newPrestige } }
-                                                            }));
-                                                        }}
+                                                        onClick={() => removePrestige(vIdx)}
                                                         className="text-stone-600 hover:text-red-500 transition-colors p-1"
                                                         title="Supprimer cette voie"
                                                     >
@@ -400,61 +357,47 @@ export const VoiesTree: React.FC<Props> = ({
                                                 </div>
                                                 <select
                                                     className="w-full bg-stone-950/30 border border-stone-800 rounded-lg px-4 py-2 text-lg font-display font-bold text-amber-500 outline-none focus:border-amber-500/50 transition-all shadow-inner appearance-none cursor-pointer"
-                                                    value={voie.name}
-                                                    onChange={e => {
-                                                        const newPrestige = [...(character.data?.voies?.prestige || [])];
-                                                        // Changer de voie réinitialise les rangs (capacités différentes).
-                                                        newPrestige[vIdx] = { name: e.target.value, ranks: [false, false, false, false, false] };
-                                                        setCharacter(prev => ({
-                                                            ...prev,
-                                                            data: { ...prev.data!, voies: { ...prev.data!.voies!, prestige: newPrestige } }
-                                                        }));
-                                                    }}
+                                                    value={iri}
+                                                    onChange={e => setPrestigeVoie(vIdx, e.target.value)}
                                                 >
                                                     <option value="">— Choisir une voie de prestige —</option>
                                                     {[...prestigePaths]
                                                         .sort((a: any, b: any) => (a.name || '').localeCompare(b.name || ''))
                                                         .map((p: any) => (
-                                                            <option key={p.id ?? p.name} value={p.name}>{p.name}</option>
+                                                            <option key={p['@id'] ?? p.id ?? p.name} value={p['@id']}>{p.name}</option>
                                                         ))}
                                                 </select>
                                             </div>
                                             <div className="space-y-2.5 overflow-visible">
-                                                {[1, 2, 3, 4, 5].map(rank => {
-                                                    const cap = getCapabilityName(voie.name, rank);
-                                                    const isActive = voie.ranks?.[rank - 1] || false;
+                                                {[1, 2, 3, 4, 5].map(rk => {
+                                                    const cap = getCapabilityName(iri, rk);
+                                                    const isActive = rank >= rk;
 
                                                     return (
                                                         <CapabilityNode
-                                                            key={rank}
-                                                            rank={rank}
+                                                            key={rk}
+                                                            rank={rk}
                                                             isActive={isActive}
-                                                            nextActive={voie.ranks?.[rank] || false}
+                                                            nextActive={rank >= rk + 1}
                                                             cap={cap}
                                                             theme="amber"
                                                             shape="gem"
-                                                            {...lockProps(rank, 'prestige')}
+                                                            {...lockProps(rk, 'prestige')}
                                                             onChange={e => {
-                                                                const newPrestige = [...(character.data?.voies?.prestige || [])];
-                                                                let newRanks = [...(newPrestige[vIdx].ranks || [false, false, false, false, false])];
                                                                 if (e.target.checked) {
-                                                                    if (!validateAcquire(rank, newRanks, 'prestige')) return;
-                                                                    newRanks[rank - 1] = true;
+                                                                    if (!validateAcquire(rk, rank, 'prestige', iri)) return;
+                                                                    setRankBySourceIndex(v => v.source === 'prestige', vIdx, rk);
                                                                 } else {
-                                                                    newRanks = clearFromRank(newRanks, rank);
+                                                                    setRankBySourceIndex(v => v.source === 'prestige', vIdx, rk - 1);
                                                                 }
-                                                                newPrestige[vIdx].ranks = newRanks;
-                                                                setCharacter(prev => ({
-                                                                    ...prev,
-                                                                    data: { ...prev.data!, voies: { ...prev.data!.voies!, prestige: newPrestige } }
-                                                                }));
                                                             }}
                                                         />
                                                     );
                                                 })}
                                             </div>
                                         </div>
-                                    ))}
+                                        );
+                                    })}
                                 </div>
                             </div>
                         )}
@@ -462,14 +405,7 @@ export const VoiesTree: React.FC<Props> = ({
                         {/* Add Prestige Voie Button */}
                         <div className="flex justify-center pt-4">
                             <button
-                                onClick={() => {
-                                    const newPrestige = [...(character.data?.voies?.prestige || [])];
-                                    newPrestige.push({ name: '', ranks: [false, false, false, false, false] });
-                                    setCharacter(prev => ({
-                                        ...prev,
-                                        data: { ...prev.data!, voies: { ...prev.data!.voies!, prestige: newPrestige } }
-                                    }));
-                                }}
+                                onClick={addPrestige}
                                 className="flex items-center gap-2 px-6 py-3 rounded-full bg-stone-900/50 border border-amber-500/30 text-amber-500/70 hover:text-amber-400 hover:border-amber-500/50 hover:bg-stone-900 transition-all group font-display font-bold uppercase text-[10px] tracking-[0.2em]"
                             >
                                 <RefreshCw size={14} className="group-hover:rotate-180 transition-transform duration-500" />

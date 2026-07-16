@@ -105,7 +105,9 @@ const mapBackendToFrontend = (b: any): Campaign => {
             level: c.level || 1,
             race: c.race?.name || '',
             profile: c.profile?.name || '',
-            data: c.data || {}
+            caracs: c.caracs || {},
+            playState: c.playState || {},
+            characterVoies: c.characterVoies || []
         })),
         encounters: (b.encounters || []).map((e: RawEncounter) => ({
             id: String(e.id ?? ''),

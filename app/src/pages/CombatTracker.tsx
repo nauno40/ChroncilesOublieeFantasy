@@ -127,15 +127,23 @@ export const CombatTracker: React.FC = () => {
     const addFromCharacter = () => {
         const character = characters.find(c => String(c.id) === characterId);
         if (!character) return;
+        const caracs = character.caracs ?? ({} as Record<string, number>);
+        const ps = character.playState;
+        const per = caracs.PER ?? 0;
+        // Dérivations légères de parité (Phase 2) : Init/DEF de base. Les bonus de
+        // capacités/voies et les PV max par niveau sont dérivés en Phase 3.
+        const init = 10 + per;
+        const def = 10 + (caracs.AGI ?? 0) + (ps?.protection?.armor?.def ?? 0) + (ps?.protection?.shield?.def ?? 0);
+        const currentHp = ps?.hp?.current ?? 0;
         addCombatant({
             id: crypto.randomUUID(),
             name: character.name,
             type: 'player',
-            initiative: character.data.init,
-            hp: { current: character.data.hp.current, max: character.data.hp.max },
-            def: character.data.def,
+            initiative: init,
+            hp: { current: currentHp, max: currentHp },
+            def,
             level: character.level ?? 0, // niveau du PJ — départage d'initiative COF2
-            per: character.data.stats?.PER ?? 0,
+            per,
             tiebreak: rollTiebreak(),
             states: [],
             source: 'character',

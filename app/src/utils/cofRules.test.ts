@@ -79,9 +79,9 @@ describe('exemples du livre (fidélité COF2)', () => {
     expect(computeMaxHp(5, mods.CON)).toBe(12);              // combattants base 5
     expect(computeRecoveryDie('Barbare', mods.CON)).toBe('4 d10');
     // humaine : voie de l'humain rang 1 (Diversité) -> +1 PC
-    expect(computeLuckPoints('Barbare', mods.CHA, { name: "Voie de l'humain", ranks: [true] })).toBe(2);
+    expect(computeLuckPoints('Barbare', mods.CHA, { name: "Voie de l'humain", rank: 1 })).toBe(2);
     const combat = computeCombatStats({
-      voies: { racial: { name: '', ranks: [] }, profile: [] },
+      voies: [],
       protection: { armor: { def: 0 }, shield: { def: 0 } },
       races: [], profiles: [], perMod: mods.PER, agiMod: mods.AGI, capabilityModifiers: {},
     });
@@ -130,7 +130,7 @@ describe('computeLuckPoints', () => {
     expect(computeLuckPoints('Barde', 1)).toBe(4); // 2 + 1 + 1
   });
   it('adds +1 for Voie de l\'humain rank 1', () => {
-    expect(computeLuckPoints('Magicien', 0, { name: "Voie de l'humain", ranks: [true] })).toBe(3);
+    expect(computeLuckPoints('Magicien', 0, { name: "Voie de l'humain", rank: 1 })).toBe(3);
   });
   it('clamps below 1 to 0', () => {
     expect(computeLuckPoints('Magicien', -2)).toBe(0);
@@ -161,34 +161,34 @@ describe('computeFinalStats', () => {
 
 describe('computeSpentPoints', () => {
   it('vide = 0 point dépensé', () => {
-    expect(computeSpentPoints({}, 1, false)).toBe(0);
+    expect(computeSpentPoints([], 1, false)).toBe(0);
   });
   it('rang 1 de la voie de peuple gratuit', () => {
-    const voies = { racial: { name: 'X', ranks: [true, false, false, false, false] }, profile: [] };
+    const voies = [{ voie: '/api/voies/1', rank: 1, source: 'peuple' as const }];
     expect(computeSpentPoints(voies, 0, false)).toBe(0);
   });
   it('compte un second rang de voie de peuple pour un non-mage', () => {
-    const voies = { racial: { name: 'X', ranks: [true, true, false, false, false] }, profile: [] };
+    const voies = [{ voie: '/api/voies/1', rank: 2, source: 'peuple' as const }];
     expect(computeSpentPoints(voies, 0, false)).toBe(1);
   });
   it('offre un rang 2 gratuit au mage (une seule fois)', () => {
-    const voies = { racial: { name: 'X', ranks: [true, true, false, false, false] }, profile: [] };
+    const voies = [{ voie: '/api/voies/1', rank: 2, source: 'peuple' as const }];
     expect(computeSpentPoints(voies, 0, true)).toBe(0);
   });
-  it('compte les rangs de profil (rang 3+ = 2 points)', () => {
-    const voies = {
-      racial: { name: 'X', ranks: [false, false, false, false, false] },
-      // rangs 1,2 (1 pt chacun) + rang 3 (2 pts) = 4
-      profile: [{ name: 'P', ranks: [true, true, true, false, false] }],
-    };
+  it('somme les coûts de rang de profil (rangs 1,2 = 1 pt, rang 3 = 2 pts)', () => {
+    // rang cumulé 3 ⇒ rangs 1,2 (1 pt chacun) + rang 3 (2 pts) = 4
+    const voies = [{ voie: '/api/voies/2', rank: 3, source: 'profil' as const }];
     expect(computeSpentPoints(voies, 5, false)).toBe(4);
   });
+  it('somme les coûts sur plusieurs voies (IRI)', () => {
+    const voies = [
+      { voie: '/api/voies/1', rank: 2, source: 'profil' as const },  // 1+1 = 2
+      { voie: '/api/voies/2', rank: 3, source: 'profil' as const },  // 1+1+2 = 4
+    ];
+    expect(computeSpentPoints(voies, 5, false)).toBe(6);
+  });
   it('compte les rangs de prestige à 2 points chacun', () => {
-    const voies = {
-      racial: { name: 'X', ranks: [false, false, false, false, false] },
-      profile: [],
-      prestige: [{ name: 'Pr', ranks: [true, true, false, false, false] }],
-    };
+    const voies = [{ voie: '/api/voies/3', rank: 2, source: 'prestige' as const }];
     expect(computeSpentPoints(voies, 7, false)).toBe(4);
   });
 });
@@ -254,16 +254,16 @@ describe('canAcquireRank', () => {
 });
 
 const spellRace = [{
-  availableVoies: [{ name: 'Voie magique', capabilities: [{ rank: 1, isSpell: true }] }],
+  availableVoies: [{ '@id': '/api/voies/9', name: 'Voie magique', capabilities: [{ rank: 1, isSpell: true }] }],
 }];
 
 describe('computeManaPoints', () => {
   it('is 0 when no spells are learned', () => {
-    const voies = { racial: { name: 'Voie magique', ranks: [false] }, profile: [] };
+    const voies = [{ voie: '/api/voies/9', rank: 0, source: 'peuple' as const }];
     expect(computeManaPoints(voies, spellRace, [], 3)).toBe(0);
   });
   it('is volMod + spellCount when spells are learned', () => {
-    const voies = { racial: { name: 'Voie magique', ranks: [true] }, profile: [] };
+    const voies = [{ voie: '/api/voies/9', rank: 1, source: 'peuple' as const }];
     expect(computeManaPoints(voies, spellRace, [], 3)).toBe(4); // 3 + 1
   });
   it('ajoute la PER au rang 4 « Perception héroïque » d\'une voie druide/ensorceleur', () => {
@@ -271,6 +271,7 @@ describe('computeManaPoints', () => {
     const druide = {
       name: 'Druide',
       voies: [{
+        '@id': '/api/voies/50',
         name: 'Voie des fauves',
         capabilities: [
           { rank: 1, name: 'Sort mineur', isSpell: true },
@@ -278,11 +279,11 @@ describe('computeManaPoints', () => {
         ],
       }],
     };
-    const voies = { racial: { name: '', ranks: [] }, profile: [{ name: 'Voie des fauves', ranks: [true, false, false, true, false] }] };
+    const voies = [{ voie: '/api/voies/50', rank: 4, source: 'profil' as const }];
     // 1 sort + VOL 3 + PER 2 (grâce au rang 4)
     expect(computeManaPoints(voies, [], [druide], 3, 2)).toBe(6);
     // sans le rang 4, pas de bonus PER : 1 + 3 = 4
-    const sansR4 = { racial: { name: '', ranks: [] }, profile: [{ name: 'Voie des fauves', ranks: [true, false, false, false, false] }] };
+    const sansR4 = [{ voie: '/api/voies/50', rank: 1, source: 'profil' as const }];
     expect(computeManaPoints(sansR4, [], [druide], 3, 2)).toBe(4);
   });
 });
@@ -290,7 +291,7 @@ describe('computeManaPoints', () => {
 describe('computeCombatStats', () => {
   it('is base 10 + mods + protection with no capability bonuses', () => {
     const r = computeCombatStats({
-      voies: { racial: { name: '', ranks: [] }, profile: [] },
+      voies: [],
       protection: { armor: { def: 3 }, shield: { def: 1 } },
       races: [], profiles: [], perMod: 2, agiMod: 1, capabilityModifiers: {},
     });

@@ -45,6 +45,7 @@ class Capability
     private ?bool $limited = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['race:read', 'profile:read', 'voie:read'])]
     private ?array $effect = null;
 
     #[ORM\Column(type: Types::JSON, nullable: true)]

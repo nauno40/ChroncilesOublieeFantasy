@@ -25,6 +25,7 @@ import {
   computeItemBonuses,
   resetUsages,
   companionFromCreature,
+  attackCarac,
 } from './cofRules';
 
 describe('calculateMod (COF2 : la valeur EST le modificateur)', () => {
@@ -509,5 +510,17 @@ describe('companionFromCreature (pré-remplissage bestiaire)', () => {
     expect(companionFromCreature({})).toEqual({
       name: '', ref: undefined, hp: { current: 0, max: 0 }, def: 0, init: 0,
     });
+  });
+});
+
+describe('attackCarac (substitution de caractéristique)', () => {
+  it('renvoie le défaut quand aucune substitution', () => {
+    expect(attackCarac('contact', undefined, 'FOR')).toBe('FOR');
+    expect(attackCarac('distance', {}, 'AGI')).toBe('AGI');
+    expect(attackCarac('contact', { distance: 'PER' }, 'FOR')).toBe('FOR'); // autre cible
+  });
+  it('renvoie la substitution du joueur quand présente', () => {
+    expect(attackCarac('contact', { contact: 'VOL' }, 'FOR')).toBe('VOL'); // moine
+    expect(attackCarac('distance', { distance: 'PER' }, 'AGI')).toBe('PER');
   });
 });

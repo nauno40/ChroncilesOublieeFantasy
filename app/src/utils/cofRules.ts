@@ -1,4 +1,4 @@
-import type { CharacterVoieRef, VoieSource, MagicItem, ItemBonusTarget, Usage, UsagePeriod, Companion } from '../types/character';
+import type { CharacterVoieRef, VoieSource, MagicItem, ItemBonusTarget, Usage, UsagePeriod, Companion, CaracKey } from '../types/character';
 
 export type Stats = {
   FOR: number; AGI: number; CON: number; INT: number; PER: number; CHA: number; VOL: number;
@@ -537,3 +537,10 @@ export const companionFromCreature = (
   def: c.def ?? 0,
   init: c.init ?? 0,
 });
+
+// Résout la caractéristique d'une attaque : substitution du joueur, sinon défaut COF2.
+export const attackCarac = (
+  target: 'contact' | 'distance',
+  subs: { contact?: CaracKey; distance?: CaracKey } | undefined,
+  defaultCarac: CaracKey,
+): CaracKey => subs?.[target] ?? defaultCarac;

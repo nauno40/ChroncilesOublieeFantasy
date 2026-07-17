@@ -26,6 +26,8 @@ import {
   resetUsages,
   companionFromCreature,
   attackCarac,
+  computeActiveStateBonuses,
+  activateState,
 } from './cofRules';
 
 describe('calculateMod (COF2 : la valeur EST le modificateur)', () => {
@@ -522,5 +524,44 @@ describe('attackCarac (substitution de caractéristique)', () => {
   it('renvoie la substitution du joueur quand présente', () => {
     expect(attackCarac('contact', { contact: 'VOL' }, 'FOR')).toBe('VOL'); // moine
     expect(attackCarac('distance', { distance: 'PER' }, 'AGI')).toBe('PER');
+  });
+});
+
+describe('computeActiveStateBonuses (états actifs)', () => {
+  const zero = { def: 0, init: 0, pv: 0, rd: 0, attaque: 0, dm: 0 };
+  it('liste absente ⇒ tout 0', () => {
+    expect(computeActiveStateBonuses(undefined)).toEqual(zero);
+  });
+  it('somme les états ACTIFS par cible, ignore les inactifs', () => {
+    const states = [
+      { name: 'Rage', active: true, target: 'attaque' as const, value: 2 },
+      { name: 'Posture def', active: true, target: 'def' as const, value: 1 },
+      { name: 'Non actif', active: false, target: 'def' as const, value: 9 },
+    ];
+    expect(computeActiveStateBonuses(states)).toEqual({ ...zero, attaque: 2, def: 1 });
+  });
+});
+
+describe('activateState (exclusion de groupe)', () => {
+  const base = [
+    { name: 'Posture A', group: 'posture', active: false, target: 'def' as const, value: 1 },
+    { name: 'Posture B', group: 'posture', active: true, target: 'attaque' as const, value: 1 },
+    { name: 'Rage', active: false, target: 'attaque' as const, value: 2 },
+  ];
+  it('activer un état d\'un groupe désactive les autres du même groupe', () => {
+    const r = activateState(base, 0, true);
+    expect(r[0].active).toBe(true);   // A activée
+    expect(r[1].active).toBe(false);  // B (même groupe) désactivée
+    expect(r[2].active).toBe(false);  // hors groupe, inchangée
+  });
+  it('désactiver n\'affecte que l\'état ciblé', () => {
+    const r = activateState(base, 1, false);
+    expect(r[1].active).toBe(false);
+    expect(r[0].active).toBe(false);
+  });
+  it('état sans groupe n\'affecte que lui-même', () => {
+    const r = activateState(base, 2, true);
+    expect(r[2].active).toBe(true);
+    expect(r[1].active).toBe(true);   // groupe posture inchangé
   });
 });

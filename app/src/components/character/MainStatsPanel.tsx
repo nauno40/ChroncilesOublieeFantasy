@@ -16,9 +16,13 @@ interface Props {
     recoveryDie: string;
     /** Réduction de dommages (dérivée) — badge affiché uniquement si > 0. */
     damageReduction: number;
+    /** Bonus d'attaque plat des objets équipés (ajouté aux attaques affichées). */
+    attackBonus: number;
+    /** Bonus de DM des objets équipés (note globale). */
+    dmBonus: number;
 }
 
-export const MainStatsPanel: React.FC<Props> = ({ character, setCharacter, combatStats, mods, evolutiveDie, maxHp, luckMax, manaMax, recoveryDie, damageReduction }) => {
+export const MainStatsPanel: React.FC<Props> = ({ character, setCharacter, combatStats, mods, evolutiveDie, maxHp, luckMax, manaMax, recoveryDie, damageReduction, attackBonus, dmBonus }) => {
     const luckCurrent = character.playState?.luck?.current ?? 0;
     return (
         <div className="grid grid-cols-2 gap-3">
@@ -96,16 +100,19 @@ export const MainStatsPanel: React.FC<Props> = ({ character, setCharacter, comba
                     <div className="text-center">
                         <label className="text-[9px] uppercase font-black text-stone-500 tracking-widest block mb-1">Atk. CàC</label>
                         <div className="text-xl font-display font-bold text-white text-shadow-sm transition-all hover:scale-110">
-                            <span className="text-stone-600 text-xs mr-1">+</span>{attackValue(mods.FOR, character.level || 1)}
+                            <span className="text-stone-600 text-xs mr-1">+</span>{attackValue(mods.FOR, character.level || 1) + attackBonus}
                         </div>
                     </div>
                     <div className="text-center pl-4">
                         <label className="text-[9px] uppercase font-black text-stone-500 tracking-widest block mb-1">Atk. Tir</label>
                         <div className="text-xl font-display font-bold text-white text-shadow-sm transition-all hover:scale-110">
-                            <span className="text-stone-600 text-xs mr-1">+</span>{attackValue(mods.AGI, character.level || 1)}
+                            <span className="text-stone-600 text-xs mr-1">+</span>{attackValue(mods.AGI, character.level || 1) + attackBonus}
                         </div>
                     </div>
                 </div>
+                {dmBonus > 0 && (
+                    <div className="text-[9px] text-amber-500/70 font-bold uppercase text-center mt-1">+{dmBonus} DM (objets)</div>
+                )}
             </div>
         </div>
     );

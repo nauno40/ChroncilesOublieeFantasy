@@ -457,13 +457,17 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
         attaque: gearBonuses.attaque + stateBonuses.attaque, dm: gearBonuses.dm + stateBonuses.dm,
     };
 
+    // Transformation : une forme active remplace les stats de combat affichées.
+    const activeForm = (playState.forms ?? []).find(f => f.active);
+
     return {
         character, setCharacter,
         loading, saving,
         caracs, stats: caracs, mods, finalStats,
-        combatStats: { init: combatStats.init + bonuses.init, def: combatStats.def + bonuses.def },
-        maxHp: maxHp + bonuses.pv, mainFamily, damageReduction: damageReduction + bonuses.rd, languageSlots,
+        combatStats: activeForm ? { init: activeForm.init, def: activeForm.def } : { init: combatStats.init + bonuses.init, def: combatStats.def + bonuses.def },
+        maxHp: activeForm ? activeForm.hp.max : maxHp + bonuses.pv, mainFamily, damageReduction: damageReduction + bonuses.rd, languageSlots,
         bonuses,
+        activeForm,
         recoveryDieString, evolutiveDie: evolutiveDie(character.level), luckPoints, manaPoints,
         spentPoints, maxStartingPoints,
         selectedVoies, setSelectedVoies,

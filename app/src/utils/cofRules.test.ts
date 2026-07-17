@@ -17,6 +17,7 @@ import {
   canAcquireRank,
   evolutiveDie,
   attackValue,
+  computeLanguageSlots,
 } from './cofRules';
 
 describe('calculateMod (COF2 : la valeur EST le modificateur)', () => {
@@ -330,5 +331,15 @@ describe('attackValue (niveau plafonné à 10)', () => {
   it('plafonne la part de niveau à 10', () => {
     expect(attackValue(2, 12)).toBe(12); // min(12,10)=10 + 2
     expect(attackValue(0, 20)).toBe(10);
+  });
+});
+
+describe('computeLanguageSlots', () => {
+  it('un emplacement de langue par point positif d\'INT', () => {
+    expect(computeLanguageSlots(0)).toEqual({ slots: 0, illiterate: false });
+    expect(computeLanguageSlots(2)).toEqual({ slots: 2, illiterate: false });
+  });
+  it('INT négatif : illettré, aucun emplacement', () => {
+    expect(computeLanguageSlots(-1)).toEqual({ slots: 0, illiterate: true });
   });
 });

@@ -359,3 +359,10 @@ export const computeCombatStats = (args: {
 // (FOR au contact, AGI à distance, VOL/carac de magie en magie).
 export const attackValue = (caracMod: number, level: number): number =>
   Math.min(Math.max(0, level), 10) + caracMod;
+
+// Langues (COF2, création) : +1 emplacement de langue par point positif d'INT ;
+// personnage illettré si INT < 0. Les langues elles-mêmes sont choisies (playState).
+export const computeLanguageSlots = (intMod: number): { slots: number; illiterate: boolean } => ({
+  slots: Math.max(0, intMod),
+  illiterate: intMod < 0,
+});

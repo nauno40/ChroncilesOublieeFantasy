@@ -1,4 +1,4 @@
-import type { CharacterVoieRef, VoieSource, MagicItem, ItemBonusTarget, Usage, UsagePeriod, Companion, CaracKey, ActiveState } from '../types/character';
+import type { CharacterVoieRef, VoieSource, MagicItem, ItemBonusTarget, Usage, UsagePeriod, Companion, CaracKey, ActiveState, Form } from '../types/character';
 
 export type Stats = {
   FOR: number; AGI: number; CON: number; INT: number; PER: number; CHA: number; VOL: number;
@@ -561,6 +561,19 @@ export const companionFromCreature = (
   def: c.def ?? 0,
   init: c.init ?? 0,
 });
+
+// Pré-remplit une forme depuis une créature du bestiaire (réutilise companionFromCreature).
+export const formFromCreature = (
+  c: { id?: number; name?: string; hp?: number; def?: number; init?: number },
+): Form => ({ ...companionFromCreature(c), active: false });
+
+// (Dés)active une forme ; en activer une désactive toutes les autres (exclusivité globale).
+export const activateForm = (
+  forms: Form[] | undefined,
+  idx: number,
+  active: boolean,
+): Form[] =>
+  (forms ?? []).map((f, i) => (i === idx ? { ...f, active } : active ? { ...f, active: false } : f));
 
 // Résout la caractéristique d'une attaque : substitution du joueur, sinon défaut COF2.
 export const attackCarac = (

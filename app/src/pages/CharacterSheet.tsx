@@ -18,6 +18,7 @@ import { UsagesPanel } from '../components/character/UsagesPanel';
 import { CompanionsPanel } from '../components/character/CompanionsPanel';
 import { CaracSubstitutionsPanel } from '../components/character/CaracSubstitutionsPanel';
 import { ActiveStatesPanel } from '../components/character/ActiveStatesPanel';
+import { TransformationPanel } from '../components/character/TransformationPanel';
 import { InventorySection } from '../components/character/InventorySection';
 import { VoiesTree } from '../components/character/VoiesTree';
 import { HpByLevelEditor } from '../components/character/HpByLevelEditor';
@@ -163,6 +164,7 @@ export const CharacterSheet: React.FC = () => {
                     <CompanionsPanel character={character} setCharacter={setCharacter} />
                     <CaracSubstitutionsPanel character={character} setCharacter={setCharacter} />
                     <ActiveStatesPanel character={character} setCharacter={setCharacter} />
+                    <TransformationPanel character={character} setCharacter={setCharacter} />
 
                     {/* Equipment Section */}
                     <InventorySection character={character} setCharacter={setCharacter} />

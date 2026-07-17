@@ -619,3 +619,9 @@ export const applyLongRest = (
   recovery: { ...ps.recovery, used: 0 },
   usages: resetUsages(ps.usages, ['jour', 'combat', 'round']),
 });
+
+// Renvoie la clé de choix (`options_*`/`choix_*`) des details d'une capacité, sinon undefined.
+export const capabilityChoiceKey = (
+  details: Record<string, unknown> | undefined | null,
+): string | undefined =>
+  details ? Object.keys(details).find(k => /^(options|choix)/i.test(k)) : undefined;

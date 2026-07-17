@@ -197,6 +197,83 @@ export const evolutiveDie = (level: number | undefined): string => {
   return 'd4';
 };
 
+// --- Interpréteur d'effets de capacité (spec §6.1/§6.2) ---
+// Structure `effect` taguée décrivant un dé évolutif et/ou des bonus à cible
+// (DM, init, def, PVmax, RD), chacun pouvant scaler à valeur fixe, par rang, ou
+// par caractéristique. `resolveCapabilityEffect` est une fonction pure qui
+// résout ces règles au niveau/rang courant du personnage.
+export type BonusTarget = 'DM' | 'init' | 'def' | 'PVmax' | 'RD';
+export interface CapabilityBonus {
+  target: BonusTarget;
+  scalesWith: 'fixed' | 'rank' | 'carac';
+  value?: number;        // scalesWith 'fixed'
+  perRank?: number;      // scalesWith 'rank'
+  carac?: keyof Stats;   // scalesWith 'carac'
+}
+export interface CapabilityEffect {
+  evolutiveDie?: { count: number };
+  bonuses?: CapabilityBonus[];
+}
+export interface ResolvedEffect {
+  dice?: string;
+  bonuses: Partial<Record<BonusTarget, number>>;
+  // Traçabilité des bonus liés à une carac, pour la déduplication non-cumul (§6.2).
+  caracTargets?: { target: BonusTarget; carac: keyof Stats; value: number }[];
+}
+
+// Résout un effet structuré au niveau/rang courant (spec §6.2). Fonction pure.
+export const resolveCapabilityEffect = (
+  effect: CapabilityEffect | undefined,
+  ctx: { level: number; rank: number; caracs: Stats },
+): ResolvedEffect => {
+  const out: ResolvedEffect = { bonuses: {} };
+  if (!effect) return out;
+
+  if (effect.evolutiveDie) {
+    out.dice = `${effect.evolutiveDie.count}${evolutiveDie(ctx.level)}`;
+  }
+  const caracTargets: NonNullable<ResolvedEffect['caracTargets']> = [];
+  (effect.bonuses ?? []).forEach((b) => {
+    let val = 0;
+    if (b.scalesWith === 'fixed') val = b.value ?? 0;
+    else if (b.scalesWith === 'rank') val = (b.perRank ?? 0) * ctx.rank;
+    else if (b.scalesWith === 'carac' && b.carac) {
+      val = ctx.caracs[b.carac];
+      caracTargets.push({ target: b.target, carac: b.carac, value: val });
+    }
+    out.bonuses[b.target] = (out.bonuses[b.target] ?? 0) + val;
+  });
+  if (caracTargets.length) out.caracTargets = caracTargets;
+  return out;
+};
+
+// Agrège plusieurs effets résolus en appliquant le non-cumul (§6.2) : un même
+// couple (cible, caractéristique) n'est compté qu'une fois (on garde la valeur).
+export const aggregateResolvedBonuses = (
+  resolved: ResolvedEffect[],
+): Partial<Record<BonusTarget, number>> => {
+  const seenCarac = new Set<string>();
+  const agg: Partial<Record<BonusTarget, number>> = {};
+
+  resolved.forEach((r) => {
+    const caracByTarget = new Map<BonusTarget, number>();
+    (r.caracTargets ?? []).forEach((ct) => {
+      const key = `${ct.target}:${ct.carac}`;
+      if (seenCarac.has(key)) {
+        // déjà appliqué par une autre capacité → retirer ce doublon du total de r
+        caracByTarget.set(ct.target, (caracByTarget.get(ct.target) ?? 0) + ct.value);
+      } else {
+        seenCarac.add(key);
+      }
+    });
+    (Object.keys(r.bonuses) as BonusTarget[]).forEach((t) => {
+      const dup = caracByTarget.get(t) ?? 0;
+      agg[t] = (agg[t] ?? 0) + (r.bonuses[t] ?? 0) - dup;
+    });
+  });
+  return agg;
+};
+
 export type VoieKind = 'racial' | 'profile' | 'prestige';
 
 // Traduit la `source` d'une voie de personnage (modèle Phase 2) vers le `VoieKind`

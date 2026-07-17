@@ -18,6 +18,8 @@ import {
   evolutiveDie,
   attackValue,
   computeLanguageSlots,
+  resolveCapabilityEffect,
+  aggregateResolvedBonuses,
 } from './cofRules';
 
 describe('calculateMod (COF2 : la valeur EST le modificateur)', () => {
@@ -341,5 +343,42 @@ describe('computeLanguageSlots', () => {
   });
   it('INT négatif : illettré, aucun emplacement', () => {
     expect(computeLanguageSlots(-1)).toEqual({ slots: 0, illiterate: true });
+  });
+});
+
+describe('resolveCapabilityEffect', () => {
+  const caracs = { FOR: 3, AGI: 1, CON: 2, INT: 0, PER: 1, CHA: -1, VOL: 2 };
+
+  it('résout le dé évolutif au niveau courant', () => {
+    const r = resolveCapabilityEffect({ evolutiveDie: { count: 2 } }, { level: 9, rank: 1, caracs });
+    expect(r.dice).toBe('2d8'); // d8 à partir du niveau 9
+    expect(r.bonuses).toEqual({});
+  });
+  it('résout un bonus fixe, par rang et par caractéristique', () => {
+    const effect = { bonuses: [
+      { target: 'init' as const, scalesWith: 'fixed' as const, value: 3 },
+      { target: 'DM' as const, scalesWith: 'rank' as const, perRank: 1 },
+      { target: 'PVmax' as const, scalesWith: 'carac' as const, carac: 'FOR' as const },
+    ] };
+    const r = resolveCapabilityEffect(effect, { level: 1, rank: 3, caracs });
+    expect(r.bonuses).toEqual({ init: 3, DM: 3, PVmax: 3 }); // rank 3 → DM 3 ; FOR 3
+  });
+  it('effect vide → aucun dé, aucun bonus', () => {
+    expect(resolveCapabilityEffect(undefined, { level: 1, rank: 1, caracs })).toEqual({ bonuses: {} });
+  });
+});
+
+describe('aggregateResolvedBonuses (non-cumul)', () => {
+  it('somme les bonus fixes/rang de même cible', () => {
+    const agg = aggregateResolvedBonuses([{ bonuses: { def: 1 } }, { bonuses: { def: 2 } }]);
+    expect(agg.def).toBe(3);
+  });
+  it('ne compte pas deux fois la même caractéristique sur la même cible', () => {
+    // deux capacités ajoutent +FOR aux DM : une seule application (non-cumul §6.2)
+    const agg = aggregateResolvedBonuses([
+      { bonuses: { DM: 3 }, caracTargets: [{ target: 'DM', carac: 'FOR', value: 3 }] },
+      { bonuses: { DM: 3 }, caracTargets: [{ target: 'DM', carac: 'FOR', value: 3 }] },
+    ]);
+    expect(agg.DM).toBe(3);
   });
 });

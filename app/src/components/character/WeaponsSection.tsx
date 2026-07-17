@@ -26,7 +26,7 @@ export const WeaponsSection: React.FC<Props> = ({ character, setCharacter, allWe
                 </div>
 
                 {/* Rows */}
-                {(character.data?.attack?.weapons || []).concat([{ name: '', atkMod: 0, dmg: '', special: '' }, { name: '', atkMod: 0, dmg: '', special: '' }]).slice(0, 4).map((weapon, idx) => (
+                {(character.playState?.weapons || []).concat([{ name: '', atkMod: 0, dmg: '', special: '' }, { name: '', atkMod: 0, dmg: '', special: '' }]).slice(0, 4).map((weapon, idx) => (
                     <div key={idx} className="grid grid-cols-12 gap-4 items-center bg-stone-950/40 p-3 rounded-xl border border-white/5 hover:border-primary-500/20 hover:bg-stone-900/40 transition-all group">
                         <div className="col-span-4 relative">
                             <input // Keep input for manual entry or search
@@ -37,7 +37,7 @@ export const WeaponsSection: React.FC<Props> = ({ character, setCharacter, allWe
                                 value={weapon.name}
                                 onChange={(e) => {
                                     const val = e.target.value;
-                                    const newWeapons = [...(character.data?.attack?.weapons || [])];
+                                    const newWeapons = [...(character.playState?.weapons || [])];
                                     if (!newWeapons[idx]) newWeapons[idx] = { name: '', atkMod: 0, dmg: '', special: '' };
                                     newWeapons[idx].name = val;
 
@@ -48,7 +48,7 @@ export const WeaponsSection: React.FC<Props> = ({ character, setCharacter, allWe
                                         newWeapons[idx].special = `${found.range ? `Portée ${found.range}, ` : ''}${found.critical ? `Crit ${found.critical}` : ''}`;
                                     }
 
-                                    setCharacter(prev => ({ ...prev, data: { ...prev.data!, attack: { ...prev.data!.attack!, weapons: newWeapons } } }));
+                                    setCharacter(prev => ({ ...prev, playState: { ...prev.playState!, weapons: newWeapons } }));
                                 }}
                             />
                             <datalist id={`weapons-list-${idx}`}>
@@ -65,10 +65,10 @@ export const WeaponsSection: React.FC<Props> = ({ character, setCharacter, allWe
                                     className="w-8 bg-transparent text-center font-mono font-bold text-primary-400 outline-none"
                                     value={weapon.atkMod || 0}
                                     onChange={(e) => {
-                                        const newWeapons = [...(character.data?.attack?.weapons || [])];
+                                        const newWeapons = [...(character.playState?.weapons || [])];
                                         if (!newWeapons[idx]) newWeapons[idx] = { name: '', atkMod: 0, dmg: '', special: '' };
                                         newWeapons[idx].atkMod = parseInt(e.target.value);
-                                        setCharacter(prev => ({ ...prev, data: { ...prev.data!, attack: { ...prev.data!.attack!, weapons: newWeapons } } }));
+                                        setCharacter(prev => ({ ...prev, playState: { ...prev.playState!, weapons: newWeapons } }));
                                     }}
                                 />
                             </div>
@@ -80,10 +80,10 @@ export const WeaponsSection: React.FC<Props> = ({ character, setCharacter, allWe
                                 placeholder="1d8"
                                 value={weapon.dmg}
                                 onChange={(e) => {
-                                    const newWeapons = [...(character.data?.attack?.weapons || [])];
+                                    const newWeapons = [...(character.playState?.weapons || [])];
                                     if (!newWeapons[idx]) newWeapons[idx] = { name: '', atkMod: 0, dmg: '', special: '' };
                                     newWeapons[idx].dmg = e.target.value;
-                                    setCharacter(prev => ({ ...prev, data: { ...prev.data!, attack: { ...prev.data!.attack!, weapons: newWeapons } } }));
+                                    setCharacter(prev => ({ ...prev, playState: { ...prev.playState!, weapons: newWeapons } }));
                                 }}
                             />
                         </div>
@@ -94,10 +94,10 @@ export const WeaponsSection: React.FC<Props> = ({ character, setCharacter, allWe
                                 placeholder="Critique, portée..."
                                 value={weapon.special}
                                 onChange={(e) => {
-                                    const newWeapons = [...(character.data?.attack?.weapons || [])];
+                                    const newWeapons = [...(character.playState?.weapons || [])];
                                     if (!newWeapons[idx]) newWeapons[idx] = { name: '', atkMod: 0, dmg: '', special: '' };
                                     newWeapons[idx].special = e.target.value;
-                                    setCharacter(prev => ({ ...prev, data: { ...prev.data!, attack: { ...prev.data!.attack!, weapons: newWeapons } } }));
+                                    setCharacter(prev => ({ ...prev, playState: { ...prev.playState!, weapons: newWeapons } }));
                                 }}
                             />
                         </div>

@@ -33,14 +33,10 @@ interface RawCharacter {
     owner: string | null; // IRI
     race?: string | null; // IRI compendium
     profile?: string | null; // IRI compendium (classe)
-    data?: {
-        hp?: { current?: number; max?: number };
-        def?: number;
-        init?: number;
-        attack?: { contact?: number; distance?: number; magic?: number };
-        stats?: Record<string, number>;
-        modifiers?: Record<string, number>;
-    };
+    // Modèle Phase 2 : caractéristiques de base + état de jeu (les valeurs dérivées
+    // — PV max, DEF, Init — ne sont plus stockées, elles se calculent sur la fiche).
+    caracs?: Record<string, number>;
+    playState?: { hp?: { current?: number } };
 }
 
 // Extrait l'identifiant numérique final d'une IRI API Platform (ex: /api/users/5 -> 5).
@@ -372,8 +368,8 @@ export const CampaignDetail: React.FC = () => {
                                         const race = c.race ? raceNames[c.race] : undefined;
                                         const klass = c.profile ? profileNames[c.profile] : undefined;
                                         const meta = [race, klass].filter(Boolean).join(' · ');
-                                        const d = c.data || {};
-                                        const st = d.stats || {};
+                                        const st = c.caracs || {};
+                                        const pvCurrent = c.playState?.hp?.current;
                                         return (
                                             <li key={c.id} className="bg-black/20 rounded-lg px-3 py-2.5">
                                                 <div className="flex items-start justify-between gap-2">
@@ -390,10 +386,7 @@ export const CampaignDetail: React.FC = () => {
                                                     </button>
                                                 </div>
                                                 <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5 mt-2 text-xs font-mono">
-                                                    {d.hp?.max != null && <span className="text-red-300">PV {d.hp.max}</span>}
-                                                    {d.def != null && <span className="text-sky-300">DEF {d.def}</span>}
-                                                    {d.attack && <span className="text-amber-300">ATK {d.attack.contact ?? 0}/{d.attack.distance ?? 0}</span>}
-                                                    {d.init != null && <span className="text-stone-400">INIT {d.init}</span>}
+                                                    {pvCurrent != null && <span className="text-red-300">PV {pvCurrent}</span>}
                                                 </div>
                                                 {Object.keys(st).length > 0 && (
                                                     <div className="mt-1.5 flex flex-wrap gap-1">

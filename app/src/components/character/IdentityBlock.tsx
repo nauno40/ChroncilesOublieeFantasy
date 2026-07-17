@@ -88,12 +88,10 @@ export const IdentityBlock: React.FC<Props> = ({
                         // Parse Starting Equipment
                         const p = profiles.find(pr => pr.name === selectedId || pr['@id'] === selectedId);
 
-                        let currentData = {
-                            ...character.data!,
-                            // Reset equipment/combat stats on profile change? Maybe safer.
-                            // For now, let's append or ensure we don't duplicate if same profile re-selected?
-                            // Simpler: Just clear and add.
-                            attack: { ...character.data!.attack!, weapons: [] },
+                        // Réinitialise armes / protection / inventaire au changement de profil.
+                        const nextPlayState = {
+                            ...character.playState!,
+                            weapons: [],
                             protection: { armor: { name: '', def: 0 }, shield: { name: '', def: 0 } },
                             equipment: []
                         };
@@ -104,7 +102,7 @@ export const IdentityBlock: React.FC<Props> = ({
                             p.startingEquipment.forEach((eq: any, _index: number) => {
                                 // Direct Item
                                 if (eq.item) {
-                                    addEquipmentItem(eq, currentData);
+                                    addEquipmentItem(eq, nextPlayState);
                                 }
                                 // Choice
                                 else if (eq.choice) {
@@ -133,10 +131,10 @@ export const IdentityBlock: React.FC<Props> = ({
                         setCharacter(prev => ({
                             ...prev,
                             profile: selectedId,
-                            data: {
-                                ...currentData,
-                                money: { pa: initialGold },
-                                equipment: [...adventurerEquipment, ...currentData.equipment]
+                            playState: {
+                                ...nextPlayState,
+                                money: { ...nextPlayState.money, pa: initialGold },
+                                equipment: [...adventurerEquipment, ...nextPlayState.equipment]
                             }
                         }));
                     }}

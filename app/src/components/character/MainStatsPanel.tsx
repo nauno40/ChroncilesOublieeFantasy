@@ -9,9 +9,15 @@ interface Props {
     mods: Stats;
     /** Dé évolutif « d4° » courant, dérivé du niveau (d4→d6→d8→d10→d12). */
     evolutiveDie: string;
+    /** Valeurs dérivées (non stockées) : PV max, PC max, PM max, dé de récupération. */
+    maxHp: number;
+    luckMax: number;
+    manaMax: number;
+    recoveryDie: string;
 }
 
-export const MainStatsPanel: React.FC<Props> = ({ character, setCharacter, combatStats, mods, evolutiveDie }) => {
+export const MainStatsPanel: React.FC<Props> = ({ character, setCharacter, combatStats, mods, evolutiveDie, maxHp, luckMax, manaMax, recoveryDie }) => {
+    const luckCurrent = character.playState?.luck?.current ?? 0;
     return (
         <div className="grid grid-cols-2 gap-3">
             <div className="glass-panel p-3 rounded-xl text-center border-stone-800 relative overflow-hidden bg-stone-900/10">
@@ -33,20 +39,9 @@ export const MainStatsPanel: React.FC<Props> = ({ character, setCharacter, comba
                 <div className="absolute top-0 left-0 w-full h-1 bg-green-500/30" />
                 <label className="text-[9px] uppercase font-black text-green-600 tracking-[0.2em] block mb-1">Points de Vie</label>
                 <div className="flex items-center justify-center gap-2">
-                    <input
-                        type="number"
-                        className="w-16 bg-transparent text-center text-2xl font-display font-bold text-green-400 outline-none"
-                        value={character.data?.hp?.max || 0}
-                        onChange={e => {
-                            const val = parseInt(e.target.value);
-                            setCharacter(prev => ({
-                                ...prev,
-                                data: { ...prev.data!, hp: { ...prev.data!.hp!, max: val } }
-                            }));
-                        }}
-                    />
+                    <div className="text-2xl font-display font-bold text-green-400">{maxHp}</div>
                 </div>
-                <div className="text-[8px] text-green-900/60 font-bold uppercase mt-1">PV MAXIMUM</div>
+                <div className="text-[8px] text-green-900/60 font-bold uppercase mt-1">PV MAX (calculé)</div>
             </div>
             {/* Row 3: Luck & Mana */}
             <div className="glass-panel p-3 rounded-xl border-white/5 bg-stone-900/20 text-center">
@@ -55,16 +50,14 @@ export const MainStatsPanel: React.FC<Props> = ({ character, setCharacter, comba
                     <input
                         type="number"
                         className="w-10 bg-stone-950/50 border border-stone-800 rounded text-center text-lg font-bold text-amber-400 outline-none focus:border-amber-500/50 shadow-inner p-0.5"
-                        value={character.data?.luck?.current || 0}
-                        onChange={e => setCharacter({ ...character, data: { ...character.data!, luck: { ...character.data!.luck!, current: parseInt(e.target.value) } } })}
+                        value={luckCurrent}
+                        onChange={e => setCharacter(prev => ({
+                            ...prev,
+                            playState: { ...prev.playState!, luck: { ...prev.playState!.luck, current: parseInt(e.target.value) || 0 } }
+                        }))}
                     />
                     <span className="text-stone-700 font-black text-xs">/</span>
-                    <input
-                        type="number"
-                        className="w-8 bg-transparent text-center text-sm text-stone-500 font-bold outline-none"
-                        value={character.data?.luck?.max || 0}
-                        onChange={e => setCharacter({ ...character, data: { ...character.data!, luck: { ...character.data!.luck!, max: parseInt(e.target.value) } } })}
-                    />
+                    <span className="w-8 text-center text-sm text-stone-500 font-bold">{luckMax}</span>
                 </div>
             </div>
 
@@ -72,7 +65,7 @@ export const MainStatsPanel: React.FC<Props> = ({ character, setCharacter, comba
                 <div className="absolute top-0 left-0 w-full h-1 bg-blue-500/30" />
                 <label className="text-[9px] uppercase font-black text-blue-500 tracking-[0.2em] block mb-1">Mana</label>
                 <div className="text-2xl font-display font-bold text-blue-400">
-                    {character.data?.mp?.max || 0}
+                    {manaMax}
                 </div>
                 <div className="text-[8px] text-blue-900/60 font-bold uppercase mt-1">PM MAX (calculé)</div>
             </div>
@@ -80,13 +73,7 @@ export const MainStatsPanel: React.FC<Props> = ({ character, setCharacter, comba
             {/* Row 4: Recovery + evolutive die (Full Width) */}
             <div className="glass-panel p-3 rounded-xl border-white/5 bg-stone-900/20 col-span-2 flex items-center justify-around px-6">
                 <div className="flex flex-col items-center">
-                    <input
-                        type="text"
-                        className="bg-transparent border-b border-stone-800 text-center text-lg font-bold text-white outline-none focus:border-primary-500/50 transition-all font-display w-20"
-                        placeholder="ex: d8"
-                        value={character.data?.recovery?.die || ''}
-                        onChange={e => setCharacter({ ...character, data: { ...character.data!, recovery: { ...character.data!.recovery!, die: e.target.value } } })}
-                    />
+                    <div className="text-lg font-bold text-white font-display w-20 text-center">{recoveryDie}</div>
                     <div className="text-[8px] text-stone-600 text-center font-bold uppercase mt-1">Dé de récup.</div>
                 </div>
                 <div className="w-px self-stretch bg-white/5" />

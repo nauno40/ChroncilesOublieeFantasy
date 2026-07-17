@@ -1,16 +1,17 @@
+import type { CharacterVoieRef, VoieSource } from '../types/character';
+
 export type Stats = {
   FOR: number; AGI: number; CON: number; INT: number; PER: number; CHA: number; VOL: number;
 };
 
-// --- Formes minimales des données de règles (compendium + état des voies d'un perso) ---
+// --- Formes minimales des données de règles (compendium + voies d'un perso) ---
 // Volontairement partielles : les données proviennent de l'API (typage souple) ; on ne
-// décrit ici que les champs réellement lus par les calculs de règles.
+// décrit ici que les champs réellement lus par les calculs de règles. Les voies du perso
+// sont désormais référencées par IRI (`CharacterVoieRef`) et résolues dans le compendium.
 export interface CompendiumCapability { name?: string; rank?: number; description?: string; isSpell?: boolean; }
-export interface CompendiumVoie { name?: string; capabilities?: CompendiumCapability[]; }
+export interface CompendiumVoie { '@id'?: string; name?: string; capabilities?: CompendiumCapability[]; }
 export interface CompendiumProfile { name?: string; voies?: CompendiumVoie[]; }
 export interface CompendiumRace { availableVoies?: CompendiumVoie[]; }
-export interface VoieRanks { name?: string; ranks?: boolean[]; }
-export interface CharacterVoies { racial?: VoieRanks; profile?: VoieRanks[]; prestige?: VoieRanks[]; }
 export interface RaceModifier {
   type?: string; stat?: string | null; value: number; count?: number; options?: string[]; logic?: string;
 }
@@ -113,12 +114,14 @@ export const computeRecoveryDie = (profileName: string | undefined, conMod: numb
 export const computeLuckPoints = (
   profileName: string | undefined,
   chaMod: number,
-  racialVoie?: { name?: string; ranks?: boolean[] },
+  // Voie de peuple résolue (nom + rang) — le rang 1 « Diversité » de la Voie de
+  // l'humain accorde +1 PC. Le nom est résolu depuis le compendium par l'appelant.
+  racialVoie?: { name?: string; rank?: number },
 ): number => {
   let pc = 2 + chaMod;
   if (pc < 1) pc = 0;
   if (profileName && PROFILE_FAMILIES[profileName]?.id === 'aventuriers') pc += 1;
-  if (racialVoie && racialVoie.name === "Voie de l'humain" && racialVoie.ranks?.[0]) pc += 1;
+  if (racialVoie && racialVoie.name === "Voie de l'humain" && (racialVoie.rank ?? 0) >= 1) pc += 1;
   return pc;
 };
 
@@ -185,6 +188,11 @@ export const evolutiveDie = (level: number | undefined): string => {
 
 export type VoieKind = 'racial' | 'profile' | 'prestige';
 
+// Traduit la `source` d'une voie de personnage (modèle Phase 2) vers le `VoieKind`
+// utilisé par les règles de coût/verrou. profil et hybride partagent les mêmes règles.
+export const voieKindOf = (source: VoieSource): VoieKind =>
+  source === 'peuple' ? 'racial' : source === 'prestige' ? 'prestige' : 'profile';
+
 // Niveau à partir duquel un rang devient accessible (verrou structurel, hors budget).
 // Tient compte de l'exception mage (rang 2 dès le niveau 1).
 export const rankUnlockLevel = (rank: number, voieKind: VoieKind, isMageFamily: boolean): number => {
@@ -239,74 +247,63 @@ export const canAcquireRank = (
 // Total des points de capacité dépensés, tous niveaux confondus : somme des coûts de
 // chaque rang acquis, hors rang 1 gratuit de la voie de peuple et hors rang 2 gratuit
 // des mages (une seule fois).
-export const computeSpentPoints = (voies: CharacterVoies | undefined, _level: number | undefined, isMageFamily: boolean): number => {
+export const computeSpentPoints = (
+  voies: CharacterVoieRef[] | undefined,
+  _level: number | undefined,
+  isMageFamily: boolean,
+): number => {
   let spent = 0;
   let mageFreeRank2Used = false;
 
-  const addVoie = (ranks: boolean[] | undefined, voieKind: VoieKind): void => {
-    ranks?.forEach((learned: boolean, idx: number) => {
-      if (!learned) return;
-      const rank = idx + 1;
+  (voies ?? []).forEach((v) => {
+    const voieKind = voieKindOf(v.source);
+    for (let rank = 1; rank <= (v.rank || 0); rank++) {
       if (voieKind !== 'prestige' && rank === 2 && isMageFamily && !mageFreeRank2Used) {
-        mageFreeRank2Used = true; // rang 2 gratuit du mage
-        return;
+        mageFreeRank2Used = true; // rang 2 gratuit du mage (une seule fois)
+        continue;
       }
       spent += rankCost(rank, voieKind);
-    });
-  };
-
-  addVoie(voies?.racial?.ranks, 'racial');
-  voies?.profile?.forEach((p: { ranks?: boolean[] }) => addVoie(p?.ranks, 'profile'));
-  voies?.prestige?.forEach((p: { ranks?: boolean[] }) => addVoie(p?.ranks, 'prestige'));
+    }
+  });
   return spent;
 };
 
 // PM = VOL + nombre de sorts connus (COF2, Magie et sorts). Le rang 4 « Perception
 // héroïque » des voies druide/ensorceleur ajoute en plus la PER (d'où `perMod`).
 export const computeManaPoints = (
-  voies: CharacterVoies | undefined,
+  voies: CharacterVoieRef[] | undefined,
   races: CompendiumRace[],
   profiles: CompendiumProfile[],
   volMod: number,
   perMod = 0,
 ): number => {
-  const findCap = (voieName: string, rank: number): CompendiumCapability | undefined => {
-    for (const race of races) {
-      const cap = race.availableVoies?.find(x => x.name === voieName)?.capabilities?.find(c => c.rank === rank);
-      if (cap) return cap;
-    }
-    for (const profile of profiles) {
-      const cap = profile.voies?.find(x => x.name === voieName)?.capabilities?.find(c => c.rank === rank);
-      if (cap) return cap;
-    }
-    return undefined;
-  };
-  const isSpell = (voieName: string, rank: number): boolean => !!findCap(voieName, rank)?.isSpell;
+  // Résolution des voies du perso par IRI dans le compendium (peuple + profil).
+  const byIri = new Map<string, CompendiumVoie>();
+  for (const race of races) for (const v of race.availableVoies ?? []) if (v['@id']) byIri.set(v['@id'], v);
+  for (const profile of profiles) for (const v of profile.voies ?? []) if (v['@id']) byIri.set(v['@id'], v);
 
   // Voies des profils druide/ensorceleur dont le rang 4 « Perception héroïque » ajoute la PER aux PM.
-  const perManaVoies = new Set<string>();
+  const perManaIris = new Set<string>();
   for (const profile of profiles) {
     if (profile.name === 'Druide' || profile.name === 'Ensorceleur') {
-      profile.voies?.forEach(v => v?.name && perManaVoies.add(v.name));
+      profile.voies?.forEach(v => v['@id'] && perManaIris.add(v['@id']));
     }
   }
-  const addsPerToMana = (voieName: string, ranks?: boolean[]): boolean =>
-    !!ranks?.[3] && perManaVoies.has(voieName) && /perception h[ée]ro[ïi]que/i.test(findCap(voieName, 4)?.name || '');
 
   let spellCount = 0;
   let perBonus = false;
-  const racial = voies?.racial;
-  if (racial) {
-    racial.ranks?.forEach((learned, idx) => {
-      if (learned && isSpell(racial.name || '', idx + 1)) spellCount++;
+  (voies ?? []).forEach(entry => {
+    // Parité : la magie de peuple/profil compte, pas les voies de prestige.
+    if (entry.source === 'prestige') return;
+    const v = byIri.get(entry.voie);
+    if (!v) return;
+    (v.capabilities ?? []).forEach(c => {
+      if ((c.rank ?? 0) >= 1 && (c.rank ?? 0) <= entry.rank && c.isSpell) spellCount++;
     });
-    if (addsPerToMana(racial.name || '', racial.ranks)) perBonus = true;
-  }
-  voies?.profile?.forEach(v => {
-    v.ranks?.forEach((learned, idx) => {
-      if (learned && isSpell(v.name || '', idx + 1)) spellCount++;
-    });
-    if (addsPerToMana(v.name || '', v.ranks)) perBonus = true;
+    if (entry.rank >= 4 && perManaIris.has(entry.voie)) {
+      const r4 = (v.capabilities ?? []).find(c => c.rank === 4);
+      if (/perception h[ée]ro[ïi]que/i.test(r4?.name || '')) perBonus = true;
+    }
   });
 
   if (spellCount === 0) return 0;
@@ -314,7 +311,7 @@ export const computeManaPoints = (
 };
 
 export const computeCombatStats = (args: {
-  voies: CharacterVoies | undefined;
+  voies: CharacterVoieRef[] | undefined;
   protection: Protection | undefined;
   races: CompendiumRace[];
   profiles: CompendiumProfile[];
@@ -326,36 +323,22 @@ export const computeCombatStats = (args: {
   let init = 10 + perMod;
   let def = 10 + agiMod + (protection?.armor?.def || 0) + (protection?.shield?.def || 0);
 
-  const applyBonus = (voieName: string, subRanks: boolean[]) => {
-    if (!voieName) return;
-    subRanks.forEach((learned, idx) => {
-      if (!learned) return;
-      const rank = idx + 1;
-      let capName = '';
-      const race = races.find(r => r.availableVoies?.some(v => v.name === voieName));
-      if (race) {
-        const c = race.availableVoies?.find(v => v.name === voieName)?.capabilities?.find(c => c.rank === rank);
-        if (c?.name) capName = c.name;
-      }
-      if (!capName) {
-        const profile = profiles.find(p => p.voies?.some(v => v.name === voieName));
-        if (profile) {
-          const c = profile.voies?.find(v => v.name === voieName)?.capabilities?.find(c => c.rank === rank);
-          if (c?.name) capName = c.name;
-        }
-      }
-      if (capName && capabilityModifiers[capName]) {
-        const bonus = capabilityModifiers[capName](rank);
+  // Résolution des voies du perso par IRI dans le compendium (peuple + profil).
+  const byIri = new Map<string, CompendiumVoie>();
+  for (const race of races) for (const v of race.availableVoies ?? []) if (v['@id']) byIri.set(v['@id'], v);
+  for (const profile of profiles) for (const v of profile.voies ?? []) if (v['@id']) byIri.set(v['@id'], v);
+
+  (voies ?? []).forEach(entry => {
+    const v = byIri.get(entry.voie);
+    if (!v) return;
+    for (let rank = 1; rank <= entry.rank; rank++) {
+      const cap = (v.capabilities ?? []).find(c => c.rank === rank);
+      if (cap?.name && capabilityModifiers[cap.name]) {
+        const bonus = capabilityModifiers[cap.name](rank);
         if (bonus.init) init += bonus.init;
         if (bonus.def) def += bonus.def;
       }
-    });
-  };
-
-  const racial = voies?.racial;
-  if (racial?.name && racial.ranks) applyBonus(racial.name, racial.ranks);
-  voies?.profile?.forEach(v => {
-    if (v.name && v.ranks) applyBonus(v.name, v.ranks);
+    }
   });
 
   return { init, def };

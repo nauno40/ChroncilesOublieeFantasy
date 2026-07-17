@@ -31,6 +31,7 @@ export const CharacterSheet: React.FC = () => {
         character, setCharacter,
         loading, saving,
         stats, mods, finalStats, combatStats, evolutiveDie,
+        maxHp, luckPoints, manaPoints, recoveryDieString,
         spentPoints, maxStartingPoints,
         selectedVoies, setSelectedVoies,
         selectedProfileType, setSelectedProfileType,
@@ -38,18 +39,22 @@ export const CharacterSheet: React.FC = () => {
         racialVoieOptions,
         isMageFamily,
         mageReplacedRaceVoie, setMageReplacedRaceVoie,
-        showPrestigeSelector, setShowPrestigeSelector,
         showEquipmentModal, setShowEquipmentModal,
         equipmentChoiceQueue, setEquipmentChoiceQueue,
         currentChoiceIndex, setCurrentChoiceIndex,
         profileValues,
-        handleSave, updateStat, getCapabilityName, addEquipmentItem,
+        handleSave, updateStat, getCapabilityName, getVoieName, addEquipmentItem,
     } = useCharacterSheet({ races, profiles, allVoies, id, isNew, navigate, campaignId });
 
-    // Voies groupées par profil, pour permettre le choix de voies hors profil principal
-    // (profils hybrides, COF2 chap. 9). La progression et les PV suivent chaque voie choisie.
+    // Voies groupées par profil (IRI + nom), pour permettre le choix de voies hors profil
+    // principal (profils hybrides, COF2 chap. 9). La progression suit chaque voie choisie.
     const voieOptionsByProfile = (profiles as any[])
-        .map(p => ({ profile: p.name as string, voies: ((p.voies || []) as any[]).map(v => v.name).filter(Boolean) as string[] }))
+        .map(p => ({
+            profile: p.name as string,
+            voies: ((p.voies || []) as any[])
+                .map(v => ({ iri: (v['@id'] || '') as string, name: (v.name || '') as string }))
+                .filter(v => v.iri && v.name),
+        }))
         .filter(g => g.profile && g.voies.length > 0)
         .sort((a, b) => a.profile.localeCompare(b.profile));
 
@@ -99,6 +104,10 @@ export const CharacterSheet: React.FC = () => {
                         combatStats={combatStats}
                         mods={mods}
                         evolutiveDie={evolutiveDie}
+                        maxHp={maxHp}
+                        luckMax={luckPoints}
+                        manaMax={manaPoints}
+                        recoveryDie={recoveryDieString}
                     />
                 </div>
 
@@ -151,8 +160,7 @@ export const CharacterSheet: React.FC = () => {
                         selectedVoies={selectedVoies}
                         setSelectedVoies={setSelectedVoies}
                         getCapabilityName={getCapabilityName}
-                        showPrestigeSelector={showPrestigeSelector}
-                        setShowPrestigeSelector={setShowPrestigeSelector}
+                        getVoieName={getVoieName}
                         prestigePaths={prestigePaths}
                         voieOptionsByProfile={voieOptionsByProfile}
                     />
@@ -163,13 +171,13 @@ export const CharacterSheet: React.FC = () => {
                     title={`Votre profil vous offre un choix d'équipement (${currentChoiceIndex + 1}/${equipmentChoiceQueue.length}) :`}
                     choices={equipmentChoiceQueue[currentChoiceIndex] || []}
                     onSelect={(choice) => {
-                        // Add selected item
-                        const newData = { ...character.data! };
-                        addEquipmentItem(choice, newData);
+                        // Add selected item to the play state
+                        const nextPlayState = { ...character.playState! };
+                        addEquipmentItem(choice, nextPlayState);
 
                         setCharacter(prev => ({
                             ...prev,
-                            data: newData
+                            playState: nextPlayState
                         }));
 
                         // Advance queue

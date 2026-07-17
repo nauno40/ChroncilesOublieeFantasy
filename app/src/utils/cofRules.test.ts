@@ -30,6 +30,10 @@ import {
   activateState,
   formFromCreature,
   activateForm,
+  recoveryDice,
+  shortRestHeal,
+  applyShortRest,
+  applyLongRest,
 } from './cofRules';
 
 describe('calculateMod (COF2 : la valeur EST le modificateur)', () => {
@@ -593,5 +597,68 @@ describe('activateForm (exclusivité globale)', () => {
   });
   it('liste absente ⇒ []', () => {
     expect(activateForm(undefined, 0, true)).toEqual([]);
+  });
+});
+
+describe('recoveryDice', () => {
+  it('total = base de famille + CON ; sides du dé', () => {
+    expect(recoveryDice('Guerrier', 2)).toEqual({ total: 4, sides: 10 }); // combattants base 2, d10
+    expect(recoveryDice('Magicien', 0)).toEqual({ total: 2, sides: 6 });  // mages base 2, d6
+    expect(recoveryDice('Druide', 1)).toEqual({ total: 4, sides: 8 });    // mystiques base 3, d8
+  });
+  it('borne le total à 0 ; profil inconnu → 0/0', () => {
+    expect(recoveryDice('Magicien', -5)).toEqual({ total: 0, sides: 6 });
+    expect(recoveryDice('Inconnu', 2)).toEqual({ total: 0, sides: 0 });
+    expect(recoveryDice(undefined, 2)).toEqual({ total: 0, sides: 0 });
+  });
+});
+
+describe('shortRestHeal', () => {
+  it('dé de récup. + ½ niveau (arrondi inférieur)', () => {
+    expect(shortRestHeal(6, 4)).toBe(8);   // 6 + 2
+    expect(shortRestHeal(3, 1)).toBe(3);   // 3 + 0
+    expect(shortRestHeal(5, 7)).toBe(8);   // 5 + 3
+  });
+});
+
+describe('applyShortRest', () => {
+  const ps = {
+    hp: { current: 5 }, mana: { current: 1 }, luck: { current: 2 }, recovery: { used: 0 },
+    money: { pa: 0 }, equipment: [], rp: { ideal: '', flaw: '' }, languages: [],
+    protection: { armor: { name: '', def: 0 }, shield: { name: '', def: 0 } }, weapons: [],
+    usages: [
+      { name: 'A', max: 1, used: 1, per: 'combat' as const },
+      { name: 'B', max: 1, used: 1, per: 'jour' as const },
+    ],
+  };
+  it('soigne plafonné, dépense 1 DR plafonné, reset usages combat/round', () => {
+    const r = applyShortRest(ps, { heal: 100, maxHp: 12, drTotal: 4 });
+    expect(r.hp.current).toBe(12);        // plafonné à maxHp
+    expect(r.recovery.used).toBe(1);      // +1
+    expect(r.usages![0].used).toBe(0);    // combat remis à 0
+    expect(r.usages![1].used).toBe(1);    // jour intact
+    expect(r.mana.current).toBe(1);       // PM inchangés
+    expect(r.luck.current).toBe(2);       // PC inchangés
+  });
+  it('ne dépasse pas le total de DR', () => {
+    const r = applyShortRest({ ...ps, recovery: { used: 4 } }, { heal: 1, maxHp: 12, drTotal: 4 });
+    expect(r.recovery.used).toBe(4);
+  });
+});
+
+describe('applyLongRest', () => {
+  const ps = {
+    hp: { current: 3 }, mana: { current: 0 }, luck: { current: 1 }, recovery: { used: 3 },
+    money: { pa: 0 }, equipment: [], rp: { ideal: '', flaw: '' }, languages: [],
+    protection: { armor: { name: '', def: 0 }, shield: { name: '', def: 0 } }, weapons: [],
+    usages: [{ name: 'B', max: 1, used: 1, per: 'jour' as const }],
+  };
+  it('PV/PM au max, DR régénérés, usages jour/combat/round reset, PC intacts', () => {
+    const r = applyLongRest(ps, { maxHp: 14, maxMana: 5 });
+    expect(r.hp.current).toBe(14);
+    expect(r.mana.current).toBe(5);
+    expect(r.recovery.used).toBe(0);
+    expect(r.usages![0].used).toBe(0);
+    expect(r.luck.current).toBe(1);       // PC inchangés
   });
 });

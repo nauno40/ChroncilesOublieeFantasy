@@ -1,4 +1,4 @@
-import type { CharacterVoieRef, VoieSource, MagicItem, ItemBonusTarget, Usage, UsagePeriod, Companion, CaracKey, ActiveState, Form } from '../types/character';
+import type { CharacterVoieRef, VoieSource, MagicItem, ItemBonusTarget, Usage, UsagePeriod, Companion, CaracKey, ActiveState, Form, PlayState } from '../types/character';
 
 export type Stats = {
   FOR: number; AGI: number; CON: number; INT: number; PER: number; CHA: number; VOL: number;
@@ -581,3 +581,41 @@ export const attackCarac = (
   subs: { contact?: CaracKey; distance?: CaracKey } | undefined,
   defaultCarac: CaracKey,
 ): CaracKey => subs?.[target] ?? defaultCarac;
+
+// Nombre de dés de récupération (DR) et faces du dé, dérivés du profil (COF2).
+export const recoveryDice = (
+  profileName: string | undefined,
+  conMod: number,
+): { total: number; sides: number } => {
+  const family = profileName ? PROFILE_FAMILIES[profileName] : undefined;
+  if (!family) return { total: 0, sides: 0 };
+  return { total: Math.max(0, family.base + conMod), sides: parseInt(family.die.slice(1), 10) || 0 };
+};
+
+// Soin d'un repos court : dé de récup. lancé + ½ niveau (arrondi inférieur).
+export const shortRestHeal = (dieRoll: number, level: number): number =>
+  dieRoll + Math.floor((level || 0) / 2);
+
+// Applique un repos court : soigne (plafonné maxHp), dépense 1 DR (plafonné total),
+// réinitialise les usages combat/round. Pur.
+export const applyShortRest = (
+  ps: PlayState,
+  opts: { heal: number; maxHp: number; drTotal: number },
+): PlayState => ({
+  ...ps,
+  hp: { ...ps.hp, current: Math.min(opts.maxHp, ps.hp.current + opts.heal) },
+  recovery: { ...ps.recovery, used: Math.min(opts.drTotal, (ps.recovery.used || 0) + 1) },
+  usages: resetUsages(ps.usages, ['combat', 'round']),
+});
+
+// Applique un repos long : PV & PM au max, DR régénérés, usages jour/combat/round reset. Pur.
+export const applyLongRest = (
+  ps: PlayState,
+  opts: { maxHp: number; maxMana: number },
+): PlayState => ({
+  ...ps,
+  hp: { ...ps.hp, current: opts.maxHp },
+  mana: { ...ps.mana, current: opts.maxMana },
+  recovery: { ...ps.recovery, used: 0 },
+  usages: resetUsages(ps.usages, ['jour', 'combat', 'round']),
+});

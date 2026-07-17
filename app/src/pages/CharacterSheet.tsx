@@ -19,6 +19,7 @@ import { CompanionsPanel } from '../components/character/CompanionsPanel';
 import { CaracSubstitutionsPanel } from '../components/character/CaracSubstitutionsPanel';
 import { ActiveStatesPanel } from '../components/character/ActiveStatesPanel';
 import { TransformationPanel } from '../components/character/TransformationPanel';
+import { RestPanel } from '../components/character/RestPanel';
 import { InventorySection } from '../components/character/InventorySection';
 import { VoiesTree } from '../components/character/VoiesTree';
 import { HpByLevelEditor } from '../components/character/HpByLevelEditor';
@@ -40,7 +41,7 @@ export const CharacterSheet: React.FC = () => {
         character, setCharacter,
         loading, saving,
         stats, mods, finalStats, combatStats, evolutiveDie,
-        maxHp, mainFamily, damageReduction, luckPoints, manaPoints, recoveryDieString, bonuses,
+        maxHp, baseMaxHp, mainFamily, damageReduction, luckPoints, manaPoints, recoveryDieString, recoveryInfo, bonuses,
         spentPoints, maxStartingPoints,
         selectedVoies, setSelectedVoies,
         selectedProfileType, setSelectedProfileType,
@@ -165,6 +166,7 @@ export const CharacterSheet: React.FC = () => {
                     <CaracSubstitutionsPanel character={character} setCharacter={setCharacter} />
                     <ActiveStatesPanel character={character} setCharacter={setCharacter} />
                     <TransformationPanel character={character} setCharacter={setCharacter} />
+                    <RestPanel character={character} setCharacter={setCharacter} maxHp={baseMaxHp} maxMana={manaPoints} recovery={recoveryInfo} />
 
                     {/* Equipment Section */}
                     <InventorySection character={character} setCharacter={setCharacter} />

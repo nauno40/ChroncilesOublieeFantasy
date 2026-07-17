@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Character } from '../../types/character';
-import { attackValue, type Stats } from '../../utils/cofRules';
+import { attackValue, attackCarac, type Stats } from '../../utils/cofRules';
 
 interface Props {
     character: Partial<Character>;
@@ -24,6 +24,9 @@ interface Props {
 
 export const MainStatsPanel: React.FC<Props> = ({ character, setCharacter, combatStats, mods, evolutiveDie, maxHp, luckMax, manaMax, recoveryDie, damageReduction, attackBonus, dmBonus }) => {
     const luckCurrent = character.playState?.luck?.current ?? 0;
+    const subs = character.playState?.caracSubstitutions;
+    const contactCarac = attackCarac('contact', subs, 'FOR');
+    const distanceCarac = attackCarac('distance', subs, 'AGI');
     return (
         <div className="grid grid-cols-2 gap-3">
             <div className="glass-panel p-3 rounded-xl text-center border-stone-800 relative overflow-hidden bg-stone-900/10">
@@ -100,13 +103,13 @@ export const MainStatsPanel: React.FC<Props> = ({ character, setCharacter, comba
                     <div className="text-center">
                         <label className="text-[9px] uppercase font-black text-stone-500 tracking-widest block mb-1">Atk. CàC</label>
                         <div className="text-xl font-display font-bold text-white text-shadow-sm transition-all hover:scale-110">
-                            <span className="text-stone-600 text-xs mr-1">+</span>{attackValue(mods.FOR, character.level || 1) + attackBonus}
+                            <span className="text-stone-600 text-xs mr-1">+</span>{attackValue(mods[contactCarac], character.level || 1) + attackBonus}
                         </div>
                     </div>
                     <div className="text-center pl-4">
                         <label className="text-[9px] uppercase font-black text-stone-500 tracking-widest block mb-1">Atk. Tir</label>
                         <div className="text-xl font-display font-bold text-white text-shadow-sm transition-all hover:scale-110">
-                            <span className="text-stone-600 text-xs mr-1">+</span>{attackValue(mods.AGI, character.level || 1) + attackBonus}
+                            <span className="text-stone-600 text-xs mr-1">+</span>{attackValue(mods[distanceCarac], character.level || 1) + attackBonus}
                         </div>
                     </div>
                 </div>

@@ -30,6 +30,8 @@ export interface PlayState {
     equipment: string[];
     rp: { ideal: string; flaw: string; secret?: string; notes?: string };
     languages: string[];
+    talents?: string[];                                             // talents secondaires (partagent le budget des langues)
+    physical?: { age?: string; height?: string; weight?: string }; // saisie libre (physique)
     // PV hybrides (COF2 chap. 9) : familles finançant chaque niveau 2..N (1 ou 2 par
     // niveau ; voie de peuple ⇒ famille du profil principal). Absent/vide ⇒ profil principal.
     hpByLevel?: Record<string, string[]>;

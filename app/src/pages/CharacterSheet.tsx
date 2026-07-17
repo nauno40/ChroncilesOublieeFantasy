@@ -8,7 +8,9 @@ import { CharacterToolbar } from '../components/character/CharacterToolbar';
 import { AttributesPanel } from '../components/character/AttributesPanel';
 import { MainStatsPanel } from '../components/character/MainStatsPanel';
 import { IdentityBlock } from '../components/character/IdentityBlock';
+import { PhysicalBlock } from '../components/character/PhysicalBlock';
 import { RoleplaySection } from '../components/character/RoleplaySection';
+import { LanguagesTalentsPanel } from '../components/character/LanguagesTalentsPanel';
 import { ProtectionSection } from '../components/character/ProtectionSection';
 import { WeaponsSection } from '../components/character/WeaponsSection';
 import { InventorySection } from '../components/character/InventorySection';
@@ -130,11 +132,13 @@ export const CharacterSheet: React.FC = () => {
                         setCurrentChoiceIndex={setCurrentChoiceIndex}
                         setShowEquipmentModal={setShowEquipmentModal}
                     />
+                    <PhysicalBlock character={character} setCharacter={setCharacter} />
 
 
 
                     {/* Roleplay Section */}
                     <RoleplaySection character={character} setCharacter={setCharacter} />
+                    <LanguagesTalentsPanel character={character} setCharacter={setCharacter} intMod={mods.INT} />
 
 
                     {/* Protection Section */}

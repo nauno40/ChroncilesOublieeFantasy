@@ -18,6 +18,7 @@ import {
   evolutiveDie,
   attackValue,
   computeLanguageSlots,
+  computeLanguageUsage,
   resolveCapabilityEffect,
   aggregateResolvedBonuses,
   computeDamageReduction,
@@ -369,6 +370,24 @@ describe('computeLanguageSlots', () => {
   });
   it('INT négatif : illettré, aucun emplacement', () => {
     expect(computeLanguageSlots(-1)).toEqual({ slots: 0, illiterate: true });
+  });
+});
+
+describe('computeLanguageUsage (budget partagé langues/talents)', () => {
+  it('« Commun » est gratuit : une seule langue ⇒ 0 emplacement utilisé', () => {
+    expect(computeLanguageUsage(['Commun'], [], 2)).toEqual({ used: 0, available: 2, illiterate: false });
+  });
+  it('langues au-delà de la base + talents consomment le budget', () => {
+    // 3 langues (2 au-delà de Commun) + 1 talent = 3 emplacements ; INT +2 ⇒ 2 dispo
+    expect(computeLanguageUsage(['Commun', 'Elfique', 'Nain'], ['Cuisine'], 2))
+      .toEqual({ used: 3, available: 2, illiterate: false });
+  });
+  it('available suit computeLanguageSlots ; illettré si INT < 0', () => {
+    expect(computeLanguageUsage([], [], -1)).toEqual({ used: 0, available: 0, illiterate: true });
+    expect(computeLanguageUsage(['Commun', 'Orc'], [], 3)).toEqual({ used: 1, available: 3, illiterate: false });
+  });
+  it('listes absentes ⇒ 0 utilisé', () => {
+    expect(computeLanguageUsage(undefined, undefined, 0)).toEqual({ used: 0, available: 0, illiterate: false });
   });
 });
 

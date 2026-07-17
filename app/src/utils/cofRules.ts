@@ -1,4 +1,4 @@
-import type { CharacterVoieRef, VoieSource, MagicItem, ItemBonusTarget } from '../types/character';
+import type { CharacterVoieRef, VoieSource, MagicItem, ItemBonusTarget, Usage, UsagePeriod } from '../types/character';
 
 export type Stats = {
   FOR: number; AGI: number; CON: number; INT: number; PER: number; CHA: number; VOL: number;
@@ -519,3 +519,10 @@ export const computeItemBonuses = (
   });
   return acc;
 };
+
+// Remet `used` à 0 pour les usages dont la période figure dans `periods` (repos/reset).
+// Pur : renvoie une nouvelle liste, ne mute pas l'entrée d'origine.
+export const resetUsages = (
+  usages: Usage[] | undefined,
+  periods: UsagePeriod[],
+): Usage[] => (usages ?? []).map(u => (periods.includes(u.per) ? { ...u, used: 0 } : u));

@@ -23,6 +23,7 @@ import {
   aggregateResolvedBonuses,
   computeDamageReduction,
   computeItemBonuses,
+  resetUsages,
 } from './cofRules';
 
 describe('calculateMod (COF2 : la valeur EST le modificateur)', () => {
@@ -468,5 +469,31 @@ describe('computeItemBonuses (objets magiques équipés)', () => {
       { name: 'Bottes', target: 'init' as const, value: 1, equipped: true },
     ];
     expect(computeItemBonuses(items)).toEqual({ ...zero, init: 1 });
+  });
+});
+
+describe('resetUsages (remise à zéro par période)', () => {
+  const base = [
+    { name: 'Phénix', max: 1, used: 1, per: 'jour' as const },
+    { name: 'Frappe', max: 3, used: 2, per: 'combat' as const },
+    { name: 'Esquive', max: 1, used: 1, per: 'round' as const },
+  ];
+  it('remet à zéro uniquement les périodes visées', () => {
+    expect(resetUsages(base, ['combat', 'round'])).toEqual([
+      { name: 'Phénix', max: 1, used: 1, per: 'jour' },
+      { name: 'Frappe', max: 3, used: 0, per: 'combat' },
+      { name: 'Esquive', max: 1, used: 0, per: 'round' },
+    ]);
+  });
+  it('repos long : jour + combat + round', () => {
+    expect(resetUsages(base, ['jour', 'combat', 'round']).every(u => u.used === 0)).toBe(true);
+  });
+  it('liste absente ⇒ []', () => {
+    expect(resetUsages(undefined, ['jour'])).toEqual([]);
+  });
+  it('ne mute pas la liste d\'origine', () => {
+    const copy = JSON.parse(JSON.stringify(base));
+    resetUsages(base, ['jour']);
+    expect(base).toEqual(copy);
   });
 });

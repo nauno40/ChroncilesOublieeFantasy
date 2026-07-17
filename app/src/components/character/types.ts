@@ -20,6 +20,7 @@ export type AddEquipmentItem = SheetState['addEquipmentItem'];
 export type EquipmentChoiceQueueSetter = SheetState['setEquipmentChoiceQueue'];
 export type GetCapabilityName = SheetState['getCapabilityName'];
 export type GetVoieName = SheetState['getVoieName'];
+export type GetResolvedDice = SheetState['getResolvedDice'];
 export type SelectedVoiesSetter = SheetState['setSelectedVoies'];
 export type IsMageFamily = SheetState['isMageFamily'];
 export type RacialVoieOptions = SheetState['racialVoieOptions'];

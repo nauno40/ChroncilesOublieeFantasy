@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Character } from '../../types/character';
-import type { Stats } from '../../utils/cofRules';
+import { attackValue, type Stats } from '../../utils/cofRules';
 
 interface Props {
     character: Partial<Character>;
@@ -14,9 +14,11 @@ interface Props {
     luckMax: number;
     manaMax: number;
     recoveryDie: string;
+    /** Réduction de dommages (dérivée) — badge affiché uniquement si > 0. */
+    damageReduction: number;
 }
 
-export const MainStatsPanel: React.FC<Props> = ({ character, setCharacter, combatStats, mods, evolutiveDie, maxHp, luckMax, manaMax, recoveryDie }) => {
+export const MainStatsPanel: React.FC<Props> = ({ character, setCharacter, combatStats, mods, evolutiveDie, maxHp, luckMax, manaMax, recoveryDie, damageReduction }) => {
     const luckCurrent = character.playState?.luck?.current ?? 0;
     return (
         <div className="grid grid-cols-2 gap-3">
@@ -40,6 +42,11 @@ export const MainStatsPanel: React.FC<Props> = ({ character, setCharacter, comba
                 <label className="text-[9px] uppercase font-black text-green-600 tracking-[0.2em] block mb-1">Points de Vie</label>
                 <div className="flex items-center justify-center gap-2">
                     <div className="text-2xl font-display font-bold text-green-400">{maxHp}</div>
+                    {damageReduction > 0 && (
+                        <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded-full bg-stone-800 border border-stone-600 text-stone-300">
+                            RD {damageReduction}
+                        </span>
+                    )}
                 </div>
                 <div className="text-[8px] text-green-900/60 font-bold uppercase mt-1">PV MAX (calculé)</div>
             </div>
@@ -89,13 +96,13 @@ export const MainStatsPanel: React.FC<Props> = ({ character, setCharacter, comba
                     <div className="text-center">
                         <label className="text-[9px] uppercase font-black text-stone-500 tracking-widest block mb-1">Atk. CàC</label>
                         <div className="text-xl font-display font-bold text-white text-shadow-sm transition-all hover:scale-110">
-                            <span className="text-stone-600 text-xs mr-1">+</span>{mods.FOR + (character.level || 1)}
+                            <span className="text-stone-600 text-xs mr-1">+</span>{attackValue(mods.FOR, character.level || 1)}
                         </div>
                     </div>
                     <div className="text-center pl-4">
                         <label className="text-[9px] uppercase font-black text-stone-500 tracking-widest block mb-1">Atk. Tir</label>
                         <div className="text-xl font-display font-bold text-white text-shadow-sm transition-all hover:scale-110">
-                            <span className="text-stone-600 text-xs mr-1">+</span>{mods.AGI + (character.level || 1)}
+                            <span className="text-stone-600 text-xs mr-1">+</span>{attackValue(mods.AGI, character.level || 1)}
                         </div>
                     </div>
                 </div>

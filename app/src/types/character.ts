@@ -36,6 +36,15 @@ export interface Usage {
     per: UsagePeriod;
 }
 
+export interface Companion {
+    name: string;
+    ref?: string;                          // IRI créature bestiaire (si issu du compendium)
+    hp: { current: number; max: number };
+    def: number;
+    init: number;
+    notes?: string;
+}
+
 /** État de jeu mutable — seuls les `current`/choix du joueur y sont persistés. */
 export interface PlayState {
     hp: { current: number };
@@ -56,6 +65,7 @@ export interface PlayState {
     weapons: CharacterWeapon[];
     magicItems?: MagicItem[];              // objets à bonus mécaniques (équipés ⇒ dérivation)
     usages?: Usage[];                      // suivi des capacités à usage limité (aide de table)
+    companions?: Companion[];              // roster de compagnons / invocations / montures
 }
 
 export interface Character {

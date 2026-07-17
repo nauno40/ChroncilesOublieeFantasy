@@ -24,6 +24,7 @@ import {
   computeDamageReduction,
   computeItemBonuses,
   resetUsages,
+  companionFromCreature,
 } from './cofRules';
 
 describe('calculateMod (COF2 : la valeur EST le modificateur)', () => {
@@ -495,5 +496,18 @@ describe('resetUsages (remise à zéro par période)', () => {
     const copy = JSON.parse(JSON.stringify(base));
     resetUsages(base, ['jour']);
     expect(base).toEqual(copy);
+  });
+});
+
+describe('companionFromCreature (pré-remplissage bestiaire)', () => {
+  it('mappe nom / PV (current=max) / DEF / Init et construit l\'IRI', () => {
+    expect(companionFromCreature({ id: 12, name: 'Loup', hp: 18, def: 13, init: 12 })).toEqual({
+      name: 'Loup', ref: '/api/creatures/12', hp: { current: 18, max: 18 }, def: 13, init: 12,
+    });
+  });
+  it('valeurs par défaut si champs absents ; pas d\'IRI sans id', () => {
+    expect(companionFromCreature({})).toEqual({
+      name: '', ref: undefined, hp: { current: 0, max: 0 }, def: 0, init: 0,
+    });
   });
 });

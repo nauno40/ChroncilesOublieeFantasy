@@ -66,6 +66,8 @@ export interface PlayState {
     magicItems?: MagicItem[];              // objets à bonus mécaniques (équipés ⇒ dérivation)
     usages?: Usage[];                      // suivi des capacités à usage limité (aide de table)
     companions?: Companion[];              // roster de compagnons / invocations / montures
+    // Substitution de caractéristique par attaque (COF2 §7 #5). Absent ⇒ défauts FOR/AGI.
+    caracSubstitutions?: { contact?: CaracKey; distance?: CaracKey };
 }
 
 export interface Character {

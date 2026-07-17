@@ -466,6 +466,22 @@ export const computeLanguageSlots = (intMod: number): { slots: number; illiterat
   illiterate: intMod < 0,
 });
 
+// Compteur d'emplacements langues/talents (COF2 §Talent secondaire) : « Commun » est
+// gratuit (base 1) ; chaque langue supplémentaire et chaque talent secondaire consomme
+// un emplacement du budget partagé dérivé de l'INT. Indicatif — jamais bloquant.
+export const computeLanguageUsage = (
+  languages: string[] | undefined,
+  talents: string[] | undefined,
+  intMod: number,
+): { used: number; available: number; illiterate: boolean } => {
+  const { slots, illiterate } = computeLanguageSlots(intMod);
+  return {
+    used: Math.max(0, (languages?.length ?? 0) - 1) + (talents?.length ?? 0),
+    available: slots,
+    illiterate,
+  };
+};
+
 // Réduction de dommages (RD) : somme des bonus fixes target 'RD' des capacités
 // acquises (rang ≤ rang de la voie). Les RD conditionnels restent en prose (§5).
 export const computeDamageReduction = (

@@ -13,6 +13,7 @@ import { RoleplaySection } from '../components/character/RoleplaySection';
 import { LanguagesTalentsPanel } from '../components/character/LanguagesTalentsPanel';
 import { ProtectionSection } from '../components/character/ProtectionSection';
 import { WeaponsSection } from '../components/character/WeaponsSection';
+import { MagicItemsPanel } from '../components/character/MagicItemsPanel';
 import { InventorySection } from '../components/character/InventorySection';
 import { VoiesTree } from '../components/character/VoiesTree';
 import { HpByLevelEditor } from '../components/character/HpByLevelEditor';
@@ -34,7 +35,7 @@ export const CharacterSheet: React.FC = () => {
         character, setCharacter,
         loading, saving,
         stats, mods, finalStats, combatStats, evolutiveDie,
-        maxHp, mainFamily, damageReduction, luckPoints, manaPoints, recoveryDieString,
+        maxHp, mainFamily, damageReduction, luckPoints, manaPoints, recoveryDieString, itemBonuses,
         spentPoints, maxStartingPoints,
         selectedVoies, setSelectedVoies,
         selectedProfileType, setSelectedProfileType,
@@ -112,6 +113,8 @@ export const CharacterSheet: React.FC = () => {
                         luckMax={luckPoints}
                         manaMax={manaPoints}
                         recoveryDie={recoveryDieString}
+                        attackBonus={itemBonuses.attaque}
+                        dmBonus={itemBonuses.dm}
                     />
 
                     <HpByLevelEditor character={character} setCharacter={setCharacter} mainFamily={mainFamily} />
@@ -151,6 +154,7 @@ export const CharacterSheet: React.FC = () => {
 
                     {/* Weapons Section */}
                     <WeaponsSection character={character} setCharacter={setCharacter} allWeapons={allWeapons} />
+                    <MagicItemsPanel character={character} setCharacter={setCharacter} />
 
                     {/* Equipment Section */}
                     <InventorySection character={character} setCharacter={setCharacter} />

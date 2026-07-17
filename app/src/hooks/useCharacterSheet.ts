@@ -15,6 +15,7 @@ import {
   computeCombatStats,
   computeDamageReduction,
   computeLanguageSlots,
+  computeItemBonuses,
   resolveCapabilityEffect,
   capacityBudget,
   evolutiveDie,
@@ -446,11 +447,16 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
         });
     }, [isNew, maxHp, manaPoints, luckPoints]);
 
+    // Objets magiques équipés : bonus composés (ajoutés aux dérivés ; cofRules inchangé).
+    const itemBonuses = useMemo(() => computeItemBonuses(playState.magicItems), [playState.magicItems]);
+
     return {
         character, setCharacter,
         loading, saving,
-        caracs, stats: caracs, mods, finalStats, combatStats,
-        maxHp, mainFamily, damageReduction, languageSlots,
+        caracs, stats: caracs, mods, finalStats,
+        combatStats: { init: combatStats.init + itemBonuses.init, def: combatStats.def + itemBonuses.def },
+        maxHp: maxHp + itemBonuses.pv, mainFamily, damageReduction: damageReduction + itemBonuses.rd, languageSlots,
+        itemBonuses,
         recoveryDieString, evolutiveDie: evolutiveDie(character.level), luckPoints, manaPoints,
         spentPoints, maxStartingPoints,
         selectedVoies, setSelectedVoies,

@@ -41,7 +41,7 @@ export const CharacterSheet: React.FC = () => {
         character, setCharacter,
         loading, saving,
         stats, mods, finalStats, combatStats, evolutiveDie,
-        maxHp, mainFamily, damageReduction, luckPoints, manaPoints, recoveryDieString, recoveryInfo, bonuses,
+        maxHp, baseMaxHp, mainFamily, damageReduction, luckPoints, manaPoints, recoveryDieString, recoveryInfo, bonuses,
         spentPoints, maxStartingPoints,
         selectedVoies, setSelectedVoies,
         selectedProfileType, setSelectedProfileType,
@@ -166,7 +166,7 @@ export const CharacterSheet: React.FC = () => {
                     <CaracSubstitutionsPanel character={character} setCharacter={setCharacter} />
                     <ActiveStatesPanel character={character} setCharacter={setCharacter} />
                     <TransformationPanel character={character} setCharacter={setCharacter} />
-                    <RestPanel character={character} setCharacter={setCharacter} maxHp={maxHp} maxMana={manaPoints} recovery={recoveryInfo} />
+                    <RestPanel character={character} setCharacter={setCharacter} maxHp={baseMaxHp} maxMana={manaPoints} recovery={recoveryInfo} />
 
                     {/* Equipment Section */}
                     <InventorySection character={character} setCharacter={setCharacter} />

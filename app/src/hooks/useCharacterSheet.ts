@@ -470,6 +470,8 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
         caracs, stats: caracs, mods, finalStats,
         combatStats: activeForm ? { init: activeForm.init, def: activeForm.def } : { init: combatStats.init + bonuses.init, def: combatStats.def + bonuses.def },
         maxHp: activeForm ? activeForm.hp.max : maxHp + bonuses.pv, mainFamily, damageReduction: damageReduction + bonuses.rd, languageSlots,
+        // PV max propres au personnage (hors override de forme) — le repos restaure CE pool.
+        baseMaxHp: maxHp + bonuses.pv,
         bonuses,
         recoveryDieString, recoveryInfo, evolutiveDie: evolutiveDie(character.level), luckPoints, manaPoints,
         spentPoints, maxStartingPoints,

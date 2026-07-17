@@ -103,9 +103,9 @@ export const computeModifiers = (stats: Stats): Stats => ({
   VOL: calculateMod(stats.VOL),
 });
 
-// Base de PV par famille (COF2) : aventuriers/combattants/mages = 2, mystiques = 3.
+// Base de PV par famille (COF2) : aventuriers = 4, combattants = 5, mages = 3, mystiques = 4.
 export const FAMILY_BASE_HP: Record<string, number> = {
-  aventuriers: 2, combattants: 2, mages: 2, mystiques: 3,
+  aventuriers: 4, combattants: 5, mages: 3, mystiques: 4,
 };
 
 // PV max cumulés par niveau (COF2, Progression) : baseHp × (niveau + 1) + CON × niveau.

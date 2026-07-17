@@ -21,6 +21,7 @@ import {
   resolveCapabilityEffect,
   aggregateResolvedBonuses,
   computeDamageReduction,
+  FAMILY_BASE_HP,
 } from './cofRules';
 
 describe('calculateMod (COF2 : la valeur EST le modificateur)', () => {
@@ -138,6 +139,11 @@ describe('computeMaxHpByLevel (hybride)', () => {
     // base initial (niv.1) = 5 ; puis (5+2) + (5+2) + (3+2) = 24 ; total 5 + ... -> voir formule
     // PV = baseHpPerLevel[0] + Σ(baseHpPerLevel[L] + CON) = 5 + (5+2)+(5+2)+(3+2) = 5+7+7+5 = 24
     expect(computeMaxHpByLevel([5, 5, 3], 2)).toBe(24);
+  });
+  it('FAMILY_BASE_HP : une famille combattants (5) donne le même PV que la formule non-hybride', () => {
+    // barbare niv.2, CON +2 : override combattants sur les 2 niveaux == computeMaxHp(5,2,2)
+    const perLevel = [FAMILY_BASE_HP.combattants, FAMILY_BASE_HP.combattants];
+    expect(computeMaxHpByLevel(perLevel, 2)).toBe(computeMaxHp(5, 2, 2)); // 19
   });
 });
 

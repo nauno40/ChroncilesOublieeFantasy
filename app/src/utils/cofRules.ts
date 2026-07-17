@@ -1,4 +1,4 @@
-import type { CharacterVoieRef, VoieSource, MagicItem, ItemBonusTarget, Usage, UsagePeriod, Companion, CaracKey } from '../types/character';
+import type { CharacterVoieRef, VoieSource, MagicItem, ItemBonusTarget, Usage, UsagePeriod, Companion, CaracKey, ActiveState } from '../types/character';
 
 export type Stats = {
   FOR: number; AGI: number; CON: number; INT: number; PER: number; CHA: number; VOL: number;
@@ -518,6 +518,30 @@ export const computeItemBonuses = (
     if (it.equipped && it.target in acc) acc[it.target] += it.value || 0;
   });
   return acc;
+};
+
+// Somme les bonus des états ACTIFS par cible (piloté joueur, jamais persisté).
+export const computeActiveStateBonuses = (
+  states: ActiveState[] | undefined,
+): Record<ItemBonusTarget, number> => {
+  const acc: Record<ItemBonusTarget, number> = { def: 0, init: 0, pv: 0, rd: 0, attaque: 0, dm: 0 };
+  (states ?? []).forEach(s => { if (s.active && s.target in acc) acc[s.target] += s.value || 0; });
+  return acc;
+};
+
+// (Dés)active un état ; en activant un état d'un `group`, désactive les autres du même groupe.
+export const activateState = (
+  states: ActiveState[] | undefined,
+  idx: number,
+  active: boolean,
+): ActiveState[] => {
+  const list = states ?? [];
+  const grp = list[idx]?.group;
+  return list.map((s, i) => {
+    if (i === idx) return { ...s, active };
+    if (active && grp && s.group === grp) return { ...s, active: false }; // exclusion de groupe
+    return s;
+  });
 };
 
 // Remet `used` à 0 pour les usages dont la période figure dans `periods` (repos/reset).

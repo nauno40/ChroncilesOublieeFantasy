@@ -45,6 +45,14 @@ export interface Companion {
     notes?: string;
 }
 
+export interface ActiveState {
+    name: string;
+    group?: string;                        // groupe d'exclusion (une seule active par groupe)
+    active: boolean;
+    target: ItemBonusTarget;               // def | init | pv | rd | attaque | dm
+    value: number;
+}
+
 /** État de jeu mutable — seuls les `current`/choix du joueur y sont persistés. */
 export interface PlayState {
     hp: { current: number };
@@ -68,6 +76,7 @@ export interface PlayState {
     companions?: Companion[];              // roster de compagnons / invocations / montures
     // Substitution de caractéristique par attaque (COF2 §7 #5). Absent ⇒ défauts FOR/AGI.
     caracSubstitutions?: { contact?: CaracKey; distance?: CaracKey };
+    activeStates?: ActiveState[];          // buffs/postures activables (bonus quand actifs)
 }
 
 export interface Character {

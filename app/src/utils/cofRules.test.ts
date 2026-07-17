@@ -28,6 +28,8 @@ import {
   attackCarac,
   computeActiveStateBonuses,
   activateState,
+  formFromCreature,
+  activateForm,
 } from './cofRules';
 
 describe('calculateMod (COF2 : la valeur EST le modificateur)', () => {
@@ -563,5 +565,33 @@ describe('activateState (exclusion de groupe)', () => {
     const r = activateState(base, 2, true);
     expect(r[2].active).toBe(true);
     expect(r[1].active).toBe(true);   // groupe posture inchangé
+  });
+});
+
+describe('formFromCreature', () => {
+  it('mappe la créature en forme inactive (nom/PV/DEF/Init/IRI)', () => {
+    expect(formFromCreature({ id: 7, name: 'Ours', hp: 30, def: 14, init: 11 })).toEqual({
+      name: 'Ours', ref: '/api/creatures/7', hp: { current: 30, max: 30 }, def: 14, init: 11, active: false,
+    });
+  });
+});
+
+describe('activateForm (exclusivité globale)', () => {
+  const base = [
+    { name: 'Ours', hp: { current: 30, max: 30 }, def: 14, init: 11, active: false },
+    { name: 'Loup', hp: { current: 18, max: 18 }, def: 13, init: 12, active: true },
+  ];
+  it('activer une forme désactive toutes les autres', () => {
+    const r = activateForm(base, 0, true);
+    expect(r[0].active).toBe(true);
+    expect(r[1].active).toBe(false);
+  });
+  it('désactiver n\'affecte que la forme ciblée', () => {
+    const r = activateForm(base, 1, false);
+    expect(r[1].active).toBe(false);
+    expect(r[0].active).toBe(false);
+  });
+  it('liste absente ⇒ []', () => {
+    expect(activateForm(undefined, 0, true)).toEqual([]);
   });
 });

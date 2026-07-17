@@ -53,6 +53,15 @@ export interface ActiveState {
     value: number;
 }
 
+export interface Form {
+    name: string;
+    ref?: string;                          // IRI créature bestiaire (si issu du compendium)
+    hp: { current: number; max: number };
+    def: number;
+    init: number;
+    active: boolean;
+}
+
 /** État de jeu mutable — seuls les `current`/choix du joueur y sont persistés. */
 export interface PlayState {
     hp: { current: number };
@@ -77,6 +86,7 @@ export interface PlayState {
     // Substitution de caractéristique par attaque (COF2 §7 #5). Absent ⇒ défauts FOR/AGI.
     caracSubstitutions?: { contact?: CaracKey; distance?: CaracKey };
     activeStates?: ActiveState[];          // buffs/postures activables (bonus quand actifs)
+    forms?: Form[];                        // formes de transformation (une seule active)
 }
 
 export interface Character {

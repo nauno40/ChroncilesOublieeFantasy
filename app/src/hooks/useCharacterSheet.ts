@@ -6,7 +6,7 @@ import type { useCharacterData } from './useCharacterData';
 import { CAPABILITY_MODIFIERS } from '../data/capabilityModifiers';
 import {
   computeMaxHp,
-  computeMaxHpByLevel,
+  computeHybridMaxHp,
   computeRecoveryDie,
   computeLuckPoints,
   computeFinalStats,
@@ -21,7 +21,7 @@ import {
   MIN_STAT,
   MAX_STAT,
   STAT_SERIES,
-  FAMILY_BASE_HP,
+  PROFILE_FAMILIES,
   type CompendiumVoie,
 } from '../utils/cofRules';
 
@@ -163,25 +163,19 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
     }, [character.profile, profiles]);
     const profileName: string | undefined = selectedProfile?.name;
 
-    // PV max (dérivé) : (2 × base de famille) + CON, par niveau. Cas hybride (spec §5) :
-    // la base de PV peut varier par niveau selon la famille choisie (playState.hpFamilyByLevel).
+    // Famille du profil principal (COF2 : fixe, pilote PV niveau 1, DR, PC, défauts hybrides).
+    const mainFamily = PROFILE_FAMILIES[profileName ?? '']?.id;
+
+    // PV max (dérivé, COF2 chap. 9 — cas hybride géré par computeHybridMaxHp).
     const maxHp = useMemo(() => {
         const baseHp = (selectedProfile as any)?.stats?.hpPerLevel
             || (selectedProfile as any)?.hpPerLevel
             || (selectedProfile as any)?.class?.stats?.hpPerLevel;
         if (!baseHp) return playState.hp?.current || 0;
         const level = character.level || 1;
-        const familyByLevel = playState.hpFamilyByLevel;
-        if (familyByLevel && Object.keys(familyByLevel).length > 0) {
-            // Cas hybride : baseHp par niveau selon la famille choisie (défaut = profil).
-            const perLevel = Array.from({ length: Math.max(1, level) }, (_, i) => {
-                const fam = familyByLevel[String(i + 1)];
-                return fam ? (FAMILY_BASE_HP[fam] ?? baseHp) : baseHp;
-            });
-            return computeMaxHpByLevel(perLevel, mods.CON);
-        }
-        return computeMaxHp(baseHp, mods.CON, level);
-    }, [selectedProfile, mods.CON, character.level, playState.hp?.current, playState.hpFamilyByLevel]);
+        if (!mainFamily) return computeMaxHp(baseHp, mods.CON, level);
+        return computeHybridMaxHp(mainFamily, playState.hpByLevel, mods.CON, level);
+    }, [selectedProfile, mainFamily, mods.CON, character.level, playState.hp?.current, playState.hpByLevel]);
 
     // RD (dérivé) : somme des bonus fixes des capacités acquises (voir cofRules).
     const damageReduction = useMemo(
@@ -456,7 +450,7 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
         character, setCharacter,
         loading, saving,
         caracs, stats: caracs, mods, finalStats, combatStats,
-        maxHp, damageReduction, languageSlots,
+        maxHp, mainFamily, damageReduction, languageSlots,
         recoveryDieString, evolutiveDie: evolutiveDie(character.level), luckPoints, manaPoints,
         spentPoints, maxStartingPoints,
         selectedVoies, setSelectedVoies,

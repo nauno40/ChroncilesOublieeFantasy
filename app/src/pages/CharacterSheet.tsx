@@ -9,6 +9,7 @@ import { AttributesPanel } from '../components/character/AttributesPanel';
 import { MainStatsPanel } from '../components/character/MainStatsPanel';
 import { IdentityBlock } from '../components/character/IdentityBlock';
 import { RoleplaySection } from '../components/character/RoleplaySection';
+import { LanguagesTalentsPanel } from '../components/character/LanguagesTalentsPanel';
 import { ProtectionSection } from '../components/character/ProtectionSection';
 import { WeaponsSection } from '../components/character/WeaponsSection';
 import { InventorySection } from '../components/character/InventorySection';
@@ -135,6 +136,7 @@ export const CharacterSheet: React.FC = () => {
 
                     {/* Roleplay Section */}
                     <RoleplaySection character={character} setCharacter={setCharacter} />
+                    <LanguagesTalentsPanel character={character} setCharacter={setCharacter} intMod={mods.INT} />
 
 
                     {/* Protection Section */}

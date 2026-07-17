@@ -23,6 +23,17 @@ export const ProtectionSection: React.FC<Props> = ({ character, setCharacter, al
                     <input
                         type="number"
                         min="0"
+                        className="w-14 bg-transparent text-right text-sm font-mono font-bold text-yellow-500 outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none"
+                        value={character.playState?.money?.po ?? 0}
+                        onChange={e => {
+                            const val = Math.max(0, parseInt(e.target.value) || 0);
+                            setCharacter(prev => ({ ...prev, playState: { ...prev.playState!, money: { ...prev.playState!.money, po: val } } }));
+                        }}
+                    />
+                    <span className="text-[10px] font-bold text-yellow-500/60">po</span>
+                    <input
+                        type="number"
+                        min="0"
                         className="w-16 bg-transparent text-right text-sm font-mono font-bold text-yellow-500 outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none"
                         value={character.playState?.money?.pa ?? 0}
                         onChange={e => {
@@ -34,6 +45,17 @@ export const ProtectionSection: React.FC<Props> = ({ character, setCharacter, al
                         }}
                     />
                     <span className="text-[10px] font-bold text-yellow-500/60">pa</span>
+                    <input
+                        type="number"
+                        min="0"
+                        className="w-14 bg-transparent text-right text-sm font-mono font-bold text-yellow-500 outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none"
+                        value={character.playState?.money?.pc ?? 0}
+                        onChange={e => {
+                            const val = Math.max(0, parseInt(e.target.value) || 0);
+                            setCharacter(prev => ({ ...prev, playState: { ...prev.playState!, money: { ...prev.playState!.money, pc: val } } }));
+                        }}
+                    />
+                    <span className="text-[10px] font-bold text-yellow-500/60">pc</span>
                 </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

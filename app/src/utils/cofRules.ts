@@ -354,3 +354,8 @@ export const computeCombatStats = (args: {
 
   return { init, def };
 };
+
+// Valeur d'attaque COF2 : niveau (plafonné à 10) + caractéristique d'attaque
+// (FOR au contact, AGI à distance, VOL/carac de magie en magie).
+export const attackValue = (caracMod: number, level: number): number =>
+  Math.min(Math.max(0, level), 10) + caracMod;

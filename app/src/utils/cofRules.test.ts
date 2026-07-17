@@ -16,6 +16,7 @@ import {
   capacityCost,
   canAcquireRank,
   evolutiveDie,
+  attackValue,
 } from './cofRules';
 
 describe('calculateMod (COF2 : la valeur EST le modificateur)', () => {
@@ -317,5 +318,17 @@ describe('computeCombatStats', () => {
     });
     expect(r.init).toBe(12); // 10 + 2
     expect(r.def).toBe(15);  // 10 + 1 + 3 + 1
+  });
+});
+
+describe('attackValue (niveau plafonné à 10)', () => {
+  it('niveau + carac sous le plafond', () => {
+    expect(attackValue(3, 1)).toBe(4);   // Lhagva : niv.1 + FOR 3
+    expect(attackValue(-2, 1)).toBe(-1); // Ionas contact
+    expect(attackValue(2, 10)).toBe(12);
+  });
+  it('plafonne la part de niveau à 10', () => {
+    expect(attackValue(2, 12)).toBe(12); // min(12,10)=10 + 2
+    expect(attackValue(0, 20)).toBe(10);
   });
 });

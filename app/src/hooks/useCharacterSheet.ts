@@ -467,7 +467,6 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
         combatStats: activeForm ? { init: activeForm.init, def: activeForm.def } : { init: combatStats.init + bonuses.init, def: combatStats.def + bonuses.def },
         maxHp: activeForm ? activeForm.hp.max : maxHp + bonuses.pv, mainFamily, damageReduction: damageReduction + bonuses.rd, languageSlots,
         bonuses,
-        activeForm,
         recoveryDieString, evolutiveDie: evolutiveDie(character.level), luckPoints, manaPoints,
         spentPoints, maxStartingPoints,
         selectedVoies, setSelectedVoies,

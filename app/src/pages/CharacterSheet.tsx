@@ -17,6 +17,7 @@ import { MagicItemsPanel } from '../components/character/MagicItemsPanel';
 import { UsagesPanel } from '../components/character/UsagesPanel';
 import { CompanionsPanel } from '../components/character/CompanionsPanel';
 import { CaracSubstitutionsPanel } from '../components/character/CaracSubstitutionsPanel';
+import { ActiveStatesPanel } from '../components/character/ActiveStatesPanel';
 import { InventorySection } from '../components/character/InventorySection';
 import { VoiesTree } from '../components/character/VoiesTree';
 import { HpByLevelEditor } from '../components/character/HpByLevelEditor';
@@ -38,7 +39,7 @@ export const CharacterSheet: React.FC = () => {
         character, setCharacter,
         loading, saving,
         stats, mods, finalStats, combatStats, evolutiveDie,
-        maxHp, mainFamily, damageReduction, luckPoints, manaPoints, recoveryDieString, itemBonuses,
+        maxHp, mainFamily, damageReduction, luckPoints, manaPoints, recoveryDieString, bonuses,
         spentPoints, maxStartingPoints,
         selectedVoies, setSelectedVoies,
         selectedProfileType, setSelectedProfileType,
@@ -116,8 +117,8 @@ export const CharacterSheet: React.FC = () => {
                         luckMax={luckPoints}
                         manaMax={manaPoints}
                         recoveryDie={recoveryDieString}
-                        attackBonus={itemBonuses.attaque}
-                        dmBonus={itemBonuses.dm}
+                        attackBonus={bonuses.attaque}
+                        dmBonus={bonuses.dm}
                     />
 
                     <HpByLevelEditor character={character} setCharacter={setCharacter} mainFamily={mainFamily} />
@@ -161,6 +162,7 @@ export const CharacterSheet: React.FC = () => {
                     <UsagesPanel character={character} setCharacter={setCharacter} />
                     <CompanionsPanel character={character} setCharacter={setCharacter} />
                     <CaracSubstitutionsPanel character={character} setCharacter={setCharacter} />
+                    <ActiveStatesPanel character={character} setCharacter={setCharacter} />
 
                     {/* Equipment Section */}
                     <InventorySection character={character} setCharacter={setCharacter} />

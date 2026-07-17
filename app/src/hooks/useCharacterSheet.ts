@@ -16,6 +16,7 @@ import {
   computeDamageReduction,
   computeLanguageSlots,
   computeItemBonuses,
+  computeActiveStateBonuses,
   resolveCapabilityEffect,
   capacityBudget,
   evolutiveDie,
@@ -447,16 +448,22 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
         });
     }, [isNew, maxHp, manaPoints, luckPoints]);
 
-    // Objets magiques équipés : bonus composés (ajoutés aux dérivés ; cofRules inchangé).
-    const itemBonuses = useMemo(() => computeItemBonuses(playState.magicItems), [playState.magicItems]);
+    // Bonus composés (objets magiques équipés + états actifs) — ajoutés aux dérivés ; cofRules inchangé.
+    const gearBonuses = useMemo(() => computeItemBonuses(playState.magicItems), [playState.magicItems]);
+    const stateBonuses = useMemo(() => computeActiveStateBonuses(playState.activeStates), [playState.activeStates]);
+    const bonuses = {
+        def: gearBonuses.def + stateBonuses.def, init: gearBonuses.init + stateBonuses.init,
+        pv: gearBonuses.pv + stateBonuses.pv, rd: gearBonuses.rd + stateBonuses.rd,
+        attaque: gearBonuses.attaque + stateBonuses.attaque, dm: gearBonuses.dm + stateBonuses.dm,
+    };
 
     return {
         character, setCharacter,
         loading, saving,
         caracs, stats: caracs, mods, finalStats,
-        combatStats: { init: combatStats.init + itemBonuses.init, def: combatStats.def + itemBonuses.def },
-        maxHp: maxHp + itemBonuses.pv, mainFamily, damageReduction: damageReduction + itemBonuses.rd, languageSlots,
-        itemBonuses,
+        combatStats: { init: combatStats.init + bonuses.init, def: combatStats.def + bonuses.def },
+        maxHp: maxHp + bonuses.pv, mainFamily, damageReduction: damageReduction + bonuses.rd, languageSlots,
+        bonuses,
         recoveryDieString, evolutiveDie: evolutiveDie(character.level), luckPoints, manaPoints,
         spentPoints, maxStartingPoints,
         selectedVoies, setSelectedVoies,

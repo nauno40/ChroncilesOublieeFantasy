@@ -4,6 +4,7 @@ import {
   getMaxArmorDef,
   computeModifiers,
   computeMaxHp,
+  computeMaxHpByLevel,
   computeRecoveryDie,
   computeLuckPoints,
   computeFinalStats,
@@ -15,6 +16,12 @@ import {
   capacityCost,
   canAcquireRank,
   evolutiveDie,
+  attackValue,
+  computeLanguageSlots,
+  resolveCapabilityEffect,
+  aggregateResolvedBonuses,
+  computeDamageReduction,
+  FAMILY_BASE_HP,
 } from './cofRules';
 
 describe('calculateMod (COF2 : la valeur EST le modificateur)', () => {
@@ -86,7 +93,15 @@ describe('exemples du livre (fidélité COF2)', () => {
       races: [], profiles: [], perMod: mods.PER, agiMod: mods.AGI, capabilityModifiers: {},
     });
     expect(combat.init).toBe(11);                            // 10 + PER(1)
-    expect(1 + mods.FOR).toBe(4);                            // attaque contact = niveau + FOR
+    expect(attackValue(mods.FOR, 1)).toBe(4);                 // attaque contact = niveau + FOR
+    expect(attackValue(mods.AGI, 1)).toBe(2);                 // attaque distance = niveau + AGI
+  });
+
+  it('Lhagva niveau 3 : PV cumulés = computeMaxHp(5, CON, 3) = 26', () => {
+    const stats = { FOR: 3, AGI: 1, CON: 2, INT: 0, PER: 1, CHA: -1, VOL: 1 };
+    const mods = computeModifiers(stats);
+    // base combattants 5, CON +2 : 5×(3+1) + 2×3 = 26
+    expect(computeMaxHp(5, mods.CON, 3)).toBe(26);
   });
 
   it('Ionas (ensorceleur/mage) : PV 7, DR 3 d6, PC 6, attaque magique +3', () => {
@@ -95,15 +110,40 @@ describe('exemples du livre (fidélité COF2)', () => {
     expect(computeMaxHp(3, mods.CON)).toBe(7);               // mages base 3
     expect(computeRecoveryDie('Ensorceleur', mods.CON)).toBe('3 d6');
     expect(computeLuckPoints('Ensorceleur', mods.CHA)).toBe(6); // 2 + CHA(4)
-    expect(1 + mods.VOL).toBe(3);                            // attaque magique = niveau + VOL
-    expect(1 + mods.FOR).toBe(-1);                           // attaque contact = niveau + FOR
+    expect(attackValue(mods.VOL, 1)).toBe(3);                 // attaque magique = niveau + VOL
+    expect(attackValue(mods.FOR, 1)).toBe(-1);                // attaque contact = niveau + FOR
+    expect(attackValue(mods.AGI, 1)).toBe(2);                 // attaque distance = niveau + AGI
   });
 });
 
-describe('computeMaxHp', () => {
-  it('is baseHp*2 + conMod', () => {
+describe('computeMaxHp par niveau', () => {
+  it('niveau 1 = 2×base + CON (rétrocompat)', () => {
+    expect(computeMaxHp(5, 2)).toBe(12);      // Lhagva niv.1 : combattants base 5, CON +2
     expect(computeMaxHp(6, 2)).toBe(14);
     expect(computeMaxHp(3, -1)).toBe(5);
+  });
+  it('cumule par niveau : base×(niveau+1) + CON×niveau', () => {
+    expect(computeMaxHp(5, 2, 3)).toBe(5 * 4 + 2 * 3); // 26
+    expect(computeMaxHp(3, 1, 5)).toBe(3 * 6 + 1 * 5); // 23
+  });
+  it('CON négatif reste rétroactif sur tous les niveaux', () => {
+    expect(computeMaxHp(5, -1, 4)).toBe(5 * 5 - 1 * 4); // 21
+  });
+});
+
+describe('computeMaxHpByLevel (hybride)', () => {
+  it('somme les base par niveau + CON×niveau (famille uniforme = computeMaxHp)', () => {
+    expect(computeMaxHpByLevel([5, 5, 5], 2)).toBe(computeMaxHp(5, 2, 3)); // 26
+  });
+  it('mélange de familles : niveaux 1-2 combattant (5), niveau 3 mage (3)', () => {
+    // base initial (niv.1) = 5 ; puis (5+2) + (5+2) + (3+2) = 24 ; total 5 + ... -> voir formule
+    // PV = baseHpPerLevel[0] + Σ(baseHpPerLevel[L] + CON) = 5 + (5+2)+(5+2)+(3+2) = 5+7+7+5 = 24
+    expect(computeMaxHpByLevel([5, 5, 3], 2)).toBe(24);
+  });
+  it('FAMILY_BASE_HP : une famille combattants (5) donne le même PV que la formule non-hybride', () => {
+    // barbare niv.2, CON +2 : override combattants sur les 2 niveaux == computeMaxHp(5,2,2)
+    const perLevel = [FAMILY_BASE_HP.combattants, FAMILY_BASE_HP.combattants];
+    expect(computeMaxHpByLevel(perLevel, 2)).toBe(computeMaxHp(5, 2, 2)); // 19
   });
 });
 
@@ -297,5 +337,84 @@ describe('computeCombatStats', () => {
     });
     expect(r.init).toBe(12); // 10 + 2
     expect(r.def).toBe(15);  // 10 + 1 + 3 + 1
+  });
+});
+
+describe('attackValue (niveau plafonné à 10)', () => {
+  it('niveau + carac sous le plafond', () => {
+    expect(attackValue(3, 1)).toBe(4);   // Lhagva : niv.1 + FOR 3
+    expect(attackValue(-2, 1)).toBe(-1); // Ionas contact
+    expect(attackValue(2, 10)).toBe(12);
+  });
+  it('plafonne la part de niveau à 10', () => {
+    expect(attackValue(2, 12)).toBe(12); // min(12,10)=10 + 2
+    expect(attackValue(0, 20)).toBe(10);
+  });
+});
+
+describe('computeLanguageSlots', () => {
+  it('un emplacement de langue par point positif d\'INT', () => {
+    expect(computeLanguageSlots(0)).toEqual({ slots: 0, illiterate: false });
+    expect(computeLanguageSlots(2)).toEqual({ slots: 2, illiterate: false });
+  });
+  it('INT négatif : illettré, aucun emplacement', () => {
+    expect(computeLanguageSlots(-1)).toEqual({ slots: 0, illiterate: true });
+  });
+});
+
+describe('resolveCapabilityEffect', () => {
+  const caracs = { FOR: 3, AGI: 1, CON: 2, INT: 0, PER: 1, CHA: -1, VOL: 2 };
+
+  it('résout le dé évolutif au niveau courant', () => {
+    const r = resolveCapabilityEffect({ evolutiveDie: { count: 2 } }, { level: 9, rank: 1, caracs });
+    expect(r.dice).toBe('2d8'); // d8 à partir du niveau 9
+    expect(r.bonuses).toEqual({});
+  });
+  it('résout un bonus fixe, par rang et par caractéristique', () => {
+    const effect = { bonuses: [
+      { target: 'init' as const, scalesWith: 'fixed' as const, value: 3 },
+      { target: 'DM' as const, scalesWith: 'rank' as const, perRank: 1 },
+      { target: 'PVmax' as const, scalesWith: 'carac' as const, carac: 'FOR' as const },
+    ] };
+    const r = resolveCapabilityEffect(effect, { level: 1, rank: 3, caracs });
+    expect(r.bonuses).toEqual({ init: 3, DM: 3, PVmax: 3 }); // rank 3 → DM 3 ; FOR 3
+  });
+  it('effect vide → aucun dé, aucun bonus', () => {
+    expect(resolveCapabilityEffect(undefined, { level: 1, rank: 1, caracs })).toEqual({ bonuses: {} });
+  });
+});
+
+describe('aggregateResolvedBonuses (non-cumul)', () => {
+  it('somme les bonus fixes/rang de même cible', () => {
+    const agg = aggregateResolvedBonuses([{ bonuses: { def: 1 } }, { bonuses: { def: 2 } }]);
+    expect(agg.def).toBe(3);
+  });
+  it('ne compte pas deux fois la même caractéristique sur la même cible', () => {
+    // deux capacités ajoutent +FOR aux DM : une seule application (non-cumul §6.2)
+    const agg = aggregateResolvedBonuses([
+      { bonuses: { DM: 3 }, caracTargets: [{ target: 'DM', carac: 'FOR', value: 3 }] },
+      { bonuses: { DM: 3 }, caracTargets: [{ target: 'DM', carac: 'FOR', value: 3 }] },
+    ]);
+    expect(agg.DM).toBe(3);
+  });
+});
+
+describe('computeDamageReduction', () => {
+  const caracs = { FOR: 3, AGI: 1, CON: 2, INT: 0, PER: 1, CHA: -1, VOL: 2 };
+  it('somme les RD fixes des capacités acquises (rang atteint)', () => {
+    const profiles = [{ name: 'Barbare', voies: [{
+      '@id': '/api/voies/700', name: 'Voie de la Résistance',
+      capabilities: [{ rank: 3, name: 'Peau d\'acier', effect: { bonuses: [{ target: 'RD' as const, scalesWith: 'fixed' as const, value: 3 }] } }],
+    }] }];
+    const voies = [{ voie: '/api/voies/700', rank: 3, source: 'profil' as const }];
+    expect(computeDamageReduction(voies, [], profiles, [], caracs, 3)).toBe(3);
+  });
+  it('ignore les rangs non atteints', () => {
+    const profiles = [{ name: 'Barbare', voies: [{
+      '@id': '/api/voies/700', name: 'V',
+      capabilities: [{ rank: 3, effect: { bonuses: [{ target: 'RD' as const, scalesWith: 'fixed' as const, value: 3 }] } }],
+    }] }];
+    const voies = [{ voie: '/api/voies/700', rank: 2, source: 'profil' as const }];
+    expect(computeDamageReduction(voies, [], profiles, [], caracs, 3)).toBe(0);
   });
 });

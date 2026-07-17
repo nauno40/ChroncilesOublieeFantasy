@@ -8,7 +8,10 @@ export type Stats = {
 // Volontairement partielles : les données proviennent de l'API (typage souple) ; on ne
 // décrit ici que les champs réellement lus par les calculs de règles. Les voies du perso
 // sont désormais référencées par IRI (`CharacterVoieRef`) et résolues dans le compendium.
-export interface CompendiumCapability { name?: string; rank?: number; description?: string; isSpell?: boolean; }
+export interface CompendiumCapability {
+  name?: string; rank?: number; description?: string; isSpell?: boolean;
+  effect?: CapabilityEffect;
+}
 export interface CompendiumVoie { '@id'?: string; name?: string; capabilities?: CompendiumCapability[]; }
 export interface CompendiumProfile { name?: string; voies?: CompendiumVoie[]; }
 export interface CompendiumRace { availableVoies?: CompendiumVoie[]; }
@@ -100,7 +103,23 @@ export const computeModifiers = (stats: Stats): Stats => ({
   VOL: calculateMod(stats.VOL),
 });
 
-export const computeMaxHp = (baseHp: number, conMod: number): number => baseHp * 2 + conMod;
+// Base de PV par famille (COF2) : aventuriers = 4, combattants = 5, mages = 3, mystiques = 4.
+export const FAMILY_BASE_HP: Record<string, number> = {
+  aventuriers: 4, combattants: 5, mages: 3, mystiques: 4,
+};
+
+// PV max cumulés par niveau (COF2, Progression) : baseHp × (niveau + 1) + CON × niveau.
+// (Au niveau 1 : 2×baseHp + CON — la base est comptée une fois « en plus ».)
+export const computeMaxHp = (baseHp: number, conMod: number, level = 1): number =>
+  baseHp * (Math.max(1, level) + 1) + conMod * Math.max(1, level);
+
+// Cas hybride (spec §5) : baseHp financé par une famille différente par niveau.
+// PV = baseHpPerLevel[0] + Σ(baseHpPerLevel[L] + CON), L de 0 à niveau-1.
+export const computeMaxHpByLevel = (baseHpPerLevel: number[], conMod: number): number => {
+  if (baseHpPerLevel.length === 0) return 0;
+  const initial = baseHpPerLevel[0];
+  return baseHpPerLevel.reduce((sum, base) => sum + base + conMod, initial);
+};
 
 export const computeRecoveryDie = (profileName: string | undefined, conMod: number): string => {
   if (!profileName) return '—';
@@ -184,6 +203,83 @@ export const evolutiveDie = (level: number | undefined): string => {
   if (l >= 9) return 'd8';
   if (l >= 6) return 'd6';
   return 'd4';
+};
+
+// --- Interpréteur d'effets de capacité (spec §6.1/§6.2) ---
+// Structure `effect` taguée décrivant un dé évolutif et/ou des bonus à cible
+// (DM, init, def, PVmax, RD), chacun pouvant scaler à valeur fixe, par rang, ou
+// par caractéristique. `resolveCapabilityEffect` est une fonction pure qui
+// résout ces règles au niveau/rang courant du personnage.
+export type BonusTarget = 'DM' | 'init' | 'def' | 'PVmax' | 'RD';
+export interface CapabilityBonus {
+  target: BonusTarget;
+  scalesWith: 'fixed' | 'rank' | 'carac';
+  value?: number;        // scalesWith 'fixed'
+  perRank?: number;      // scalesWith 'rank'
+  carac?: keyof Stats;   // scalesWith 'carac'
+}
+export interface CapabilityEffect {
+  evolutiveDie?: { count: number };
+  bonuses?: CapabilityBonus[];
+}
+export interface ResolvedEffect {
+  dice?: string;
+  bonuses: Partial<Record<BonusTarget, number>>;
+  // Traçabilité des bonus liés à une carac, pour la déduplication non-cumul (§6.2).
+  caracTargets?: { target: BonusTarget; carac: keyof Stats; value: number }[];
+}
+
+// Résout un effet structuré au niveau/rang courant (spec §6.2). Fonction pure.
+export const resolveCapabilityEffect = (
+  effect: CapabilityEffect | undefined,
+  ctx: { level: number; rank: number; caracs: Stats },
+): ResolvedEffect => {
+  const out: ResolvedEffect = { bonuses: {} };
+  if (!effect) return out;
+
+  if (effect.evolutiveDie) {
+    out.dice = `${effect.evolutiveDie.count}${evolutiveDie(ctx.level)}`;
+  }
+  const caracTargets: NonNullable<ResolvedEffect['caracTargets']> = [];
+  (effect.bonuses ?? []).forEach((b) => {
+    let val = 0;
+    if (b.scalesWith === 'fixed') val = b.value ?? 0;
+    else if (b.scalesWith === 'rank') val = (b.perRank ?? 0) * ctx.rank;
+    else if (b.scalesWith === 'carac' && b.carac) {
+      val = ctx.caracs[b.carac];
+      caracTargets.push({ target: b.target, carac: b.carac, value: val });
+    }
+    out.bonuses[b.target] = (out.bonuses[b.target] ?? 0) + val;
+  });
+  if (caracTargets.length) out.caracTargets = caracTargets;
+  return out;
+};
+
+// Agrège plusieurs effets résolus en appliquant le non-cumul (§6.2) : un même
+// couple (cible, caractéristique) n'est compté qu'une fois (on garde la valeur).
+export const aggregateResolvedBonuses = (
+  resolved: ResolvedEffect[],
+): Partial<Record<BonusTarget, number>> => {
+  const seenCarac = new Set<string>();
+  const agg: Partial<Record<BonusTarget, number>> = {};
+
+  resolved.forEach((r) => {
+    const caracByTarget = new Map<BonusTarget, number>();
+    (r.caracTargets ?? []).forEach((ct) => {
+      const key = `${ct.target}:${ct.carac}`;
+      if (seenCarac.has(key)) {
+        // déjà appliqué par une autre capacité → retirer ce doublon du total de r
+        caracByTarget.set(ct.target, (caracByTarget.get(ct.target) ?? 0) + ct.value);
+      } else {
+        seenCarac.add(key);
+      }
+    });
+    (Object.keys(r.bonuses) as BonusTarget[]).forEach((t) => {
+      const dup = caracByTarget.get(t) ?? 0;
+      agg[t] = (agg[t] ?? 0) + (r.bonuses[t] ?? 0) - dup;
+    });
+  });
+  return agg;
 };
 
 export type VoieKind = 'racial' | 'profile' | 'prestige';
@@ -342,4 +438,43 @@ export const computeCombatStats = (args: {
   });
 
   return { init, def };
+};
+
+// Valeur d'attaque COF2 : niveau (plafonné à 10) + caractéristique d'attaque
+// (FOR au contact, AGI à distance, VOL/carac de magie en magie).
+export const attackValue = (caracMod: number, level: number): number =>
+  Math.min(Math.max(0, level), 10) + caracMod;
+
+// Langues (COF2, création) : +1 emplacement de langue par point positif d'INT ;
+// personnage illettré si INT < 0. Les langues elles-mêmes sont choisies (playState).
+export const computeLanguageSlots = (intMod: number): { slots: number; illiterate: boolean } => ({
+  slots: Math.max(0, intMod),
+  illiterate: intMod < 0,
+});
+
+// Réduction de dommages (RD) : somme des bonus fixes target 'RD' des capacités
+// acquises (rang ≤ rang de la voie). Les RD conditionnels restent en prose (§5).
+export const computeDamageReduction = (
+  voies: CharacterVoieRef[],
+  races: CompendiumRace[],
+  profiles: CompendiumProfile[],
+  allVoies: CompendiumVoie[],
+  caracs: Stats,
+  level: number,
+): number => {
+  const byIri = new Map<string, CompendiumVoie>();
+  for (const r of races) for (const v of r.availableVoies ?? []) if (v['@id']) byIri.set(v['@id'], v);
+  for (const p of profiles) for (const v of p.voies ?? []) if (v['@id']) byIri.set(v['@id'], v);
+  for (const v of allVoies) if (v['@id']) byIri.set(v['@id'], v);
+
+  const resolved: ResolvedEffect[] = [];
+  (voies ?? []).forEach((entry) => {
+    const v = byIri.get(entry.voie);
+    (v?.capabilities ?? []).forEach((c) => {
+      if ((c.rank ?? 0) >= 1 && (c.rank ?? 0) <= entry.rank && c.effect) {
+        resolved.push(resolveCapabilityEffect(c.effect, { level, rank: entry.rank, caracs }));
+      }
+    });
+  });
+  return aggregateResolvedBonuses(resolved).RD ?? 0;
 };

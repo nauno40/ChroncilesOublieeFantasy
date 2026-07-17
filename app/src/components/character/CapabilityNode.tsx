@@ -22,6 +22,8 @@ interface Props {
     locked?: boolean;
     /** Libellé du verrou (ex. « Niv. 5 »), affiché quand `locked` et inactif. */
     lockedLabel?: string;
+    /** Dé évolutif résolu (ex. « 2d8 »), affiché à côté du nom si la capacité en porte un. */
+    resolvedDice?: string;
 }
 
 const THEME = {
@@ -41,7 +43,7 @@ const THEME = {
     },
 };
 
-export const CapabilityNode: React.FC<Props> = ({ rank, isActive, nextActive, cap, onChange, theme, shape, badge, locked, lockedLabel }) => {
+export const CapabilityNode: React.FC<Props> = ({ rank, isActive, nextActive, cap, onChange, theme, shape, badge, locked, lockedLabel, resolvedDice }) => {
     const t = THEME[theme];
     const shapeClass = shape === 'round' ? 'rounded-full' : 'rounded rotate-45';
     const isLocked = !!locked && !isActive;
@@ -83,7 +85,14 @@ export const CapabilityNode: React.FC<Props> = ({ rank, isActive, nextActive, ca
                                 <span className="ml-2 text-stone-500 normal-case tracking-normal">🔒 {lockedLabel}</span>
                             )}
                         </span>
-                        {cap && <span className={`font-display text-sm transition-colors duration-300 ${isActive ? 'text-white text-shadow-md' : 'text-stone-400'}`}>{cap.name}</span>}
+                        {cap && (
+                            <span className={`font-display text-sm transition-colors duration-300 ${isActive ? 'text-white text-shadow-md' : 'text-stone-400'}`}>
+                                {cap.name}
+                                {resolvedDice && (
+                                    <span className={`ml-2 text-[10px] font-bold normal-case px-1.5 py-0.5 rounded ${t.rank} bg-black/30`}>{resolvedDice}</span>
+                                )}
+                            </span>
+                        )}
                     </div>
                 </label>
             </Tooltip>

@@ -6,6 +6,7 @@ import type { Character, CharacterVoieRef } from '../../types/character';
 import type {
     GetCapabilityName,
     GetVoieName,
+    GetResolvedDice,
     SelectedVoiesSetter,
     IsMageFamily,
     RacialVoieOptions,
@@ -25,6 +26,7 @@ interface Props {
     setSelectedVoies: SelectedVoiesSetter;
     getCapabilityName: GetCapabilityName;
     getVoieName: GetVoieName;
+    getResolvedDice: GetResolvedDice;
     prestigePaths: VoieList;
     /** Voies disponibles par profil (IRI + nom), pour les voies hybrides hors profil principal. */
     voieOptionsByProfile: { profile: string; voies: { iri: string; name: string }[] }[];
@@ -45,6 +47,7 @@ export const VoiesTree: React.FC<Props> = ({
     setSelectedVoies,
     getCapabilityName,
     getVoieName,
+    getResolvedDice,
     prestigePaths,
     voieOptionsByProfile,
 }) => {
@@ -218,6 +221,7 @@ export const VoiesTree: React.FC<Props> = ({
                                                 isActive={isActive}
                                                 nextActive={racialRank >= rank + 1}
                                                 cap={cap}
+                                                resolvedDice={getResolvedDice(racialIri, rank)}
                                                 theme="primary"
                                                 shape="round"
                                                 {...lockProps(rank, 'racial')}
@@ -301,6 +305,7 @@ export const VoiesTree: React.FC<Props> = ({
                                                         isActive={isActive}
                                                         nextActive={rank >= rk + 1}
                                                         cap={cap}
+                                                        resolvedDice={getResolvedDice(iri, rk)}
                                                         theme="primary"
                                                         shape="gem"
                                                         {...lockProps(rk, 'profile')}
@@ -380,6 +385,7 @@ export const VoiesTree: React.FC<Props> = ({
                                                             isActive={isActive}
                                                             nextActive={rank >= rk + 1}
                                                             cap={cap}
+                                                            resolvedDice={getResolvedDice(iri, rk)}
                                                             theme="amber"
                                                             shape="gem"
                                                             {...lockProps(rk, 'prestige')}

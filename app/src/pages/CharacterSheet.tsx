@@ -31,7 +31,7 @@ export const CharacterSheet: React.FC = () => {
         character, setCharacter,
         loading, saving,
         stats, mods, finalStats, combatStats, evolutiveDie,
-        maxHp, luckPoints, manaPoints, recoveryDieString,
+        maxHp, damageReduction, luckPoints, manaPoints, recoveryDieString,
         spentPoints, maxStartingPoints,
         selectedVoies, setSelectedVoies,
         selectedProfileType, setSelectedProfileType,
@@ -43,7 +43,7 @@ export const CharacterSheet: React.FC = () => {
         equipmentChoiceQueue, setEquipmentChoiceQueue,
         currentChoiceIndex, setCurrentChoiceIndex,
         profileValues,
-        handleSave, updateStat, getCapabilityName, getVoieName, addEquipmentItem,
+        handleSave, updateStat, getCapabilityName, getVoieName, getResolvedDice, addEquipmentItem,
     } = useCharacterSheet({ races, profiles, allVoies, id, isNew, navigate, campaignId });
 
     // Voies groupées par profil (IRI + nom), pour permettre le choix de voies hors profil
@@ -105,6 +105,7 @@ export const CharacterSheet: React.FC = () => {
                         mods={mods}
                         evolutiveDie={evolutiveDie}
                         maxHp={maxHp}
+                        damageReduction={damageReduction}
                         luckMax={luckPoints}
                         manaMax={manaPoints}
                         recoveryDie={recoveryDieString}
@@ -161,6 +162,7 @@ export const CharacterSheet: React.FC = () => {
                         setSelectedVoies={setSelectedVoies}
                         getCapabilityName={getCapabilityName}
                         getVoieName={getVoieName}
+                        getResolvedDice={getResolvedDice}
                         prestigePaths={prestigePaths}
                         voieOptionsByProfile={voieOptionsByProfile}
                     />

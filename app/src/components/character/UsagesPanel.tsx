@@ -62,7 +62,10 @@ export const UsagesPanel: React.FC<Props> = ({ character, setCharacter }) => {
                                 type="number"
                                 className="w-9 bg-stone-950/40 border border-stone-800 rounded px-1 py-0.5 text-center text-stone-300 outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none"
                                 value={u.max}
-                                onChange={e => update(idx, { max: Math.max(0, parseInt(e.target.value) || 0) })}
+                                onChange={e => {
+                                    const max = Math.max(0, parseInt(e.target.value) || 0);
+                                    update(idx, { max, used: Math.min(u.used, max) }); // re-borne `used` si le max baisse
+                                }}
                             />
                             <button onClick={() => setUsed(idx, u, 1)} className="text-stone-500 hover:text-red-400 w-5 text-center" title="+1 utilisé">+</button>
                         </div>

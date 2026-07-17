@@ -28,6 +28,14 @@ export interface MagicItem {
     equipped: boolean;
 }
 
+export type UsagePeriod = 'jour' | 'combat' | 'round' | 'autre';
+export interface Usage {
+    name: string;
+    max: number;
+    used: number;
+    per: UsagePeriod;
+}
+
 /** État de jeu mutable — seuls les `current`/choix du joueur y sont persistés. */
 export interface PlayState {
     hp: { current: number };
@@ -47,6 +55,7 @@ export interface PlayState {
     protection: { armor: { name: string; def: number }; shield: { name: string; def: number } };
     weapons: CharacterWeapon[];
     magicItems?: MagicItem[];              // objets à bonus mécaniques (équipés ⇒ dérivation)
+    usages?: Usage[];                      // suivi des capacités à usage limité (aide de table)
 }
 
 export interface Character {

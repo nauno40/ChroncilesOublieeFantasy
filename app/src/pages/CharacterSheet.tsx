@@ -15,6 +15,7 @@ import { ProtectionSection } from '../components/character/ProtectionSection';
 import { WeaponsSection } from '../components/character/WeaponsSection';
 import { MagicItemsPanel } from '../components/character/MagicItemsPanel';
 import { UsagesPanel } from '../components/character/UsagesPanel';
+import { CompanionsPanel } from '../components/character/CompanionsPanel';
 import { InventorySection } from '../components/character/InventorySection';
 import { VoiesTree } from '../components/character/VoiesTree';
 import { HpByLevelEditor } from '../components/character/HpByLevelEditor';
@@ -157,6 +158,7 @@ export const CharacterSheet: React.FC = () => {
                     <WeaponsSection character={character} setCharacter={setCharacter} allWeapons={allWeapons} />
                     <MagicItemsPanel character={character} setCharacter={setCharacter} />
                     <UsagesPanel character={character} setCharacter={setCharacter} />
+                    <CompanionsPanel character={character} setCharacter={setCharacter} />
 
                     {/* Equipment Section */}
                     <InventorySection character={character} setCharacter={setCharacter} />

@@ -20,6 +20,14 @@ export interface CharacterVoieRef {
 
 export interface CharacterWeapon { name: string; atkMod: number; dmg: string; special: string; }
 
+export type ItemBonusTarget = 'def' | 'init' | 'pv' | 'rd' | 'attaque' | 'dm';
+export interface MagicItem {
+    name: string;
+    target: ItemBonusTarget;
+    value: number;
+    equipped: boolean;
+}
+
 /** État de jeu mutable — seuls les `current`/choix du joueur y sont persistés. */
 export interface PlayState {
     hp: { current: number };
@@ -38,6 +46,7 @@ export interface PlayState {
     // Équipement de protection et armes — état de jeu (parité Phase 2).
     protection: { armor: { name: string; def: number }; shield: { name: string; def: number } };
     weapons: CharacterWeapon[];
+    magicItems?: MagicItem[];              // objets à bonus mécaniques (équipés ⇒ dérivation)
 }
 
 export interface Character {

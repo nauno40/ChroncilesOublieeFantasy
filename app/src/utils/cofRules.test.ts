@@ -22,6 +22,7 @@ import {
   resolveCapabilityEffect,
   aggregateResolvedBonuses,
   computeDamageReduction,
+  computeItemBonuses,
 } from './cofRules';
 
 describe('calculateMod (COF2 : la valeur EST le modificateur)', () => {
@@ -445,5 +446,27 @@ describe('computeDamageReduction', () => {
     }] }];
     const voies = [{ voie: '/api/voies/700', rank: 2, source: 'profil' as const }];
     expect(computeDamageReduction(voies, [], profiles, [], caracs, 3)).toBe(0);
+  });
+});
+
+describe('computeItemBonuses (objets magiques équipés)', () => {
+  const zero = { def: 0, init: 0, pv: 0, rd: 0, attaque: 0, dm: 0 };
+  it('liste absente ⇒ tout 0', () => {
+    expect(computeItemBonuses(undefined)).toEqual(zero);
+  });
+  it('somme les bonus des objets ÉQUIPÉS par cible', () => {
+    const items = [
+      { name: 'Cotte elfique', target: 'def' as const, value: 1, equipped: true },
+      { name: 'Épée +1', target: 'dm' as const, value: 1, equipped: true },
+      { name: 'Amulette', target: 'def' as const, value: 2, equipped: true },
+    ];
+    expect(computeItemBonuses(items)).toEqual({ ...zero, def: 3, dm: 1 });
+  });
+  it('ignore les objets non équipés', () => {
+    const items = [
+      { name: 'Anneau rangé', target: 'init' as const, value: 5, equipped: false },
+      { name: 'Bottes', target: 'init' as const, value: 1, equipped: true },
+    ];
+    expect(computeItemBonuses(items)).toEqual({ ...zero, init: 1 });
   });
 });

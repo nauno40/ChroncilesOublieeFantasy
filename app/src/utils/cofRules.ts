@@ -1,4 +1,4 @@
-import type { CharacterVoieRef, VoieSource } from '../types/character';
+import type { CharacterVoieRef, VoieSource, MagicItem, ItemBonusTarget } from '../types/character';
 
 export type Stats = {
   FOR: number; AGI: number; CON: number; INT: number; PER: number; CHA: number; VOL: number;
@@ -507,4 +507,15 @@ export const computeDamageReduction = (
     });
   });
   return aggregateResolvedBonuses(resolved).RD ?? 0;
+};
+
+// Somme les bonus des objets magiques ÉQUIPÉS par cible (piloté joueur, jamais persisté).
+export const computeItemBonuses = (
+  items: MagicItem[] | undefined,
+): Record<ItemBonusTarget, number> => {
+  const acc: Record<ItemBonusTarget, number> = { def: 0, init: 0, pv: 0, rd: 0, attaque: 0, dm: 0 };
+  (items ?? []).forEach(it => {
+    if (it.equipped && it.target in acc) acc[it.target] += it.value || 0;
+  });
+  return acc;
 };

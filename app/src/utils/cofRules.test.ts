@@ -20,6 +20,7 @@ import {
   computeLanguageSlots,
   resolveCapabilityEffect,
   aggregateResolvedBonuses,
+  computeDamageReduction,
 } from './cofRules';
 
 describe('calculateMod (COF2 : la valeur EST le modificateur)', () => {
@@ -380,5 +381,25 @@ describe('aggregateResolvedBonuses (non-cumul)', () => {
       { bonuses: { DM: 3 }, caracTargets: [{ target: 'DM', carac: 'FOR', value: 3 }] },
     ]);
     expect(agg.DM).toBe(3);
+  });
+});
+
+describe('computeDamageReduction', () => {
+  const caracs = { FOR: 3, AGI: 1, CON: 2, INT: 0, PER: 1, CHA: -1, VOL: 2 };
+  it('somme les RD fixes des capacités acquises (rang atteint)', () => {
+    const profiles = [{ name: 'Barbare', voies: [{
+      '@id': '/api/voies/700', name: 'Voie de la Résistance',
+      capabilities: [{ rank: 3, name: 'Peau d\'acier', effect: { bonuses: [{ target: 'RD' as const, scalesWith: 'fixed' as const, value: 3 }] } }],
+    }] }];
+    const voies = [{ voie: '/api/voies/700', rank: 3, source: 'profil' as const }];
+    expect(computeDamageReduction(voies, [], profiles, [], caracs, 3)).toBe(3);
+  });
+  it('ignore les rangs non atteints', () => {
+    const profiles = [{ name: 'Barbare', voies: [{
+      '@id': '/api/voies/700', name: 'V',
+      capabilities: [{ rank: 3, effect: { bonuses: [{ target: 'RD' as const, scalesWith: 'fixed' as const, value: 3 }] } }],
+    }] }];
+    const voies = [{ voie: '/api/voies/700', rank: 2, source: 'profil' as const }];
+    expect(computeDamageReduction(voies, [], profiles, [], caracs, 3)).toBe(0);
   });
 });

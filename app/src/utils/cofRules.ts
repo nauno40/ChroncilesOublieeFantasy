@@ -8,7 +8,10 @@ export type Stats = {
 // Volontairement partielles : les données proviennent de l'API (typage souple) ; on ne
 // décrit ici que les champs réellement lus par les calculs de règles. Les voies du perso
 // sont désormais référencées par IRI (`CharacterVoieRef`) et résolues dans le compendium.
-export interface CompendiumCapability { name?: string; rank?: number; description?: string; isSpell?: boolean; }
+export interface CompendiumCapability {
+  name?: string; rank?: number; description?: string; isSpell?: boolean;
+  effect?: CapabilityEffect;
+}
 export interface CompendiumVoie { '@id'?: string; name?: string; capabilities?: CompendiumCapability[]; }
 export interface CompendiumProfile { name?: string; voies?: CompendiumVoie[]; }
 export interface CompendiumRace { availableVoies?: CompendiumVoie[]; }
@@ -443,3 +446,30 @@ export const computeLanguageSlots = (intMod: number): { slots: number; illiterat
   slots: Math.max(0, intMod),
   illiterate: intMod < 0,
 });
+
+// Réduction de dommages (RD) : somme des bonus fixes target 'RD' des capacités
+// acquises (rang ≤ rang de la voie). Les RD conditionnels restent en prose (§5).
+export const computeDamageReduction = (
+  voies: CharacterVoieRef[],
+  races: CompendiumRace[],
+  profiles: CompendiumProfile[],
+  allVoies: CompendiumVoie[],
+  caracs: Stats,
+  level: number,
+): number => {
+  const byIri = new Map<string, CompendiumVoie>();
+  for (const r of races) for (const v of r.availableVoies ?? []) if (v['@id']) byIri.set(v['@id'], v);
+  for (const p of profiles) for (const v of p.voies ?? []) if (v['@id']) byIri.set(v['@id'], v);
+  for (const v of allVoies) if (v['@id']) byIri.set(v['@id'], v);
+
+  const resolved: ResolvedEffect[] = [];
+  (voies ?? []).forEach((entry) => {
+    const v = byIri.get(entry.voie);
+    (v?.capabilities ?? []).forEach((c) => {
+      if ((c.rank ?? 0) >= 1 && (c.rank ?? 0) <= entry.rank && c.effect) {
+        resolved.push(resolveCapabilityEffect(c.effect, { level, rank: entry.rank, caracs }));
+      }
+    });
+  });
+  return aggregateResolvedBonuses(resolved).RD ?? 0;
+};

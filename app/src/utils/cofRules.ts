@@ -1,4 +1,4 @@
-import type { CharacterVoieRef, VoieSource, MagicItem, ItemBonusTarget, Usage, UsagePeriod } from '../types/character';
+import type { CharacterVoieRef, VoieSource, MagicItem, ItemBonusTarget, Usage, UsagePeriod, Companion } from '../types/character';
 
 export type Stats = {
   FOR: number; AGI: number; CON: number; INT: number; PER: number; CHA: number; VOL: number;
@@ -526,3 +526,14 @@ export const resetUsages = (
   usages: Usage[] | undefined,
   periods: UsagePeriod[],
 ): Usage[] => (usages ?? []).map(u => (periods.includes(u.per) ? { ...u, used: 0 } : u));
+
+// Pré-remplit un compagnon depuis une créature du bestiaire (nom, PV, DEF, Init, IRI).
+export const companionFromCreature = (
+  c: { id?: number; name?: string; hp?: number; def?: number; init?: number },
+): Companion => ({
+  name: c.name ?? '',
+  ref: c.id != null ? `/api/creatures/${c.id}` : undefined,
+  hp: { current: c.hp ?? 0, max: c.hp ?? 0 },
+  def: c.def ?? 0,
+  init: c.init ?? 0,
+});

@@ -92,7 +92,15 @@ describe('exemples du livre (fidélité COF2)', () => {
       races: [], profiles: [], perMod: mods.PER, agiMod: mods.AGI, capabilityModifiers: {},
     });
     expect(combat.init).toBe(11);                            // 10 + PER(1)
-    expect(1 + mods.FOR).toBe(4);                            // attaque contact = niveau + FOR
+    expect(attackValue(mods.FOR, 1)).toBe(4);                 // attaque contact = niveau + FOR
+    expect(attackValue(mods.AGI, 1)).toBe(2);                 // attaque distance = niveau + AGI
+  });
+
+  it('Lhagva niveau 3 : PV cumulés = computeMaxHp(5, CON, 3) = 26', () => {
+    const stats = { FOR: 3, AGI: 1, CON: 2, INT: 0, PER: 1, CHA: -1, VOL: 1 };
+    const mods = computeModifiers(stats);
+    // base combattants 5, CON +2 : 5×(3+1) + 2×3 = 26
+    expect(computeMaxHp(5, mods.CON, 3)).toBe(26);
   });
 
   it('Ionas (ensorceleur/mage) : PV 7, DR 3 d6, PC 6, attaque magique +3', () => {
@@ -101,8 +109,9 @@ describe('exemples du livre (fidélité COF2)', () => {
     expect(computeMaxHp(3, mods.CON)).toBe(7);               // mages base 3
     expect(computeRecoveryDie('Ensorceleur', mods.CON)).toBe('3 d6');
     expect(computeLuckPoints('Ensorceleur', mods.CHA)).toBe(6); // 2 + CHA(4)
-    expect(1 + mods.VOL).toBe(3);                            // attaque magique = niveau + VOL
-    expect(1 + mods.FOR).toBe(-1);                           // attaque contact = niveau + FOR
+    expect(attackValue(mods.VOL, 1)).toBe(3);                 // attaque magique = niveau + VOL
+    expect(attackValue(mods.FOR, 1)).toBe(-1);                // attaque contact = niveau + FOR
+    expect(attackValue(mods.AGI, 1)).toBe(2);                 // attaque distance = niveau + AGI
   });
 });
 

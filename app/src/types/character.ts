@@ -30,7 +30,9 @@ export interface PlayState {
     equipment: string[];
     rp: { ideal: string; flaw: string; secret?: string; notes?: string };
     languages: string[];
-    hpFamilyByLevel?: Record<string, string>; // hybride (spec §5) — réservé Phase 3
+    // PV hybrides (COF2 chap. 9) : familles finançant chaque niveau 2..N (1 ou 2 par
+    // niveau ; voie de peuple ⇒ famille du profil principal). Absent/vide ⇒ profil principal.
+    hpByLevel?: Record<string, string[]>;
     // Équipement de protection et armes — état de jeu (parité Phase 2).
     protection: { armor: { name: string; def: number }; shield: { name: string; def: number } };
     weapons: CharacterWeapon[];

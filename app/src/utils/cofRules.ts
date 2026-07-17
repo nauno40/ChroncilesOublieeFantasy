@@ -113,12 +113,26 @@ export const FAMILY_BASE_HP: Record<string, number> = {
 export const computeMaxHp = (baseHp: number, conMod: number, level = 1): number =>
   baseHp * (Math.max(1, level) + 1) + conMod * Math.max(1, level);
 
-// Cas hybride (spec §5) : baseHp financé par une famille différente par niveau.
-// PV = baseHpPerLevel[0] + Σ(baseHpPerLevel[L] + CON), L de 0 à niveau-1.
-export const computeMaxHpByLevel = (baseHpPerLevel: number[], conMod: number): number => {
-  if (baseHpPerLevel.length === 0) return 0;
-  const initial = baseHpPerLevel[0];
-  return baseHpPerLevel.reduce((sum, base) => sum + base + conMod, initial);
+// PV max d'un personnage, hybride ou non (COF2 chap. 9). Le niveau 1 compte double et
+// suit toujours le profil principal. Chaque niveau ≥ 2 rapporte la MOYENNE des PV de base
+// des familles ayant financé ses capacités (annotation `hpByLevel` ; défaut = profil
+// principal ; une capacité de voie de peuple compte comme la famille du profil principal).
+// `Math.floor` reproduit l'arrondi alterné des demi-PV (deux demis consécutifs se soldent).
+export const computeHybridMaxHp = (
+  mainFamily: string,
+  hpByLevel: Record<string, string[]> | undefined,
+  conMod: number,
+  level: number,
+): number => {
+  const lvl = Math.max(1, level);
+  const basePV = (f: string): number => FAMILY_BASE_HP[f] ?? FAMILY_BASE_HP[mainFamily] ?? 0;
+  let pvBase = 2 * basePV(mainFamily); // niveau 1 compte double
+  for (let L = 2; L <= lvl; L++) {
+    const fams = hpByLevel?.[String(L)];
+    const list = fams && fams.length > 0 ? fams : [mainFamily];
+    pvBase += list.reduce((s, f) => s + basePV(f), 0) / list.length;
+  }
+  return Math.floor(pvBase) + conMod * lvl;
 };
 
 export const computeRecoveryDie = (profileName: string | undefined, conMod: number): string => {

@@ -4,7 +4,7 @@ import {
   getMaxArmorDef,
   computeModifiers,
   computeMaxHp,
-  computeMaxHpByLevel,
+  computeHybridMaxHp,
   computeRecoveryDie,
   computeLuckPoints,
   computeFinalStats,
@@ -21,7 +21,6 @@ import {
   resolveCapabilityEffect,
   aggregateResolvedBonuses,
   computeDamageReduction,
-  FAMILY_BASE_HP,
 } from './cofRules';
 
 describe('calculateMod (COF2 : la valeur EST le modificateur)', () => {
@@ -131,19 +130,30 @@ describe('computeMaxHp par niveau', () => {
   });
 });
 
-describe('computeMaxHpByLevel (hybride)', () => {
-  it('somme les base par niveau + CON×niveau (famille uniforme = computeMaxHp)', () => {
-    expect(computeMaxHpByLevel([5, 5, 5], 2)).toBe(computeMaxHp(5, 2, 3)); // 26
+describe('computeHybridMaxHp (PV hybrides fidèles, COF2 chap. 9)', () => {
+  it('mono-famille : identique à la formule non-hybride (parité)', () => {
+    // combattants base 5, CON +2, niveau 3
+    expect(computeHybridMaxHp('combattants', {}, 2, 3)).toBe(computeMaxHp(5, 2, 3)); // 26
+    expect(computeHybridMaxHp('mages', undefined, 0, 5)).toBe(computeMaxHp(3, 0, 5)); // 18
   });
-  it('mélange de familles : niveaux 1-2 combattant (5), niveau 3 mage (3)', () => {
-    // base initial (niv.1) = 5 ; puis (5+2) + (5+2) + (3+2) = 24 ; total 5 + ... -> voir formule
-    // PV = baseHpPerLevel[0] + Σ(baseHpPerLevel[L] + CON) = 5 + (5+2)+(5+2)+(3+2) = 5+7+7+5 = 24
-    expect(computeMaxHpByLevel([5, 5, 3], 2)).toBe(24);
+  it('deux familles au même niveau : moyenne (livre : combattant+mage = 4)', () => {
+    // niveau 2 financé par combattant (5) + mage (3) → moyenne 4 ; niveau 1 = 2×5
+    expect(computeHybridMaxHp('combattants', { '2': ['combattants', 'mages'] }, 0, 2)).toBe(14); // floor(10 + 4)
   });
-  it('FAMILY_BASE_HP : une famille combattants (5) donne le même PV que la formule non-hybride', () => {
-    // barbare niv.2, CON +2 : override combattants sur les 2 niveaux == computeMaxHp(5,2,2)
-    const perLevel = [FAMILY_BASE_HP.combattants, FAMILY_BASE_HP.combattants];
-    expect(computeMaxHpByLevel(perLevel, 2)).toBe(computeMaxHp(5, 2, 2)); // 19
+  it('arrondi alterné : 3,5 puis 3,5 → 3 puis 4', () => {
+    // profil principal mage (3) ; niveaux 2 et 3 = mage(3) + aventurier(4) → moyenne 3,5 chacun
+    const hp = (lvl: number, byLevel: Record<string, string[]>) => computeHybridMaxHp('mages', byLevel, 0, lvl);
+    // niveau 2 : floor(2×3 + 3,5) = floor(9,5) = 9  (gain niveau 2 = 3)
+    expect(hp(2, { '2': ['mages', 'aventuriers'] })).toBe(9);
+    // niveau 3 : floor(6 + 3,5 + 3,5) = floor(13) = 13  (gain niveau 3 = 4)
+    expect(hp(3, { '2': ['mages', 'aventuriers'], '3': ['mages', 'aventuriers'] })).toBe(13);
+  });
+  it('exception voie de peuple : la famille du profil principal dans la liste', () => {
+    // guerrier (combattants 5) : peuple (→ combattants) + mage (3) → moyenne 4
+    expect(computeHybridMaxHp('combattants', { '2': ['combattants', 'mages'] }, 0, 2)).toBe(14);
+  });
+  it('CON rétroactif sur tous les niveaux', () => {
+    expect(computeHybridMaxHp('combattants', {}, -1, 4)).toBe(computeMaxHp(5, -1, 4)); // floor(2×5+5+5+5) - 4 = 25-4=21
   });
 });
 

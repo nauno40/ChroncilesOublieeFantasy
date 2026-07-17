@@ -13,6 +13,7 @@ import { ProtectionSection } from '../components/character/ProtectionSection';
 import { WeaponsSection } from '../components/character/WeaponsSection';
 import { InventorySection } from '../components/character/InventorySection';
 import { VoiesTree } from '../components/character/VoiesTree';
+import { HpByLevelEditor } from '../components/character/HpByLevelEditor';
 
 export const CharacterSheet: React.FC = () => {
     const { id } = useParams<{ id: string }>();
@@ -31,7 +32,7 @@ export const CharacterSheet: React.FC = () => {
         character, setCharacter,
         loading, saving,
         stats, mods, finalStats, combatStats, evolutiveDie,
-        maxHp, damageReduction, luckPoints, manaPoints, recoveryDieString,
+        maxHp, mainFamily, damageReduction, luckPoints, manaPoints, recoveryDieString,
         spentPoints, maxStartingPoints,
         selectedVoies, setSelectedVoies,
         selectedProfileType, setSelectedProfileType,
@@ -110,6 +111,8 @@ export const CharacterSheet: React.FC = () => {
                         manaMax={manaPoints}
                         recoveryDie={recoveryDieString}
                     />
+
+                    <HpByLevelEditor character={character} setCharacter={setCharacter} mainFamily={mainFamily} />
                 </div>
 
 

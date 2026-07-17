@@ -4,6 +4,7 @@ import {
   getMaxArmorDef,
   computeModifiers,
   computeMaxHp,
+  computeMaxHpByLevel,
   computeRecoveryDie,
   computeLuckPoints,
   computeFinalStats,
@@ -100,10 +101,29 @@ describe('exemples du livre (fidélité COF2)', () => {
   });
 });
 
-describe('computeMaxHp', () => {
-  it('is baseHp*2 + conMod', () => {
+describe('computeMaxHp par niveau', () => {
+  it('niveau 1 = 2×base + CON (rétrocompat)', () => {
+    expect(computeMaxHp(5, 2)).toBe(12);      // Lhagva niv.1 : combattants base 5, CON +2
     expect(computeMaxHp(6, 2)).toBe(14);
     expect(computeMaxHp(3, -1)).toBe(5);
+  });
+  it('cumule par niveau : base×(niveau+1) + CON×niveau', () => {
+    expect(computeMaxHp(5, 2, 3)).toBe(5 * 4 + 2 * 3); // 26
+    expect(computeMaxHp(3, 1, 5)).toBe(3 * 6 + 1 * 5); // 23
+  });
+  it('CON négatif reste rétroactif sur tous les niveaux', () => {
+    expect(computeMaxHp(5, -1, 4)).toBe(5 * 5 - 1 * 4); // 21
+  });
+});
+
+describe('computeMaxHpByLevel (hybride)', () => {
+  it('somme les base par niveau + CON×niveau (famille uniforme = computeMaxHp)', () => {
+    expect(computeMaxHpByLevel([5, 5, 5], 2)).toBe(computeMaxHp(5, 2, 3)); // 26
+  });
+  it('mélange de familles : niveaux 1-2 combattant (5), niveau 3 mage (3)', () => {
+    // base initial (niv.1) = 5 ; puis (5+2) + (5+2) + (3+2) = 24 ; total 5 + ... -> voir formule
+    // PV = baseHpPerLevel[0] + Σ(baseHpPerLevel[L] + CON) = 5 + (5+2)+(5+2)+(3+2) = 5+7+7+5 = 24
+    expect(computeMaxHpByLevel([5, 5, 3], 2)).toBe(24);
   });
 });
 

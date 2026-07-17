@@ -100,7 +100,18 @@ export const computeModifiers = (stats: Stats): Stats => ({
   VOL: calculateMod(stats.VOL),
 });
 
-export const computeMaxHp = (baseHp: number, conMod: number): number => baseHp * 2 + conMod;
+// PV max cumulés par niveau (COF2, Progression) : baseHp × (niveau + 1) + CON × niveau.
+// (Au niveau 1 : 2×baseHp + CON — la base est comptée une fois « en plus ».)
+export const computeMaxHp = (baseHp: number, conMod: number, level = 1): number =>
+  baseHp * (Math.max(1, level) + 1) + conMod * Math.max(1, level);
+
+// Cas hybride (spec §5) : baseHp financé par une famille différente par niveau.
+// PV = baseHpPerLevel[0] + Σ(baseHpPerLevel[L] + CON), L de 0 à niveau-1.
+export const computeMaxHpByLevel = (baseHpPerLevel: number[], conMod: number): number => {
+  if (baseHpPerLevel.length === 0) return 0;
+  const initial = baseHpPerLevel[0];
+  return baseHpPerLevel.reduce((sum, base) => sum + base + conMod, initial);
+};
 
 export const computeRecoveryDie = (profileName: string | undefined, conMod: number): string => {
   if (!profileName) return '—';

@@ -208,6 +208,14 @@ export const capacityCost = (rank: number): number => (rank <= 2 ? 1 : 2);
 // gratuite des mages ne sont pas décomptées (cf. computeSpentPoints).
 export const capacityBudget = (level: number | undefined): number => 2 * Math.max(1, level || 0);
 
+// Plafond de voies (COF2 §Progression) : 6 voies maximum EN PLUS de la voie de peuple ; la
+// voie de prestige compte parmi les 6. On décompte donc toutes les voies non-peuple.
+export const MAX_VOIES = 6;
+export const countCappedVoies = (voies: CharacterVoieRef[] | undefined): number =>
+  (voies ?? []).filter(v => v.source !== 'peuple').length;
+export const canAddVoie = (voies: CharacterVoieRef[] | undefined): boolean =>
+  countCappedVoies(voies) < MAX_VOIES;
+
 // Dé évolutif « d4° » (COF2, Progression) : d4 aux niveaux 1-5, d6 à 6-8, d8 à 9-11,
 // d10 à 12-14, d12 à partir de 15. Beaucoup de capacités infligent des DM en d4°.
 export const evolutiveDie = (level: number | undefined): string => {

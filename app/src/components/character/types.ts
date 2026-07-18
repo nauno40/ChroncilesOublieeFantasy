@@ -15,6 +15,7 @@ export type ProfileList = RefData['profiles'];
 export type WeaponList = RefData['allWeapons'];
 export type ArmorList = RefData['allArmors'];
 export type VoieList = RefData['prestigePaths'];
+export type AllVoieList = RefData['allVoies'];
 
 export type AddEquipmentItem = SheetState['addEquipmentItem'];
 export type EquipmentChoiceQueueSetter = SheetState['setEquipmentChoiceQueue'];

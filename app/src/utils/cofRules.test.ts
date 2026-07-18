@@ -34,6 +34,8 @@ import {
   shortRestHeal,
   applyShortRest,
   applyLongRest,
+  capabilityChoiceKey,
+  capabilityChoiceHelp,
 } from './cofRules';
 
 describe('calculateMod (COF2 : la valeur EST le modificateur)', () => {
@@ -660,5 +662,29 @@ describe('applyLongRest', () => {
     expect(r.recovery.used).toBe(0);
     expect(r.usages![0].used).toBe(0);
     expect(r.luck.current).toBe(1);       // PC inchangés
+  });
+});
+
+describe('capabilityChoiceKey', () => {
+  it('détecte une clé options_*/choix_*', () => {
+    expect(capabilityChoiceKey({ options_tatouages: 'texte' })).toBe('options_tatouages');
+    expect(capabilityChoiceKey({ choix_dieu: '...' })).toBe('choix_dieu');
+  });
+  it('renvoie undefined sans clé de choix / details vide / null', () => {
+    expect(capabilityChoiceKey({ statistiques_dm: '2d6' })).toBeUndefined();
+    expect(capabilityChoiceKey({})).toBeUndefined();
+    expect(capabilityChoiceKey(undefined)).toBeUndefined();
+    expect(capabilityChoiceKey(null)).toBeUndefined();
+  });
+});
+
+describe('capabilityChoiceHelp', () => {
+  it('joint un tableau d\'options (forme réelle des données COF2)', () => {
+    expect(capabilityChoiceHelp(['Taureau (+3 FOR)', 'Ours (+3 CON)'])).toBe('Taureau (+3 FOR) · Ours (+3 CON)');
+  });
+  it('renvoie la chaîne telle quelle, undefined sinon', () => {
+    expect(capabilityChoiceHelp('texte libre')).toBe('texte libre');
+    expect(capabilityChoiceHelp(undefined)).toBeUndefined();
+    expect(capabilityChoiceHelp(42)).toBeUndefined();
   });
 });

@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Character } from '../../types/character';
-import { capabilityChoiceKey } from '../../utils/cofRules';
+import { capabilityChoiceKey, capabilityChoiceHelp } from '../../utils/cofRules';
 import type { RaceList, ProfileList, AllVoieList } from './types';
 
 interface CompendiumCap { rank?: number; name?: string; details?: Record<string, unknown> }
@@ -34,10 +34,9 @@ export const ChoicesPanel: React.FC<Props> = ({ character, setCharacter, races, 
             const cap = (v.capabilities || []).find(c => c.rank === rank);
             const key = cap ? capabilityChoiceKey(cap.details) : undefined;
             if (cap && key) {
-                const help = cap.details?.[key];
                 rows.push({
                     idx, rank, voieName: v.name || '', capName: cap.name || '',
-                    help: typeof help === 'string' ? help : undefined,
+                    help: capabilityChoiceHelp(cap.details?.[key]),
                     value: String(entry.choices?.[String(rank)] ?? ''),
                 });
             }

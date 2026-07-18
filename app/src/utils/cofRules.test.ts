@@ -35,6 +35,7 @@ import {
   applyShortRest,
   applyLongRest,
   capabilityChoiceKey,
+  capabilityChoiceHelp,
 } from './cofRules';
 
 describe('calculateMod (COF2 : la valeur EST le modificateur)', () => {
@@ -674,5 +675,16 @@ describe('capabilityChoiceKey', () => {
     expect(capabilityChoiceKey({})).toBeUndefined();
     expect(capabilityChoiceKey(undefined)).toBeUndefined();
     expect(capabilityChoiceKey(null)).toBeUndefined();
+  });
+});
+
+describe('capabilityChoiceHelp', () => {
+  it('joint un tableau d\'options (forme réelle des données COF2)', () => {
+    expect(capabilityChoiceHelp(['Taureau (+3 FOR)', 'Ours (+3 CON)'])).toBe('Taureau (+3 FOR) · Ours (+3 CON)');
+  });
+  it('renvoie la chaîne telle quelle, undefined sinon', () => {
+    expect(capabilityChoiceHelp('texte libre')).toBe('texte libre');
+    expect(capabilityChoiceHelp(undefined)).toBeUndefined();
+    expect(capabilityChoiceHelp(42)).toBeUndefined();
   });
 });

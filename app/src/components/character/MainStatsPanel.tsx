@@ -24,6 +24,12 @@ interface Props {
 
 export const MainStatsPanel: React.FC<Props> = ({ character, setCharacter, combatStats, mods, evolutiveDie, maxHp, luckMax, manaMax, recoveryDie, damageReduction, attackBonus, dmBonus }) => {
     const luckCurrent = character.playState?.luck?.current ?? 0;
+    const hpCurrent = character.playState?.hp?.current ?? 0;
+    const setHpCurrent = (val: number) =>
+        setCharacter(prev => ({
+            ...prev,
+            playState: { ...prev.playState!, hp: { ...prev.playState!.hp, current: Math.max(0, Math.min(maxHp, val)) } },
+        }));
     const subs = character.playState?.caracSubstitutions;
     const contactCarac = attackCarac('contact', subs, 'FOR');
     const distanceCarac = attackCarac('distance', subs, 'AGI');
@@ -47,15 +53,26 @@ export const MainStatsPanel: React.FC<Props> = ({ character, setCharacter, comba
             <div className="glass-panel p-3 rounded-xl text-center border-green-900/40 bg-green-950/5 relative overflow-hidden transition-all hover:bg-green-950/10 col-span-2">
                 <div className="absolute top-0 left-0 w-full h-1 bg-green-500/30" />
                 <label className="text-[9px] uppercase font-black text-green-600 tracking-[0.2em] block mb-1">Points de Vie</label>
-                <div className="flex items-center justify-center gap-2">
-                    <div className="text-2xl font-display font-bold text-green-400">{maxHp}</div>
+                <div className="flex items-center justify-center gap-1.5">
+                    <button onClick={() => setHpCurrent(hpCurrent - 1)} className="w-6 h-6 rounded bg-stone-800 hover:bg-red-900/50 text-red-400 border border-stone-700 text-xs flex items-center justify-center transition-all active:scale-95" title="−1 PV">−</button>
+                    <input
+                        type="number"
+                        className={`w-14 bg-transparent text-center text-2xl font-display font-bold outline-none ${hpCurrent <= 0 ? 'text-red-500' : 'text-green-400'}`}
+                        value={hpCurrent}
+                        onChange={e => setHpCurrent(parseInt(e.target.value) || 0)}
+                    />
+                    <span className="text-stone-700 font-black text-sm">/</span>
+                    <span className="text-lg font-display font-bold text-stone-500">{maxHp}</span>
+                    <button onClick={() => setHpCurrent(hpCurrent + 1)} className="w-6 h-6 rounded bg-stone-800 hover:bg-green-900/50 text-green-400 border border-stone-700 text-xs flex items-center justify-center transition-all active:scale-95" title="+1 PV">+</button>
                     {damageReduction > 0 && (
                         <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded-full bg-stone-800 border border-stone-600 text-stone-300">
                             RD {damageReduction}
                         </span>
                     )}
                 </div>
-                <div className="text-[8px] text-green-900/60 font-bold uppercase mt-1">PV MAX (calculé)</div>
+                {hpCurrent <= 0
+                    ? <div className="text-[8px] text-red-500 font-black uppercase mt-1 animate-pulse">À terre — inconscient</div>
+                    : <div className="text-[8px] text-green-900/60 font-bold uppercase mt-1">PV courants / max</div>}
             </div>
             {/* Row 3: Luck & Mana */}
             <div className="glass-panel p-3 rounded-xl border-white/5 bg-stone-900/20 text-center">

@@ -21,6 +21,7 @@ import { ActiveStatesPanel } from '../components/character/ActiveStatesPanel';
 import { TransformationPanel } from '../components/character/TransformationPanel';
 import { RestPanel } from '../components/character/RestPanel';
 import { ChoicesPanel } from '../components/character/ChoicesPanel';
+import { Section } from '../components/character/Section';
 import { InventorySection } from '../components/character/InventorySection';
 import { VoiesTree } from '../components/character/VoiesTree';
 import { HpByLevelEditor } from '../components/character/HpByLevelEditor';
@@ -128,70 +129,69 @@ export const CharacterSheet: React.FC = () => {
                 </div>
 
 
-                {/* Center/Right Column: Identity & Combat (75%) */}
-                <div className="lg:col-span-9 space-y-6">
+                {/* Center/Right Column: Identity & Combat (75%) — regroupée en sections repliables */}
+                <div className="lg:col-span-9 space-y-8">
 
-                    {/* Identity Block */}
-                    <IdentityBlock
-                        character={character}
-                        setCharacter={setCharacter}
-                        races={races}
-                        profiles={profiles}
-                        addEquipmentItem={addEquipmentItem}
-                        setEquipmentChoiceQueue={setEquipmentChoiceQueue}
-                        setCurrentChoiceIndex={setCurrentChoiceIndex}
-                        setShowEquipmentModal={setShowEquipmentModal}
-                    />
-                    <PhysicalBlock character={character} setCharacter={setCharacter} />
+                    <Section title="Identité">
+                        <IdentityBlock
+                            character={character}
+                            setCharacter={setCharacter}
+                            races={races}
+                            profiles={profiles}
+                            addEquipmentItem={addEquipmentItem}
+                            setEquipmentChoiceQueue={setEquipmentChoiceQueue}
+                            setCurrentChoiceIndex={setCurrentChoiceIndex}
+                            setShowEquipmentModal={setShowEquipmentModal}
+                        />
+                        <PhysicalBlock character={character} setCharacter={setCharacter} />
+                    </Section>
 
+                    <Section title="Rôleplay & langues">
+                        <RoleplaySection character={character} setCharacter={setCharacter} />
+                        <LanguagesTalentsPanel character={character} setCharacter={setCharacter} intMod={mods.INT} />
+                    </Section>
 
+                    <Section title="Équipement">
+                        <ProtectionSection
+                            character={character}
+                            setCharacter={setCharacter}
+                            allArmors={allArmors}
+                            profiles={profiles}
+                        />
+                        <WeaponsSection character={character} setCharacter={setCharacter} allWeapons={allWeapons} />
+                        <InventorySection character={character} setCharacter={setCharacter} />
+                        <MagicItemsPanel character={character} setCharacter={setCharacter} />
+                    </Section>
 
-                    {/* Roleplay Section */}
-                    <RoleplaySection character={character} setCharacter={setCharacter} />
-                    <LanguagesTalentsPanel character={character} setCharacter={setCharacter} intMod={mods.INT} />
+                    <Section title="Voies & Progression">
+                        <VoiesTree
+                            character={character}
+                            setCharacter={setCharacter}
+                            spentPoints={spentPoints}
+                            maxStartingPoints={maxStartingPoints}
+                            isMageFamily={isMageFamily}
+                            mageReplacedRaceVoie={mageReplacedRaceVoie}
+                            setMageReplacedRaceVoie={setMageReplacedRaceVoie}
+                            racialVoieOptions={racialVoieOptions}
+                            selectedVoies={selectedVoies}
+                            setSelectedVoies={setSelectedVoies}
+                            getCapabilityName={getCapabilityName}
+                            getVoieName={getVoieName}
+                            getResolvedDice={getResolvedDice}
+                            prestigePaths={prestigePaths}
+                            voieOptionsByProfile={voieOptionsByProfile}
+                        />
+                        <ChoicesPanel character={character} setCharacter={setCharacter} races={races} profiles={profiles} allVoies={allVoies} />
+                    </Section>
 
-
-                    {/* Protection Section */}
-                    <ProtectionSection
-                        character={character}
-                        setCharacter={setCharacter}
-                        allArmors={allArmors}
-                        profiles={profiles}
-                    />
-
-                    {/* Weapons Section */}
-                    <WeaponsSection character={character} setCharacter={setCharacter} allWeapons={allWeapons} />
-                    <MagicItemsPanel character={character} setCharacter={setCharacter} />
-                    <UsagesPanel character={character} setCharacter={setCharacter} />
-                    <CompanionsPanel character={character} setCharacter={setCharacter} />
-                    <CaracSubstitutionsPanel character={character} setCharacter={setCharacter} />
-                    <ActiveStatesPanel character={character} setCharacter={setCharacter} />
-                    <TransformationPanel character={character} setCharacter={setCharacter} />
-                    <RestPanel character={character} setCharacter={setCharacter} maxHp={baseMaxHp} maxMana={manaPoints} recovery={recoveryInfo} />
-
-                    <ChoicesPanel character={character} setCharacter={setCharacter} races={races} profiles={profiles} allVoies={allVoies} />
-
-                    {/* Equipment Section */}
-                    <InventorySection character={character} setCharacter={setCharacter} />
-
-                    {/* Voies Section (Page 2 style) */}
-                    <VoiesTree
-                        character={character}
-                        setCharacter={setCharacter}
-                        spentPoints={spentPoints}
-                        maxStartingPoints={maxStartingPoints}
-                        isMageFamily={isMageFamily}
-                        mageReplacedRaceVoie={mageReplacedRaceVoie}
-                        setMageReplacedRaceVoie={setMageReplacedRaceVoie}
-                        racialVoieOptions={racialVoieOptions}
-                        selectedVoies={selectedVoies}
-                        setSelectedVoies={setSelectedVoies}
-                        getCapabilityName={getCapabilityName}
-                        getVoieName={getVoieName}
-                        getResolvedDice={getResolvedDice}
-                        prestigePaths={prestigePaths}
-                        voieOptionsByProfile={voieOptionsByProfile}
-                    />
+                    <Section title="En jeu (aide de table)">
+                        <RestPanel character={character} setCharacter={setCharacter} maxHp={baseMaxHp} maxMana={manaPoints} recovery={recoveryInfo} />
+                        <UsagesPanel character={character} setCharacter={setCharacter} />
+                        <ActiveStatesPanel character={character} setCharacter={setCharacter} />
+                        <CompanionsPanel character={character} setCharacter={setCharacter} />
+                        <TransformationPanel character={character} setCharacter={setCharacter} />
+                        <CaracSubstitutionsPanel character={character} setCharacter={setCharacter} />
+                    </Section>
                 </div>
                 {/* Equipment Choice Modal */}
                 <EquipmentChoiceModal

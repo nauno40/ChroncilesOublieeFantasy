@@ -192,13 +192,15 @@ const ClassDetail: React.FC = () => {
                                                 <span className="font-display text-xl text-primary-200">{family.luckPoints}</span>
                                             </div>
                                         )}
-                                        {family.manaStat && (
+                                        {(profile.magicStat || family.manaStat) && (
                                             <div className="flex justify-between items-center border-b border-white/5 pb-2">
                                                 <div className="flex items-center gap-2 text-stone-400">
                                                     <Activity size={16} className="text-purple-500" />
                                                     <span>Carac. Magique</span>
                                                 </div>
-                                                <span className="font-display text-xl text-primary-200">{family.manaStat}</span>
+                                                {/* Carac de magie du PROFIL (précise : INT/CHA/PER selon le profil),
+                                                    Family.manaStat n'est qu'un repli imprécis (déprécié, cf. design §8). */}
+                                                <span className="font-display text-xl text-primary-200">{profile.magicStat || family.manaStat}</span>
                                             </div>
                                         )}
                                         {family.specials && (

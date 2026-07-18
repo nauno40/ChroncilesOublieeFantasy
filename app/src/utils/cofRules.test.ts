@@ -13,6 +13,8 @@ import {
   computeCombatStats,
   migrateLegacyStats,
   capacityBudget,
+  canAddVoie,
+  countCappedVoies,
   capacityCost,
   canAcquireRank,
   evolutiveDie,
@@ -686,5 +688,18 @@ describe('capabilityChoiceHelp', () => {
     expect(capabilityChoiceHelp('texte libre')).toBe('texte libre');
     expect(capabilityChoiceHelp(undefined)).toBeUndefined();
     expect(capabilityChoiceHelp(42)).toBeUndefined();
+  });
+});
+
+describe('plafond de voies (6 + peuple)', () => {
+  const mk = (source: 'profil' | 'peuple' | 'prestige' | 'hybride') => ({ voie: '/x', rank: 1, source });
+  it('countCappedVoies ignore la voie de peuple', () => {
+    expect(countCappedVoies([mk('peuple'), mk('profil'), mk('prestige')])).toBe(2);
+    expect(countCappedVoies(undefined)).toBe(0);
+  });
+  it('canAddVoie : vrai sous 6 voies non-peuple, faux à 6', () => {
+    const five = [mk('profil'), mk('profil'), mk('profil'), mk('profil'), mk('profil')];
+    expect(canAddVoie([...five, mk('peuple')])).toBe(true);         // 5 non-peuple → ok
+    expect(canAddVoie([...five, mk('prestige'), mk('peuple')])).toBe(false); // 6 non-peuple → plafond
   });
 });

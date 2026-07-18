@@ -1,7 +1,7 @@
 import React from 'react';
 import { RefreshCw, Trash2 } from 'lucide-react';
 import { CapabilityNode } from './CapabilityNode';
-import { canAcquireRank, rankUnlockLevel, type VoieKind } from '../../utils/cofRules';
+import { canAcquireRank, rankUnlockLevel, canAddVoie, MAX_VOIES, type VoieKind } from '../../utils/cofRules';
 import type { Character, CharacterVoieRef } from '../../types/character';
 import type {
     GetCapabilityName,
@@ -122,11 +122,15 @@ export const VoiesTree: React.FC<Props> = ({
         });
     };
 
-    const addPrestige = () =>
+    // Plafond COF2 : 6 voies max (hors peuple ; la prestige compte parmi les 6).
+    const atVoieCap = !canAddVoie(voies);
+    const addPrestige = () => {
+        if (atVoieCap) return;
         setCharacter(prev => ({
             ...prev,
             characterVoies: [...(prev.characterVoies || []), { voie: '', rank: 0, source: 'prestige' as const }],
         }));
+    };
 
     const removePrestige = (nth: number) =>
         setCharacter(prev => {
@@ -409,14 +413,19 @@ export const VoiesTree: React.FC<Props> = ({
                         )}
 
                         {/* Add Prestige Voie Button */}
-                        <div className="flex justify-center pt-4">
+                        <div className="flex flex-col items-center gap-1 pt-4">
                             <button
                                 onClick={addPrestige}
-                                className="flex items-center gap-2 px-6 py-3 rounded-full bg-stone-900/50 border border-amber-500/30 text-amber-500/70 hover:text-amber-400 hover:border-amber-500/50 hover:bg-stone-900 transition-all group font-display font-bold uppercase text-[10px] tracking-[0.2em]"
+                                disabled={atVoieCap}
+                                title={atVoieCap ? `Maximum ${MAX_VOIES} voies (hors voie de peuple)` : undefined}
+                                className="flex items-center gap-2 px-6 py-3 rounded-full bg-stone-900/50 border border-amber-500/30 text-amber-500/70 hover:text-amber-400 hover:border-amber-500/50 hover:bg-stone-900 transition-all group font-display font-bold uppercase text-[10px] tracking-[0.2em] disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:text-amber-500/70 disabled:hover:border-amber-500/30 disabled:hover:bg-stone-900/50"
                             >
                                 <RefreshCw size={14} className="group-hover:rotate-180 transition-transform duration-500" />
                                 Ajouter une Voie de Prestige
                             </button>
+                            {atVoieCap && (
+                                <span className="text-[9px] uppercase tracking-wider text-stone-600">Maximum {MAX_VOIES} voies (hors peuple)</span>
+                            )}
                         </div>
                     </div>
     );

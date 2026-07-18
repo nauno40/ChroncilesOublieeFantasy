@@ -84,6 +84,7 @@ export interface Profile {
 
     imageUrl?: string;
     magicModifier?: string | null;
+    magicStat?: string | null; // carac de magie du profil (INT/CHA/PER) — source précise, cf. design §8
 
     // Relationships
     voies: string[] | Voie[]; // Array of IRIs or Objects

@@ -1,7 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import {
   calculateMod,
-  getMaxArmorDef,
   computeModifiers,
   computeMaxHp,
   computeHybridMaxHp,
@@ -24,6 +23,7 @@ import {
   resolveCapabilityEffect,
   aggregateResolvedBonuses,
   computeDamageReduction,
+  resolveArmorCap,
   computeItemBonuses,
   resetUsages,
   companionFromCreature,
@@ -46,31 +46,6 @@ describe('calculateMod (COF2 : la valeur EST le modificateur)', () => {
     expect(calculateMod(2)).toBe(2);
     expect(calculateMod(-1)).toBe(-1);
     expect(calculateMod(5)).toBe(5);
-  });
-});
-
-describe('getMaxArmorDef', () => {
-  it('returns the COF2 armor caps by profile (DEF max of heaviest allowed armor)', () => {
-    // Aucune armure -> 0
-    expect(getMaxArmorDef('Magicien')).toBe(0);
-    expect(getMaxArmorDef('Ensorceleur')).toBe(0);
-    expect(getMaxArmorDef('Sorcier')).toBe(0);
-    expect(getMaxArmorDef('Moine')).toBe(0);
-    // Cuir simple -> 2
-    expect(getMaxArmorDef('Forgesort')).toBe(2);
-    expect(getMaxArmorDef('Voleur')).toBe(2);
-    expect(getMaxArmorDef('Druide')).toBe(2);
-    // Cuir renforcé -> 3
-    expect(getMaxArmorDef('Barde')).toBe(3);
-    expect(getMaxArmorDef('Rôdeur')).toBe(3);
-    expect(getMaxArmorDef('Barbare')).toBe(3);
-    // Chemise de mailles -> 4
-    expect(getMaxArmorDef('Arquebusier')).toBe(4);
-    expect(getMaxArmorDef('Prêtre')).toBe(4);
-    // Cotte de mailles -> 5
-    expect(getMaxArmorDef('Guerrier')).toBe(5);
-    // Plaque (+6) ; plaque complète (+7) via capacité rang 3
-    expect(getMaxArmorDef('Chevalier')).toBe(6);
   });
 });
 
@@ -511,6 +486,27 @@ describe('computeDamageReduction', () => {
     }] }];
     const voies = [{ voie: '/api/voies/700', rank: 2, source: 'profil' as const }];
     expect(computeDamageReduction(voies, [], profiles, [], caracs, 3)).toBe(0);
+  });
+});
+
+describe('resolveArmorCap', () => {
+  const voie = {
+    '@id': '/api/voies/chv', name: 'Voie du chevalier',
+    capabilities: [{ rank: 3, name: 'Autorité naturelle', effect: { armorCap: 7 } }],
+  };
+  const profiles = [{ voies: [voie] }] as unknown as Parameters<typeof resolveArmorCap>[2];
+
+  it('renvoie la base sans capacité de relèvement', () => {
+    expect(resolveArmorCap([], [], [], [], 5)).toBe(5);
+  });
+  it('relève le plafond quand la capacité est acquise (rang de voie ≥ rang capacité)', () => {
+    expect(resolveArmorCap([{ voie: '/api/voies/chv', rank: 3, source: 'profil' }], [], profiles, [], 6)).toBe(7);
+  });
+  it('ne relève pas si le rang de voie est insuffisant', () => {
+    expect(resolveArmorCap([{ voie: '/api/voies/chv', rank: 2, source: 'profil' }], [], profiles, [], 6)).toBe(6);
+  });
+  it('préserve -1 (aucune armure)', () => {
+    expect(resolveArmorCap([], [], [], [], -1)).toBe(-1);
   });
 });
 

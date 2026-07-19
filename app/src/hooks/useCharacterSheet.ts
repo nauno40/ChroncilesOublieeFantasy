@@ -18,6 +18,7 @@ import {
   computeItemBonuses,
   computeActiveStateBonuses,
   resolveCapabilityEffect,
+  resolveArmorCap,
   capacityBudget,
   evolutiveDie,
   MIN_STAT,
@@ -164,6 +165,12 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
         return profileId ? profiles.find(p => p['@id'] === profileId) : undefined;
     }, [character.profile, profiles]);
     const profileName: string | undefined = selectedProfile?.name;
+
+    // Plafond de DEF d'armure (base profil relevée par capacités) — pour le filtre d'équipement.
+    const armorCap = useMemo(
+        () => resolveArmorCap(characterVoies, races, profiles, allVoies, selectedProfile?.armorMaxDef ?? 3),
+        [characterVoies, races, profiles, allVoies, selectedProfile],
+    );
 
     // Famille du profil principal (COF2 : fixe, pilote PV niveau 1, DR, PC, défauts hybrides).
     const mainFamily = PROFILE_FAMILIES[profileName ?? '']?.id;
@@ -471,6 +478,7 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
         caracs, stats: caracs, mods, finalStats,
         combatStats: activeForm ? { init: activeForm.init, def: activeForm.def } : { init: combatStats.init + bonuses.init, def: combatStats.def + bonuses.def },
         maxHp: activeForm ? activeForm.hp.max : maxHp + bonuses.pv, mainFamily, damageReduction: damageReduction + bonuses.rd, languageSlots,
+        armorCap,
         // PV max propres au personnage (hors override de forme) — le repos restaure CE pool.
         baseMaxHp: maxHp + bonuses.pv,
         bonuses,

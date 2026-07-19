@@ -574,6 +574,11 @@ class AppFixtures extends Fixture
         ],
     ];
 
+    /** DEF max d'armure ouverte par une capacité (spec : plafond relevé). */
+    private const ARMOR_CAP_BY_CAPABILITY = [
+        'Autorité naturelle' => 7, // Chevalier rang 3 : formation à la plaque complète
+    ];
+
     /**
      * Construit effect : dé évolutif « Nd4° » détecté dans la description (spec §6.4)
      * + bonus de combat structurés (COMBAT_BONUSES). Ne pose effect que s'il est non vide.
@@ -586,6 +591,9 @@ class AppFixtures extends Fixture
         }
         if (isset(self::COMBAT_BONUSES[$c->getName()])) {
             $effect['bonuses'] = self::COMBAT_BONUSES[$c->getName()];
+        }
+        if (isset(self::ARMOR_CAP_BY_CAPABILITY[$c->getName()])) {
+            $effect['armorCap'] = self::ARMOR_CAP_BY_CAPABILITY[$c->getName()];
         }
         if ($effect !== []) {
             $c->setEffect($effect);

@@ -144,7 +144,7 @@ export const CharacterSheet: React.FC = () => {
                             setCurrentChoiceIndex={setCurrentChoiceIndex}
                             setShowEquipmentModal={setShowEquipmentModal}
                         />
-                        <PhysicalBlock character={character} setCharacter={setCharacter} />
+                        <PhysicalBlock character={character} setCharacter={setCharacter} races={races} />
                     </Section>
 
                     <Section title="Rôleplay & langues">

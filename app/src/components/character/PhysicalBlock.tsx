@@ -1,9 +1,11 @@
 import React from 'react';
 import type { Character } from '../../types/character';
+import type { RaceList } from './types';
 
 interface Props {
     character: Partial<Character>;
     setCharacter: React.Dispatch<React.SetStateAction<Partial<Character>>>;
+    races: RaceList;
 }
 
 type Field = 'age' | 'height' | 'weight';
@@ -13,11 +15,34 @@ const FIELDS: { key: Field; label: string; placeholder: string }[] = [
     { key: 'weight', label: 'Poids', placeholder: 'ex. 70 kg' },
 ];
 
-/** Caractéristiques physiques (saisie libre — les bornes par peuple ne sont pas modélisées). */
-export const PhysicalBlock: React.FC<Props> = ({ character, setCharacter }) => {
+// Bornes physiques du peuple (compendium) affichées en guide de roleplay.
+interface RaceBounds {
+    name?: string; nom?: string; '@id'?: string;
+    minHeight?: number; maxHeight?: number;
+    minWeight?: number; maxWeight?: number;
+    startingAge?: number; lifeExpectancy?: number;
+}
+
+const range = (min?: number, max?: number, unit?: string): string | undefined =>
+    (min && max) ? `${min}–${max} ${unit}` : undefined;
+
+/** Caractéristiques physiques : saisie libre + bornes du peuple sélectionné en guide (spec §8). */
+export const PhysicalBlock: React.FC<Props> = ({ character, setCharacter, races }) => {
     const physical = character.playState?.physical ?? {};
     const set = (key: Field, val: string) =>
         setCharacter(prev => ({ ...prev, playState: { ...prev.playState!, physical: { ...prev.playState?.physical, [key]: val } } }));
+
+    const race = (races as RaceBounds[]).find(r => (r.name || r.nom) === character.race || r['@id'] === character.race);
+    const hints: Record<Field, string | undefined> = {
+        age: race && (race.startingAge || race.lifeExpectancy)
+            ? [
+                race.startingAge ? `adulte ~${race.startingAge} ans` : undefined,
+                race.lifeExpectancy ? `espérance ~${race.lifeExpectancy} ans` : undefined,
+              ].filter(Boolean).join(' · ')
+            : undefined,
+        height: race ? range(race.minHeight, race.maxHeight, 'cm') : undefined,
+        weight: race ? range(race.minWeight, race.maxWeight, 'kg') : undefined,
+    };
 
     return (
         <div className="glass-panel p-4 rounded-2xl border-white/5 bg-stone-900/10">
@@ -33,6 +58,7 @@ export const PhysicalBlock: React.FC<Props> = ({ character, setCharacter }) => {
                             value={physical[f.key] || ''}
                             onChange={e => set(f.key, e.target.value)}
                         />
+                        {hints[f.key] && <p className="text-[9px] text-stone-600 italic leading-tight">{hints[f.key]}</p>}
                     </div>
                 ))}
             </div>

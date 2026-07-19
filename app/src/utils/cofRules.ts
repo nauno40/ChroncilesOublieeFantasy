@@ -235,10 +235,11 @@ export const evolutiveDie = (level: number | undefined): string => {
 export type BonusTarget = 'DM' | 'init' | 'def' | 'PVmax' | 'RD';
 export interface CapabilityBonus {
   target: BonusTarget;
-  scalesWith: 'fixed' | 'rank' | 'carac';
+  scalesWith: 'fixed' | 'rank' | 'carac' | 'threshold';
   value?: number;        // scalesWith 'fixed'
   perRank?: number;      // scalesWith 'rank'
   carac?: keyof Stats;   // scalesWith 'carac'
+  thresholds?: { minRank: number; value: number }[];  // scalesWith 'threshold' : palier de plus grand minRank ≤ rang
 }
 export interface CapabilityEffect {
   evolutiveDie?: { count: number };
@@ -270,6 +271,13 @@ export const resolveCapabilityEffect = (
     else if (b.scalesWith === 'carac' && b.carac) {
       val = ctx.caracs[b.carac];
       caracTargets.push({ target: b.target, carac: b.carac, value: val });
+    }
+    else if (b.scalesWith === 'threshold') {
+      let best = 0, bestRank = -1;
+      for (const t of b.thresholds ?? []) {
+        if (ctx.rank >= t.minRank && t.minRank > bestRank) { bestRank = t.minRank; best = t.value; }
+      }
+      val = best;
     }
     out.bonuses[b.target] = (out.bonuses[b.target] ?? 0) + val;
   });
@@ -433,33 +441,33 @@ export const computeCombatStats = (args: {
   protection: Protection | undefined;
   races: CompendiumRace[];
   profiles: CompendiumProfile[];
+  allVoies: CompendiumVoie[];
   perMod: number;
   agiMod: number;
-  capabilityModifiers: Record<string, (rank: number) => { init?: number; def?: number }>;
+  caracs: Stats;
+  level: number;
 }): { init: number; def: number } => {
-  const { voies, protection, races, profiles, perMod, agiMod, capabilityModifiers } = args;
-  let init = 10 + perMod;
-  let def = 10 + agiMod + (protection?.armor?.def || 0) + (protection?.shield?.def || 0);
+  const { voies, protection, races, profiles, allVoies, perMod, agiMod, caracs, level } = args;
+  const baseInit = 10 + perMod;
+  const baseDef = 10 + agiMod + (protection?.armor?.def || 0) + (protection?.shield?.def || 0);
 
-  // Résolution des voies du perso par IRI dans le compendium (peuple + profil).
+  // Résolution des voies du perso par IRI (peuple + profil + prestige), comme computeDamageReduction.
   const byIri = new Map<string, CompendiumVoie>();
-  for (const race of races) for (const v of race.availableVoies ?? []) if (v['@id']) byIri.set(v['@id'], v);
-  for (const profile of profiles) for (const v of profile.voies ?? []) if (v['@id']) byIri.set(v['@id'], v);
+  for (const r of races) for (const v of r.availableVoies ?? []) if (v['@id']) byIri.set(v['@id'], v);
+  for (const p of profiles) for (const v of p.voies ?? []) if (v['@id']) byIri.set(v['@id'], v);
+  for (const v of allVoies) if (v['@id']) byIri.set(v['@id'], v);
 
-  (voies ?? []).forEach(entry => {
+  const resolved: ResolvedEffect[] = [];
+  (voies ?? []).forEach((entry) => {
     const v = byIri.get(entry.voie);
-    if (!v) return;
-    for (let rank = 1; rank <= entry.rank; rank++) {
-      const cap = (v.capabilities ?? []).find(c => c.rank === rank);
-      if (cap?.name && capabilityModifiers[cap.name]) {
-        const bonus = capabilityModifiers[cap.name](rank);
-        if (bonus.init) init += bonus.init;
-        if (bonus.def) def += bonus.def;
+    (v?.capabilities ?? []).forEach((c) => {
+      if ((c.rank ?? 0) >= 1 && (c.rank ?? 0) <= entry.rank && c.effect) {
+        resolved.push(resolveCapabilityEffect(c.effect, { level, rank: entry.rank, caracs }));
       }
-    }
+    });
   });
-
-  return { init, def };
+  const agg = aggregateResolvedBonuses(resolved);
+  return { init: baseInit + (agg.init ?? 0), def: baseDef + (agg.def ?? 0) };
 };
 
 // Valeur d'attaque COF2 : niveau (plafonné à 10) + caractéristique d'attaque

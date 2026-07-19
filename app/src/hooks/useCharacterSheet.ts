@@ -3,7 +3,6 @@ import type { NavigateFunction } from 'react-router-dom';
 import { ApiService } from '../services/api';
 import type { Character, Caracs, PlayState, CharacterVoieRef } from '../types/character';
 import type { useCharacterData } from './useCharacterData';
-import { CAPABILITY_MODIFIERS } from '../data/capabilityModifiers';
 import {
   computeMaxHp,
   computeHybridMaxHp,
@@ -428,10 +427,12 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
         protection: playState.protection,
         races,
         profiles,
+        allVoies,
         perMod: mods.PER,
         agiMod: mods.AGI,
-        capabilityModifiers: CAPABILITY_MODIFIERS,
-    }), [characterVoies, playState.protection, races, profiles, mods.PER, mods.AGI]);
+        caracs: mods,
+        level: character.level || 1,
+    }), [characterVoies, playState.protection, races, profiles, allVoies, mods, character.level]);
 
     // À la création, les réserves (PV/PM/PC) démarrent au maximum. En édition, on ne
     // clobber PAS les `current` suivis par le joueur.

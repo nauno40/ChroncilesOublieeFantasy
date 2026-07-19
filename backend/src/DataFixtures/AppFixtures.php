@@ -280,7 +280,7 @@ class AppFixtures extends Fixture
                             $c = new Capability();
                             $c->setName($capData['name']);
                             $c->setDescription($capData['description'] ?? '');
-                            $this->applyEvolutiveDie($c);
+                            $this->applyCapabilityEffect($c);
                             $c->setRank($capData['rank']);
                             $c->setVoie($v);
                             
@@ -431,7 +431,7 @@ class AppFixtures extends Fixture
                 $cap = new Capability();
                 $cap->setName($capData['name']);
                 $cap->setDescription($capData['description'] ?? '');
-                $this->applyEvolutiveDie($cap);
+                $this->applyCapabilityEffect($cap);
                 $cap->setRank($capData['rank']); // slot 1-5 (= rang 4-8 du livre)
                 $cap->setLimited(str_contains(strtolower($capData['name'] . ' ' . ($capData['description'] ?? '')), '(l)'));
                 $cap->setIsSpell(str_contains($capData['name'], '*'));
@@ -485,7 +485,7 @@ class AppFixtures extends Fixture
                             $cap = new Capability();
                             $cap->setName($capData['name']);
                             $cap->setDescription($capData['description'] ?? '');
-                            $this->applyEvolutiveDie($cap);
+                            $this->applyCapabilityEffect($cap);
                             $cap->setRank($capData['rank']);
                             $type = $capData['type'] ?? '';
                             $cap->setLimited(str_contains(strtolower($type), 'limité'));
@@ -524,7 +524,7 @@ class AppFixtures extends Fixture
             $e = new Capability();
             $e->setName($item['name']);
             $e->setDescription($item['description'] ?? '');
-            $this->applyEvolutiveDie($e);
+            $this->applyCapabilityEffect($e);
             $e->setRank($item['rank']);
             
             // "voieId": "voie_de_la_divination"
@@ -542,13 +542,53 @@ class AppFixtures extends Fixture
     }
 
     /**
-     * Détecte un dé évolutif « Nd4° » dans la description d'une capacité (spec §6.4)
-     * et l'enregistre dans effect.evolutiveDie (« d4° » -> count 1, « 2d4° » -> count 2).
+     * Bonus de combat structurés par nom de capacité (spec effect.bonuses, fidélité).
+     * Évalués côté front au rang courant de la voie.
      */
-    private function applyEvolutiveDie(Capability $c): void
+    private const COMBAT_BONUSES = [
+        'Réflexes éclair' => [
+            ['target' => 'init', 'scalesWith' => 'fixed', 'value' => 3],
+            ['target' => 'def', 'scalesWith' => 'threshold', 'thresholds' => [
+                ['minRank' => 1, 'value' => 1], ['minRank' => 5, 'value' => 2],
+            ]],
+        ],
+        'Murmures dans le vent' => [
+            ['target' => 'init', 'scalesWith' => 'fixed', 'value' => 1],
+            ['target' => 'def', 'scalesWith' => 'fixed', 'value' => 1],
+        ],
+        'Divination' => [
+            ['target' => 'init', 'scalesWith' => 'threshold', 'thresholds' => [
+                ['minRank' => 1, 'value' => 1], ['minRank' => 3, 'value' => 2], ['minRank' => 5, 'value' => 3],
+            ]],
+            ['target' => 'def', 'scalesWith' => 'threshold', 'thresholds' => [
+                ['minRank' => 1, 'value' => 1], ['minRank' => 3, 'value' => 2], ['minRank' => 5, 'value' => 3],
+            ]],
+        ],
+        'Peau de pierre' => [
+            ['target' => 'def', 'scalesWith' => 'threshold', 'thresholds' => [
+                ['minRank' => 1, 'value' => 1], ['minRank' => 4, 'value' => 2],
+            ]],
+        ],
+        'Armure de vent' => [
+            ['target' => 'def', 'scalesWith' => 'fixed', 'value' => 1],
+        ],
+    ];
+
+    /**
+     * Construit effect : dé évolutif « Nd4° » détecté dans la description (spec §6.4)
+     * + bonus de combat structurés (COMBAT_BONUSES). Ne pose effect que s'il est non vide.
+     */
+    private function applyCapabilityEffect(Capability $c): void
     {
+        $effect = [];
         if (preg_match('/(\d*)d4°/u', (string) $c->getDescription(), $m)) {
-            $c->setEffect(['evolutiveDie' => ['count' => $m[1] === '' ? 1 : (int) $m[1]]]);
+            $effect['evolutiveDie'] = ['count' => $m[1] === '' ? 1 : (int) $m[1]];
+        }
+        if (isset(self::COMBAT_BONUSES[$c->getName()])) {
+            $effect['bonuses'] = self::COMBAT_BONUSES[$c->getName()];
+        }
+        if ($effect !== []) {
+            $c->setEffect($effect);
         }
     }
 

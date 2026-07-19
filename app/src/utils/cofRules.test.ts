@@ -106,7 +106,7 @@ describe('exemples du livre (fidélité COF2)', () => {
     const combat = computeCombatStats({
       voies: [],
       protection: { armor: { def: 0 }, shield: { def: 0 } },
-      races: [], profiles: [], perMod: mods.PER, agiMod: mods.AGI, capabilityModifiers: {},
+      races: [], profiles: [], allVoies: [], perMod: mods.PER, agiMod: mods.AGI, caracs: mods, level: 1,
     });
     expect(combat.init).toBe(11);                            // 10 + PER(1)
     expect(attackValue(mods.FOR, 1)).toBe(4);                 // attaque contact = niveau + FOR
@@ -356,14 +356,40 @@ describe('computeManaPoints', () => {
 });
 
 describe('computeCombatStats', () => {
+  const zero = { FOR: 0, AGI: 0, CON: 0, INT: 0, PER: 0, CHA: 0, VOL: 0 };
+
   it('is base 10 + mods + protection with no capability bonuses', () => {
     const r = computeCombatStats({
-      voies: [],
-      protection: { armor: { def: 3 }, shield: { def: 1 } },
-      races: [], profiles: [], perMod: 2, agiMod: 1, capabilityModifiers: {},
+      voies: [], protection: { armor: { def: 3 }, shield: { def: 1 } },
+      races: [], profiles: [], allVoies: [], perMod: 2, agiMod: 1, caracs: zero, level: 1,
     });
     expect(r.init).toBe(12); // 10 + 2
     expect(r.def).toBe(15);  // 10 + 1 + 3 + 1
+  });
+
+  it('lit les bonus init/def depuis effect.bonuses au rang de la voie (Réflexes éclair)', () => {
+    // Voie de compendium portant une capacité « Réflexes éclair » (init +3 fixe, def palier 1→1 / 5→2).
+    const voie = {
+      '@id': '/api/voies/rx', name: 'Voie du test',
+      capabilities: [{ rank: 1, name: 'Réflexes éclair', effect: { bonuses: [
+        { target: 'init', scalesWith: 'fixed', value: 3 },
+        { target: 'def', scalesWith: 'threshold', thresholds: [{ minRank: 1, value: 1 }, { minRank: 5, value: 2 }] },
+      ] } }],
+    };
+    const profiles = [{ voies: [voie] }] as unknown as Parameters<typeof computeCombatStats>[0]['profiles'];
+
+    const atRank1 = computeCombatStats({
+      voies: [{ voie: '/api/voies/rx', rank: 1, source: 'profil' }],
+      protection: undefined, races: [], profiles, allVoies: [], perMod: 0, agiMod: 0, caracs: zero, level: 1,
+    });
+    expect(atRank1.init).toBe(13); // 10 + 3
+    expect(atRank1.def).toBe(11);  // 10 + 1
+
+    const atRank5 = computeCombatStats({
+      voies: [{ voie: '/api/voies/rx', rank: 5, source: 'profil' }],
+      protection: undefined, races: [], profiles, allVoies: [], perMod: 0, agiMod: 0, caracs: zero, level: 9,
+    });
+    expect(atRank5.def).toBe(12);  // 10 + 2 (palier rang 5)
   });
 });
 
@@ -426,6 +452,30 @@ describe('resolveCapabilityEffect', () => {
   });
   it('effect vide → aucun dé, aucun bonus', () => {
     expect(resolveCapabilityEffect(undefined, { level: 1, rank: 1, caracs })).toEqual({ bonuses: {} });
+  });
+});
+
+describe('resolveCapabilityEffect — scalesWith threshold', () => {
+  const caracs = { FOR: 0, AGI: 0, CON: 0, INT: 0, PER: 0, CHA: 0, VOL: 0 };
+  const eff = (thresholds: { minRank: number; value: number }[]) => ({
+    bonuses: [{ target: 'def' as const, scalesWith: 'threshold' as const, thresholds }],
+  });
+
+  it('rend 0 sous le premier palier', () => {
+    const r = resolveCapabilityEffect(eff([{ minRank: 4, value: 2 }]), { level: 1, rank: 3, caracs });
+    expect(r.bonuses.def ?? 0).toBe(0);
+  });
+  it('rend la valeur du palier atteint', () => {
+    const r = resolveCapabilityEffect(eff([{ minRank: 1, value: 1 }, { minRank: 5, value: 2 }]), { level: 1, rank: 5, caracs });
+    expect(r.bonuses.def).toBe(2);
+  });
+  it('rend le palier inférieur entre deux paliers', () => {
+    const r = resolveCapabilityEffect(eff([{ minRank: 1, value: 1 }, { minRank: 5, value: 2 }]), { level: 1, rank: 4, caracs });
+    expect(r.bonuses.def).toBe(1);
+  });
+  it('non cumulatif et insensible à l\'ordre du tableau', () => {
+    const r = resolveCapabilityEffect(eff([{ minRank: 5, value: 3 }, { minRank: 1, value: 1 }, { minRank: 3, value: 2 }]), { level: 1, rank: 3, caracs });
+    expect(r.bonuses.def).toBe(2);
   });
 });
 

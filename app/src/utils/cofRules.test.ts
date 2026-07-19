@@ -24,6 +24,7 @@ import {
   aggregateResolvedBonuses,
   computeDamageReduction,
   resolveArmorCap,
+  resolveCaracTestBonuses,
   computeItemBonuses,
   resetUsages,
   companionFromCreature,
@@ -507,6 +508,39 @@ describe('resolveArmorCap', () => {
   });
   it('préserve -1 (aucune armure)', () => {
     expect(resolveArmorCap([], [], [], [], -1)).toBe(-1);
+  });
+});
+
+describe('resolveCaracTestBonuses', () => {
+  const voie = {
+    '@id': '/api/voies/tat', name: 'Voie du test',
+    capabilities: [
+      { rank: 2, name: 'Fixe', effect: { caracTestBonus: { carac: 'PER', value: 2 } } },
+      { rank: 3, name: 'Tatouages', effect: { choiceOptions: [
+        { label: 'Ours (+3 CON)', caracTestBonus: { carac: 'CON', value: 3 } },
+        { label: 'Loup (+3 CHA)', caracTestBonus: { carac: 'CHA', value: 3 } },
+      ] } },
+    ],
+  };
+  const profiles = [{ voies: [voie] }] as unknown as Parameters<typeof resolveCaracTestBonuses>[2];
+
+  it('applique un bonus fixe aux tests (capacité acquise)', () => {
+    const r = resolveCaracTestBonuses([{ voie: '/api/voies/tat', rank: 2, source: 'profil' }], [], profiles, []);
+    expect(r.PER).toBe(2);
+    expect(r.CON ?? 0).toBe(0); // Tatouages (rang 3) pas encore acquis
+  });
+  it('résout le choix vers la carac choisie', () => {
+    const r = resolveCaracTestBonuses(
+      [{ voie: '/api/voies/tat', rank: 3, source: 'profil', choices: { '3': 'Ours (+3 CON)' } }],
+      [], profiles, [],
+    );
+    expect(r.CON).toBe(3);
+    expect(r.CHA ?? 0).toBe(0);
+    expect(r.PER).toBe(2); // le fixe rang 2 reste acquis
+  });
+  it('aucun bonus de tatouage si le choix n\'est pas renseigné', () => {
+    const r = resolveCaracTestBonuses([{ voie: '/api/voies/tat', rank: 3, source: 'profil' }], [], profiles, []);
+    expect(r.CON ?? 0).toBe(0);
   });
 });
 

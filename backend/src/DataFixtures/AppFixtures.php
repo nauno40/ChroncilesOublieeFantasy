@@ -579,6 +579,19 @@ class AppFixtures extends Fixture
         'Autorité naturelle' => 7, // Chevalier rang 3 : formation à la plaque complète
     ];
 
+    /** Options structurées des capacités à choix (spec #6a : bonus aux tests de carac). */
+    private const CHOICE_OPTIONS_BY_CAPABILITY = [
+        'Tatouages' => [
+            ['label' => 'Taureau (+3 FOR)',  'caracTestBonus' => ['carac' => 'FOR', 'value' => 3]],
+            ['label' => 'Ours (+3 CON)',     'caracTestBonus' => ['carac' => 'CON', 'value' => 3]],
+            ['label' => 'Panthère (+3 AGI)', 'caracTestBonus' => ['carac' => 'AGI', 'value' => 3]],
+            ['label' => 'Chouette (+3 PER)', 'caracTestBonus' => ['carac' => 'PER', 'value' => 3]],
+            ['label' => 'Loup (+3 CHA)',     'caracTestBonus' => ['carac' => 'CHA', 'value' => 3]],
+            ['label' => 'Renard (+3 INT)',   'caracTestBonus' => ['carac' => 'INT', 'value' => 3]],
+            ['label' => 'Serpent (+3 VOL)',  'caracTestBonus' => ['carac' => 'VOL', 'value' => 3]],
+        ],
+    ];
+
     /**
      * Construit effect : dé évolutif « Nd4° » détecté dans la description (spec §6.4)
      * + bonus de combat structurés (COMBAT_BONUSES). Ne pose effect que s'il est non vide.
@@ -594,6 +607,9 @@ class AppFixtures extends Fixture
         }
         if (isset(self::ARMOR_CAP_BY_CAPABILITY[$c->getName()])) {
             $effect['armorCap'] = self::ARMOR_CAP_BY_CAPABILITY[$c->getName()];
+        }
+        if (isset(self::CHOICE_OPTIONS_BY_CAPABILITY[$c->getName()])) {
+            $effect['choiceOptions'] = self::CHOICE_OPTIONS_BY_CAPABILITY[$c->getName()];
         }
         if ($effect !== []) {
             $c->setEffect($effect);

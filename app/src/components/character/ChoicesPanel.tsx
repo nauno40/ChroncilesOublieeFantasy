@@ -33,10 +33,11 @@ export const ChoicesPanel: React.FC<Props> = ({ character, setCharacter, races, 
         for (let rank = 1; rank <= entry.rank; rank++) {
             const cap = (v.capabilities || []).find(c => c.rank === rank);
             const key = cap ? capabilityChoiceKey(cap.details) : undefined;
-            if (cap && key) {
+            const hasStructured = (cap?.effect?.choiceOptions?.length ?? 0) > 0;
+            if (cap && (key || hasStructured)) {
                 rows.push({
                     idx, rank, voieName: v.name || '', capName: cap.name || '',
-                    help: capabilityChoiceHelp(cap.details?.[key]),
+                    help: key ? capabilityChoiceHelp(cap.details?.[key]) : undefined,
                     value: String(entry.choices?.[String(rank)] ?? ''),
                     options: cap.effect?.choiceOptions?.map(o => o.label),
                 });

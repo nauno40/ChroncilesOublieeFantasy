@@ -590,6 +590,10 @@ class AppFixtures extends Fixture
             ['label' => 'Renard (+3 INT)',   'caracTestBonus' => ['carac' => 'INT', 'value' => 3]],
             ['label' => 'Serpent (+3 VOL)',  'caracTestBonus' => ['carac' => 'VOL', 'value' => 3]],
         ],
+        'Armure lourde' => [
+            ['label' => '+1 DEF', 'bonuses' => [['target' => 'def', 'scalesWith' => 'fixed', 'value' => 1]]],
+            ['label' => 'Armure de plaque (DEF +6)', 'armorCap' => 6],
+        ],
     ];
 
     /**

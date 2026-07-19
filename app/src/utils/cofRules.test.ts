@@ -24,6 +24,7 @@ import {
   resolveCapabilityEffect,
   aggregateResolvedBonuses,
   computeDamageReduction,
+  resolveArmorCap,
   computeItemBonuses,
   resetUsages,
   companionFromCreature,
@@ -511,6 +512,27 @@ describe('computeDamageReduction', () => {
     }] }];
     const voies = [{ voie: '/api/voies/700', rank: 2, source: 'profil' as const }];
     expect(computeDamageReduction(voies, [], profiles, [], caracs, 3)).toBe(0);
+  });
+});
+
+describe('resolveArmorCap', () => {
+  const voie = {
+    '@id': '/api/voies/chv', name: 'Voie du chevalier',
+    capabilities: [{ rank: 3, name: 'Autorité naturelle', effect: { armorCap: 7 } }],
+  };
+  const profiles = [{ voies: [voie] }] as unknown as Parameters<typeof resolveArmorCap>[2];
+
+  it('renvoie la base sans capacité de relèvement', () => {
+    expect(resolveArmorCap([], [], [], [], 5)).toBe(5);
+  });
+  it('relève le plafond quand la capacité est acquise (rang de voie ≥ rang capacité)', () => {
+    expect(resolveArmorCap([{ voie: '/api/voies/chv', rank: 3, source: 'profil' }], [], profiles, [], 6)).toBe(7);
+  });
+  it('ne relève pas si le rang de voie est insuffisant', () => {
+    expect(resolveArmorCap([{ voie: '/api/voies/chv', rank: 2, source: 'profil' }], [], profiles, [], 6)).toBe(6);
+  });
+  it('préserve -1 (aucune armure)', () => {
+    expect(resolveArmorCap([], [], [], [], -1)).toBe(-1);
   });
 });
 

@@ -85,6 +85,7 @@ export interface Profile {
     imageUrl?: string;
     magicModifier?: string | null;
     magicStat?: string | null; // carac de magie du profil (INT/CHA/PER) — source précise, cf. design §8
+    armorMaxDef?: number | null; // seuil de DEF max d'armure autorisée (spec §8 ; -1 = aucune armure)
 
     // Relationships
     voies: string[] | Voie[]; // Array of IRIs or Objects

@@ -244,6 +244,7 @@ export interface CapabilityBonus {
 export interface CapabilityEffect {
   evolutiveDie?: { count: number };
   bonuses?: CapabilityBonus[];
+  armorCap?: number;   // DEF max d'armure que cette capacité autorise (plafond relevé)
 }
 export interface ResolvedEffect {
   dice?: string;
@@ -523,6 +524,32 @@ export const computeDamageReduction = (
     });
   });
   return aggregateResolvedBonuses(resolved).RD ?? 0;
+};
+
+// Plafond de DEF d'armure effectif : base du profil, relevée par les capacités acquises
+// portant effect.armorCap (ex. Chevalier « Autorité naturelle » → 7). Évalué au rang de voie.
+export const resolveArmorCap = (
+  voies: CharacterVoieRef[] | undefined,
+  races: CompendiumRace[],
+  profiles: CompendiumProfile[],
+  allVoies: CompendiumVoie[],
+  baseArmorMaxDef: number,
+): number => {
+  const byIri = new Map<string, CompendiumVoie>();
+  for (const r of races) for (const v of r.availableVoies ?? []) if (v['@id']) byIri.set(v['@id'], v);
+  for (const p of profiles) for (const v of p.voies ?? []) if (v['@id']) byIri.set(v['@id'], v);
+  for (const v of allVoies) if (v['@id']) byIri.set(v['@id'], v);
+
+  let cap = baseArmorMaxDef;
+  (voies ?? []).forEach((entry) => {
+    const v = byIri.get(entry.voie);
+    (v?.capabilities ?? []).forEach((c) => {
+      if ((c.rank ?? 0) >= 1 && (c.rank ?? 0) <= entry.rank && typeof c.effect?.armorCap === 'number') {
+        cap = Math.max(cap, c.effect.armorCap);
+      }
+    });
+  });
+  return cap;
 };
 
 // Somme les bonus des objets magiques ÉQUIPÉS par cible (piloté joueur, jamais persisté).

@@ -71,28 +71,6 @@ export const PROFILE_FAMILIES: Record<string, { id: string; die: string; base: n
   Prêtre: { id: 'mystiques', die: 'd8', base: 3 },
 };
 
-// DEF maximale de l'armure la plus lourde autorisée par les voies du profil (règles COF2,
-// chapitres Profils + table « Armure »). Certaines capacités relèvent ces limites (barbare→
-// chemise de mailles rang 2, guerrier→plaque rang 3, chevalier→plaque complète rang 3,
-// prêtre d'une divinité guerrière→cotte de mailles) : géré au niveau des capacités, pas ici.
-const ARMOR_CAP_BY_PROFILE: Record<string, number> = {
-  // Aucune armure
-  Magicien: 0, Ensorceleur: 0, Sorcier: 0, Moine: 0,
-  // Cuir simple (+2)
-  Forgesort: 2, Voleur: 2, Druide: 2,
-  // Cuir renforcé (+3)
-  Barde: 3, Rôdeur: 3, Barbare: 3,
-  // Chemise de mailles (+4)
-  Arquebusier: 4, Prêtre: 4,
-  // Cotte de mailles (+5)
-  Guerrier: 5,
-  // Plaque (+6) ; plaque complète (+7) accessible via la capacité de rang 3 du chevalier
-  Chevalier: 6,
-};
-
-export const getMaxArmorDef = (profileName: string): number =>
-  ARMOR_CAP_BY_PROFILE[profileName] ?? 3;
-
 export const computeModifiers = (stats: Stats): Stats => ({
   FOR: calculateMod(stats.FOR),
   AGI: calculateMod(stats.AGI),

@@ -1,16 +1,15 @@
 import React from 'react';
 import type { Character } from '../../types/character';
-import { getMaxArmorDef } from '../../utils/cofRules';
-import type { ArmorList, ProfileList } from './types';
+import type { ArmorList } from './types';
 
 interface Props {
     character: Partial<Character>;
     setCharacter: React.Dispatch<React.SetStateAction<Partial<Character>>>;
     allArmors: ArmorList;
-    profiles: ProfileList;
+    armorCap: number;
 }
 
-export const ProtectionSection: React.FC<Props> = ({ character, setCharacter, allArmors, profiles }) => {
+export const ProtectionSection: React.FC<Props> = ({ character, setCharacter, allArmors, armorCap }) => {
     return (
         <div className="glass-panel p-6 rounded-2xl border-white/5 bg-stone-900/10 space-y-5">
             <div className="flex justify-between items-center border-b border-primary-500/10 pb-3">
@@ -82,14 +81,8 @@ export const ProtectionSection: React.FC<Props> = ({ character, setCharacter, al
                         <option value="">Aucune</option>
                         {allArmors.filter(a => {
                             if (a.type.includes('Bouclier')) return false;
-
-                            const pId = (character.profile as any)?.['@id'] || (typeof character.profile === 'string' ? character.profile : '');
-                            const profile = profiles.find(p => p['@id'] === pId || p.id === pId || p.name === pId || p['@id']?.includes(pId) || pId?.includes(p['@id'] || ''));
-                            const profileName = profile?.name || '';
-                            const maxDef = getMaxArmorDef(profileName);
-
                             const armorDef = a.defense || 0;
-                            return armorDef <= maxDef;
+                            return armorDef <= armorCap;
                         }).map((a: any) => (
                             <option key={a.id} value={a.name}>{a.name} (+{a.value || a.defense || 0})</option>
                         ))}

@@ -235,10 +235,11 @@ export const evolutiveDie = (level: number | undefined): string => {
 export type BonusTarget = 'DM' | 'init' | 'def' | 'PVmax' | 'RD';
 export interface CapabilityBonus {
   target: BonusTarget;
-  scalesWith: 'fixed' | 'rank' | 'carac';
+  scalesWith: 'fixed' | 'rank' | 'carac' | 'threshold';
   value?: number;        // scalesWith 'fixed'
   perRank?: number;      // scalesWith 'rank'
   carac?: keyof Stats;   // scalesWith 'carac'
+  thresholds?: { minRank: number; value: number }[];  // scalesWith 'threshold' : palier de plus grand minRank ≤ rang
 }
 export interface CapabilityEffect {
   evolutiveDie?: { count: number };
@@ -270,6 +271,13 @@ export const resolveCapabilityEffect = (
     else if (b.scalesWith === 'carac' && b.carac) {
       val = ctx.caracs[b.carac];
       caracTargets.push({ target: b.target, carac: b.carac, value: val });
+    }
+    else if (b.scalesWith === 'threshold') {
+      let best = 0, bestRank = -1;
+      for (const t of b.thresholds ?? []) {
+        if (ctx.rank >= t.minRank && t.minRank > bestRank) { bestRank = t.minRank; best = t.value; }
+      }
+      val = best;
     }
     out.bonuses[b.target] = (out.bonuses[b.target] ?? 0) + val;
   });

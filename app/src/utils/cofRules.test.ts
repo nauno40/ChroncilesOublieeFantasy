@@ -429,6 +429,30 @@ describe('resolveCapabilityEffect', () => {
   });
 });
 
+describe('resolveCapabilityEffect — scalesWith threshold', () => {
+  const caracs = { FOR: 0, AGI: 0, CON: 0, INT: 0, PER: 0, CHA: 0, VOL: 0 };
+  const eff = (thresholds: { minRank: number; value: number }[]) => ({
+    bonuses: [{ target: 'def' as const, scalesWith: 'threshold' as const, thresholds }],
+  });
+
+  it('rend 0 sous le premier palier', () => {
+    const r = resolveCapabilityEffect(eff([{ minRank: 4, value: 2 }]), { level: 1, rank: 3, caracs });
+    expect(r.bonuses.def ?? 0).toBe(0);
+  });
+  it('rend la valeur du palier atteint', () => {
+    const r = resolveCapabilityEffect(eff([{ minRank: 1, value: 1 }, { minRank: 5, value: 2 }]), { level: 1, rank: 5, caracs });
+    expect(r.bonuses.def).toBe(2);
+  });
+  it('rend le palier inférieur entre deux paliers', () => {
+    const r = resolveCapabilityEffect(eff([{ minRank: 1, value: 1 }, { minRank: 5, value: 2 }]), { level: 1, rank: 4, caracs });
+    expect(r.bonuses.def).toBe(1);
+  });
+  it('non cumulatif et insensible à l\'ordre du tableau', () => {
+    const r = resolveCapabilityEffect(eff([{ minRank: 5, value: 3 }, { minRank: 1, value: 1 }, { minRank: 3, value: 2 }]), { level: 1, rank: 3, caracs });
+    expect(r.bonuses.def).toBe(2);
+  });
+});
+
 describe('aggregateResolvedBonuses (non-cumul)', () => {
   it('somme les bonus fixes/rang de même cible', () => {
     const agg = aggregateResolvedBonuses([{ bonuses: { def: 1 } }, { bonuses: { def: 2 } }]);

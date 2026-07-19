@@ -224,7 +224,12 @@ export interface CapabilityEffect {
   bonuses?: CapabilityBonus[];
   armorCap?: number;   // DEF max d'armure que cette capacité autorise (plafond relevé)
   caracTestBonus?: { carac: CaracKey; value: number };   // bonus fixe aux tests d'une carac
-  choiceOptions?: { label: string; caracTestBonus?: { carac: CaracKey; value: number } }[]; // choix structuré
+  choiceOptions?: {
+    label: string;
+    caracTestBonus?: { carac: CaracKey; value: number };   // #6a
+    bonuses?: CapabilityBonus[];                             // #6b — bonus de combat de l'option
+    armorCap?: number;                                       // #6b — plafond d'armure ouvert par l'option
+  }[]; // choix structuré
 }
 export interface ResolvedEffect {
   dice?: string;
@@ -444,6 +449,9 @@ export const computeCombatStats = (args: {
     (v?.capabilities ?? []).forEach((c) => {
       if ((c.rank ?? 0) >= 1 && (c.rank ?? 0) <= entry.rank && c.effect) {
         resolved.push(resolveCapabilityEffect(c.effect, { level, rank: entry.rank, caracs }));
+        // Bonus de combat de l'option choisie (#6b).
+        const chosen = c.effect.choiceOptions?.find(o => o.label === entry.choices?.[String(c.rank)]);
+        if (chosen?.bonuses) resolved.push(resolveCapabilityEffect({ bonuses: chosen.bonuses }, { level, rank: entry.rank, caracs }));
       }
     });
   });
@@ -524,8 +532,11 @@ export const resolveArmorCap = (
   (voies ?? []).forEach((entry) => {
     const v = byIri.get(entry.voie);
     (v?.capabilities ?? []).forEach((c) => {
-      if ((c.rank ?? 0) >= 1 && (c.rank ?? 0) <= entry.rank && typeof c.effect?.armorCap === 'number') {
-        cap = Math.max(cap, c.effect.armorCap);
+      if ((c.rank ?? 0) >= 1 && (c.rank ?? 0) <= entry.rank) {
+        if (typeof c.effect?.armorCap === 'number') cap = Math.max(cap, c.effect.armorCap);
+        // Plafond ouvert par l'option choisie (#6b).
+        const chosen = c.effect?.choiceOptions?.find(o => o.label === entry.choices?.[String(c.rank)]);
+        if (typeof chosen?.armorCap === 'number') cap = Math.max(cap, chosen.armorCap);
       }
     });
   });

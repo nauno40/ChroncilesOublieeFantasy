@@ -511,6 +511,47 @@ describe('resolveArmorCap', () => {
   });
 });
 
+describe('choix à effet de combat (#6b)', () => {
+  const zero = { FOR: 0, AGI: 0, CON: 0, INT: 0, PER: 0, CHA: 0, VOL: 0 };
+  const voie = {
+    '@id': '/api/voies/gw', name: 'Voie du guerrier',
+    capabilities: [{ rank: 3, name: 'Armure lourde', effect: { choiceOptions: [
+      { label: '+1 DEF', bonuses: [{ target: 'def', scalesWith: 'fixed', value: 1 }] },
+      { label: 'Armure de plaque (DEF +6)', armorCap: 6 },
+    ] } }],
+  };
+  const profiles = [{ voies: [voie] }] as unknown as Parameters<typeof computeCombatStats>[0]['profiles'];
+  const combat = (rank: number, choice?: string) => computeCombatStats({
+    voies: [{ voie: '/api/voies/gw', rank, source: 'profil', ...(choice ? { choices: { '3': choice } } : {}) }],
+    protection: undefined, races: [], profiles, allVoies: [], perMod: 0, agiMod: 0, caracs: zero, level: 5,
+  });
+
+  it('applique le bonus DEF de l\'option choisie', () => {
+    expect(combat(3, '+1 DEF').def).toBe(11); // 10 + 1
+  });
+  it('n\'applique pas le bonus DEF si une autre option est choisie', () => {
+    expect(combat(3, 'Armure de plaque (DEF +6)').def).toBe(10);
+  });
+  it('n\'applique rien sans choix', () => {
+    expect(combat(3).def).toBe(10);
+  });
+  it('n\'applique rien si la capacité n\'est pas acquise', () => {
+    expect(combat(2, '+1 DEF').def).toBe(10);
+  });
+
+  const armorCap = (rank: number, choice?: string) => resolveArmorCap(
+    [{ voie: '/api/voies/gw', rank, source: 'profil', ...(choice ? { choices: { '3': choice } } : {}) }],
+    [], profiles as unknown as Parameters<typeof resolveArmorCap>[2], [], 5,
+  );
+  it('relève le plafond d\'armure via l\'option choisie', () => {
+    expect(armorCap(3, 'Armure de plaque (DEF +6)')).toBe(6);
+  });
+  it('ne relève pas le plafond pour une autre option / sans choix', () => {
+    expect(armorCap(3, '+1 DEF')).toBe(5);
+    expect(armorCap(3)).toBe(5);
+  });
+});
+
 describe('resolveCaracTestBonuses', () => {
   const voie = {
     '@id': '/api/voies/tat', name: 'Voie du test',

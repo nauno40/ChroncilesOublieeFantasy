@@ -19,6 +19,7 @@ import {
   computeActiveStateBonuses,
   resolveCapabilityEffect,
   resolveArmorCap,
+  resolveCaracTestBonuses,
   capacityBudget,
   evolutiveDie,
   MIN_STAT,
@@ -190,6 +191,12 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
     const damageReduction = useMemo(
         () => computeDamageReduction(characterVoies, races, profiles, allVoies, mods, character.level || 1),
         [characterVoies, races, profiles, allVoies, mods, character.level],
+    );
+
+    // Bonus aux tests de carac (rappel ; n'affecte aucune valeur dérivée).
+    const caracTestBonuses = useMemo(
+        () => resolveCaracTestBonuses(characterVoies, races, profiles, allVoies),
+        [characterVoies, races, profiles, allVoies],
     );
 
     // Emplacements de langues (dérivé, COF2 création).
@@ -478,7 +485,7 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
         caracs, stats: caracs, mods, finalStats,
         combatStats: activeForm ? { init: activeForm.init, def: activeForm.def } : { init: combatStats.init + bonuses.init, def: combatStats.def + bonuses.def },
         maxHp: activeForm ? activeForm.hp.max : maxHp + bonuses.pv, mainFamily, damageReduction: damageReduction + bonuses.rd, languageSlots,
-        armorCap,
+        armorCap, caracTestBonuses,
         // PV max propres au personnage (hors override de forme) — le repos restaure CE pool.
         baseMaxHp: maxHp + bonuses.pv,
         bonuses,

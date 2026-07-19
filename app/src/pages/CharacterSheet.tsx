@@ -43,7 +43,7 @@ export const CharacterSheet: React.FC = () => {
         character, setCharacter,
         loading, saving,
         stats, mods, finalStats, combatStats, evolutiveDie,
-        maxHp, baseMaxHp, mainFamily, damageReduction, luckPoints, manaPoints, recoveryDieString, recoveryInfo, bonuses, armorCap,
+        maxHp, baseMaxHp, mainFamily, damageReduction, luckPoints, manaPoints, recoveryDieString, recoveryInfo, bonuses, armorCap, caracTestBonuses,
         spentPoints, maxStartingPoints,
         selectedVoies, setSelectedVoies,
         selectedProfileType, setSelectedProfileType,
@@ -106,6 +106,7 @@ export const CharacterSheet: React.FC = () => {
                         setRacialBonusChoices={setRacialBonusChoices}
                         finalStats={finalStats}
                         updateStat={updateStat}
+                        caracTestBonuses={caracTestBonuses}
                     />
 
 

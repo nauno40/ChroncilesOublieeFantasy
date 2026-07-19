@@ -594,6 +594,23 @@ class AppFixtures extends Fixture
             ['label' => '+1 DEF', 'bonuses' => [['target' => 'def', 'scalesWith' => 'fixed', 'value' => 1]]],
             ['label' => 'Armure de plaque (DEF +6)', 'armorCap' => 6],
         ],
+        // Octroi de capacité (#6, traits de peuple) : choix contraint parmi les profils autorisés.
+        // Labels seuls, sans payload : enregistrement/guide, pas de dérivation d'effet (tranche ultérieure).
+        'Talent pour la violence' => [ // Demi-orque
+            ['label' => 'Barbare (Rang 1)'], ['label' => 'Guerrier (Rang 1)'],
+        ],
+        'Talent pour la magie' => [ // Elfe haut
+            ['label' => 'Magicien (Rang 1 ou 2)'], ['label' => 'Ensorceleur (Rang 1 ou 2)'],
+        ],
+        'Enfant de la forêt' => [ // Elfe sylvain
+            ['label' => 'Druide (Rang 1)'], ['label' => 'Rôdeur (Rang 1)'],
+        ],
+        'Don étrange' => [ // Gnome
+            ['label' => 'Ensorceleur (Rang 1)'],
+        ],
+        'Touche-à-tout' => [ // Humain
+            ['label' => "N'importe quel profil (Rang 1 ou 2)"],
+        ],
     ];
 
     /**

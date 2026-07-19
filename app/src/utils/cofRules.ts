@@ -223,6 +223,8 @@ export interface CapabilityEffect {
   evolutiveDie?: { count: number };
   bonuses?: CapabilityBonus[];
   armorCap?: number;   // DEF max d'armure que cette capacité autorise (plafond relevé)
+  caracTestBonus?: { carac: CaracKey; value: number };   // bonus fixe aux tests d'une carac
+  choiceOptions?: { label: string; caracTestBonus?: { carac: CaracKey; value: number } }[]; // choix structuré
 }
 export interface ResolvedEffect {
   dice?: string;
@@ -528,6 +530,38 @@ export const resolveArmorCap = (
     });
   });
   return cap;
+};
+
+// Bonus aux TESTS de caractéristique (jamais à la carac elle-même) apportés par les
+// capacités acquises : effect.caracTestBonus (fixe) + option choisie de effect.choiceOptions.
+export const resolveCaracTestBonuses = (
+  voies: CharacterVoieRef[] | undefined,
+  races: CompendiumRace[],
+  profiles: CompendiumProfile[],
+  allVoies: CompendiumVoie[],
+): Partial<Record<CaracKey, number>> => {
+  const byIri = new Map<string, CompendiumVoie>();
+  for (const r of races) for (const v of r.availableVoies ?? []) if (v['@id']) byIri.set(v['@id'], v);
+  for (const p of profiles) for (const v of p.voies ?? []) if (v['@id']) byIri.set(v['@id'], v);
+  for (const v of allVoies) if (v['@id']) byIri.set(v['@id'], v);
+
+  const out: Partial<Record<CaracKey, number>> = {};
+  const add = (carac: CaracKey, value: number) => { out[carac] = (out[carac] ?? 0) + value; };
+
+  (voies ?? []).forEach((entry) => {
+    const v = byIri.get(entry.voie);
+    (v?.capabilities ?? []).forEach((c) => {
+      const rank = c.rank ?? 0;
+      if (rank < 1 || rank > entry.rank || !c.effect) return;
+      if (c.effect.caracTestBonus) add(c.effect.caracTestBonus.carac, c.effect.caracTestBonus.value);
+      if (c.effect.choiceOptions) {
+        const chosen = entry.choices?.[String(rank)];
+        const opt = c.effect.choiceOptions.find((o) => o.label === chosen);
+        if (opt?.caracTestBonus) add(opt.caracTestBonus.carac, opt.caracTestBonus.value);
+      }
+    });
+  });
+  return out;
 };
 
 // Somme les bonus des objets magiques ÉQUIPÉS par cible (piloté joueur, jamais persisté).

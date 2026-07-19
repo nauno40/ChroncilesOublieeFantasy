@@ -14,6 +14,7 @@ interface Props {
     setRacialBonusChoices: React.Dispatch<React.SetStateAction<Record<string, string>>>;
     finalStats: Stats;
     updateStat: (stat: keyof Stats, value: string) => void;
+    caracTestBonuses?: Partial<Record<keyof Stats, number>>;
 }
 
 export const AttributesPanel: React.FC<Props> = ({
@@ -27,6 +28,7 @@ export const AttributesPanel: React.FC<Props> = ({
     setRacialBonusChoices,
     finalStats,
     updateStat,
+    caracTestBonuses,
 }) => {
     return (
         <div className="glass-panel p-5 rounded-xl space-y-4 border border-white/10">
@@ -229,6 +231,11 @@ export const AttributesPanel: React.FC<Props> = ({
                                     {withSign(finalVal)}
                                 </span>
                             </div>
+                            {(caracTestBonuses?.[stat] ?? 0) > 0 && (
+                                <span className="text-[9px] font-bold uppercase px-1.5 py-0.5 rounded-full bg-amber-950/40 border border-amber-700/40 text-amber-400" title="Bonus aux tests de cette caractéristique">
+                                    tests +{caracTestBonuses![stat]}
+                                </span>
+                            )}
                         </div>
                     </div>
                 )

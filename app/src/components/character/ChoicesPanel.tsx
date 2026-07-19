@@ -3,7 +3,7 @@ import type { Character } from '../../types/character';
 import { capabilityChoiceKey, capabilityChoiceHelp } from '../../utils/cofRules';
 import type { RaceList, ProfileList, AllVoieList } from './types';
 
-interface CompendiumCap { rank?: number; name?: string; details?: Record<string, unknown> }
+interface CompendiumCap { rank?: number; name?: string; details?: Record<string, unknown>; effect?: { choiceOptions?: { label: string }[] } }
 interface CompendiumVoieLite { name?: string; capabilities?: CompendiumCap[] }
 
 interface Props {
@@ -26,7 +26,7 @@ export const ChoicesPanel: React.FC<Props> = ({ character, setCharacter, races, 
     for (const v of allVoies) if (v?.['@id']) byIri.set(v['@id'], v);
 
     const voies = character.characterVoies ?? [];
-    const rows: { idx: number; rank: number; voieName: string; capName: string; help?: string; value: string }[] = [];
+    const rows: { idx: number; rank: number; voieName: string; capName: string; help?: string; value: string; options?: string[] }[] = [];
     voies.forEach((entry, idx) => {
         const v = byIri.get(entry.voie);
         if (!v) return;
@@ -38,6 +38,7 @@ export const ChoicesPanel: React.FC<Props> = ({ character, setCharacter, races, 
                     idx, rank, voieName: v.name || '', capName: cap.name || '',
                     help: capabilityChoiceHelp(cap.details?.[key]),
                     value: String(entry.choices?.[String(rank)] ?? ''),
+                    options: cap.effect?.choiceOptions?.map(o => o.label),
                 });
             }
         }
@@ -63,13 +64,24 @@ export const ChoicesPanel: React.FC<Props> = ({ character, setCharacter, races, 
                         <span className="text-stone-600 font-normal"> — {row.voieName}</span>
                     </label>
                     {row.help && <p className="text-[10px] text-stone-500 italic leading-snug">{row.help}</p>}
-                    <input
-                        type="text"
-                        className="w-full bg-stone-950/40 border border-stone-800 rounded px-2 py-1 text-xs text-stone-200 outline-none focus:border-primary-500/40"
-                        placeholder="Votre choix…"
-                        value={row.value}
-                        onChange={e => setChoice(row.idx, row.rank, e.target.value)}
-                    />
+                    {row.options && row.options.length > 0 ? (
+                        <select
+                            className="w-full bg-stone-950/40 border border-stone-800 rounded px-2 py-1 text-xs text-stone-200 outline-none focus:border-primary-500/40"
+                            value={row.value}
+                            onChange={e => setChoice(row.idx, row.rank, e.target.value)}
+                        >
+                            <option value="">— choisir —</option>
+                            {row.options.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+                        </select>
+                    ) : (
+                        <input
+                            type="text"
+                            className="w-full bg-stone-950/40 border border-stone-800 rounded px-2 py-1 text-xs text-stone-200 outline-none focus:border-primary-500/40"
+                            placeholder="Votre choix…"
+                            value={row.value}
+                            onChange={e => setChoice(row.idx, row.rank, e.target.value)}
+                        />
+                    )}
                 </div>
             ))}
         </div>

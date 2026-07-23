@@ -317,6 +317,7 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
             let profil = cv.filter(v => v.source === 'profil' || v.source === 'hybride');
             let peuple = cv.find(v => v.source === 'peuple');
             const prestige = cv.filter(v => v.source === 'prestige');
+            const trait = cv.filter(v => v.source === 'trait'); // octroi de peuple : préservé (la purge éventuelle est gérée par un autre effet)
 
             if (profileId) {
                 const profile = profiles.find(p => p['@id'] === profileId);
@@ -347,7 +348,7 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
                 }
             }
 
-            const nextCv: CharacterVoieRef[] = [...(peuple ? [peuple] : []), ...profil, ...prestige];
+            const nextCv: CharacterVoieRef[] = [...(peuple ? [peuple] : []), ...profil, ...prestige, ...trait];
             return { ...prev, characterVoies: nextCv };
         });
     }, [selectedVoies, character.level, character.profile, profiles, allVoies]);

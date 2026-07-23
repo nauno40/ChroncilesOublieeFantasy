@@ -36,7 +36,7 @@ class CharacterVoie
     #[ORM\Column(length: 20)]
     #[Groups(['character:read', 'character:write'])]
     #[Assert\NotBlank]
-    #[Assert\Choice(choices: ['profil', 'peuple', 'prestige', 'hybride'])]
+    #[Assert\Choice(choices: ['profil', 'peuple', 'prestige', 'hybride', 'trait'])]
     private ?string $source = null;
 
     #[ORM\Column(type: Types::JSON, nullable: true)]

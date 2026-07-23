@@ -187,10 +187,11 @@ export const capacityCost = (rank: number): number => (rank <= 2 ? 1 : 2);
 export const capacityBudget = (level: number | undefined): number => 2 * Math.max(1, level || 0);
 
 // Plafond de voies (COF2 §Progression) : 6 voies maximum EN PLUS de la voie de peuple ; la
-// voie de prestige compte parmi les 6. On décompte donc toutes les voies non-peuple.
+// voie de prestige compte parmi les 6. On décompte donc toutes les voies non-peuple. Les
+// capacités octroyées (source 'trait') ne sont pas des voies choisies : hors plafond aussi.
 export const MAX_VOIES = 6;
 export const countCappedVoies = (voies: CharacterVoieRef[] | undefined): number =>
-  (voies ?? []).filter(v => v.source !== 'peuple').length;
+  (voies ?? []).filter(v => v.source !== 'peuple' && v.source !== 'trait').length;
 export const canAddVoie = (voies: CharacterVoieRef[] | undefined): boolean =>
   countCappedVoies(voies) < MAX_VOIES;
 
@@ -368,6 +369,7 @@ export const computeSpentPoints = (
   let mageFreeRank2Used = false;
 
   (voies ?? []).forEach((v) => {
+    if (v.source === 'trait') return; // capacité octroyée : gratuite (hors budget)
     const voieKind = voieKindOf(v.source);
     for (let rank = 1; rank <= (v.rank || 0); rank++) {
       if (voieKind !== 'prestige' && rank === 2 && isMageFamily && !mageFreeRank2Used) {
@@ -573,6 +575,39 @@ export const resolveCaracTestBonuses = (
     });
   });
   return out;
+};
+
+export interface RacialGrant {
+  capabilityRank: number;      // rang de la capacité choix_capacite dans la voie de peuple
+  allowedProfiles: string[];   // noms de profils autorisés ; ['*'] = tous
+}
+
+// Éligibilité au trait racial « choisir une capacité d'un profil » (spec #6, octroi).
+// null si le peuple n'a pas ce trait, ou si la voie de peuple n'a pas atteint son rang.
+export const racialGrantInfo = (
+  voies: CharacterVoieRef[] | undefined,
+  races: CompendiumRace[],
+  profiles: CompendiumProfile[],
+  allVoies: CompendiumVoie[],
+): RacialGrant | null => {
+  const byIri = new Map<string, CompendiumVoie>();
+  for (const r of races) for (const v of r.availableVoies ?? []) if (v['@id']) byIri.set(v['@id'], v);
+  for (const p of profiles) for (const v of p.voies ?? []) if (v['@id']) byIri.set(v['@id'], v);
+  for (const v of allVoies) if (v['@id']) byIri.set(v['@id'], v);
+
+  const peuple = (voies ?? []).find(e => e.source === 'peuple');
+  if (!peuple) return null;
+  const v = byIri.get(peuple.voie);
+  if (!v) return null;
+  const cap = (v.capabilities ?? []).find(c => (c.effect?.choiceOptions?.length ?? 0) > 0);
+  const capRank = cap?.rank ?? 0;
+  if (!cap || capRank < 1 || peuple.rank < capRank) return null;
+
+  const labels = (cap.effect?.choiceOptions ?? []).map(o => o.label);
+  const allowedProfiles = labels.some(l => /importe quel profil/i.test(l))
+    ? ['*']
+    : labels.map(l => l.split(' (')[0].trim());
+  return { capabilityRank: capRank, allowedProfiles };
 };
 
 // Somme les bonus des objets magiques ÉQUIPÉS par cible (piloté joueur, jamais persisté).

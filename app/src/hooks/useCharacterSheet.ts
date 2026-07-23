@@ -22,6 +22,7 @@ import {
   resolveCaracTestBonuses,
   capacityBudget,
   evolutiveDie,
+  racialGrantInfo,
   MIN_STAT,
   MAX_STAT,
   STAT_SERIES,
@@ -196,6 +197,12 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
     // Bonus aux tests de carac (rappel ; n'affecte aucune valeur dérivée).
     const caracTestBonuses = useMemo(
         () => resolveCaracTestBonuses(characterVoies, races, profiles, allVoies),
+        [characterVoies, races, profiles, allVoies],
+    );
+
+    // Trait racial « choisir une capacité d'un profil » (octroi, source:'trait').
+    const racialGrant = useMemo(
+        () => racialGrantInfo(characterVoies, races, profiles, allVoies),
         [characterVoies, races, profiles, allVoies],
     );
 
@@ -485,7 +492,7 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
         caracs, stats: caracs, mods, finalStats,
         combatStats: activeForm ? { init: activeForm.init, def: activeForm.def } : { init: combatStats.init + bonuses.init, def: combatStats.def + bonuses.def },
         maxHp: activeForm ? activeForm.hp.max : maxHp + bonuses.pv, mainFamily, damageReduction: damageReduction + bonuses.rd, languageSlots,
-        armorCap, caracTestBonuses,
+        armorCap, caracTestBonuses, racialGrant,
         // PV max propres au personnage (hors override de forme) — le repos restaure CE pool.
         baseMaxHp: maxHp + bonuses.pv,
         bonuses,

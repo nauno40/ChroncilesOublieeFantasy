@@ -21,6 +21,7 @@ import { ActiveStatesPanel } from '../components/character/ActiveStatesPanel';
 import { TransformationPanel } from '../components/character/TransformationPanel';
 import { RestPanel } from '../components/character/RestPanel';
 import { ChoicesPanel } from '../components/character/ChoicesPanel';
+import { RacialGrantPanel } from '../components/character/RacialGrantPanel';
 import { Section } from '../components/character/Section';
 import { InventorySection } from '../components/character/InventorySection';
 import { VoiesTree } from '../components/character/VoiesTree';
@@ -43,7 +44,7 @@ export const CharacterSheet: React.FC = () => {
         character, setCharacter,
         loading, saving,
         stats, mods, finalStats, combatStats, evolutiveDie,
-        maxHp, baseMaxHp, mainFamily, damageReduction, luckPoints, manaPoints, recoveryDieString, recoveryInfo, bonuses, armorCap, caracTestBonuses,
+        maxHp, baseMaxHp, mainFamily, damageReduction, luckPoints, manaPoints, recoveryDieString, recoveryInfo, bonuses, armorCap, caracTestBonuses, racialGrant,
         spentPoints, maxStartingPoints,
         selectedVoies, setSelectedVoies,
         selectedProfileType, setSelectedProfileType,
@@ -183,6 +184,7 @@ export const CharacterSheet: React.FC = () => {
                             voieOptionsByProfile={voieOptionsByProfile}
                         />
                         <ChoicesPanel character={character} setCharacter={setCharacter} races={races} profiles={profiles} allVoies={allVoies} />
+                        {racialGrant && <RacialGrantPanel character={character} setCharacter={setCharacter} profiles={profiles} grant={racialGrant} />}
                     </Section>
 
                     <Section title="En jeu (aide de table)">

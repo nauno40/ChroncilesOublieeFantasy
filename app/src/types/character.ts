@@ -8,7 +8,7 @@
 export type CaracKey = 'AGI' | 'CON' | 'FOR' | 'PER' | 'CHA' | 'INT' | 'VOL';
 export type Caracs = Record<CaracKey, number>; // valeurs de base ‑2..+5
 
-export type VoieSource = 'profil' | 'peuple' | 'prestige' | 'hybride';
+export type VoieSource = 'profil' | 'peuple' | 'prestige' | 'hybride' | 'trait';
 
 /** Référence d'une voie acquise par un personnage : IRI compendium + nb de rangs. */
 export interface CharacterVoieRef {

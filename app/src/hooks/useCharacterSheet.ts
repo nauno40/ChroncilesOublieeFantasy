@@ -23,6 +23,7 @@ import {
   capacityBudget,
   evolutiveDie,
   racialGrantInfo,
+  isTraitGrantValid,
   MIN_STAT,
   MAX_STAT,
   STAT_SERIES,
@@ -206,6 +207,19 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
         [characterVoies, races, profiles, allVoies],
     );
 
+    // Purge d'un octroi orphelin : si l'entrée `trait` n'est plus valide (éligibilité
+    // perdue ou voie hors profils autorisés), on la retire. Le garde « compendium chargé »
+    // évite de supprimer une entrée valide pendant le chargement (races/profils absents →
+    // isTraitGrantValid renverrait faux à tort).
+    useEffect(() => {
+        if (!races.length || !profiles.length) return;
+        if (isTraitGrantValid(characterVoies, races, profiles, allVoies)) return;
+        setCharacter(prev => ({
+            ...prev,
+            characterVoies: (prev.characterVoies ?? []).filter(e => e.source !== 'trait'),
+        }));
+    }, [characterVoies, races, profiles, allVoies]);
+
     // Emplacements de langues (dérivé, COF2 création).
     const languageSlots = useMemo(() => computeLanguageSlots(mods.INT), [mods.INT]);
 
@@ -303,6 +317,7 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
             let profil = cv.filter(v => v.source === 'profil' || v.source === 'hybride');
             let peuple = cv.find(v => v.source === 'peuple');
             const prestige = cv.filter(v => v.source === 'prestige');
+            const trait = cv.filter(v => v.source === 'trait'); // octroi de peuple : préservé (la purge éventuelle est gérée par un autre effet)
 
             if (profileId) {
                 const profile = profiles.find(p => p['@id'] === profileId);
@@ -333,7 +348,7 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
                 }
             }
 
-            const nextCv: CharacterVoieRef[] = [...(peuple ? [peuple] : []), ...profil, ...prestige];
+            const nextCv: CharacterVoieRef[] = [...(peuple ? [peuple] : []), ...profil, ...prestige, ...trait];
             return { ...prev, characterVoies: nextCv };
         });
     }, [selectedVoies, character.level, character.profile, profiles, allVoies]);

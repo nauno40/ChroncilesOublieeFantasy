@@ -610,6 +610,26 @@ export const racialGrantInfo = (
   return { capabilityRank: capRank, allowedProfiles };
 };
 
+// Un octroi (entrée source:'trait') est valide si le perso y a toujours droit ET que la
+// voie choisie relève d'un profil autorisé. Sert à purger un octroi orphelin (rang de
+// peuple baissé, changement de peuple). Vrai s'il n'y a pas d'entrée trait.
+// Ne pas appeler avec un compendium vide (renverrait faux à tort) : l'appelant garde
+// « données chargées » — cf. purge dans useCharacterSheet.
+export const isTraitGrantValid = (
+  voies: CharacterVoieRef[] | undefined,
+  races: CompendiumRace[],
+  profiles: CompendiumProfile[],
+  allVoies: CompendiumVoie[],
+): boolean => {
+  const traitEntry = (voies ?? []).find(e => e.source === 'trait');
+  if (!traitEntry) return true;
+  const grant = racialGrantInfo(voies, races, profiles, allVoies);
+  if (!grant) return false;
+  if (grant.allowedProfiles.includes('*')) return true;
+  const profile = profiles.find(p => (p.voies ?? []).some(v => v['@id'] === traitEntry.voie));
+  return !!profile && grant.allowedProfiles.includes(profile.name ?? '');
+};
+
 // Somme les bonus des objets magiques ÉQUIPÉS par cible (piloté joueur, jamais persisté).
 export const computeItemBonuses = (
   items: MagicItem[] | undefined,

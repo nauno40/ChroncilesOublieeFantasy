@@ -23,6 +23,7 @@ import {
   capacityBudget,
   evolutiveDie,
   racialGrantInfo,
+  isTraitGrantValid,
   MIN_STAT,
   MAX_STAT,
   STAT_SERIES,
@@ -205,6 +206,19 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
         () => racialGrantInfo(characterVoies, races, profiles, allVoies),
         [characterVoies, races, profiles, allVoies],
     );
+
+    // Purge d'un octroi orphelin : si l'entrée `trait` n'est plus valide (éligibilité
+    // perdue ou voie hors profils autorisés), on la retire. Le garde « compendium chargé »
+    // évite de supprimer une entrée valide pendant le chargement (races/profils absents →
+    // isTraitGrantValid renverrait faux à tort).
+    useEffect(() => {
+        if (!races.length || !profiles.length) return;
+        if (isTraitGrantValid(characterVoies, races, profiles, allVoies)) return;
+        setCharacter(prev => ({
+            ...prev,
+            characterVoies: (prev.characterVoies ?? []).filter(e => e.source !== 'trait'),
+        }));
+    }, [characterVoies, races, profiles, allVoies]);
 
     // Emplacements de langues (dérivé, COF2 création).
     const languageSlots = useMemo(() => computeLanguageSlots(mods.INT), [mods.INT]);

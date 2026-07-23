@@ -40,6 +40,7 @@ import {
   capabilityChoiceKey,
   capabilityChoiceHelp,
   racialGrantInfo,
+  isTraitGrantValid,
 } from './cofRules';
 
 describe('calculateMod (COF2 : la valeur EST le modificateur)', () => {
@@ -864,5 +865,46 @@ describe('octroi de capacité (source trait)', () => {
     ] }] }] as unknown as Parameters<typeof racialGrantInfo>[1];
     const g = racialGrantInfo([{ voie: '/v', rank: 1, source: 'peuple' }], any, [], []);
     expect(g?.allowedProfiles).toEqual(['*']);
+  });
+});
+
+describe('isTraitGrantValid (purge octroi orphelin)', () => {
+  const peupleVoie = {
+    '@id': '/api/voies/peuple', name: 'Voie du demi-orque',
+    capabilities: [
+      { rank: 2, name: 'Talent pour la violence', effect: { choiceOptions: [
+        { label: 'Barbare (Rang 1)' }, { label: 'Guerrier (Rang 1)' },
+      ] } },
+    ],
+  };
+  const barbareVoie = { '@id': '/api/voies/barb', name: 'Voie du pagne', capabilities: [{ rank: 1, name: 'Vigueur' }] };
+  const druideVoie = { '@id': '/api/voies/dru', name: 'Voie des fauves', capabilities: [{ rank: 1, name: 'Compagnon' }] };
+  const races = [{ availableVoies: [peupleVoie] }] as unknown as Parameters<typeof isTraitGrantValid>[1];
+  const profiles = [
+    { name: 'Barbare', voies: [barbareVoie] },
+    { name: 'Druide', voies: [druideVoie] },
+  ] as unknown as Parameters<typeof isTraitGrantValid>[2];
+  const peupleAt2 = { voie: '/api/voies/peuple', rank: 2, source: 'peuple' as const };
+
+  it('vrai si aucune entrée trait', () => {
+    expect(isTraitGrantValid([peupleAt2], races, profiles, [])).toBe(true);
+  });
+  it('vrai si éligible et voie du trait dans un profil autorisé', () => {
+    const voies = [peupleAt2, { voie: '/api/voies/barb', rank: 1, source: 'trait' as const }];
+    expect(isTraitGrantValid(voies, races, profiles, [])).toBe(true);
+  });
+  it('faux si plus éligible (voie de peuple sous le rang requis)', () => {
+    const voies = [{ voie: '/api/voies/peuple', rank: 1, source: 'peuple' as const }, { voie: '/api/voies/barb', rank: 1, source: 'trait' as const }];
+    expect(isTraitGrantValid(voies, races, profiles, [])).toBe(false);
+  });
+  it('faux si la voie du trait n\'est pas dans les profils autorisés', () => {
+    const voies = [peupleAt2, { voie: '/api/voies/dru', rank: 1, source: 'trait' as const }];
+    expect(isTraitGrantValid(voies, races, profiles, [])).toBe(false);
+  });
+  it("vrai si allowedProfiles ['*'] (n'importe quel profil)", () => {
+    const anyPeuple = { '@id': '/v', name: 'V', capabilities: [{ rank: 1, name: 'Touche-à-tout', effect: { choiceOptions: [{ label: "N'importe quel profil (Rang 1 ou 2)" }] } }] };
+    const anyRaces = [{ availableVoies: [anyPeuple] }] as unknown as Parameters<typeof isTraitGrantValid>[1];
+    const voies = [{ voie: '/v', rank: 1, source: 'peuple' as const }, { voie: '/api/voies/dru', rank: 1, source: 'trait' as const }];
+    expect(isTraitGrantValid(voies, anyRaces, profiles, [])).toBe(true);
   });
 });

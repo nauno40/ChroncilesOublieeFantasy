@@ -13,6 +13,7 @@ import { RoleplaySection } from '../components/character/RoleplaySection';
 import { LanguagesTalentsPanel } from '../components/character/LanguagesTalentsPanel';
 import { ProtectionSection } from '../components/character/ProtectionSection';
 import { WeaponsSection } from '../components/character/WeaponsSection';
+import { MasteriesBlock } from '../components/character/MasteriesBlock';
 import { MagicItemsPanel } from '../components/character/MagicItemsPanel';
 import { UsagesPanel } from '../components/character/UsagesPanel';
 import { CompanionsPanel } from '../components/character/CompanionsPanel';
@@ -161,6 +162,7 @@ export const CharacterSheet: React.FC = () => {
                             armorCap={armorCap}
                         />
                         <WeaponsSection character={character} setCharacter={setCharacter} allWeapons={allWeapons} />
+                        <MasteriesBlock character={character} profiles={profiles} />
                         <InventorySection character={character} setCharacter={setCharacter} />
                         <MagicItemsPanel character={character} setCharacter={setCharacter} />
                     </Section>

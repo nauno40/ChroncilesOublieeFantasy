@@ -1,23 +1,31 @@
 import React from 'react';
 import type { Character } from '../../types/character';
-import { computeLanguageUsage } from '../../utils/cofRules';
+import { computeLanguageUsage, baseLanguages } from '../../utils/cofRules';
+import type { RaceList } from './types';
 
 interface Props {
     character: Partial<Character>;
     setCharacter: React.Dispatch<React.SetStateAction<Partial<Character>>>;
     /** Modificateur d'INT effectif (pilote le nombre d'emplacements). */
     intMod: number;
+    races: RaceList;
 }
 
 type ListKey = 'languages' | 'talents';
 
+interface RaceLite { name?: string; nom?: string; '@id'?: string }
+
 /**
  * Édition des langues et talents secondaires (COF2 §Talent secondaire — budget partagé).
- * Compteur d'emplacements dérivé de l'INT, indicatif (jamais bloquant) ; « Commun » gratuit.
+ * Les langues de base (Commun + langue de peuple) sont connues gratuitement et affichées
+ * en lecture seule ; `languages` ne contient que les langues SUPPLÉMENTAIRES (décomptées
+ * de l'INT). Compteur d'emplacements indicatif (jamais bloquant).
  */
-export const LanguagesTalentsPanel: React.FC<Props> = ({ character, setCharacter, intMod }) => {
+export const LanguagesTalentsPanel: React.FC<Props> = ({ character, setCharacter, intMod, races }) => {
     const languages = character.playState?.languages ?? [];
     const talents = character.playState?.talents ?? [];
+    const raceName = (races as RaceLite[]).find(r => (r.name || r.nom) === character.race || r['@id'] === character.race)?.name;
+    const base = baseLanguages(raceName);
     const usage = computeLanguageUsage(languages, talents, intMod);
     const over = usage.used > usage.available;
 
@@ -63,8 +71,18 @@ export const LanguagesTalentsPanel: React.FC<Props> = ({ character, setCharacter
                     </span>
                 </div>
             </div>
+            <div className="space-y-1">
+                <label className="text-[10px] uppercase font-black text-stone-500 tracking-[0.2em]">Connues de base</label>
+                <div className="flex flex-wrap gap-1.5">
+                    {base.map(lang => (
+                        <span key={lang} className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-stone-800/60 border border-stone-700 text-stone-300" title="Langue de peuple — gratuite">
+                            {lang}
+                        </span>
+                    ))}
+                </div>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {column('Langues', 'languages', languages, 'ex. Commun, Elfique…')}
+                {column('Langues supplémentaires', 'languages', languages, 'ex. Nain, Draconique…')}
                 {column('Talents secondaires', 'talents', talents, 'ex. Cuisine, Échecs…')}
             </div>
         </div>

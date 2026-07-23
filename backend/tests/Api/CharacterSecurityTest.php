@@ -133,4 +133,38 @@ final class CharacterSecurityTest extends ApiSecurityTestCase
         $this->assertSame('profil', $data['characterVoies'][0]['source']);
         $this->assertSame('/api/voies/'.$voie->getId(), $data['characterVoies'][0]['voie']);
     }
+
+    /**
+     * La source 'trait' (octroi de capacité de peuple) doit être acceptée en écriture
+     * (Assert\Choice sur CharacterVoie.source), sinon l'octroi ne survivrait pas au round-trip.
+     */
+    public function testCharacterAcceptsTraitVoieSource(): void
+    {
+        $user = $this->createUser('trait@example.com');
+
+        $voie = new Voie();
+        $voie->setName('Voie du barbare');
+        $voie->setDescription('Une voie de test.');
+        $voie->setCategory('profil');
+        $voie->setMaxRank(5);
+        $this->em->persist($voie);
+        $this->em->flush();
+
+        $payload = [
+            'name' => 'Octroyé',
+            'level' => 1,
+            'characterVoies' => [
+                ['voie' => '/api/voies/'.$voie->getId(), 'rank' => 1, 'source' => 'trait'],
+            ],
+        ];
+
+        $response = $this->client->request('POST', '/api/characters', [
+            'headers' => $this->authHeaders($user),
+            'json' => $payload,
+        ]);
+
+        $this->assertResponseStatusCodeSame(201);
+        $data = json_decode($response->getContent(), true);
+        $this->assertSame('trait', $data['characterVoies'][0]['source']);
+    }
 }

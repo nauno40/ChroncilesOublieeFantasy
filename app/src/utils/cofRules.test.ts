@@ -20,6 +20,7 @@ import {
   attackValue,
   computeLanguageSlots,
   computeLanguageUsage,
+  baseLanguages,
   resolveCapabilityEffect,
   aggregateResolvedBonuses,
   computeDamageReduction,
@@ -394,17 +395,17 @@ describe('computeLanguageSlots', () => {
 });
 
 describe('computeLanguageUsage (budget partagé langues/talents)', () => {
-  it('« Commun » est gratuit : une seule langue ⇒ 0 emplacement utilisé', () => {
-    expect(computeLanguageUsage(['Commun'], [], 2)).toEqual({ used: 0, available: 2, illiterate: false });
+  it('les langues de base sont hors budget : aucune langue supplémentaire ⇒ 0 utilisé', () => {
+    expect(computeLanguageUsage([], [], 2)).toEqual({ used: 0, available: 2, illiterate: false });
   });
-  it('langues au-delà de la base + talents consomment le budget', () => {
-    // 3 langues (2 au-delà de Commun) + 1 talent = 3 emplacements ; INT +2 ⇒ 2 dispo
-    expect(computeLanguageUsage(['Commun', 'Elfique', 'Nain'], ['Cuisine'], 2))
+  it('langues supplémentaires + talents consomment le budget', () => {
+    // 2 langues supplémentaires + 1 talent = 3 emplacements ; INT +2 ⇒ 2 dispo
+    expect(computeLanguageUsage(['Elfique', 'Nain'], ['Cuisine'], 2))
       .toEqual({ used: 3, available: 2, illiterate: false });
   });
   it('available suit computeLanguageSlots ; illettré si INT < 0', () => {
     expect(computeLanguageUsage([], [], -1)).toEqual({ used: 0, available: 0, illiterate: true });
-    expect(computeLanguageUsage(['Commun', 'Orc'], [], 3)).toEqual({ used: 1, available: 3, illiterate: false });
+    expect(computeLanguageUsage(['Orc'], [], 3)).toEqual({ used: 1, available: 3, illiterate: false });
   });
   it('listes absentes ⇒ 0 utilisé', () => {
     expect(computeLanguageUsage(undefined, undefined, 0)).toEqual({ used: 0, available: 0, illiterate: false });
@@ -906,5 +907,26 @@ describe('isTraitGrantValid (purge octroi orphelin)', () => {
     const anyRaces = [{ availableVoies: [anyPeuple] }] as unknown as Parameters<typeof isTraitGrantValid>[1];
     const voies = [{ voie: '/v', rank: 1, source: 'peuple' as const }, { voie: '/api/voies/dru', rank: 1, source: 'trait' as const }];
     expect(isTraitGrantValid(voies, anyRaces, profiles, [])).toBe(true);
+  });
+});
+
+describe('baseLanguages (langues connues de base par peuple)', () => {
+  it('Humain / Halfelin : Commun seul (langue maternelle = Commun)', () => {
+    expect(baseLanguages('Humain')).toEqual(['Commun']);
+    expect(baseLanguages('Halfelin')).toEqual(['Commun']);
+  });
+  it('Elfes / Demi-elfe : Commun + Sylvestre', () => {
+    expect(baseLanguages('Elfe haut')).toEqual(['Commun', 'Sylvestre']);
+    expect(baseLanguages('Elfe sylvain')).toEqual(['Commun', 'Sylvestre']);
+    expect(baseLanguages('Demi-elfe')).toEqual(['Commun', 'Sylvestre']);
+  });
+  it('Gnome / Nain : Commun + Runique ; Demi-orc : Commun + Noir parlé', () => {
+    expect(baseLanguages('Gnome')).toEqual(['Commun', 'Runique']);
+    expect(baseLanguages('Nain')).toEqual(['Commun', 'Runique']);
+    expect(baseLanguages('Demi-orc')).toEqual(['Commun', 'Noir parlé']);
+  });
+  it('peuple inconnu / absent : Commun par défaut', () => {
+    expect(baseLanguages(undefined)).toEqual(['Commun']);
+    expect(baseLanguages('Peuple imaginaire')).toEqual(['Commun']);
   });
 });

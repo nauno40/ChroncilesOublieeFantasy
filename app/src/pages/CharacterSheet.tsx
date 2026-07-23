@@ -150,7 +150,7 @@ export const CharacterSheet: React.FC = () => {
 
                     <Section title="Rôleplay & langues">
                         <RoleplaySection character={character} setCharacter={setCharacter} />
-                        <LanguagesTalentsPanel character={character} setCharacter={setCharacter} intMod={mods.INT} />
+                        <LanguagesTalentsPanel character={character} setCharacter={setCharacter} intMod={mods.INT} races={races} />
                     </Section>
 
                     <Section title="Équipement">

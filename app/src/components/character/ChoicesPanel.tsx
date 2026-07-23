@@ -34,7 +34,10 @@ export const ChoicesPanel: React.FC<Props> = ({ character, setCharacter, races, 
             const cap = (v.capabilities || []).find(c => c.rank === rank);
             const key = cap ? capabilityChoiceKey(cap.details) : undefined;
             const hasStructured = (cap?.effect?.choiceOptions?.length ?? 0) > 0;
-            if (cap && (key || hasStructured)) {
+            // L'octroi de capacité de peuple (choix_capacite sur la voie de peuple) est
+            // désormais géré par RacialGrantPanel → on masque ici son ancien menu « guide » inerte.
+            const isRacialGrant = entry.source === 'peuple' && hasStructured;
+            if (cap && (key || hasStructured) && !isRacialGrant) {
                 rows.push({
                     idx, rank, voieName: v.name || '', capName: cap.name || '',
                     help: key ? capabilityChoiceHelp(cap.details?.[key]) : undefined,

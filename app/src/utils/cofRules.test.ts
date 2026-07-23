@@ -39,6 +39,7 @@ import {
   applyLongRest,
   capabilityChoiceKey,
   capabilityChoiceHelp,
+  racialGrantInfo,
 } from './cofRules';
 
 describe('calculateMod (COF2 : la valeur EST le modificateur)', () => {
@@ -822,5 +823,46 @@ describe('plafond de voies (6 + peuple)', () => {
     const five = [mk('profil'), mk('profil'), mk('profil'), mk('profil'), mk('profil')];
     expect(canAddVoie([...five, mk('peuple')])).toBe(true);         // 5 non-peuple → ok
     expect(canAddVoie([...five, mk('prestige'), mk('peuple')])).toBe(false); // 6 non-peuple → plafond
+  });
+});
+
+describe('octroi de capacité (source trait)', () => {
+  it('une entrée trait ne consomme aucun point', () => {
+    const voies = [{ voie: '/api/voies/x', rank: 1, source: 'trait' as const }];
+    expect(computeSpentPoints(voies, 1, false)).toBe(0);
+  });
+  it('une entrée trait ne compte pas dans le plafond de voies', () => {
+    const voies = [
+      { voie: '/a', rank: 1, source: 'profil' as const },
+      { voie: '/t', rank: 1, source: 'trait' as const },
+    ];
+    expect(countCappedVoies(voies)).toBe(1);
+  });
+
+  const peupleVoie = {
+    '@id': '/api/voies/peuple', name: 'Voie du demi-orque',
+    capabilities: [
+      { rank: 1, name: 'Impressionnant' },
+      { rank: 2, name: 'Talent pour la violence', effect: { choiceOptions: [
+        { label: 'Barbare (Rang 1)' }, { label: 'Guerrier (Rang 1)' },
+      ] } },
+    ],
+  };
+  const races = [{ availableVoies: [peupleVoie] }] as unknown as Parameters<typeof racialGrantInfo>[1];
+
+  it('null si le peuple n\'est pas pris ou pas au bon rang', () => {
+    expect(racialGrantInfo([], races, [], [])).toBeNull();
+    expect(racialGrantInfo([{ voie: '/api/voies/peuple', rank: 1, source: 'peuple' }], races, [], [])).toBeNull();
+  });
+  it('éligible au rang requis : profils autorisés parsés', () => {
+    const g = racialGrantInfo([{ voie: '/api/voies/peuple', rank: 2, source: 'peuple' }], races, [], []);
+    expect(g).toEqual({ capabilityRank: 2, allowedProfiles: ['Barbare', 'Guerrier'] });
+  });
+  it('« N\'importe quel profil » → [\'*\']', () => {
+    const any = [{ availableVoies: [{ '@id': '/v', name: 'V', capabilities: [
+      { rank: 1, name: 'Touche-à-tout', effect: { choiceOptions: [{ label: "N'importe quel profil (Rang 1 ou 2)" }] } },
+    ] }] }] as unknown as Parameters<typeof racialGrantInfo>[1];
+    const g = racialGrantInfo([{ voie: '/v', rank: 1, source: 'peuple' }], any, [], []);
+    expect(g?.allowedProfiles).toEqual(['*']);
   });
 });

@@ -3,6 +3,7 @@ import type { NavigateFunction } from 'react-router-dom';
 import { ApiService } from '../services/api';
 import type { Character, Caracs, PlayState, CharacterVoieRef } from '../types/character';
 import type { useCharacterData } from './useCharacterData';
+import type { EquipmentLikeItem, RefVoie } from '../types/compendiumRefs';
 import {
   isMageFamily as isMageFamilyOf,
   computeMaxHp,
@@ -90,7 +91,7 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
 
     // Equipment Choice State
     const [showEquipmentModal, setShowEquipmentModal] = useState(false);
-    const [equipmentChoiceQueue, setEquipmentChoiceQueue] = useState<any[]>([]);
+    const [equipmentChoiceQueue, setEquipmentChoiceQueue] = useState<EquipmentLikeItem[][]>([]);
     const [currentChoiceIndex, setCurrentChoiceIndex] = useState(0);
 
     // Form State
@@ -122,7 +123,7 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
     }, [selectedProfileType]);
 
     // Reset choice when race changes (use stable ID)
-    const raceId = (character.race as any)?.['@id'] || (typeof character.race === 'string' ? character.race : '');
+    const raceId = typeof character.race === 'string' ? character.race : (character.race?.['@id'] || '');
     useEffect(() => {
         setRacialBonusChoices({});
     }, [raceId]);
@@ -165,7 +166,7 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
 
     // Profil sélectionné (objet compendium).
     const selectedProfile = useMemo(() => {
-        const profileId = (character.profile as any)?.['@id'] || (typeof character.profile === 'string' ? character.profile : null);
+        const profileId = typeof character.profile === 'string' ? character.profile : (character.profile?.['@id'] || null);
         return profileId ? profiles.find(p => p['@id'] === profileId) : undefined;
     }, [character.profile, profiles]);
     const profileName: string | undefined = selectedProfile?.name;
@@ -181,9 +182,11 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
 
     // PV max (dérivé, COF2 chap. 9 — cas hybride géré par computeHybridMaxHp).
     const maxHp = useMemo(() => {
-        const baseHp = (selectedProfile as any)?.stats?.hpPerLevel
-            || (selectedProfile as any)?.hpPerLevel
-            || (selectedProfile as any)?.class?.stats?.hpPerLevel;
+        // `.class.stats.hpPerLevel` : forme héritée d'un export non normalisé, jamais modélisée
+        // dans RefProfile — cast ciblé plutôt qu'un `any` pour ce seul repli historique.
+        const baseHp = selectedProfile?.stats?.hpPerLevel
+            || selectedProfile?.hpPerLevel
+            || (selectedProfile as unknown as { class?: { stats?: { hpPerLevel?: number } } })?.class?.stats?.hpPerLevel;
         if (!baseHp) return playState.hp?.current || 0;
         const level = character.level || 1;
         if (!mainFamily) return computeMaxHp(baseHp, mods.CON, level);
@@ -226,7 +229,7 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
 
     // Résout une voie du compendium par IRI (peuple + profil + voies libres/prestige).
     const resolveVoieByIri = useMemo(() => {
-        const byIri = new Map<string, any>();
+        const byIri = new Map<string, RefVoie>();
         for (const r of races) for (const v of (r.availableVoies || [])) if (v?.['@id']) byIri.set(v['@id'], v);
         for (const p of profiles) for (const v of (p.voies || [])) if (v?.['@id']) byIri.set(v['@id'], v);
         for (const v of allVoies) if (v?.['@id']) byIri.set(v['@id'], v);
@@ -242,7 +245,7 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
 
     // Compute Racial Voie Options
     const racialVoieOptions = useMemo(() => {
-        const rId = (character.race as any)?.['@id'] || (typeof character.race === 'string' ? character.race : null);
+        const rId = typeof character.race === 'string' ? character.race : (character.race?.['@id'] || null);
         if (!rId) return [];
         const selectedRace = races.find(r => r['@id'] === rId);
         if (!selectedRace) return [];
@@ -264,7 +267,7 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
 
     // IRI de la « Voie du Mage » (remplacement racial des mages), résolu par nom.
     const mageVoieIri = useMemo(() => {
-        const found = allVoies.find((v: any) => /voie du mage/i.test(v?.name || ''));
+        const found = allVoies.find((v) => /voie du mage/i.test(v?.name || ''));
         return found?.['@id'] || '';
     }, [allVoies]);
 
@@ -273,7 +276,7 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
         if (mageReplacedRaceVoie) {
             setSelectedVoies(prev => (prev[2] === mageVoieIri ? prev : [prev[0], prev[1], mageVoieIri]));
         } else if (racialVoieOptions.length > 0) {
-            const firstIri = racialVoieOptions[0]['@id'];
+            const firstIri = racialVoieOptions[0]['@id'] || '';
             setSelectedVoies(prev => (prev[2] === firstIri ? prev : [prev[0], prev[1], firstIri]));
         }
     }, [racialVoieOptions, mageReplacedRaceVoie, mageVoieIri]);
@@ -302,7 +305,7 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
     //    ce qui préserve les rangs acquis, les voies hybrides et de prestige ;
     //  - à la création, la voie de peuple (IRI de selectedVoies[2]) est posée au rang 1 (gratuit).
     useEffect(() => {
-        const profileId = (character.profile as any)?.['@id'] || (typeof character.profile === 'string' ? character.profile : null);
+        const profileId = typeof character.profile === 'string' ? character.profile : (character.profile?.['@id'] || null);
         const profileChanged = !!profileId && lastProfileIdRef.current !== null && lastProfileIdRef.current !== profileId;
         if (profileId) lastProfileIdRef.current = profileId;
 
@@ -317,9 +320,12 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
 
             if (profileId) {
                 const profile = profiles.find(p => p['@id'] === profileId);
+                // Repli défensif : `profile.voies` est normalement déjà une liste d'objets voie
+                // résolus par l'API, mais une forme héritée (id brut) reste gérée ici — d'où
+                // `unknown` plutôt qu'un type strict pour cette seule variable.
                 const profileVoieIris = (profile?.voies || [])
                     .slice(0, 5)
-                    .map((vOrId: any) => toIri(typeof vOrId === 'object' ? vOrId : allVoies.find(v => v.id === vOrId || v['@id'] === vOrId)))
+                    .map((vOrId: unknown) => toIri(typeof vOrId === 'object' ? vOrId : allVoies.find(v => v.id === vOrId || v['@id'] === vOrId)))
                     .filter(Boolean);
 
                 if (profileChanged) {
@@ -350,12 +356,14 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
     }, [selectedVoies, character.level, character.profile, profiles, allVoies]);
 
     // Helper to add equipment (écrit dans le playState)
-    const addEquipmentItem = (itemObj: any, ps: PlayState) => {
+    const addEquipmentItem = (itemObj: EquipmentLikeItem, ps: PlayState) => {
         if (itemObj.set) {
-            itemObj.set.forEach((subItem: any) => addEquipmentItem(subItem, ps));
+            itemObj.set.forEach((subItem) => addEquipmentItem(subItem, ps));
             return;
         }
-        const item = itemObj.item;
+        // Non-null assertion : ces items proviennent toujours d'une entrée `item`/`set` bien
+        // formée (départ de profil ou choix résolu) — cf. comportement historique inchangé.
+        const item = itemObj.item!;
         const stats = itemObj.stats || '';
 
         if (stats.includes('DM')) {
@@ -405,8 +413,8 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
     const getCapabilityName = (voieIri: string, rank: number) => {
         if (!voieIri) return null;
         const voie = resolveVoieByIri(voieIri);
-        const cap = voie?.capabilities?.find((c: any) => c.rank === rank);
-        return cap ? { name: cap.name, description: cap.description } : null;
+        const cap = voie?.capabilities?.find((c) => c.rank === rank);
+        return cap ? { name: cap.name || '', description: cap.description || '' } : null;
     };
 
     /** Nom d'affichage d'une voie (résolu par IRI dans le compendium). */

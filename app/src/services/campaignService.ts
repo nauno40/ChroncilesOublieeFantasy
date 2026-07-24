@@ -1,5 +1,5 @@
 import { ApiService } from './api';
-import type { Campaign, Encounter } from '../types/campaign';
+import type { Campaign, Encounter, Quest, Clue } from '../types/campaign';
 
 // Forme brute d'une rencontre côté API (relations/JSON non typés strictement).
 interface RawEncounter {
@@ -9,11 +9,104 @@ interface RawEncounter {
     combatants?: unknown;
 }
 
+// Résumé de personnage tel qu'inclus dans la réponse `campaigns` (relation imbriquée).
+// NB : ne correspond pas au type `Character` de `types/campaign.ts` (modèle legacy
+// id/name/race/class/level/hp) — la fiche réelle (Phase 2) porte `caracs`/`playState`/
+// `characterVoies` ; le mapping ci-dessous est casté explicitement au type de retour.
+interface RawCharacterSummary {
+    id?: number | string;
+    name?: string;
+    level?: number;
+    race?: { name?: string };
+    profile?: { name?: string };
+    caracs?: Record<string, number>;
+    playState?: Record<string, unknown>;
+    characterVoies?: unknown[];
+}
+
+interface RawQuest {
+    id?: number | string;
+    title?: string;
+    description?: string;
+    type?: string;
+    status?: string;
+}
+
+interface RawClue {
+    id?: number | string;
+    content?: string;
+    foundAt?: string | null;
+    status?: string;
+}
+
+interface RawSession {
+    id?: number | string;
+    title?: string;
+    date?: string;
+    duration?: string;
+    level?: string;
+    summary?: string;
+}
+
+// Forme brute d'une campagne telle que renvoyée par l'API (avant mapping front).
+interface RawCampaign {
+    id: number | string;
+    name?: string;
+    description?: string;
+    createdAt?: string | null;
+    updatedAt?: string | null;
+    characters?: RawCharacterSummary[];
+    encounters?: RawEncounter[];
+    notes?: string;
+    quests?: RawQuest[];
+    clues?: RawClue[];
+    sessions?: RawSession[];
+}
+
+// Payload envoyé au PATCH/POST `campaigns` (cf. mapFrontendToBackend — on n'y envoie
+// jamais `characters`, voir note en bas de fichier).
+interface BackendQuestPayload {
+    '@id'?: string;
+    title?: string;
+    description?: string;
+    type?: string;
+    status?: string;
+}
+interface BackendCluePayload {
+    '@id'?: string;
+    content?: string;
+    foundAt?: string | null;
+    status?: string;
+}
+interface BackendSessionPayload {
+    '@id'?: string;
+    title?: string;
+    date?: string;
+    duration?: string;
+    level?: string;
+    summary?: string;
+}
+interface BackendEncounterPayload {
+    '@id'?: string;
+    name?: string;
+    notes?: string | null;
+    combatants?: Encounter['combatants'];
+}
+interface BackendCampaignPayload {
+    name?: string;
+    description?: string;
+    notes?: string;
+    quests?: BackendQuestPayload[];
+    clues?: BackendCluePayload[];
+    sessions?: BackendSessionPayload[];
+    encounters?: BackendEncounterPayload[];
+}
+
 const RESOURCE = 'campaigns';
 
 export const getCampaigns = async (): Promise<Campaign[]> => {
     try {
-        const data = await ApiService.getAll<any>(RESOURCE);
+        const data = await ApiService.getAll<RawCampaign>(RESOURCE);
         return data.map(mapBackendToFrontend);
     } catch (error) {
         console.error("Failed to fetch campaigns", error);
@@ -23,7 +116,7 @@ export const getCampaigns = async (): Promise<Campaign[]> => {
 
 export const getCampaign = async (id: string): Promise<Campaign | null> => {
     try {
-        const data = await ApiService.getOne<any>(RESOURCE, id);
+        const data = await ApiService.getOne<RawCampaign>(RESOURCE, id);
         return mapBackendToFrontend(data);
     } catch (error) {
         console.error(`Failed to fetch campaign ${id}`, error);
@@ -38,11 +131,11 @@ export const saveCampaign = async (campaign: Campaign): Promise<Campaign> => {
             // PATCH (mise à jour partielle) et non PUT : un PUT réinitialise les champs
             // hors payload (dont inviteCode, non exposé en écriture), ce qui pousse
             // CampaignStateProcessor à régénérer le code d'invitation → collision d'unicité.
-            const data = await ApiService.patch<any>(RESOURCE, campaign.id, backendData);
+            const data = await ApiService.patch<RawCampaign>(RESOURCE, campaign.id, backendData);
             return mapBackendToFrontend(data);
         } else {
             // New campaign
-            const data = await ApiService.post<any>(RESOURCE, backendData);
+            const data = await ApiService.post<RawCampaign>(RESOURCE, backendData);
             return mapBackendToFrontend(data);
         }
     } catch (error) {
@@ -61,7 +154,7 @@ export const createCampaign = async (name: string, description: string): Promise
         notes: ''
     };
     try {
-        const data = await ApiService.post<any>(RESOURCE, newCampaign);
+        const data = await ApiService.post<RawCampaign>(RESOURCE, newCampaign);
         return mapBackendToFrontend(data);
     } catch (error) {
         console.error("Failed to create campaign", error);
@@ -79,7 +172,7 @@ export const deleteCampaign = async (id: string): Promise<void> => {
 };
 
 // Mapping Helpers
-const mapBackendToFrontend = (b: any): Campaign => {
+const mapBackendToFrontend = (b: RawCampaign): Campaign => {
     const parseDate = (dateStr: string | null | undefined) => {
         if (!dateStr) return new Date().getTime();
         const d = new Date(dateStr);
@@ -95,11 +188,14 @@ const mapBackendToFrontend = (b: any): Campaign => {
 
     return {
         id: b.id.toString(),
-        name: b.name,
+        name: b.name ?? '',
         description: b.description || '',
         created_at: parseDate(b.createdAt),
         updated_at: parseDate(b.updatedAt),
-        characters: (b.characters || []).map((c: any) => ({
+        // Le résumé de personnage renvoyé par l'API (caracs/playState/characterVoies, modèle
+        // Phase 2) ne correspond pas au type `Character` legacy de `types/campaign.ts` — voir
+        // `RawCharacterSummary` plus haut. Cast explicite plutôt qu'un remaniement du modèle.
+        characters: (b.characters || []).map((c) => ({
             id: (c.id || '').toString(),
             name: c.name || 'Sans nom',
             level: c.level || 1,
@@ -108,7 +204,7 @@ const mapBackendToFrontend = (b: any): Campaign => {
             caracs: c.caracs || {},
             playState: c.playState || {},
             characterVoies: c.characterVoies || []
-        })),
+        })) as unknown as Campaign['characters'],
         encounters: (b.encounters || []).map((e: RawEncounter) => ({
             id: String(e.id ?? ''),
             name: e.name || 'Rencontre',
@@ -116,20 +212,20 @@ const mapBackendToFrontend = (b: any): Campaign => {
             combatants: Array.isArray(e.combatants) ? e.combatants : []
         })),
         notes: b.notes || '',
-        quests: (b.quests || []).map((q: any) => ({
+        quests: (b.quests || []).map((q): Quest => ({
             id: (q.id || '').toString(),
             title: q.title || 'Sans titre',
             description: q.description || '',
-            type: q.type || 'main',
-            status: q.status || 'active'
+            type: (q.type as Quest['type']) || 'main',
+            status: (q.status as Quest['status']) || 'active'
         })),
-        clues: (b.clues || []).map((c: any) => ({
+        clues: (b.clues || []).map((c): Clue => ({
             id: (c.id || '').toString(),
             content: c.content || '',
             found_at: formatDate(c.foundAt),
-            status: c.status || 'unsolved'
+            status: (c.status as Clue['status']) || 'unsolved'
         })),
-        sessions: (b.sessions || []).map((s: any) => ({
+        sessions: (b.sessions || []).map((s) => ({
             id: (s.id || '').toString(),
             title: s.title || 'Session sans titre',
             date: formatDate(s.date) || new Date().toISOString().split('T')[0],
@@ -140,8 +236,8 @@ const mapBackendToFrontend = (b: any): Campaign => {
     };
 };
 
-const mapFrontendToBackend = (f: any): any => {
-    const b: any = {
+const mapFrontendToBackend = (f: Campaign): BackendCampaignPayload => {
+    const b: BackendCampaignPayload = {
         name: f.name,
         description: f.description,
         notes: f.notes
@@ -154,8 +250,8 @@ const mapFrontendToBackend = (f: any): any => {
     };
 
     if (f.quests) {
-        b.quests = f.quests.map((q: any) => {
-            const item: any = {
+        b.quests = f.quests.map((q) => {
+            const item: BackendQuestPayload = {
                 title: q.title,
                 description: q.description,
                 type: q.type,
@@ -169,8 +265,8 @@ const mapFrontendToBackend = (f: any): any => {
     }
 
     if (f.clues) {
-        b.clues = f.clues.map((c: any) => {
-            const item: any = {
+        b.clues = f.clues.map((c) => {
+            const item: BackendCluePayload = {
                 content: c.content,
                 foundAt: c.found_at ? new Date(c.found_at).toISOString() : null,
                 status: c.status
@@ -183,8 +279,8 @@ const mapFrontendToBackend = (f: any): any => {
     }
 
     if (f.sessions) {
-        b.sessions = f.sessions.map((s: any) => {
-            const item: any = {
+        b.sessions = f.sessions.map((s) => {
+            const item: BackendSessionPayload = {
                 title: s.title,
                 date: s.date ? new Date(s.date).toISOString() : new Date().toISOString(),
                 duration: s.duration,
@@ -200,7 +296,7 @@ const mapFrontendToBackend = (f: any): any => {
 
     if (f.encounters) {
         b.encounters = f.encounters.map((e: Encounter) => {
-            const item: Record<string, unknown> = {
+            const item: BackendEncounterPayload = {
                 name: e.name,
                 notes: e.notes || null,
                 combatants: e.combatants || []

@@ -56,20 +56,39 @@ export interface Family {
     specials?: string | null;
 }
 
+// Bloc de stats vitales d'un profil (JSON libre côté fixtures) : quelques clés connues,
+// affichées explicitement (cf. ClassDetail), le reste rendu génériquement via Object.entries.
+export interface ProfileStats {
+    hpPerLevel?: number;
+    profileType?: string;
+    hitDie?: string;
+    magicStat?: string;
+    [key: string]: unknown;
+}
+
+// Élément d'équipement de départ d'un profil : item simple, choix (alternatives), ou ensemble.
+export interface ProfileStartingEquipmentItem {
+    item?: string;
+    stats?: string;
+    examples?: string;
+    choice?: ProfileStartingEquipmentItem[];
+    set?: ProfileStartingEquipmentItem[];
+}
+
 export interface Profile {
     id: number | string;
     name: string;
     description: string;
     note: string | null;
     hitDie: string;
-    stats?: any;
+    stats?: ProfileStats;
     skillPoints: number;
 
     // Virtual/Mapped fields for frontend display
     weaponsAndArmor?: string;
 
     // Updated startingEquipment to reflect recent backend changes (raw array from JSON)
-    startingEquipment?: any[] | null;
+    startingEquipment?: (ProfileStartingEquipmentItem | string)[] | null;
 
     // New Masteries field
     masteries?: {
@@ -79,7 +98,6 @@ export interface Profile {
         special?: string;
         weaponsAndArmors?: string;
         constraints?: string;
-        [key: string]: any;
     } | null;
 
     imageUrl?: string;
@@ -93,7 +111,7 @@ export interface Profile {
     family?: string | Family; // IRI or Object
 
     // Rich Data
-    lore?: any; // Structured JSON
+    lore?: Record<string, unknown>; // Structured JSON
 }
 
 export interface Voie {
@@ -103,7 +121,7 @@ export interface Voie {
     note_speciale?: string | null;
     type: string;
     profileId: string | null; // Reference to profile ID
-    details?: any; // Dynamic details from JSON
+    details?: Record<string, unknown>; // Dynamic details from JSON
 }
 
 export interface Capacity {
@@ -117,7 +135,7 @@ export interface Capacity {
     rank: number | null;
     limited?: boolean;
     isSpell?: boolean;
-    details?: any; // Dynamic details from JSON
+    details?: Record<string, unknown>; // Dynamic details from JSON
 }
 
 // ============================================================================
@@ -271,8 +289,8 @@ export interface Creature {
     specialAbilities?: {
         text: string;
     };
-    attacks?: any[]; // JSON array
-    capabilities?: any[]; // JSON array
+    attacks?: CustomCreatureAttack[]; // JSON array
+    capabilities?: CustomCreatureCapability[]; // JSON array
     picture?: string;
 
     // Extended properties
@@ -291,6 +309,8 @@ export interface CustomCreatureAttack {
 
 export interface CustomCreatureCapability {
     name: string;
+    // Les capacités SRD (Creature.capabilities) nomment parfois via `label` plutôt que `name`.
+    label?: string;
     rank?: number;
     description?: string;
 }

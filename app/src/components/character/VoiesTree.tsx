@@ -198,7 +198,7 @@ export const VoiesTree: React.FC<Props> = ({
                                                 }}
                                             >
                                                 <option value="">-- Choisir héritage --</option>
-                                                {racialVoieOptions.map((v: any, idx: number) => (
+                                                {racialVoieOptions.map((v, idx) => (
                                                     <option key={idx} value={v['@id']}>{v.name}</option>
                                                 ))}
                                             </select>
@@ -373,8 +373,8 @@ export const VoiesTree: React.FC<Props> = ({
                                                 >
                                                     <option value="">— Choisir une voie de prestige —</option>
                                                     {[...prestigePaths]
-                                                        .sort((a: any, b: any) => (a.name || '').localeCompare(b.name || ''))
-                                                        .map((p: any) => (
+                                                        .sort((a, b) => (a.name || '').localeCompare(b.name || ''))
+                                                        .map(p => (
                                                             <option key={p['@id'] ?? p.id ?? p.name} value={p['@id']}>{p.name}</option>
                                                         ))}
                                                 </select>

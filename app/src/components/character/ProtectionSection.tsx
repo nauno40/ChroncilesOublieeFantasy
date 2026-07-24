@@ -83,7 +83,7 @@ export const ProtectionSection: React.FC<Props> = ({ character, setCharacter, al
                             if (a.type.includes('Bouclier')) return false;
                             const armorDef = a.defense || 0;
                             return armorDef <= armorCap;
-                        }).map((a: any) => (
+                        }).map(a => (
                             <option key={a.id} value={a.name}>{a.name} (+{a.value || a.defense || 0})</option>
                         ))}
                     </select>
@@ -109,7 +109,7 @@ export const ProtectionSection: React.FC<Props> = ({ character, setCharacter, al
                         }}
                     >
                         <option value="">Aucun</option>
-                        {allArmors.filter(a => a.type.includes('Bouclier')).map((a: any) => (
+                        {allArmors.filter(a => a.type.includes('Bouclier')).map(a => (
                             <option key={a.id} value={a.name}>{a.name} (+{a.value})</option>
                         ))}
                     </select>

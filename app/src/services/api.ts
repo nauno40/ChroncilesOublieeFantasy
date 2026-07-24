@@ -1,5 +1,11 @@
 const API_BASE_URL = (import.meta.env.VITE_API_URL || 'http://localhost:8000/api').replace(/\/$/, '');
 
+// Vue de pagination Hydra (API Platform) : lien vers la page suivante, avec ou sans préfixe.
+interface HydraView { 'hydra:next'?: string; next?: string }
+// Réponse de collection : soit un objet Hydra (`hydra:member`/`member` + `hydra:view`),
+// soit un tableau brut selon l'endpoint. `getAll` gère les deux formes.
+interface HydraCollection<T> { member?: T[]; 'hydra:member'?: T[]; 'hydra:view'?: HydraView; view?: HydraView }
+
 const TOKEN_KEY = 'co_auth_token';
 const USER_KEY = 'co_auth_user';
 
@@ -84,22 +90,22 @@ export const ApiService = {
         let nextUrl = resource;
 
         while (true) {
-            const data = await this.get<any>(nextUrl);
+            const data = await this.get<HydraCollection<T> | T[]>(nextUrl);
 
             let items: T[] = [];
-            if (data && Array.isArray(data.member)) {
-                items = data.member;
-            } else if (data && Array.isArray(data['hydra:member'])) {
-                items = data['hydra:member'];
-            } else if (Array.isArray(data)) {
+            if (Array.isArray(data)) {
                 items = data;
+            } else if (Array.isArray(data.member)) {
+                items = data.member;
+            } else if (Array.isArray(data['hydra:member'])) {
+                items = data['hydra:member'];
             }
 
             allItems = [...allItems, ...items];
 
-            const view = data['hydra:view'] || data['view'];
-            if (view && (view['hydra:next'] || view['next'])) {
-                const nextPath = view['hydra:next'] || view['next'];
+            const view = Array.isArray(data) ? undefined : (data['hydra:view'] || data['view']);
+            const nextPath = view ? (view['hydra:next'] || view['next']) : undefined;
+            if (nextPath) {
                 // Resolve nextPath to absolute URL to avoid prefix issues
                 // If nextPath is absolute, usage is clear.
                 // If relative (e.g. /api/voies...), resolve against API_BASE_URL origin?
@@ -133,7 +139,7 @@ export const ApiService = {
         return this.get<T>(`${resource}/${id}`);
     },
 
-    async post<T>(resource: string, data: any): Promise<T> {
+    async post<T>(resource: string, data: unknown): Promise<T> {
         const url = `${API_BASE_URL}/${resource}`.replace(/([^:]\/)\/+/g, "$1");
         const response = await fetch(url, {
             method: 'POST',
@@ -144,7 +150,7 @@ export const ApiService = {
         return response.json();
     },
 
-    async put<T>(resource: string, id: string | number, data: any): Promise<T> {
+    async put<T>(resource: string, id: string | number, data: unknown): Promise<T> {
         const url = `${API_BASE_URL}/${resource}/${id}`.replace(/([^:]\/)\/+/g, "$1");
         const response = await fetch(url, {
             method: 'PUT',
@@ -157,7 +163,7 @@ export const ApiService = {
 
     // API Platform's default PATCH format is `application/merge-patch+json`
     // (see backend config/packages/api_platform.yaml — no patch_formats override).
-    async patch<T>(resource: string, id: string | number, data: any): Promise<T> {
+    async patch<T>(resource: string, id: string | number, data: unknown): Promise<T> {
         const url = `${API_BASE_URL}/${resource}/${id}`.replace(/([^:]\/)\/+/g, "$1");
         const response = await fetch(url, {
             method: 'PATCH',

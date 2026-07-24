@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Character } from '../../types/character';
-import { MIN_STAT, MAX_STAT, lowestStats, findRace, type Stats } from '../../domain/rules';
+import { MIN_STAT, MAX_STAT, lowestStats, findRace, type Stats, type RaceModifier } from '../../domain/rules';
 import type { RaceList } from './types';
 
 interface Props {
@@ -85,14 +85,14 @@ export const AttributesPanel: React.FC<Props> = ({
                         if (!selectedRace?.modifiers) return null;
 
                         // Filter only choice or special modifiers that require user input
-                        const activeModifiers = selectedRace.modifiers.filter((m: any) => m.type === 'choice' || (m.type === 'special' && m.stat === 'Lowest') || (m.type === 'logic' && m.logic === 'add_to_lowest'));
+                        const activeModifiers = selectedRace.modifiers.filter((m: RaceModifier) => m.type === 'choice' || (m.type === 'special' && m.stat === 'Lowest') || (m.type === 'logic' && m.logic === 'add_to_lowest'));
 
                         if (activeModifiers.length === 0) return null;
 
                         return (
                             <div className="flex flex-col gap-3 mt-4 pt-3 border-t border-white/10">
                                 <span className="text-[10px] font-bold uppercase tracking-widest text-stone-500">Bonus Raciaux</span>
-                                {activeModifiers.map((mod: any) => {
+                                {activeModifiers.map((mod: RaceModifier) => {
                                     // Find original index for unique key
                                     const originalIndex = selectedRace.modifiers.indexOf(mod);
                                     const choiceKey = `bonus_${originalIndex}`;
@@ -110,7 +110,7 @@ export const AttributesPanel: React.FC<Props> = ({
                                                     <span className={`text-[10px] font-bold ${labelColor}`}>{labelPrefix} ({sign}{mod.value})</span>
                                                 </div>
                                                 <div className="flex gap-2">
-                                                    {mod.options.map((opt: string) => (
+                                                    {mod.options?.map((opt: string) => (
                                                         <button
                                                             key={opt}
                                                             onClick={() => setRacialBonusChoices(prev => ({ ...prev, [choiceKey]: opt }))}

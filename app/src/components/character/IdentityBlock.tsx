@@ -1,6 +1,8 @@
 import React from 'react';
 import type { Character } from '../../types/character';
 import { ADVENTURER_PACK } from '../../hooks/useCharacterSheet';
+import { findProfile } from '../../domain/rules';
+import type { EquipmentLikeItem } from '../../types/compendiumRefs';
 import type { RaceList, ProfileList, AddEquipmentItem, EquipmentChoiceQueueSetter } from './types';
 
 interface Props {
@@ -57,7 +59,7 @@ export const IdentityBlock: React.FC<Props> = ({
                 <label className="text-xs uppercase font-bold text-stone-500 tracking-wider ml-1">Race</label>
                 <select
                     className="w-full bg-stone-950/30 border border-stone-800 rounded-lg px-4 py-3 text-lg font-bold text-stone-200 outline-none focus:border-primary-500/50 focus:bg-stone-900/50 transition-all cursor-pointer appearance-none"
-                    value={(character.race as any)?.['@id'] || (typeof character.race === 'string' ? character.race : '')}
+                    value={(character.race as { '@id'?: string })?.['@id'] || (typeof character.race === 'string' ? character.race : '')}
                     onChange={e => {
                         // Find race object
                         const selectedId = e.target.value; // IRI
@@ -81,12 +83,12 @@ export const IdentityBlock: React.FC<Props> = ({
                 <label className="text-xs uppercase font-bold text-stone-500 tracking-wider ml-1">Profil (Classe)</label>
                 <select
                     className="w-full bg-stone-950/30 border border-stone-800 rounded-lg px-4 py-3 text-lg font-bold text-stone-200 outline-none focus:border-primary-500/50 focus:bg-stone-900/50 transition-all cursor-pointer appearance-none"
-                    value={(character.profile as any)?.['@id'] || (typeof character.profile === 'string' ? character.profile : '')}
+                    value={(character.profile as { '@id'?: string })?.['@id'] || (typeof character.profile === 'string' ? character.profile : '')}
                     onChange={e => {
                         const selectedId = e.target.value; // IRI
 
                         // Parse Starting Equipment
-                        const p = profiles.find(pr => pr.name === selectedId || pr['@id'] === selectedId);
+                        const p = findProfile(selectedId, profiles);
 
                         // Réinitialise armes / protection / inventaire au changement de profil.
                         const nextPlayState = {
@@ -96,10 +98,11 @@ export const IdentityBlock: React.FC<Props> = ({
                             equipment: []
                         };
 
-                        const choicesFound: any[] = [];
+                        const choicesFound: EquipmentLikeItem[][] = [];
 
                         if (p && p.startingEquipment) {
-                            p.startingEquipment.forEach((eq: any, _index: number) => {
+                            p.startingEquipment.forEach(eq => {
+                                if (typeof eq === 'string') return;
                                 // Direct Item
                                 if (eq.item) {
                                     addEquipmentItem(eq, nextPlayState);

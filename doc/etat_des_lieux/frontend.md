@@ -27,7 +27,8 @@ src/
 ├── components/
 │   ├── auth/
 │   │   └── ProtectedRoute.tsx    # Garde de route (redirection si non-auth)
-│   ├── common/                   # 17 composants partagés
+│   ├── character/                # 24 composants de la fiche personnage (cf. §9)
+│   ├── common/                   # 16 composants partagés
 │   ├── layout/
 │   │   ├── Layout.tsx            # Layout principal (sidebar + mobile nav)
 │   │   └── NavItem.tsx           # Élément de navigation (sous-menus)
@@ -37,7 +38,7 @@ src/
 ├── constants/
 │   └── rules.ts                  # Index des règles (47 entrées)
 ├── data/
-│   └── capabilityModifiers.ts    # Modificateurs de capacités (Init/DEF)
+│   └── magicItemTables.ts        # Tables d'objets magiques (aide de saisie)
 ├── hooks/
 │   ├── useSearch.ts              # Hook de filtrage générique
 │   └── useToggle.ts              # Hook toggle booléen
@@ -74,7 +75,7 @@ src/
 | `/dashboard` | `Home` | Tableau de bord (stats, dernières campagnes, quick actions) |
 | `/characters` | `CharacterList` | Liste des personnages du joueur |
 | `/characters/new` | `CharacterSheet` | Création de personnage |
-| `/characters/:id` | `CharacterSheet` | Édition de personnage (orchestrateur ~180 lignes) |
+| `/characters/:id` | `CharacterSheet` | Édition de personnage (orchestrateur ~230 lignes) |
 
 #### Encyclopédie / Compendium
 | Route | Page | Description |
@@ -162,31 +163,47 @@ L'application n'utilise **pas** Redux ou Zustand. La gestion d'état repose sur 
 ## 9. Fiche Personnage (CharacterSheet.tsx)
 
 Anciennement un god component de ~2100 lignes, désormais **refactorisé** en
-orchestrateur léger (~180 lignes) + règles pures + hooks + composants présentationnels :
+orchestrateur léger + règles pures + hooks + composants présentationnels. La fiche suit le
+**modèle refondu** : `character.caracs` (7 caracs = modificateurs), `character.playState`
+(état de jeu opaque, piloté joueur), `character.characterVoies` (voies par IRI + rang + source).
+**Aucune valeur dérivée n'est stockée** — tout est recalculé à l'affichage.
 
-- **Règles COF2 pures** — `src/utils/cofRules.ts` : fonctions sans React (modificateurs,
-  PV, dé de récupération, points de chance, stats finales, points dépensés, mana, init/déf),
-  couvertes par des tests Vitest (`cofRules.test.ts`).
-- **Hooks** — `src/hooks/useCharacterData.ts` (chargement compendium : races/profils/équipement/voies)
-  et `src/hooks/useCharacterSheet.ts` (état de formulaire, valeurs dérivées, effets de synchronisation,
-  handlers).
-- **Composants présentationnels** — `src/components/character/` : `CharacterToolbar`,
-  `AttributesPanel`, `MainStatsPanel`, `IdentityBlock`, `RoleplaySection`, `ProtectionSection`,
-  `WeaponsSection`, `InventorySection`, `VoiesTree` (+ `CapabilityNode`). Types de props partagés
-  dans `character/types.ts`. `CharacterSheet.tsx` câble les hooks et dispose ces composants.
+- **Règles COF2 pures** — `src/utils/cofRules.ts` : ~50 fonctions sans React, couvertes par
+  `cofRules.test.ts` (Vitest, ~150 tests). Outre les basiques (modificateurs, PV/PV hybrides,
+  dé de récupération, chance, mana, init/déf, attaque, langues), elles incluent l'**interpréteur
+  d'effets** — `resolveCapabilityEffect` + `aggregateResolvedBonuses` (résout `effect.bonuses`
+  au niveau/rang : `fixed`/`rank`/`carac`/`threshold`, non-cumul §6.2) — et les dérivations
+  data-driven qui itèrent `characterVoies` : `computeCombatStats` (Init/DEF depuis `effect.bonuses`),
+  `resolveArmorCap` (plafond d'armure relevé par capacités), `computeDamageReduction`,
+  `resolveCaracTestBonuses` (bonus aux tests, ex. tatouage), `racialGrantInfo`/`isTraitGrantValid`
+  (octroi de capacité de peuple), `baseLanguages` (langues de peuple), plus les helpers d'état de
+  jeu (objets magiques, états, usages, compagnons, formes, repos, substitutions).
+- **Hooks** — `src/hooks/useCharacterData.ts` (chargement compendium) et
+  `src/hooks/useCharacterSheet.ts` (état de formulaire, **toutes les valeurs dérivées** via
+  `cofRules`, effets de synchronisation dont la préservation/purge de l'octroi `trait`).
+- **Composants présentationnels** — `src/components/character/` (24 composants). Structure
+  colonne gauche (`AttributesPanel`, `MainStatsPanel`, `HpByLevelEditor`) + sections repliables
+  (`Section`) à droite : **Identité** (`IdentityBlock`, `PhysicalBlock`), **Rôleplay & langues**
+  (`RoleplaySection`, `LanguagesTalentsPanel`), **Équipement** (`ProtectionSection`,
+  `WeaponsSection`, `MasteriesBlock`, `InventorySection`, `MagicItemsPanel`), **Voies & Progression**
+  (`VoiesTree` + `CapabilityNode`, `ChoicesPanel`, `RacialGrantPanel`), **En jeu** (`RestPanel`,
+  `UsagesPanel`, `ActiveStatesPanel`, `CompanionsPanel`, `TransformationPanel`,
+  `CaracSubstitutionsPanel`). `CharacterToolbar` en tête. Types de props partagés dans
+  `character/types.ts`.
 
-Fonctionnalités clés (inchangées) :
+Fonctionnalités clés :
 
-- Création et édition complète de personnage
-- Calcul automatique des modificateurs de caractéristiques
-- Sélection race/profil avec familles
-- Gestion des voies (raciale, profil, prestige)
-- Points de vie, mana, chance, récupération
-- Attaque (contact, distance, magique), défense, initiative
-- Protection (armure, bouclier) avec limites par profil
-- Modificateurs de capacités (depuis `capabilityModifiers.ts`)
-- Modal de choix d'équipement de départ
-- Persistance via API
+- Création et édition complète de personnage ; sélection race/profil avec familles
+- Caractéristiques (valeurs = modificateurs COF), PV cumulés par niveau (hybrides fidèles),
+  mana, chance, récupération, attaque/défense/initiative — **toutes dérivées**
+- Voies (peuple, profil/hybride, prestige, **trait** = octroi de peuple) avec budget de points
+  et plafond de 6 voies ; capacités à choix résolues (bonus aux tests, effet de combat)
+- Protection avec plafond d'armure data-driven & conscient des capacités
+- Bonus de combat / RD / dé évolutif dérivés depuis `Capability.effect`
+- Mécaniques d'aide de table pilotées joueur (objets magiques, usages, compagnons,
+  transformations, états activables, substitutions de carac, repos court/long)
+- Langues de peuple, bornes physiques et maîtrises affichées en guide ; modal d'équipement de
+  départ ; persistance via API
 
 ## 10. Points d'attention
 

@@ -85,6 +85,7 @@ export const CharacterSheet: React.FC = () => {
                 onBack={() => navigate('/characters')}
                 onSave={handleSave}
                 onPrint={id ? () => navigate(`/characters/${id}/print`) : undefined}
+                onPlay={id ? () => navigate(`/play/${id}`) : undefined}
                 onDelete={async () => {
                     if (confirm("Bannir ce héros définitivement ?")) {
                         await ApiService.delete('characters', id!);

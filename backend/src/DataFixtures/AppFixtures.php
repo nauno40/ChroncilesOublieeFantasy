@@ -20,6 +20,7 @@ use App\Entity\Quest;
 use App\Entity\Clue;
 use App\Entity\Session;
 use App\Entity\Character;
+use App\Entity\CharacterVoie;
 use App\Entity\CustomCreature;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -264,6 +265,7 @@ class AppFixtures extends Fixture
                     $v->setName($voieData['name']);
                     $v->setDescription($voieData['description'] ?? '');
                     $v->setProfile($e);
+                    $e->addVoie($v); // maintient la collection inverse (utilisée par seedCharacterVoies)
                     $v->setCategory('Personnage');
                     $v->setMaxRank(5);
                     
@@ -841,8 +843,14 @@ class AppFixtures extends Fixture
                 'languages' => ['Commun'],
             ]);
             $ch->setOwner($p);
-            $ch->setCampaign($c1);
+            // Pas de setCampaign : un personnage ne peut référencer qu'une campagne de son
+            // propre owner (owner-scoping backend). Les joueurs sont reliés à la campagne du MJ
+            // via CampaignMembership ; rattacher le perso à $c1 (propriété du MJ) rendrait toute
+            // sauvegarde impossible (HTTP 400 « campagne introuvable »).
             $manager->persist($ch);
+            // Voies & capacités (modèle Phase 2 : characterVoies par IRI). Sans elles, le perso
+            // n'a aucune capacité ni voie de peuple (⇒ octroi absent). Réparties au budget du niveau.
+            $this->seedCharacterVoies($manager, $ch, $level);
         }
 
         foreach ([
@@ -916,7 +924,46 @@ class AppFixtures extends Fixture
             'languages' => ['Commun'],
         ]);
         $npc->setOwner($owner);
-        $npc->setCampaign($c2);
+        $npc->setCampaign($c2); // $c2 appartient au MJ ($owner) : cohérent, sauvegarde OK.
         $manager->persist($npc);
+        $this->seedCharacterVoies($manager, $npc, 2);
+    }
+
+    /**
+     * Sème les voies/capacités d'un personnage (modèle Phase 2 : `characterVoies` par IRI) :
+     * la voie de peuple (rang min(2, niveau)) + les deux premières voies de profil, réparties
+     * pour rester au budget de capacités du niveau (2 points/niveau ; rang 1 de peuple gratuit ;
+     * capacityCost = 1 aux rangs 1-2, 2 au-delà). Sans cela, un perso seedé n'a aucune capacité.
+     */
+    private function seedCharacterVoies(ObjectManager $manager, Character $ch, int $level): void
+    {
+        $add = function (Voie $voie, int $rank, string $source) use ($manager, $ch): void {
+            $cv = new CharacterVoie();
+            $cv->setCharacter($ch);
+            $cv->setVoie($voie);
+            $cv->setRank(max(1, min(5, $rank)));
+            $cv->setSource($source);
+            $manager->persist($cv);
+            $ch->addCharacterVoie($cv);
+        };
+
+        // Voie de peuple : rang min(2, niveau) — suffisant pour rendre visible l'octroi éventuel.
+        $race = $ch->getRace();
+        if ($race && !$race->getAvailableVoies()->isEmpty()) {
+            $add($race->getAvailableVoies()->first(), min(2, $level), 'peuple');
+        }
+
+        // Deux voies de profil : la première au rang du niveau (cappé à 5), la seconde au rang 1.
+        // Total ≈ budget : racial(1) + coût(rang niveau) + coût(rang 1) = 2×niveau.
+        $profile = $ch->getProfile();
+        if ($profile) {
+            $voies = array_values($profile->getVoies()->toArray());
+            if (isset($voies[0])) {
+                $add($voies[0], $level, 'profil');
+            }
+            if (isset($voies[1])) {
+                $add($voies[1], 1, 'profil');
+            }
+        }
     }
 }

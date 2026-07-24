@@ -96,7 +96,10 @@ export const MainStatsPanel: React.FC<Props> = ({ character, setCharacter, comba
                 <div className="text-[8px] text-amber-900/70 font-bold uppercase mt-1">1 PC = +10 à un test</div>
             </div>
 
-            <div className="glass-panel p-3 rounded-xl text-center border-blue-900/40 bg-blue-950/5 relative overflow-hidden transition-all hover:bg-blue-950/10">
+            <div
+                className="glass-panel p-3 rounded-xl text-center border-blue-900/40 bg-blue-950/5 relative overflow-hidden transition-all hover:bg-blue-950/10"
+                title="Sort en armure non autorisée pour le profil du sort : surcoût en PM = bonus de DEF de l'armure (hors bonus magique). Forgesort/druide/barde : différence avec leur armure max. Prêtre : aucun surcoût."
+            >
                 <div className="absolute top-0 left-0 w-full h-1 bg-blue-500/30" />
                 <label className="text-[9px] uppercase font-black text-blue-500 tracking-[0.2em] block mb-1">Mana</label>
                 <div className="text-2xl font-display font-bold text-blue-400">

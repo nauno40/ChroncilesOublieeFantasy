@@ -14,6 +14,7 @@ use App\Service\CapabilityEffectBuilder;
 use App\Entity\Material;
 use App\Entity\HarmfulState;
 use App\Entity\Poison;
+use App\Entity\Trap;
 use App\Entity\User;
 use App\Entity\Campaign;
 use App\Entity\CampaignMembership;
@@ -59,6 +60,7 @@ class AppFixtures extends Fixture
         // 3.5 Load States
         $this->loadStates($manager);
         $this->loadPoisons($manager);
+        $this->loadTraps($manager);
         
         // 4. Load Profile Families
         $profileFamilies = $this->loadProfileFamilies($manager);
@@ -654,6 +656,20 @@ class AppFixtures extends Fixture
             $e->setDuration($item['duration'] ?? null);
             $e->setDelay($item['delay'] ?? null);
             $e->setNote($item['note'] ?? null);
+
+            $manager->persist($e);
+        }
+    }
+
+    private function loadTraps(ObjectManager $manager): void
+    {
+        foreach ($this->getData('traps.json') as $item) {
+            $e = new Trap();
+            $e->setName($item['name']);
+            $e->setDetectDifficulty($item['detectDifficulty'] ?? null);
+            $e->setDisarmDifficulty($item['disarmDifficulty'] ?? null);
+            $e->setEffect($item['effect'] ?? null);
+            $e->setComplement($item['complement'] ?? null);
 
             $manager->persist($e);
         }

@@ -216,6 +216,15 @@ export interface Poison {
     note?: string;
 }
 
+export interface Trap {
+    id: string;
+    name: string;
+    detectDifficulty?: string;
+    disarmDifficulty?: string;
+    effect?: string;
+    complement?: string;
+}
+
 // ============================================================================
 // HELPER TYPES
 // ============================================================================

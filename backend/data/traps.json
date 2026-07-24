@@ -1,0 +1,58 @@
+[
+    {
+        "name": "Aiguille empoisonnée",
+        "detectDifficulty": "20",
+        "disarmDifficulty": "10",
+        "effect": "selon poison",
+        "complement": ""
+    },
+    {
+        "name": "Balancier",
+        "detectDifficulty": "15",
+        "disarmDifficulty": "10",
+        "effect": "3d6 DM",
+        "complement": "DM/2 sur test AGI diff.15"
+    },
+    {
+        "name": "Bloc de pierre",
+        "detectDifficulty": "15",
+        "disarmDifficulty": "15",
+        "effect": "10d4° DM",
+        "complement": "DM/2 sur test AGI diff.15"
+    },
+    {
+        "name": "Chausse‑trappe",
+        "detectDifficulty": "5 ou 15",
+        "disarmDifficulty": "5",
+        "effect": "1 DM + invalide",
+        "complement": "L'invalidité cesse lorsque la victime est soignée"
+    },
+    {
+        "name": "Fosse à pieux",
+        "detectDifficulty": "15",
+        "disarmDifficulty": "5",
+        "effect": "2d6 DM",
+        "complement": "DM/2 sur test AGI diff.15"
+    },
+    {
+        "name": "Lasso/Filet",
+        "detectDifficulty": "15",
+        "disarmDifficulty": "10",
+        "effect": "immobilisé + renversé",
+        "complement": ""
+    },
+    {
+        "name": "Piège à loups",
+        "detectDifficulty": "15",
+        "disarmDifficulty": "5",
+        "effect": "1 DM + immobilisé",
+        "complement": ""
+    },
+    {
+        "name": "Trappe et lames",
+        "detectDifficulty": "20",
+        "disarmDifficulty": "15",
+        "effect": "5d4° DM",
+        "complement": "DM/2 sur test AGI diff.15"
+    }
+]

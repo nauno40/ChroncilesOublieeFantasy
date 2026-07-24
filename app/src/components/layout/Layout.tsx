@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
-import { Book, Sword, Users, Home, BookOpen, GraduationCap, Sparkles, Zap, Package, Truck, UtensilsCrossed, AlertCircle, ScrollText, Skull } from 'lucide-react';
+import { Book, Sword, Users, Home, BookOpen, GraduationCap, Sparkles, Zap, Package, Truck, UtensilsCrossed, AlertCircle, ScrollText, Skull, Footprints } from 'lucide-react';
 import clsx from 'clsx';
 import type { NavItem } from './NavItem';
 import { NavItemComponent } from './NavItem';
@@ -44,6 +44,7 @@ export const Layout: React.FC = () => {
                 { path: '/bestiary', icon: Book, label: 'Bestiaire' },
                 { path: '/states', icon: AlertCircle, label: 'États' },
                 { path: '/poisons', icon: Skull, label: 'Poisons' },
+                { path: '/traps', icon: Footprints, label: 'Pièges' },
             ]
         },
         {

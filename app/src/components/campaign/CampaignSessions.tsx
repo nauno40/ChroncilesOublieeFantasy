@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FileText, Plus, X, Trophy, Calendar, Clock, Edit, Trash2 } from 'lucide-react';
-import { saveCampaign } from '../../utils/campaignService';
+import { saveCampaign } from '../../services/campaignService';
 import type { Campaign, Session } from '../../types/campaign';
 
 interface Props {

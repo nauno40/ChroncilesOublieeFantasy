@@ -1,4 +1,4 @@
-import { ApiService } from '../services/api';
+import { ApiService } from './api';
 import type { Campaign, Encounter } from '../types/campaign';
 
 // Forme brute d'une rencontre côté API (relations/JSON non typés strictement).

@@ -1,7 +1,7 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { BookOpen, Swords, Scroll, Skull, ChevronRight, Users, Play, Loader2 } from 'lucide-react';
-import { getCampaigns } from '../utils/campaignService';
+import { getCampaigns } from '../services/campaignService';
 import { DataService } from '../services/dataService';
 
 export const Home: React.FC = () => {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getCampaigns, createCampaign, deleteCampaign } from '../utils/campaignService';
+import { getCampaigns, createCampaign, deleteCampaign } from '../services/campaignService';
 import type { Campaign as CampaignType } from '../types/campaign';
 import { ApiService } from '../services/api';
 import { SharingService, type SharedCampaign } from '../services/sharingService';

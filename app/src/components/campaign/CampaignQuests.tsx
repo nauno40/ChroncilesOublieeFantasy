@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { clsx } from 'clsx';
 import { Scroll, X, Plus, CheckSquare, Square, Check, Edit } from 'lucide-react';
-import { saveCampaign } from '../../utils/campaignService';
+import { saveCampaign } from '../../services/campaignService';
 import type { Campaign, Quest } from '../../types/campaign';
 
 interface Props {

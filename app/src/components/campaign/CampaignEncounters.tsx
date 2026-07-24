@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { clsx } from 'clsx';
 import { Sword, Plus, X, Edit, Trash2, Play, Sparkles } from 'lucide-react';
-import { saveCampaign } from '../../utils/campaignService';
+import { saveCampaign } from '../../services/campaignService';
 import {
     loadEncounterIntoTracker, trackerHasCombat, generateEncounter, threatLabel,
     DIFFICULTIES, type EncounterDifficulty, type GeneratorCreature,

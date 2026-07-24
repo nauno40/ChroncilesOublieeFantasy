@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { getCampaign, saveCampaign } from '../utils/campaignService';
+import { getCampaign, saveCampaign } from '../services/campaignService';
 import { ApiService } from '../services/api';
 import { SharingService, type Membership } from '../services/sharingService';
 import { DataService } from '../services/dataService';

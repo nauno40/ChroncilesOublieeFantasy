@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { clsx } from 'clsx';
 import { StickyNote, Check } from 'lucide-react';
-import { saveCampaign } from '../../utils/campaignService';
+import { saveCampaign } from '../../services/campaignService';
 import type { Campaign } from '../../types/campaign';
 
 interface Props {

@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Character } from '../../types/character';
-import { computeLanguageUsage, baseLanguages } from '../../utils/cofRules';
+import { computeLanguageUsage, baseLanguages } from '../../domain/rules';
 import type { RaceList } from './types';
 
 interface Props {

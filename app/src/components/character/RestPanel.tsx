@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import type { Character } from '../../types/character';
-import { shortRestHeal, applyShortRest, applyLongRest } from '../../utils/cofRules';
+import { shortRestHeal, applyShortRest, applyLongRest } from '../../domain/rules';
 
 interface Props {
     character: Partial<Character>;

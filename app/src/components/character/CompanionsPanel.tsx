@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import type { Character, Companion } from '../../types/character';
 import type { Creature } from '../../types/normalized';
 import { DataService } from '../../services/dataService';
-import { companionFromCreature } from '../../utils/cofRules';
+import { companionFromCreature } from '../../domain/rules';
 
 interface Props {
     character: Partial<Character>;

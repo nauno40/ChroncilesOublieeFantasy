@@ -1,5 +1,5 @@
 // Barrel du domaine règles COF2 : ré-exporte tous les modules de `domain/rules/`.
-// Surface publique identique à l'ancien `utils/cofRules.ts` (voir le shim).
+// Point d'entrée unique du moteur de règles (importer depuis `domain/rules`).
 export * from './types';
 export * from './stats';
 export * from './health';

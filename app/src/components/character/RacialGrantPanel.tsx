@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Character } from '../../types/character';
 import type { ProfileList } from './types';
-import type { RacialGrant } from '../../utils/cofRules';
+import type { RacialGrant } from '../../domain/rules';
 
 interface VoieLite { '@id'?: string; name?: string; capabilities?: { rank?: number; name?: string }[] }
 interface ProfileLite { name?: string; voies?: VoieLite[] }

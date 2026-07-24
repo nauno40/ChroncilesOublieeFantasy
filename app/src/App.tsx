@@ -21,6 +21,7 @@ import { Mounts } from './pages/Mounts';
 import { Provisions } from './pages/Provisions';
 import { Dice } from './pages/Dice';
 import { States } from './pages/States';
+import { Poisons } from './pages/Poisons';
 import { Rules } from './pages/Rules';
 import { SoundboardPage } from './pages/SoundboardPage';
 import { MagicItems } from './pages/MagicItems';
@@ -75,6 +76,7 @@ function App() {
               <Route path="provisions" element={<Provisions />} />
               <Route path="tools/dice" element={<Dice />} />
               <Route path="states" element={<States />} />
+              <Route path="poisons" element={<Poisons />} />
               <Route path="rules" element={<Rules />} />
               <Route path="characters" element={<CharacterList />} />
               <Route path="characters/new" element={<CharacterSheet />} />

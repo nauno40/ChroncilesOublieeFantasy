@@ -206,6 +206,16 @@ export interface HarmfulState {
     image: string;
 }
 
+export interface Poison {
+    id: string;
+    name: string;
+    effectFail?: string;
+    effectSuccess?: string;
+    duration?: string;
+    delay?: string;
+    note?: string;
+}
+
 // ============================================================================
 // HELPER TYPES
 // ============================================================================

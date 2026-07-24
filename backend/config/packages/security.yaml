@@ -31,5 +31,5 @@ security:
         # Compendium (game reference data) stays publicly readable, but writes are
         # admin-only. Campaign-domain resources (campaigns/characters/quests/...) are
         # NOT listed here — they enforce ownership via per-operation security.
-        - { path: '^/api/(races|profiles|voies|capabilities|creatures|creature_families|creature_voies|equipment|materials|foods|lodgings|mounts|states|poisons|families)(/|$)', methods: [POST, PUT, PATCH, DELETE], roles: ROLE_ADMIN }
+        - { path: '^/api/(races|profiles|voies|capabilities|creatures|creature_families|creature_voies|equipment|materials|foods|lodgings|mounts|states|poisons|traps|families)(/|$)', methods: [POST, PUT, PATCH, DELETE], roles: ROLE_ADMIN }
         - { path: ^/api,       roles: PUBLIC_ACCESS } # Compendium reads stay public; campaign domain is guarded per-operation.

@@ -69,4 +69,5 @@ export interface AcquireContext {
 export interface RacialGrant {
   capabilityRank: number;      // rang de la capacité choix_capacite dans la voie de peuple
   allowedProfiles: string[];   // noms de profils autorisés ; ['*'] = tous
+  allowsRank2: boolean;        // le peuple autorise une capacité de rang 2 à la place (Elfe haut, Humain) — non géré, affiché en note
 }

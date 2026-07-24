@@ -26,7 +26,8 @@ export const racialGrantInfo = (
   const allowedProfiles = labels.some(l => /importe quel profil/i.test(l))
     ? ['*']
     : labels.map(l => l.split(' (')[0].trim());
-  return { capabilityRank: capRank, allowedProfiles };
+  const allowsRank2 = labels.some(l => /ou 2/i.test(l)); // « Rang 1 ou 2 » (Elfe haut, Humain)
+  return { capabilityRank: capRank, allowedProfiles, allowsRank2 };
 };
 
 // Un octroi (entrée source:'trait') est valide si le perso y a toujours droit ET que la

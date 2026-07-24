@@ -22,13 +22,16 @@ export const RacialGrantPanel: React.FC<Props> = ({ character, setCharacter, pro
 
     const current = (character.characterVoies ?? []).find(e => e.source === 'trait');
     const value = current?.voie ?? '';
+    const chosenRank = current?.rank ?? 1;
     const chosenVoie = allowed.flatMap(p => p.voies ?? []).find(v => v['@id'] === value);
-    const grantedCap = (chosenVoie?.capabilities ?? []).find(c => c.rank === 1)?.name;
+    const grantedCap = (chosenVoie?.capabilities ?? []).find(c => c.rank === chosenRank)?.name;
 
-    const setVoie = (iri: string) =>
+    // Écrit/remplace l'entrée trait (voie + rang octroyé). Rang 1 par défaut ; rang 2 possible
+    // seulement si le peuple l'autorise (Elfe haut, Humain).
+    const setGrant = (iri: string, rank: number) =>
         setCharacter(prev => {
             const cv = (prev.characterVoies ?? []).filter(e => e.source !== 'trait');
-            if (iri) cv.push({ voie: iri, rank: 1, source: 'trait' });
+            if (iri) cv.push({ voie: iri, rank, source: 'trait' });
             return { ...prev, characterVoies: cv };
         });
 
@@ -36,22 +39,30 @@ export const RacialGrantPanel: React.FC<Props> = ({ character, setCharacter, pro
         <div className="glass-panel p-4 rounded-2xl border-white/5 bg-stone-900/10 space-y-2">
             <h3 className="text-stone-400 font-display font-bold uppercase text-[10px] tracking-[0.2em]">Capacité de peuple</h3>
             <p className="text-[10px] text-stone-500 italic leading-snug">
-                Une capacité de rang 1 {all ? "de n'importe quel profil" : `de ${grant.allowedProfiles.join(' ou ')}`}, offerte par ton peuple (gratuite).
+                Une capacité {grant.allowsRank2 ? 'de rang 1 ou 2 ' : 'de rang 1 '}{all ? "de n'importe quel profil" : `de ${grant.allowedProfiles.join(' ou ')}`}, offerte par ton peuple (gratuite).
             </p>
             <select
                 className="w-full bg-stone-950/40 border border-stone-800 rounded px-2 py-1 text-xs text-stone-200 outline-none focus:border-primary-500/40"
                 value={value}
-                onChange={e => setVoie(e.target.value)}
+                onChange={e => setGrant(e.target.value, grant.allowsRank2 ? chosenRank : 1)}
             >
                 <option value="">— aucune —</option>
                 {options.map(o => <option key={o.iri} value={o.iri}>{o.label}</option>)}
             </select>
-            {grantedCap && <p className="text-[10px] text-stone-400">Capacité octroyée : <strong className="text-stone-200">{grantedCap}</strong></p>}
-            {grant.allowsRank2 && (
-                <p className="text-[9px] text-amber-700/70 italic leading-snug">
-                    Ton peuple autorise, à la place, une capacité de <strong>rang 2</strong> (sans porter d'armure pour lancer le sort). Non géré ici — à convenir avec ton MJ.
-                </p>
+            {grant.allowsRank2 && value && (
+                <div className="flex items-center gap-2">
+                    <label className="text-[9px] uppercase font-bold text-stone-500 tracking-wider">Rang</label>
+                    <select
+                        className="bg-stone-950/40 border border-stone-800 rounded px-2 py-1 text-xs text-stone-200 outline-none focus:border-primary-500/40"
+                        value={chosenRank}
+                        onChange={e => setGrant(value, Number(e.target.value))}
+                    >
+                        <option value={1}>Rang 1</option>
+                        <option value={2}>Rang 2 (sans armure pour lancer le sort)</option>
+                    </select>
+                </div>
             )}
+            {grantedCap && <p className="text-[10px] text-stone-400">Capacité octroyée : <strong className="text-stone-200">{grantedCap}</strong></p>}
         </div>
     );
 };

@@ -1,6 +1,7 @@
 import type { CharacterVoieRef } from '../../types/character';
 import type { CompendiumRace, CompendiumProfile, CompendiumVoie } from './types';
 import { PROFILE_FAMILIES } from './health';
+import { isCapabilityGrantedByEntry } from './progression';
 
 export const computeLuckPoints = (
   profileName: string | undefined,
@@ -46,7 +47,7 @@ export const computeManaPoints = (
     const v = byIri.get(entry.voie);
     if (!v) return;
     (v.capabilities ?? []).forEach(c => {
-      if ((c.rank ?? 0) >= 1 && (c.rank ?? 0) <= entry.rank && c.isSpell) spellCount++;
+      if (isCapabilityGrantedByEntry(c.rank, entry) && c.isSpell) spellCount++;
     });
     if (entry.rank >= 4 && perManaIris.has(entry.voie)) {
       const r4 = (v.capabilities ?? []).find(c => c.rank === 4);

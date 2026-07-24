@@ -97,3 +97,13 @@ export const computeSpentPoints = (
   });
   return spent;
 };
+
+// Une capacité (à son rang) est-elle accordée par cette entrée de voie sur la fiche ?
+// Cas général : tous les rangs jusqu'au rang courant (c.rank <= entry.rank).
+// Entrée 'trait' (octroi de capacité de peuple) : EXACTEMENT la capacité du rang choisi —
+// le trait n'accorde qu'UNE capacité (rang 1 ou 2), pas la voie jusqu'à ce rang.
+export const isCapabilityGrantedByEntry = (capRank: number | undefined, entry: CharacterVoieRef): boolean => {
+  const r = capRank ?? 0;
+  if (r < 1) return false;
+  return entry.source === 'trait' ? r === entry.rank : r <= entry.rank;
+};

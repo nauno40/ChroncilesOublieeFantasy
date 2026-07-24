@@ -44,6 +44,7 @@ import {
   capabilityChoiceHelp,
   racialGrantInfo,
   isTraitGrantValid,
+  isCapabilityGrantedByEntry,
 } from './index';
 
 describe('calculateMod (COF2 : la valeur EST le modificateur)', () => {
@@ -972,5 +973,43 @@ describe('isMageFamily (classification famille des mages)', () => {
     expect(isMageFamily({ name: 'Guerrier', familyId: 'combattants' })).toBe(false);
     expect(isMageFamily(null)).toBe(false);
     expect(isMageFamily(undefined)).toBe(false);
+  });
+});
+
+describe('isCapabilityGrantedByEntry (octroi rang exact)', () => {
+  const at = (rank: number, source: 'profil' | 'trait') => ({ voie: '/v', rank, source } as const);
+  it('voie normale : tous les rangs jusqu\'au rang courant', () => {
+    expect(isCapabilityGrantedByEntry(1, at(3, 'profil'))).toBe(true);
+    expect(isCapabilityGrantedByEntry(3, at(3, 'profil'))).toBe(true);
+    expect(isCapabilityGrantedByEntry(4, at(3, 'profil'))).toBe(false);
+    expect(isCapabilityGrantedByEntry(0, at(3, 'profil'))).toBe(false);
+  });
+  it('trait (octroi) : EXACTEMENT la capacité du rang choisi', () => {
+    // octroi rang 2 → seule la capacité rang 2, pas la rang 1
+    expect(isCapabilityGrantedByEntry(2, at(2, 'trait'))).toBe(true);
+    expect(isCapabilityGrantedByEntry(1, at(2, 'trait'))).toBe(false);
+    // octroi rang 1 → seule la rang 1
+    expect(isCapabilityGrantedByEntry(1, at(1, 'trait'))).toBe(true);
+    expect(isCapabilityGrantedByEntry(2, at(1, 'trait'))).toBe(false);
+  });
+});
+
+describe('octroi rang 2 : dérivation résout exactement le rang choisi', () => {
+  const zero = { FOR: 0, AGI: 0, CON: 0, INT: 0, PER: 0, CHA: 0, VOL: 0 };
+  // Voie octroyée dont la capacité rang 1 ET la rang 2 portent chacune un bonus DEF.
+  const voie = {
+    '@id': '/api/voies/g', name: 'V',
+    capabilities: [
+      { rank: 1, name: 'R1', effect: { bonuses: [{ target: 'def', scalesWith: 'fixed', value: 5 }] } },
+      { rank: 2, name: 'R2', effect: { bonuses: [{ target: 'def', scalesWith: 'fixed', value: 9 }] } },
+    ],
+  };
+  const profiles = [{ voies: [voie] }] as unknown as Parameters<typeof computeCombatStats>[0]['profiles'];
+  it('trait rang 2 → seule la DEF de la capacité rang 2 (pas rang 1)', () => {
+    const r = computeCombatStats({
+      voies: [{ voie: '/api/voies/g', rank: 2, source: 'trait' }],
+      protection: undefined, races: [], profiles, allVoies: [], perMod: 0, agiMod: 0, caracs: zero, level: 3,
+    });
+    expect(r.def).toBe(19); // 10 + 9 (rang 2 seul), PAS 10 + 5 + 9
   });
 });

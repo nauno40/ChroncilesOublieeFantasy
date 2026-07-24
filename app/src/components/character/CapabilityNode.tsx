@@ -4,6 +4,8 @@ import { Tooltip } from '../common';
 interface Cap {
     name: string;
     description: string;
+    /** Sort (capacité magique) : son coût en PM = son rang (COF2, Magie et sorts). */
+    isSpell?: boolean;
 }
 
 interface Props {
@@ -90,6 +92,9 @@ export const CapabilityNode: React.FC<Props> = ({ rank, isActive, nextActive, ca
                                 {cap.name}
                                 {resolvedDice && (
                                     <span className={`ml-2 text-[10px] font-bold normal-case px-1.5 py-0.5 rounded ${t.rank} bg-black/30`}>{resolvedDice}</span>
+                                )}
+                                {cap.isSpell && (
+                                    <span className="ml-2 text-[10px] font-bold normal-case px-1.5 py-0.5 rounded bg-blue-950/40 border border-blue-700/40 text-blue-400" title="Coût du sort = son rang">{rank} PM</span>
                                 )}
                             </span>
                         )}

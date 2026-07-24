@@ -10,6 +10,7 @@ use App\Entity\Race;
 use App\Entity\Voie;
 use App\Entity\Capability;
 use App\Entity\Equipment;
+use App\Service\CapabilityEffectBuilder;
 use App\Entity\Material;
 use App\Entity\HarmfulState;
 use App\Entity\User;
@@ -31,6 +32,7 @@ class AppFixtures extends Fixture
 
     public function __construct(
         private readonly UserPasswordHasherInterface $passwordHasher,
+        private readonly CapabilityEffectBuilder $effectBuilder,
     ) {
         // Docker environment (volume mounted at /app/data)
         if (is_dir('/app/data')) {
@@ -280,7 +282,7 @@ class AppFixtures extends Fixture
                             $c = new Capability();
                             $c->setName($capData['name']);
                             $c->setDescription($capData['description'] ?? '');
-                            $this->applyCapabilityEffect($c);
+                            $this->effectBuilder->apply($c);
                             $c->setRank($capData['rank']);
                             $c->setVoie($v);
                             
@@ -431,7 +433,7 @@ class AppFixtures extends Fixture
                 $cap = new Capability();
                 $cap->setName($capData['name']);
                 $cap->setDescription($capData['description'] ?? '');
-                $this->applyCapabilityEffect($cap);
+                $this->effectBuilder->apply($cap);
                 $cap->setRank($capData['rank']); // slot 1-5 (= rang 4-8 du livre)
                 $cap->setLimited(str_contains(strtolower($capData['name'] . ' ' . ($capData['description'] ?? '')), '(l)'));
                 $cap->setIsSpell(str_contains($capData['name'], '*'));
@@ -485,7 +487,7 @@ class AppFixtures extends Fixture
                             $cap = new Capability();
                             $cap->setName($capData['name']);
                             $cap->setDescription($capData['description'] ?? '');
-                            $this->applyCapabilityEffect($cap);
+                            $this->effectBuilder->apply($cap);
                             $cap->setRank($capData['rank']);
                             $type = $capData['type'] ?? '';
                             $cap->setLimited(str_contains(strtolower($type), 'limité'));
@@ -524,7 +526,7 @@ class AppFixtures extends Fixture
             $e = new Capability();
             $e->setName($item['name']);
             $e->setDescription($item['description'] ?? '');
-            $this->applyCapabilityEffect($e);
+            $this->effectBuilder->apply($e);
             $e->setRank($item['rank']);
             
             // "voieId": "voie_de_la_divination"
@@ -541,101 +543,6 @@ class AppFixtures extends Fixture
         }
     }
 
-    /**
-     * Bonus de combat structurés par nom de capacité (spec effect.bonuses, fidélité).
-     * Évalués côté front au rang courant de la voie.
-     */
-    private const COMBAT_BONUSES = [
-        'Réflexes éclair' => [
-            ['target' => 'init', 'scalesWith' => 'fixed', 'value' => 3],
-            ['target' => 'def', 'scalesWith' => 'threshold', 'thresholds' => [
-                ['minRank' => 1, 'value' => 1], ['minRank' => 5, 'value' => 2],
-            ]],
-        ],
-        'Murmures dans le vent' => [
-            ['target' => 'init', 'scalesWith' => 'fixed', 'value' => 1],
-            ['target' => 'def', 'scalesWith' => 'fixed', 'value' => 1],
-        ],
-        'Divination' => [
-            ['target' => 'init', 'scalesWith' => 'threshold', 'thresholds' => [
-                ['minRank' => 1, 'value' => 1], ['minRank' => 3, 'value' => 2], ['minRank' => 5, 'value' => 3],
-            ]],
-            ['target' => 'def', 'scalesWith' => 'threshold', 'thresholds' => [
-                ['minRank' => 1, 'value' => 1], ['minRank' => 3, 'value' => 2], ['minRank' => 5, 'value' => 3],
-            ]],
-        ],
-        'Peau de pierre' => [
-            ['target' => 'def', 'scalesWith' => 'threshold', 'thresholds' => [
-                ['minRank' => 1, 'value' => 1], ['minRank' => 4, 'value' => 2],
-            ]],
-        ],
-        'Armure de vent' => [
-            ['target' => 'def', 'scalesWith' => 'fixed', 'value' => 1],
-        ],
-    ];
-
-    /** DEF max d'armure ouverte par une capacité (spec : plafond relevé). */
-    private const ARMOR_CAP_BY_CAPABILITY = [
-        'Autorité naturelle' => 7, // Chevalier rang 3 : formation à la plaque complète
-    ];
-
-    /** Options structurées des capacités à choix (spec #6a : bonus aux tests de carac). */
-    private const CHOICE_OPTIONS_BY_CAPABILITY = [
-        'Tatouages' => [
-            ['label' => 'Taureau (+3 FOR)',  'caracTestBonus' => ['carac' => 'FOR', 'value' => 3]],
-            ['label' => 'Ours (+3 CON)',     'caracTestBonus' => ['carac' => 'CON', 'value' => 3]],
-            ['label' => 'Panthère (+3 AGI)', 'caracTestBonus' => ['carac' => 'AGI', 'value' => 3]],
-            ['label' => 'Chouette (+3 PER)', 'caracTestBonus' => ['carac' => 'PER', 'value' => 3]],
-            ['label' => 'Loup (+3 CHA)',     'caracTestBonus' => ['carac' => 'CHA', 'value' => 3]],
-            ['label' => 'Renard (+3 INT)',   'caracTestBonus' => ['carac' => 'INT', 'value' => 3]],
-            ['label' => 'Serpent (+3 VOL)',  'caracTestBonus' => ['carac' => 'VOL', 'value' => 3]],
-        ],
-        'Armure lourde' => [
-            ['label' => '+1 DEF', 'bonuses' => [['target' => 'def', 'scalesWith' => 'fixed', 'value' => 1]]],
-            ['label' => 'Armure de plaque (DEF +6)', 'armorCap' => 6],
-        ],
-        // Octroi de capacité (#6, traits de peuple) : choix contraint parmi les profils autorisés.
-        // Labels seuls, sans payload : enregistrement/guide, pas de dérivation d'effet (tranche ultérieure).
-        'Talent pour la violence' => [ // Demi-orque
-            ['label' => 'Barbare (Rang 1)'], ['label' => 'Guerrier (Rang 1)'],
-        ],
-        'Talent pour la magie' => [ // Elfe haut
-            ['label' => 'Magicien (Rang 1 ou 2)'], ['label' => 'Ensorceleur (Rang 1 ou 2)'],
-        ],
-        'Enfant de la forêt' => [ // Elfe sylvain
-            ['label' => 'Druide (Rang 1)'], ['label' => 'Rôdeur (Rang 1)'],
-        ],
-        'Don étrange' => [ // Gnome
-            ['label' => 'Ensorceleur (Rang 1)'],
-        ],
-        'Touche-à-tout' => [ // Humain
-            ['label' => "N'importe quel profil (Rang 1 ou 2)"],
-        ],
-    ];
-
-    /**
-     * Construit effect : dé évolutif « Nd4° » détecté dans la description (spec §6.4)
-     * + bonus de combat structurés (COMBAT_BONUSES). Ne pose effect que s'il est non vide.
-     */
-    private function applyCapabilityEffect(Capability $c): void
-    {
-        $effect = [];
-        if (preg_match('/(\d*)d4°/u', (string) $c->getDescription(), $m)) {
-            $effect['evolutiveDie'] = ['count' => $m[1] === '' ? 1 : (int) $m[1]];
-        }
-        if (isset(self::COMBAT_BONUSES[$c->getName()])) {
-            $effect['bonuses'] = self::COMBAT_BONUSES[$c->getName()];
-        }
-        if (isset(self::ARMOR_CAP_BY_CAPABILITY[$c->getName()])) {
-            $effect['armorCap'] = self::ARMOR_CAP_BY_CAPABILITY[$c->getName()];
-        }
-        if (isset(self::CHOICE_OPTIONS_BY_CAPABILITY[$c->getName()])) {
-            $effect['choiceOptions'] = self::CHOICE_OPTIONS_BY_CAPABILITY[$c->getName()];
-        }
-        if ($effect !== []) {
-            $c->setEffect($effect);
-        }
-    }
 
     private function loadEquipment(ObjectManager $manager): array
     {

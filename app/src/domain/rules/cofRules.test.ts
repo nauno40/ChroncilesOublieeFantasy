@@ -42,7 +42,7 @@ import {
   capabilityChoiceHelp,
   racialGrantInfo,
   isTraitGrantValid,
-} from './cofRules';
+} from './index';
 
 describe('calculateMod (COF2 : la valeur EST le modificateur)', () => {
   it('renvoie la valeur telle quelle (identité)', () => {

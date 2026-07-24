@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Character } from '../../types/character';
-import { FAMILY_BASE_HP } from '../../utils/cofRules';
+import { FAMILY_BASE_HP } from '../../domain/rules';
 
 const FAMILY_LABELS: Record<string, string> = {
     aventuriers: 'Aventuriers', combattants: 'Combattants', mages: 'Mages', mystiques: 'Mystiques',

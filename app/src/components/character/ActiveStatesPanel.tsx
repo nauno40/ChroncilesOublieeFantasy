@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Character, ActiveState, ItemBonusTarget } from '../../types/character';
-import { activateState } from '../../utils/cofRules';
+import { activateState } from '../../domain/rules';
 
 const TARGET_LABELS: Record<ItemBonusTarget, string> = {
     def: 'DEF', init: 'Init', pv: 'PV', rd: 'RD', attaque: 'Attaque', dm: 'DM',

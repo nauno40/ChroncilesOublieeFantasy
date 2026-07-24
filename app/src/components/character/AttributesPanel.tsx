@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Character } from '../../types/character';
-import { MIN_STAT, MAX_STAT, type Stats } from '../../utils/cofRules';
+import { MIN_STAT, MAX_STAT, type Stats } from '../../domain/rules';
 import type { RaceList } from './types';
 
 interface Props {

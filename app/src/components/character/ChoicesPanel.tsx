@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Character } from '../../types/character';
-import { capabilityChoiceKey, capabilityChoiceHelp } from '../../utils/cofRules';
+import { capabilityChoiceKey, capabilityChoiceHelp } from '../../domain/rules';
 import type { RaceList, ProfileList, AllVoieList } from './types';
 
 interface CompendiumCap { rank?: number; name?: string; details?: Record<string, unknown>; effect?: { choiceOptions?: { label: string }[] } }

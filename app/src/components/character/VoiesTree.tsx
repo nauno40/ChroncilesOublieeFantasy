@@ -1,7 +1,7 @@
 import React from 'react';
 import { RefreshCw, Trash2 } from 'lucide-react';
 import { CapabilityNode } from './CapabilityNode';
-import { canAcquireRank, rankUnlockLevel, canAddVoie, MAX_VOIES, type VoieKind } from '../../utils/cofRules';
+import { canAcquireRank, rankUnlockLevel, canAddVoie, MAX_VOIES, type VoieKind } from '../../domain/rules';
 import type { Character, CharacterVoieRef } from '../../types/character';
 import type {
     GetCapabilityName,

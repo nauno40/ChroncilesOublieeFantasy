@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Character } from '../../types/character';
-import { attackValue, attackCarac, type Stats } from '../../utils/cofRules';
+import { attackValue, attackCarac, type Stats } from '../../domain/rules';
 
 interface Props {
     character: Partial<Character>;

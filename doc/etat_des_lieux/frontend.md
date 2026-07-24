@@ -168,7 +168,7 @@ orchestrateur léger + règles pures + hooks + composants présentationnels. La 
 (état de jeu opaque, piloté joueur), `character.characterVoies` (voies par IRI + rang + source).
 **Aucune valeur dérivée n'est stockée** — tout est recalculé à l'affichage.
 
-- **Règles COF2 pures** — `src/utils/cofRules.ts` : ~50 fonctions sans React, couvertes par
+- **Règles COF2 pures** — `src/domain/rules/` (moteur COF2 découpé en modules + barrel) : ~50 fonctions sans React, couvertes par
   `cofRules.test.ts` (Vitest, ~150 tests). Outre les basiques (modificateurs, PV/PV hybrides,
   dé de récupération, chance, mana, init/déf, attaque, langues), elles incluent l'**interpréteur
   d'effets** — `resolveCapabilityEffect` + `aggregateResolvedBonuses` (résout `effect.bonuses`
@@ -208,7 +208,7 @@ Fonctionnalités clés :
 ## 10. Points d'attention
 
 - **Tests** :
-  - *Unitaires* — Vitest sur les règles pures COF2 (`src/utils/cofRules.test.ts`), lancés via
+  - *Unitaires* — Vitest sur les règles pures COF2 (`src/domain/rules/cofRules.test.ts`), lancés via
     `npm run test:run` (config `src/**/*.test.ts`).
   - *E2E* — suite Playwright dans `app/e2e/` : `auth.spec.ts` (inscription/connexion/déconnexion),
     `stale-token.spec.ts` (régression du fix 401 : un JWT périmé est purgé + redirige vers `/login`),

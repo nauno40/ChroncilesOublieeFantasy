@@ -29,7 +29,7 @@ import {
   STAT_SERIES,
   PROFILE_FAMILIES,
   type CompendiumVoie,
-} from '../utils/cofRules';
+} from '../domain/rules';
 
 // COF2 : valeurs de caractéristiques directes (‑2 à +5). 0 = « moyen pour un humain ».
 export const defaultCaracs: Caracs = { AGI: 0, CON: 0, FOR: 0, PER: 0, CHA: 0, INT: 0, VOL: 0 };

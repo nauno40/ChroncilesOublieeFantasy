@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import type { Character, Form } from '../../types/character';
 import type { Creature } from '../../types/normalized';
 import { DataService } from '../../services/dataService';
-import { formFromCreature, activateForm } from '../../utils/cofRules';
+import { formFromCreature, activateForm } from '../../domain/rules';
 
 interface Props {
     character: Partial<Character>;

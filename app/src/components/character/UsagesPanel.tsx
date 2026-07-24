@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Character, Usage, UsagePeriod } from '../../types/character';
-import { resetUsages } from '../../utils/cofRules';
+import { resetUsages } from '../../domain/rules';
 
 const PERIOD_LABELS: Record<UsagePeriod, string> = {
     jour: 'Jour', combat: 'Combat', round: 'Round', autre: 'Autre',

@@ -878,7 +878,7 @@ describe('octroi de capacité (source trait)', () => {
   });
   it('éligible au rang requis : profils autorisés parsés', () => {
     const g = racialGrantInfo([{ voie: '/api/voies/peuple', rank: 2, source: 'peuple' }], races, [], []);
-    expect(g).toEqual({ capabilityRank: 2, allowedProfiles: ['Barbare', 'Guerrier'] });
+    expect(g).toEqual({ capabilityRank: 2, allowedProfiles: ['Barbare', 'Guerrier'], allowsRank2: false });
   });
   it('« N\'importe quel profil » → [\'*\']', () => {
     const any = [{ availableVoies: [{ '@id': '/v', name: 'V', capabilities: [
@@ -886,6 +886,7 @@ describe('octroi de capacité (source trait)', () => {
     ] }] }] as unknown as Parameters<typeof racialGrantInfo>[1];
     const g = racialGrantInfo([{ voie: '/v', rank: 1, source: 'peuple' }], any, [], []);
     expect(g?.allowedProfiles).toEqual(['*']);
+    expect(g?.allowsRank2).toBe(true); // « Rang 1 ou 2 »
   });
 });
 

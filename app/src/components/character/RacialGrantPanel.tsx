@@ -47,6 +47,11 @@ export const RacialGrantPanel: React.FC<Props> = ({ character, setCharacter, pro
                 {options.map(o => <option key={o.iri} value={o.iri}>{o.label}</option>)}
             </select>
             {grantedCap && <p className="text-[10px] text-stone-400">Capacité octroyée : <strong className="text-stone-200">{grantedCap}</strong></p>}
+            {grant.allowsRank2 && (
+                <p className="text-[9px] text-amber-700/70 italic leading-snug">
+                    Ton peuple autorise, à la place, une capacité de <strong>rang 2</strong> (sans porter d'armure pour lancer le sort). Non géré ici — à convenir avec ton MJ.
+                </p>
+            )}
         </div>
     );
 };

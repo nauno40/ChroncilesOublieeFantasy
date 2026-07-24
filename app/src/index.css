@@ -99,3 +99,11 @@ input[type=number]::-webkit-outer-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+/* Impression (fiche de personnage imprimable — voir PrintableCharacterSheet) */
+@media print {
+  .no-print { display: none !important; }
+  /* Fond blanc / pas d'ombres pour un rendu papier/PDF propre. */
+  body { background: #fff !important; }
+  * { box-shadow: none !important; }
+  @page { margin: 12mm; }
+}

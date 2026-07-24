@@ -1,5 +1,5 @@
 import React from 'react';
-import { Save, ChevronLeft, RefreshCw, Trash2 } from 'lucide-react';
+import { Save, ChevronLeft, RefreshCw, Trash2, Printer } from 'lucide-react';
 
 interface Props {
     name: string;
@@ -8,9 +8,10 @@ interface Props {
     onBack: () => void;
     onSave: () => void;
     onDelete: () => void;
+    onPrint?: () => void;
 }
 
-export const CharacterToolbar: React.FC<Props> = ({ name, isNew, saving, onBack, onSave, onDelete }) => {
+export const CharacterToolbar: React.FC<Props> = ({ name, isNew, saving, onBack, onSave, onDelete, onPrint }) => {
     return (
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 bg-stone-900/60 backdrop-blur-md p-5 rounded-2xl border border-white/5 shadow-2xl">
             <div className="flex items-center gap-5">
@@ -38,6 +39,15 @@ export const CharacterToolbar: React.FC<Props> = ({ name, isNew, saving, onBack,
                     {saving ? <RefreshCw className="animate-spin" size={16} /> : <Save size={16} />}
                     {saving ? 'Incantation...' : 'Enregistrer'}
                 </button>
+                {!isNew && onPrint && (
+                    <button
+                        onClick={onPrint}
+                        className="p-3 glass-panel text-stone-600 hover:text-primary-400 hover:border-primary-500/30 transition-all rounded-xl border border-white/5"
+                        title="Imprimer / PDF"
+                    >
+                        <Printer size={20} />
+                    </button>
+                )}
                 {!isNew && (
                     <button
                         onClick={onDelete}

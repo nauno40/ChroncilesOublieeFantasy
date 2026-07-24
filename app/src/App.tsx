@@ -26,6 +26,7 @@ import { SoundboardPage } from './pages/SoundboardPage';
 import { MagicItems } from './pages/MagicItems';
 import { CharacterList } from './pages/CharacterList';
 import { CharacterSheet } from './pages/CharacterSheet';
+import { PrintableCharacterSheet } from './pages/PrintableCharacterSheet';
 import { LandingPage } from './pages/LandingPage';
 import { LoginPage } from './pages/LoginPage';
 import { RegisterPage } from './pages/RegisterPage';
@@ -48,6 +49,8 @@ function App() {
 
           {/* Protected App Routes */}
           <Route element={<ProtectedRoute />}>
+            {/* Vue d'impression : protégée mais hors Layout (pas de sidebar) */}
+            <Route path="/characters/:id/print" element={<PrintableCharacterSheet />} />
             <Route element={<Layout />}>
               <Route path="/dashboard" element={<Home />} />
               <Route path="bestiary" element={<Bestiary />} />

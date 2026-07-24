@@ -75,7 +75,10 @@ export const MainStatsPanel: React.FC<Props> = ({ character, setCharacter, comba
                     : <div className="text-[8px] text-green-900/60 font-bold uppercase mt-1">PV courants / max</div>}
             </div>
             {/* Row 3: Luck & Mana */}
-            <div className="glass-panel p-3 rounded-xl border-white/5 bg-stone-900/20 text-center">
+            <div
+                className="glass-panel p-3 rounded-xl border-white/5 bg-stone-900/20 text-center"
+                title="1 PC = +10 au résultat d'un test (caractéristique ou attaque), après l'avoir vu — action gratuite, 1 max par test. Récupérés intégralement à chaque niveau."
+            >
                 <label className="text-[9px] uppercase font-black text-amber-600/80 tracking-widest block mb-2">Chance</label>
                 <div className="flex items-center justify-center gap-2">
                     <input
@@ -90,6 +93,7 @@ export const MainStatsPanel: React.FC<Props> = ({ character, setCharacter, comba
                     <span className="text-stone-700 font-black text-xs">/</span>
                     <span className="w-8 text-center text-sm text-stone-500 font-bold">{luckMax}</span>
                 </div>
+                <div className="text-[8px] text-amber-900/70 font-bold uppercase mt-1">1 PC = +10 à un test</div>
             </div>
 
             <div className="glass-panel p-3 rounded-xl text-center border-blue-900/40 bg-blue-950/5 relative overflow-hidden transition-all hover:bg-blue-950/10">

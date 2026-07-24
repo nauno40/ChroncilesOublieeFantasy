@@ -140,7 +140,7 @@ export const PrintableCharacterSheet: React.FC = () => {
                     <StatBox label="Défense" value={combatStats.def} />
                     <StatBox label="Initiative" value={combatStats.init} />
                     <StatBox label="Réduction de dmg" value={damageReduction} />
-                    <Resource label="Points de Vie" current={ps?.hp?.current ?? maxHp} max={maxHp} />
+                    <Resource label="Points de Vie" current={Math.min(maxHp, ps?.hp?.current ?? maxHp)} max={maxHp} />
                 </div>
                 <table className="w-full text-xs border-collapse">
                     <thead>

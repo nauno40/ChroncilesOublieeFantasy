@@ -56,9 +56,9 @@ src/
 
 - **Race** — Peuple du personnage (nom, description, modificateurs, taille, vitesse, capacités, voies raciales)
 - **Family** — Famille de profil (Aventuriers, Combattants, Mages, Mystiques) avec baseHp, recoveryDie, luckPoints, manaStat
-- **Profile** — Classe du personnage (14 profils : Barbare, Barde, Chevalier, Druide, Guerrier, Magicien, etc.) avec dés de vie, armures autorisées, compétences, statistiques, équipement de départ
+- **Profile** — Classe du personnage (14 profils : Barbare, Barde, Chevalier, Druide, Guerrier, Magicien, etc.). Champs structurés issus de la refonte fidélité : `armorMaxDef` (seuil de DEF max d'armure autorisée ; `-1` = aucune), `magicStat` (carac de magie du profil), `weaponsAuth` (JSON, réservé), `masteries` (maîtrises armes/armures en prose), `stats` (dont `hpPerLevel`), équipement de départ. **Les champs morts `hitDie`/`skillPoints` ont été retirés** (les PV viennent de la famille, le budget de capacité est une constante de règle).
 - **Voie** — Arbre de talents lié à un profil (nom, description, catégorie, rang max, détails JSON)
-- **Capability** — Capacité / Sort (rang, voie, isSpell, actionType, limited, effet JSON)
+- **Capability** — Capacité / Sort (rang, voie, isSpell, actionType, limited). Le champ **`effect` (JSON)** porte les données de dérivation exploitées par le front : `evolutiveDie` (dé « Nd4° »), `bonuses` (bonus de combat : `{target, scalesWith: fixed|rank|carac|threshold, …}`), `armorCap` (relèvement du plafond d'armure), `choiceOptions` (options structurées d'une capacité à choix, avec payload `caracTestBonus`/`bonuses`/`armorCap`). Peuplé par `AppFixtures` (tables `COMBAT_BONUSES`, `ARMOR_CAP_BY_CAPABILITY`, `CHOICE_OPTIONS_BY_CAPABILITY` + détection regex du dé évolutif).
 - **CreatureFamily** — Famille de créature (nom, description, image)
 - **Creature** — Monstre du bestiaire (NC, PV, DEF, INIT, stats, capacités spéciales, attaques, catégorie, environnement)
 - **CreatureVoie** — Lien créature ↔ voie avec rang
@@ -76,7 +76,8 @@ src/
 - **Quest** — Quête (campagne, titre, description, type "main", statut "active")
 - **Clue** — Indice / rumeur (campagne, contenu, date trouvée, statut)
 - **Session** — Session de jeu (campagne, titre, date, durée, niveau, résumé)
-- **Character** — Personnage joueur (race, profil, propriétaire, campagne, niveau, données JSON)
+- **Character** — Personnage joueur (race, profil FK, propriétaire, campagne, niveau). **Modèle refondu (fin de l'ancien fourre-tout `data`)** : `caracs` (JSON — les 7 caractéristiques COF, valeurs = modificateurs, ‑2..+5) et `playState` (JSON opaque — état de jeu mutable piloté joueur : PV/PM/PC courants, protection, objets magiques, usages, compagnons, formes, états actifs, substitutions, langues/talents, physique, PV par niveau…). Les valeurs dérivées ne sont **jamais** stockées (calculées côté front, cf. `cofRules.ts`).
+- **CharacterVoie** — Voie choisie par un personnage (entité, **pas** une ressource API : écrite via `Character.characterVoies` en cascade). Champs : `voie` (FK), `rank` (0..5), `source` (`profil` | `peuple` | `prestige` | `hybride` | `trait`), `choices` (JSON — choix enregistrés par rang). La source `trait` porte les **capacités octroyées par le peuple** (gratuites, hors budget/plafond).
 
 ## 4. API Platform
 
@@ -85,7 +86,7 @@ src/
 - **Formats** : JSON-LD, JSON
 - **Documentation** : Swagger UI + ReDoc activés
 - **Pagination** : 30 items/page (max 1000, configurable par le client)
-- **Entités exposées** : Toutes les 21 entités sont des `#[ApiResource]`
+- **Entités exposées** : 23 entités sont des `#[ApiResource]` (dont `CampaignMembership`, `SharedCampaign`, `CustomCreature`, `Encounter`). `CharacterVoie` est une entité **non exposée** directement (écrite en cascade via `Character`).
 
 ### Sécurité des endpoints
 
@@ -126,16 +127,19 @@ src/
 - **Données** : 14 profils de classe, 8 races, centaines de créatures et capacités
 - **Admin user** : créé avec un mot de passe réellement hashé via `UserPasswordHasherInterface` (`admin@example.com` / `admin`)
 
-## 8. Migrations (3 fichiers, appliquées)
+## 8. Migrations (11 fichiers, appliquées)
 
-1. **Version20260301150846** — Schéma initial (21 tables)
-2. **Version20260301172414** — Ajustements (Clue, Quest, Session)
-3. **Version20260301194224** — Ajout `campaign_id` sur Character
+Schéma initial + ajustements (mars 2026 : `campaign_id` sur Character, Clue/Quest/Session),
+puis les migrations du partage MJ ⇄ joueurs (CampaignMembership, CustomCreature, Encounter)
+et de la **refonte du modèle de données** (juillet 2026, jusqu'à `Version20260712204811`) :
+entité `CharacterVoie`, colonnes `Character.caracs`/`playState` (fin de `Character.data`),
+champs morts de `Profile` retirés (`hitDie`/`skillPoints`), `Profile.armorMaxDef`/`weaponsAuth`,
+armures numériques, dé évolutif dans `Capability.effect`.
 
 ## 9. Points d'attention
 
 - **Sécurité des entités** : User, Campaign, Character **et** Quest/Clue/Session sont protégés (par propriétaire / rôle) ; le compendium reste public **en lecture** mais ses écritures sont réservées à ROLE_ADMIN
-- **Tests** : suite fonctionnelle dans `tests/Api/` (**40 tests**, basée sur `ApiTestCase`) — règles de sécurité (User/Campaign/Character/Quest, écritures compendium admin-only, sous-ressources campagne non listables sans auth), inscription+login JWT et hachage du mot de passe, timestamp `updatedAt`. Lancement : `php bin/phpunit` (DB de test à créer une fois via `php bin/console doctrine:database:create --env=test`). Le reste de l'application n'est pas encore couvert.
+- **Tests** : suite fonctionnelle dans `tests/Api/` (**~43 tests, 18 fichiers**, basée sur `ApiTestCase` ; `ApiSecurityTestCase` réinitialise le schéma Postgres à chaque test — pas de fixtures) — règles de sécurité (User/Campaign/Character/Quest, écritures compendium admin-only, sous-ressources non listables sans auth, CustomCreature/Encounter owner-scopés), inscription+login JWT et hachage du mot de passe, timestamp `updatedAt`, et le **contrat de sérialisation du compendium** (`CompendiumContractTest` : `Capability.effect` structuré exposé via `voie:read`, `Profile.armorMaxDef`, round-trip `CharacterVoie.source = 'trait'`). Lancement : `php bin/phpunit` (DB de test à créer une fois via `php bin/console doctrine:database:create --env=test` ; la suite complète est lente → lancer fichier par fichier en dev). Le reste de l'application n'est pas encore couvert.
 - **Messenger** : Transport Doctrine configuré (async + failed), routage pour SendEmailMessage, ChatMessage, SmsMessage
 - **Pas de Services/EventSubscriber/Voter** dédiés pour le moment
 

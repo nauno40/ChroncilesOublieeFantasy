@@ -49,13 +49,14 @@ Le projet repose sur **Docker Compose** pour l'orchestration des conteneurs. Le 
 .
 ├── app/                          # Frontend React
 │   ├── src/
-│   │   ├── components/           # Composants UI (layout, common, auth)
+│   │   ├── components/           # Composants UI (character/ 24, common, layout, auth)
 │   │   ├── pages/                # 27 pages + module Rules/ (10 sections)
 │   │   ├── services/             # api.ts, AuthService, dataService, campaignService
-│   │   ├── hooks/                # useSearch, useToggle
-│   │   ├── types/                # normalized.ts (279 lignes), campaign.ts, character.ts
+│   │   ├── hooks/                # useCharacterData, useCharacterSheet, useSearch, useToggle
+│   │   ├── utils/                # cofRules.ts (moteur de règles COF2 pur) + tests
+│   │   ├── types/                # normalized.ts, campaign.ts, character.ts (caracs/playState/characterVoies)
 │   │   ├── context/              # AuthContext (React Context)
-│   │   ├── data/                 # capabilityModifiers.ts
+│   │   ├── data/                 # magicItemTables.ts
 │   │   └── constants/            # rules.ts (index des règles)
 │   ├── scripts/                  # Scripts de refactoring de données (JS/CJS)
 │   ├── public/assets/            # Images (créatures, profils, races, états)

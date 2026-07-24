@@ -14,12 +14,13 @@ Suite à l'analyse approfondie du code source frontend et backend (juin 2026), v
 - **Règles** : Module complet avec 10 sections (Introduction, Bases, Combat, Magie, Environnement, Aventure, Objets Magiques, Opposition, Devenir MJ, Conversion COF1→COF2)
 
 ### Fiche de Personnage
-- Outil extrêmement complet — `CharacterSheet.tsx` refactorisé (2109 → ~176 lignes), découpé en composants + hook `useCharacterSheet`
-- Calcul automatisé des modificateurs de caractéristiques
-- Intégration des bonus liés aux capacités (système `CAPABILITY_MODIFIERS`)
-- Lancer de dés intégré directement depuis la fiche
-- Gestion de l'inventaire, équipement, monnaie, protection
-- Sauvegarde en base de données via API
+- Outil extrêmement complet — `CharacterSheet.tsx` orchestrateur léger (~230 lignes) + moteur de règles pur `cofRules.ts` + hooks + 24 composants
+- **Modèle refondu pour la fidélité aux règles COF2** : `caracs` (valeurs = modificateurs) + `playState` (état de jeu opaque) + `characterVoies` (voies par IRI/rang/source) ; **aucune valeur dérivée stockée**
+- **Dérivation pilotée par les données** : bonus Init/DEF/RD, plafond d'armure, bonus aux tests, etc. lus depuis `Capability.effect` (`bonuses`/`armorCap`/`choiceOptions`/`evolutiveDie`) via l'interpréteur `resolveCapabilityEffect` — fin du `CAPABILITY_MODIFIERS` codé en dur
+- PV cumulés par niveau (hybrides fidèles), mana, chance, récupération, attaque/défense/initiative — tout dérivé
+- Capacités à choix résolues (bonus aux tests, effet de combat) ; **octroi de capacité de peuple** (source `trait`, gratuite) ; langues de peuple, bornes physiques et maîtrises en guide
+- Mécaniques d'aide de table pilotées joueur : objets magiques, usages limités, compagnons, transformations, états activables, substitutions de carac, repos court/long
+- Lancer de dés intégré, inventaire/équipement/monnaie/protection, sauvegarde via API
 
 ### Outils de Table (Virtual Table)
 - **Suivi de Combat** (CombatTracker) : ordre d'initiative COF2 avec départage à égalité (PJ > PNJ, puis PER, puis 1d20 stocké), tours et rounds, PV avec dégâts/soins en saisie libre (+ ±1), import du bestiaire (quantité + auto-numérotation « Gobelin 1/2 ») et des PJ (INIT/DEF/PV réels), états préjudiciables en badges, persistance localStorage (`co_combat_tracker`). Logique pure testée (`combatTracker.test.ts`). Outil **volontairement mono-écran** (aide MJ) : pas de diffusion temps réel vers les joueurs — c'est un choix de design, pas une limitation
@@ -64,6 +65,12 @@ Suite à l'analyse approfondie du code source frontend et backend (juin 2026), v
 - [x] **Notion de membres de campagne / partage inter-utilisateurs** : entité `CampaignMembership` + code d'invitation (`Campaign.inviteCode`, régénérable). Un joueur rejoint par code (`POST /api/shared_campaigns/join`) ; scoping via `CurrentUserExtension` (le membre voit ses adhésions, le MJ voit les membres de ses campagnes)
 - [x] **Partage des résumés de campagne aux joueurs** : ressource read-only dédiée `SharedCampaign` (`GET /api/shared_campaigns`) qui n'expose que le nom + les résumés de séances (aucune fuite de `notes`/quêtes/indices ; la ressource `Campaign` reste owner-scopée)
 - [x] **Personnages créés par les joueurs, partagés au MJ** : le joueur rattache sa fiche via le champ `campaignId` (validé par l'appartenance) ; le MJ lit **et** édite les fiches de ses membres (`Character` sécurité élargie à `owner` ou MJ ; `Delete` reste propriétaire)
+
+### Refonte du modèle de données pour la fidélité aux règles (livrée)
+- [x] **Phase 1 — schéma backend** : entité `CharacterVoie`, `Character` = `caracs`+`playState`+`characterVoies` (fin de `data`), champs morts `Profile` retirés, armures numériques, `Profile.armorMaxDef`/`weaponsAuth`, dé évolutif dans `Capability.effect`
+- [x] **Phases 2-5 — front** : migration du modèle (voies par IRI), moteur de dérivation `cofRules.ts` (interpréteur d'effets, PV hybrides, RD, langues…), 7 mécaniques d'aide de table + système de repos, UI réorganisée en sections repliables
+- [x] **Long-tail fidélité** : dérivation Init/DEF data-driven, plafond d'armure conscient des capacités, résolution des capacités à choix (bonus aux tests, effet de combat), octroi de capacité de peuple (source `trait`), langues de peuple, bornes physiques, maîtrises sur la fiche, tests de contrat backend
+- **Tranché** : COF2 ne définit **aucune** pénalité mécanique pour une arme non maîtrisée → « weaponsAuth » reste descriptif (affiché, non dérivé). Reste niche : octroi rang 2, surcoût de PM en armure (surtout hybrides)
 
 ### Phase 3 : Nouvelles Features
 - [ ] **Import/Export PDF** : Générer une fiche de personnage imprimable

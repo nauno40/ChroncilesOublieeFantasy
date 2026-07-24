@@ -24,7 +24,9 @@ interface Props {
 
 export const MainStatsPanel: React.FC<Props> = ({ character, setCharacter, combatStats, mods, evolutiveDie, maxHp, luckMax, manaMax, recoveryDie, damageReduction, attackBonus, dmBonus }) => {
     const luckCurrent = character.playState?.luck?.current ?? 0;
-    const hpCurrent = character.playState?.hp?.current ?? 0;
+    // PV courants plafonnés au max dérivé (COF2 : pas d'over-heal). La valeur stockée n'est pas
+    // mutée — si le max remonte (état/objet/forme réactivé), les PV « récupèrent » d'eux-mêmes.
+    const hpCurrent = Math.min(maxHp, character.playState?.hp?.current ?? 0);
     const setHpCurrent = (val: number) =>
         setCharacter(prev => ({
             ...prev,

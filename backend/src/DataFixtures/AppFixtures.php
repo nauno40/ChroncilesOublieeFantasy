@@ -13,6 +13,7 @@ use App\Entity\Equipment;
 use App\Service\CapabilityEffectBuilder;
 use App\Entity\Material;
 use App\Entity\HarmfulState;
+use App\Entity\Poison;
 use App\Entity\User;
 use App\Entity\Campaign;
 use App\Entity\CampaignMembership;
@@ -57,6 +58,7 @@ class AppFixtures extends Fixture
 
         // 3.5 Load States
         $this->loadStates($manager);
+        $this->loadPoisons($manager);
         
         // 4. Load Profile Families
         $profileFamilies = $this->loadProfileFamilies($manager);
@@ -631,13 +633,28 @@ class AppFixtures extends Fixture
     private function loadStates(ObjectManager $manager): void
     {
         $data = $this->getData('states.json');
-        
+
         foreach ($data as $item) {
             $e = new HarmfulState();
             $e->setName($item['name']);
             $e->setDescription($item['description'] ?? null);
             $e->setImage($item['image'] ?? null);
-            
+
+            $manager->persist($e);
+        }
+    }
+
+    private function loadPoisons(ObjectManager $manager): void
+    {
+        foreach ($this->getData('poisons.json') as $item) {
+            $e = new Poison();
+            $e->setName($item['name']);
+            $e->setEffectFail($item['effectFail'] ?? null);
+            $e->setEffectSuccess($item['effectSuccess'] ?? null);
+            $e->setDuration($item['duration'] ?? null);
+            $e->setDelay($item['delay'] ?? null);
+            $e->setNote($item['note'] ?? null);
+
             $manager->persist($e);
         }
     }

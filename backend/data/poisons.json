@@ -1,0 +1,42 @@
+[
+    {
+        "name": "Affaiblissant long",
+        "effectFail": "Victime affaiblie",
+        "effectSuccess": "‑",
+        "duration": "1d6 h",
+        "delay": "1d6 rounds",
+        "note": ""
+    },
+    {
+        "name": "Affaiblissant rapide",
+        "effectFail": "Victime est affaiblie",
+        "effectSuccess": "‑",
+        "duration": "1d6 min",
+        "delay": "Immédiat",
+        "note": ""
+    },
+    {
+        "name": "Lent",
+        "effectFail": "1d4° DM",
+        "effectSuccess": "‑",
+        "duration": "‑",
+        "delay": "Immédiat",
+        "note": "Un test par jour jusqu'à réussite"
+    },
+    {
+        "name": "Rapide",
+        "effectFail": "2d4° DM",
+        "effectSuccess": "1d4° DM",
+        "duration": "‑",
+        "delay": "Immédiat",
+        "note": ""
+    },
+    {
+        "name": "Mortel",
+        "effectFail": "Mort (PJ : 0 PV)",
+        "effectSuccess": "2d4° DM",
+        "duration": "‑",
+        "delay": "1d6 min",
+        "note": "Généralement ingéré"
+    }
+]

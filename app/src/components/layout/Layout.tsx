@@ -43,6 +43,7 @@ export const Layout: React.FC = () => {
                 { path: '/rules', icon: ScrollText, label: 'Règles' },
                 { path: '/bestiary', icon: Book, label: 'Bestiaire' },
                 { path: '/states', icon: AlertCircle, label: 'États' },
+                { path: '/poisons', icon: Skull, label: 'Poisons' },
             ]
         },
         {

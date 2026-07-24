@@ -337,7 +337,7 @@ export const CustomMonsters: React.FC = () => {
                     {/* Caractéristiques */}
                     <div>
                         <label className={labelClass}>Caractéristiques</label>
-                        <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
+                        <div className="grid grid-cols-4 md:grid-cols-7 gap-3">
                             {STAT_KEYS.map((key) => (
                                 <div key={key}>
                                     <span className="block text-xs text-stone-400 mb-1 text-center">{key}</span>

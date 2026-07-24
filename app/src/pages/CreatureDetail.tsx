@@ -169,7 +169,7 @@ export const CreatureDetail: React.FC = () => {
 
                         {/* Char Stats Row */}
                         {creature.stats && (
-                            <div className="grid grid-cols-3 sm:grid-cols-6 gap-3 mb-8">
+                            <div className="grid grid-cols-4 sm:grid-cols-7 gap-3 mb-8">
                                 {statsConfig.map(attr => (
                                     <div key={attr.label} className="bg-stone-900/60 rounded-xl p-3 border border-white/5 text-center hover:border-primary-500/30 transition-colors">
                                         <div className="text-stone-500 text-[10px] font-bold uppercase tracking-wider mb-1">{attr.label}</div>

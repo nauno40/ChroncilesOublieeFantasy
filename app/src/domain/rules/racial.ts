@@ -1,5 +1,6 @@
 import type { CharacterVoieRef } from '../../types/character';
 import type { CompendiumRace, CompendiumProfile, CompendiumVoie, RacialGrant } from './types';
+import { buildVoieIndex } from './voies';
 
 // Éligibilité au trait racial « choisir une capacité d'un profil » (spec #6, octroi).
 // null si le peuple n'a pas ce trait, ou si la voie de peuple n'a pas atteint son rang.
@@ -9,10 +10,7 @@ export const racialGrantInfo = (
   profiles: CompendiumProfile[],
   allVoies: CompendiumVoie[],
 ): RacialGrant | null => {
-  const byIri = new Map<string, CompendiumVoie>();
-  for (const r of races) for (const v of r.availableVoies ?? []) if (v['@id']) byIri.set(v['@id'], v);
-  for (const p of profiles) for (const v of p.voies ?? []) if (v['@id']) byIri.set(v['@id'], v);
-  for (const v of allVoies) if (v['@id']) byIri.set(v['@id'], v);
+  const byIri = buildVoieIndex(races, profiles, allVoies);
 
   const peuple = (voies ?? []).find(e => e.source === 'peuple');
   if (!peuple) return null;

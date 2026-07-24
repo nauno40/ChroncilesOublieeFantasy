@@ -1,7 +1,8 @@
 import type { CharacterVoieRef } from '../../types/character';
-import type { CompendiumRace, CompendiumProfile, CompendiumVoie } from './types';
+import type { CompendiumRace, CompendiumProfile } from './types';
 import { PROFILE_FAMILIES } from './health';
 import { isCapabilityGrantedByEntry } from './progression';
+import { buildVoieIndex } from './voies';
 
 export const computeLuckPoints = (
   profileName: string | undefined,
@@ -26,10 +27,8 @@ export const computeManaPoints = (
   volMod: number,
   perMod = 0,
 ): number => {
-  // Résolution des voies du perso par IRI dans le compendium (peuple + profil).
-  const byIri = new Map<string, CompendiumVoie>();
-  for (const race of races) for (const v of race.availableVoies ?? []) if (v['@id']) byIri.set(v['@id'], v);
-  for (const profile of profiles) for (const v of profile.voies ?? []) if (v['@id']) byIri.set(v['@id'], v);
+  // Résolution des voies du perso par IRI dans le compendium (peuple + profil, pas de prestige).
+  const byIri = buildVoieIndex(races, profiles);
 
   // Voies des profils druide/ensorceleur dont le rang 4 « Perception héroïque » ajoute la PER aux PM.
   const perManaIris = new Set<string>();

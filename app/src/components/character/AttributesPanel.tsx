@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Character } from '../../types/character';
-import { MIN_STAT, MAX_STAT, lowestStats, type Stats } from '../../domain/rules';
+import { MIN_STAT, MAX_STAT, lowestStats, findRace, type Stats } from '../../domain/rules';
 import type { RaceList } from './types';
 
 interface Props {
@@ -81,7 +81,7 @@ export const AttributesPanel: React.FC<Props> = ({
                 {/* Racial Choice UI */}
                 {character.race && (
                     (() => {
-                        const selectedRace = races.find(r => (r.name || r.nom) === character.race || r['@id'] === character.race);
+                        const selectedRace = findRace(character.race, races);
                         if (!selectedRace?.modifiers) return null;
 
                         // Filter only choice or special modifiers that require user input

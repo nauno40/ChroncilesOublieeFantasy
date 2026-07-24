@@ -1,12 +1,12 @@
 import React from 'react';
 import type { Character } from '../../types/character';
+import { findProfile } from '../../domain/rules';
 import type { ProfileList } from './types';
 
 interface Mastery {
     weapons?: string; armors?: string; shields?: string;
     weaponsAndArmors?: string; special?: string; constraints?: string;
 }
-interface ProfileLite { name?: string; '@id'?: string; masteries?: Mastery | null }
 
 // Champs de maîtrise affichés, dans l'ordre, avec leur libellé.
 const FIELDS: { key: keyof Mastery; label: string }[] = [
@@ -26,9 +26,7 @@ interface Props {
 /** Maîtrises du profil (armes/armures/boucliers/contraintes), en lecture seule sur la fiche.
  *  Descriptif (COF2 ne définit pas de pénalité mécanique pour une arme non maîtrisée). */
 export const MasteriesBlock: React.FC<Props> = ({ character, profiles }) => {
-    const pRef = (character.profile as { '@id'?: string })?.['@id']
-        ?? (typeof character.profile === 'string' ? character.profile : '');
-    const profile = (profiles as ProfileLite[]).find(p => p['@id'] === pRef || p.name === pRef || p['@id'] === character.profile);
+    const profile = findProfile(character.profile, profiles);
     const m = profile?.masteries;
     const rows = m ? FIELDS.filter(f => m[f.key]) : [];
     if (rows.length === 0) return null;

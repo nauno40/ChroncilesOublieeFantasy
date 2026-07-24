@@ -11,6 +11,8 @@ export type Stats = {
 export interface CompendiumCapability {
   name?: string; rank?: number; description?: string; isSpell?: boolean;
   effect?: CapabilityEffect;
+  // JSON libre de la capacité (options de choix `options_*`/`choix_*`, notes…) — cf. `choices.ts`.
+  details?: Record<string, unknown>;
 }
 export interface CompendiumVoie { '@id'?: string; name?: string; capabilities?: CompendiumCapability[]; }
 export interface CompendiumProfile { name?: string; voies?: CompendiumVoie[]; }

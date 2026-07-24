@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Character } from '../../types/character';
-import { computeLanguageUsage, baseLanguages } from '../../domain/rules';
+import { computeLanguageUsage, baseLanguages, findRace } from '../../domain/rules';
 import type { RaceList } from './types';
 
 interface Props {
@@ -13,8 +13,6 @@ interface Props {
 
 type ListKey = 'languages' | 'talents';
 
-interface RaceLite { name?: string; nom?: string; '@id'?: string }
-
 /**
  * Édition des langues et talents secondaires (COF2 §Talent secondaire — budget partagé).
  * Les langues de base (Commun + langue de peuple) sont connues gratuitement et affichées
@@ -24,7 +22,7 @@ interface RaceLite { name?: string; nom?: string; '@id'?: string }
 export const LanguagesTalentsPanel: React.FC<Props> = ({ character, setCharacter, intMod, races }) => {
     const languages = character.playState?.languages ?? [];
     const talents = character.playState?.talents ?? [];
-    const raceName = (races as RaceLite[]).find(r => (r.name || r.nom) === character.race || r['@id'] === character.race)?.name;
+    const raceName = findRace(character.race, races)?.name;
     const base = baseLanguages(raceName);
     const usage = computeLanguageUsage(languages, talents, intMod);
     const over = usage.used > usage.available;

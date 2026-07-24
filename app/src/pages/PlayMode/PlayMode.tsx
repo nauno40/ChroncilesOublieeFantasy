@@ -220,7 +220,17 @@ export const PlayMode: React.FC = () => {
                         </Collapsible>
                     </>
                 )}
-                {tab === 'notes' && <Stub label="Prise de notes" />}
+                {tab === 'notes' && (
+                    <div className="space-y-2">
+                        <p className="text-[11px] text-stone-500">Notes du personnage — enregistrées automatiquement, visibles aussi sur la fiche.</p>
+                        <textarea
+                            className="w-full min-h-[60vh] bg-stone-900/50 border border-white/10 rounded-2xl p-4 text-stone-200 leading-relaxed outline-none focus:border-primary-500/30 resize-none"
+                            placeholder="Notes de séance : PNJ rencontrés, pistes, butin, rappels…"
+                            value={ps?.rp?.notes ?? ''}
+                            onChange={e => setPs({ rp: { ...ps!.rp, notes: e.target.value } })}
+                        />
+                    </div>
+                )}
                 {tab === 'campagne' && <Stub label="Historique & résumé de campagne" />}
                 {tab === 'des' && <Stub label="Lanceur de dés" />}
             </main>

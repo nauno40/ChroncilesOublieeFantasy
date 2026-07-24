@@ -1,9 +1,18 @@
-export interface MagicTable { name: string; category: string; die: number; entries: [number, number, string][]; }
+export interface MagicTable {
+  name: string;
+  category: string;
+  die: number;
+  // Notation de jet pour les tables non uniformes (ex. « 2d6 ») ; sinon le dé simple `die`.
+  roll?: string;
+  // Table de référence (lookup) : affichée en liste, sans bouton de tirage.
+  reference?: boolean;
+  entries: [number, number, string][];
+}
 
 // Tables de génération d'objets magiques, transcrites du chapitre « Objets magiques » (partie MJ).
 export const MAGIC_ITEM_TABLES: MagicTable[] = [
   {
-    "name": "Origine d'un objet magique",
+    "name": "Origine – Provenance",
     "category": "Divers",
     "die": 10,
     "entries": [
@@ -824,5 +833,99 @@ export const MAGIC_ITEM_TABLES: MagicTable[] = [
         "Relancer"
       ]
     ]
-  }
+  },
+  {
+    name: "Origine – Époque",
+    category: "Divers",
+    die: 10,
+    entries: [
+      [1, 1, "Post Monastir"],
+      [2, 2, "Âges sombres (‑700 à ‑1)"],
+      [3, 3, "Empire d'Osgild"],
+      [4, 4, "Chute d'Anathazerïn"],
+      [5, 5, "Apogée d'Anathazerïn"],
+      [6, 6, "Apogée des Premiers‑nés"],
+      [7, 7, "Corruption post Roi‑Sorcier"],
+      [8, 8, "Époque du Roi‑Sorcier"],
+      [9, 9, "Chute des pierres du ciel"],
+      [10, 10, "Premier âge"],
+    ],
+  },
+  {
+    name: "Origine – Peuple",
+    category: "Divers",
+    die: 10,
+    entries: [
+      [1, 1, "Humains"],
+      [2, 2, "Nains"],
+      [3, 3, "Elfes"],
+      [4, 4, "Gnomes"],
+      [5, 5, "Elfes des ténèbres"],
+      [6, 6, "Orcs ou gobelins"],
+      [7, 7, "Ange, démon, divinité"],
+      [8, 8, "Dragons"],
+      [9, 9, "Seigneur élémentaire"],
+      [10, 10, "Autre créature ancienne"],
+    ],
+  },
+  {
+    name: "Puissance d'un objet magique majeur (par niveau)",
+    category: "Divers",
+    die: 3,
+    reference: true,
+    entries: [
+      [1, 1, "Cadre classique — niv 1‑2 : C · 3‑5 : +1 · 6‑8 : +2 · 9‑11 : +3 · 12‑15 : +4 · 16‑19 : +5 · 20 : +6"],
+      [2, 2, "Cadre high fantasy — niv 1 : C · 2‑3 : +1 · 4‑5 : +2 · 6‑7 : +3 · 8‑9 : +4 · 10‑11 : +5 · 12‑13 : +6 · 14‑15 : +7 · 16‑17 : +8 · 18‑19 : +9 · 20 : +10"],
+      [3, 3, "Cadre low fantasy — niv 1‑2 : 0 · 3‑4 : C · 5‑8 : +1 · 9‑15 : +2 · 16‑20 : +3"],
+    ],
+  },
+  {
+    name: "Effet secondaire des potions (2ᵉ potion active)",
+    category: "Potions",
+    die: 12,
+    roll: "2d6",
+    entries: [
+      [2, 2, "La potion ne fait pas effet et le personnage perd 1 PV sur son maximum (permanent)."],
+      [3, 3, "La potion ne fait pas effet et le buveur est affaibli jusqu'à ce qu'il termine une récupération complète."],
+      [4, 4, "La potion ne fait pas effet et le buveur est affaibli jusqu'à ce qu'il termine une récupération rapide."],
+      [5, 5, "La potion ne fait aucun effet."],
+      [6, 8, "La potion fait effet normalement (et la précédente reste active)."],
+      [9, 9, "La potion fait effet, mais si la potion précédente faisait encore effet, celui‑ci cesse immédiatement."],
+      [10, 10, "La potion fait effet, mais le buveur est affaibli jusqu'à ce qu'il termine une récupération rapide."],
+      [11, 11, "La potion fait effet, mais le buveur est affaibli jusqu'à ce qu'il termine une récupération complète."],
+      [12, 12, "La potion fait effet, mais elle empoisonne le buveur, il subit 1d4° DM par rang de la potion."],
+    ],
+  },
+  {
+    name: "Parchemin / Baguette – Rang de la voie (objet mineur)",
+    category: "Parchemins & baguettes",
+    die: 6,
+    entries: [
+      [1, 3, "Rang 1"],
+      [4, 5, "Rang 2"],
+      [6, 6, "Rang 3"],
+    ],
+  },
+  {
+    name: "Parchemin / Baguette – Rang de la voie (objet moyen)",
+    category: "Parchemins & baguettes",
+    die: 6,
+    entries: [
+      [1, 2, "Rang 3"],
+      [3, 4, "Rang 4"],
+      [5, 6, "Rang 5"],
+    ],
+  },
+  {
+    name: "Niveau de magie des propriétés d'armes",
+    category: "Armes magiques",
+    die: 4,
+    reference: true,
+    entries: [
+      [1, 1, "Affûtée : niveau de magie +1"],
+      [2, 2, "Élément / substance : +2"],
+      [3, 3, "Fléau des [créatures] : +1"],
+      [4, 4, "Parade : niveau de magie = bonus de DEF"],
+    ],
+  },
 ];

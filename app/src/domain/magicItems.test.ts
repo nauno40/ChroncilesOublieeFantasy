@@ -51,8 +51,11 @@ describe('données de tables', () => {
         for (const t of MAGIC_ITEM_TABLES) {
             expect(t.die).toBeGreaterThan(0);
             expect(t.entries.length).toBeGreaterThan(0);
-            // chaque valeur du dé est couverte par exactement une entrée
-            for (let r = 1; r <= t.die; r++) {
+            // Plage de jets possibles : notation `NdM` → N..N×M, sinon dé simple 1..die.
+            const m = t.roll?.match(/^(\d+)d(\d+)$/);
+            const [lo, hi] = m ? [Number(m[1]), Number(m[1]) * Number(m[2])] : [1, t.die];
+            // chaque valeur possible est couverte par exactement une entrée
+            for (let r = lo; r <= hi; r++) {
                 const hits = t.entries.filter(([min, max]) => r >= min && r <= max);
                 expect(hits.length, `${t.name} : jet ${r}`).toBe(1);
             }

@@ -91,7 +91,20 @@ export const MagicItems: React.FC = () => {
                     <div key={category}>
                         <h4 className="text-xs uppercase tracking-widest text-primary-600/80 font-bold mb-2 ml-1">{category}</h4>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                            {tables.map(t => (
+                            {tables.map(t => t.reference ? (
+                                <div
+                                    key={t.name}
+                                    className="bg-stone-900/40 border border-stone-800 rounded-xl p-4"
+                                >
+                                    <div className="flex items-center justify-between gap-2 mb-1.5">
+                                        <span className="font-display font-bold text-stone-200 text-sm leading-tight">{t.name}</span>
+                                        <span className="text-[9px] font-mono font-bold text-stone-600 border border-stone-700 rounded px-1.5 py-0.5 flex-none uppercase">Réf.</span>
+                                    </div>
+                                    <ul className="text-[11px] text-stone-400 space-y-0.5 leading-snug">
+                                        {t.entries.map((e, i) => <li key={i}>{e[2]}</li>)}
+                                    </ul>
+                                </div>
+                            ) : (
                                 <button
                                     key={t.name}
                                     onClick={() => roll(t)}
@@ -99,7 +112,7 @@ export const MagicItems: React.FC = () => {
                                 >
                                     <div className="flex items-center justify-between gap-2">
                                         <span className="font-display font-bold text-stone-200 group-hover:text-primary-300 text-sm leading-tight">{t.name}</span>
-                                        <span className="text-[10px] font-mono font-bold text-stone-500 border border-stone-700 rounded px-1.5 py-0.5 flex-none">d{t.die}</span>
+                                        <span className="text-[10px] font-mono font-bold text-stone-500 border border-stone-700 rounded px-1.5 py-0.5 flex-none">{t.roll || `d${t.die}`}</span>
                                     </div>
                                     <span className="text-[11px] text-stone-500 mt-1 block">{t.entries.length} résultats · cliquer pour tirer</span>
                                 </button>

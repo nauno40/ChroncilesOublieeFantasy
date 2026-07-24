@@ -28,10 +28,21 @@ export interface TableRoll {
     result: string;
 }
 
-// Tire un dé de la table et renvoie l'entrée dont l'intervalle [min, max] contient le jet.
+// Lance un jet : notation `NdM` (ex. « 2d6 » → somme de N dés à M faces) si `table.roll`
+// est défini, sinon un dé simple `table.die` (uniforme 1..die).
+const rollDice = (table: MagicTable, rng: () => number): number => {
+    const m = table.roll?.match(/^(\d+)d(\d+)$/);
+    if (!m) return Math.floor(rng() * table.die) + 1;
+    const [count, faces] = [Number(m[1]), Number(m[2])];
+    let sum = 0;
+    for (let i = 0; i < count; i++) sum += Math.floor(rng() * faces) + 1;
+    return sum;
+};
+
+// Tire sur la table et renvoie l'entrée dont l'intervalle [min, max] contient le jet.
 // `rng` injectable pour les tests (retourne un flottant dans [0, 1)).
 export const rollOnTable = (table: MagicTable, rng: () => number = Math.random): TableRoll => {
-    const roll = Math.floor(rng() * table.die) + 1;
+    const roll = rollDice(table, rng);
     const entry = table.entries.find(([min, max]) => roll >= min && roll <= max);
     return { roll, result: entry ? entry[2] : '—' };
 };

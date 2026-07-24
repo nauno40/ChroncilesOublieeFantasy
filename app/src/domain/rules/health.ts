@@ -96,3 +96,15 @@ export const applyLongRest = (
   recovery: { ...ps.recovery, used: 0 },
   usages: resetUsages(ps.usages, ['jour', 'combat', 'round']),
 });
+
+// Le profil relève-t-il de la famille des mages ? (classification COF2 ; pilote le rang 2
+// gratuit du mage, le remplacement de la voie de peuple, etc.). Reprend la logique
+// historique du hook : par famille, par nom de famille, ou par nom de profil.
+export const isMageFamily = (
+  profile: { familyId?: string; family?: string; name?: string } | null | undefined,
+): boolean => {
+  if (!profile) return false;
+  return profile.familyId === 'mages'
+    || (!!profile.family && profile.family.toLowerCase().includes('mage'))
+    || (!!profile.name && ['Magicien', 'Ensorceleur', 'Nécromancien', 'Forgesort', 'Invocateur', 'Archimage'].includes(profile.name));
+};

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Sword, RefreshCw, Trash2, Shield } from 'lucide-react';
 import type { Combatant } from '../types/campaign';
-import type { TrackerState } from '../utils/combatTracker';
-import { sortByInitiative, nextTurn, removeById, applyHp } from '../utils/combatTracker';
+import type { TrackerState } from '../domain/combatTracker';
+import { sortByInitiative, nextTurn, removeById, applyHp } from '../domain/combatTracker';
 import { DataService } from '../services/dataService';
 import { ApiService } from '../services/api';
 import { getMonsters } from '../services/monsterService';

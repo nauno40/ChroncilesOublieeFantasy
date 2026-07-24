@@ -72,7 +72,7 @@ export const ProtectionSection: React.FC<Props> = ({ character, setCharacter, al
                                     ...prev.playState!,
                                     protection: {
                                         ...prev.playState!.protection,
-                                        armor: { name: val, def: found ? (parseInt(found.value) || 0) : 0 }
+                                        armor: { name: val, def: found ? (parseInt(found.value) || 0) : 0, agiMax: found?.acMaxAgi ?? null }
                                     }
                                 }
                             }));

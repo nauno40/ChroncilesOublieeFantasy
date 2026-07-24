@@ -18,7 +18,8 @@ export interface CompendiumRace { availableVoies?: CompendiumVoie[]; }
 export interface RaceModifier {
   type?: string; stat?: string | null; value: number; count?: number; options?: string[]; logic?: string;
 }
-export interface Protection { armor?: { def?: number }; shield?: { def?: number }; }
+// `armor.agiMax` : plafond d'AGI de l'armure (COF2, encombrement) — au-delà, l'AGI effective est réduite à cette valeur.
+export interface Protection { armor?: { def?: number; agiMax?: number | null }; shield?: { def?: number }; }
 
 // --- Interpréteur d'effets de capacité (spec §6.1/§6.2) ---
 // Structure `effect` taguée décrivant un dé évolutif et/ou des bonus à cible

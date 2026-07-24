@@ -15,7 +15,10 @@ export const computeCombatStats = (args: {
 }): { init: number; def: number } => {
   const { voies, protection, races, profiles, allVoies, perMod, agiMod, caracs, level } = args;
   const baseInit = 10 + perMod;
-  const baseDef = 10 + agiMod + (protection?.armor?.def || 0) + (protection?.shield?.def || 0);
+  // Encombrement (COF2) : une armure plafonne l'AGI effective à son `agiMax` (ex. plaque → AGI max +2).
+  const armorAgiMax = protection?.armor?.agiMax;
+  const effAgi = (armorAgiMax != null) ? Math.min(agiMod, armorAgiMax) : agiMod;
+  const baseDef = 10 + effAgi + (protection?.armor?.def || 0) + (protection?.shield?.def || 0);
 
   // Résolution des voies du perso par IRI (peuple + profil + prestige), comme computeDamageReduction.
   const byIri = new Map<string, CompendiumVoie>();

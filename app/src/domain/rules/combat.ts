@@ -2,6 +2,7 @@ import type { CharacterVoieRef, CaracKey } from '../../types/character';
 import type { Protection, CompendiumRace, CompendiumProfile, CompendiumVoie, Stats, ResolvedEffect } from './types';
 import { resolveCapabilityEffect, aggregateResolvedBonuses } from './effects';
 import { isCapabilityGrantedByEntry } from './progression';
+import { buildVoieIndex } from './voies';
 
 export const computeCombatStats = (args: {
   voies: CharacterVoieRef[] | undefined;
@@ -22,10 +23,7 @@ export const computeCombatStats = (args: {
   const baseDef = 10 + effAgi + (protection?.armor?.def || 0) + (protection?.shield?.def || 0);
 
   // Résolution des voies du perso par IRI (peuple + profil + prestige), comme computeDamageReduction.
-  const byIri = new Map<string, CompendiumVoie>();
-  for (const r of races) for (const v of r.availableVoies ?? []) if (v['@id']) byIri.set(v['@id'], v);
-  for (const p of profiles) for (const v of p.voies ?? []) if (v['@id']) byIri.set(v['@id'], v);
-  for (const v of allVoies) if (v['@id']) byIri.set(v['@id'], v);
+  const byIri = buildVoieIndex(races, profiles, allVoies);
 
   const resolved: ResolvedEffect[] = [];
   (voies ?? []).forEach((entry) => {
@@ -65,10 +63,7 @@ export const computeDamageReduction = (
   caracs: Stats,
   level: number,
 ): number => {
-  const byIri = new Map<string, CompendiumVoie>();
-  for (const r of races) for (const v of r.availableVoies ?? []) if (v['@id']) byIri.set(v['@id'], v);
-  for (const p of profiles) for (const v of p.voies ?? []) if (v['@id']) byIri.set(v['@id'], v);
-  for (const v of allVoies) if (v['@id']) byIri.set(v['@id'], v);
+  const byIri = buildVoieIndex(races, profiles, allVoies);
 
   const resolved: ResolvedEffect[] = [];
   (voies ?? []).forEach((entry) => {
@@ -91,10 +86,7 @@ export const resolveArmorCap = (
   allVoies: CompendiumVoie[],
   baseArmorMaxDef: number,
 ): number => {
-  const byIri = new Map<string, CompendiumVoie>();
-  for (const r of races) for (const v of r.availableVoies ?? []) if (v['@id']) byIri.set(v['@id'], v);
-  for (const p of profiles) for (const v of p.voies ?? []) if (v['@id']) byIri.set(v['@id'], v);
-  for (const v of allVoies) if (v['@id']) byIri.set(v['@id'], v);
+  const byIri = buildVoieIndex(races, profiles, allVoies);
 
   let cap = baseArmorMaxDef;
   (voies ?? []).forEach((entry) => {
@@ -119,10 +111,7 @@ export const resolveCaracTestBonuses = (
   profiles: CompendiumProfile[],
   allVoies: CompendiumVoie[],
 ): Partial<Record<CaracKey, number>> => {
-  const byIri = new Map<string, CompendiumVoie>();
-  for (const r of races) for (const v of r.availableVoies ?? []) if (v['@id']) byIri.set(v['@id'], v);
-  for (const p of profiles) for (const v of p.voies ?? []) if (v['@id']) byIri.set(v['@id'], v);
-  for (const v of allVoies) if (v['@id']) byIri.set(v['@id'], v);
+  const byIri = buildVoieIndex(races, profiles, allVoies);
 
   const out: Partial<Record<CaracKey, number>> = {};
   const add = (carac: CaracKey, value: number) => { out[carac] = (out[carac] ?? 0) + value; };

@@ -30,6 +30,7 @@ import {
   MAX_STAT,
   STAT_SERIES,
   PROFILE_FAMILIES,
+  buildVoieIndex,
   type CompendiumVoie,
 } from '../domain/rules';
 
@@ -229,10 +230,7 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
 
     // Résout une voie du compendium par IRI (peuple + profil + voies libres/prestige).
     const resolveVoieByIri = useMemo(() => {
-        const byIri = new Map<string, RefVoie>();
-        for (const r of races) for (const v of (r.availableVoies || [])) if (v?.['@id']) byIri.set(v['@id'], v);
-        for (const p of profiles) for (const v of (p.voies || [])) if (v?.['@id']) byIri.set(v['@id'], v);
-        for (const v of allVoies) if (v?.['@id']) byIri.set(v['@id'], v);
+        const byIri = buildVoieIndex<RefVoie>(races, profiles, allVoies);
         return (iri: string) => byIri.get(iri);
     }, [races, profiles, allVoies]);
 

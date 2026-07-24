@@ -2,9 +2,7 @@ import React from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useCharacterData } from '../hooks/useCharacterData';
 import { useCharacterSheet } from '../hooks/useCharacterSheet';
-import { attackValue, attackCarac, baseLanguages, isCapabilityGrantedByEntry, type Stats } from '../domain/rules';
-
-interface VoieLite { '@id'?: string; name?: string; capabilities?: { rank?: number; name?: string; isSpell?: boolean }[] }
+import { attackValue, attackCarac, baseLanguages, isCapabilityGrantedByEntry, buildVoieIndex, type Stats } from '../domain/rules';
 
 const CARACS: (keyof Stats)[] = ['FOR', 'AGI', 'CON', 'PER', 'INT', 'CHA', 'VOL'];
 const sign = (n: number) => `${n >= 0 ? '+' : ''}${n}`;
@@ -37,10 +35,7 @@ export const PrintableCharacterSheet: React.FC = () => {
         .find(p => p['@id'] === pRef || p.name === pRef)?.name ?? String(character.profile ?? '');
     const level = character.level ?? 1;
 
-    const byIri = new Map<string, VoieLite>();
-    for (const r of (races as { availableVoies?: VoieLite[] }[])) for (const v of (r.availableVoies ?? [])) if (v['@id']) byIri.set(v['@id'], v);
-    for (const p of (profiles as { voies?: VoieLite[] }[])) for (const v of (p.voies ?? [])) if (v['@id']) byIri.set(v['@id'], v);
-    for (const v of (allVoies as VoieLite[])) if (v['@id']) byIri.set(v['@id'], v);
+    const byIri = buildVoieIndex(races, profiles, allVoies);
 
     const subs = character.playState?.caracSubstitutions;
     const contact = attackValue(mods[attackCarac('contact', subs, 'FOR')], level) + bonuses.attaque;

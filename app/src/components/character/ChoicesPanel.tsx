@@ -1,10 +1,7 @@
 import React from 'react';
 import type { Character } from '../../types/character';
-import { capabilityChoiceKey, capabilityChoiceHelp } from '../../domain/rules';
+import { capabilityChoiceKey, capabilityChoiceHelp, buildVoieIndex } from '../../domain/rules';
 import type { RaceList, ProfileList, AllVoieList } from './types';
-
-interface CompendiumCap { rank?: number; name?: string; details?: Record<string, unknown>; effect?: { choiceOptions?: { label: string }[] } }
-interface CompendiumVoieLite { name?: string; capabilities?: CompendiumCap[] }
 
 interface Props {
     character: Partial<Character>;
@@ -20,10 +17,7 @@ interface Props {
  * dans `characterVoies[].choices[<rang>]`. Piloté joueur ; pas de résolution add/remplacement.
  */
 export const ChoicesPanel: React.FC<Props> = ({ character, setCharacter, races, profiles, allVoies }) => {
-    const byIri = new Map<string, CompendiumVoieLite>();
-    for (const r of races) for (const v of (r.availableVoies || [])) if (v?.['@id']) byIri.set(v['@id'], v);
-    for (const p of profiles) for (const v of (p.voies || [])) if (v?.['@id']) byIri.set(v['@id'], v);
-    for (const v of allVoies) if (v?.['@id']) byIri.set(v['@id'], v);
+    const byIri = buildVoieIndex(races, profiles, allVoies);
 
     const voies = character.characterVoies ?? [];
     const rows: { idx: number; rank: number; voieName: string; capName: string; help?: string; value: string; options?: string[] }[] = [];

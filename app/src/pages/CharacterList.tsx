@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ApiService } from '../services/api';
 import type { Character } from '../types/character';
-import { Plus, User } from 'lucide-react';
+import { Plus, User, Swords } from 'lucide-react';
 
 export const CharacterList: React.FC = () => {
     const [characters, setCharacters] = useState<Character[]>([]);
@@ -36,21 +36,30 @@ export const CharacterList: React.FC = () => {
                 )}
 
                 {characters.map((char) => (
-                    <Link to={`/characters/${char.id}`} key={char.id} className="glass-panel p-6 rounded-2xl hover:border-primary-500/50 hover:bg-stone-900/80 transition-all group relative overflow-hidden">
-                        <div className="flex items-start justify-between mb-4">
-                            <div className="w-12 h-12 bg-primary-900/30 rounded-full flex items-center justify-center text-primary-400 border border-primary-500/20 group-hover:scale-110 transition-transform">
-                                <User size={24} />
+                    <div key={char.id} className="glass-panel rounded-2xl hover:border-primary-500/50 transition-all group relative overflow-hidden flex flex-col">
+                        <Link to={`/characters/${char.id}`} className="block p-6 pb-4 hover:bg-stone-900/40 transition-all flex-1">
+                            <div className="flex items-start justify-between mb-4">
+                                <div className="w-12 h-12 bg-primary-900/30 rounded-full flex items-center justify-center text-primary-400 border border-primary-500/20 group-hover:scale-110 transition-transform">
+                                    <User size={24} />
+                                </div>
+                                <span className="bg-stone-950/50 text-stone-400 text-xs px-2 py-1 rounded font-mono">Niv {char.level}</span>
                             </div>
-                            <span className="bg-stone-950/50 text-stone-400 text-xs px-2 py-1 rounded font-mono">Niv {char.level}</span>
-                        </div>
-                        <h3 className="text-xl font-display font-bold text-stone-100 group-hover:text-primary-400 transition-colors mb-1">{char.name}</h3>
-                        <p className="text-stone-500 text-sm mb-4">
-                            {(char.race as any)?.name ?? 'Inconnu'} - {(char.profile as any)?.name ?? 'Aventurier'}
-                        </p>
-                        <div className="text-xs text-stone-600">
-                            Modifié le {char.updatedAt ? new Date(char.updatedAt).toLocaleDateString() : 'Jamais'}
-                        </div>
-                    </Link>
+                            <h3 className="text-xl font-display font-bold text-stone-100 group-hover:text-primary-400 transition-colors mb-1">{char.name}</h3>
+                            <p className="text-stone-500 text-sm mb-4">
+                                {(char.race as any)?.name ?? 'Inconnu'} - {(char.profile as any)?.name ?? 'Aventurier'}
+                            </p>
+                            <div className="text-xs text-stone-600">
+                                Modifié le {char.updatedAt ? new Date(char.updatedAt).toLocaleDateString() : 'Jamais'}
+                            </div>
+                        </Link>
+                        {/* Entrée directe vers le mode session (mobile) */}
+                        <Link
+                            to={`/play/${char.id}`}
+                            className="flex items-center justify-center gap-2 border-t border-white/5 bg-green-800/20 hover:bg-green-700/40 text-green-300 font-display font-bold uppercase text-xs tracking-widest py-3 transition-all active:scale-[0.99]"
+                        >
+                            <Swords size={16} /> Jouer
+                        </Link>
+                    </div>
                 ))}
             </div>
         </div>

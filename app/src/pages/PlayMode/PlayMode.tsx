@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { SharingService, type SharedCampaign } from '../../services/sharingService';
 import { ChevronLeft, Swords, NotebookPen, ScrollText, Dices, Check, Loader2, AlertTriangle, ChevronDown } from 'lucide-react';
+import { DiceRoller } from '../../components/common';
 import { useCharacterData } from '../../hooks/useCharacterData';
 import { useCharacterSheet } from '../../hooks/useCharacterSheet';
 import { useAutosavePlayState, type SaveStatus } from '../../hooks/useAutosavePlayState';
@@ -282,7 +283,7 @@ export const PlayMode: React.FC = () => {
                         </div>
                     )
                 )}
-                {tab === 'des' && <Stub label="Lanceur de dés" />}
+                {tab === 'des' && <DiceRoller isOpen mode="inline" onClose={() => {}} />}
             </main>
 
             {/* Barre d'onglets (bas) */}

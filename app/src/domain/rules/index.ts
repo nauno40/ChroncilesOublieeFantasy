@@ -4,6 +4,7 @@ export * from './types';
 export * from './stats';
 export * from './health';
 export * from './voies';
+export * from './identity';
 export * from './resources';
 export * from './progression';
 export * from './effects';

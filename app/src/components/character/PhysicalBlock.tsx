@@ -1,5 +1,6 @@
 import React from 'react';
 import type { Character } from '../../types/character';
+import { findRace } from '../../domain/rules';
 import type { RaceList } from './types';
 
 interface Props {
@@ -15,14 +16,6 @@ const FIELDS: { key: Field; label: string; placeholder: string }[] = [
     { key: 'weight', label: 'Poids', placeholder: 'ex. 70 kg' },
 ];
 
-// Bornes physiques du peuple (compendium) affichées en guide de roleplay.
-interface RaceBounds {
-    name?: string; nom?: string; '@id'?: string;
-    minHeight?: number; maxHeight?: number;
-    minWeight?: number; maxWeight?: number;
-    startingAge?: number; lifeExpectancy?: number;
-}
-
 const range = (min?: number, max?: number, unit?: string): string | undefined =>
     (min && max) ? `${min}–${max} ${unit}` : undefined;
 
@@ -32,7 +25,7 @@ export const PhysicalBlock: React.FC<Props> = ({ character, setCharacter, races 
     const set = (key: Field, val: string) =>
         setCharacter(prev => ({ ...prev, playState: { ...prev.playState!, physical: { ...prev.playState?.physical, [key]: val } } }));
 
-    const race = (races as RaceBounds[]).find(r => (r.name || r.nom) === character.race || r['@id'] === character.race);
+    const race = findRace(character.race, races);
     const hints: Record<Field, string | undefined> = {
         age: race && (race.startingAge || race.lifeExpectancy)
             ? [

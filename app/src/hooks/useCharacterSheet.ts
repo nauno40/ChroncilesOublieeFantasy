@@ -31,6 +31,7 @@ import {
   STAT_SERIES,
   PROFILE_FAMILIES,
   buildVoieIndex,
+  findRace,
   type CompendiumVoie,
 } from '../domain/rules';
 
@@ -160,7 +161,7 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
 
     // Caractéristiques effectives = valeurs de base + modificateurs de race (COF2).
     const finalStats = useMemo(() => {
-        const selectedRace = races.find(r => (r.name || r.nom) === character.race || r['@id'] === character.race);
+        const selectedRace = findRace(character.race, races);
         return computeFinalStats(caracs, selectedRace?.modifiers, racialBonusChoices);
     }, [caracs, character.race, races, racialBonusChoices]);
     const mods = finalStats;

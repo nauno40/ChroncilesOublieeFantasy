@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useCharacterData } from '../hooks/useCharacterData';
 import { useCharacterSheet } from '../hooks/useCharacterSheet';
-import { attackValue, attackCarac, baseLanguages, isCapabilityGrantedByEntry, buildVoieIndex, type Stats } from '../domain/rules';
+import { attackValue, attackCarac, baseLanguages, isCapabilityGrantedByEntry, buildVoieIndex, findRace, findProfile, type Stats } from '../domain/rules';
 
 const CARACS: (keyof Stats)[] = ['FOR', 'AGI', 'CON', 'PER', 'INT', 'CHA', 'VOL'];
 const sign = (n: number) => `${n >= 0 ? '+' : ''}${n}`;
@@ -28,11 +28,8 @@ export const PrintableCharacterSheet: React.FC = () => {
     if (loading) return <div className="p-8 text-center">Chargement…</div>;
 
     // Résolution des noms peuple/profil + de la carte des voies.
-    const raceName = (races as { name?: string; nom?: string; '@id'?: string }[])
-        .find(r => (r.name || r.nom) === character.race || r['@id'] === character.race)?.name ?? String(character.race ?? '');
-    const pRef = (character.profile as { '@id'?: string })?.['@id'] ?? (typeof character.profile === 'string' ? character.profile : '');
-    const profileName = (profiles as { name?: string; '@id'?: string }[])
-        .find(p => p['@id'] === pRef || p.name === pRef)?.name ?? String(character.profile ?? '');
+    const raceName = findRace(character.race, races)?.name ?? String(character.race ?? '');
+    const profileName = findProfile(character.profile, profiles)?.name ?? String(character.profile ?? '');
     const level = character.level ?? 1;
 
     const byIri = buildVoieIndex(races, profiles, allVoies);

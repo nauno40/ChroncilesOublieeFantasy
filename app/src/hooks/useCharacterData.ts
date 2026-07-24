@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { ApiService } from '../services/api';
+import type { RefRace, RefProfile, RefVoie, RefEquipmentItem } from '../types/compendiumRefs';
 
 /**
  * Charge les données de référence du compendium nécessaires à la fiche de
@@ -9,41 +10,44 @@ import { ApiService } from '../services/api';
  * CharacterSheet.tsx).
  */
 export const useCharacterData = () => {
-    const [races, setRaces] = useState<any[]>([]);
-    const [profiles, setProfiles] = useState<any[]>([]);
-    const [allWeapons, setAllWeapons] = useState<any[]>([]);
-    const [allArmors, setAllArmors] = useState<any[]>([]);
-    const [allVoies, setAllVoies] = useState<any[]>([]); // Store all voies for lookup
-    const [prestigePaths, setPrestigePaths] = useState<any[]>([]); // New state for Prestige Paths
+    const [races, setRaces] = useState<RefRace[]>([]);
+    const [profiles, setProfiles] = useState<RefProfile[]>([]);
+    const [allWeapons, setAllWeapons] = useState<RefEquipmentItem[]>([]);
+    const [allArmors, setAllArmors] = useState<RefEquipmentItem[]>([]);
+    const [allVoies, setAllVoies] = useState<RefVoie[]>([]); // Store all voies for lookup
+    const [prestigePaths, setPrestigePaths] = useState<RefVoie[]>([]); // New state for Prestige Paths
 
     useEffect(() => {
         const fetchEquipment = async () => {
             try {
                 // Fetch all equipment and filter client-side or use filter if API supports
                 // Assuming getAll returns mixed or valid typed list
-                const weapons = await ApiService.getAll<any>('equipment?type=Arme');
-                const armors = await ApiService.getAll<any>('equipment?type=Armure');
+                const weapons = await ApiService.getAll<RefEquipmentItem>('equipment?type=Arme');
+                const armors = await ApiService.getAll<RefEquipmentItem>('equipment?type=Armure');
                 // Fallback if API doesn't support type filter:
                 if (weapons.length === 0 && armors.length === 0) {
-                    const all = await ApiService.getAll<any>('equipment');
+                    const all = await ApiService.getAll<RefEquipmentItem>('equipment');
                     // Filter and normalize based on actual API types
-                    const processed = all.map((i: any) => {
+                    const processed = all.map((i) => {
                         const priceStr = i.price?.toString() || '';
                         // Defense can be in acBonus (new API) or price (old JSON fallback)
-                        const def = i.acBonus ? parseInt(i.acBonus) : (priceStr.startsWith('+') ? parseInt(priceStr.replace('+', '')) : 0);
-                        return { ...i, defense: i.defense || def, value: i.value || def };
+                        const def = i.acBonus ? parseInt(i.acBonus as unknown as string) : (priceStr.startsWith('+') ? parseInt(priceStr.replace('+', '')) : 0);
+                        // `value`/`defense` sont des champs calculés côté client (absents de l'API
+                        // brute) : cast nécessaire, la forme réelle de ces données est hétérogène
+                        // (parfois un nombre déjà normalisé, cf. RefEquipmentItem).
+                        return { ...i, defense: i.defense || def, value: (i.value || def) as unknown as string };
                     });
 
-                    const w = processed.filter((i: any) =>
+                    const w = processed.filter((i) =>
                         i.type?.includes('Distance') ||
                         i.type?.includes('Contact') ||
-                        ((parseInt(i.id) || parseInt(i['@id']?.split('/').pop())) >= 2 && (parseInt(i.id) || parseInt(i['@id']?.split('/').pop())) <= 36)
+                        ((parseInt(i.id as unknown as string) || parseInt(i['@id']?.split('/').pop() as unknown as string)) >= 2 && (parseInt(i.id as unknown as string) || parseInt(i['@id']?.split('/').pop() as unknown as string)) <= 36)
                     );
-                    const a = processed.filter((i: any) =>
+                    const a = processed.filter((i) =>
                         i.type === 'Corps' ||
                         i.type === 'Bouclier' ||
                         i.type?.includes('Armure') ||
-                        ((parseInt(i.id) || parseInt(i['@id']?.split('/').pop())) >= 38 && (parseInt(i.id) || parseInt(i['@id']?.split('/').pop())) <= 46)
+                        ((parseInt(i.id as unknown as string) || parseInt(i['@id']?.split('/').pop() as unknown as string)) >= 38 && (parseInt(i.id as unknown as string) || parseInt(i['@id']?.split('/').pop() as unknown as string)) <= 46)
                     );
 
                     console.log('DEBUG EQ: Filtered Weapons:', w.length, 'Filtered Armors:', a.length);
@@ -57,11 +61,11 @@ export const useCharacterData = () => {
                 }
 
                 // Fetch All Voies
-                const voiesData = await ApiService.getAll<any>('voies');
+                const voiesData = await ApiService.getAll<RefVoie>('voies');
                 setAllVoies(voiesData);
 
                 // Fetch Prestige Paths
-                setPrestigePaths(voiesData.filter((v: any) => v.category === 'Prestige' || v.type === 'Prestige' || v.description?.includes('Prestige')));
+                setPrestigePaths(voiesData.filter((v) => v.category === 'Prestige' || v.type === 'Prestige' || v.description?.includes('Prestige')));
             } catch (e) {
                 console.error("Failed to fetch equipment or voies", e);
             }
@@ -71,11 +75,11 @@ export const useCharacterData = () => {
 
     useEffect(() => {
         // Fetch Dependencies
-        ApiService.getAll<any>('races').then(data => {
+        ApiService.getAll<RefRace>('races').then(data => {
 
             setRaces(data);
         });
-        ApiService.getAll<any>('profiles').then(setProfiles);
+        ApiService.getAll<RefProfile>('profiles').then(setProfiles);
     }, []);
 
     return { races, profiles, allWeapons, allArmors, allVoies, prestigePaths };

@@ -78,7 +78,7 @@ export interface PlayState {
     // niveau ; voie de peuple ⇒ famille du profil principal). Absent/vide ⇒ profil principal.
     hpByLevel?: Record<string, string[]>;
     // Équipement de protection et armes — état de jeu (parité Phase 2).
-    protection: { armor: { name: string; def: number }; shield: { name: string; def: number } };
+    protection: { armor: { name: string; def: number; agiMax?: number | null }; shield: { name: string; def: number } };
     weapons: CharacterWeapon[];
     magicItems?: MagicItem[];              // objets à bonus mécaniques (équipés ⇒ dérivation)
     usages?: Usage[];                      // suivi des capacités à usage limité (aide de table)

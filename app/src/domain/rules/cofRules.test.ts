@@ -348,6 +348,24 @@ describe('computeCombatStats', () => {
     expect(r.def).toBe(15);  // 10 + 1 + 3 + 1
   });
 
+  it('plafonne l\'AGI effective par l\'armure (encombrement, agiMax) pour la DEF', () => {
+    // AGI +3, armure de plaque (agiMax 2, def 6) → DEF = 10 + min(3,2) + 6 = 18
+    const r = computeCombatStats({
+      voies: [], protection: { armor: { def: 6, agiMax: 2 }, shield: { def: 0 } },
+      races: [], profiles: [], allVoies: [], perMod: 0, agiMod: 3, caracs: zero, level: 1,
+    });
+    expect(r.def).toBe(18);
+  });
+
+  it('ne réduit pas l\'AGI si elle est sous le plafond de l\'armure', () => {
+    // AGI +1, cotte de mailles (agiMax 3, def 5) → DEF = 10 + 1 + 5 = 16
+    const r = computeCombatStats({
+      voies: [], protection: { armor: { def: 5, agiMax: 3 }, shield: { def: 0 } },
+      races: [], profiles: [], allVoies: [], perMod: 0, agiMod: 1, caracs: zero, level: 1,
+    });
+    expect(r.def).toBe(16);
+  });
+
   it('lit les bonus init/def depuis effect.bonuses au rang de la voie (Réflexes éclair)', () => {
     // Voie de compendium portant une capacité « Réflexes éclair » (init +3 fixe, def palier 1→1 / 5→2).
     const voie = {

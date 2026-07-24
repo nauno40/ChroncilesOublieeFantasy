@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
+import { SharingService, type SharedCampaign } from '../../services/sharingService';
 import { ChevronLeft, Swords, NotebookPen, ScrollText, Dices, Check, Loader2, AlertTriangle, ChevronDown } from 'lucide-react';
 import { useCharacterData } from '../../hooks/useCharacterData';
 import { useCharacterSheet } from '../../hooks/useCharacterSheet';
@@ -80,6 +81,12 @@ export const PlayMode: React.FC = () => {
 
     const saveStatus = useAutosavePlayState(id, character.playState, !loading);
 
+    // Campagnes rejointes par le joueur (vue partagée : nom + MJ + résumés de séances).
+    const [sharedCampaigns, setSharedCampaigns] = useState<SharedCampaign[] | null>(null);
+    useEffect(() => {
+        SharingService.getSharedCampaigns().then(setSharedCampaigns).catch(() => setSharedCampaigns([]));
+    }, []);
+
     if (loading) return <div className="min-h-screen bg-stone-950 text-stone-300 flex items-center justify-center">Chargement…</div>;
 
     const ps = character.playState;
@@ -108,6 +115,14 @@ export const PlayMode: React.FC = () => {
     const weapons = (ps?.weapons ?? []).filter(w => w.name);
     const activeStates = (ps?.activeStates ?? []);
     const usages = (ps?.usages ?? []);
+
+    // Campagne rejointe du perso : par id si connu, sinon la première campagne rejointe.
+    const rawCamp = character as { campaignId?: number; campaign?: string | { id?: number } };
+    const campaignId = rawCamp.campaignId
+        ?? (typeof rawCamp.campaign === 'object' ? rawCamp.campaign?.id
+            : typeof rawCamp.campaign === 'string' ? Number(rawCamp.campaign.match(/\/campaigns\/(\d+)/)?.[1]) || undefined
+                : undefined);
+    const myCampaign = (sharedCampaigns ?? []).find(c => c.id === campaignId) ?? (sharedCampaigns ?? [])[0] ?? null;
 
     const toggleState = (i: number) => setPs({ activeStates: activeStates.map((s, j) => j === i ? { ...s, active: !s.active } : s) });
     const spendUsage = (i: number, delta: number) => setPs({ usages: usages.map((u, j) => j === i ? { ...u, used: Math.max(0, Math.min(u.max, u.used + delta)) } : u) });
@@ -231,7 +246,42 @@ export const PlayMode: React.FC = () => {
                         />
                     </div>
                 )}
-                {tab === 'campagne' && <Stub label="Historique & résumé de campagne" />}
+                {tab === 'campagne' && (
+                    sharedCampaigns === null ? <Stub label="Chargement de la campagne…" />
+                    : !myCampaign ? (
+                        <div className="flex flex-col items-center justify-center text-center text-stone-500 gap-3 py-16 px-6">
+                            <ScrollText size={28} className="text-stone-600" />
+                            <p className="text-sm">Tu n'as pas encore rejoint de campagne.</p>
+                            <Link to="/campaign" className="text-xs text-primary-400 underline">Rejoindre une campagne</Link>
+                        </div>
+                    ) : (
+                        <div className="space-y-4">
+                            <div>
+                                <h2 className="text-lg font-display font-bold text-white">{myCampaign.name}</h2>
+                                <p className="text-[11px] text-stone-500">MJ : {myCampaign.gameMaster || '—'}</p>
+                            </div>
+                            <div>
+                                <h3 className="text-[11px] uppercase tracking-widest text-primary-500/70 font-bold mb-2">Historique des séances</h3>
+                                {myCampaign.sessions.length === 0 ? (
+                                    <p className="text-xs text-stone-600 italic">Aucun résumé partagé pour l'instant.</p>
+                                ) : (
+                                    <div className="space-y-3">
+                                        {myCampaign.sessions.map(s => (
+                                            <div key={s.id} className="bg-stone-900/40 border border-white/5 rounded-2xl p-4">
+                                                <div className="flex items-baseline justify-between gap-2">
+                                                    <span className="font-display font-bold text-stone-200 text-sm">{s.title}</span>
+                                                    {s.date && <span className="text-[10px] text-stone-500 flex-none">{s.date}</span>}
+                                                </div>
+                                                {s.summary && <p className="text-[13px] text-stone-400 leading-relaxed mt-1 whitespace-pre-line">{s.summary}</p>}
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                            <p className="text-[10px] text-stone-600 italic">Vue joueur : seuls le nom, le MJ et les résumés de séances partagés sont visibles.</p>
+                        </div>
+                    )
+                )}
                 {tab === 'des' && <Stub label="Lanceur de dés" />}
             </main>
 

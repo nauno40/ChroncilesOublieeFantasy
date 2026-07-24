@@ -124,8 +124,10 @@ export const VoiesTree: React.FC<Props> = ({
 
     // Plafond COF2 : 6 voies max (hors peuple ; la prestige compte parmi les 6).
     const atVoieCap = !canAddVoie(voies);
+    // COF2 : un personnage ne peut avoir qu'UNE SEULE voie de prestige.
+    const hasPrestige = prestigeEntries.length >= 1;
     const addPrestige = () => {
-        if (atVoieCap) return;
+        if (atVoieCap || hasPrestige) return;
         setCharacter(prev => ({
             ...prev,
             characterVoies: [...(prev.characterVoies || []), { voie: '', rank: 0, source: 'prestige' as const }],
@@ -416,8 +418,8 @@ export const VoiesTree: React.FC<Props> = ({
                         <div className="flex flex-col items-center gap-1 pt-4">
                             <button
                                 onClick={addPrestige}
-                                disabled={atVoieCap}
-                                title={atVoieCap ? `Maximum ${MAX_VOIES} voies (hors voie de peuple)` : undefined}
+                                disabled={atVoieCap || hasPrestige}
+                                title={hasPrestige ? 'Une seule voie de prestige par personnage (COF2)' : atVoieCap ? `Maximum ${MAX_VOIES} voies (hors voie de peuple)` : 'Prérequis : niveau 5+, et généralement rang 2 dans 3 voies du même profil'}
                                 className="flex items-center gap-2 px-6 py-3 rounded-full bg-stone-900/50 border border-amber-500/30 text-amber-500/70 hover:text-amber-400 hover:border-amber-500/50 hover:bg-stone-900 transition-all group font-display font-bold uppercase text-[10px] tracking-[0.2em] disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:text-amber-500/70 disabled:hover:border-amber-500/30 disabled:hover:bg-stone-900/50"
                             >
                                 <RefreshCw size={14} className="group-hover:rotate-180 transition-transform duration-500" />
@@ -425,6 +427,11 @@ export const VoiesTree: React.FC<Props> = ({
                             </button>
                             {atVoieCap && (
                                 <span className="text-[9px] uppercase tracking-wider text-stone-600">Maximum {MAX_VOIES} voies (hors peuple)</span>
+                            )}
+                            {hasPrestige ? (
+                                <span className="text-[9px] uppercase tracking-wider text-amber-700/70">Une seule voie de prestige (COF2)</span>
+                            ) : (
+                                <span className="text-[9px] tracking-wider text-stone-600 italic normal-case">Prérequis : niveau 5+, généralement rang 2 dans 3 voies du même profil (le rang 4 d'une voie pour une voie de spécialiste).</span>
                             )}
                         </div>
                     </div>

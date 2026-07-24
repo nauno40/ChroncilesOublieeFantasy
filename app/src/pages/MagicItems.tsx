@@ -7,7 +7,7 @@ import {
     rollOnTable,
     tablesByCategory,
     type MagicTable,
-} from '../utils/magicItems';
+} from '../domain/magicItems';
 
 export const MagicItems: React.FC = () => {
     const groups = useMemo(() => tablesByCategory(), []);

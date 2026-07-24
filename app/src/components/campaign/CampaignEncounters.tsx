@@ -6,7 +6,7 @@ import { saveCampaign } from '../../services/campaignService';
 import {
     loadEncounterIntoTracker, trackerHasCombat, generateEncounter, threatLabel,
     DIFFICULTIES, type EncounterDifficulty, type GeneratorCreature,
-} from '../../utils/encounters';
+} from '../../domain/encounters';
 import type { Campaign, Encounter, EncounterCombatant } from '../../types/campaign';
 import type { Creature, CustomCreature } from '../../types/normalized';
 

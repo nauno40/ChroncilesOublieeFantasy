@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import type { Creature } from '../types';
-import { getCreatureCategory, getCreatureEnvironment, getCreatureArchetype, getCreatureSize, getCreatureImage } from '../utils/creature';
+import { getCreatureCategory, getCreatureEnvironment, getCreatureArchetype, getCreatureSize, getCreatureImage } from '../domain/creature';
 import { ArrowLeft, Shield, Sword, Heart, Crown, Zap } from 'lucide-react';
 import { DataService } from '../services/dataService';
 

@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import type { Creature } from '../types';
-import { getCreatureName, getCreatureLevel, getCreatureCategory, getCreatureFamily, getCreatureArchetype, getCreatureEnvironment, getCreatureSize, getCreatureImage } from '../utils/creature';
+import { getCreatureName, getCreatureLevel, getCreatureCategory, getCreatureFamily, getCreatureArchetype, getCreatureEnvironment, getCreatureSize, getCreatureImage } from '../domain/creature';
 import { Search, Filter, ChevronDown, ChevronUp, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';

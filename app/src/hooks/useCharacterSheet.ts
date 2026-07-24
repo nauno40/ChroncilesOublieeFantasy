@@ -4,6 +4,7 @@ import { ApiService } from '../services/api';
 import type { Character, Caracs, PlayState, CharacterVoieRef } from '../types/character';
 import type { useCharacterData } from './useCharacterData';
 import {
+  isMageFamily as isMageFamilyOf,
   computeMaxHp,
   computeHybridMaxHp,
   computeRecoveryDie,
@@ -277,13 +278,8 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
         }
     }, [racialVoieOptions, mageReplacedRaceVoie, mageVoieIri]);
 
-    // Famille de mages ?
-    const isMageFamily = useMemo(() => {
-        if (!selectedProfile) return false;
-        return selectedProfile?.familyId === 'mages'
-            || (selectedProfile?.family && selectedProfile.family.toLowerCase().includes('mage'))
-            || (selectedProfile?.name && ['Magicien', 'Ensorceleur', 'Nécromancien', 'Forgesort', 'Invocateur', 'Archimage'].includes(selectedProfile.name));
-    }, [selectedProfile]);
+    // Famille de mages ? (règle → domaine)
+    const isMageFamily = useMemo(() => isMageFamilyOf(selectedProfile), [selectedProfile]);
 
     // Reset Mage state if not mage
     useEffect(() => {

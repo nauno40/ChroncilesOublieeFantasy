@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Character } from '../../types/character';
-import { MIN_STAT, MAX_STAT, type Stats } from '../../domain/rules';
+import { MIN_STAT, MAX_STAT, lowestStats, type Stats } from '../../domain/rules';
 import type { RaceList } from './types';
 
 interface Props {
@@ -127,10 +127,8 @@ export const AttributesPanel: React.FC<Props> = ({
                                     }
                                     // Special Human "Lowest" selector
                                     if ((mod.type === 'special' && mod.stat === 'Lowest') || (mod.type === 'logic' && mod.logic === 'add_to_lowest')) {
-                                        // Calculate Lowest Stats logic
-                                        const minVal = Math.min(...Object.values(stats));
-                                        // Filter stats that equal minVal
-                                        const lowestStats = Object.keys(stats).filter(key => stats[key as keyof typeof stats] === minVal);
+                                        // Caractéristiques les plus basses (règle → domaine).
+                                        const lowest = lowestStats(stats);
 
                                         const count = mod.count || 1;
                                         const inputs = [];
@@ -149,7 +147,7 @@ export const AttributesPanel: React.FC<Props> = ({
                                                 }
                                             }
 
-                                            const availableOptions = lowestStats.filter(s => !otherSelections.includes(s));
+                                            const availableOptions = lowest.filter(s => !otherSelections.includes(s));
 
                                             inputs.push(
                                                 <div key={subChoiceKey} className="bg-stone-900/50 p-2 rounded border border-white/5 flex flex-col gap-2">

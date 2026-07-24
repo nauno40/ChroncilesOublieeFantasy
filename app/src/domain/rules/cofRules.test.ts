@@ -2,6 +2,8 @@ import { describe, it, expect } from 'vitest';
 import {
   calculateMod,
   computeModifiers,
+  lowestStats,
+  isMageFamily,
   computeMaxHp,
   computeHybridMaxHp,
   computeRecoveryDie,
@@ -928,5 +930,28 @@ describe('baseLanguages (langues connues de base par peuple)', () => {
   it('peuple inconnu / absent : Commun par défaut', () => {
     expect(baseLanguages(undefined)).toEqual(['Commun']);
     expect(baseLanguages('Peuple imaginaire')).toEqual(['Commun']);
+  });
+});
+
+describe('lowestStats (carac(s) la/les plus basse(s))', () => {
+  it('renvoie la seule carac minimale', () => {
+    expect(lowestStats({ FOR: 3, AGI: 1, CON: 2, INT: 0, PER: 1, CHA: -1, VOL: 1 })).toEqual(['CHA']);
+  });
+  it('renvoie toutes les caracs ex æquo au minimum', () => {
+    expect(lowestStats({ FOR: 2, AGI: -1, CON: 2, INT: -1, PER: 1, CHA: 0, VOL: 1 }).sort())
+      .toEqual(['AGI', 'INT']);
+  });
+});
+
+describe('isMageFamily (classification famille des mages)', () => {
+  it('vrai par familyId, par nom de famille, ou par nom de profil', () => {
+    expect(isMageFamily({ familyId: 'mages' })).toBe(true);
+    expect(isMageFamily({ family: 'Mages' })).toBe(true);
+    expect(isMageFamily({ name: 'Forgesort' })).toBe(true);
+  });
+  it('faux pour un non-mage ou profil absent', () => {
+    expect(isMageFamily({ name: 'Guerrier', familyId: 'combattants' })).toBe(false);
+    expect(isMageFamily(null)).toBe(false);
+    expect(isMageFamily(undefined)).toBe(false);
   });
 });

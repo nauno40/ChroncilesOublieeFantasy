@@ -77,3 +77,10 @@ export const computeFinalStats = (
   });
   return base;
 };
+
+// Caractéristiques ayant la valeur la plus basse (COF2 : certains peuples accordent un
+// bonus « à la caractéristique la plus basse » — sert à construire les choix proposés).
+export const lowestStats = (stats: Stats): (keyof Stats)[] => {
+  const min = Math.min(...Object.values(stats));
+  return (Object.keys(stats) as (keyof Stats)[]).filter((k) => stats[k] === min);
+};

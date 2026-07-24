@@ -1,5 +1,5 @@
 import React from 'react';
-import { Save, ChevronLeft, RefreshCw, Trash2, Printer } from 'lucide-react';
+import { Save, ChevronLeft, RefreshCw, Trash2, Printer, Swords } from 'lucide-react';
 
 interface Props {
     name: string;
@@ -9,9 +9,10 @@ interface Props {
     onSave: () => void;
     onDelete: () => void;
     onPrint?: () => void;
+    onPlay?: () => void;
 }
 
-export const CharacterToolbar: React.FC<Props> = ({ name, isNew, saving, onBack, onSave, onDelete, onPrint }) => {
+export const CharacterToolbar: React.FC<Props> = ({ name, isNew, saving, onBack, onSave, onDelete, onPrint, onPlay }) => {
     return (
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 bg-stone-900/60 backdrop-blur-md p-5 rounded-2xl border border-white/5 shadow-2xl">
             <div className="flex items-center gap-5">
@@ -39,6 +40,15 @@ export const CharacterToolbar: React.FC<Props> = ({ name, isNew, saving, onBack,
                     {saving ? <RefreshCw className="animate-spin" size={16} /> : <Save size={16} />}
                     {saving ? 'Incantation...' : 'Enregistrer'}
                 </button>
+                {!isNew && onPlay && (
+                    <button
+                        onClick={onPlay}
+                        className="flex items-center justify-center gap-2 bg-green-700/80 hover:bg-green-600 text-white font-display font-black uppercase text-xs tracking-widest px-5 py-3 rounded-xl transition-all shadow-lg active:scale-95 border border-green-400/20"
+                        title="Mode session (mobile)"
+                    >
+                        <Swords size={16} /> Jouer
+                    </button>
+                )}
                 {!isNew && onPrint && (
                     <button
                         onClick={onPrint}

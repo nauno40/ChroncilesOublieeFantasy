@@ -1,6 +1,7 @@
 import type { CharacterVoieRef, CaracKey } from '../../types/character';
 import type { Protection, CompendiumRace, CompendiumProfile, CompendiumVoie, Stats, ResolvedEffect } from './types';
 import { resolveCapabilityEffect, aggregateResolvedBonuses } from './effects';
+import { isCapabilityGrantedByEntry } from './progression';
 
 export const computeCombatStats = (args: {
   voies: CharacterVoieRef[] | undefined;
@@ -30,7 +31,7 @@ export const computeCombatStats = (args: {
   (voies ?? []).forEach((entry) => {
     const v = byIri.get(entry.voie);
     (v?.capabilities ?? []).forEach((c) => {
-      if ((c.rank ?? 0) >= 1 && (c.rank ?? 0) <= entry.rank && c.effect) {
+      if (isCapabilityGrantedByEntry(c.rank, entry) && c.effect) {
         resolved.push(resolveCapabilityEffect(c.effect, { level, rank: entry.rank, caracs }));
         // Bonus de combat de l'option choisie (#6b).
         const chosen = c.effect.choiceOptions?.find(o => o.label === entry.choices?.[String(c.rank)]);
@@ -73,7 +74,7 @@ export const computeDamageReduction = (
   (voies ?? []).forEach((entry) => {
     const v = byIri.get(entry.voie);
     (v?.capabilities ?? []).forEach((c) => {
-      if ((c.rank ?? 0) >= 1 && (c.rank ?? 0) <= entry.rank && c.effect) {
+      if (isCapabilityGrantedByEntry(c.rank, entry) && c.effect) {
         resolved.push(resolveCapabilityEffect(c.effect, { level, rank: entry.rank, caracs }));
       }
     });
@@ -99,7 +100,7 @@ export const resolveArmorCap = (
   (voies ?? []).forEach((entry) => {
     const v = byIri.get(entry.voie);
     (v?.capabilities ?? []).forEach((c) => {
-      if ((c.rank ?? 0) >= 1 && (c.rank ?? 0) <= entry.rank) {
+      if (isCapabilityGrantedByEntry(c.rank, entry)) {
         if (typeof c.effect?.armorCap === 'number') cap = Math.max(cap, c.effect.armorCap);
         // Plafond ouvert par l'option choisie (#6b).
         const chosen = c.effect?.choiceOptions?.find(o => o.label === entry.choices?.[String(c.rank)]);
@@ -130,7 +131,7 @@ export const resolveCaracTestBonuses = (
     const v = byIri.get(entry.voie);
     (v?.capabilities ?? []).forEach((c) => {
       const rank = c.rank ?? 0;
-      if (rank < 1 || rank > entry.rank || !c.effect) return;
+      if (!isCapabilityGrantedByEntry(rank, entry) || !c.effect) return;
       if (c.effect.caracTestBonus) add(c.effect.caracTestBonus.carac, c.effect.caracTestBonus.value);
       if (c.effect.choiceOptions) {
         const chosen = entry.choices?.[String(rank)];

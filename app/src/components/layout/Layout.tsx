@@ -47,9 +47,9 @@ export const Layout: React.FC = () => {
                 { path: '/states', icon: AlertCircle, label: 'États' },
                 { path: '/poisons', icon: Skull, label: 'Poisons' },
                 { path: '/traps', icon: Footprints, label: 'Pièges' },
+                { path: '/bibliotheque', icon: Library, label: 'Bibliothèque' },
             ]
         },
-        { path: '/bibliotheque', icon: Library, label: 'Bibliothèque', shortLabel: 'Biblio' },
         {
             path: '/characters',
             icon: GraduationCap,

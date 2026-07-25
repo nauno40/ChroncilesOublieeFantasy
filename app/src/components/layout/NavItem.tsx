@@ -7,6 +7,8 @@ export interface NavItem {
     path: string;
     icon: LucideIcon;
     label: string;
+    /** Libellé compact pour la barre de navigation mobile (évite les collisions). */
+    shortLabel?: string;
     subItems?: NavItem[];
 }
 

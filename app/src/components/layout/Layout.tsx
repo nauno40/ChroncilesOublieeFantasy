@@ -40,6 +40,7 @@ export const Layout: React.FC = () => {
             path: '/references',
             icon: Book,
             label: 'Références',
+            shortLabel: 'Réf.',
             subItems: [
                 { path: '/rules', icon: ScrollText, label: 'Règles' },
                 { path: '/bestiary', icon: Book, label: 'Bestiaire' },
@@ -52,6 +53,7 @@ export const Layout: React.FC = () => {
             path: '/characters',
             icon: GraduationCap,
             label: 'Personnages',
+            shortLabel: 'Persos',
             subItems: [
                 { path: '/characters', icon: Users, label: 'Mes Personnages' },
                 { path: '/races', icon: BookOpen, label: 'Races' },
@@ -64,6 +66,7 @@ export const Layout: React.FC = () => {
             path: '/gear',
             icon: Package,
             label: 'Équipement',
+            shortLabel: 'Équip.',
             subItems: [
                 { path: '/equipment', icon: Package, label: 'Armes & Armures' },
                 { path: '/mounts', icon: Truck, label: 'Montures' },
@@ -71,7 +74,7 @@ export const Layout: React.FC = () => {
             ]
         },
         { path: '/tools', icon: Sword, label: 'Outils' },
-        { path: '/tools/monsters', icon: Skull, label: 'Mes Monstres' },
+        { path: '/tools/monsters', icon: Skull, label: 'Mes Monstres', shortLabel: 'Monstres' },
     ], []);
 
     // Effect to set initial open section based on URL
@@ -195,7 +198,7 @@ export const Layout: React.FC = () => {
                                 key={item.path}
                                 to={targetPath}
                                 className={clsx(
-                                    "flex flex-col items-center justify-center w-full h-full transition-all duration-300 relative group",
+                                    "flex flex-col items-center justify-center flex-1 min-w-0 h-full transition-all duration-300 relative group",
                                     isActive ? "text-primary-400" : "text-stone-500 hover:text-stone-300"
                                 )}
                             >
@@ -204,14 +207,14 @@ export const Layout: React.FC = () => {
                                 )}
 
                                 <Icon
-                                    size={isActive ? 24 : 22}
+                                    size={isActive ? 22 : 20}
                                     className={clsx(
-                                        "transition-all duration-300 z-10",
+                                        "transition-all duration-300 z-10 flex-none",
                                         isActive && "scale-110 drop-shadow-[0_0_8px_rgba(245,158,11,0.5)]"
                                     )}
                                 />
-                                <span className={clsx("text-[10px] mt-1 font-semibold z-10 transition-colors", isActive ? "text-primary-300" : "text-stone-600")}>
-                                    {item.label}
+                                <span className={clsx("text-[9px] mt-0.5 font-semibold z-10 transition-colors max-w-full truncate leading-none", isActive ? "text-primary-300" : "text-stone-600")}>
+                                    {item.shortLabel ?? item.label}
                                 </span>
                             </Link>
                         );

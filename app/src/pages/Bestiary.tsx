@@ -5,6 +5,7 @@ import { Search, Filter, ChevronDown, ChevronUp, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 import { DataService } from '../services/dataService';
+import { Loader } from '../components/common';
 
 export const Bestiary: React.FC = () => {
     const [creatures, setCreatures] = useState<Creature[]>([]);
@@ -106,7 +107,7 @@ export const Bestiary: React.FC = () => {
 
     const hasActiveFilters = searchTerm || selectedCategory || selectedFamily || selectedArchetype || selectedEnvironment || selectedSize || minLevel > 0 || maxLevel < 30;
 
-    if (loading) return <div className="p-8 text-center text-primary-200">Chargement...</div>;
+    if (loading) return <Loader />;
 
     return (
         <div className="max-w-6xl mx-auto space-y-6 pb-12">

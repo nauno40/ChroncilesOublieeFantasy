@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import type { Trap } from '../types/normalized';
-import { PageContainer, PageHeader } from '../components/common';
+import { PageContainer, PageHeader, Loader } from '../components/common';
 import { useSearch } from '../hooks';
 import { DataService } from '../services/dataService';
 
@@ -20,7 +20,7 @@ export const Traps: React.FC = () => {
         (t, term) => (t.name + ' ' + (t.effect ?? '') + ' ' + (t.complement ?? '')).toLowerCase().includes(term.toLowerCase()),
     );
 
-    if (loading) return <PageContainer><div className="p-8 text-center text-primary-200">Chargement...</div></PageContainer>;
+    if (loading) return <PageContainer><Loader /></PageContainer>;
 
     return (
         <PageContainer>

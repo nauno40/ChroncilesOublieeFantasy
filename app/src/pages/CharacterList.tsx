@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ApiService } from '../services/api';
 import type { Character } from '../types/character';
 import { Plus, User, Swords } from 'lucide-react';
+import { Loader } from '../components/common';
 
 export const CharacterList: React.FC = () => {
     const [characters, setCharacters] = useState<Character[]>([]);
@@ -15,7 +16,7 @@ export const CharacterList: React.FC = () => {
             .finally(() => setLoading(false));
     }, []);
 
-    if (loading) return <div className="p-8 text-center text-primary-200">Chargement...</div>;
+    if (loading) return <Loader />;
 
     return (
         <div className="max-w-6xl mx-auto space-y-6 pb-12 pt-6">

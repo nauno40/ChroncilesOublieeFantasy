@@ -1,5 +1,5 @@
 import React from 'react';
-import { PageContainer, PageHeader, TabGroup, SearchBar, ItemTable } from '../components/common';
+import { PageContainer, PageHeader, TabGroup, SearchBar, ItemTable, Loader } from '../components/common';
 import { useSearch } from '../hooks';
 import { UtensilsCrossed, Home } from 'lucide-react';
 import { DataService } from '../services/dataService';
@@ -35,7 +35,7 @@ export const Provisions: React.FC = () => {
 
             <TabGroup tabs={tabs}>
                 {(activeTab) => (
-                    loading ? <div className="p-8 text-center text-primary-200">Chargement...</div> :
+                    loading ? <Loader /> :
                         <>
                             {activeTab === 'food' && (
                                 <div className="space-y-4">

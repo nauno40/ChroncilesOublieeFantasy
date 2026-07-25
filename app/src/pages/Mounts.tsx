@@ -1,5 +1,5 @@
 import React from 'react';
-import { PageContainer, PageHeader, ItemTable } from '../components/common';
+import { PageContainer, PageHeader, ItemTable, Loader } from '../components/common';
 import { useSearch } from '../hooks';
 import { DataService } from '../services/dataService';
 
@@ -20,7 +20,7 @@ export const Mounts: React.FC = () => {
         (mount, term) => mount.name.toLowerCase().includes(term.toLowerCase())
     );
 
-    if (loading) return <PageContainer><div className="p-8 text-center text-primary-200">Chargement...</div></PageContainer>;
+    if (loading) return <PageContainer><Loader /></PageContainer>;
 
     return (
         <PageContainer>

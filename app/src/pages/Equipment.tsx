@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { PageContainer, PageHeader, SearchBar, EmptyState, TabGroup } from '../components/common';
+import { PageContainer, PageHeader, SearchBar, EmptyState, TabGroup, Loader } from '../components/common';
 import { useSearch } from '../hooks';
 import { Sword, Shield, Gem } from 'lucide-react';
 import { DataService } from '../services/dataService';
@@ -63,7 +63,7 @@ export const Equipment: React.FC = () => {
             <PageHeader title="Équipement" />
 
             {loading ? (
-                <div className="p-8 text-center text-primary-200">Chargement...</div>
+                <Loader />
             ) : error ? (
                 <div className="p-8 text-center text-red-400">
                     <p>Erreur lors du chargement des équipements :</p>

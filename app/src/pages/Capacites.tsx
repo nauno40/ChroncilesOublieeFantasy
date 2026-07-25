@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import type { Capacity, Profile, Voie } from '../types/normalized';
-import { PageContainer, PageHeader, Card, Badge, FilterPanel } from '../components/common';
+import { PageContainer, PageHeader, Card, Badge, FilterPanel, Loader } from '../components/common';
 import { DataService } from '../services/dataService';
 
 export const Capacites: React.FC = () => {
@@ -100,7 +100,7 @@ export const Capacites: React.FC = () => {
 
     const activeFiltersCount = [selectedRank, selectedProfile, selectedType].filter(f => f !== 'all').length;
 
-    if (loading) return <PageContainer><div className="p-8 text-center text-primary-200">Chargement...</div></PageContainer>;
+    if (loading) return <PageContainer><Loader /></PageContainer>;
 
     return (
         <PageContainer>

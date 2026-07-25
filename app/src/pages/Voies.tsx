@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import type { Voie, Profile } from '../types/normalized';
-import { PageContainer, PageHeader, Card, Badge } from '../components/common';
+import { PageContainer, PageHeader, Card, Badge, Loader } from '../components/common';
 import { useSearch } from '../hooks';
 import { DataService } from '../services/dataService';
 import { User, Users, Skull, Crown, Filter, Sparkles, Scroll, Search, X } from 'lucide-react';
@@ -67,15 +67,7 @@ export const Voies: React.FC = () => {
         }
     };
 
-    if (loading) return (
-        <PageContainer>
-            <div className="flex items-center justify-center min-h-[50vh]">
-                <div className="text-primary-200 text-xl font-display animate-pulse flex items-center gap-3">
-                    <Sparkles className="animate-spin-slow" /> Chargement...
-                </div>
-            </div>
-        </PageContainer>
-    );
+    if (loading) return <PageContainer><Loader /></PageContainer>;
 
     return (
         <PageContainer>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { DataService } from '../services/dataService';
 import type { Race } from '../types/normalized';
-import { PageContainer, PageHeader, Card } from '../components/common';
+import { PageContainer, PageHeader, Card, Loader } from '../components/common';
 import { useSearch } from '../hooks';
 
 export const Races: React.FC = () => {
@@ -20,7 +20,7 @@ export const Races: React.FC = () => {
         (race, term) => race.name.toLowerCase().includes(term.toLowerCase())
     );
 
-    if (loading) return <PageContainer><div className="p-8 text-center text-primary-200">Chargement...</div></PageContainer>;
+    if (loading) return <PageContainer><Loader /></PageContainer>;
 
     return (
         <PageContainer>

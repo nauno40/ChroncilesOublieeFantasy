@@ -4,6 +4,7 @@ export { Card } from './Card';
 export { Badge } from './Badge';
 export { PageContainer } from './PageContainer';
 export { PageHeader } from './PageHeader';
+export { Loader } from './Loader';
 export { FilterPanel } from './FilterPanel';
 export { TabGroup } from './TabGroup';
 export { EmptyState } from './EmptyState';

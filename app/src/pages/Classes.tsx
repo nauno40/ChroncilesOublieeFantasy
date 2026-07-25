@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import type { Profile } from '../types/normalized';
-import { PageContainer, PageHeader, Card, Badge, FilterPanel } from '../components/common';
+import { PageContainer, PageHeader, Card, Badge, FilterPanel, Loader } from '../components/common';
 import { useSearch } from '../hooks';
 import { DataService } from '../services/dataService';
 
@@ -41,7 +41,7 @@ export const Classes: React.FC = () => {
 
     const activeFiltersCount = [selectedHitDie, selectedMagic].filter(f => f !== 'all').length;
 
-    if (loading) return <PageContainer><div className="p-8 text-center text-primary-200">Chargement...</div></PageContainer>;
+    if (loading) return <PageContainer><Loader /></PageContainer>;
 
     return (
         <PageContainer>

@@ -9,7 +9,7 @@ export const SoundboardPage: React.FC = () => {
                 subtitle="Ambiance sonore pour vos parties"
             />
 
-            <div className="max-w-xl mx-auto h-[600px] glass-panel rounded-xl overflow-hidden shadow-2xl border-primary-500/20">
+            <div className="max-w-xl mx-auto glass-panel rounded-xl overflow-hidden shadow-2xl border-primary-500/20">
                 <Soundboard
                     isOpen={true}
                     onClose={() => { }}

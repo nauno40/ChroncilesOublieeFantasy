@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { clsx } from 'clsx';
-import { Scroll, X, Plus, CheckSquare, Square, Check, Edit } from 'lucide-react';
+import { Scroll, X, Plus, CheckSquare, Square, Check, Edit, Eye, EyeOff } from 'lucide-react';
 import { saveCampaign } from '../../services/campaignService';
 import type { Campaign, Quest } from '../../types/campaign';
 
@@ -35,6 +35,25 @@ export const CampaignQuests: React.FC<Props> = ({ campaign, onCampaignSaved }) =
         );
         onCampaignSaved(await saveCampaign({ ...campaign, quests: updatedQuests }));
     };
+
+    // Bascule le partage explicite d'une quête aux joueurs (vue SharedCampaign).
+    const handleToggleShare = async (questId: string) => {
+        const updatedQuests = (campaign.quests || []).map((q: Quest) =>
+            q.id === questId ? { ...q, shared: !q.shared } : q
+        );
+        onCampaignSaved(await saveCampaign({ ...campaign, quests: updatedQuests }));
+    };
+
+    // Bouton d'partage réutilisé pour les deux niveaux de quête.
+    const shareButton = (quest: Quest, size: number) => (
+        <button
+            onClick={() => handleToggleShare(quest.id)}
+            title={quest.shared ? 'Partagé aux joueurs — cliquer pour masquer' : 'Partager aux joueurs'}
+            className={clsx('transition-all', quest.shared ? 'text-primary-400 hover:text-primary-300' : 'text-stone-600 hover:text-primary-400 opacity-0 group-hover:opacity-100')}
+        >
+            {quest.shared ? <Eye size={size} /> : <EyeOff size={size} />}
+        </button>
+    );
 
     const handleDeleteQuest = async (questId: string) => {
         const updatedQuests = (campaign.quests || []).filter((q: Quest) => q.id !== questId);
@@ -135,6 +154,7 @@ export const CampaignQuests: React.FC<Props> = ({ campaign, onCampaignSaved }) =
                                         <div className="flex-1">
                                             <p className={clsx("text-stone-200 leading-snug", quest.status === 'completed' && "line-through text-stone-500")}>{quest.title}</p>
                                         </div>
+                                        {shareButton(quest, 13)}
                                         <button onClick={() => startEditQuest(quest)} title="Modifier" className="text-stone-600 hover:text-amber-500 opacity-0 group-hover:opacity-100 transition-opacity"><Edit size={13} /></button>
                                         <button onClick={() => handleDeleteQuest(quest.id)} title="Supprimer" className="text-stone-600 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"><X size={14} /></button>
                                     </>
@@ -172,6 +192,7 @@ export const CampaignQuests: React.FC<Props> = ({ campaign, onCampaignSaved }) =
                                         <div className="flex-1">
                                             <p className={clsx("text-sm text-stone-300 leading-snug", quest.status === 'completed' && "line-through text-stone-600")}>{quest.title}</p>
                                         </div>
+                                        {shareButton(quest, 12)}
                                         <button onClick={() => startEditQuest(quest)} title="Modifier" className="text-stone-600 hover:text-stone-300 opacity-0 group-hover:opacity-100 transition-opacity"><Edit size={12} /></button>
                                         <button onClick={() => handleDeleteQuest(quest.id)} title="Supprimer" className="text-stone-600 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"><X size={14} /></button>
                                     </>

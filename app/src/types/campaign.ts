@@ -23,6 +23,7 @@ export interface Quest {
     description?: string;
     type: 'main' | 'secondary';
     status: 'active' | 'completed' | 'failed';
+    shared?: boolean;
 }
 
 export interface Clue {
@@ -30,6 +31,7 @@ export interface Clue {
     content: string;
     found_at?: string;
     status: 'unsolved' | 'solved';
+    shared?: boolean;
 }
 
 export interface Campaign {

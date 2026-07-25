@@ -3,6 +3,8 @@
 namespace App\Tests\Api;
 
 use App\Entity\CampaignMembership;
+use App\Entity\Clue;
+use App\Entity\Quest;
 use App\Entity\Session;
 
 /**
@@ -103,6 +105,51 @@ final class SharedCampaignTest extends ApiSecurityTestCase
         $body = $response->getContent();
         $this->assertStringContainsString('Les héros arrivent à Monastir.', $body);
         $this->assertStringNotContainsString('majordome', $body); // notes MJ jamais exposées
+    }
+
+    private function addQuest(\App\Entity\Campaign $campaign, string $title, string $description, bool $shared): void
+    {
+        $q = new Quest();
+        $q->setTitle($title);
+        $q->setDescription($description);
+        $q->setShared($shared);
+        $q->setCampaign($campaign);
+        $this->em->persist($q);
+        $this->em->flush();
+    }
+
+    private function addClue(\App\Entity\Campaign $campaign, string $content, bool $shared): void
+    {
+        $c = new Clue();
+        $c->setContent($content);
+        $c->setShared($shared);
+        $c->setCampaign($campaign);
+        $this->em->persist($c);
+        $this->em->flush();
+    }
+
+    public function testOnlySharedQuestsAndCluesAreExposed(): void
+    {
+        $mj = $this->createUser('mj@example.com');
+        $campaign = $this->createCampaign($mj, 'Osgild');
+        $this->em->flush();
+        $this->addQuest($campaign, 'Quete partagee', 'Sauver le village', true);
+        $this->addQuest($campaign, 'Complot secret', 'Le maire ment', false);
+        $this->addClue($campaign, 'Une empreinte de loup', true);
+        $this->addClue($campaign, 'Indice cache', false);
+        $joueur = $this->createUser('joueur@example.com');
+        $this->joinAsMember($campaign, $joueur);
+
+        $response = $this->client->request('GET', '/api/shared_campaigns', ['headers' => $this->authHeaders($joueur)]);
+        $this->assertResponseStatusCodeSame(200);
+        $body = $response->getContent();
+        // Partagés : visibles.
+        $this->assertStringContainsString('Quete partagee', $body);
+        $this->assertStringContainsString('Sauver le village', $body);
+        $this->assertStringContainsString('Une empreinte de loup', $body);
+        // Non partagés : jamais exposés.
+        $this->assertStringNotContainsString('Complot secret', $body);
+        $this->assertStringNotContainsString('Indice cache', $body);
     }
 
     public function testNonMemberCannotReadSharedCampaign(): void

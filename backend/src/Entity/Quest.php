@@ -50,6 +50,11 @@ class Quest
     #[ORM\Column(length: 20)]
     private ?string $status = 'active';
 
+    // Partage explicite aux joueurs (vue SharedCampaign). Défaut : privé au MJ.
+    #[Groups(['campaign:read', 'campaign:write'])]
+    #[ORM\Column(options: ['default' => false])]
+    private bool $shared = false;
+
     #[ORM\ManyToOne(inversedBy: 'quests', cascade: ['persist'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?Campaign $campaign = null;
@@ -57,6 +62,18 @@ class Quest
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function isShared(): bool
+    {
+        return $this->shared;
+    }
+
+    public function setShared(bool $shared): static
+    {
+        $this->shared = $shared;
+
+        return $this;
     }
 
     public function getTitle(): ?string

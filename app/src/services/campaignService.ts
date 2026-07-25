@@ -30,6 +30,7 @@ interface RawQuest {
     description?: string;
     type?: string;
     status?: string;
+    shared?: boolean;
 }
 
 interface RawClue {
@@ -37,6 +38,7 @@ interface RawClue {
     content?: string;
     foundAt?: string | null;
     status?: string;
+    shared?: boolean;
 }
 
 interface RawSession {
@@ -71,12 +73,14 @@ interface BackendQuestPayload {
     description?: string;
     type?: string;
     status?: string;
+    shared?: boolean;
 }
 interface BackendCluePayload {
     '@id'?: string;
     content?: string;
     foundAt?: string | null;
     status?: string;
+    shared?: boolean;
 }
 interface BackendSessionPayload {
     '@id'?: string;
@@ -217,13 +221,15 @@ const mapBackendToFrontend = (b: RawCampaign): Campaign => {
             title: q.title || 'Sans titre',
             description: q.description || '',
             type: (q.type as Quest['type']) || 'main',
-            status: (q.status as Quest['status']) || 'active'
+            status: (q.status as Quest['status']) || 'active',
+            shared: q.shared ?? false
         })),
         clues: (b.clues || []).map((c): Clue => ({
             id: (c.id || '').toString(),
             content: c.content || '',
             found_at: formatDate(c.foundAt),
-            status: (c.status as Clue['status']) || 'unsolved'
+            status: (c.status as Clue['status']) || 'unsolved',
+            shared: c.shared ?? false
         })),
         sessions: (b.sessions || []).map((s) => ({
             id: (s.id || '').toString(),
@@ -255,7 +261,8 @@ const mapFrontendToBackend = (f: Campaign): BackendCampaignPayload => {
                 title: q.title,
                 description: q.description,
                 type: q.type,
-                status: q.status
+                status: q.status,
+                shared: q.shared ?? false
             };
             if (isBackendId(q.id)) {
                 item['@id'] = `/api/quests/${q.id}`;
@@ -269,7 +276,8 @@ const mapFrontendToBackend = (f: Campaign): BackendCampaignPayload => {
             const item: BackendCluePayload = {
                 content: c.content,
                 foundAt: c.found_at ? new Date(c.found_at).toISOString() : null,
-                status: c.status
+                status: c.status,
+                shared: c.shared ?? false
             };
             if (isBackendId(c.id)) {
                 item['@id'] = `/api/clues/${c.id}`;

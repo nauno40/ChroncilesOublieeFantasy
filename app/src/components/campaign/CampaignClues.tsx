@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { clsx } from 'clsx';
-import { Search, X, Plus, HelpCircle, MapPin } from 'lucide-react';
+import { Search, X, Plus, HelpCircle, MapPin, Eye, EyeOff } from 'lucide-react';
 import { saveCampaign } from '../../services/campaignService';
 import type { Campaign, Clue } from '../../types/campaign';
 
@@ -38,6 +38,14 @@ export const CampaignClues: React.FC<Props> = ({ campaign, onCampaignSaved }) =>
     const handleToggleClue = async (clueId: string) => {
         const updatedClues = (campaign.clues || []).map((c: Clue) =>
             c.id === clueId ? { ...c, status: (c.status === 'solved' ? 'unsolved' : 'solved') } as Clue : c
+        );
+        onCampaignSaved(await saveCampaign({ ...campaign, clues: updatedClues }));
+    };
+
+    // Bascule le partage explicite d'un indice aux joueurs (vue SharedCampaign).
+    const handleToggleShareClue = async (clueId: string) => {
+        const updatedClues = (campaign.clues || []).map((c: Clue) =>
+            c.id === clueId ? { ...c, shared: !c.shared } : c
         );
         onCampaignSaved(await saveCampaign({ ...campaign, clues: updatedClues }));
     };
@@ -120,6 +128,9 @@ export const CampaignClues: React.FC<Props> = ({ campaign, onCampaignSaved }) =>
                             <div className="flex gap-2">
                                 <button onClick={() => handleToggleClue(clue.id)} className={clsx("hover:underline", clue.status === 'solved' ? "text-stone-500" : "text-green-600")}>
                                     {clue.status === 'solved' ? "Rouvrir" : "Résoudre"}
+                                </button>
+                                <button onClick={() => handleToggleShareClue(clue.id)} title={clue.shared ? 'Partagé aux joueurs — cliquer pour masquer' : 'Partager aux joueurs'} className={clsx("flex items-center gap-1", clue.shared ? "text-primary-400" : "text-stone-600 hover:text-primary-400")}>
+                                    {clue.shared ? <Eye size={11} /> : <EyeOff size={11} />} {clue.shared ? 'Partagé' : 'Partager'}
                                 </button>
                                 {editingClueId !== clue.id && (
                                     <button onClick={() => startEditClue(clue)} className="text-stone-600 hover:text-stone-300 opacity-0 group-hover/clue:opacity-100 transition-opacity">Modifier</button>

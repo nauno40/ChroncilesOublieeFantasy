@@ -51,4 +51,12 @@ final class SharedCampaign
     /** @var SharedSession[] */
     #[Groups(['shared_campaign:read'])]
     public array $sessions = [];
+
+    /** @var SharedQuest[] Quêtes explicitement partagées par le MJ. */
+    #[Groups(['shared_campaign:read'])]
+    public array $quests = [];
+
+    /** @var SharedClue[] Indices explicitement partagés par le MJ. */
+    #[Groups(['shared_campaign:read'])]
+    public array $clues = [];
 }

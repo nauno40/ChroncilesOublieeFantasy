@@ -6,7 +6,7 @@ import type { NavItem } from './NavItem';
 import { NavItemComponent } from './NavItem';
 import { DiceRoller, GlobalNotes, Soundboard, DraggableWindow, GlobalSearch } from '../common';
 import { useToggle } from '../../hooks/useToggle';
-import { Dices, StickyNote, Music, Search, LogOut, User as UserIcon, Wand2, X } from 'lucide-react';
+import { Dices, StickyNote, Music, Search, LogOut, User as UserIcon, Wand2, X, Library } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
 export const Layout: React.FC = () => {
@@ -49,6 +49,7 @@ export const Layout: React.FC = () => {
                 { path: '/traps', icon: Footprints, label: 'Pièges' },
             ]
         },
+        { path: '/bibliotheque', icon: Library, label: 'Bibliothèque', shortLabel: 'Biblio' },
         {
             path: '/characters',
             icon: GraduationCap,

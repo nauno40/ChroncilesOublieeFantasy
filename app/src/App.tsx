@@ -24,6 +24,7 @@ import { States } from './pages/States';
 import { Poisons } from './pages/Poisons';
 import { Traps } from './pages/Traps';
 import { Rules } from './pages/Rules';
+import { Bibliotheque } from './pages/Bibliotheque';
 import { SoundboardPage } from './pages/SoundboardPage';
 import { MagicItems } from './pages/MagicItems';
 import { CharacterList } from './pages/CharacterList';
@@ -83,6 +84,7 @@ function App() {
               <Route path="poisons" element={<Poisons />} />
               <Route path="traps" element={<Traps />} />
               <Route path="rules" element={<Rules />} />
+              <Route path="bibliotheque" element={<Bibliotheque />} />
               <Route path="characters" element={<CharacterList />} />
               <Route path="characters/new" element={<CharacterSheet />} />
               <Route path="characters/:id" element={<CharacterSheet />} />

@@ -12,15 +12,11 @@ export const Home: React.FC = () => {
 
     useEffect(() => {
         Promise.all([
-            DataService.getCreatures(),
-            DataService.getVoies(),
-            DataService.getProfiles()
-        ]).then(([c, v, p]) => {
-            setStats({
-                creatures: c.length,
-                voies: v.length,
-                profiles: p.length
-            });
+            DataService.countCreatures(),
+            DataService.countVoies(),
+            DataService.countProfiles()
+        ]).then(([creatures, voies, profiles]) => {
+            setStats({ creatures, voies, profiles });
         }).catch(console.error);
 
         getCampaigns().then(data => {

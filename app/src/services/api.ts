@@ -84,6 +84,14 @@ export const ApiService = {
         return response.json();
     },
 
+    // Compte léger d'une collection : lit `totalItems` de la réponse Hydra sans rapatrier
+    // tous les items (une seule requête `itemsPerPage=1`). Pour les compteurs/résumés.
+    async count(resource: string): Promise<number> {
+        const sep = resource.includes('?') ? '&' : '?';
+        const data = await this.get<{ totalItems?: number; 'hydra:totalItems'?: number }>(`${resource}${sep}itemsPerPage=1`);
+        return data.totalItems ?? data['hydra:totalItems'] ?? 0;
+    },
+
     async getAll<T>(resource: string): Promise<T[]> {
         let allItems: T[] = [];
         // Determine initial URL

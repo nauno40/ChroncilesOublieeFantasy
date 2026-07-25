@@ -37,6 +37,11 @@ export const DataService = {
     getVoies: () => ApiService.getAll<Voie>('voies?pagination=false&itemsPerPage=500'),
     getVoieById: (id: string | number) => ApiService.getOne<Voie>('voies', id),
     getVoiesByProfile: (profileId: string | number) => ApiService.getAll<Voie>(`voies?profile=${profileId}&pagination=false`),
+
+    // Compteurs légers (totalItems Hydra) — pour le tableau de bord, sans rapatrier les collections.
+    countCreatures: () => ApiService.count('creatures'),
+    countVoies: () => ApiService.count('voies'),
+    countProfiles: () => ApiService.count('profiles'),
     getCapabilities: () => ApiService.getAll<Capacity>('capabilities?pagination=false&itemsPerPage=500'),
     getCapabilityById: (id: string | number) => ApiService.getOne<Capacity>('capabilities', id),
     getCapabilitiesByVoie: (voieId: string | number) => ApiService.getAll<Capacity>(`capabilities?voie=${voieId}&pagination=false`),

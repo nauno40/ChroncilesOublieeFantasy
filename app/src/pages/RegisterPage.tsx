@@ -30,7 +30,7 @@ export const RegisterPage: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen bg-stone-950 flex flex-col justify-center py-12 px-6 lg:px-8 relative overflow-hidden">
+        <div className="min-h-screen bg-stone-950/60 flex flex-col justify-center py-12 px-6 lg:px-8 relative overflow-hidden">
             {/* Background Decor */}
             <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-primary-600/10 rounded-full blur-[100px] -z-10"></div>
             <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-blue-600/10 rounded-full blur-[100px] -z-10 opacity-50"></div>

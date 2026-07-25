@@ -44,7 +44,7 @@ export const Home: React.FC = () => {
 
                 <div className="relative z-10">
                     <h2 className="text-4xl md:text-5xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary-200 via-primary-400 to-primary-200 mb-4 tracking-tight drop-shadow-sm">
-                        Bienvenue, Maître de Jeu
+                        Bienvenue à la table
                     </h2>
                     <p className="text-stone-300 max-w-xl text-lg leading-relaxed mb-8">
                         Vos chroniques commencent ici. Gérez vos campagnes, consultez le bestiaire et lancez des combats épiques avec style.

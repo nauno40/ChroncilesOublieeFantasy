@@ -6,7 +6,7 @@ import type { NavItem } from './NavItem';
 import { NavItemComponent } from './NavItem';
 import { DiceRoller, GlobalNotes, Soundboard, DraggableWindow, GlobalSearch } from '../common';
 import { useToggle } from '../../hooks/useToggle';
-import { Dices, StickyNote, Music, Search, LogOut, User as UserIcon } from 'lucide-react';
+import { Dices, StickyNote, Music, Search, LogOut, User as UserIcon, Wand2, X } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
 export const Layout: React.FC = () => {
@@ -16,6 +16,7 @@ export const Layout: React.FC = () => {
     const [isNotesOpen, toggleNotes] = useToggle(false);
     const [isSoundboardOpen, toggleSoundboard] = useToggle(false);
     const [isSearchOpen, toggleSearch] = useToggle(false);
+    const [isFabOpen, toggleFab] = useToggle(false);
 
     const [openSection, setOpenSection] = React.useState<string | null>(null);
 
@@ -217,42 +218,57 @@ export const Layout: React.FC = () => {
                     })}
                 </div>
             </nav>
-            {/* Floating Action Buttons */}
-            <div className="fixed bottom-24 right-4 md:bottom-8 md:right-8 z-40 flex items-end gap-4 flex-col">
-                {/* Search Button (Mobile/Tablet only or if shortcut not known) */}
+            {/* Boutons flottants — repliables (au repos : un seul bouton, pour ne pas masquer le contenu). */}
+            <div className="fixed bottom-24 right-4 md:bottom-8 md:right-8 z-40 flex items-end gap-3 flex-col">
+                {isFabOpen && (
+                    <>
+                        {/* Recherche (mobile) */}
+                        <button
+                            onClick={() => { toggleSearch(); toggleFab(); }}
+                            className="md:hidden bg-gradient-to-br from-stone-800 to-stone-900 border border-primary-500/30 text-primary-400 p-3 rounded-full shadow-xl active:scale-95 transition-all animate-in slide-in-from-bottom-2 fade-in-0"
+                            title="Rechercher (Cmd+K)"
+                        >
+                            <Search size={22} strokeWidth={2.5} />
+                        </button>
+                        {/* Soundboard */}
+                        <button
+                            onClick={() => { toggleSoundboard(); toggleFab(); }}
+                            className="bg-gradient-to-br from-primary-500 to-primary-700 hover:from-primary-400 text-stone-950 p-3 md:p-3.5 rounded-full shadow-xl shadow-primary-900/30 hover:scale-110 active:scale-95 transition-all animate-in slide-in-from-bottom-2 fade-in-0"
+                            title="Soundboard"
+                        >
+                            <Music size={22} strokeWidth={2.5} />
+                        </button>
+                        {/* Notes */}
+                        <button
+                            onClick={() => { toggleNotes(); toggleFab(); }}
+                            className="bg-gradient-to-br from-primary-500 to-primary-700 hover:from-primary-400 text-stone-950 p-3 md:p-3.5 rounded-full shadow-xl shadow-primary-900/30 hover:scale-110 active:scale-95 transition-all animate-in slide-in-from-bottom-2 fade-in-0"
+                            title="Notes Globales"
+                        >
+                            <StickyNote size={22} strokeWidth={2.5} />
+                        </button>
+                        {/* Dés */}
+                        <button
+                            onClick={() => { toggleDiceRoller(); toggleFab(); }}
+                            className="bg-gradient-to-br from-primary-500 to-primary-700 hover:from-primary-400 text-stone-950 p-3 md:p-3.5 rounded-full shadow-xl shadow-primary-900/30 hover:scale-110 active:scale-95 transition-all animate-in slide-in-from-bottom-2 fade-in-0"
+                            title="Lanceur de dés"
+                        >
+                            <Dices size={24} strokeWidth={2.5} />
+                        </button>
+                    </>
+                )}
+                {/* Bascule : ouvre/replie le bandeau d'outils */}
                 <button
-                    onClick={toggleSearch}
-                    className="md:hidden bg-gradient-to-br from-stone-800 to-stone-900 border border-primary-500/30 text-primary-400 p-3 rounded-full shadow-xl hover:scale-110 transition-all duration-300 active:scale-95 group relative animate-in slide-in-from-right-8 fade-in-0 duration-500 delay-300"
-                    title="Rechercher (Cmd+K)"
+                    onClick={toggleFab}
+                    className={clsx(
+                        "p-3.5 md:p-4 rounded-full shadow-xl transition-all duration-300 active:scale-95 border",
+                        isFabOpen
+                            ? "bg-stone-800 text-stone-300 border-white/10 rotate-90"
+                            : "bg-gradient-to-br from-primary-500 to-primary-700 text-stone-950 border-primary-400/20 hover:scale-110 shadow-primary-900/30",
+                    )}
+                    title={isFabOpen ? 'Fermer' : 'Outils (dés, notes, ambiance)'}
+                    aria-expanded={isFabOpen}
                 >
-                    <Search size={24} strokeWidth={2.5} />
-                </button>
-
-                {/* Soundboard Button */}
-                <button
-                    onClick={toggleSoundboard}
-                    className="bg-gradient-to-br from-primary-500 to-primary-700 hover:from-primary-400 hover:to-primary-600 text-stone-950 p-3 md:p-4 rounded-full shadow-xl shadow-primary-900/30 hover:shadow-primary-500/40 hover:scale-110 transition-all duration-300 active:scale-95 group relative animate-in slide-in-from-right-8 fade-in-0 duration-500 delay-200"
-                    title="Soundboard"
-                >
-                    <Music size={24} strokeWidth={2.5} className="group-hover:rotate-12 transition-transform duration-500" />
-                </button>
-
-                {/* Notes Button */}
-                <button
-                    onClick={toggleNotes}
-                    className="bg-gradient-to-br from-primary-500 to-primary-700 hover:from-primary-400 hover:to-primary-600 text-stone-950 p-3 md:p-4 rounded-full shadow-xl shadow-primary-900/30 hover:shadow-primary-500/40 hover:scale-110 transition-all duration-300 active:scale-95 group relative animate-in slide-in-from-right-8 fade-in-0 duration-500 delay-100"
-                    title="Notes Globales"
-                >
-                    <StickyNote size={24} strokeWidth={2.5} className="group-hover:-rotate-12 transition-transform duration-500" />
-                </button>
-
-                {/* Dice Button */}
-                <button
-                    onClick={toggleDiceRoller}
-                    className="bg-gradient-to-br from-primary-500 to-primary-700 hover:from-primary-400 hover:to-primary-600 text-stone-950 p-3 md:p-4 rounded-full shadow-xl shadow-primary-900/30 hover:shadow-primary-500/40 hover:scale-110 transition-all duration-300 active:scale-95 group animate-in slide-in-from-right-8 fade-in-0 duration-500"
-                    title="Lanceur de dés"
-                >
-                    <Dices size={28} strokeWidth={2.5} className="group-hover:rotate-180 transition-transform duration-700" />
+                    {isFabOpen ? <X size={24} strokeWidth={2.5} /> : <Wand2 size={24} strokeWidth={2.5} />}
                 </button>
             </div>
 

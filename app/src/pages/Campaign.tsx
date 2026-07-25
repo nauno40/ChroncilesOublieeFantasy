@@ -347,6 +347,40 @@ export const Campaign: React.FC = () => {
                                             ))}
                                         </div>
                                     )}
+
+                                    {shared.quests.length > 0 && (
+                                        <div className="mt-6">
+                                            <h4 className="text-xs font-bold text-stone-500 uppercase tracking-widest mb-3">Quêtes partagées</h4>
+                                            {(['main', 'secondary'] as const).map(type => {
+                                                const qs = shared.quests.filter(q => (q.type ?? 'main') === type);
+                                                if (qs.length === 0) return null;
+                                                return (
+                                                    <div key={type} className="mb-3">
+                                                        <div className="text-[10px] uppercase tracking-wider text-stone-600 mb-1.5">{type === 'main' ? 'Principale' : 'Secondaire'}</div>
+                                                        <div className="space-y-2">
+                                                            {qs.map(q => (
+                                                                <div key={q.id} className="bg-stone-900/50 p-3 rounded-xl border border-white/5">
+                                                                    <div className="font-bold text-stone-200 text-sm">{q.title}</div>
+                                                                    {q.description && <p className="text-stone-400 text-sm mt-0.5 whitespace-pre-line">{q.description}</p>}
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
+                                    )}
+
+                                    {shared.clues.length > 0 && (
+                                        <div className="mt-6">
+                                            <h4 className="text-xs font-bold text-stone-500 uppercase tracking-widest mb-3">Indices partagés</h4>
+                                            <div className="space-y-2">
+                                                {shared.clues.map(c => (
+                                                    <div key={c.id} className="bg-stone-900/50 p-3 rounded-xl border border-white/5 text-stone-300 text-sm whitespace-pre-line">{c.content}</div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
                             );
                         })}

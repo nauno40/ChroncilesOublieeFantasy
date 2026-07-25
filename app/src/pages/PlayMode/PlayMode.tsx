@@ -279,7 +279,39 @@ export const PlayMode: React.FC = () => {
                                     </div>
                                 )}
                             </div>
-                            <p className="text-[10px] text-stone-600 italic">Vue joueur : seuls le nom, le MJ et les résumés de séances partagés sont visibles.</p>
+                            {myCampaign.quests.length > 0 && (
+                                <div>
+                                    <h3 className="text-[11px] uppercase tracking-widest text-primary-500/70 font-bold mb-2">Quêtes partagées</h3>
+                                    {(['main', 'secondary'] as const).map(type => {
+                                        const qs = myCampaign.quests.filter(q => (q.type ?? 'main') === type);
+                                        if (qs.length === 0) return null;
+                                        return (
+                                            <div key={type} className="mb-2">
+                                                <div className="text-[10px] uppercase tracking-wider text-stone-500 mb-1">{type === 'main' ? 'Principale' : 'Secondaire'}</div>
+                                                <div className="space-y-2">
+                                                    {qs.map(q => (
+                                                        <div key={q.id} className="bg-stone-900/40 border border-white/5 rounded-2xl p-3">
+                                                            <div className="font-display font-bold text-stone-200 text-sm">{q.title}</div>
+                                                            {q.description && <p className="text-[12px] text-stone-400 leading-snug mt-0.5 whitespace-pre-line">{q.description}</p>}
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            )}
+                            {myCampaign.clues.length > 0 && (
+                                <div>
+                                    <h3 className="text-[11px] uppercase tracking-widest text-primary-500/70 font-bold mb-2">Indices partagés</h3>
+                                    <div className="space-y-2">
+                                        {myCampaign.clues.map(c => (
+                                            <div key={c.id} className="bg-stone-900/40 border border-white/5 rounded-2xl p-3 text-[13px] text-stone-300 leading-snug">{c.content}</div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                            <p className="text-[10px] text-stone-600 italic">Vue joueur : seuls le nom, le MJ, les résumés de séances et les éléments partagés par le MJ sont visibles.</p>
                         </div>
                     )
                 )}

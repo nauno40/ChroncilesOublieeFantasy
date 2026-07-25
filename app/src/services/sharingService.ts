@@ -7,11 +7,25 @@ export interface SharedSession {
     summary: string | null;
 }
 
+export interface SharedQuest {
+    id: number;
+    title: string;
+    description: string | null;
+    type: string | null;
+}
+
+export interface SharedClue {
+    id: number;
+    content: string | null;
+}
+
 export interface SharedCampaign {
     id: number;
     name: string;
     gameMaster: string;
     sessions: SharedSession[];
+    quests: SharedQuest[];
+    clues: SharedClue[];
 }
 
 export interface Membership {

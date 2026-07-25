@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Edit, Plus, Trash2, Save } from 'lucide-react';
+import { Edit, Plus, Trash2, Save, Music, ExternalLink } from 'lucide-react';
 import { clsx } from 'clsx';
 
 interface SoundboardProps {
@@ -90,6 +90,12 @@ export const Soundboard: React.FC<SoundboardProps> = ({ isOpen }) => {
                 </button>
             </div>
 
+            {!isEditing && (
+                <p className="px-3 pt-2 text-[10px] text-stone-500 italic leading-snug">
+                    Chaque bouton ouvre une recherche musicale d'ambiance (YouTube) dans un nouvel onglet.
+                </p>
+            )}
+
             {/* Content List */}
             <div className="p-3 flex-1 overflow-y-auto custom-scrollbar space-y-3 min-h-0">
                 {/* min-h-0 is crucial for flex child scroll */}
@@ -156,8 +162,11 @@ export const Soundboard: React.FC<SoundboardProps> = ({ isOpen }) => {
                                         track.color
                                     )}
                                 >
-                                    <span className="font-display font-bold text-xs tracking-wide truncate pr-1">{track.label}</span>
-                                    {isEditing && <Edit size={12} className="opacity-50 flex-shrink-0" />}
+                                    <span className="flex items-center gap-1.5 min-w-0">
+                                        {!isEditing && <Music size={14} className="text-primary-400/70 flex-shrink-0" />}
+                                        <span className="font-display font-bold text-xs tracking-wide truncate">{track.label}</span>
+                                    </span>
+                                    {isEditing ? <Edit size={12} className="opacity-50 flex-shrink-0" /> : <ExternalLink size={12} className="opacity-40 flex-shrink-0" />}
                                 </button>
                                 {isEditing && (
                                     <button

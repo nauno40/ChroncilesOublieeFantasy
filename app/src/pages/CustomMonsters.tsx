@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Skull, Plus, Trash2, Pencil, Save, X, Swords, Sparkles, Globe, Lock, User as UserIcon } from 'lucide-react';
+import { Skull, Plus, Trash2, Pencil, Save, X, Swords, Sparkles, Globe, Lock, User as UserIcon, Copy } from 'lucide-react';
 import { PageContainer, PageHeader, EmptyState } from '../components/common';
 import { getMonsters, createMonster, updateMonster, deleteMonster } from '../services/monsterService';
 import { DataService } from '../services/dataService';
@@ -122,6 +122,7 @@ export const CustomMonsters: React.FC = () => {
     const [loading, setLoading] = useState(true);
     const [form, setForm] = useState<MonsterForm | null>(null);
     const [saving, setSaving] = useState(false);
+    const [duplicatingId, setDuplicatingId] = useState<number | null>(null);
     const [error, setError] = useState<string | null>(null);
 
     const load = () => {
@@ -230,6 +231,21 @@ export const CustomMonsters: React.FC = () => {
             load();
         } catch (e) {
             setError(e instanceof Error ? e.message : 'Suppression impossible.');
+        }
+    };
+
+    // Recopie un monstre public d'autrui dans mon contenu (privé) pour pouvoir l'utiliser/éditer.
+    const handleDuplicate = async (c: CustomCreature) => {
+        setError(null);
+        setDuplicatingId(c.id);
+        try {
+            await createMonster({ ...c, name: `${c.name} (copie)`, visibility: 'private' });
+            setTab('mine');
+            load();
+        } catch (e) {
+            setError(e instanceof Error ? e.message : 'Duplication impossible.');
+        } finally {
+            setDuplicatingId(null);
         }
     };
 
@@ -581,9 +597,18 @@ export const CustomMonsters: React.FC = () => {
                                         <p className="text-sm text-stone-500 mt-2 line-clamp-2">{c.description}</p>
                                     )}
                                     {!mine && (
-                                        <p className="text-[11px] text-stone-600 mt-2 flex items-center gap-1">
-                                            <UserIcon size={11} /> {c.authorPseudo || 'Anonyme'}
-                                        </p>
+                                        <div className="mt-3 space-y-2">
+                                            <p className="text-[11px] text-stone-600 flex items-center gap-1">
+                                                <UserIcon size={11} /> {c.authorPseudo || 'Anonyme'}
+                                            </p>
+                                            <button
+                                                onClick={() => handleDuplicate(c)}
+                                                disabled={duplicatingId === c.id}
+                                                className="inline-flex items-center gap-1.5 text-xs font-bold text-primary-400 hover:text-primary-300 border border-primary-500/30 hover:border-primary-500/50 rounded-lg px-3 py-1.5 transition-all disabled:opacity-50"
+                                            >
+                                                <Copy size={13} /> {duplicatingId === c.id ? 'Copie…' : 'Dupliquer chez moi'}
+                                            </button>
+                                        </div>
                                     )}
                                 </div>
                                 {mine && (

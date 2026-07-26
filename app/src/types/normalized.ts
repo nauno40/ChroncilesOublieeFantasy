@@ -364,4 +364,9 @@ export interface CustomCreature {
     environment?: string;
     archetype?: string;
     size?: string;
+    /** « private » (défaut) ou « public » (publié dans la bibliothèque communautaire). */
+    visibility?: 'private' | 'public';
+    /** Auteur (exposé en lecture) — sert à distinguer mon contenu de celui de la communauté. */
+    authorId?: number;
+    authorPseudo?: string | null;
 }

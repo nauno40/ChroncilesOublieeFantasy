@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Plus, Globe, Lock, Edit, Trash2, X, User as UserIcon } from 'lucide-react';
+import { Plus, Globe, Lock, Edit, Trash2, X, User as UserIcon, Copy } from 'lucide-react';
 import { PageContainer, PageHeader, Loader } from '../components/common';
 import { useAuth } from '../context/AuthContext';
 import { HomebrewService, HOMEBREW_CATEGORIES, categoryLabel, type HomebrewEntry, type HomebrewInput } from '../services/homebrewService';
@@ -13,7 +13,7 @@ const CategoryBadge: React.FC<{ category: string }> = ({ category }) => (
     <span className="text-[10px] uppercase font-bold tracking-wider text-primary-400/80 border border-primary-500/30 rounded px-1.5 py-0.5">{categoryLabel(category)}</span>
 );
 
-const Card: React.FC<{ entry: HomebrewEntry; mine: boolean; onOpen: () => void; onEdit: () => void; onDelete: () => void }> = ({ entry, mine, onOpen, onEdit, onDelete }) => (
+const Card: React.FC<{ entry: HomebrewEntry; mine: boolean; duplicating: boolean; onOpen: () => void; onEdit: () => void; onDelete: () => void; onDuplicate: () => void }> = ({ entry, mine, duplicating, onOpen, onEdit, onDelete, onDuplicate }) => (
     <div className="glass-panel rounded-2xl border border-white/5 hover:border-primary-500/30 transition-all flex flex-col overflow-hidden group">
         <button onClick={onOpen} className="text-left p-5 flex-1">
             <div className="flex items-center justify-between gap-2 mb-2">
@@ -26,10 +26,14 @@ const Card: React.FC<{ entry: HomebrewEntry; mine: boolean; onOpen: () => void; 
             {entry.description && <p className="text-xs text-stone-500 mt-1 line-clamp-2 leading-snug">{entry.description}</p>}
             {!mine && <p className="text-[10px] text-stone-600 mt-2 flex items-center gap-1"><UserIcon size={10} /> {entry.authorPseudo || 'Anonyme'}</p>}
         </button>
-        {mine && (
+        {mine ? (
             <div className="flex border-t border-white/5">
                 <button onClick={onEdit} className="flex-1 py-2 text-[11px] font-bold uppercase text-stone-500 hover:text-primary-400 hover:bg-white/[0.03] flex items-center justify-center gap-1.5 transition-all"><Edit size={12} /> Modifier</button>
                 <button onClick={onDelete} className="flex-1 py-2 text-[11px] font-bold uppercase text-stone-500 hover:text-red-400 hover:bg-white/[0.03] flex items-center justify-center gap-1.5 transition-all border-l border-white/5"><Trash2 size={12} /> Supprimer</button>
+            </div>
+        ) : (
+            <div className="flex border-t border-white/5">
+                <button onClick={onDuplicate} disabled={duplicating} className="flex-1 py-2 text-[11px] font-bold uppercase text-stone-500 hover:text-primary-400 hover:bg-white/[0.03] flex items-center justify-center gap-1.5 transition-all disabled:opacity-50"><Copy size={12} /> {duplicating ? 'Copie…' : 'Dupliquer chez moi'}</button>
             </div>
         )}
     </div>
@@ -45,6 +49,7 @@ export const Bibliotheque: React.FC = () => {
     const [form, setForm] = useState<{ open: boolean; id: number | null; data: HomebrewInput }>({ open: false, id: null, data: EMPTY });
     const [detail, setDetail] = useState<HomebrewEntry | null>(null);
     const [saving, setSaving] = useState(false);
+    const [duplicatingId, setDuplicatingId] = useState<number | null>(null);
 
     const reload = () => HomebrewService.getAll().then(setEntries).catch(() => setEntries([]));
     useEffect(() => { reload(); }, []);
@@ -77,6 +82,16 @@ export const Bibliotheque: React.FC = () => {
         if (!confirm(`Supprimer « ${e.name} » ?`)) return;
         await HomebrewService.remove(e.id);
         await reload();
+    };
+
+    // Recopie une entrée publique d'autrui dans mon contenu (privé), pour la retravailler.
+    const handleDuplicate = async (e: HomebrewEntry) => {
+        setDuplicatingId(e.id);
+        try {
+            await HomebrewService.create({ category: e.category, name: `${e.name} (copie)`, description: e.description ?? '', visibility: 'private' });
+            setTab('mine');
+            await reload();
+        } finally { setDuplicatingId(null); }
     };
 
     if (entries === null) return <PageContainer><Loader /></PageContainer>;
@@ -117,7 +132,7 @@ export const Bibliotheque: React.FC = () => {
             ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {visible.map(e => (
-                        <Card key={e.id} entry={e} mine={e.authorId === myId} onOpen={() => setDetail(e)} onEdit={() => openEdit(e)} onDelete={() => handleDelete(e)} />
+                        <Card key={e.id} entry={e} mine={e.authorId === myId} duplicating={duplicatingId === e.id} onOpen={() => setDetail(e)} onEdit={() => openEdit(e)} onDelete={() => handleDelete(e)} onDuplicate={() => handleDuplicate(e)} />
                     ))}
                 </div>
             )}

@@ -62,8 +62,8 @@ final readonly class CurrentUserExtension implements QueryCollectionExtensionInt
             // Strictement propriétaire : les joueurs passent par SharedCampaign.
             $queryBuilder->andWhere(sprintf('%s.owner = :current_user', $rootAlias));
         } elseif (CustomCreature::class === $resourceClass) {
-            // Monstres « maison » : strictement propriétaire (global au compte du MJ).
-            $queryBuilder->andWhere(sprintf('%s.owner = :current_user', $rootAlias));
+            // Monstres « maison » : les miens OU les publics (bibliothèque communautaire).
+            $queryBuilder->andWhere(sprintf("%s.owner = :current_user OR %s.visibility = 'public'", $rootAlias, $rootAlias));
         } elseif (HomebrewEntry::class === $resourceClass) {
             // Bibliothèque : les miennes OU les publiques (communauté).
             $queryBuilder->andWhere(sprintf("%s.owner = :current_user OR %s.visibility = 'public'", $rootAlias, $rootAlias));

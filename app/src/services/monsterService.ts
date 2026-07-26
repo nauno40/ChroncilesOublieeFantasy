@@ -9,6 +9,7 @@ const WRITABLE_FIELDS: (keyof CustomCreature)[] = [
     'name', 'description', 'nc', 'hp', 'def', 'init',
     'stats', 'specialAbilities', 'attacks', 'capabilities',
     'picture', 'category', 'environment', 'archetype', 'size',
+    'visibility',
 ];
 
 const toPayload = (data: Partial<CustomCreature>): Record<string, unknown> => {

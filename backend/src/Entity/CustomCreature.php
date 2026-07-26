@@ -32,7 +32,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     operations: [
         new GetCollection(security: "is_granted('ROLE_USER')"),
         new Post(security: "is_granted('ROLE_USER')", processor: CustomCreatureStateProcessor::class),
-        new Get(security: "is_granted('ROLE_USER') and object.getOwner() == user"),
+        new Get(security: "is_granted('ROLE_USER') and (object.getOwner() == user or object.getVisibility() == 'public')"),
         new Put(security: "is_granted('ROLE_USER') and object.getOwner() == user", processor: CustomCreatureStateProcessor::class),
         new Patch(security: "is_granted('ROLE_USER') and object.getOwner() == user", processor: CustomCreatureStateProcessor::class),
         new Delete(security: "is_granted('ROLE_USER') and object.getOwner() == user"),
@@ -58,6 +58,15 @@ class CustomCreature
     #[Groups(['custom_creature:read'])]
     private ?User $owner = null;
 
+    /**
+     * Visibilité : « private » (défaut, visible du seul créateur) ou « public »
+     * (publié dans la bibliothèque communautaire, consultable par tous). Aligne le
+     * monstre maison sur {@see HomebrewEntry} : un seul modèle de partage privé/public.
+     */
+    #[ORM\Column(length: 20, options: ['default' => 'private'])]
+    #[Groups(['custom_creature:read', 'custom_creature:write'])]
+    private string $visibility = 'private';
+
     public function getId(): ?int
     {
         return $this->id;
@@ -73,5 +82,29 @@ class CustomCreature
         $this->owner = $owner;
 
         return $this;
+    }
+
+    public function getVisibility(): string
+    {
+        return $this->visibility;
+    }
+
+    public function setVisibility(string $visibility): static
+    {
+        $this->visibility = $visibility;
+
+        return $this;
+    }
+
+    #[Groups(['custom_creature:read'])]
+    public function getAuthorId(): ?int
+    {
+        return $this->owner?->getId();
+    }
+
+    #[Groups(['custom_creature:read'])]
+    public function getAuthorPseudo(): ?string
+    {
+        return $this->owner?->getPseudo();
     }
 }

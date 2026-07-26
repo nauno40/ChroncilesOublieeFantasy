@@ -30,7 +30,7 @@ export const HOMEBREW_CATEGORIES: { value: string; label: string }[] = [
     { value: 'voie', label: 'Voie' },
     { value: 'objet-magique', label: 'Objet magique' },
     { value: 'equipement', label: 'Équipement' },
-    { value: 'creature', label: 'Créature' },
+    // Les créatures ont leur propre espace partageable (« Mes Monstres ») : pas de doublon ici.
     { value: 'poison', label: 'Poison' },
     { value: 'piege', label: 'Piège' },
     { value: 'etat', label: 'État préjudiciable' },

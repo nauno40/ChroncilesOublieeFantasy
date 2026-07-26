@@ -1,8 +1,9 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Skull, Plus, Trash2, Pencil, Save, X, Swords, Sparkles } from 'lucide-react';
+import { Skull, Plus, Trash2, Pencil, Save, X, Swords, Sparkles, Globe, Lock, User as UserIcon } from 'lucide-react';
 import { PageContainer, PageHeader, EmptyState } from '../components/common';
 import { getMonsters, createMonster, updateMonster, deleteMonster } from '../services/monsterService';
 import { DataService } from '../services/dataService';
+import { useAuth } from '../context/AuthContext';
 import type { CustomCreature, CustomCreatureAttack, CustomCreatureCapability, Creature } from '../types';
 
 const inputClass =
@@ -47,6 +48,7 @@ interface MonsterForm {
     environment: string;
     archetype: string;
     size: string;
+    visibility: 'private' | 'public';
 }
 
 // Échelle COF2 : les caractéristiques sont des valeurs (0 = moyen), pas des scores 3‑18.
@@ -68,6 +70,7 @@ const emptyForm = (): MonsterForm => ({
     environment: '',
     archetype: '',
     size: '',
+    visibility: 'private',
 });
 
 const toForm = (c: CustomCreature): MonsterForm => ({
@@ -87,6 +90,7 @@ const toForm = (c: CustomCreature): MonsterForm => ({
     environment: c.environment ?? '',
     archetype: c.archetype ?? '',
     size: c.size ?? '',
+    visibility: c.visibility ?? 'private',
 });
 
 const toPayload = (form: MonsterForm): Partial<CustomCreature> => ({
@@ -106,9 +110,13 @@ const toPayload = (form: MonsterForm): Partial<CustomCreature> => ({
     environment: form.environment.trim() || undefined,
     archetype: form.archetype.trim() || undefined,
     size: form.size.trim() || undefined,
+    visibility: form.visibility,
 });
 
 export const CustomMonsters: React.FC = () => {
+    const { user } = useAuth();
+    const myId = user?.id;
+    const [tab, setTab] = useState<'mine' | 'community'>('mine');
     const [monsters, setMonsters] = useState<CustomCreature[]>([]);
     const [srdCreatures, setSrdCreatures] = useState<Creature[]>([]);
     const [loading, setLoading] = useState(true);
@@ -148,6 +156,13 @@ export const CustomMonsters: React.FC = () => {
             ),
         };
     }, [srdCreatures, monsters]);
+
+    // Onglet « Mon contenu » = mes monstres ; « Communauté » = les publics d'autrui.
+    const visible = useMemo(() => (
+        tab === 'mine'
+            ? monsters.filter((c) => c.authorId === myId)
+            : monsters.filter((c) => c.visibility === 'public' && c.authorId !== myId)
+    ), [monsters, tab, myId]);
 
     const startCreate = () => {
         setError(null);
@@ -223,17 +238,30 @@ export const CustomMonsters: React.FC = () => {
             <PageHeader
                 title="Mes Monstres"
                 icon={Skull}
-                subtitle="Créez vos propres créatures et retrouvez-les dans le Suivi de Combat."
+                subtitle="Créez vos créatures (privées par défaut) pour le Suivi de Combat, et partagez-les à la communauté si vous le souhaitez."
             />
 
             {!form && (
-                <div className="flex justify-end">
-                    <button
-                        onClick={startCreate}
-                        className="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-500 text-white font-medium rounded-lg px-4 py-2 transition-colors"
-                    >
-                        <Plus size={18} /> Nouveau monstre
-                    </button>
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                    <div className="flex gap-2">
+                        {(['mine', 'community'] as const).map((t) => (
+                            <button
+                                key={t}
+                                onClick={() => setTab(t)}
+                                className={`px-4 py-2 rounded-xl text-sm font-bold transition-all ${tab === t ? 'bg-primary-500/20 text-primary-300 border border-primary-500/40' : 'bg-stone-900/40 text-stone-500 border border-white/5 hover:text-stone-300'}`}
+                            >
+                                {t === 'mine' ? 'Mon contenu' : 'Communauté'}
+                            </button>
+                        ))}
+                    </div>
+                    {tab === 'mine' && (
+                        <button
+                            onClick={startCreate}
+                            className="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-500 text-white font-medium rounded-lg px-4 py-2 transition-colors"
+                        >
+                            <Plus size={18} /> Nouveau monstre
+                        </button>
+                    )}
                 </div>
             )}
 
@@ -484,6 +512,17 @@ export const CustomMonsters: React.FC = () => {
                         />
                     </div>
 
+                    {/* Partage communautaire */}
+                    <label className="flex items-center gap-2 text-sm text-stone-300 cursor-pointer">
+                        <input
+                            type="checkbox"
+                            checked={form.visibility === 'public'}
+                            onChange={(e) => patch({ visibility: e.target.checked ? 'public' : 'private' })}
+                            className="accent-primary-500 w-4 h-4"
+                        />
+                        <Globe size={14} className="text-green-500/70" /> Partager à la communauté (public)
+                    </label>
+
                     {/* Actions */}
                     <div className="flex justify-end gap-3">
                         <button
@@ -504,7 +543,7 @@ export const CustomMonsters: React.FC = () => {
             )}
 
             {/* Liste */}
-            {!form && !loading && monsters.length === 0 && (
+            {!form && !loading && visible.length === 0 && tab === 'mine' && (
                 <EmptyState
                     icon={Skull}
                     title="Aucun monstre pour le moment"
@@ -513,38 +552,61 @@ export const CustomMonsters: React.FC = () => {
                 />
             )}
 
-            {!form && monsters.length > 0 && (
+            {!form && !loading && visible.length === 0 && tab === 'community' && (
+                <EmptyState
+                    icon={Globe}
+                    title="Rien de partagé pour l'instant"
+                    message="Les monstres publiés par la communauté apparaîtront ici."
+                />
+            )}
+
+            {!form && visible.length > 0 && (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {monsters.map((c) => (
-                        <div key={c.id} className="glass-panel p-5 rounded-xl flex items-start justify-between gap-4">
-                            <div className="min-w-0">
-                                <h3 className="text-lg font-display font-bold text-stone-100 truncate">{c.name}</h3>
-                                <p className="text-sm text-stone-400 mt-1">
-                                    NC {c.nc} · PV {c.hp} · DEF {c.def} · INIT {c.init}
-                                    {c.category ? ` · ${c.category}` : ''}
-                                </p>
-                                {c.description && (
-                                    <p className="text-sm text-stone-500 mt-2 line-clamp-2">{c.description}</p>
+                    {visible.map((c) => {
+                        const mine = c.authorId === myId;
+                        return (
+                            <div key={c.id} className="glass-panel p-5 rounded-xl flex items-start justify-between gap-4">
+                                <div className="min-w-0">
+                                    <div className="flex items-center gap-2">
+                                        <h3 className="text-lg font-display font-bold text-stone-100 truncate">{c.name}</h3>
+                                        {c.visibility === 'public'
+                                            ? <Globe size={13} className="text-green-500/70 shrink-0" aria-label="Public" />
+                                            : <Lock size={13} className="text-stone-600 shrink-0" aria-label="Privé" />}
+                                    </div>
+                                    <p className="text-sm text-stone-400 mt-1">
+                                        NC {c.nc} · PV {c.hp} · DEF {c.def} · INIT {c.init}
+                                        {c.category ? ` · ${c.category}` : ''}
+                                    </p>
+                                    {c.description && (
+                                        <p className="text-sm text-stone-500 mt-2 line-clamp-2">{c.description}</p>
+                                    )}
+                                    {!mine && (
+                                        <p className="text-[11px] text-stone-600 mt-2 flex items-center gap-1">
+                                            <UserIcon size={11} /> {c.authorPseudo || 'Anonyme'}
+                                        </p>
+                                    )}
+                                </div>
+                                {mine && (
+                                    <div className="flex flex-col gap-2 shrink-0">
+                                        <button
+                                            onClick={() => startEdit(c)}
+                                            className="text-stone-400 hover:text-primary-400"
+                                            aria-label="Modifier"
+                                        >
+                                            <Pencil size={18} />
+                                        </button>
+                                        <button
+                                            onClick={() => handleDelete(c)}
+                                            className="text-stone-400 hover:text-red-400"
+                                            aria-label="Supprimer"
+                                        >
+                                            <Trash2 size={18} />
+                                        </button>
+                                    </div>
                                 )}
                             </div>
-                            <div className="flex flex-col gap-2 shrink-0">
-                                <button
-                                    onClick={() => startEdit(c)}
-                                    className="text-stone-400 hover:text-primary-400"
-                                    aria-label="Modifier"
-                                >
-                                    <Pencil size={18} />
-                                </button>
-                                <button
-                                    onClick={() => handleDelete(c)}
-                                    className="text-stone-400 hover:text-red-400"
-                                    aria-label="Supprimer"
-                                >
-                                    <Trash2 size={18} />
-                                </button>
-                            </div>
-                        </div>
-                    ))}
+                        );
+                    })}
                 </div>
             )}
         </PageContainer>

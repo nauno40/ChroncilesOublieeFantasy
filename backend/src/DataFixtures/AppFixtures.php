@@ -23,7 +23,6 @@ use App\Entity\Clue;
 use App\Entity\Session;
 use App\Entity\Character;
 use App\Entity\CharacterVoie;
-use App\Entity\CustomCreature;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Finder\Finder;
@@ -80,7 +79,7 @@ class AppFixtures extends Fixture
         $mj = $this->loadUsers($manager);
 
         // 7. Données de démo « vivantes » : campagnes, quêtes, indices, séances,
-        //    joueurs, personnages et monstres maison (owner = le MJ Nauno).
+        //    joueurs et personnages (owner = le MJ Nauno).
         $this->loadCampaignDemo($manager, $mj, $races, $profiles);
 
         $manager->flush();
@@ -760,8 +759,8 @@ class AppFixtures extends Fixture
 
     /**
      * Données de démo pour rendre l'application vivante : deux campagnes du MJ
-     * (admin) avec quêtes, indices, séances, joueurs membres, personnages et
-     * monstres maison. Rechargé à chaque `doctrine:fixtures:load` (destructif).
+     * (admin) avec quêtes, indices, séances, joueurs membres et personnages.
+     * Rechargé à chaque `doctrine:fixtures:load` (destructif).
      *
      * @param array<int|string, Race>    $races    map des races chargées
      * @param array<string, Profile>     $profiles map des profils chargés
@@ -884,26 +883,6 @@ class AppFixtures extends Fixture
             // Voies & capacités (modèle Phase 2 : characterVoies par IRI). Sans elles, le perso
             // n'a aucune capacité ni voie de peuple (⇒ octroi absent). Réparties au budget du niveau.
             $this->seedCharacterVoies($manager, $ch, $level);
-        }
-
-        foreach ([
-            ['Loup des Glaces', 2, 18, 13, 12, ['FOR' => 13, 'DEX' => 14, 'CON' => 12, 'INT' => 3, 'SAG' => 12, 'CHA' => 6], [['name' => 'Morsure gelée', 'atk' => '+5', 'dm' => '1d6+2', 'special' => 'CON ou Ralenti']], 'Vivante', 'Montagne', 'Rapide', 'Moyen'],
-            ['Liche du Prieuré', 8, 90, 18, 14, ['FOR' => 10, 'DEX' => 12, 'CON' => 16, 'INT' => 18, 'SAG' => 16, 'CHA' => 15], [['name' => 'Toucher glacial', 'atk' => '+10', 'dm' => '2d6+4', 'special' => 'Draine 1 niveau']], 'Non-vivante', 'Souterrain', 'Puissant', 'Moyen'],
-        ] as [$name, $nc, $hp, $def, $init, $stats, $attacks, $cat, $env, $arch, $size]) {
-            $cc = new CustomCreature();
-            $cc->setName($name);
-            $cc->setNc($nc);
-            $cc->setHp($hp);
-            $cc->setDef($def);
-            $cc->setInit($init);
-            $cc->setStats($stats);
-            $cc->setAttacks($attacks);
-            $cc->setCategory($cat);
-            $cc->setEnvironment($env);
-            $cc->setArchetype($arch);
-            $cc->setSize($size);
-            $cc->setOwner($owner);
-            $manager->persist($cc);
         }
 
         // ============================================================

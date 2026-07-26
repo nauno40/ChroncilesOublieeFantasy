@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
-import { Book, Sword, Users, Home, BookOpen, GraduationCap, Sparkles, Zap, Package, Truck, UtensilsCrossed, AlertCircle, ScrollText, Skull, Footprints } from 'lucide-react';
+import { Book, Sword, Swords, Users, Home, BookOpen, GraduationCap, Sparkles, Zap, Package, Truck, UtensilsCrossed, AlertCircle, ScrollText, Skull, Footprints, Tent, Map, BookMarked, Ghost } from 'lucide-react';
 import clsx from 'clsx';
 import type { NavItem } from './NavItem';
 import { NavItemComponent } from './NavItem';
@@ -35,47 +35,52 @@ export const Layout: React.FC = () => {
 
     const navItems: NavItem[] = React.useMemo(() => [
         { path: '/', icon: Home, label: 'Accueil' },
-        { path: '/campaign', icon: Users, label: 'Campagne' },
         {
-            path: '/references',
-            icon: Book,
-            label: 'Références',
-            shortLabel: 'Réf.',
+            // Pôle « mon contenu » : ce qui appartient au joueur/MJ connecté.
+            path: '/ma-table',
+            icon: Tent,
+            label: 'Ma table',
             subItems: [
-                { path: '/rules', icon: ScrollText, label: 'Règles' },
-                { path: '/bestiary', icon: Book, label: 'Bestiaire' },
-                { path: '/states', icon: AlertCircle, label: 'États' },
-                { path: '/poisons', icon: Skull, label: 'Poisons' },
-                { path: '/traps', icon: Footprints, label: 'Pièges' },
-                { path: '/bibliotheque', icon: Library, label: 'Bibliothèque' },
+                { path: '/campaign', icon: Map, label: 'Campagnes' },
+                { path: '/characters', icon: Users, label: 'Mes Personnages' },
             ]
         },
         {
-            path: '/characters',
-            icon: GraduationCap,
-            label: 'Personnages',
-            shortLabel: 'Persos',
+            // Pôle « encyclopédie » : toutes les données de référence COF2.
+            path: '/compendium',
+            icon: BookMarked,
+            label: 'Compendium',
+            shortLabel: 'Compend.',
             subItems: [
-                { path: '/characters', icon: Users, label: 'Mes Personnages' },
+                { path: '/rules', icon: ScrollText, label: 'Règles' },
                 { path: '/races', icon: BookOpen, label: 'Races' },
                 { path: '/classes', icon: GraduationCap, label: 'Classes' },
                 { path: '/voies', icon: Sparkles, label: 'Voies' },
                 { path: '/capacites', icon: Zap, label: 'Capacités' },
-            ]
-        },
-        {
-            path: '/gear',
-            icon: Package,
-            label: 'Équipement',
-            shortLabel: 'Équip.',
-            subItems: [
+                { path: '/bestiary', icon: Book, label: 'Bestiaire' },
                 { path: '/equipment', icon: Package, label: 'Armes & Armures' },
                 { path: '/mounts', icon: Truck, label: 'Montures' },
                 { path: '/provisions', icon: UtensilsCrossed, label: 'Provisions' },
             ]
         },
-        { path: '/tools', icon: Sword, label: 'Outils' },
-        { path: '/tools/monsters', icon: Skull, label: 'Mes Monstres', shortLabel: 'Monstres' },
+        {
+            // Pôle « aide de table MJ » : outils virtuels + tables d'arbitrage + homebrew.
+            path: '/aide-jeu',
+            icon: Swords,
+            label: 'Aide de jeu',
+            shortLabel: 'Aide MJ',
+            subItems: [
+                { path: '/tools/tracker', icon: Sword, label: 'Combat Tracker' },
+                { path: '/tools/dice', icon: Dices, label: 'Dés' },
+                { path: '/tools/soundboard', icon: Music, label: 'Ambiances' },
+                { path: '/tools/magic-items', icon: Wand2, label: 'Objets magiques' },
+                { path: '/states', icon: AlertCircle, label: 'États' },
+                { path: '/poisons', icon: Skull, label: 'Poisons' },
+                { path: '/traps', icon: Footprints, label: 'Pièges' },
+                { path: '/tools/monsters', icon: Ghost, label: 'Mes Monstres' },
+                { path: '/bibliotheque', icon: Library, label: 'Bibliothèque' },
+            ]
+        },
     ], []);
 
     // Effect to set initial open section based on URL

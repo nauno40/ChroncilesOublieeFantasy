@@ -183,7 +183,9 @@ export const Layout: React.FC = () => {
             </aside>
 
             {/* Main Content Area */}
-            <main className="flex-1 px-4 pt-24 pb-28 md:pt-8 md:pb-8 md:pl-80 w-full overflow-x-hidden min-h-screen">
+            {/* pb-40 (mobile) : dégage la barre de nav basse ET le bouton flottant,
+                pour que la dernière ligne de contenu puisse défiler au-dessus d'eux. */}
+            <main className="flex-1 px-4 pt-24 pb-40 md:pt-8 md:pb-8 md:pl-80 w-full overflow-x-hidden min-h-screen">
                 <Outlet />
             </main>
 

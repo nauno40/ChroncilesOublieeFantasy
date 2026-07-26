@@ -7,6 +7,57 @@ import { DataService } from '../services/dataService';
 
 import type { Weapon, Armor, Material } from '../types/normalized';
 
+// Modificateur de dégâts : les armes de contact ajoutent la FOR (COF2).
+const getDamageMod = (type: string) =>
+    type && type.toLowerCase().includes('contact') ? '+ FOR' : '-';
+
+// --- Cartes mobiles (la table large est réservée au desktop) ---
+
+const Field: React.FC<{ label: string; value?: string | number | null }> = ({ label, value }) => {
+    if (value === undefined || value === null || value === '' || value === '-') return null;
+    return (
+        <div className="min-w-0">
+            <span className="text-stone-500 text-xs">{label} </span>
+            <span className="text-stone-300 font-mono text-sm break-words">{value}</span>
+        </div>
+    );
+};
+
+const MobileCard: React.FC<{ name: string; price?: string | number; children?: React.ReactNode; footer?: string | null }> = ({ name, price, children, footer }) => (
+    <div className="glass-panel rounded-xl p-4">
+        <div className="flex items-baseline justify-between gap-3">
+            <h3 className="font-display font-bold text-stone-100 leading-tight">{name}</h3>
+            {price !== undefined && price !== '' && <span className="text-yellow-500/90 font-mono text-sm whitespace-nowrap">{price}</span>}
+        </div>
+        {children && <div className="grid grid-cols-2 gap-x-4 gap-y-1 mt-3">{children}</div>}
+        {footer && <p className="text-xs text-amber-400/80 italic mt-2">{footer}</p>}
+    </div>
+);
+
+const WeaponCard: React.FC<{ w: Weapon }> = ({ w }) => {
+    const mod = getDamageMod(w.type);
+    return (
+        <MobileCard name={w.name} price={w.price} footer={w.requirements}>
+            <Field label="Type" value={w.type} />
+            <Field label="Dégâts" value={`${w.damage ?? ''}${mod !== '-' ? ' ' + mod : ''}`.trim()} />
+            <Field label="Critique" value={w.critical} />
+            <Field label="Portée" value={w.range} />
+            <Field label="Rechargement" value={w.reload} />
+        </MobileCard>
+    );
+};
+
+const ArmorCard: React.FC<{ a: Armor }> = ({ a }) => (
+    <MobileCard name={a.name} price={a.price} footer={a.comments}>
+        <Field label="Type" value={a.type} />
+        <Field label="Défense" value={a.acBonus ? `+${a.acBonus}` : undefined} />
+    </MobileCard>
+);
+
+const MaterialCard: React.FC<{ m: Material }> = ({ m }) => (
+    <MobileCard name={m.name} price={m.price} footer={m.notes} />
+);
+
 export const Equipment: React.FC = () => {
     const [searchParams] = useSearchParams();
     const initialTab = searchParams.get('tab') || 'weapons';
@@ -49,14 +100,9 @@ export const Equipment: React.FC = () => {
 
     const tabs = [
         { id: 'weapons', label: 'Armes', icon: Sword },
-        { id: 'armors', label: 'Armures et Boucliers', icon: Shield },
-        { id: 'materials', label: 'Matériel et Services', icon: Gem }
+        { id: 'armors', label: 'Armures', icon: Shield },
+        { id: 'materials', label: 'Matériel', icon: Gem }
     ];
-
-    const getDamageMod = (type: string) => {
-        if (type && type.toLowerCase().includes('contact')) return '+ FOR';
-        return '-';
-    };
 
     return (
         <PageContainer>
@@ -84,7 +130,13 @@ export const Equipment: React.FC = () => {
                                     {weaponSearch.filteredItems.length === 0 ? (
                                         <EmptyState message="Aucune arme trouvée" />
                                     ) : (
-                                        <div className="glass-panel rounded-xl overflow-x-auto">
+                                      <>
+                                        {/* Mobile : cartes empilées */}
+                                        <div className="md:hidden space-y-3">
+                                            {weaponSearch.filteredItems.map((weapon, i) => <WeaponCard key={i} w={weapon} />)}
+                                        </div>
+                                        {/* Desktop : table complète */}
+                                        <div className="hidden md:block glass-panel rounded-xl overflow-x-auto">
                                             <table className="w-full text-left border-collapse">
                                                 <thead>
                                                     <tr className="border-b border-white/10 bg-black/20">
@@ -116,6 +168,7 @@ export const Equipment: React.FC = () => {
                                                 </tbody>
                                             </table>
                                         </div>
+                                      </>
                                     )}
                                 </div>
                             )}
@@ -131,7 +184,11 @@ export const Equipment: React.FC = () => {
                                     {armorSearch.filteredItems.length === 0 ? (
                                         <EmptyState message="Aucune armure trouvée" />
                                     ) : (
-                                        <div className="glass-panel rounded-xl overflow-x-auto">
+                                      <>
+                                        <div className="md:hidden space-y-3">
+                                            {armorSearch.filteredItems.map((armor, i) => <ArmorCard key={i} a={armor} />)}
+                                        </div>
+                                        <div className="hidden md:block glass-panel rounded-xl overflow-x-auto">
                                             <table className="w-full text-left border-collapse">
                                                 <thead>
                                                     <tr className="border-b border-white/10 bg-black/20">
@@ -157,6 +214,7 @@ export const Equipment: React.FC = () => {
                                                 </tbody>
                                             </table>
                                         </div>
+                                      </>
                                     )}
                                 </div>
                             )}
@@ -171,7 +229,11 @@ export const Equipment: React.FC = () => {
                                     {materialSearch.filteredItems.length === 0 ? (
                                         <EmptyState message="Aucun matériel trouvé" />
                                     ) : (
-                                        <div className="glass-panel rounded-xl overflow-x-auto">
+                                      <>
+                                        <div className="md:hidden space-y-3">
+                                            {materialSearch.filteredItems.map((item, i) => <MaterialCard key={i} m={item} />)}
+                                        </div>
+                                        <div className="hidden md:block glass-panel rounded-xl overflow-x-auto">
                                             <table className="w-full text-left border-collapse">
                                                 <thead>
                                                     <tr className="border-b border-white/10 bg-black/20">
@@ -191,6 +253,7 @@ export const Equipment: React.FC = () => {
                                                 </tbody>
                                             </table>
                                         </div>
+                                      </>
                                     )}
                                 </div>
                             )}

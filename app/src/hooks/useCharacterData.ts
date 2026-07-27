@@ -1,13 +1,16 @@
 import { useState, useEffect } from 'react';
-import { ApiService } from '../services/api';
+import { DataService } from '../services/dataService';
 import type { RefRace, RefProfile, RefVoie, RefEquipmentItem } from '../types/compendiumRefs';
 
 /**
  * Charge les données de référence du compendium nécessaires à la fiche de
  * personnage : races, profils, armes, armures, voies et voies de prestige.
  *
- * Aucune logique de règles ici — uniquement les fetchs (extraits verbatim de
- * CharacterSheet.tsx).
+ * Passe par DataService (caché + `pagination=false` → collections *entières*).
+ * Auparavant ce hook appelait ApiService en direct sur des endpoints paginés
+ * ('voies', 'equipment'…) : le cache était contourné ET seuls ~30 items étaient
+ * récupérés (voies tronquées, filtrage armes/armures jamais appliqué sur la liste
+ * complète).
  */
 export const useCharacterData = () => {
     const [races, setRaces] = useState<RefRace[]>([]);
@@ -18,68 +21,45 @@ export const useCharacterData = () => {
     const [prestigePaths, setPrestigePaths] = useState<RefVoie[]>([]); // New state for Prestige Paths
 
     useEffect(() => {
-        const fetchEquipment = async () => {
+        const load = async () => {
             try {
-                // Fetch all equipment and filter client-side or use filter if API supports
-                // Assuming getAll returns mixed or valid typed list
-                const weapons = await ApiService.getAll<RefEquipmentItem>('equipment?type=Arme');
-                const armors = await ApiService.getAll<RefEquipmentItem>('equipment?type=Armure');
-                // Fallback if API doesn't support type filter:
-                if (weapons.length === 0 && armors.length === 0) {
-                    const all = await ApiService.getAll<RefEquipmentItem>('equipment');
-                    // Filter and normalize based on actual API types
-                    const processed = all.map((i) => {
-                        const priceStr = i.price?.toString() || '';
-                        // Defense can be in acBonus (new API) or price (old JSON fallback)
-                        const def = i.acBonus ? parseInt(i.acBonus as unknown as string) : (priceStr.startsWith('+') ? parseInt(priceStr.replace('+', '')) : 0);
-                        // `value`/`defense` sont des champs calculés côté client (absents de l'API
-                        // brute) : cast nécessaire, la forme réelle de ces données est hétérogène
-                        // (parfois un nombre déjà normalisé, cf. RefEquipmentItem).
-                        return { ...i, defense: i.defense || def, value: (i.value || def) as unknown as string };
-                    });
+                const all = await DataService.getEquipment<RefEquipmentItem>();
+                const idOf = (i: RefEquipmentItem) =>
+                    parseInt(i.id as unknown as string) || parseInt(i['@id']?.split('/').pop() as unknown as string);
+                // Normalisation : `value`/`defense` sont des champs calculés côté client
+                // (absents de l'API brute) — la DEF peut venir de acBonus (API) ou du prix
+                // (fallback JSON « +N »).
+                const processed = all.map((i) => {
+                    const priceStr = i.price?.toString() || '';
+                    const def = i.acBonus ? parseInt(i.acBonus as unknown as string) : (priceStr.startsWith('+') ? parseInt(priceStr.replace('+', '')) : 0);
+                    return { ...i, defense: i.defense || def, value: (i.value || def) as unknown as string };
+                });
 
-                    const w = processed.filter((i) =>
-                        i.type?.includes('Distance') ||
-                        i.type?.includes('Contact') ||
-                        ((parseInt(i.id as unknown as string) || parseInt(i['@id']?.split('/').pop() as unknown as string)) >= 2 && (parseInt(i.id as unknown as string) || parseInt(i['@id']?.split('/').pop() as unknown as string)) <= 36)
-                    );
-                    const a = processed.filter((i) =>
-                        i.type === 'Corps' ||
-                        i.type === 'Bouclier' ||
-                        i.type?.includes('Armure') ||
-                        ((parseInt(i.id as unknown as string) || parseInt(i['@id']?.split('/').pop() as unknown as string)) >= 38 && (parseInt(i.id as unknown as string) || parseInt(i['@id']?.split('/').pop() as unknown as string)) <= 46)
-                    );
+                setAllWeapons(processed.filter((i) =>
+                    i.type?.includes('Distance') ||
+                    i.type?.includes('Contact') ||
+                    (idOf(i) >= 2 && idOf(i) <= 36)
+                ));
+                setAllArmors(processed.filter((i) =>
+                    i.type === 'Corps' ||
+                    i.type === 'Bouclier' ||
+                    i.type?.includes('Armure') ||
+                    (idOf(i) >= 38 && idOf(i) <= 46)
+                ));
 
-                    console.log('DEBUG EQ: Filtered Weapons:', w.length, 'Filtered Armors:', a.length);
-                    if (a.length > 0) console.log('DEBUG EQ: First Armor Example:', a[0]);
-
-                    setAllWeapons(w);
-                    setAllArmors(a);
-                } else {
-                    setAllWeapons(weapons);
-                    setAllArmors(armors);
-                }
-
-                // Fetch All Voies
-                const voiesData = await ApiService.getAll<RefVoie>('voies');
+                const voiesData = (await DataService.getVoies()) as unknown as RefVoie[];
                 setAllVoies(voiesData);
-
-                // Fetch Prestige Paths
                 setPrestigePaths(voiesData.filter((v) => v.category === 'Prestige' || v.type === 'Prestige' || v.description?.includes('Prestige')));
             } catch (e) {
-                console.error("Failed to fetch equipment or voies", e);
+                console.error('Failed to fetch equipment or voies', e);
             }
         };
-        fetchEquipment();
+        load();
     }, []);
 
     useEffect(() => {
-        // Fetch Dependencies
-        ApiService.getAll<RefRace>('races').then(data => {
-
-            setRaces(data);
-        });
-        ApiService.getAll<RefProfile>('profiles').then(setProfiles);
+        DataService.getRaces().then(data => setRaces(data as unknown as RefRace[]));
+        DataService.getProfiles().then(data => setProfiles(data as unknown as RefProfile[]));
     }, []);
 
     return { races, profiles, allWeapons, allArmors, allVoies, prestigePaths };

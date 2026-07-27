@@ -67,6 +67,15 @@ class HomebrewEntry
     #[Groups(['homebrew:read', 'homebrew:write'])]
     private string $visibility = 'private';
 
+    /**
+     * Champs structurés propres à la catégorie (schéma-less, comme CustomCreature.stats) :
+     * p. ex. race → {modifiers, speed, minHeight…} ; sort → {rank, effect…}. Le schéma
+     * par catégorie est porté côté front (homebrewSchemas.ts).
+     */
+    #[ORM\Column(nullable: true)]
+    #[Groups(['homebrew:read', 'homebrew:write'])]
+    private ?array $data = null;
+
     #[ORM\Column]
     #[Groups(['homebrew:read'])]
     private ?\DateTimeImmutable $createdAt = null;
@@ -148,6 +157,18 @@ class HomebrewEntry
     public function setVisibility(string $visibility): static
     {
         $this->visibility = $visibility;
+
+        return $this;
+    }
+
+    public function getData(): ?array
+    {
+        return $this->data;
+    }
+
+    public function setData(?array $data): static
+    {
+        $this->data = $data;
 
         return $this;
     }

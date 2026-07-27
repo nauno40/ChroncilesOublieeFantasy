@@ -40,6 +40,21 @@ final class HomebrewEntryTest extends ApiSecurityTestCase
         $this->assertJsonContains(['name' => 'Boule de givre', 'authorPseudo' => 'Le Meneur', 'visibility' => 'private']);
     }
 
+    public function testCreateWithStructuredData(): void
+    {
+        $user = $this->createUser('mj@example.com');
+        $this->em->flush();
+
+        $data = ['modifiers' => ['FOR' => 1, 'CON' => 1], 'speed' => '10 m', 'typicalNames' => 'Grum, Bhal'];
+        $this->client->request('POST', '/api/homebrew_entries', [
+            'headers' => $this->authHeaders($user),
+            'json' => ['category' => 'race', 'name' => 'Peuple des Cimes', 'visibility' => 'private', 'data' => $data],
+        ]);
+        $this->assertResponseStatusCodeSame(201);
+        // Le JSON structuré fait l'aller-retour intact.
+        $this->assertJsonContains(['name' => 'Peuple des Cimes', 'data' => $data]);
+    }
+
     public function testCollectionReturnsMineAndPublicOnly(): void
     {
         $alice = $this->createUser('alice@example.com');

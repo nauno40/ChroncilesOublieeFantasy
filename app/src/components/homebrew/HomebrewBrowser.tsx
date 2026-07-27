@@ -41,8 +41,11 @@ const Card: React.FC<{ entry: HomebrewEntry; mine: boolean; duplicating: boolean
 interface HomebrewBrowserProps {
     tab: Tab;
     onTabChange: (t: Tab) => void;
-    /** Catégorie verrouillée (page de type compendium) : masque le sélecteur + les chips + le badge. */
-    category?: string;
+    /**
+     * Catégorie(s) de la page de type. Une seule string → catégorie verrouillée (sélecteur/chips/badge
+     * masqués). Un tableau → sélecteur limité à ces catégories (ex. Capacités & Sorts). Absent → toutes.
+     */
+    category?: string | string[];
 }
 
 /**
@@ -53,7 +56,13 @@ interface HomebrewBrowserProps {
 export const HomebrewBrowser: React.FC<HomebrewBrowserProps> = ({ tab, onTabChange, category }) => {
     const { user } = useAuth();
     const myId = user?.id;
-    const emptyInput = (): HomebrewInput => ({ category: category ?? 'sort', name: '', description: '', visibility: 'private', data: {} });
+    // Catégories de la page : null = toutes ; 1 = verrouillée ; >1 = choix limité.
+    const cats: string[] | null = category ? (Array.isArray(category) ? category : [category]) : null;
+    const locked = cats?.length === 1;                 // sélecteur/chips/badge masqués
+    const catOptions = cats
+        ? HOMEBREW_CATEGORIES.filter(c => cats.includes(c.value))
+        : HOMEBREW_CATEGORIES;                          // options du sélecteur du formulaire
+    const emptyInput = (): HomebrewInput => ({ category: cats ? cats[0] : 'sort', name: '', description: '', visibility: 'private', data: {} });
 
     const [entries, setEntries] = useState<HomebrewEntry[] | null>(null);
     const [categoryFilter, setCategoryFilter] = useState<string>('');
@@ -72,9 +81,9 @@ export const HomebrewBrowser: React.FC<HomebrewBrowserProps> = ({ tab, onTabChan
             ? all.filter(e => e.authorId === myId)
             : all.filter(e => e.visibility === 'public' && e.authorId !== myId);
         return base
-            .filter(e => category ? e.category === category : (!categoryFilter || e.category === categoryFilter))
+            .filter(e => cats ? cats.includes(e.category) : (!categoryFilter || e.category === categoryFilter))
             .filter(e => !search || (e.name + ' ' + (e.description ?? '')).toLowerCase().includes(search.toLowerCase()));
-    }, [entries, tab, myId, category, categoryFilter, search]);
+    }, [entries, tab, myId, cats, categoryFilter, search]);
 
     const openNew = () => setForm({ open: true, id: null, data: emptyInput() });
     const openEdit = (e: HomebrewEntry) => setForm({ open: true, id: e.id, data: { category: e.category, name: e.name, description: e.description ?? '', visibility: e.visibility, data: e.data ?? {} } });
@@ -108,7 +117,7 @@ export const HomebrewBrowser: React.FC<HomebrewBrowserProps> = ({ tab, onTabChan
 
     if (entries === null) return <Loader />;
 
-    const createLabel = category ? `Créer — ${categoryLabel(category)}` : 'Nouveau';
+    const createLabel = locked ? `Créer — ${categoryLabel(cats![0])}` : 'Nouveau';
 
     return (
         <div className="space-y-4">
@@ -124,7 +133,7 @@ export const HomebrewBrowser: React.FC<HomebrewBrowserProps> = ({ tab, onTabChan
             </div>
 
             {/* Filtre catégorie (uniquement en mode « toutes catégories ») */}
-            {!category && (
+            {!cats && (
                 <div className="flex flex-wrap gap-1.5">
                     <button onClick={() => setCategoryFilter('')} className={`text-[11px] font-bold uppercase px-2.5 py-1 rounded-full border transition-all ${!categoryFilter ? 'bg-primary-500/20 text-primary-300 border-primary-500/40' : 'bg-stone-900/40 text-stone-500 border-white/5'}`}>Toutes</button>
                     {HOMEBREW_CATEGORIES.map(c => (
@@ -141,7 +150,7 @@ export const HomebrewBrowser: React.FC<HomebrewBrowserProps> = ({ tab, onTabChan
             ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {visible.map(e => (
-                        <Card key={e.id} entry={e} mine={e.authorId === myId} duplicating={duplicatingId === e.id} showCategory={!category} onOpen={() => setDetail(e)} onEdit={() => openEdit(e)} onDelete={() => handleDelete(e)} onDuplicate={() => handleDuplicate(e)} />
+                        <Card key={e.id} entry={e} mine={e.authorId === myId} duplicating={duplicatingId === e.id} showCategory={!locked} onOpen={() => setDetail(e)} onEdit={() => openEdit(e)} onDelete={() => handleDelete(e)} onDuplicate={() => handleDuplicate(e)} />
                     ))}
                 </div>
             )}
@@ -154,12 +163,12 @@ export const HomebrewBrowser: React.FC<HomebrewBrowserProps> = ({ tab, onTabChan
                             <h2 className="text-lg font-display font-bold text-stone-100">{form.id ? 'Modifier le contenu' : 'Nouveau contenu'}</h2>
                             <button onClick={() => setForm(f => ({ ...f, open: false }))} className="text-stone-500 hover:text-white"><X size={18} /></button>
                         </div>
-                        {/* Sélecteur de catégorie : masqué quand la catégorie est verrouillée. */}
-                        {!category && (
+                        {/* Sélecteur de catégorie : masqué si verrouillée ; limité aux catégories de la page sinon. */}
+                        {!locked && (
                             <div>
                                 <label className="text-[10px] uppercase font-bold text-stone-500 block mb-1">Catégorie</label>
                                 <select value={form.data.category} onChange={e => setForm(f => ({ ...f, data: { ...f.data, category: e.target.value } }))} className="w-full bg-stone-950 border border-white/10 rounded-lg px-3 py-2 text-stone-200 outline-none focus:border-primary-500">
-                                    {HOMEBREW_CATEGORIES.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
+                                    {catOptions.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
                                 </select>
                             </div>
                         )}

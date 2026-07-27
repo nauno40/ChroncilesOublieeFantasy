@@ -47,6 +47,9 @@ export const DataService = {
             return type.includes('armure') || type.includes('bouclier');
         });
     },
+    // Équipement brut complet (caché) — pour les consommateurs qui appliquent leur
+    // propre filtrage/normalisation (ex. useCharacterData : armes vs armures).
+    getEquipment: <T = unknown>() => cachedGetAll<T>('equipment?pagination=false&itemsPerPage=500'),
     getMaterials: () => cachedGetAll<Material>('materials?pagination=false&itemsPerPage=500'),
     getFoods: () => cachedGetAll<Food>('foods?pagination=false&itemsPerPage=500'),
     getLodgings: () => cachedGetAll<Lodging>('lodgings?pagination=false&itemsPerPage=500'),

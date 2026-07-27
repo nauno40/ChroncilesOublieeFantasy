@@ -46,6 +46,7 @@ export const categoryLabel = (value: string): string =>
 export const HomebrewService = {
     // Renvoie les entrées visibles : les miennes (privées + publiques) + les publiques d'autrui.
     getAll: () => ApiService.getAll<HomebrewEntry>('homebrew_entries?pagination=false&itemsPerPage=500'),
+    getById: (id: number | string) => ApiService.getOne<HomebrewEntry>('homebrew_entries', id),
     create: (data: HomebrewInput) => ApiService.post<HomebrewEntry>('homebrew_entries', data),
     update: (id: number, data: Partial<HomebrewInput>) => ApiService.patch<HomebrewEntry>('homebrew_entries', id, data),
     remove: (id: number) => ApiService.delete('homebrew_entries', id),

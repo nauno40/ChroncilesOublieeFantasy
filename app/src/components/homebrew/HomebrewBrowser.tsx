@@ -1,10 +1,11 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Plus, Globe, Lock, Edit, Trash2, X, User as UserIcon, Copy, Search } from 'lucide-react';
 import { Loader } from '../common';
 import { useAuth } from '../../context/AuthContext';
 import { HomebrewService, HOMEBREW_CATEGORIES, categoryLabel, type HomebrewEntry, type HomebrewInput } from '../../services/homebrewService';
 import { HOMEBREW_SCHEMAS, hasStructuredSchema, pruneToSchema } from '../../services/homebrewSchemas';
-import { HomebrewFields, HomebrewData } from './HomebrewFields';
+import { HomebrewFields } from './HomebrewFields';
 
 type Tab = 'mine' | 'community';
 
@@ -55,6 +56,7 @@ interface HomebrewBrowserProps {
  */
 export const HomebrewBrowser: React.FC<HomebrewBrowserProps> = ({ tab, onTabChange, category }) => {
     const { user } = useAuth();
+    const navigate = useNavigate();
     const myId = user?.id;
     // Catégories de la page : null = toutes ; 1 = verrouillée ; >1 = choix limité.
     const cats: string[] | null = category ? (Array.isArray(category) ? category : [category]) : null;
@@ -68,7 +70,6 @@ export const HomebrewBrowser: React.FC<HomebrewBrowserProps> = ({ tab, onTabChan
     const [categoryFilter, setCategoryFilter] = useState<string>('');
     const [search, setSearch] = useState('');
     const [form, setForm] = useState<{ open: boolean; id: number | null; data: HomebrewInput }>({ open: false, id: null, data: emptyInput() });
-    const [detail, setDetail] = useState<HomebrewEntry | null>(null);
     const [saving, setSaving] = useState(false);
     const [duplicatingId, setDuplicatingId] = useState<number | null>(null);
 
@@ -150,7 +151,7 @@ export const HomebrewBrowser: React.FC<HomebrewBrowserProps> = ({ tab, onTabChan
             ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {visible.map(e => (
-                        <Card key={e.id} entry={e} mine={e.authorId === myId} duplicating={duplicatingId === e.id} showCategory={!locked} onOpen={() => setDetail(e)} onEdit={() => openEdit(e)} onDelete={() => handleDelete(e)} onDuplicate={() => handleDuplicate(e)} />
+                        <Card key={e.id} entry={e} mine={e.authorId === myId} duplicating={duplicatingId === e.id} showCategory={!locked} onOpen={() => navigate(`/homebrew/${e.id}`)} onEdit={() => openEdit(e)} onDelete={() => handleDelete(e)} onDuplicate={() => handleDuplicate(e)} />
                     ))}
                 </div>
             )}
@@ -200,29 +201,6 @@ export const HomebrewBrowser: React.FC<HomebrewBrowserProps> = ({ tab, onTabChan
                             <button onClick={() => setForm(f => ({ ...f, open: false }))} className="px-4 py-2 text-sm font-bold text-stone-400 hover:text-white">Annuler</button>
                             <button onClick={handleSave} disabled={saving || !form.data.name.trim()} className="px-5 py-2 rounded-xl bg-primary-600 hover:bg-primary-500 text-stone-950 font-bold text-sm disabled:opacity-50">{saving ? 'Enregistrement…' : 'Enregistrer'}</button>
                         </div>
-                    </div>
-                </div>
-            )}
-
-            {/* Modale détail */}
-            {detail && (
-                <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4" onClick={() => setDetail(null)}>
-                    <div className="glass-panel rounded-2xl border border-primary-500/20 w-full max-w-xl p-6 max-h-[85vh] overflow-y-auto" onClick={ev => ev.stopPropagation()}>
-                        <div className="flex items-start justify-between gap-3 mb-2">
-                            <div>
-                                <CategoryBadge category={detail.category} />
-                                <h2 className="text-2xl font-display font-bold text-stone-100 mt-2">{detail.name}</h2>
-                                <p className="text-[11px] text-stone-500 flex items-center gap-1.5 mt-1">
-                                    <UserIcon size={11} /> {detail.authorPseudo || 'Anonyme'}
-                                    {detail.visibility === 'public' ? <><Globe size={11} className="text-green-500/70 ml-2" /> Public</> : <><Lock size={11} className="ml-2" /> Privé</>}
-                                </p>
-                            </div>
-                            <button onClick={() => setDetail(null)} className="text-stone-500 hover:text-white flex-none"><X size={20} /></button>
-                        </div>
-                        {detail.description
-                            ? <p className="text-stone-300 leading-relaxed whitespace-pre-line mt-3">{detail.description}</p>
-                            : <p className="text-stone-600 italic mt-3">Aucune description.</p>}
-                        <HomebrewData schema={HOMEBREW_SCHEMAS[detail.category] ?? []} data={detail.data ?? {}} />
                     </div>
                 </div>
             )}

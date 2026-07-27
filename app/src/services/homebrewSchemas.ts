@@ -32,6 +32,23 @@ const rarityOptions = [
     { value: 'Légendaire', label: 'Légendaire' },
 ];
 
+// → Equipment : partagé entre « objet-magique » et « equipement » (même entité compendium).
+const equipmentFields: HomebrewFieldDef[] = [
+    { key: 'type', label: 'Type', type: 'text', placeholder: 'ex. Arme, Armure, Anneau…' },
+    { key: 'rarity', label: 'Rareté', type: 'select', options: rarityOptions },
+    { key: 'price', label: 'Prix', type: 'text', placeholder: 'ex. 500 po' },
+    { key: 'weight', label: 'Poids (kg)', type: 'number' },
+    { key: 'material', label: 'Matériau', type: 'text' },
+    { key: 'quality', label: 'Qualité', type: 'text' },
+    { key: 'damage', label: 'Dégâts (si arme)', type: 'text', placeholder: 'ex. 1d8' },
+    { key: 'range', label: 'Portée (si arme)', type: 'text' },
+    { key: 'critical', label: 'Critique (si arme)', type: 'text' },
+    { key: 'acBonus', label: 'Bonus DEF (si armure)', type: 'number' },
+    { key: 'acMaxAgi', label: 'AGI max (si armure)', type: 'number' },
+    { key: 'acPenalty', label: 'Malus (si armure)', type: 'number' },
+    { key: 'properties', label: 'Propriétés / effets', type: 'lines' },
+];
+
 export const HOMEBREW_SCHEMAS: Record<string, HomebrewFieldDef[]> = {
     // → Race
     race: [
@@ -63,22 +80,10 @@ export const HOMEBREW_SCHEMAS: Record<string, HomebrewFieldDef[]> = {
         { key: 'startingEquipment', label: 'Équipement de départ', type: 'lines' },
         { key: 'masteries', label: 'Maîtrises', type: 'lines' },
     ],
-    // → Equipment
-    'objet-magique': [
-        { key: 'type', label: 'Type', type: 'text', placeholder: 'ex. Arme, Armure, Anneau…' },
-        { key: 'rarity', label: 'Rareté', type: 'select', options: rarityOptions },
-        { key: 'price', label: 'Prix', type: 'text', placeholder: 'ex. 500 po' },
-        { key: 'weight', label: 'Poids (kg)', type: 'number' },
-        { key: 'material', label: 'Matériau', type: 'text' },
-        { key: 'quality', label: 'Qualité', type: 'text' },
-        { key: 'damage', label: 'Dégâts (si arme)', type: 'text', placeholder: 'ex. 1d8' },
-        { key: 'range', label: 'Portée (si arme)', type: 'text' },
-        { key: 'critical', label: 'Critique (si arme)', type: 'text' },
-        { key: 'acBonus', label: 'Bonus DEF (si armure)', type: 'number' },
-        { key: 'acMaxAgi', label: 'AGI max (si armure)', type: 'number' },
-        { key: 'acPenalty', label: 'Malus (si armure)', type: 'number' },
-        { key: 'properties', label: 'Propriétés / effets magiques', type: 'lines' },
-    ],
+    // → Equipment (objet magique)
+    'objet-magique': equipmentFields,
+    // → Equipment (équipement non magique) — même schéma
+    equipement: equipmentFields,
     // → Capability (isSpell)
     sort: [
         { key: 'rank', label: 'Rang', type: 'number' },
@@ -86,6 +91,36 @@ export const HOMEBREW_SCHEMAS: Record<string, HomebrewFieldDef[]> = {
         { key: 'limited', label: 'Usage limité', type: 'bool' },
         { key: 'effect', label: 'Effet(s)', type: 'lines' },
         { key: 'details', label: 'Détails', type: 'lines' },
+    ],
+    // → Capability
+    capacite: [
+        { key: 'rank', label: 'Rang', type: 'number' },
+        { key: 'actionType', label: 'Type d’action', type: 'text', placeholder: 'ex. Limitée, Attaque…' },
+        { key: 'isSpell', label: 'Est un sort', type: 'bool' },
+        { key: 'limited', label: 'Usage limité', type: 'bool' },
+        { key: 'effect', label: 'Effet(s)', type: 'lines' },
+        { key: 'details', label: 'Détails', type: 'lines' },
+    ],
+    // → Voie
+    voie: [
+        { key: 'category', label: 'Catégorie', type: 'text', placeholder: 'ex. profil, peuple, prestige…' },
+        { key: 'maxRank', label: 'Rang maximum', type: 'number' },
+        { key: 'details', label: 'Capacités / détails (par rang)', type: 'lines' },
+    ],
+    // → Poison
+    poison: [
+        { key: 'effectFail', label: 'Effet (échec)', type: 'textarea' },
+        { key: 'effectSuccess', label: 'Effet (réussite)', type: 'textarea' },
+        { key: 'duration', label: 'Durée', type: 'text' },
+        { key: 'delay', label: 'Délai', type: 'text' },
+        { key: 'note', label: 'Note', type: 'textarea' },
+    ],
+    // → Trap
+    piege: [
+        { key: 'detectDifficulty', label: 'Difficulté de détection', type: 'text', placeholder: 'ex. DIF 15' },
+        { key: 'disarmDifficulty', label: 'Difficulté de désamorçage', type: 'text' },
+        { key: 'effect', label: 'Effet', type: 'textarea' },
+        { key: 'complement', label: 'Complément', type: 'textarea' },
     ],
     // → HarmfulState : schéma réel = nom + description (aucun champ data supplémentaire)
     etat: [],

@@ -77,22 +77,22 @@ function App() {
                 <Route path="tools/tracker" element={<CombatTracker />} />
                 <Route path="tools/monsters" element={<CustomMonsters />} />
                 <Route path="tools/soundboard" element={<SoundboardPage />} />
-                <Route path="tools/magic-items" element={<MagicItems />} />
                 <Route path="races" element={<CompendiumType category="race" official={<Races />} />} />
                 <Route path="races/:id" element={<RaceDetail />} />
                 <Route path="classes" element={<CompendiumType category="classe" official={<Classes />} />} />
                 <Route path="classes/:id" element={<ClassDetail />} />
                 <Route path="voies" element={<CompendiumType category="voie" official={<Voies />} />} />
                 <Route path="voies/:id" element={<VoieDetail />} />
-                <Route path="capacites" element={<CompendiumType category="capacite" official={<Capacites />} />} />
+                <Route path="capacites" element={<CompendiumType category={['capacite', 'sort']} official={<Capacites />} />} />
                 <Route path="capacites/:id" element={<CapaciteDetail />} />
-                <Route path="equipment" element={<Equipment />} />
+                <Route path="equipment" element={<CompendiumType category="equipement" official={<Equipment />} />} />
                 <Route path="mounts" element={<Mounts />} />
                 <Route path="provisions" element={<Provisions />} />
                 <Route path="tools/dice" element={<Dice />} />
-                <Route path="states" element={<States />} />
-                <Route path="poisons" element={<Poisons />} />
-                <Route path="traps" element={<Traps />} />
+                <Route path="tools/magic-items" element={<CompendiumType category="objet-magique" official={<MagicItems />} />} />
+                <Route path="states" element={<CompendiumType category="etat" official={<States />} />} />
+                <Route path="poisons" element={<CompendiumType category="poison" official={<Poisons />} />} />
+                <Route path="traps" element={<CompendiumType category="piege" official={<Traps />} />} />
                 <Route path="rules" element={<Rules />} />
                 <Route path="bibliotheque" element={<Bibliotheque />} />
                 <Route path="characters" element={<CharacterList />} />

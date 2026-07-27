@@ -6,7 +6,7 @@ import type { NavItem } from './NavItem';
 import { NavItemComponent } from './NavItem';
 import { DiceRoller, GlobalNotes, Soundboard, DraggableWindow, GlobalSearch } from '../common';
 import { useToggle } from '../../hooks/useToggle';
-import { Dices, StickyNote, Music, Search, LogOut, User as UserIcon, Wand2, X, Library } from 'lucide-react';
+import { Dices, StickyNote, Music, Search, LogOut, User as UserIcon, Wand2, X } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { preloadRoute } from '../../routePreload';
 
@@ -57,28 +57,27 @@ export const Layout: React.FC = () => {
                 { path: '/races', icon: BookOpen, label: 'Races' },
                 { path: '/classes', icon: GraduationCap, label: 'Classes' },
                 { path: '/voies', icon: Sparkles, label: 'Voies' },
-                { path: '/capacites', icon: Zap, label: 'Capacités' },
+                { path: '/capacites', icon: Zap, label: 'Capacités & Sorts' },
                 { path: '/creatures', icon: Ghost, label: 'Créatures' },
                 { path: '/equipment', icon: Package, label: 'Armes & Armures' },
+                { path: '/tools/magic-items', icon: Wand2, label: 'Objets magiques' },
                 { path: '/mounts', icon: Truck, label: 'Montures' },
                 { path: '/provisions', icon: UtensilsCrossed, label: 'Provisions' },
+                { path: '/states', icon: AlertCircle, label: 'États' },
+                { path: '/poisons', icon: Skull, label: 'Poisons' },
+                { path: '/traps', icon: Footprints, label: 'Pièges' },
             ]
         },
         {
-            // Pôle « aide de table MJ » : outils virtuels + tables d'arbitrage + homebrew.
+            // Pôle « table de jeu » : uniquement les vrais outils utilisés pendant la partie.
             path: '/aide-jeu',
             icon: Swords,
-            label: 'Aide de jeu',
-            shortLabel: 'Aide MJ',
+            label: 'Table de jeu',
+            shortLabel: 'Table',
             subItems: [
                 { path: '/tools/tracker', icon: Sword, label: 'Combat Tracker' },
                 { path: '/tools/dice', icon: Dices, label: 'Dés' },
                 { path: '/tools/soundboard', icon: Music, label: 'Ambiances' },
-                { path: '/tools/magic-items', icon: Wand2, label: 'Objets magiques' },
-                { path: '/states', icon: AlertCircle, label: 'États' },
-                { path: '/poisons', icon: Skull, label: 'Poisons' },
-                { path: '/traps', icon: Footprints, label: 'Pièges' },
-                { path: '/bibliotheque', icon: Library, label: 'Bibliothèque' },
             ]
         },
     ], []);

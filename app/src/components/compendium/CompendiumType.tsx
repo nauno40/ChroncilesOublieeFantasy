@@ -15,7 +15,7 @@ const SOURCES: { id: Source; label: string }[] = [
     { id: 'mine', label: 'Mes créations' },
 ];
 
-export const CompendiumType: React.FC<{ category: string; official: React.ReactNode }> = ({ category, official }) => {
+export const CompendiumType: React.FC<{ category: string | string[]; official: React.ReactNode }> = ({ category, official }) => {
     const [source, setSource] = useState<Source>('official');
 
     return (

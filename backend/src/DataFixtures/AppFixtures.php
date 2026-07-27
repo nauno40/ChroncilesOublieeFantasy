@@ -995,24 +995,29 @@ class AppFixtures extends Fixture
             $profileByName[$pr->getName()] = $pr;
         }
 
-        // [nom, niveau, race, profil, [AGI,CON,FOR,PER,CHA,INT,VOL], PV]
+        // [nom, niveau, race, profil, [AGI,CON,FOR,PER,CHA,INT,VOL], PV, campagne|null]
+        // Quelques persos sont rattachés à une campagne du MJ (owner identique → OK) pour
+        // peupler la section « Personnages » de la campagne ; les autres restent libres.
         $demoChars = [
-            ['Thorgrim Poing-de-Fer', 5, 'Nain', 'Guerrier', [0, 2, 3, 0, -1, -1, 1], 48],
-            ['Sylve Murmure-des-Bois', 3, 'Elfe sylvain', 'Rôdeur', [3, 1, 1, 2, 0, 0, 0], 26],
-            ['Maître Aldric', 6, 'Humain', 'Magicien', [0, 0, -1, 1, 0, 3, 2], 30],
-            ['Pipin Tourdefeuille', 2, 'Halfelin', 'Voleur', [3, 0, -1, 2, 1, 1, 0], 16],
-            ['Frère Anselme', 4, 'Humain', 'Prêtre', [0, 1, 1, 1, 1, 0, 3], 34],
-            ['Grosh la Hache', 7, 'Demi-orc', 'Barbare', [1, 3, 4, 0, -1, -1, 0], 78],
-            ['Lumen Éclat-Vif', 4, 'Gnome', 'Forgesort', [1, 1, 0, 1, 0, 3, 1], 30],
-            ['Dame Isolde', 3, 'Demi-elfe', 'Barde', [1, 0, 0, 1, 3, 1, 1], 24],
+            ['Thorgrim Poing-de-Fer', 5, 'Nain', 'Guerrier', [0, 2, 3, 0, -1, -1, 1], 48, $c1],
+            ['Sylve Murmure-des-Bois', 3, 'Elfe sylvain', 'Rôdeur', [3, 1, 1, 2, 0, 0, 0], 26, $c1],
+            ['Maître Aldric', 6, 'Humain', 'Magicien', [0, 0, -1, 1, 0, 3, 2], 30, $c1],
+            ['Pipin Tourdefeuille', 2, 'Halfelin', 'Voleur', [3, 0, -1, 2, 1, 1, 0], 16, $c2],
+            ['Frère Anselme', 4, 'Humain', 'Prêtre', [0, 1, 1, 1, 1, 0, 3], 34, $c2],
+            ['Grosh la Hache', 7, 'Demi-orc', 'Barbare', [1, 3, 4, 0, -1, -1, 0], 78, null],
+            ['Lumen Éclat-Vif', 4, 'Gnome', 'Forgesort', [1, 1, 0, 1, 0, 3, 1], 30, null],
+            ['Dame Isolde', 3, 'Demi-elfe', 'Barde', [1, 0, 0, 1, 3, 1, 1], 24, null],
         ];
-        foreach ($demoChars as [$name, $level, $raceName, $profName, $c, $hp]) {
+        foreach ($demoChars as [$name, $level, $raceName, $profName, $c, $hp, $camp]) {
             $ch = new Character();
             $ch->setName($name);
             $ch->setLevel($level);
             $ch->setRace($raceByName[$raceName] ?? $pickRace(0));
             $ch->setProfile($profileByName[$profName] ?? $pickProfile(0));
             $ch->setCaracs(['AGI' => $c[0], 'CON' => $c[1], 'FOR' => $c[2], 'PER' => $c[3], 'CHA' => $c[4], 'INT' => $c[5], 'VOL' => $c[6]]);
+            if ($camp) {
+                $ch->setCampaign($camp);
+            }
             $ch->setPlayState([
                 'hp' => ['current' => $hp],
                 'mana' => ['current' => 0],

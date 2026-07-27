@@ -25,6 +25,7 @@ use App\Entity\Character;
 use App\Entity\CharacterVoie;
 use App\Entity\CustomCreature;
 use App\Entity\HomebrewEntry;
+use App\Entity\Encounter;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Finder\Finder;
@@ -77,7 +78,11 @@ class AppFixtures extends Fixture
 
         // 6. Load Creatures
         $this->loadCreatures($manager, $familyContext['monsterMap']);
-        
+
+        // Flush intermédiaire : les rencontres de démo (loadCampaignDemo) référencent
+        // de vraies créatures SRD par leur id, qui n'existe qu'une fois flushé.
+        $manager->flush();
+
         $mj = $this->loadUsers($manager);
 
         // 7. Données de démo « vivantes » : campagnes, quêtes, indices, séances,
@@ -1076,6 +1081,52 @@ class AppFixtures extends Fixture
 
         foreach ($players as $p) {
             $mkMember($c3, $p);
+        }
+
+        // --- Rencontres de combat pré-remplies (roster de créatures SRD par campagne) ---
+        $creatureByName = [];
+        foreach ($manager->getRepository(Creature::class)->findAll() as $cr) {
+            $creatureByName[$cr->getName()] = $cr;
+        }
+        $mkEncounter = function (Campaign $camp, string $name, ?string $notes, array $roster) use ($manager, $creatureByName): void {
+            $combatants = [];
+            foreach ($roster as [$cname, $qty]) {
+                $cr = $creatureByName[$cname] ?? null;
+                if (!$cr) {
+                    continue; // créature absente du bestiaire : on l'ignore silencieusement
+                }
+                $combatants[] = [
+                    'name' => $cr->getName(),
+                    'source' => 'bestiary',
+                    'referenceId' => (string) $cr->getId(),
+                    'quantity' => $qty,
+                    'initiative' => $cr->getInit(),
+                    'hp' => $cr->getHp(),
+                    'def' => $cr->getDef(),
+                    'per' => $cr->getStats()['PER'] ?? 0,
+                    'nc' => $cr->getNc(),
+                ];
+            }
+            $e = new Encounter();
+            $e->setName($name);
+            $e->setNotes($notes);
+            $e->setCombatants($combatants);
+            $e->setCampaign($camp);
+            $manager->persist($e);
+        };
+
+        // [campagne, nom, notes, [[créature, quantité], ...]]
+        foreach ([
+            [$c1, 'Meute de loups des glaces', 'Route du col, au crépuscule — ils encerclent le convoi.', [['Loup', 4]]],
+            [$c1, 'Acolytes du Culte de l\'Hiver', 'Devant les portes scellées du Prieuré.', [['Bandit de base', 3], ['Bandit vétéran', 1]]],
+            [$c1, 'Gardiens du sceau', 'Éveillés quand le sceau de givre se brise.', [['Squelette de base', 4], ['Goule', 1]]],
+            [$c2, 'La bande du Borgne (péage)', 'Au pont brisé — la négociation peut éviter le combat.', [['Bandit vétéran', 2], ['Bandit de base', 3]]],
+            [$c2, 'Rôdeurs nocturnes', 'Attaque surprise pendant la veille du campement.', [['Gnoll de base', 2], ['Orque noir', 1]]],
+            [$c3, 'Gardiens squelettes du Tombeau', 'Première salle des catacombes.', [['Squelette de base', 6]]],
+            [$c3, 'L\'archiviste spectral', 'Bibliothèque engloutie, dans la brume.', [['Spectre', 1], ['Squelette de géant', 1]]],
+            [$c3, 'Vhorst et le dernier Roi-Sorcier', 'Combat final sur le pont-levis au-dessus du gouffre.', [['Momie', 1], ['Goule', 2], ['Ogre', 1]]],
+        ] as [$camp, $name, $notes, $roster]) {
+            $mkEncounter($camp, $name, $notes, $roster);
         }
     }
 

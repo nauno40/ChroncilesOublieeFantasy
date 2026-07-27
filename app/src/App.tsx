@@ -15,7 +15,7 @@ import { ResetPasswordPage } from './pages/ResetPasswordPage';
 // Pages protégées : code-splitting (React.lazy) → un chunk par page, chargé à la demande.
 // Les exports nommés sont remappés en `default` (contrat attendu par React.lazy).
 const Home = lazy(() => import('./pages/Home').then(m => ({ default: m.Home })));
-const Bestiary = lazy(() => import('./pages/Bestiary').then(m => ({ default: m.Bestiary })));
+const Creatures = lazy(() => import('./pages/Creatures').then(m => ({ default: m.Creatures })));
 const CreatureDetail = lazy(() => import('./pages/CreatureDetail').then(m => ({ default: m.CreatureDetail })));
 const CampaignDetail = lazy(() => import('./pages/CampaignDetail').then(m => ({ default: m.CampaignDetail })));
 const Campaign = lazy(() => import('./pages/Campaign').then(m => ({ default: m.Campaign })));
@@ -67,7 +67,8 @@ function App() {
               <Route path="/play/:id" element={<PlayMode />} />
               <Route element={<Layout />}>
                 <Route path="/dashboard" element={<Home />} />
-                <Route path="bestiary" element={<Bestiary />} />
+                <Route path="creatures" element={<Creatures />} />
+                <Route path="bestiary" element={<Creatures />} />
                 <Route path="bestiary/:id" element={<CreatureDetail />} />
                 <Route path="campaign" element={<Campaign />} />
                 <Route path="campaign/:id" element={<CampaignDetail />} />

@@ -113,10 +113,20 @@ const toPayload = (form: MonsterForm): Partial<CustomCreature> => ({
     visibility: form.visibility,
 });
 
-export const CustomMonsters: React.FC = () => {
+interface CustomMonstersProps {
+    /** Encapsulé dans la page Créatures : masque l'en-tête et la barre d'onglets internes. */
+    embedded?: boolean;
+    /** Onglet piloté de l'extérieur (source du parent). */
+    tab?: 'mine' | 'community';
+    onTabChange?: (t: 'mine' | 'community') => void;
+}
+
+export const CustomMonsters: React.FC<CustomMonstersProps> = ({ embedded = false, tab: extTab, onTabChange }) => {
     const { user } = useAuth();
     const myId = user?.id;
-    const [tab, setTab] = useState<'mine' | 'community'>('mine');
+    const [internalTab, setInternalTab] = useState<'mine' | 'community'>('mine');
+    const tab = extTab ?? internalTab;
+    const setTab = onTabChange ?? setInternalTab;
     const [monsters, setMonsters] = useState<CustomCreature[]>([]);
     const [srdCreatures, setSrdCreatures] = useState<Creature[]>([]);
     const [loading, setLoading] = useState(true);
@@ -251,14 +261,17 @@ export const CustomMonsters: React.FC = () => {
 
     return (
         <PageContainer>
-            <PageHeader
-                title="Mes Monstres"
-                icon={Skull}
-                subtitle="Créez vos créatures (privées par défaut) pour le Suivi de Combat, et partagez-les à la communauté si vous le souhaitez."
-            />
+            {!embedded && (
+                <PageHeader
+                    title="Mes Monstres"
+                    icon={Skull}
+                    subtitle="Créez vos créatures (privées par défaut) pour le Suivi de Combat, et partagez-les à la communauté si vous le souhaitez."
+                />
+            )}
 
             {!form && (
-                <div className="flex flex-wrap items-center justify-between gap-3">
+                <div className={`flex flex-wrap items-center gap-3 ${embedded ? 'justify-end' : 'justify-between'}`}>
+                    {!embedded && (
                     <div className="flex gap-2">
                         {(['mine', 'community'] as const).map((t) => (
                             <button
@@ -270,6 +283,7 @@ export const CustomMonsters: React.FC = () => {
                             </button>
                         ))}
                     </div>
+                    )}
                     {tab === 'mine' && (
                         <button
                             onClick={startCreate}

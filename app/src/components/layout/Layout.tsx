@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
-import { Book, Sword, Swords, Users, Home, BookOpen, GraduationCap, Sparkles, Zap, Package, Truck, UtensilsCrossed, AlertCircle, ScrollText, Skull, Footprints, Tent, Map, BookMarked, Ghost } from 'lucide-react';
+import { Sword, Swords, Users, Home, BookOpen, GraduationCap, Sparkles, Zap, Package, Truck, UtensilsCrossed, AlertCircle, ScrollText, Skull, Footprints, Tent, Map, BookMarked, Ghost } from 'lucide-react';
 import clsx from 'clsx';
 import type { NavItem } from './NavItem';
 import { NavItemComponent } from './NavItem';
@@ -58,7 +58,7 @@ export const Layout: React.FC = () => {
                 { path: '/classes', icon: GraduationCap, label: 'Classes' },
                 { path: '/voies', icon: Sparkles, label: 'Voies' },
                 { path: '/capacites', icon: Zap, label: 'Capacités' },
-                { path: '/bestiary', icon: Book, label: 'Bestiaire' },
+                { path: '/creatures', icon: Ghost, label: 'Créatures' },
                 { path: '/equipment', icon: Package, label: 'Armes & Armures' },
                 { path: '/mounts', icon: Truck, label: 'Montures' },
                 { path: '/provisions', icon: UtensilsCrossed, label: 'Provisions' },
@@ -78,7 +78,6 @@ export const Layout: React.FC = () => {
                 { path: '/states', icon: AlertCircle, label: 'États' },
                 { path: '/poisons', icon: Skull, label: 'Poisons' },
                 { path: '/traps', icon: Footprints, label: 'Pièges' },
-                { path: '/tools/monsters', icon: Ghost, label: 'Mes Monstres' },
                 { path: '/bibliotheque', icon: Library, label: 'Bibliothèque' },
             ]
         },

@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ChevronDown, ChevronRight, type LucideIcon } from 'lucide-react';
 import clsx from 'clsx';
+import { preloadRoute } from '../../routePreload';
 
 export interface NavItem {
     path: string;
@@ -31,6 +32,8 @@ export const NavItemComponent: React.FC<NavItemComponentProps> = ({ item, isActi
         return (
             <Link
                 to={item.path}
+                onMouseEnter={() => preloadRoute(item.path)}
+                onFocus={() => preloadRoute(item.path)}
                 className={clsx(
                     'flex items-center gap-3 px-4 py-3 rounded-xl transition-all group',
                     isActive
@@ -82,6 +85,8 @@ export const NavItemComponent: React.FC<NavItemComponentProps> = ({ item, isActi
                             <Link
                                 key={subItem.path}
                                 to={subItem.path}
+                                onMouseEnter={() => preloadRoute(subItem.path)}
+                                onFocus={() => preloadRoute(subItem.path)}
                                 className={clsx(
                                     'flex items-center gap-2 px-3 py-2 rounded-lg transition-all text-base font-medium',
                                     isSubActive

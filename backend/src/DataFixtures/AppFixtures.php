@@ -23,6 +23,8 @@ use App\Entity\Clue;
 use App\Entity\Session;
 use App\Entity\Character;
 use App\Entity\CharacterVoie;
+use App\Entity\CustomCreature;
+use App\Entity\HomebrewEntry;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Finder\Finder;
@@ -788,6 +790,11 @@ class AppFixtures extends Fixture
             $players[] = $p;
         }
 
+        // Contenu « perso » de démo (Mes Monstres + Bibliothèque) pour visualiser
+        // l'app bien remplie : du contenu de Nauno (privé + public) et du public
+        // d'autres joueurs (pour peupler l'onglet Communauté).
+        $this->loadHomebrewDemo($manager, $owner, $players);
+
         // ============================================================
         // Campagne 1 — riche (« un peu de tout »)
         // ============================================================
@@ -976,6 +983,112 @@ class AppFixtures extends Fixture
             if (isset($voies[1])) {
                 $add($voies[1], 1, 'profil');
             }
+        }
+    }
+
+    /**
+     * Contenu « perso » de démonstration : monstres maison (CustomCreature) et
+     * entrées de bibliothèque (HomebrewEntry), pour visualiser l'app bien remplie.
+     * Mélange privé/public côté Nauno + du public chez les autres joueurs (pour
+     * peupler l'onglet Communauté). Rechargé (destructif) à chaque fixtures:load.
+     *
+     * @param User[] $players joueurs de démo [Alice, Bjorn, Lyra]
+     */
+    private function loadHomebrewDemo(ObjectManager $manager, User $nauno, array $players): void
+    {
+        [$alice, $bjorn, $lyra] = $players;
+
+        // --- Monstres maison (« Mes Monstres ») ---
+        // [owner, nom, NC, PV, DEF, Init, [AGI,CON,FOR,PER,CHA,INT,VOL], [attaque, atk, DM, spécial], catégorie, environnement, archétype, taille, visibilité]
+        $creatures = [
+            [$nauno, "Gnoll éclaireur", 1, 14, 13, 12, [2, 1, 2, 1, -1, -1, 0], ["Lance", "+3", "1d6+2", ""], "Vivante", "Plaine", "Rôdeur", "Moyen", "private"],
+            [$nauno, "Ver des glaces", 2, 22, 12, 10, [0, 3, 2, 0, -2, -2, 0], ["Morsure gelée", "+4", "1d8", "CON ou Ralenti"], "Vivante", "Montagne", "Embusqué", "Grand", "private"],
+            [$nauno, "Spectre du Prieuré", 4, 34, 15, 14, [3, 2, 1, 2, 1, 1, 3], ["Toucher glacial", "+7", "2d6", "Draine 1 PV max"], "Non-vivante", "Ruines", "Hanteur", "Moyen", "private"],
+            [$nauno, "Golem de tourbe", 5, 60, 16, 8, [-1, 4, 4, 0, -3, -2, 1], ["Poing de boue", "+8", "2d8+4", "Agrippe"], "Artificielle", "Marais", "Gardien", "Grand", "private"],
+            [$nauno, "Araignée-loup géante", 3, 28, 14, 15, [3, 2, 2, 2, -2, -1, 0], ["Morsure venimeuse", "+6", "1d8+2", "Poison FOR"], "Vivante", "Forêt", "Chasseur", "Grand", "private"],
+            [$nauno, "Bandit des cols", 1, 16, 13, 12, [1, 1, 1, 1, 0, 0, 0], ["Arbalète", "+3", "1d8", ""], "Vivante", "Montagne", "Combattant", "Moyen", "private"],
+            [$nauno, "Chauve-souris de sang", 1, 9, 14, 16, [4, 0, -1, 3, -2, -2, 0], ["Morsure", "+5", "1d4", "Draine 1 PV"], "Vivante", "Souterrain", "Nuée", "Très petit", "private"],
+            [$nauno, "Élémentaire de givre mineur", 3, 30, 15, 11, [1, 3, 3, 0, -1, 0, 2], ["Éclat de gel", "+6", "1d10", "Zone 2m"], "Élémentaire", "Toundra", "Élémentaire", "Moyen", "private"],
+            [$nauno, "Drake des cavernes", 6, 72, 17, 13, [2, 4, 4, 2, 1, 1, 2], ["Souffle acide", "+9", "3d6", "Ligne, DEX 1/2"], "Vivante", "Souterrain", "Dragon mineur", "Énorme", "public"],
+            [$nauno, "Ogre à deux têtes", 5, 66, 14, 9, [0, 4, 5, 1, -2, -1, 1], ["Gourdin", "+8", "2d10+5", "Deux attaques"], "Vivante", "Colline", "Brute", "Grand", "public"],
+            [$nauno, "Liche apprentie", 7, 58, 17, 14, [2, 3, 1, 2, 2, 4, 4], ["Rayon nécrotique", "+10", "3d8", "VOL ou affaibli"], "Non-vivante", "Ruines", "Mage", "Moyen", "public"],
+            [$nauno, "Loup-garou alpha", 4, 40, 15, 15, [3, 3, 4, 2, 1, 0, 1], ["Griffes", "+7", "2d6+3", "Contagion"], "Métamorphe", "Forêt", "Prédateur", "Moyen", "public"],
+            // Public d'autres joueurs → visibles dans l'onglet Communauté de Nauno
+            [$alice, "Naïade des sources", 2, 20, 14, 13, [3, 2, 0, 2, 3, 1, 2], ["Fouet d'eau", "+5", "1d8", "Repousse"], "Fée", "Rivière", "Enchanteur", "Moyen", "public"],
+            [$bjorn, "Troll des tourbières", 6, 80, 15, 10, [1, 5, 5, 1, -2, -1, 0], ["Grande griffe", "+9", "2d8+5", "Régénération"], "Vivante", "Marais", "Brute", "Grand", "public"],
+            [$lyra, "Djinn mineur", 7, 62, 18, 16, [4, 3, 2, 3, 2, 3, 3], ["Bourrasque", "+10", "3d6", "Projette"], "Élémentaire", "Désert", "Génie", "Grand", "public"],
+            [$alice, "Chevalier squelette", 3, 30, 16, 11, [1, 2, 3, 1, 0, 0, 1], ["Épée rouillée", "+6", "1d10+2", ""], "Non-vivante", "Ruines", "Combattant", "Moyen", "public"],
+        ];
+        foreach ($creatures as [$owner, $name, $nc, $hp, $def, $init, $st, $at, $cat, $env, $arch, $size, $vis]) {
+            $c = new CustomCreature();
+            $c->setOwner($owner);
+            $c->setName($name);
+            $c->setNc($nc);
+            $c->setHp($hp);
+            $c->setDef($def);
+            $c->setInit($init);
+            $c->setStats(['AGI' => $st[0], 'CON' => $st[1], 'FOR' => $st[2], 'PER' => $st[3], 'CHA' => $st[4], 'INT' => $st[5], 'VOL' => $st[6]]);
+            $c->setAttacks([['name' => $at[0], 'atk' => $at[1], 'dm' => $at[2], 'special' => $at[3]]]);
+            $c->setCategory($cat);
+            $c->setEnvironment($env);
+            $c->setArchetype($arch);
+            $c->setSize($size);
+            $c->setVisibility($vis);
+            $manager->persist($c);
+        }
+
+        // --- Bibliothèque (« HomebrewEntry ») : toutes catégories, mix privé/public ---
+        $now = new \DateTimeImmutable();
+        // [owner, catégorie, nom, description, visibilité, âge en jours]
+        $entries = [
+            [$nauno, "race", "Peuple des Cendres", "Né des volcans : +2 FOR, résistance au feu, vulnérable au froid.", "public", 30],
+            [$nauno, "race", "Homoncules affranchis", "Créatures alchimiques devenues libres : petite taille, immunité aux poisons.", "private", 12],
+            [$nauno, "classe", "Danse-lame", "Combattant acrobate mêlant esquive et attaques en tourbillon.", "public", 28],
+            [$nauno, "classe", "Invocateur du Pacte", "Mystique liant un familier démoniaque pour ses sorts.", "private", 9],
+            [$nauno, "voie", "Voie du Gel", "Cinq capacités de magie de froid, du souffle glacé à l'armure de givre.", "private", 20],
+            [$nauno, "voie", "Voie du Sang", "Sacrifie des PV pour amplifier ses sorts et régénérer ses alliés.", "public", 18],
+            [$nauno, "sort", "Éclat de givre", "1d6 DM de froid, cible ralentie (test CON). Sort de rang 1.", "public", 25],
+            [$nauno, "sort", "Chaînes d'ombre", "Entrave une cible à distance (VOL). Immobilisée 1d4 tours.", "private", 7],
+            [$nauno, "sort", "Murmure vorace", "Draine 1d8 PV et soigne le lanceur de la moitié.", "private", 4],
+            [$nauno, "capacite", "Réflexe du chat", "+2 en Initiative et à la DEF contre la première attaque d'un combat.", "private", 15],
+            [$nauno, "capacite", "Frappe étourdissante", "Sur un critique, la cible perd sa prochaine action (VOL annule).", "public", 22],
+            [$nauno, "objet-magique", "Lame de l'Aube", "Épée +1 qui inflige 1d6 DM de lumière supplémentaires aux morts-vivants.", "public", 27],
+            [$nauno, "objet-magique", "Amulette du Revenant", "Une fois par jour, revient à 1 PV au lieu de tomber à 0.", "private", 11],
+            [$nauno, "objet-magique", "Bottes du Zéphyr", "+3m de déplacement, ignore les terrains difficiles naturels.", "public", 6],
+            [$nauno, "equipement", "Grappin pliable", "Grappin + 15m de corde de soie, se range dans une bourse. 20 po.", "private", 14],
+            [$nauno, "equipement", "Ration elfique", "Une bouchée nourrit une journée entière. 5 po la portion.", "public", 3],
+            [$nauno, "equipement", "Lanterne sourde", "Faisceau orientable occultable d'un geste. 12 po.", "private", 10],
+            [$nauno, "poison", "Venin de mille-pattes", "Ingestion. CON ou -2 à toutes les actions pendant 1h.", "private", 8],
+            [$nauno, "poison", "Sève noire", "Contact. CON ou paralysie 1d4 tours. Rare et coûteux.", "public", 17],
+            [$nauno, "piege", "Fosse à pals", "DD modérée pour repérer. 2d6 DM + immobilisé.", "private", 13],
+            [$nauno, "piege", "Rune explosive", "Se déclenche à l'approche : 3d6 DM de feu, zone 3m.", "public", 5],
+            [$nauno, "etat", "Gelé jusqu'aux os", "-2 à toutes les actions et déplacement divisé par deux jusqu'à réchauffement.", "private", 2],
+            [$nauno, "etat", "Marqué par l'ombre", "Les soins reçus sont réduits de moitié tant que la marque persiste.", "private", 1],
+            [$nauno, "autre", "Table : rencontres hivernales", "1d20 de rencontres aléatoires pour les cols enneigés de Val-Gelé.", "public", 26],
+            [$nauno, "autre", "PNJ : Dame Ysolde", "Capitaine du guet, loyale mais rongée par un secret. Accroche de campagne.", "private", 19],
+            // Public d'autres joueurs → onglet Communauté
+            [$alice, "race", "Ondins des profondeurs", "Peuple aquatique : respiration aquatique, vision dans le noir.", "public", 21],
+            [$alice, "sort", "Vague déferlante", "Repousse et renverse les créatures dans un cône de 6m (FOR).", "public", 16],
+            [$alice, "objet-magique", "Trident des marées", "Arme +1, invoque un jet d'eau sous pression 1/jour.", "public", 9],
+            [$alice, "etat", "Trempé", "Vulnérable au froid et à la foudre jusqu'à séchage.", "public", 4],
+            [$bjorn, "classe", "Berserker totémique", "Guerrier qui puise la rage d'un animal-totem pour se transformer.", "public", 23],
+            [$bjorn, "voie", "Voie de l'Ours", "Endurance surhumaine, cri de guerre et étreinte broyeuse.", "public", 20],
+            [$bjorn, "equipement", "Hache runique", "Hache à deux mains gravée de runes naines. +1 DM. 80 po.", "public", 12],
+            [$bjorn, "piege", "Chausse-trappe", "Semé au sol : 1d4 DM et déplacement réduit jusqu'aux soins.", "public", 7],
+            [$lyra, "sort", "Illusion parfaite", "Crée une image mobile indiscernable du réel (INT pour percer).", "public", 15],
+            [$lyra, "capacite", "Pas de brume", "Se téléporte à 5m dans un endroit visible, 1/combat.", "public", 8],
+            [$lyra, "objet-magique", "Voile d'invisibilité", "Rend invisible 1d4 tours ou jusqu'à la première attaque.", "public", 5],
+        ];
+        foreach ($entries as [$owner, $cat, $name, $desc, $vis, $age]) {
+            $e = new HomebrewEntry();
+            $e->setOwner($owner);
+            $e->setCategory($cat);
+            $e->setName($name);
+            $e->setDescription($desc);
+            $e->setVisibility($vis);
+            $e->setCreatedAt($now->modify("-{$age} days"));
+            $e->setUpdatedAt($now->modify("-{$age} days"));
+            $manager->persist($e);
         }
     }
 }

@@ -808,47 +808,75 @@ class AppFixtures extends Fixture
         $c1->setUpdatedAt(new \DateTime('-2 days'));
         $manager->persist($c1);
 
-        foreach ([
-            ['Retrouver la caravane disparue', "La caravane de Padrig n'est jamais arrivée à Bourg-Neige. Suivre sa piste dans les cols enneigés.", 'main', 'active'],
-            ['Le sceau brisé du temple', 'Enquêter sur le sceau profané du temple de Val-Gelé.', 'main', 'completed'],
-            ['La dette du forgeron', 'Le forgeron Halbrand doit de l’argent à un usurier peu recommandable.', 'secondary', 'active'],
-            ['Herboriste en détresse', 'Rapporter des baies de givre à l’herboriste avant la nuit.', 'secondary', 'completed'],
-        ] as [$title, $desc, $type, $status]) {
+        // Fabriques mutualisées (réutilisées pour toutes les campagnes).
+        $mkQuest = function (Campaign $camp, string $title, ?string $desc, string $type, string $status, bool $shared) use ($manager): void {
             $q = new Quest();
             $q->setTitle($title);
             $q->setDescription($desc);
             $q->setType($type);
             $q->setStatus($status);
-            $q->setCampaign($c1);
+            $q->setShared($shared);
+            $q->setCampaign($camp);
             $manager->persist($q);
-        }
-
-        foreach ([
-            ['Une écaille de givre surnaturelle a été trouvée près des corps.', 'solved', '-30 days'],
-            ['Le symbole du Culte de l’Hiver gravé sur une pierre dressée.', 'unsolved', '-18 days'],
-            ['Un fragment de lettre mentionnant « le Prieuré » et une date.', 'unsolved', '-6 days'],
-        ] as [$content, $status, $when]) {
+        };
+        $mkClue = function (Campaign $camp, string $content, string $status, string $when, bool $shared) use ($manager): void {
             $cl = new Clue();
             $cl->setContent($content);
             $cl->setStatus($status);
             $cl->setFoundAt(new \DateTime($when));
-            $cl->setCampaign($c1);
+            $cl->setShared($shared);
+            $cl->setCampaign($camp);
             $manager->persist($cl);
-        }
-
-        foreach ([
-            ['Séance 1 — Le départ', '-35 days', '3h', '1', "Les héros acceptent la mission de Padrig et quittent Val-Gelé. Première escarmouche contre des loups des glaces sur la route du col."],
-            ['Séance 2 — Les neiges éternelles', '-21 days', '4h', '2', "Découverte de la caravane pillée. Un survivant évoque des silhouettes encapuchonnées. Le groupe trouve le symbole du Culte de l'Hiver."],
-            ['Séance 3 — Le Prieuré', '-7 days', '3h30', '2', "Ascension jusqu'au Prieuré abandonné. Les portes sont scellées par une magie de givre. Cliffhanger : une voix murmure derrière la porte."],
-        ] as [$title, $date, $duration, $level, $summary]) {
+        };
+        $mkSession = function (Campaign $camp, string $title, string $date, string $duration, string $level, string $summary) use ($manager): void {
             $s = new Session();
             $s->setTitle($title);
             $s->setDate(new \DateTime($date));
             $s->setDuration($duration);
             $s->setLevel($level);
             $s->setSummary($summary);
-            $s->setCampaign($c1);
+            $s->setCampaign($camp);
             $manager->persist($s);
+        };
+        $mkMember = function (Campaign $camp, User $player) use ($manager): void {
+            $m = new CampaignMembership();
+            $m->setCampaign($camp);
+            $m->setPlayer($player);
+            $manager->persist($m);
+        };
+
+        // Quêtes C1 — [titre, description, type, statut, partagée aux joueurs]
+        foreach ([
+            ['Retrouver la caravane disparue', "La caravane de Padrig n'est jamais arrivée à Bourg-Neige. Suivre sa piste dans les cols enneigés.", 'main', 'active', true],
+            ['Le sceau brisé du temple', 'Enquêter sur le sceau profané du temple de Val-Gelé.', 'main', 'completed', true],
+            ['Réveiller ou sceller la Liche', 'Le cœur du Prieuré recèle le tombeau de la Liche. Empêcher le Culte de l’éveiller.', 'main', 'active', true],
+            ['La dette du forgeron', 'Le forgeron Halbrand doit de l’argent à un usurier peu recommandable.', 'secondary', 'active', false],
+            ['Herboriste en détresse', 'Rapporter des baies de givre à l’herboriste avant la nuit.', 'secondary', 'completed', false],
+            ['Le loup blanc des cimes', 'Une bête colossale rôde autour des bergeries. La traquer ou l’apaiser.', 'secondary', 'active', true],
+            ['La rançon de Dame Ysolde', 'Des maîtres-chanteurs menacent de révéler le secret de la capitaine du guet.', 'secondary', 'failed', false],
+        ] as [$t, $d, $ty, $st, $sh]) {
+            $mkQuest($c1, $t, $d, $ty, $st, $sh);
+        }
+
+        // Indices C1 — [contenu, statut, trouvé le, partagé]
+        foreach ([
+            ['Une écaille de givre surnaturelle a été trouvée près des corps.', 'solved', '-30 days', true],
+            ['Le symbole du Culte de l’Hiver gravé sur une pierre dressée.', 'unsolved', '-18 days', true],
+            ['Un fragment de lettre mentionnant « le Prieuré » et une date.', 'unsolved', '-6 days', false],
+            ['Des traces de pas nues dans la neige, malgré le froid mortel.', 'unsolved', '-4 days', true],
+            ['Le sceau du temple porte la même rune que l’amulette du survivant.', 'solved', '-12 days', false],
+        ] as [$c, $st, $w, $sh]) {
+            $mkClue($c1, $c, $st, $w, $sh);
+        }
+
+        // Séances C1 (journal de campagne)
+        foreach ([
+            ['Séance 1 — Le départ', '-35 days', '3h', '1', "Les héros acceptent la mission de Padrig et quittent Val-Gelé. Première escarmouche contre des loups des glaces sur la route du col."],
+            ['Séance 2 — Les neiges éternelles', '-21 days', '4h', '2', "Découverte de la caravane pillée. Un survivant évoque des silhouettes encapuchonnées. Le groupe trouve le symbole du Culte de l'Hiver."],
+            ['Séance 3 — Le Prieuré', '-14 days', '3h30', '2', "Ascension jusqu'au Prieuré abandonné. Les portes sont scellées par une magie de givre. Cliffhanger : une voix murmure derrière la porte."],
+            ['Séance 4 — Derrière la porte de givre', '-3 days', '4h', '3', "Le sceau cède. Le Prieuré grouille d'acolytes et de morts-vivants mineurs. Le groupe apprend que la Liche n'est pas encore éveillée — mais que le rituel a commencé."],
+        ] as [$t, $dt, $du, $lv, $su]) {
+            $mkSession($c1, $t, $dt, $du, $lv, $su);
         }
 
         foreach ($players as $p) {
@@ -906,25 +934,33 @@ class AppFixtures extends Fixture
         $manager->persist($c2);
 
         foreach ([
-            ['Escorter le marchand Padrig', 'main', 'active'],
-            ['Le péage du pont brisé', 'secondary', 'active'],
-        ] as [$title, $type, $status]) {
-            $q = new Quest();
-            $q->setTitle($title);
-            $q->setType($type);
-            $q->setStatus($status);
-            $q->setCampaign($c2);
-            $manager->persist($q);
+            ['Escorter le marchand Padrig', "Conduire le convoi de Padrig sain et sauf jusqu'à Fort-Halage.", 'main', 'active', true],
+            ['La cargaison mystérieuse', "Un coffre scellé du convoi n'apparaît sur aucun manifeste. Découvrir son contenu.", 'main', 'active', false],
+            ['Le péage du pont brisé', 'Négocier (ou forcer) le passage au pont tenu par la bande du Borgne.', 'secondary', 'active', true],
+            ['Les chevaux volés', 'Retrouver les montures dérobées au dernier relais.', 'secondary', 'completed', false],
+            ['La rixe du Sanglier', 'Démêler une bagarre qui a mal tourné à l’étape de nuit.', 'secondary', 'completed', true],
+        ] as [$t, $d, $ty, $st, $sh]) {
+            $mkQuest($c2, $t, $d, $ty, $st, $sh);
         }
 
-        $s2 = new Session();
-        $s2->setTitle('Séance 1 — En route');
-        $s2->setDate(new \DateTime('-3 days'));
-        $s2->setDuration('2h30');
-        $s2->setLevel('1');
-        $s2->setSummary('Le convoi quitte la cité. Première nuit de veille, un éclaireur bandit est repéré près du campement.');
-        $s2->setCampaign($c2);
-        $manager->persist($s2);
+        foreach ([
+            ['Une empreinte de botte cloutée près du coffre forcé.', 'unsolved', '-2 days', true],
+            ['Le sceau de cire du coffre porte un blason inconnu.', 'unsolved', '-1 days', false],
+            ['Le péagiste a été vu parlant avec un homme encapuchonné.', 'solved', '-4 days', true],
+        ] as [$c, $st, $w, $sh]) {
+            $mkClue($c2, $c, $st, $w, $sh);
+        }
+
+        foreach ([
+            ['Séance 1 — En route', '-6 days', '2h30', '1', 'Le convoi quitte la cité. Première nuit de veille, un éclaireur bandit est repéré près du campement.'],
+            ['Séance 2 — Le pont brisé', '-1 days', '3h', '2', 'Confrontation au péage. Le groupe évite le combat en soudoyant la bande du Borgne, mais repère le coffre suspect chargé de nuit.'],
+        ] as [$t, $dt, $du, $lv, $su]) {
+            $mkSession($c2, $t, $dt, $du, $lv, $su);
+        }
+
+        // Deux des trois joueurs suivent aussi cette campagne.
+        $mkMember($c2, $players[0]);
+        $mkMember($c2, $players[2]);
 
         $npc = new Character();
         $npc->setName('Padrig le Marchand');
@@ -990,6 +1026,51 @@ class AppFixtures extends Fixture
             $ch->setOwner($owner);
             $manager->persist($ch);
             $this->seedCharacterVoies($manager, $ch, $level);
+        }
+
+        // ============================================================
+        // Campagne 3 — terminée (pour visualiser une campagne « archivée »)
+        // ============================================================
+        $c3 = new Campaign();
+        $c3->setName('Le Tombeau des Rois-Sorciers');
+        $c3->setDescription('Une expédition dans les catacombes oubliées où dormaient trois Rois-Sorciers. Campagne conclue.');
+        $c3->setNotes("Épilogue : le tombeau a été rescellé, les Rois-Sorciers renvoyés au néant. Le Sceptre d'Onyx repose désormais au fond d'un lac de montagne.");
+        $c3->setOwner($owner);
+        $c3->setInviteCode('TOMBEAU1');
+        $c3->setCreatedAt(new \DateTime('-120 days'));
+        $c3->setUpdatedAt(new \DateTime('-58 days'));
+        $manager->persist($c3);
+
+        foreach ([
+            ['Ouvrir le Tombeau', 'Franchir la herse runique qui garde l’entrée des catacombes.', 'main', 'completed', true],
+            ['Les trois sceaux royaux', 'Résoudre les énigmes des trois Rois-Sorciers pour lever les sceaux.', 'main', 'completed', true],
+            ['Détruire le Sceptre d’Onyx', 'Empêcher que l’artefact ne tombe entre de mauvaises mains.', 'main', 'completed', true],
+            ['La bibliothèque engloutie', 'Récupérer les grimoires avant la montée des eaux.', 'secondary', 'completed', false],
+            ['Le pacte du nécromancien', 'Négocier avec Vhorst — un marché qui a mal tourné.', 'secondary', 'failed', false],
+        ] as [$t, $d, $ty, $st, $sh]) {
+            $mkQuest($c3, $t, $d, $ty, $st, $sh);
+        }
+
+        foreach ([
+            ['Chaque sceau royal répond à une énigme gravée dans une langue morte.', 'solved', '-110 days', true],
+            ['Le nécromancien Vhorst manipulait le groupe depuis le début.', 'solved', '-75 days', true],
+            ['Le Sceptre corrompt quiconque le porte plus d’une nuit.', 'solved', '-64 days', false],
+        ] as [$c, $st, $w, $sh]) {
+            $mkClue($c3, $c, $st, $w, $sh);
+        }
+
+        foreach ([
+            ['Séance 1 — La descente', '-118 days', '3h', '1', 'Le groupe force la herse runique et pénètre les catacombes. Premiers pièges, premiers squelettes gardiens.'],
+            ['Séance 2 — Les sceaux royaux', '-104 days', '4h', '2', 'Deux des trois énigmes résolues. Une salle inondée bloque l’accès au troisième sceau.'],
+            ['Séance 3 — La bibliothèque engloutie', '-90 days', '3h30', '3', 'Course contre la montée des eaux pour sauver les grimoires. Rencontre avec le spectre d’un archiviste.'],
+            ['Séance 4 — Le nécromancien démasqué', '-72 days', '4h', '4', 'Vhorst révèle son jeu et s’empare du Sceptre. Combat sur le pont-levis au-dessus du gouffre.'],
+            ['Séance 5 — Le dernier Roi-Sorcier', '-58 days', '5h', '5', 'Affrontement final. Le Sceptre est jeté dans le lac souterrain, le tombeau rescellé. Fin de la campagne.'],
+        ] as [$t, $dt, $du, $lv, $su]) {
+            $mkSession($c3, $t, $dt, $du, $lv, $su);
+        }
+
+        foreach ($players as $p) {
+            $mkMember($c3, $p);
         }
     }
 

@@ -4,6 +4,7 @@ import { Layout } from './components/layout/Layout';
 import { AuthProvider } from './context/AuthContext';
 import { ProtectedRoute } from './components/auth/ProtectedRoute';
 import { Loader } from './components/common';
+import { CompendiumType } from './components/compendium/CompendiumType';
 
 // Pages publiques (entrée / auth) : chargées d'emblée, légères et affichées en premier.
 import { LandingPage } from './pages/LandingPage';
@@ -77,13 +78,13 @@ function App() {
                 <Route path="tools/monsters" element={<CustomMonsters />} />
                 <Route path="tools/soundboard" element={<SoundboardPage />} />
                 <Route path="tools/magic-items" element={<MagicItems />} />
-                <Route path="races" element={<Races />} />
+                <Route path="races" element={<CompendiumType category="race" official={<Races />} />} />
                 <Route path="races/:id" element={<RaceDetail />} />
-                <Route path="classes" element={<Classes />} />
+                <Route path="classes" element={<CompendiumType category="classe" official={<Classes />} />} />
                 <Route path="classes/:id" element={<ClassDetail />} />
-                <Route path="voies" element={<Voies />} />
+                <Route path="voies" element={<CompendiumType category="voie" official={<Voies />} />} />
                 <Route path="voies/:id" element={<VoieDetail />} />
-                <Route path="capacites" element={<Capacites />} />
+                <Route path="capacites" element={<CompendiumType category="capacite" official={<Capacites />} />} />
                 <Route path="capacites/:id" element={<CapaciteDetail />} />
                 <Route path="equipment" element={<Equipment />} />
                 <Route path="mounts" element={<Mounts />} />

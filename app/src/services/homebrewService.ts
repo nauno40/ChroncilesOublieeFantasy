@@ -8,6 +8,8 @@ export interface HomebrewEntry {
     name: string;
     description: string | null;
     visibility: HomebrewVisibility;
+    /** Champs structurés propres à la catégorie (cf. homebrewSchemas). */
+    data: Record<string, unknown> | null;
     authorId: number;
     authorPseudo: string | null;
     createdAt: string;
@@ -19,6 +21,7 @@ export interface HomebrewInput {
     name: string;
     description: string;
     visibility: HomebrewVisibility;
+    data?: Record<string, unknown> | null;
 }
 
 /** Catégories de contenu homebrew (miroir des types du compendium). */

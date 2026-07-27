@@ -3,9 +3,11 @@ import { Plus, Globe, Lock, Edit, Trash2, X, User as UserIcon, Copy } from 'luci
 import { PageContainer, PageHeader, Loader } from '../components/common';
 import { useAuth } from '../context/AuthContext';
 import { HomebrewService, HOMEBREW_CATEGORIES, categoryLabel, type HomebrewEntry, type HomebrewInput } from '../services/homebrewService';
+import { HOMEBREW_SCHEMAS, hasStructuredSchema, pruneToSchema } from '../services/homebrewSchemas';
+import { HomebrewFields, HomebrewData } from '../components/homebrew/HomebrewFields';
 
 type Tab = 'mine' | 'community';
-const EMPTY: HomebrewInput = { category: 'sort', name: '', description: '', visibility: 'private' };
+const EMPTY: HomebrewInput = { category: 'sort', name: '', description: '', visibility: 'private', data: {} };
 
 // --- Sous-composants (niveau module) ---
 
@@ -65,14 +67,16 @@ export const Bibliotheque: React.FC = () => {
     }, [entries, tab, myId, categoryFilter, search]);
 
     const openNew = () => setForm({ open: true, id: null, data: EMPTY });
-    const openEdit = (e: HomebrewEntry) => setForm({ open: true, id: e.id, data: { category: e.category, name: e.name, description: e.description ?? '', visibility: e.visibility } });
+    const openEdit = (e: HomebrewEntry) => setForm({ open: true, id: e.id, data: { category: e.category, name: e.name, description: e.description ?? '', visibility: e.visibility, data: e.data ?? {} } });
 
     const handleSave = async () => {
         if (!form.data.name.trim()) return;
         setSaving(true);
         try {
-            if (form.id) await HomebrewService.update(form.id, form.data);
-            else await HomebrewService.create(form.data);
+            // On n'envoie que les champs de la catégorie courante (élague le cross-catégorie).
+            const payload: HomebrewInput = { ...form.data, data: pruneToSchema(form.data.category, form.data.data ?? {}) };
+            if (form.id) await HomebrewService.update(form.id, payload);
+            else await HomebrewService.create(payload);
             setForm({ open: false, id: null, data: EMPTY });
             await reload();
         } finally { setSaving(false); }
@@ -88,7 +92,7 @@ export const Bibliotheque: React.FC = () => {
     const handleDuplicate = async (e: HomebrewEntry) => {
         setDuplicatingId(e.id);
         try {
-            await HomebrewService.create({ category: e.category, name: `${e.name} (copie)`, description: e.description ?? '', visibility: 'private' });
+            await HomebrewService.create({ category: e.category, name: `${e.name} (copie)`, description: e.description ?? '', visibility: 'private', data: e.data ?? {} });
             setTab('mine');
             await reload();
         } finally { setDuplicatingId(null); }
@@ -140,7 +144,7 @@ export const Bibliotheque: React.FC = () => {
             {/* Modale création / édition */}
             {form.open && (
                 <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4" onClick={() => setForm(f => ({ ...f, open: false }))}>
-                    <div className="glass-panel rounded-2xl border border-primary-500/20 w-full max-w-lg p-6 space-y-4" onClick={ev => ev.stopPropagation()}>
+                    <div className="glass-panel rounded-2xl border border-primary-500/20 w-full max-w-lg p-6 space-y-4 max-h-[90vh] overflow-y-auto" onClick={ev => ev.stopPropagation()}>
                         <div className="flex items-center justify-between">
                             <h2 className="text-lg font-display font-bold text-stone-100">{form.id ? 'Modifier le contenu' : 'Nouveau contenu'}</h2>
                             <button onClick={() => setForm(f => ({ ...f, open: false }))} className="text-stone-500 hover:text-white"><X size={18} /></button>
@@ -156,9 +160,22 @@ export const Bibliotheque: React.FC = () => {
                             <input value={form.data.name} onChange={e => setForm(f => ({ ...f, data: { ...f.data, name: e.target.value } }))} placeholder="Nom du contenu" autoFocus className="w-full bg-stone-950 border border-white/10 rounded-lg px-3 py-2 text-stone-200 outline-none focus:border-primary-500" />
                         </div>
                         <div>
-                            <label className="text-[10px] uppercase font-bold text-stone-500 block mb-1">Description</label>
-                            <textarea value={form.data.description} onChange={e => setForm(f => ({ ...f, data: { ...f.data, description: e.target.value } }))} placeholder="Effet, règles, saveur…" className="w-full min-h-[140px] bg-stone-950 border border-white/10 rounded-lg px-3 py-2 text-stone-200 outline-none focus:border-primary-500 resize-y leading-relaxed" />
+                            <label className="text-[10px] uppercase font-bold text-stone-500 block mb-1">Description {hasStructuredSchema(form.data.category) && <span className="text-stone-600 normal-case font-normal">(résumé court)</span>}</label>
+                            <textarea value={form.data.description} onChange={e => setForm(f => ({ ...f, data: { ...f.data, description: e.target.value } }))} placeholder="Effet, règles, saveur…" className="w-full min-h-[90px] bg-stone-950 border border-white/10 rounded-lg px-3 py-2 text-stone-200 outline-none focus:border-primary-500 resize-y leading-relaxed" />
                         </div>
+
+                        {/* Champs structurés fidèles au schéma du compendium (vague 1). */}
+                        {hasStructuredSchema(form.data.category) && (
+                            <div className="border-t border-white/5 pt-4">
+                                <p className="text-[11px] uppercase font-bold tracking-wider text-primary-400/70 mb-3">Détails — {categoryLabel(form.data.category)}</p>
+                                <HomebrewFields
+                                    schema={HOMEBREW_SCHEMAS[form.data.category] ?? []}
+                                    data={form.data.data ?? {}}
+                                    onChange={d => setForm(f => ({ ...f, data: { ...f.data, data: d } }))}
+                                />
+                            </div>
+                        )}
+
                         <label className="flex items-center gap-2 text-sm text-stone-300 cursor-pointer">
                             <input type="checkbox" checked={form.data.visibility === 'public'} onChange={e => setForm(f => ({ ...f, data: { ...f.data, visibility: e.target.checked ? 'public' : 'private' } }))} className="accent-primary-500 w-4 h-4" />
                             <Globe size={14} className="text-green-500/70" /> Partager à la communauté (public)
@@ -189,6 +206,7 @@ export const Bibliotheque: React.FC = () => {
                         {detail.description
                             ? <p className="text-stone-300 leading-relaxed whitespace-pre-line mt-3">{detail.description}</p>
                             : <p className="text-stone-600 italic mt-3">Aucune description.</p>}
+                        <HomebrewData schema={HOMEBREW_SCHEMAS[detail.category] ?? []} data={detail.data ?? {}} />
                     </div>
                 </div>
             )}

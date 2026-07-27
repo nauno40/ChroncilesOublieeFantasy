@@ -13,6 +13,12 @@ export interface HomebrewFieldDef {
     placeholder?: string;
     /** Pour les champs 'select'. */
     options?: { value: string; label: string }[];
+    /**
+     * Onglet de la fiche détail pour les champs longs (textarea/lines) : 'lore'
+     * (légendes & culture) ou 'rules' (règles & capacités). Absent = 'rules'.
+     * Les onglets n'apparaissent que si la catégorie a des champs des DEUX types.
+     */
+    tab?: 'lore' | 'rules';
 }
 
 /** Caractéristiques COF2 (valeurs directes, pas des scores). */
@@ -60,25 +66,25 @@ export const HOMEBREW_SCHEMAS: Record<string, HomebrewFieldDef[]> = {
         { key: 'maxWeight', label: 'Poids max (kg)', type: 'number' },
         { key: 'startingAge', label: 'Âge de départ', type: 'number' },
         { key: 'lifeExpectancy', label: 'Espérance de vie', type: 'number' },
-        { key: 'abilities', label: 'Capacités raciales', type: 'textarea' },
-        { key: 'physicalTraits', label: 'Traits physiques', type: 'textarea' },
-        { key: 'publicPerception', label: 'Perception publique', type: 'textarea' },
-        { key: 'roleplay', label: 'Roleplay', type: 'textarea' },
-        { key: 'typicalNames', label: 'Noms typiques', type: 'textarea' },
-        { key: 'detailedDescription', label: 'Description détaillée', type: 'textarea' },
+        { key: 'abilities', label: 'Capacités raciales', type: 'textarea', tab: 'rules' },
+        { key: 'physicalTraits', label: 'Traits physiques', type: 'textarea', tab: 'lore' },
+        { key: 'publicPerception', label: 'Perception publique', type: 'textarea', tab: 'lore' },
+        { key: 'roleplay', label: 'Roleplay', type: 'textarea', tab: 'lore' },
+        { key: 'typicalNames', label: 'Noms typiques', type: 'textarea', tab: 'lore' },
+        { key: 'detailedDescription', label: 'Description détaillée', type: 'textarea', tab: 'lore' },
     ],
     // → Profile
     classe: [
         { key: 'family', label: 'Famille', type: 'text', placeholder: 'ex. Combattants, Mages…' },
-        { key: 'note', label: 'Note', type: 'textarea' },
-        { key: 'lore', label: 'Lore', type: 'lines' },
-        { key: 'weaponsAuth', label: 'Armes autorisées', type: 'lines' },
-        { key: 'armorAuth', label: 'Armures autorisées', type: 'lines' },
+        { key: 'note', label: 'Note', type: 'textarea', tab: 'lore' },
+        { key: 'lore', label: 'Lore', type: 'lines', tab: 'lore' },
+        { key: 'weaponsAuth', label: 'Armes autorisées', type: 'lines', tab: 'rules' },
+        { key: 'armorAuth', label: 'Armures autorisées', type: 'lines', tab: 'rules' },
         { key: 'armorMaxDef', label: 'DEF max d’armure', type: 'number' },
         { key: 'magicStat', label: 'Caractéristique de magie', type: 'select', options: magicStatOptions },
         { key: 'stats', label: 'Stats de départ', type: 'caracs' },
-        { key: 'startingEquipment', label: 'Équipement de départ', type: 'lines' },
-        { key: 'masteries', label: 'Maîtrises', type: 'lines' },
+        { key: 'startingEquipment', label: 'Équipement de départ', type: 'lines', tab: 'rules' },
+        { key: 'masteries', label: 'Maîtrises', type: 'lines', tab: 'rules' },
     ],
     // → Equipment (objet magique)
     'objet-magique': equipmentFields,

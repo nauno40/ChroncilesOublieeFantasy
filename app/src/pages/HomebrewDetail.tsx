@@ -25,6 +25,7 @@ export const HomebrewDetail: React.FC = () => {
     const navigate = useNavigate();
     const [entry, setEntry] = useState<HomebrewEntry | null>(null);
     const [loading, setLoading] = useState(true);
+    const [activeTab, setActiveTab] = useState<'lore' | 'rules'>('lore');
 
     useEffect(() => {
         if (!id) return;
@@ -41,6 +42,25 @@ export const HomebrewDetail: React.FC = () => {
     const mainFields = schema.filter(f => (f.type === 'textarea' || f.type === 'lines') && hasValue(data[f.key]));
 
     const caracs = caracField ? (data[caracField.key] as Record<string, number>) : null;
+
+    // Onglets Lore / Règles : uniquement si la catégorie a des champs des deux natures.
+    const loreFields = mainFields.filter(f => f.tab === 'lore');
+    const ruleFields = mainFields.filter(f => f.tab !== 'lore');
+    const hasTabs = loreFields.length > 0 && ruleFields.length > 0;
+    const shownFields = hasTabs ? (activeTab === 'lore' ? loreFields : ruleFields) : mainFields;
+
+    const renderField = (f: HomebrewFieldDef) => (
+        <div key={f.key} className="bg-stone-900/50 p-6 rounded-2xl border border-white/5">
+            <h3 className="text-lg font-display font-bold text-white mb-3">{f.label}</h3>
+            {f.type === 'lines' ? (
+                <ul className="list-disc list-inside text-stone-300 space-y-1 leading-relaxed">
+                    {(data[f.key] as string[]).filter(x => x && x.trim() !== '').map((x, i) => <li key={i}>{x}</li>)}
+                </ul>
+            ) : (
+                <p className="text-stone-300 leading-relaxed whitespace-pre-line">{String(data[f.key])}</p>
+            )}
+        </div>
+    );
 
     return (
         <div className="min-h-screen pb-16 relative">
@@ -105,22 +125,29 @@ export const HomebrewDetail: React.FC = () => {
                     )}
 
                     {/* Contenu principal */}
-                    <div className={(caracs || sidebarFields.length > 0) ? 'lg:col-span-8 space-y-6' : 'lg:col-span-12 space-y-6'}>
-                        {mainFields.length === 0 && !entry.description && (
-                            <p className="text-stone-600 italic">Aucun détail supplémentaire.</p>
-                        )}
-                        {mainFields.map(f => (
-                            <div key={f.key} className="bg-stone-900/50 p-6 rounded-2xl border border-white/5">
-                                <h3 className="text-lg font-display font-bold text-white mb-3">{f.label}</h3>
-                                {f.type === 'lines' ? (
-                                    <ul className="list-disc list-inside text-stone-300 space-y-1 leading-relaxed">
-                                        {(data[f.key] as string[]).filter(x => x && x.trim() !== '').map((x, i) => <li key={i}>{x}</li>)}
-                                    </ul>
-                                ) : (
-                                    <p className="text-stone-300 leading-relaxed whitespace-pre-line">{String(data[f.key])}</p>
-                                )}
+                    <div className={(caracs || sidebarFields.length > 0) ? 'lg:col-span-8' : 'lg:col-span-12'}>
+                        {/* Onglets (si lore + règles présents) */}
+                        {hasTabs && (
+                            <div className="flex items-center gap-8 border-b border-white/10 mb-6 px-2">
+                                {([['lore', 'Légendes & Culture'], ['rules', 'Règles & Capacités']] as const).map(([id, label]) => (
+                                    <button
+                                        key={id}
+                                        onClick={() => setActiveTab(id)}
+                                        className={`pb-3 text-lg font-display font-bold tracking-wide transition-all relative ${activeTab === id ? 'text-white' : 'text-stone-500 hover:text-stone-300'}`}
+                                    >
+                                        {label}
+                                        {activeTab === id && <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary-500 to-primary-400 shadow-[0_0_10px_rgba(234,179,8,0.5)]"></div>}
+                                    </button>
+                                ))}
                             </div>
-                        ))}
+                        )}
+
+                        <div className="space-y-6">
+                            {shownFields.length === 0 && !entry.description && (
+                                <p className="text-stone-600 italic">Aucun détail supplémentaire.</p>
+                            )}
+                            {shownFields.map(renderField)}
+                        </div>
                     </div>
                 </div>
             </div>

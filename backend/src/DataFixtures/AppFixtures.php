@@ -1261,6 +1261,40 @@ class AppFixtures extends Fixture
             [$lyra, "capacite", "Pas de brume", "Se téléporte à 5m dans un endroit visible, 1/combat.", "public", 8],
             [$lyra, "objet-magique", "Voile d'invisibilité", "Rend invisible 1d4 tours ou jusqu'à la première attaque.", "public", 5],
         ];
+
+        // Champs structurés (data) de démo, par nom d'entrée — fidèles au schéma de la
+        // catégorie (cf. homebrewSchemas.ts). Couvre toutes les catégories structurées,
+        // Mon contenu ET Communauté. Les entrées non listées restent en description seule.
+        $dataByName = [
+            "Peuple des Cendres" => ['modifiers' => ['FOR' => 2, 'CON' => 1, 'AGI' => -1], 'speed' => '10 m', 'minHeight' => 160, 'maxHeight' => 190, 'minWeight' => 60, 'maxWeight' => 100, 'startingAge' => 16, 'lifeExpectancy' => 80, 'abilities' => "Résistance au feu ; vulnérabilité au froid.", 'physicalTraits' => "Peau grise craquelée, yeux de braise.", 'publicPerception' => "Craints et respectés, nés des cendres volcaniques.", 'roleplay' => "Fiers, taciturnes, liés au feu.", 'typicalNames' => "Ember, Cinder, Ashka, Pyra, Brand."],
+            "Homoncules affranchis" => ['modifiers' => ['INT' => 1, 'AGI' => 1, 'FOR' => -2], 'speed' => '8 m', 'startingAge' => 1, 'lifeExpectancy' => 40, 'abilities' => "Immunité aux poisons ; n'a pas besoin de dormir.", 'physicalTraits' => "Petite créature de porcelaine et de rouages.", 'typicalNames' => "Unit-7, Cendrillon, Écho."],
+            "Danse-lame" => ['family' => 'Combattants', 'note' => "Combattant acrobate, mêlant esquive et attaques en tourbillon.", 'lore' => ["Née dans les arènes du Sud."], 'weaponsAuth' => ['Épées', 'Dagues', 'Rapières'], 'armorAuth' => ['Cuir simple', 'Cuir renforcé'], 'armorMaxDef' => 3, 'stats' => ['AGI' => 2, 'FOR' => 1, 'CON' => 1], 'startingEquipment' => ['Deux rapières', 'Armure de cuir', 'Bourse (30 po)'], 'masteries' => ['Esquive', 'Attaque en tourbillon']],
+            "Invocateur du Pacte" => ['family' => 'Mystiques', 'magicStat' => 'CHA', 'note' => "Lie un familier démoniaque pour amplifier ses sorts.", 'armorMaxDef' => 2, 'stats' => ['CHA' => 2, 'VOL' => 1, 'CON' => 1], 'startingEquipment' => ['Dague', 'Grimoire du pacte', 'Robe'], 'masteries' => ['Sorts de pacte', 'Lien du familier']],
+            "Voie du Gel" => ['category' => 'profil', 'maxRank' => 5, 'details' => ['Rang 1 — Souffle glacé : 1d6 DM de froid.', 'Rang 2 — Armure de givre : +2 DEF.', 'Rang 3 — Cône de gel : 2d6, zone.', 'Rang 4 — Emprise glaciale : immobilise.', 'Rang 5 — Blizzard : 3d6 en zone large.']],
+            "Voie du Sang" => ['category' => 'profil', 'maxRank' => 5, 'details' => ['Rang 1 — Offrande : sacrifie 2 PV pour +1d6 DM.', 'Rang 2 — Transfusion : soigne un allié.', 'Rang 3 — Frénésie sanguine.']],
+            "Éclat de givre" => ['rank' => 1, 'actionType' => 'Attaque', 'limited' => false, 'effect' => ['1d6 DM de froid.', 'Cible ralentie (CON annule).'], 'details' => ['Portée 15 m.', 'Zone de 3 m.']],
+            "Chaînes d'ombre" => ['rank' => 2, 'actionType' => 'Limitée', 'limited' => true, 'effect' => ['Immobilise la cible 1d4 tours (VOL annule).'], 'details' => ['Portée 20 m.']],
+            "Murmure vorace" => ['rank' => 2, 'actionType' => 'Attaque', 'limited' => false, 'effect' => ['Draine 1d8 PV.', 'Soigne le lanceur de la moitié.']],
+            "Réflexe du chat" => ['rank' => 1, 'actionType' => 'Passive', 'isSpell' => false, 'limited' => false, 'effect' => ['+2 en Initiative.', '+2 DEF contre la première attaque du combat.']],
+            "Frappe étourdissante" => ['rank' => 2, 'actionType' => 'Attaque', 'isSpell' => false, 'limited' => true, 'effect' => ['Sur un critique, la cible perd sa prochaine action (VOL annule).']],
+            "Lame de l'Aube" => ['type' => 'Arme (épée longue)', 'rarity' => 'Rare', 'price' => '1500 po', 'weight' => 1.5, 'material' => 'Acier béni', 'quality' => 'Exceptionnelle', 'damage' => '1d8+1', 'critical' => '19-20', 'properties' => ["+1d6 DM de lumière contre les morts-vivants.", "Brille sur commande (lumière vive)."]],
+            "Amulette du Revenant" => ['type' => 'Amulette', 'rarity' => 'Très rare', 'price' => '3000 po', 'weight' => 0.1, 'properties' => ["1/jour : revient à 1 PV au lieu de tomber à 0."]],
+            "Bottes du Zéphyr" => ['type' => 'Bottes', 'rarity' => 'Peu commun', 'price' => '400 po', 'properties' => ["+3 m de déplacement.", "Ignore les terrains difficiles naturels."]],
+            "Grappin pliable" => ['type' => 'Outil', 'price' => '20 po', 'weight' => 1.0, 'properties' => ["Corde de soie de 15 m.", "Se replie dans une bourse."]],
+            "Ration elfique" => ['type' => 'Nourriture', 'price' => '5 po', 'weight' => 0.2, 'properties' => ["Une bouchée nourrit une journée entière."]],
+            "Venin de mille-pattes" => ['effectFail' => "-2 à toutes les actions pendant 1 heure.", 'effectSuccess' => "Aucun effet.", 'duration' => '1 heure', 'delay' => 'Immédiat', 'note' => "Ingestion. Bon marché."],
+            "Sève noire" => ['effectFail' => "Paralysie 1d4 tours.", 'effectSuccess' => "Ralenti 1 tour.", 'duration' => '1d4 tours', 'delay' => '1 tour', 'note' => "Contact. Rare et coûteux."],
+            "Fosse à pals" => ['detectDifficulty' => 'DIF 15 (PER)', 'disarmDifficulty' => 'DIF 12', 'effect' => "2d6 DM et cible immobilisée.", 'complement' => "Recouverte de feuillage."],
+            "Rune explosive" => ['detectDifficulty' => 'DIF 18 (INT)', 'disarmDifficulty' => 'DIF 16', 'effect' => "3d6 DM de feu, zone de 3 m.", 'complement' => "Se déclenche à l'approche."],
+            // Communauté (autres joueurs)
+            "Ondins des profondeurs" => ['modifiers' => ['CON' => 1, 'PER' => 1, 'FOR' => -1], 'speed' => '8 m (nage 12 m)', 'abilities' => "Respiration aquatique ; vision dans le noir.", 'physicalTraits' => "Peau bleutée, mains palmées, branchies.", 'typicalNames' => "Nael, Ondine, Coris, Maree."],
+            "Trident des marées" => ['type' => 'Arme (trident)', 'rarity' => 'Rare', 'price' => '1200 po', 'damage' => '1d8', 'properties' => ["1/jour : invoque un jet d'eau sous pression (2d6, repousse)."]],
+            "Berserker totémique" => ['family' => 'Combattants', 'note' => "Puise la rage d'un animal-totem pour se transformer.", 'armorMaxDef' => 3, 'stats' => ['FOR' => 2, 'CON' => 2, 'AGI' => 1], 'weaponsAuth' => ['Haches', 'Masses', 'Armes à deux mains'], 'masteries' => ['Rage totémique', 'Peau d\'écorce']],
+            "Voie de l'Ours" => ['category' => 'profil', 'maxRank' => 5, 'details' => ['Rang 1 — Endurance de l\'ours : +5 PV.', 'Rang 2 — Cri de guerre.', 'Rang 3 — Étreinte broyeuse.']],
+            "Illusion parfaite" => ['rank' => 3, 'actionType' => 'Limitée', 'limited' => true, 'effect' => ["Crée une image mobile indiscernable du réel.", "INT pour percer l'illusion."]],
+            "Voile d'invisibilité" => ['type' => 'Cape', 'rarity' => 'Très rare', 'price' => '5000 po', 'properties' => ["Rend invisible 1d4 tours ou jusqu'à la première attaque."]],
+        ];
+
         foreach ($entries as [$owner, $cat, $name, $desc, $vis, $age]) {
             $e = new HomebrewEntry();
             $e->setOwner($owner);
@@ -1268,6 +1302,9 @@ class AppFixtures extends Fixture
             $e->setName($name);
             $e->setDescription($desc);
             $e->setVisibility($vis);
+            if (isset($dataByName[$name])) {
+                $e->setData($dataByName[$name]);
+            }
             $e->setCreatedAt($now->modify("-{$age} days"));
             $e->setUpdatedAt($now->modify("-{$age} days"));
             $manager->persist($e);

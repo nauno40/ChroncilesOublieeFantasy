@@ -144,7 +144,7 @@ export const Layout: React.FC = () => {
                         </div>
                     </div>
 
-                    <nav className="flex-1 p-4 space-y-2">
+                    <nav className="flex-1 min-h-0 overflow-y-auto p-4 space-y-2">
                         {navItems.map((item) => {
                             const isActive = location.pathname === item.path;
                             return (

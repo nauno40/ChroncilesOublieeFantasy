@@ -8,6 +8,7 @@ import { DiceRoller, GlobalNotes, Soundboard, DraggableWindow, GlobalSearch } fr
 import { useToggle } from '../../hooks/useToggle';
 import { Dices, StickyNote, Music, Search, LogOut, User as UserIcon, Wand2, X, Library } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import { preloadRoute } from '../../routePreload';
 
 export const Layout: React.FC = () => {
     const location = useLocation();
@@ -205,6 +206,8 @@ export const Layout: React.FC = () => {
                             <Link
                                 key={item.path}
                                 to={targetPath}
+                                onMouseEnter={() => preloadRoute(targetPath)}
+                                onTouchStart={() => preloadRoute(targetPath)}
                                 className={clsx(
                                     "flex flex-col items-center justify-center flex-1 min-w-0 h-full transition-all duration-300 relative group",
                                     isActive ? "text-primary-400" : "text-stone-500 hover:text-stone-300"

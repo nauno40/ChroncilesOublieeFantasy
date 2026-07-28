@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { BookOpen, Swords, Shield, Scroll, Play, ChevronRight, Sparkles, Zap } from 'lucide-react';
+import { BookOpen, Swords, Shield, Scroll, Play, ChevronRight, Sparkles, Zap, Users, Share2 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 export const LandingPage: React.FC = () => {
@@ -50,16 +50,16 @@ export const LandingPage: React.FC = () => {
                     <div className="space-y-8 animate-in fade-in slide-in-from-left-8 duration-700">
                         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-500/10 border border-primary-500/20 text-primary-400 text-xs font-bold tracking-widest uppercase">
                             <Sparkles size={14} />
-                            Virtual TableTop Next-Gen
+                            Compagnon COF2 · Joueurs &amp; Meneurs
                         </div>
 
                         <h1 className="text-6xl md:text-7xl font-display font-extrabold leading-[1.1] tracking-tight">
                             Vivez vos <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-primary-600">Légendes</span> <br />
-                            Comme Jamais.
+                            Ensemble.
                         </h1>
 
                         <p className="text-xl text-stone-400 leading-relaxed max-w-xl">
-                            Le compagnon ultime pour Chroniques Oubliées. Gérez vos fiches, vos monstres et vos campagnes dans une interface fluide et immersive.
+                            Le compagnon des joueurs et meneurs de Chroniques Oubliées Fantasy : gérez vos fiches et vos parties, et puisez dans un compendium enrichi par la communauté.
                         </p>
 
                         <div className="flex flex-wrap gap-4 pt-4">
@@ -86,13 +86,13 @@ export const LandingPage: React.FC = () => {
                             </div>
                             <div className="w-px h-10 bg-white/10"></div>
                             <div>
-                                <div className="text-2xl font-bold font-display">50+</div>
+                                <div className="text-2xl font-bold font-display">14</div>
                                 <div className="text-xs text-stone-500 font-bold uppercase tracking-widest">Profils</div>
                             </div>
                             <div className="w-px h-10 bg-white/10"></div>
                             <div>
                                 <div className="text-2xl font-bold font-display">∞</div>
-                                <div className="text-xs text-stone-500 font-bold uppercase tracking-widest">Histoires</div>
+                                <div className="text-xs text-stone-500 font-bold uppercase tracking-widest">Créations</div>
                             </div>
                         </div>
                     </div>
@@ -105,13 +105,46 @@ export const LandingPage: React.FC = () => {
                                 <div className="size-2 rounded-full bg-amber-500/50"></div>
                                 <div className="size-2 rounded-full bg-green-500/50"></div>
                             </div>
-                            <img
-                                src="https://images.unsplash.com/photo-1614850523296-d8c1af93d400?q=80&w=2070&auto=format&fit=crop"
-                                alt="Application Preview"
-                                className="w-full h-auto object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-700"
-                            />
-                            {/* Overlay UI elements */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-transparent to-transparent"></div>
+                            {/* Aperçu composé (autonome, sans image externe) : un mini
+                                suivi de combat évoquant l'aide de table. */}
+                            <div className="relative h-[420px] bg-gradient-to-br from-stone-900 via-stone-950 to-black overflow-hidden">
+                                <div className="absolute -top-16 -right-16 w-72 h-72 bg-primary-600/15 rounded-full blur-3xl"></div>
+                                <div className="absolute bottom-0 left-0 w-56 h-56 bg-primary-900/20 rounded-full blur-3xl"></div>
+
+                                <div className="relative p-6 space-y-4">
+                                    <div className="flex items-center justify-between">
+                                        <div>
+                                            <div className="text-[10px] uppercase tracking-widest text-stone-500 font-bold">Suivi de combat</div>
+                                            <div className="text-lg font-display font-bold text-stone-100">Les Ombres de Val-Gelé</div>
+                                        </div>
+                                        <div className="text-xs font-mono text-primary-400/80 bg-primary-950/40 px-3 py-1.5 rounded-full border border-primary-500/20">Round 3</div>
+                                    </div>
+
+                                    {[
+                                        { name: 'Lhagva', init: 21, hp: 100, tone: 'primary', active: true },
+                                        { name: 'Gobelin éclaireur', init: 17, hp: 45, tone: 'red', active: false },
+                                        { name: 'Ionas', init: 14, hp: 80, tone: 'primary', active: false },
+                                        { name: 'Loup des glaces', init: 9, hp: 30, tone: 'red', active: false },
+                                    ].map((c) => (
+                                        <div
+                                            key={c.name}
+                                            className={`flex items-center gap-3 rounded-xl p-3 border ${c.active ? 'bg-primary-500/10 border-primary-500/30' : 'bg-stone-900/60 border-white/5'}`}
+                                        >
+                                            <div className={`w-9 h-9 rounded-lg flex items-center justify-center font-display font-bold text-sm ${c.active ? 'bg-primary-500/20 text-primary-300 border border-primary-500/30' : 'bg-black/30 text-stone-400 border border-white/5'}`}>
+                                                {c.init}
+                                            </div>
+                                            <div className="flex-1 min-w-0">
+                                                <div className="text-sm font-bold text-stone-200 truncate">{c.name}</div>
+                                                <div className="mt-1.5 h-1.5 bg-white/5 rounded-full overflow-hidden">
+                                                    <div className={`h-full rounded-full ${c.tone === 'red' ? 'bg-red-500/70' : 'bg-primary-500/70'}`} style={{ width: `${c.hp}%` }}></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                            {/* Dégradé de fondu vers le bas pour asseoir les cartes flottantes */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-transparent to-transparent pointer-events-none"></div>
                             <div className="absolute bottom-8 left-8 right-8 flex justify-between items-end">
                                 <div className="p-4 bg-stone-900/80 backdrop-blur rounded-xl border border-white/10 max-w-[200px]">
                                     <div className="flex items-center gap-2 mb-2">
@@ -137,40 +170,40 @@ export const LandingPage: React.FC = () => {
             {/* Features Grid */}
             <section className="py-24 px-6 max-w-7xl mx-auto">
                 <div className="text-center space-y-4 mb-20">
-                    <h2 className="text-4xl font-display font-bold">Un arsenal de MJ complet</h2>
-                    <p className="text-stone-400 max-w-2xl mx-auto">Tout ce dont vous avez besoin pour animer vos parties, concentré dans un outil moderne et performant.</p>
+                    <h2 className="text-4xl font-display font-bold">Pensé pour toute la table</h2>
+                    <p className="text-stone-400 max-w-2xl mx-auto">Des outils pour le meneur, des fiches pour les joueurs, et un compendium enrichi par la communauté.</p>
                 </div>
 
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <FeatureCard
+                        icon={Users}
+                        title="Compendium communautaire"
+                        description="Races, classes, voies, sorts et créatures officiels — enrichis par les créations partagées de la communauté."
+                    />
+                    <FeatureCard
+                        icon={Share2}
+                        title="Partage MJ ⇄ joueurs"
+                        description="Diffusez résumés de séance, quêtes et fiches à votre table. Un partage asynchrone, sans contrainte de temps réel."
+                    />
+                    <FeatureCard
                         icon={Shield}
-                        title="Gestion de Fiches"
-                        description="Calculs automatisés des modificateurs, parsing des capacités et inventaire dynamique."
+                        title="Fiches auto-calculées"
+                        description="PV, DEF, initiative, attaques : les règles de Chroniques Oubliées appliquées automatiquement à vos personnages."
                     />
                     <FeatureCard
                         icon={Swords}
-                        title="Tracking de Combat"
-                        description="Gérez l'initiative, les PV et les états préjudiciables de vos monstres et joueurs."
-                    />
-                    <FeatureCard
-                        icon={Scroll}
-                        title="Campagnes Persistantes"
-                        description="Scénarios, quêtes, indices et notes partagées, sauvegardés en temps réel sur le cloud."
+                        title="Aide de combat"
+                        description="Suivez l'initiative, les points de vie et les états préjudiciables de vos créatures et joueurs."
                     />
                     <FeatureCard
                         icon={BookOpen}
-                        title="Bestiaire SRD"
-                        description="Une encyclopédie complète avec des centaines de créatures prêtes à l'emploi."
+                        title="Bestiaire & règles"
+                        description="Le SRD complet à portée de main : créatures, équipement, objets magiques et texte intégral des règles."
                     />
                     <FeatureCard
                         icon={Zap}
-                        title="Lancer de Dés"
-                        description="Système de lancer intégré avec modificateurs automatiques directement depuis la fiche."
-                    />
-                    <FeatureCard
-                        icon={Sparkles}
-                        title="Générateur de Rencontres"
-                        description="Composez des combats équilibrés selon l'environnement et le niveau de votre groupe."
+                        title="Dés & ambiances"
+                        description="Lanceur de dés et table de mixage sonore pour immerger votre groupe dans l'aventure."
                     />
                 </div>
             </section>

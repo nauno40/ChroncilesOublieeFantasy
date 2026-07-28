@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Mail, Lock, LogIn, ArrowLeft, AlertCircle, Loader2 } from 'lucide-react';
+import { Mail, Lock, LogIn, AlertCircle, Loader2 } from 'lucide-react';
 import { AuthService } from '../services/AuthService';
 import { useAuth } from '../context/AuthContext';
+import { AuthShell } from '../components/auth/AuthShell';
 
 export const LoginPage: React.FC = () => {
     const navigate = useNavigate();
@@ -21,33 +22,19 @@ export const LoginPage: React.FC = () => {
             await AuthService.login(email, password);
             login(); // synchronise le contexte (isAuthenticated) avant la navigation SPA
             navigate('/dashboard');
-        } catch (err: any) {
-            setError(err.message || 'Identifiants invalides');
+        } catch (err) {
+            setError(err instanceof Error ? err.message : 'Identifiants invalides');
         } finally {
             setIsLoading(false);
         }
     };
 
     return (
-        <div className="min-h-screen bg-stone-950/60 flex flex-col justify-center py-12 px-6 lg:px-8 relative overflow-hidden">
-            {/* Background Decor */}
-            <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-primary-600/10 rounded-full blur-[100px] -z-10"></div>
-            <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-blue-600/10 rounded-full blur-[100px] -z-10 opacity-50"></div>
-
-            <div className="sm:mx-auto sm:w-full sm:max-w-md animate-in fade-in slide-in-from-bottom-4 duration-500">
-                <button
-                    onClick={() => navigate('/')}
-                    className="mb-8 flex items-center gap-2 text-stone-500 hover:text-stone-200 transition-colors text-sm font-bold group"
-                >
-                    <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
-                    Retour à l'accueil
-                </button>
-
-                <div className="glass-panel p-8 rounded-3xl border-white/10 shadow-2xl">
-                    <div className="text-center mb-8">
-                        <h2 className="text-3xl font-display font-bold text-white mb-2">Bon retour</h2>
-                        <p className="text-stone-400 text-sm">Préparez votre prochaine session.</p>
-                    </div>
+        <AuthShell backTo="/" backLabel="Retour à l'accueil">
+            <div className="text-center mb-8">
+                <h2 className="text-3xl font-display font-bold text-white mb-2">Bon retour</h2>
+                <p className="text-stone-400 text-sm">Préparez votre prochaine session.</p>
+            </div>
 
                     {error && (
                         <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center gap-3 text-red-400 text-sm">
@@ -120,8 +107,6 @@ export const LoginPage: React.FC = () => {
                             </Link>
                         </p>
                     </div>
-                </div>
-            </div>
-        </div>
+        </AuthShell>
     );
 };

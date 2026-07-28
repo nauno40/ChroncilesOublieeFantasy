@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, useSearchParams, Link } from 'react-router-dom';
-import { Lock, ArrowLeft, AlertCircle, Loader2, CheckCircle2 } from 'lucide-react';
+import { Lock, AlertCircle, Loader2, CheckCircle2 } from 'lucide-react';
 import { AuthService } from '../services/AuthService';
+import { AuthShell } from '../components/auth/AuthShell';
 
 export const ResetPasswordPage: React.FC = () => {
     const navigate = useNavigate();
@@ -38,21 +39,8 @@ export const ResetPasswordPage: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen bg-stone-950/60 flex flex-col justify-center py-12 px-6 lg:px-8 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-primary-600/10 rounded-full blur-[100px] -z-10"></div>
-            <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-blue-600/10 rounded-full blur-[100px] -z-10 opacity-50"></div>
-
-            <div className="sm:mx-auto sm:w-full sm:max-w-md animate-in fade-in slide-in-from-bottom-4 duration-500">
-                <button
-                    onClick={() => navigate('/login')}
-                    className="mb-8 flex items-center gap-2 text-stone-500 hover:text-stone-200 transition-colors text-sm font-bold group"
-                >
-                    <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
-                    Retour à la connexion
-                </button>
-
-                <div className="glass-panel p-8 rounded-3xl border-white/10 shadow-2xl">
-                    {done ? (
+        <AuthShell backTo="/login" backLabel="Retour à la connexion">
+            {done ? (
                         <div className="text-center space-y-4">
                             <div className="inline-flex size-14 bg-green-500/10 rounded-2xl items-center justify-center text-green-400 mb-2">
                                 <CheckCircle2 size={28} />
@@ -130,8 +118,6 @@ export const ResetPasswordPage: React.FC = () => {
                             </form>
                         </>
                     )}
-                </div>
-            </div>
-        </div>
+        </AuthShell>
     );
 };

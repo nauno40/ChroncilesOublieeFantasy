@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { Mail, ArrowLeft, AlertCircle, Loader2, MailCheck, Send } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Mail, AlertCircle, Loader2, MailCheck, Send } from 'lucide-react';
 import { AuthService } from '../services/AuthService';
+import { AuthShell } from '../components/auth/AuthShell';
 
 export const ForgotPasswordPage: React.FC = () => {
-    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -25,21 +25,8 @@ export const ForgotPasswordPage: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen bg-stone-950/60 flex flex-col justify-center py-12 px-6 lg:px-8 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-primary-600/10 rounded-full blur-[100px] -z-10"></div>
-            <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-blue-600/10 rounded-full blur-[100px] -z-10 opacity-50"></div>
-
-            <div className="sm:mx-auto sm:w-full sm:max-w-md animate-in fade-in slide-in-from-bottom-4 duration-500">
-                <button
-                    onClick={() => navigate('/login')}
-                    className="mb-8 flex items-center gap-2 text-stone-500 hover:text-stone-200 transition-colors text-sm font-bold group"
-                >
-                    <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
-                    Retour à la connexion
-                </button>
-
-                <div className="glass-panel p-8 rounded-3xl border-white/10 shadow-2xl">
-                    {sentMessage ? (
+        <AuthShell backTo="/login" backLabel="Retour à la connexion">
+            {sentMessage ? (
                         <div className="text-center space-y-4">
                             <div className="inline-flex size-14 bg-green-500/10 rounded-2xl items-center justify-center text-green-400 mb-2">
                                 <MailCheck size={28} />
@@ -92,8 +79,6 @@ export const ForgotPasswordPage: React.FC = () => {
                             </form>
                         </>
                     )}
-                </div>
-            </div>
-        </div>
+        </AuthShell>
     );
 };

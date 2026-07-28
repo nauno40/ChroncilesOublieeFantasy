@@ -58,6 +58,27 @@ const tableCategoryOf = (category?: string | string[]): string | null => {
     return TABLE_COLUMNS[category] ? category : null;
 };
 
+// Catégories dont les cartes officielles portent une image d'en-tête (Races, Classes).
+// Le contenu communautaire y reçoit une image générique (initiale) pour la même tête.
+const IMAGE_CATEGORIES = new Set(['race', 'classe']);
+
+/** Placeholder SVG générique (initiale) — identique au fallback du composant Card officiel. */
+const genericImage = (alt: string) =>
+    `data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23292524" width="400" height="300"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-size="120" fill="%23f59e0b"%3E${alt.charAt(0).toUpperCase()}%3C/text%3E%3C/svg%3E`;
+
+/** En-tête image d'une carte communautaire (image fournie sinon générique), calqué sur Card. */
+const CardMedia: React.FC<{ alt: string; src?: string }> = ({ alt, src }) => (
+    <div className="relative h-40 overflow-hidden bg-gradient-to-b from-stone-900/50 to-stone-950">
+        <img
+            src={src || genericImage(alt)}
+            alt={alt}
+            className="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-500"
+            onError={e => { e.currentTarget.src = genericImage(alt); }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-transparent to-transparent opacity-60"></div>
+    </div>
+);
+
 /** Formate une valeur `data` (JSON libre) pour une cellule/champ. */
 const fmt = (v: unknown, col: Col): string => {
     if (v === undefined || v === null || v === '') return '—';
@@ -196,10 +217,13 @@ export const HomebrewList: React.FC<HomebrewListProps> = ({ entries, category, m
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {entries.map(entry => {
                 const mine = entry.authorId === myId;
+                const dataImg = typeof entry.data?.image === 'string' ? entry.data.image : undefined;
+                const media = IMAGE_CATEGORIES.has(entry.category) ? <CardMedia alt={entry.name} src={dataImg} /> : undefined;
                 return (
                     <ContentCard
                         key={entry.id}
                         onClick={() => onOpen(entry)}
+                        media={media}
                         footer={mine ? (
                             <div className="flex">
                                 <button onClick={e => { e.stopPropagation(); onEdit(entry); }} className="flex-1 py-2 text-[11px] font-bold uppercase text-stone-500 hover:text-primary-400 hover:bg-white/[0.03] flex items-center justify-center gap-1.5 transition-all"><Edit size={12} /> Modifier</button>

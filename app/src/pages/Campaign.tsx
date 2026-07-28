@@ -283,10 +283,11 @@ export const Campaign: React.FC = () => {
                         <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary-500"></div>
                     </div>
                 ) : sharedCampaigns.length === 0 ? (
-                    <div className="text-center py-12 bg-black/20 rounded-3xl border border-white/5 backdrop-blur-sm">
-                        <p className="text-stone-400 font-display">Vous n'avez rejoint aucune campagne.</p>
-                        <p className="text-stone-600 text-sm">Demandez un code d'invitation à votre meneur de jeu.</p>
-                    </div>
+                    <EmptyState
+                        icon={KeyRound}
+                        title="Vous n'avez rejoint aucune campagne"
+                        message="Demandez un code d'invitation à votre meneur de jeu pour rejoindre sa table."
+                    />
                 ) : (
                     <div className="grid gap-4">
                         {sharedCampaigns.map(shared => {

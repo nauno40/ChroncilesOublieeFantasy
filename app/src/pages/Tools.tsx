@@ -1,11 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Sword, Dices, Music, Skull, Sparkles } from 'lucide-react';
+import { Sword, Dices, Music, Skull, Sparkles, Wrench } from 'lucide-react';
+import { PageContainer, PageShell } from '../components/common';
 
 export const Tools: React.FC = () => {
     return (
-        <div className="max-w-6xl mx-auto space-y-6">
-            <h2 className="text-4xl font-display font-bold text-primary-400 mb-6 drop-shadow-lg animate-fade-in">Outils du MJ</h2>
+        <PageContainer>
+            <PageShell
+                title="Outils du MJ"
+                subtitle="Vos aides de table : combat, dés, monstres, ambiances et objets magiques."
+                icon={Wrench}
+            />
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <Link to="/tools/tracker" className="glass-panel p-8 rounded-2xl border-primary-500/20 hover:border-primary-500/50 hover:shadow-[0_0_20px_rgba(245,158,11,0.15)] transition-all group relative overflow-hidden">
@@ -78,6 +83,6 @@ export const Tools: React.FC = () => {
                     </div>
                 </Link>
             </div>
-        </div>
+        </PageContainer>
     );
 };

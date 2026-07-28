@@ -1,12 +1,14 @@
 import React from 'react';
-import { PageContainer, PageHeader, Soundboard } from '../components/common';
+import { Music } from 'lucide-react';
+import { PageContainer, PageShell, Soundboard } from '../components/common';
 
 export const SoundboardPage: React.FC = () => {
     return (
         <PageContainer>
-            <PageHeader
-                title="Pistes Audio"
-                subtitle="Ambiance sonore pour vos parties"
+            <PageShell
+                title="Pistes audio"
+                subtitle="Ambiance sonore pour vos parties."
+                icon={Music}
             />
 
             <div className="max-w-xl mx-auto glass-panel rounded-xl overflow-hidden shadow-2xl border-primary-500/20">

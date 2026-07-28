@@ -3,8 +3,9 @@ import { getCampaigns, createCampaign, deleteCampaign } from '../services/campai
 import type { Campaign as CampaignType } from '../types/campaign';
 import { ApiService } from '../services/api';
 import { SharingService, type SharedCampaign } from '../services/sharingService';
-import { Plus, Trash2, ChevronRight, Users, KeyRound, AlertCircle, Loader2, BookOpen, Calendar, UserPlus, Check } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Plus, Trash2, Users, KeyRound, AlertCircle, Loader2, BookOpen, Calendar, UserPlus, Check } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { PageContainer, PageShell, ContentCard, EmptyState } from '../components/common';
 
 // Forme brute d'une fiche de personnage du joueur, utilisée uniquement pour le
 // rattachement à une campagne rejointe. `campaign` est l'IRI de la campagne
@@ -19,6 +20,7 @@ interface PlayerCharacter {
 }
 
 export const Campaign: React.FC = () => {
+    const navigate = useNavigate();
     const [campaigns, setCampaigns] = useState<CampaignType[]>([]);
     const [loading, setLoading] = useState(true);
     const [showCreateForm, setShowCreateForm] = useState(false);
@@ -121,16 +123,20 @@ export const Campaign: React.FC = () => {
     };
 
     return (
-        <div className="max-w-6xl mx-auto space-y-6">
-            <div className="flex justify-between items-center mb-6">
-                <h2 className="text-4xl font-display font-bold text-primary-400 drop-shadow-lg tracking-wide">Campagnes</h2>
-                <button
-                    onClick={() => setShowCreateForm(!showCreateForm)}
-                    className="bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-500 hover:to-primary-600 text-stone-950 font-bold px-4 py-2 rounded-xl flex items-center gap-2 transition-all shadow-lg hover:shadow-primary-500/20 active:scale-95"
-                >
-                    <Plus size={20} strokeWidth={3} /> <span className="hidden md:inline">Nouvelle</span>
-                </button>
-            </div>
+        <PageContainer>
+            <PageShell
+                title="Mes campagnes"
+                subtitle="Vos aventures en tant que meneur : quêtes, indices, séances et joueurs."
+                icon={BookOpen}
+                actions={
+                    <button
+                        onClick={() => setShowCreateForm(!showCreateForm)}
+                        className="bg-primary-600 hover:bg-primary-500 text-stone-950 font-bold py-2.5 px-4 rounded-xl flex items-center gap-2 transition-all shadow-lg hover:shadow-primary-500/25 text-sm"
+                    >
+                        <Plus size={18} /> Nouvelle campagne
+                    </button>
+                }
+            />
 
             {showCreateForm && (
                 <div className="glass-panel p-6 rounded-2xl mb-8 animate-fade-in border-primary-500/30">
@@ -212,56 +218,49 @@ export const Campaign: React.FC = () => {
                     <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-500"></div>
                 </div>
             ) : campaigns.length === 0 ? (
-                <div className="text-center py-20 bg-black/20 rounded-3xl border border-white/5 backdrop-blur-sm">
-                    <div className="bg-stone-900/50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 border border-white/5">
-                        <Users size={40} className="text-stone-600 opacity-50" />
-                    </div>
-                    <p className="text-stone-400 text-lg mb-2 font-display">Aucune campagne active.</p>
-                    <p className="text-stone-600 text-sm">Le monde attend que vous écriviez son histoire.</p>
-                </div>
+                <EmptyState
+                    icon={Users}
+                    title="Aucune campagne active"
+                    message="Le monde attend que vous écriviez son histoire. Créez votre première campagne."
+                    action={{ label: 'Créer une campagne', onClick: () => setShowCreateForm(true) }}
+                />
             ) : (
-                <div className="grid gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {campaigns.map(campaign => (
-                        <Link
+                        <ContentCard
                             key={campaign.id}
-                            to={`/campaign/${campaign.id}`}
-                            className="glass-panel p-6 rounded-2xl hover:border-primary-500/40 hover:scale-[1.01] transition-all duration-300 group relative overflow-hidden shadow-lg"
-                        >
-                            {/* Decorative Background Glow */}
-                            <div className="absolute -right-20 -top-20 w-64 h-64 bg-primary-600/5 rounded-full blur-3xl group-hover:bg-primary-600/10 transition-colors duration-500"></div>
-
-                            <div className="flex justify-between items-start relative z-10">
-                                <div className="flex-1 pr-12">
-                                    <h3 className="text-2xl font-display font-bold text-stone-200 group-hover:text-primary-400 transition-colors mb-2">{campaign.name}</h3>
-                                    <p className="text-stone-400 text-sm line-clamp-2 leading-relaxed max-w-2xl">{campaign.description || <span className="italic opacity-50">Pas de description...</span>}</p>
-
-                                    <div className="flex flex-wrap gap-4 mt-6">
-                                        <div className="flex items-center gap-2 text-xs font-mono text-primary-400/80 bg-primary-950/30 px-3 py-1.5 rounded-full border border-primary-500/10">
-                                            <Users size={14} />
-                                            <span>{campaign.characters?.length || 0} JOUEURS</span>
-                                        </div>
-                                        <div className="flex items-center gap-2 text-xs font-mono text-primary-400/80 bg-primary-950/30 px-3 py-1.5 rounded-full border border-primary-500/10">
-                                            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                                            <span>Active depuis le {new Date(campaign.created_at).toLocaleDateString()}</span>
-                                        </div>
+                            onClick={() => navigate(`/campaign/${campaign.id}`)}
+                            footer={
+                                <div className="flex items-center justify-between gap-3 px-5 py-3">
+                                    <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-stone-500 min-w-0">
+                                        <span className="flex items-center gap-1.5 text-primary-400/80">
+                                            <Users size={13} /> {campaign.characters?.length || 0} joueur{(campaign.characters?.length || 0) > 1 ? 's' : ''}
+                                        </span>
+                                        <span className="flex items-center gap-1.5 truncate">
+                                            <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse shrink-0"></span>
+                                            depuis le {new Date(campaign.created_at).toLocaleDateString()}
+                                        </span>
                                     </div>
-                                </div>
-
-                                <div className="absolute top-0 right-0 p-4">
                                     <button
                                         onClick={(e) => handleDelete(campaign.id, e)}
-                                        className="text-stone-600 hover:text-red-400 p-2 rounded-full hover:bg-stone-900/50 transition-colors"
+                                        className="text-stone-600 hover:text-red-400 p-1.5 -mr-1 rounded-lg hover:bg-red-500/10 transition-colors shrink-0"
                                         title="Supprimer la campagne"
                                     >
-                                        <Trash2 size={18} />
+                                        <Trash2 size={16} />
                                     </button>
                                 </div>
-
-                                <div className="absolute bottom-0 right-0 p-6 opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-4 group-hover:translate-x-0 duration-300">
-                                    <ChevronRight className="text-primary-500" size={24} />
+                            }
+                        >
+                            <div className="flex items-start justify-between mb-4">
+                                <div className="w-12 h-12 bg-primary-900/30 rounded-full flex items-center justify-center text-primary-400 border border-primary-500/20 group-hover:scale-110 transition-transform">
+                                    <BookOpen size={22} />
                                 </div>
                             </div>
-                        </Link>
+                            <h3 className="text-xl font-display font-bold text-stone-100 group-hover:text-primary-400 transition-colors mb-1">{campaign.name}</h3>
+                            <p className="text-stone-500 text-sm line-clamp-2 leading-relaxed min-h-[2.5rem]">
+                                {campaign.description || <span className="italic opacity-60">Pas de description…</span>}
+                            </p>
+                        </ContentCard>
                     ))}
                 </div>
             )}
@@ -387,6 +386,6 @@ export const Campaign: React.FC = () => {
                     </div>
                 )}
             </div>
-        </div>
+        </PageContainer>
     );
 };

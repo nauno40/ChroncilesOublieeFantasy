@@ -107,6 +107,30 @@ input[type=number] {
 .no-scrollbar::-webkit-scrollbar {
   display: none;                /* Chrome/Safari/Edge */
 }
+/* Accessibilité : anneau de focus clavier visible et cohérent (souris/tactile
+   restent sans anneau grâce à :focus-visible). L'outline suit le border-radius
+   des éléments arrondis sur les navigateurs modernes. */
+:focus-visible {
+  /* !important : garantit un repère clavier même sur les éléments qui neutralisent
+     l'outline via focus:outline-none (barre latérale, etc.). Ne s'active qu'au
+     clavier (:focus-visible) et cohabite sans gêne avec les focus:ring existants. */
+  outline: 2px solid hsl(35, 90%, 55%) !important;
+  outline-offset: 2px !important;
+}
+
+/* Respecte « réduire les animations » (préférence système) : neutralise
+   animations/transitions/défilement animé pour le confort et l'accessibilité. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 /* Impression (fiche de personnage imprimable — voir PrintableCharacterSheet) */
 @media print {
   .no-print { display: none !important; }

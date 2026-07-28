@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { Sparkles, Dices, Coins } from 'lucide-react';
+import { Dices, Coins } from 'lucide-react';
 import {
     magicItemValue,
     potionScrollValue,
@@ -25,12 +25,7 @@ export const MagicItems: React.FC = () => {
 
     return (
         <div className="max-w-5xl mx-auto space-y-8">
-            <div>
-                <h2 className="text-4xl font-display font-bold text-primary-400 mb-2 drop-shadow-lg flex items-center gap-3">
-                    <Sparkles size={32} /> Objets magiques
-                </h2>
-                <p className="text-stone-400 text-sm">Évaluez et tirez au sort des objets magiques d'après le chapitre « Objets magiques ».</p>
-            </div>
+            <p className="text-stone-400 text-sm">Évaluez et tirez au sort des objets magiques d'après le chapitre « Objets magiques ».</p>
 
             {/* Évaluateur */}
             <section className="glass-panel p-6 rounded-2xl border-primary-500/20">

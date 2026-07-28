@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { PageContainer } from '../common';
+import { PageContainer, PageShell, SourceTabs } from '../common';
 import { HomebrewBrowser } from '../homebrew/HomebrewBrowser';
 
 /**
- * Page de type du compendium unifié : un filtre source (Officiel / Communauté /
- * Mes créations) au-dessus. « Officiel » affiche la page compendium existante ;
- * les deux autres affichent le contenu homebrew de la catégorie (HomebrewBrowser).
+ * Page de type du compendium unifié. Porte l'unique en-tête (titre + filtre source
+ * Officiel / Communauté / Mes créations) via PageShell ; la page officielle (rendue
+ * sans son propre titre) ou HomebrewBrowser s'affiche dessous.
  */
 type Source = 'official' | 'community' | 'mine';
 
@@ -15,25 +15,20 @@ const SOURCES: { id: Source; label: string }[] = [
     { id: 'mine', label: 'Mes créations' },
 ];
 
-export const CompendiumType: React.FC<{ category: string | string[]; official: React.ReactNode }> = ({ category, official }) => {
+export const CompendiumType: React.FC<{ title: string; category: string | string[]; official: React.ReactNode }> = ({ title, category, official }) => {
     const [source, setSource] = useState<Source>('official');
 
     return (
         <div>
             <PageContainer>
-                <div className="flex flex-wrap gap-2">
-                    {SOURCES.map(s => (
-                        <button
-                            key={s.id}
-                            onClick={() => setSource(s.id)}
-                            className={`px-4 py-2 rounded-xl text-sm font-bold transition-all ${source === s.id ? 'bg-primary-500/20 text-primary-300 border border-primary-500/40' : 'bg-stone-900/40 text-stone-500 border border-white/5 hover:text-stone-300'}`}
-                        >
-                            {s.label}
-                        </button>
-                    ))}
-                </div>
+                <PageShell
+                    title={title}
+                    tabs={<SourceTabs tabs={SOURCES} value={source} onChange={setSource} />}
+                    className="mb-0"
+                />
             </PageContainer>
 
+            {/* La page officielle apporte son propre PageContainer ; on n'imbrique pas. */}
             {source === 'official' ? (
                 official
             ) : (

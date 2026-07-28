@@ -25,7 +25,6 @@ export const Poisons: React.FC = () => {
     return (
         <PageContainer>
             <PageHeader
-                title="Poisons"
                 searchValue={searchTerm}
                 onSearchChange={setSearchTerm}
                 searchPlaceholder="Rechercher un poison..."

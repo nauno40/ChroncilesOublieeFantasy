@@ -25,7 +25,6 @@ export const Races: React.FC = () => {
     return (
         <PageContainer>
             <PageHeader
-                title="Races"
                 searchValue={searchTerm}
                 onSearchChange={setSearchTerm}
                 searchPlaceholder="Rechercher une race..."

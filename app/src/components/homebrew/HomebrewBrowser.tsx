@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Plus, Globe, Lock, Edit, Trash2, X, User as UserIcon, Copy, Search } from 'lucide-react';
-import { Loader } from '../common';
+import { Plus, Globe, Lock, Edit, Trash2, X, Copy, Search } from 'lucide-react';
+import { Loader, ContentCard, AuthorTag } from '../common';
 import { useAuth } from '../../context/AuthContext';
 import { HomebrewService, HOMEBREW_CATEGORIES, categoryLabel, type HomebrewEntry, type HomebrewInput } from '../../services/homebrewService';
 import { HOMEBREW_SCHEMAS, hasStructuredSchema, pruneToSchema } from '../../services/homebrewSchemas';
@@ -14,29 +14,27 @@ const CategoryBadge: React.FC<{ category: string }> = ({ category }) => (
 );
 
 const Card: React.FC<{ entry: HomebrewEntry; mine: boolean; duplicating: boolean; showCategory: boolean; onOpen: () => void; onEdit: () => void; onDelete: () => void; onDuplicate: () => void }> = ({ entry, mine, duplicating, showCategory, onOpen, onEdit, onDelete, onDuplicate }) => (
-    <div className="glass-panel rounded-2xl border border-white/5 hover:border-primary-500/30 transition-all flex flex-col overflow-hidden group">
-        <button onClick={onOpen} className="text-left p-5 flex-1">
-            <div className="flex items-center justify-between gap-2 mb-2">
-                {showCategory ? <CategoryBadge category={entry.category} /> : <span />}
-                {entry.visibility === 'public'
-                    ? <Globe size={13} className="text-green-500/70" aria-label="Public" />
-                    : <Lock size={13} className="text-stone-600" aria-label="Privé" />}
-            </div>
-            <h3 className="font-display font-bold text-stone-100 group-hover:text-primary-300 leading-tight">{entry.name}</h3>
-            {entry.description && <p className="text-xs text-stone-500 mt-1 line-clamp-2 leading-snug">{entry.description}</p>}
-            {!mine && <p className="text-[10px] text-stone-600 mt-2 flex items-center gap-1"><UserIcon size={10} /> {entry.authorPseudo || 'Anonyme'}</p>}
-        </button>
-        {mine ? (
-            <div className="flex border-t border-white/5">
-                <button onClick={onEdit} className="flex-1 py-2 text-[11px] font-bold uppercase text-stone-500 hover:text-primary-400 hover:bg-white/[0.03] flex items-center justify-center gap-1.5 transition-all"><Edit size={12} /> Modifier</button>
-                <button onClick={onDelete} className="flex-1 py-2 text-[11px] font-bold uppercase text-stone-500 hover:text-red-400 hover:bg-white/[0.03] flex items-center justify-center gap-1.5 transition-all border-l border-white/5"><Trash2 size={12} /> Supprimer</button>
+    <ContentCard
+        onClick={onOpen}
+        footer={mine ? (
+            <div className="flex">
+                <button onClick={e => { e.stopPropagation(); onEdit(); }} className="flex-1 py-2 text-[11px] font-bold uppercase text-stone-500 hover:text-primary-400 hover:bg-white/[0.03] flex items-center justify-center gap-1.5 transition-all"><Edit size={12} /> Modifier</button>
+                <button onClick={e => { e.stopPropagation(); onDelete(); }} className="flex-1 py-2 text-[11px] font-bold uppercase text-stone-500 hover:text-red-400 hover:bg-white/[0.03] flex items-center justify-center gap-1.5 transition-all border-l border-white/5"><Trash2 size={12} /> Supprimer</button>
             </div>
         ) : (
-            <div className="flex border-t border-white/5">
-                <button onClick={onDuplicate} disabled={duplicating} className="flex-1 py-2 text-[11px] font-bold uppercase text-stone-500 hover:text-primary-400 hover:bg-white/[0.03] flex items-center justify-center gap-1.5 transition-all disabled:opacity-50"><Copy size={12} /> {duplicating ? 'Copie…' : 'Dupliquer chez moi'}</button>
-            </div>
+            <button onClick={e => { e.stopPropagation(); onDuplicate(); }} disabled={duplicating} className="w-full py-2 text-[11px] font-bold uppercase text-stone-500 hover:text-primary-400 hover:bg-white/[0.03] flex items-center justify-center gap-1.5 transition-all disabled:opacity-50"><Copy size={12} /> {duplicating ? 'Copie…' : 'Dupliquer chez moi'}</button>
         )}
-    </div>
+    >
+        <div className="flex items-center justify-between gap-2 mb-2">
+            {showCategory ? <CategoryBadge category={entry.category} /> : <span />}
+            {entry.visibility === 'public'
+                ? <Globe size={13} className="text-green-500/70" aria-label="Public" />
+                : <Lock size={13} className="text-stone-600" aria-label="Privé" />}
+        </div>
+        <h3 className="font-display font-bold text-stone-100 group-hover:text-primary-300 leading-tight">{entry.name}</h3>
+        {entry.description && <p className="text-xs text-stone-500 mt-1 line-clamp-2 leading-snug">{entry.description}</p>}
+        {!mine && <div className="mt-3"><AuthorTag pseudo={entry.authorPseudo} /></div>}
+    </ContentCard>
 );
 
 interface HomebrewBrowserProps {

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ApiService } from '../services/api';
 import { DataService } from '../services/dataService';
 import type { Character } from '../types/character';
 import { Plus, User, Swords } from 'lucide-react';
-import { Loader } from '../components/common';
+import { PageContainer, PageShell, ContentCard, EmptyState, Loader } from '../components/common';
 
 /**
  * L'API renvoie race/profile en IRI (« /api/races/349 »). On résout le nom via
@@ -30,6 +30,7 @@ const toIriNameMap = (items: unknown[]): Record<string, string> =>
     );
 
 export const CharacterList: React.FC = () => {
+    const navigate = useNavigate();
     const [characters, setCharacters] = useState<Character[]>([]);
     const [raceMap, setRaceMap] = useState<Record<string, string>>({});
     const [profileMap, setProfileMap] = useState<Record<string, string>>({});
@@ -58,26 +59,41 @@ export const CharacterList: React.FC = () => {
     if (loading) return <Loader />;
 
     return (
-        <div className="max-w-6xl mx-auto space-y-6 pb-12 pt-6">
-            <header className="flex justify-between items-center mb-8 px-4">
-                <h1 className="text-4xl font-display font-bold text-white drop-shadow-lg">Mes Personnages</h1>
-                <Link to="/characters/new" className="bg-primary-600 hover:bg-primary-500 text-stone-950 font-bold py-3 px-6 rounded-xl flex items-center gap-2 transition-all shadow-lg hover:shadow-primary-500/25">
-                    <Plus size={20} /> Nouveau Personnage
-                </Link>
-            </header>
+        <PageContainer>
+            <PageShell
+                title="Mes Personnages"
+                subtitle="Vos héros : fiches complètes, jouables à la table."
+                icon={User}
+                actions={
+                    <Link to="/characters/new" className="bg-primary-600 hover:bg-primary-500 text-stone-950 font-bold py-2.5 px-4 rounded-xl flex items-center gap-2 transition-all shadow-lg hover:shadow-primary-500/25 text-sm">
+                        <Plus size={18} /> Nouveau Personnage
+                    </Link>
+                }
+            />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
-                {/* Create New Card (Empty State or quick action) */}
-                {characters.length === 0 && (
-                    <div className="col-span-full py-12 text-center bg-stone-900/40 rounded-3xl border border-white/5 border-dashed">
-                        <p className="text-stone-400 font-display text-lg mb-4">Aucun personnage pour le moment.</p>
-                        <Link to="/characters/new" className="text-primary-400 hover:text-primary-300 underline font-bold">Créer votre premier héros</Link>
-                    </div>
-                )}
-
-                {characters.map((char) => (
-                    <div key={char.id} className="glass-panel rounded-2xl hover:border-primary-500/50 transition-all group relative overflow-hidden flex flex-col">
-                        <Link to={`/characters/${char.id}`} className="block p-6 pb-4 hover:bg-stone-900/40 transition-all flex-1">
+            {characters.length === 0 ? (
+                <EmptyState
+                    icon={User}
+                    title="Aucun personnage pour le moment"
+                    message="Créez votre premier héros pour le gérer et le jouer à la table."
+                    action={{ label: 'Créer votre premier héros', onClick: () => navigate('/characters/new') }}
+                />
+            ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {characters.map((char) => (
+                        <ContentCard
+                            key={char.id}
+                            onClick={() => navigate(`/characters/${char.id}`)}
+                            footer={
+                                <Link
+                                    to={`/play/${char.id}`}
+                                    onClick={e => e.stopPropagation()}
+                                    className="flex items-center justify-center gap-2 bg-green-800/20 hover:bg-green-700/40 text-green-300 font-display font-bold uppercase text-xs tracking-widest py-3 transition-all active:scale-[0.99]"
+                                >
+                                    <Swords size={16} /> Jouer
+                                </Link>
+                            }
+                        >
                             <div className="flex items-start justify-between mb-4">
                                 <div className="w-12 h-12 bg-primary-900/30 rounded-full flex items-center justify-center text-primary-400 border border-primary-500/20 group-hover:scale-110 transition-transform">
                                     <User size={24} />
@@ -93,17 +109,10 @@ export const CharacterList: React.FC = () => {
                             <div className="text-xs text-stone-600">
                                 Modifié le {char.updatedAt ? new Date(char.updatedAt).toLocaleDateString() : 'Jamais'}
                             </div>
-                        </Link>
-                        {/* Entrée directe vers le mode session (mobile) */}
-                        <Link
-                            to={`/play/${char.id}`}
-                            className="flex items-center justify-center gap-2 border-t border-white/5 bg-green-800/20 hover:bg-green-700/40 text-green-300 font-display font-bold uppercase text-xs tracking-widest py-3 transition-all active:scale-[0.99]"
-                        >
-                            <Swords size={16} /> Jouer
-                        </Link>
-                    </div>
-                ))}
-            </div>
-        </div>
+                        </ContentCard>
+                    ))}
+                </div>
+            )}
+        </PageContainer>
     );
 };

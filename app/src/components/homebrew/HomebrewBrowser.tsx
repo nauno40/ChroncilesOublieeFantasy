@@ -1,41 +1,14 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Plus, Globe, Lock, Edit, Trash2, X, Copy, Search } from 'lucide-react';
-import { Loader, ContentCard, AuthorTag } from '../common';
+import { Plus, Globe, X, Search } from 'lucide-react';
+import { Loader } from '../common';
 import { useAuth } from '../../context/AuthContext';
 import { HomebrewService, HOMEBREW_CATEGORIES, categoryLabel, type HomebrewEntry, type HomebrewInput } from '../../services/homebrewService';
 import { HOMEBREW_SCHEMAS, hasStructuredSchema, pruneToSchema } from '../../services/homebrewSchemas';
 import { HomebrewFields } from './HomebrewFields';
+import { HomebrewList } from './HomebrewList';
 
 type Tab = 'mine' | 'community';
-
-const CategoryBadge: React.FC<{ category: string }> = ({ category }) => (
-    <span className="text-[10px] uppercase font-bold tracking-wider text-primary-400/80 border border-primary-500/30 rounded px-1.5 py-0.5">{categoryLabel(category)}</span>
-);
-
-const Card: React.FC<{ entry: HomebrewEntry; mine: boolean; duplicating: boolean; showCategory: boolean; onOpen: () => void; onEdit: () => void; onDelete: () => void; onDuplicate: () => void }> = ({ entry, mine, duplicating, showCategory, onOpen, onEdit, onDelete, onDuplicate }) => (
-    <ContentCard
-        onClick={onOpen}
-        footer={mine ? (
-            <div className="flex">
-                <button onClick={e => { e.stopPropagation(); onEdit(); }} className="flex-1 py-2 text-[11px] font-bold uppercase text-stone-500 hover:text-primary-400 hover:bg-white/[0.03] flex items-center justify-center gap-1.5 transition-all"><Edit size={12} /> Modifier</button>
-                <button onClick={e => { e.stopPropagation(); onDelete(); }} className="flex-1 py-2 text-[11px] font-bold uppercase text-stone-500 hover:text-red-400 hover:bg-white/[0.03] flex items-center justify-center gap-1.5 transition-all border-l border-white/5"><Trash2 size={12} /> Supprimer</button>
-            </div>
-        ) : (
-            <button onClick={e => { e.stopPropagation(); onDuplicate(); }} disabled={duplicating} className="w-full py-2 text-[11px] font-bold uppercase text-stone-500 hover:text-primary-400 hover:bg-white/[0.03] flex items-center justify-center gap-1.5 transition-all disabled:opacity-50"><Copy size={12} /> {duplicating ? 'Copie…' : 'Dupliquer chez moi'}</button>
-        )}
-    >
-        <div className="flex items-center justify-between gap-2 mb-2">
-            {showCategory ? <CategoryBadge category={entry.category} /> : <span />}
-            {entry.visibility === 'public'
-                ? <Globe size={13} className="text-green-500/70" aria-label="Public" />
-                : <Lock size={13} className="text-stone-600" aria-label="Privé" />}
-        </div>
-        <h3 className="font-display font-bold text-stone-100 group-hover:text-primary-300 leading-tight">{entry.name}</h3>
-        {entry.description && <p className="text-xs text-stone-500 mt-1 line-clamp-2 leading-snug">{entry.description}</p>}
-        {!mine && <div className="mt-3"><AuthorTag pseudo={entry.authorPseudo} /></div>}
-    </ContentCard>
-);
 
 interface HomebrewBrowserProps {
     tab: Tab;
@@ -147,11 +120,16 @@ export const HomebrewBrowser: React.FC<HomebrewBrowserProps> = ({ tab, onTabChan
                     {tab === 'mine' && <button onClick={openNew} className="text-primary-400 hover:text-primary-300 text-sm underline mt-2">Créer votre premier contenu</button>}
                 </div>
             ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {visible.map(e => (
-                        <Card key={e.id} entry={e} mine={e.authorId === myId} duplicating={duplicatingId === e.id} showCategory={!locked} onOpen={() => navigate(`/homebrew/${e.id}`)} onEdit={() => openEdit(e)} onDelete={() => handleDelete(e)} onDuplicate={() => handleDuplicate(e)} />
-                    ))}
-                </div>
+                <HomebrewList
+                    entries={visible}
+                    category={category}
+                    myId={myId}
+                    duplicatingId={duplicatingId}
+                    onOpen={e => navigate(`/homebrew/${e.id}`)}
+                    onEdit={openEdit}
+                    onDelete={handleDelete}
+                    onDuplicate={handleDuplicate}
+                />
             )}
 
             {/* Modale création / édition */}

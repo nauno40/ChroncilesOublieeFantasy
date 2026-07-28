@@ -105,7 +105,6 @@ export const Capacites: React.FC = () => {
     return (
         <PageContainer>
             <PageHeader
-                title="Capacités"
                 searchValue={searchTerm}
                 onSearchChange={setSearchTerm}
                 searchPlaceholder="Rechercher une capacité..."

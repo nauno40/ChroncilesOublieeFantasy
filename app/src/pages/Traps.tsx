@@ -25,7 +25,6 @@ export const Traps: React.FC = () => {
     return (
         <PageContainer>
             <PageHeader
-                title="Pièges"
                 searchValue={searchTerm}
                 onSearchChange={setSearchTerm}
                 searchPlaceholder="Rechercher un piège..."

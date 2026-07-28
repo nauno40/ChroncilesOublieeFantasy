@@ -46,7 +46,6 @@ export const Classes: React.FC = () => {
     return (
         <PageContainer>
             <PageHeader
-                title="Classes"
                 searchValue={searchTerm}
                 onSearchChange={setSearchTerm}
                 searchPlaceholder="Rechercher une classe..."

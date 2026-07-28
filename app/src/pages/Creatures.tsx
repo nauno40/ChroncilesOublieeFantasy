@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Bestiary } from './Bestiary';
 import { CustomMonsters } from './CustomMonsters';
-import { PageContainer } from '../components/common';
+import { PageContainer, PageShell, SourceTabs } from '../components/common';
 
 /**
- * Page « Créatures » unifiée (compendium communautaire) : un filtre de source
- * réunit le bestiaire officiel (Bestiary) et les créatures maison / communautaires
- * (CustomMonsters, encapsulé). Phase 1 de la refonte compendium unifié.
+ * Page « Créatures » unifiée (compendium communautaire) : en-tête PageShell + filtre
+ * source réunissant le bestiaire officiel (Bestiary) et les créatures maison /
+ * communautaires (CustomMonsters, encapsulé).
  */
 type Source = 'official' | 'community' | 'mine';
 
@@ -22,20 +22,14 @@ export const Creatures: React.FC = () => {
     return (
         <div>
             <PageContainer>
-                <div className="flex items-center flex-wrap gap-2">
-                    <h1 className="text-3xl font-display font-bold text-white mr-2">Créatures</h1>
-                    {SOURCES.map(s => (
-                        <button
-                            key={s.id}
-                            onClick={() => setSource(s.id)}
-                            className={`px-4 py-2 rounded-xl text-sm font-bold transition-all ${source === s.id ? 'bg-primary-500/20 text-primary-300 border border-primary-500/40' : 'bg-stone-900/40 text-stone-500 border border-white/5 hover:text-stone-300'}`}
-                        >
-                            {s.label}
-                        </button>
-                    ))}
-                </div>
+                <PageShell
+                    title="Créatures"
+                    tabs={<SourceTabs tabs={SOURCES} value={source} onChange={setSource} />}
+                    className="mb-0"
+                />
             </PageContainer>
 
+            {/* Bestiary et CustomMonsters apportent chacun leur propre conteneur. */}
             {source === 'official' ? (
                 <Bestiary />
             ) : (

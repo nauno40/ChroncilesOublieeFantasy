@@ -25,7 +25,6 @@ export const States: React.FC = () => {
     return (
         <PageContainer>
             <PageHeader
-                title="États Préjudiciables"
                 searchValue={searchTerm}
                 onSearchChange={setSearchTerm}
                 searchPlaceholder="Rechercher un état..."

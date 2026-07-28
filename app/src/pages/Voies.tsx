@@ -72,7 +72,6 @@ export const Voies: React.FC = () => {
     return (
         <PageContainer>
             <PageHeader
-                title="Voies & Disciplines"
                 subtitle="Explorez les chemins de puissance et de maîtrise"
                 searchValue={searchTerm}
                 onSearchChange={setSearchTerm}
@@ -131,7 +130,6 @@ export const Voies: React.FC = () => {
                             <button
                                 onClick={() => { setSelectedType('all'); setSelectedProfile('all'); }}
                                 className="p-1.5 text-stone-500 hover:text-red-400 hover:bg-red-400/10 rounded-lg transition-colors"
-                                title="Réinitialiser les filtres"
                             >
                                 <X size={18} />
                             </button>

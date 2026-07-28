@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { PageContainer, PageHeader, SearchBar, EmptyState, TabGroup, Loader } from '../components/common';
+import { PageContainer, SearchBar, EmptyState, TabGroup, Loader } from '../components/common';
 import { useSearch } from '../hooks';
 import { Sword, Shield, Gem } from 'lucide-react';
 import { DataService } from '../services/dataService';
@@ -106,7 +106,6 @@ export const Equipment: React.FC = () => {
 
     return (
         <PageContainer>
-            <PageHeader title="Équipement" />
 
             {loading ? (
                 <Loader />

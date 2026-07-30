@@ -184,7 +184,9 @@ export const Layout: React.FC = () => {
             {/* Main Content Area */}
             {/* pb-40 (mobile) : dégage la barre de nav basse ET le bouton flottant,
                 pour que la dernière ligne de contenu puisse défiler au-dessus d'eux. */}
-            <main className="flex-1 px-4 pt-24 pb-40 md:pt-8 md:pb-8 md:pl-80 w-full overflow-x-hidden min-h-screen">
+            {/* pt-28 (112px) : l'en-tête mobile fixe mesure ~106px — pt-24 laissait le
+                titre de page passer sous son dégradé (haut des lettres rogné). */}
+            <main className="flex-1 px-4 pt-28 pb-40 md:pt-8 md:pb-8 md:pl-80 w-full overflow-x-hidden min-h-screen">
                 <Outlet />
             </main>
 

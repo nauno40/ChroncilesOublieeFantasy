@@ -1260,6 +1260,7 @@ class AppFixtures extends Fixture
             [$lyra, "sort", "Illusion parfaite", "Crée une image mobile indiscernable du réel (INT pour percer).", "public", 15],
             [$lyra, "capacite", "Pas de brume", "Se téléporte à 5m dans un endroit visible, 1/combat.", "public", 8],
             [$lyra, "objet-magique", "Voile d'invisibilité", "Rend invisible 1d4 tours ou jusqu'à la première attaque.", "public", 5],
+            [$lyra, "poison", "Larmes de lune", "Inhalation. CON ou endormi 1d6 tours ; le dormeur se réveille au moindre bruit.", "public", 11],
         ];
 
         // Champs structurés (data) de démo, par nom d'entrée — fidèles au schéma de la
@@ -1284,6 +1285,7 @@ class AppFixtures extends Fixture
             "Ration elfique" => ['type' => 'Nourriture', 'price' => '5 po', 'weight' => 0.2, 'properties' => ["Une bouchée nourrit une journée entière."]],
             "Venin de mille-pattes" => ['effectFail' => "-2 à toutes les actions pendant 1 heure.", 'effectSuccess' => "Aucun effet.", 'duration' => '1 heure', 'delay' => 'Immédiat', 'note' => "Ingestion. Bon marché."],
             "Sève noire" => ['effectFail' => "Paralysie 1d4 tours.", 'effectSuccess' => "Ralenti 1 tour.", 'duration' => '1d4 tours', 'delay' => '1 tour', 'note' => "Contact. Rare et coûteux."],
+            "Larmes de lune" => ['effectFail' => "Endormi 1d6 tours.", 'effectSuccess' => "Étourdi 1 tour.", 'duration' => '1d6 tours', 'delay' => '1 tour', 'note' => "Inhalation. Le dormeur se réveille au moindre bruit."],
             "Fosse à pals" => ['detectDifficulty' => 'DIF 15 (PER)', 'disarmDifficulty' => 'DIF 12', 'effect' => "2d6 DM et cible immobilisée.", 'complement' => "Recouverte de feuillage."],
             "Rune explosive" => ['detectDifficulty' => 'DIF 18 (INT)', 'disarmDifficulty' => 'DIF 16', 'effect' => "3d6 DM de feu, zone de 3 m.", 'complement' => "Se déclenche à l'approche."],
             // Communauté (autres joueurs)

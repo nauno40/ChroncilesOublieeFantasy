@@ -134,18 +134,30 @@ export const HomebrewList: React.FC<HomebrewListProps> = ({ entries, category, m
     if (tableCat) {
         const cols = TABLE_COLUMNS[tableCat];
         const minW = 440 + cols.length * 130;
+        // Deux habillages de table selon la page officielle imitée : Equipment.tsx utilise
+        // des en-têtes larges (p-4, font-display, primary-300) dans un panneau rounded-xl ;
+        // Poisons.tsx / Traps.tsx des en-têtes fins en petites capitales, panneau rounded-2xl.
+        const big = tableCat === 'equipement' || tableCat === 'objet-magique';
+        const wrapCls = big
+            ? 'hidden md:block glass-panel rounded-xl overflow-x-auto'
+            : 'hidden md:block glass-panel rounded-2xl border border-white/5 overflow-x-auto';
+        const headRowCls = big
+            ? 'border-b border-white/10 bg-black/20'
+            : 'text-[10px] uppercase tracking-wider text-primary-500/70 border-b border-white/10';
+        const thCls = big ? 'p-4 text-primary-300 font-display font-bold whitespace-nowrap' : 'px-4 py-3 font-bold';
+        const tdCls = big ? 'p-4' : 'px-4 py-3';
         return (
             <>
                 {/* Desktop : table complète, calquée sur le compendium officiel */}
-                <div className="hidden md:block glass-panel rounded-2xl border border-white/5 overflow-x-auto">
-                    <table className="w-full text-sm text-left border-collapse" style={{ minWidth: minW }}>
+                <div className={wrapCls}>
+                    <table className={`w-full text-left border-collapse ${big ? '' : 'text-sm'}`} style={{ minWidth: minW }}>
                         <thead>
-                            <tr className="text-[10px] uppercase tracking-wider text-primary-500/70 border-b border-white/10">
-                                <th className="px-4 py-3 font-bold">Nom</th>
+                            <tr className={headRowCls}>
+                                <th className={thCls}>Nom</th>
                                 {cols.map(c => (
-                                    <th key={c.key} className={`px-4 py-3 font-bold ${c.num ? 'text-right' : ''}`}>{c.label}</th>
+                                    <th key={c.key} className={`${thCls} ${c.num ? 'text-right' : ''}`}>{c.label}</th>
                                 ))}
-                                <th className="px-4 py-3 font-bold text-right sticky right-0 bg-stone-950/95 backdrop-blur-sm">{myId !== undefined ? 'Auteur / Actions' : 'Auteur'}</th>
+                                <th className={`${thCls} text-right sticky right-0 bg-stone-950/95 backdrop-blur-sm`}>{myId !== undefined ? 'Auteur / Actions' : 'Auteur'}</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-white/5">
@@ -154,9 +166,9 @@ export const HomebrewList: React.FC<HomebrewListProps> = ({ entries, category, m
                                 const data = entry.data ?? {};
                                 return (
                                     <tr key={entry.id} onClick={() => onOpen(entry)} className="hover:bg-primary-500/5 transition-colors cursor-pointer">
-                                        <td className="px-4 py-3 align-top">
+                                        <td className={`${tdCls} align-top`}>
                                             <div className="flex items-center gap-2">
-                                                <span className="text-stone-100 font-bold">{entry.name}</span>
+                                                <span className="text-stone-200 font-bold">{entry.name}</span>
                                                 {entry.visibility === 'public'
                                                     ? <Globe size={12} className="text-green-500/70 shrink-0" aria-label="Public" />
                                                     : <Lock size={12} className="text-stone-600 shrink-0" aria-label="Privé" />}
@@ -164,13 +176,13 @@ export const HomebrewList: React.FC<HomebrewListProps> = ({ entries, category, m
                                             {entry.description && <div className="text-stone-500 text-xs mt-0.5 line-clamp-1 max-w-[26ch]">{entry.description}</div>}
                                         </td>
                                         {cols.map(c => (
-                                            <td key={c.key} className={`px-4 py-3 align-top ${c.num ? 'text-right font-mono text-stone-300' : 'text-stone-400'} ${c.wrap ? 'text-xs min-w-[16ch] max-w-[28ch]' : 'whitespace-nowrap text-sm'}`}>
+                                            <td key={c.key} className={`${tdCls} align-top ${c.num ? 'text-right font-mono text-stone-300' : 'text-stone-400'} ${c.wrap ? 'text-xs min-w-[16ch] max-w-[28ch]' : 'whitespace-nowrap text-sm'}`}>
                                                 {c.wrap
                                                     ? <span className="line-clamp-2 leading-snug">{fmt(data[c.key], c)}</span>
                                                     : fmt(data[c.key], c)}
                                             </td>
                                         ))}
-                                        <td className="px-4 py-3 align-top text-right sticky right-0 bg-stone-950/95 backdrop-blur-sm">
+                                        <td className={`${tdCls} align-top text-right sticky right-0 bg-stone-950/95 backdrop-blur-sm`}>
                                             <RowActions entry={entry} mine={mine} duplicating={duplicatingId === entry.id} onEdit={() => onEdit(entry)} onDelete={() => onDelete(entry)} onDuplicate={() => onDuplicate(entry)} />
                                         </td>
                                     </tr>
@@ -213,6 +225,42 @@ export const HomebrewList: React.FC<HomebrewListProps> = ({ entries, category, m
                     })}
                 </div>
             </>
+        );
+    }
+
+    // --- Rendu « puces » (États) : la page officielle States.tsx aligne de petites
+    // cartes en flex-wrap (min-w 200px, titre text-base, description sur 2 lignes). ---
+    if (category === 'etat') {
+        return (
+            <div className="flex flex-wrap gap-3">
+                {entries.map(entry => {
+                    const mine = entry.authorId === myId;
+                    return (
+                        <div key={entry.id} className="glass-panel rounded-xl border border-white/5 hover:border-primary-500/30 transition-all group min-w-[200px] max-w-[320px] flex-1 overflow-hidden">
+                            <button onClick={() => onOpen(entry)} className="text-left w-full p-4 flex items-start gap-3">
+                                <div className="flex-1 min-w-0">
+                                    <h3 className="text-base font-display font-bold text-primary-300 mb-1 group-hover:text-primary-200 transition-colors">{entry.name}</h3>
+                                    <p className="text-xs text-stone-400 line-clamp-2">{entry.description}</p>
+                                    {!mine && <div className="mt-2"><AuthorTag pseudo={entry.authorPseudo} /></div>}
+                                </div>
+                                {entry.visibility === 'public'
+                                    ? <Globe size={12} className="text-green-500/70 shrink-0 mt-1" aria-label="Public" />
+                                    : <Lock size={12} className="text-stone-600 shrink-0 mt-1" aria-label="Privé" />}
+                            </button>
+                            <div className="border-t border-white/5">
+                                {mine ? (
+                                    <div className="flex">
+                                        <button onClick={e => { e.stopPropagation(); onEdit(entry); }} className="flex-1 py-1.5 text-[10px] font-bold uppercase text-stone-500 hover:text-primary-400 hover:bg-white/[0.03] flex items-center justify-center gap-1.5 transition-all"><Edit size={11} /> Modifier</button>
+                                        <button onClick={e => { e.stopPropagation(); onDelete(entry); }} className="flex-1 py-1.5 text-[10px] font-bold uppercase text-stone-500 hover:text-red-400 hover:bg-white/[0.03] flex items-center justify-center gap-1.5 transition-all border-l border-white/5"><Trash2 size={11} /> Supprimer</button>
+                                    </div>
+                                ) : (
+                                    <button onClick={e => { e.stopPropagation(); onDuplicate(entry); }} disabled={duplicatingId === entry.id} className="w-full py-1.5 text-[10px] font-bold uppercase text-stone-500 hover:text-primary-400 hover:bg-white/[0.03] flex items-center justify-center gap-1.5 transition-all disabled:opacity-50"><Copy size={11} /> {duplicatingId === entry.id ? 'Copie…' : 'Dupliquer'}</button>
+                                )}
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
         );
     }
 

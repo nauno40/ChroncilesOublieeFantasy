@@ -1,6 +1,6 @@
 import React from 'react';
 import { Globe, Lock, Edit, Trash2, Copy } from 'lucide-react';
-import { ContentCard, AuthorTag } from '../common';
+import { AuthorTag } from '../common';
 import { categoryLabel, type HomebrewEntry } from '../../services/homebrewService';
 
 /**
@@ -62,13 +62,17 @@ const tableCategoryOf = (category?: string | string[]): string | null => {
 // Le contenu communautaire y reçoit une image générique (initiale) pour la même tête.
 const IMAGE_CATEGORIES = new Set(['race', 'classe']);
 
+// Catégories dont les pages officielles utilisent une grille dense (4 colonnes) et un
+// titre plus petit : Voies et Capacités & Sorts.
+const DENSE_CATEGORIES = new Set(['voie', 'capacite', 'sort']);
+
 /** Placeholder SVG générique (initiale) — identique au fallback du composant Card officiel. */
 const genericImage = (alt: string) =>
     `data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23292524" width="400" height="300"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-size="120" fill="%23f59e0b"%3E${alt.charAt(0).toUpperCase()}%3C/text%3E%3C/svg%3E`;
 
 /** En-tête image d'une carte communautaire (image fournie sinon générique), calqué sur Card. */
 const CardMedia: React.FC<{ alt: string; src?: string }> = ({ alt, src }) => (
-    <div className="relative h-40 overflow-hidden bg-gradient-to-b from-stone-900/50 to-stone-950">
+    <div className="relative h-48 overflow-hidden bg-gradient-to-b from-stone-900/50 to-stone-950 rounded-t-xl">
         <img
             src={src || genericImage(alt)}
             alt={alt}
@@ -212,37 +216,47 @@ export const HomebrewList: React.FC<HomebrewListProps> = ({ entries, category, m
         );
     }
 
-    // --- Rendu grille de cartes (autres catégories) ---
+    // --- Rendu grille de cartes (calqué sur le composant Card officiel) ---
+    // Les pages officielles Voies/Capacités utilisent une grille plus dense (4 colonnes)
+    // et un titre plus petit ; Races/Classes sont en 3 colonnes avec un titre text-xl.
+    const dense = typeof category === 'string'
+        ? DENSE_CATEGORIES.has(category)
+        : (category ?? []).every(c => DENSE_CATEGORIES.has(c)) && (category ?? []).length > 0;
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className={`grid md:grid-cols-2 lg:grid-cols-3 gap-4 ${dense ? 'xl:grid-cols-4' : ''}`}>
             {entries.map(entry => {
                 const mine = entry.authorId === myId;
                 const dataImg = typeof entry.data?.image === 'string' ? entry.data.image : undefined;
-                const media = IMAGE_CATEGORIES.has(entry.category) ? <CardMedia alt={entry.name} src={dataImg} /> : undefined;
+                const hasImage = IMAGE_CATEGORIES.has(entry.category);
                 return (
-                    <ContentCard
-                        key={entry.id}
-                        onClick={() => onOpen(entry)}
-                        media={media}
-                        footer={mine ? (
-                            <div className="flex">
-                                <button onClick={e => { e.stopPropagation(); onEdit(entry); }} className="flex-1 py-2 text-[11px] font-bold uppercase text-stone-500 hover:text-primary-400 hover:bg-white/[0.03] flex items-center justify-center gap-1.5 transition-all"><Edit size={12} /> Modifier</button>
-                                <button onClick={e => { e.stopPropagation(); onDelete(entry); }} className="flex-1 py-2 text-[11px] font-bold uppercase text-stone-500 hover:text-red-400 hover:bg-white/[0.03] flex items-center justify-center gap-1.5 transition-all border-l border-white/5"><Trash2 size={12} /> Supprimer</button>
+                    <div key={entry.id} className="glass-panel rounded-xl border-white/5 transition-all duration-300 group hover:border-primary-500/40 hover:shadow-[0_0_15px_rgba(245,158,11,0.1)] hover:-translate-y-1 overflow-hidden flex flex-col">
+                        <button onClick={() => onOpen(entry)} className="text-left flex flex-col flex-1 min-w-0">
+                            {hasImage && <CardMedia alt={entry.name} src={dataImg} />}
+                            <div className="p-4 flex-1 flex flex-col min-w-0">
+                                <div className="flex items-start justify-between gap-2 mb-2">
+                                    {!locked
+                                        ? <span className="text-[10px] uppercase font-bold tracking-wider text-primary-400/80 border border-primary-500/30 rounded px-1.5 py-0.5">{categoryLabel(entry.category)}</span>
+                                        : <span />}
+                                    {entry.visibility === 'public'
+                                        ? <Globe size={14} className="text-green-500/70 shrink-0 mt-0.5" aria-label="Public" />
+                                        : <Lock size={14} className="text-stone-600 shrink-0 mt-0.5" aria-label="Privé" />}
+                                </div>
+                                <h3 className={`font-display font-bold mb-2 transition-colors leading-tight ${dense ? 'text-lg text-primary-200 group-hover:text-primary-100' : 'text-xl text-primary-300 group-hover:text-primary-200'}`}>{entry.name}</h3>
+                                {entry.description && <p className={`text-stone-400 line-clamp-3 ${dense ? 'text-xs leading-relaxed' : 'text-sm'}`}>{entry.description}</p>}
+                                {!mine && <div className="mt-3 pt-3 border-t border-white/5"><AuthorTag pseudo={entry.authorPseudo} /></div>}
                             </div>
-                        ) : (
-                            <button onClick={e => { e.stopPropagation(); onDuplicate(entry); }} disabled={duplicatingId === entry.id} className="w-full py-2 text-[11px] font-bold uppercase text-stone-500 hover:text-primary-400 hover:bg-white/[0.03] flex items-center justify-center gap-1.5 transition-all disabled:opacity-50"><Copy size={12} /> {duplicatingId === entry.id ? 'Copie…' : 'Dupliquer chez moi'}</button>
-                        )}
-                    >
-                        <div className="flex items-center justify-between gap-2 mb-2">
-                            {!locked ? <span className="text-[10px] uppercase font-bold tracking-wider text-primary-400/80 border border-primary-500/30 rounded px-1.5 py-0.5">{categoryLabel(entry.category)}</span> : <span />}
-                            {entry.visibility === 'public'
-                                ? <Globe size={13} className="text-green-500/70" aria-label="Public" />
-                                : <Lock size={13} className="text-stone-600" aria-label="Privé" />}
+                        </button>
+                        <div className="border-t border-white/5">
+                            {mine ? (
+                                <div className="flex">
+                                    <button onClick={e => { e.stopPropagation(); onEdit(entry); }} className="flex-1 py-2 text-[11px] font-bold uppercase text-stone-500 hover:text-primary-400 hover:bg-white/[0.03] flex items-center justify-center gap-1.5 transition-all"><Edit size={12} /> Modifier</button>
+                                    <button onClick={e => { e.stopPropagation(); onDelete(entry); }} className="flex-1 py-2 text-[11px] font-bold uppercase text-stone-500 hover:text-red-400 hover:bg-white/[0.03] flex items-center justify-center gap-1.5 transition-all border-l border-white/5"><Trash2 size={12} /> Supprimer</button>
+                                </div>
+                            ) : (
+                                <button onClick={e => { e.stopPropagation(); onDuplicate(entry); }} disabled={duplicatingId === entry.id} className="w-full py-2 text-[11px] font-bold uppercase text-stone-500 hover:text-primary-400 hover:bg-white/[0.03] flex items-center justify-center gap-1.5 transition-all disabled:opacity-50"><Copy size={12} /> {duplicatingId === entry.id ? 'Copie…' : 'Dupliquer chez moi'}</button>
+                            )}
                         </div>
-                        <h3 className="font-display font-bold text-stone-100 group-hover:text-primary-300 leading-tight">{entry.name}</h3>
-                        {entry.description && <p className="text-xs text-stone-500 mt-1 line-clamp-2 leading-snug">{entry.description}</p>}
-                        {!mine && <div className="mt-3"><AuthorTag pseudo={entry.authorPseudo} /></div>}
-                    </ContentCard>
+                    </div>
                 );
             })}
         </div>

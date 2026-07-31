@@ -91,9 +91,26 @@ const unlabelled = (v: unknown): SheetLabelled[] | undefined => {
     return lines?.map(value => ({ label: '', value }));
 };
 
+/** Projette les lignes d'un champ homebrew (`weaponsAuth`/`armorAuth`) en une entrée
+ * libellée unique, avec l'intitulé que l'officiel utilise pour le même concept
+ * (`masteries.weapons` → "Armes", `masteries.armors` → "Armures" — cf. `MASTERY_LABELS`
+ * dans `fromOfficial.ts`). Pas de carte séparée : une carte supplémentaire côté
+ * communautaire casserait l'iso officiel/communautaire (seul écart autorisé, le
+ * bandeau propriétaire) — ces champs rejoignent donc la carte "Maîtrises" existante.
+ */
+const labelledLines = (label: string, v: unknown): SheetLabelled | undefined => {
+    const lines = list(v);
+    return lines?.length ? { label, value: lines.join(', ') } : undefined;
+};
+
 export const homebrewToProfileVM = (e: HomebrewEntry): ProfileSheetVM => {
     const data = d(e);
     const familyName = str(data.family);
+    const masteries = [
+        labelledLines('Armes', data.weaponsAuth),
+        labelledLines('Armures', data.armorAuth),
+        ...(unlabelled(data.masteries) ?? []),
+    ].filter((m): m is SheetLabelled => m !== undefined);
     return {
         name: e.name,
         description: str(e.description),
@@ -102,10 +119,8 @@ export const homebrewToProfileVM = (e: HomebrewEntry): ProfileSheetVM => {
         magicStat: str(data.magicStat),
         armorMaxDef: num(data.armorMaxDef),
         stats: caracsForStats(data.stats),
-        weaponsAuth: list(data.weaponsAuth),
-        armorAuth: list(data.armorAuth),
         startingEquipment: list(data.startingEquipment),
-        masteries: unlabelled(data.masteries),
+        masteries: masteries.length ? masteries : undefined,
         note: str(data.note),
         lore: unlabelled(data.lore),
     };

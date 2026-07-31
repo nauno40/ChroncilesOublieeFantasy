@@ -100,20 +100,25 @@ export interface ProfileSheetVM {
     profileType?: string;
     magicStat?: string;
     armorMaxDef?: number;
-    /** Caractéristiques COF2 numériques (AGI, CON…) — concept homebrew (« Stats de
-     * départ ») sans équivalent affiché sur la page officielle des classes. Conservé
-     * pour compatibilité mais non rendu par `ProfileSheet` (cf. rapport de tâche). */
+    /** Caractéristiques COF2 numériques (AGI, CON…) : sur la page officielle, ce sont
+     * les entrées de `profile.stats` autres que les 4 métadonnées connues
+     * (`profileType`/`hpPerLevel`/`hitDie`/`magicStat`), rendues génériquement dans le
+     * panneau "Statistiques Vitales" (`ClassDetail.tsx:158-168`). Jamais peuplé côté
+     * officiel dans les fixtures actuelles, mais c'est le porteur naturel des
+     * caractéristiques de départ saisies côté communautaire (« Stats de départ »).
+     */
     stats?: Record<string, number>;
     /**
      * Maîtrises libellées. L'officiel les rend une par une avec leur intitulé
      * (armes, armures, boucliers, contraintes) : un simple string[] perdrait
-     * l'intitulé et mélangerait « armes » et « contraintes ».
+     * l'intitulé et mélangerait « armes » et « contraintes ». Les champs homebrew
+     * `weaponsAuth`/`armorAuth` (sans équivalent structuré côté officiel) sont
+     * projetés ici en entrées « Armes »/« Armures », plutôt que dans une carte à part
+     * qui casserait l'iso avec la fiche officielle.
      */
     masteries?: SheetLabelled[];
     /** Repli texte de l'officiel, affiché quand les maîtrises structurées manquent. */
     weaponsAndArmor?: string;
-    weaponsAuth?: string[];
-    armorAuth?: string[];
     startingEquipment?: (SheetEquipmentItem | string)[];
     note?: string;
     /** Lore libellé : l'officiel le stocke en objet et le rend par entrées clé/valeur. */

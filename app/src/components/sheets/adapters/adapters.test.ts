@@ -248,32 +248,41 @@ describe('adaptateurs homebrew', () => {
 
     it('ne renvoie jamais de tableau vide pour les listes', () => {
         const vmProfile = homebrewToProfileVM(emptyEntry('classe'));
-        expect(vmProfile.weaponsAuth).toBeUndefined();
         expect(vmProfile.masteries).toBeUndefined();
         const vmCapacite = homebrewToCapaciteVM(emptyEntry('sort'));
         expect(vmCapacite.effect).toBeUndefined();
         expect(vmCapacite.details).toBeUndefined();
     });
 
-    it('projette une classe homebrew complète : maîtrises/lore en entrées sans label, famille en {name}', () => {
+    it('projette une classe homebrew complète : armes/armures autorisées + maîtrises libres rejoignent la carte Maîtrises (pas de carte à part), lore en entrées sans label, famille en {name}', () => {
         const entry = {
             ...emptyEntry('classe'), name: 'Berserker totémique', description: 'Guerrier lié à un esprit animal',
             data: {
                 family: 'Combattants totémiques', magicStat: 'VOL', armorMaxDef: 4,
-                weaponsAuth: ['Armes à deux mains'], armorAuth: ['Cuir'],
-                startingEquipment: ['Hache tribale'], masteries: ['Toutes armes de contact', 'Boucliers interdits'],
+                weaponsAuth: ['Armes à deux mains', 'Armes de jet'], armorAuth: ['Cuir'],
+                startingEquipment: ['Hache tribale'], masteries: ['Boucliers interdits'],
                 lore: ['Les clans du nord vénèrent leurs totems.'],
             },
         } as HomebrewEntry;
         const vm = homebrewToProfileVM(entry);
         expect(vm.family).toEqual({ name: 'Combattants totémiques' });
+        // weaponsAuth/armorAuth : mêmes intitulés que l'officiel (masteries.weapons/armors),
+        // fondus en une seule entrée par champ, dans la même carte que les maîtrises libres.
         expect(vm.masteries).toEqual([
-            { label: '', value: 'Toutes armes de contact' },
+            { label: 'Armes', value: 'Armes à deux mains, Armes de jet' },
+            { label: 'Armures', value: 'Cuir' },
             { label: '', value: 'Boucliers interdits' },
         ]);
         expect(vm.lore).toEqual([{ label: '', value: 'Les clans du nord vénèrent leurs totems.' }]);
-        expect(vm.weaponsAuth).toEqual(['Armes à deux mains']);
-        expect(vm.armorAuth).toEqual(['Cuir']);
+    });
+
+    it('projette les stats de départ (caracs) communautaires dans `stats` — même porteur que le panneau officiel', () => {
+        const entry = {
+            ...emptyEntry('classe'), name: 'Berserker totémique',
+            data: { stats: { AGI: 1, CON: 2, FOR: 3, PER: 0, CHA: 0, INT: -1, VOL: 0 } },
+        } as HomebrewEntry;
+        const vm = homebrewToProfileVM(entry);
+        expect(vm.stats).toEqual({ AGI: 1, CON: 2, FOR: 3, PER: 0, CHA: 0, INT: -1, VOL: 0 });
     });
 
     it('laisse family/masteries/lore undefined pour une classe homebrew sans détail', () => {

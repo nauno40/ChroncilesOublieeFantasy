@@ -86,9 +86,9 @@ export const ProfileSheet: React.FC<ProfileSheetProps> = ({ vm, backTo, backLabe
         vm.family.manaStat !== undefined ||
         vm.family.bonus !== undefined
     );
-    const hasVitalStats = vm.hitDie !== undefined || hasFamilyStats;
+    const hasStatsEntries = vm.stats !== undefined && Object.keys(vm.stats).length > 0;
+    const hasVitalStats = vm.hitDie !== undefined || hasFamilyStats || hasStatsEntries;
     const hasMasteries = (vm.masteries?.length ?? 0) > 0 || vm.weaponsAndArmor !== undefined;
-    const hasAuthorizations = (vm.weaponsAuth?.length ?? 0) > 0 || (vm.armorAuth?.length ?? 0) > 0;
     const hasStartingEquipment = (vm.startingEquipment?.length ?? 0) > 0;
     const hasLoreTab = vm.description !== undefined || vm.note !== undefined || (vm.lore?.length ?? 0) > 0 || vm.family?.description !== undefined;
     const hasVoiesTab = (vm.voies?.length ?? 0) > 0;
@@ -139,6 +139,16 @@ export const ProfileSheet: React.FC<ProfileSheetProps> = ({ vm, backTo, backLabe
                                             <span className="font-display text-xl text-primary-200">{vm.hitDie}</span>
                                         </div>
                                     )}
+
+                                    {vm.stats && Object.entries(vm.stats).map(([key, value]) => (
+                                        <div key={key} className="flex justify-between items-center border-b border-white/5 pb-2">
+                                            <div className="flex items-center gap-2 text-stone-400">
+                                                <Activity size={16} className="text-primary-600/60" />
+                                                <span>{key}</span>
+                                            </div>
+                                            <span className="font-display text-lg text-primary-200 text-right max-w-[60%]">{String(value)}</span>
+                                        </div>
+                                    ))}
 
                                     {vm.family && (
                                         <>
@@ -212,43 +222,6 @@ export const ProfileSheet: React.FC<ProfileSheetProps> = ({ vm, backTo, backLabe
                                     ) : (
                                         <div>
                                             <p className="text-stone-300 text-sm leading-relaxed">{vm.weaponsAndArmor}</p>
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
-                        )}
-
-                        {hasAuthorizations && (
-                            <div className="bg-stone-900/80 backdrop-blur-sm rounded-2xl p-6 border border-white/5 shadow-xl hover:border-primary-500/20">
-                                <h3 className="text-stone-500 text-xs font-bold uppercase tracking-widest mb-6 flex items-center gap-2">
-                                    <span className="w-8 h-[1px] bg-stone-700"></span>
-                                    Autorisations
-                                </h3>
-                                <div className="space-y-4">
-                                    {vm.weaponsAuth && vm.weaponsAuth.length > 0 && (
-                                        <div>
-                                            <strong className="text-primary-400 block mb-2 font-display text-sm uppercase tracking-wide">Armes autorisées</strong>
-                                            <div className="space-y-1 text-sm text-stone-300">
-                                                {vm.weaponsAuth.map((w, i) => (
-                                                    <div key={i} className="flex items-start gap-3">
-                                                        <div className="w-1.5 h-1.5 rounded-full bg-primary-500 mt-2 shrink-0"></div>
-                                                        <span className="leading-relaxed">{w}</span>
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    )}
-                                    {vm.armorAuth && vm.armorAuth.length > 0 && (
-                                        <div>
-                                            <strong className="text-primary-400 block mb-2 font-display text-sm uppercase tracking-wide">Armures autorisées</strong>
-                                            <div className="space-y-1 text-sm text-stone-300">
-                                                {vm.armorAuth.map((a, i) => (
-                                                    <div key={i} className="flex items-start gap-3">
-                                                        <div className="w-1.5 h-1.5 rounded-full bg-primary-500 mt-2 shrink-0"></div>
-                                                        <span className="leading-relaxed">{a}</span>
-                                                    </div>
-                                                ))}
-                                            </div>
                                         </div>
                                     )}
                                 </div>

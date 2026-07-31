@@ -103,6 +103,15 @@ export const Layout: React.FC = () => {
     // bas — le geste naturel pour atteindre ce qu'il cachait — et on le ramène au
     // défilement vers le haut ou en haut de page. Desktop inchangé.
     const [fabHidden, setFabHidden] = React.useState(false);
+    // Certaines pages défilent d'elles-mêmes au montage (restauration de position, mise
+    // au point d'un panneau…). Ce défilement n'est pas un geste : on l'ignore pendant un
+    // court instant après chaque navigation, sinon le bouton arriverait déjà escamoté.
+    const ignoreScrollUntil = React.useRef(0);
+
+    React.useEffect(() => {
+        setFabHidden(false);
+        ignoreScrollUntil.current = Date.now() + 600;
+    }, [location.pathname]);
 
     React.useEffect(() => {
         let lastY = window.scrollY;
@@ -112,10 +121,12 @@ export const Layout: React.FC = () => {
             ticking = true;
             requestAnimationFrame(() => {
                 const y = window.scrollY;
-                if (y < 80) setFabHidden(false);
+                if (Date.now() < ignoreScrollUntil.current) {
+                    lastY = y;                       // défilement non gestuel : on suit sans réagir
+                } else if (y < 80) setFabHidden(false);
                 else if (y > lastY + 8) setFabHidden(true);
                 else if (y < lastY - 8) setFabHidden(false);
-                lastY = y;
+                if (Date.now() >= ignoreScrollUntil.current) lastY = y;
                 ticking = false;
             });
         };

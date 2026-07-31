@@ -4,6 +4,18 @@ import { ArrowLeft, Globe, Lock, User as UserIcon } from 'lucide-react';
 import { HomebrewService, categoryLabel, type HomebrewEntry } from '../services/homebrewService';
 import { HOMEBREW_SCHEMAS, CARAC_KEYS, type HomebrewFieldDef } from '../services/homebrewSchemas';
 import { Loader } from '../components/common';
+import { RaceSheet, ProfileSheet, VoieSheet, CapaciteSheet, OwnerBar } from '../components/sheets';
+import { homebrewToRaceVM, homebrewToProfileVM, homebrewToVoieVM, homebrewToCapaciteVM } from '../components/sheets/adapters/fromHomebrew';
+import { useAuth } from '../context/AuthContext';
+
+/** Page de la catégorie (liste) vers laquelle revenir après suppression/duplication. */
+const categoryPath = (category: string): string => {
+    if (category === 'race') return '/races';
+    if (category === 'classe') return '/classes';
+    if (category === 'voie') return '/voies';
+    if (category === 'capacite' || category === 'sort') return '/capacites';
+    return '/bibliotheque';
+};
 
 const hasValue = (v: unknown): boolean => {
     if (v === undefined || v === null || v === '') return false;
@@ -23,9 +35,11 @@ const isSidebar = (f: HomebrewFieldDef) => f.type === 'number' || f.type === 'se
 export const HomebrewDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
+    const { user } = useAuth();
     const [entry, setEntry] = useState<HomebrewEntry | null>(null);
     const [loading, setLoading] = useState(true);
     const [activeTab, setActiveTab] = useState<'lore' | 'rules'>('lore');
+    const [duplicating, setDuplicating] = useState(false);
 
     useEffect(() => {
         if (!id) return;
@@ -34,6 +48,50 @@ export const HomebrewDetail: React.FC = () => {
 
     if (loading) return <Loader />;
     if (!entry) return <div className="p-8 text-center text-red-400">Contenu introuvable</div>;
+
+    const handleDelete = async () => {
+        if (!confirm(`Supprimer « ${entry.name} » ?`)) return;
+        await HomebrewService.remove(entry.id);
+        navigate(categoryPath(entry.category));
+    };
+
+    const handleDuplicate = async () => {
+        setDuplicating(true);
+        try {
+            await HomebrewService.create({ category: entry.category, name: `${entry.name} (copie)`, description: entry.description ?? '', visibility: 'private', data: entry.data ?? {} });
+            navigate(categoryPath(entry.category));
+        } finally {
+            setDuplicating(false);
+        }
+    };
+
+    const mine = entry.authorId === user?.id;
+    const ownerBar = (
+        <OwnerBar
+            pseudo={entry.authorPseudo}
+            visibility={entry.visibility}
+            mine={mine}
+            duplicating={duplicating}
+            onDuplicate={mine ? undefined : handleDuplicate}
+            onDelete={mine ? handleDelete : undefined}
+        />
+    );
+
+    if (entry.category === 'race') {
+        return <RaceSheet vm={homebrewToRaceVM(entry)} backTo="/races" backLabel="Retour aux Races" header={ownerBar} />;
+    }
+
+    if (entry.category === 'classe') {
+        return <ProfileSheet vm={homebrewToProfileVM(entry)} backTo="/classes" backLabel="Retour aux Classes" header={ownerBar} />;
+    }
+
+    if (entry.category === 'voie') {
+        return <VoieSheet vm={homebrewToVoieVM(entry)} backTo="/voies" backLabel="Retour aux Voies" header={ownerBar} />;
+    }
+
+    if (entry.category === 'capacite' || entry.category === 'sort') {
+        return <CapaciteSheet vm={homebrewToCapaciteVM(entry)} backTo="/capacites" backLabel="Retour aux Capacités" header={ownerBar} />;
+    }
 
     const schema = HOMEBREW_SCHEMAS[entry.category] ?? [];
     const data = entry.data ?? {};

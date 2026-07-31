@@ -4,6 +4,7 @@ import { homebrewToRaceVM, homebrewToProfileVM, homebrewToVoieVM, homebrewToCapa
 import type { Race, Profile, Voie, Capacity, Family } from '../../../types/normalized';
 import type { HomebrewEntry } from '../../../services/homebrewService';
 import { HOMEBREW_SCHEMAS } from '../../../services/homebrewSchemas';
+import type { HomebrewFieldDef } from '../../../services/homebrewSchemas';
 
 // Fabrique une entrée homebrew minimale : seul le nom est renseigné.
 const emptyEntry = (category: string): HomebrewEntry => ({
@@ -462,6 +463,30 @@ describe('couverture de schéma communautaire (toute clé du schéma → une pro
         }
     });
 
+    /**
+     * Pour classe/voie/capacite, une clé de schéma ne correspond pas toujours à une
+     * propriété de même nom sur le view-model (ex. `weaponsAuth`/`armorAuth` fondent
+     * dans `vm.masteries`, `details` devient `vm.capabilities` ou `vm.detailLines`) :
+     * une simple boucle `toHaveProperty(field.key)` comme pour `race` ne suffit donc
+     * pas. `FIELD_CHECKS` associe explicitement chaque clé de schéma à la vérification
+     * qui prouve qu'elle a atteint le view-model. Boucler sur `HOMEBREW_SCHEMAS[...]`
+     * (plutôt que sur les clés de `FIELD_CHECKS`) est ce qui rend le test générique :
+     * un champ ajouté au schéma sans entrée correspondante dans `FIELD_CHECKS` fait
+     * échouer le test explicitement (au lieu de ne rien vérifier silencieusement,
+     * le défaut C1 qui a motivé ce test).
+     */
+    const checkSchemaCoverage = <VM,>(
+        schema: HomebrewFieldDef[],
+        vm: VM,
+        checks: Record<string, (vm: VM) => unknown>,
+    ): void => {
+        for (const field of schema) {
+            const check = checks[field.key];
+            expect(check, `aucune vérification définie pour le champ de schéma "${field.key}" (FIELD_CHECKS incomplet)`).toBeDefined();
+            expect(check!(vm), `champ de schéma "${field.key}" absent du view-model rendu`).toBeTruthy();
+        }
+    };
+
     it('classe : tous les champs du schéma produisent une propriété définie (armorMaxDef inclus — défaut C1)', () => {
         const entry = {
             ...emptyEntry('classe'), name: 'Classe complète', description: 'Une description',
@@ -479,19 +504,21 @@ describe('couverture de schéma communautaire (toute clé du schéma → une pro
             },
         } as HomebrewEntry;
         const vm = homebrewToProfileVM(entry);
-        expect(vm.family).toBeDefined();
-        expect(vm.note).toBeDefined();
-        expect(vm.lore).toBeDefined();
-        expect(vm.armorMaxDef).toBeDefined();
-        expect(vm.magicStat).toBeDefined();
-        expect(vm.stats).toBeDefined();
-        expect(vm.startingEquipment).toBeDefined();
-        // weaponsAuth/armorAuth/masteries n'ont pas de propriété dédiée : ils rejoignent
-        // tous la carte "Maîtrises" (vm.masteries), par design (cf. fromHomebrew.ts).
-        expect(vm.masteries).toBeDefined();
-        expect(vm.masteries?.some(m => m.label === 'Armes')).toBe(true);
-        expect(vm.masteries?.some(m => m.label === 'Armures')).toBe(true);
-        expect(vm.masteries?.some(m => m.label === '' && m.value === 'Boucliers interdits')).toBe(true);
+        checkSchemaCoverage(HOMEBREW_SCHEMAS.classe, vm, {
+            family: v => v.family,
+            note: v => v.note,
+            lore: v => v.lore,
+            // weaponsAuth/armorAuth/masteries n'ont pas de propriété dédiée : ils
+            // rejoignent tous la carte "Maîtrises" (vm.masteries), par design (cf.
+            // fromHomebrew.ts) — chacun vérifié via l'entrée qu'il y produit.
+            weaponsAuth: v => v.masteries?.some(m => m.label === 'Armes'),
+            armorAuth: v => v.masteries?.some(m => m.label === 'Armures'),
+            armorMaxDef: v => v.armorMaxDef,
+            magicStat: v => v.magicStat,
+            stats: v => v.stats,
+            startingEquipment: v => v.startingEquipment,
+            masteries: v => v.masteries?.some(m => m.label === '' && m.value === 'Boucliers interdits'),
+        });
     });
 
     it('voie : tous les champs du schéma produisent une propriété définie', () => {
@@ -500,12 +527,13 @@ describe('couverture de schéma communautaire (toute clé du schéma → une pro
             data: { category: 'profil', maxRank: 5, details: ['Rang 1 — Effet.'] },
         } as HomebrewEntry;
         const vm = homebrewToVoieVM(entry);
-        expect(vm.category).toBeDefined();
-        expect(vm.maxRank).toBeDefined();
-        // `details` (schéma) n'a pas de propriété dédiée sur le VM : il devient
-        // `capabilities` (lignes → pseudo-capacités), par design (cf. fromHomebrew.ts).
-        expect(vm.capabilities).toBeDefined();
-        expect(vm.capabilities?.length).toBeGreaterThan(0);
+        checkSchemaCoverage(HOMEBREW_SCHEMAS.voie, vm, {
+            category: v => v.category,
+            maxRank: v => v.maxRank,
+            // `details` (schéma) n'a pas de propriété dédiée sur le VM : il devient
+            // `capabilities` (lignes → pseudo-capacités), par design (cf. fromHomebrew.ts).
+            details: v => (v.capabilities?.length ?? 0) > 0,
+        });
     });
 
     it('capacite : tous les champs du schéma produisent une propriété définie', () => {
@@ -514,13 +542,15 @@ describe('couverture de schéma communautaire (toute clé du schéma → une pro
             data: { rank: 3, actionType: 'Attaque', isSpell: true, limited: true, effect: ['1d6 DM'], details: ['Portée 5 m.'] },
         } as HomebrewEntry;
         const vm = homebrewToCapaciteVM(entry);
-        expect(vm.rank).toBeDefined();
-        expect(vm.actionType).toBeDefined();
-        expect(vm.isSpell).toBeDefined();
-        expect(vm.limited).toBeDefined();
-        expect(vm.effect).toBeDefined();
-        // `details` (schéma) n'a pas de propriété dédiée : il devient `detailLines`,
-        // forme différente du `details` officiel (objet JSON) — cf. fromHomebrew.ts.
-        expect(vm.detailLines).toBeDefined();
+        checkSchemaCoverage(HOMEBREW_SCHEMAS.capacite, vm, {
+            rank: v => v.rank,
+            actionType: v => v.actionType,
+            isSpell: v => v.isSpell,
+            limited: v => v.limited,
+            effect: v => v.effect,
+            // `details` (schéma) n'a pas de propriété dédiée : il devient `detailLines`,
+            // forme différente du `details` officiel (objet JSON) — cf. fromHomebrew.ts.
+            details: v => v.detailLines,
+        });
     });
 });

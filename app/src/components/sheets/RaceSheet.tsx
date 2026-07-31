@@ -16,10 +16,25 @@ interface RaceSheetProps {
 const placeholder = (name: string) =>
     `data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="533"%3E%3Crect fill="%23292524" width="400" height="533"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-size="160" fill="%23f59e0b"%3E${name.charAt(0).toUpperCase()}%3C/text%3E%3C/svg%3E`;
 
+/** Formule lisible d'une plage partiellement connue (taille, poids) : les deux bornes
+ * si les deux existent, la borne seule sinon. Les 8 races officielles ont toujours les
+ * quatre valeurs (min+max de taille et de poids), mais côté communautaire ce sont quatre
+ * champs indépendants du formulaire — une entrée à moitié remplie est le cas nominal, pas
+ * une exception à masquer.
+ */
+const rangeLabel = (min: number | undefined, max: number | undefined, fmt: (n: number) => string): string | undefined => {
+    if (min !== undefined && max !== undefined) return `${fmt(min)} - ${fmt(max)}`;
+    if (min !== undefined) return `à partir de ${fmt(min)}`;
+    if (max !== undefined) return `jusqu'à ${fmt(max)}`;
+    return undefined;
+};
+
 export const RaceSheet: React.FC<RaceSheetProps> = ({ vm, backTo, backLabel, header }) => {
     const [activeTab, setActiveTab] = useState<'lore' | 'rules'>('lore');
     const image = vm.image ?? placeholder(vm.name);
-    const hasVitals = [vm.startingAge, vm.lifeExpectancy, vm.minHeight, vm.minWeight, vm.speed].some(v => v !== undefined);
+    const heightLabel = rangeLabel(vm.minHeight, vm.maxHeight, n => `${n / 100}m`);
+    const weightLabel = rangeLabel(vm.minWeight, vm.maxWeight, n => `${n} kg`);
+    const hasVitals = [vm.startingAge, vm.lifeExpectancy, vm.minHeight, vm.maxHeight, vm.minWeight, vm.maxWeight, vm.speed].some(v => v !== undefined);
     const hasLore = [vm.description, vm.detailedDescription, vm.physicalTraits, vm.publicPerception, vm.roleplay, vm.typicalNames].some(v => v !== undefined);
     const hasRules = vm.abilities !== undefined || vm.modifiers !== undefined || (vm.voies?.length ?? 0) > 0;
 
@@ -69,16 +84,16 @@ export const RaceSheet: React.FC<RaceSheetProps> = ({ vm, backTo, backLabel, hea
                                             <span className="font-display text-xl text-primary-200">{vm.lifeExpectancy} ans</span>
                                         </div>
                                     )}
-                                    {vm.minHeight !== undefined && vm.maxHeight !== undefined && (
+                                    {heightLabel && (
                                         <div className="flex justify-between items-center border-b border-white/5 pb-2">
                                             <span className="text-stone-400">Taille</span>
-                                            <span className="font-display text-xl text-primary-200">{vm.minHeight / 100}m - {vm.maxHeight / 100}m</span>
+                                            <span className="font-display text-xl text-primary-200">{heightLabel}</span>
                                         </div>
                                     )}
-                                    {vm.minWeight !== undefined && vm.maxWeight !== undefined && (
+                                    {weightLabel && (
                                         <div className="flex justify-between items-center border-b border-white/5 pb-2">
                                             <span className="text-stone-400">Poids</span>
-                                            <span className="font-display text-xl text-primary-200">{vm.minWeight} - {vm.maxWeight} kg</span>
+                                            <span className="font-display text-xl text-primary-200">{weightLabel}</span>
                                         </div>
                                     )}
                                     {vm.speed !== undefined && (

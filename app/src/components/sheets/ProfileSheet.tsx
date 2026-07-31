@@ -75,19 +75,21 @@ export const ProfileSheet: React.FC<ProfileSheetProps> = ({ vm, backTo, backLabe
     const image = vm.image ?? placeholder(vm.name);
 
     // La carte "Statistiques Vitales" ne rend le bloc famille (PV/Niveau, Récupération,
-    // Points de Chance, Carac. Magique, Bonus) que si l'un de ces champs est réellement
-    // renseigné — un simple nom de famille (cas homebrew fréquent : le schéma ne capture
-    // que le nom) ne doit pas suffire à afficher un titre de carte sans aucun contenu.
-    const hasFamilyStats = vm.family !== undefined && (
-        vm.family.baseHp !== undefined ||
-        vm.family.recoveryDie !== undefined ||
-        (vm.family.luckPoints ?? 0) > 0 ||
+    // Points de Chance, Bonus) que si l'un de ces champs est réellement renseigné — un
+    // simple nom de famille (cas homebrew fréquent : le schéma ne capture que le nom) ne
+    // doit pas suffire à afficher un titre de carte sans aucun contenu. `magicStat` n'en
+    // dépend pas : côté communautaire, famille et caractéristique de magie sont deux
+    // champs indépendants du formulaire (cf. homebrewSchemas.ts) — renseigner la seconde
+    // sans la première ne doit pas la faire disparaître.
+    const hasFamilyStats =
+        vm.family?.baseHp !== undefined ||
+        vm.family?.recoveryDie !== undefined ||
+        (vm.family?.luckPoints ?? 0) > 0 ||
         vm.magicStat !== undefined ||
-        vm.family.manaStat !== undefined ||
-        vm.family.bonus !== undefined
-    );
+        vm.family?.manaStat !== undefined ||
+        vm.family?.bonus !== undefined;
     const hasStatsEntries = vm.stats !== undefined && Object.keys(vm.stats).length > 0;
-    const hasVitalStats = vm.hitDie !== undefined || hasFamilyStats || hasStatsEntries;
+    const hasVitalStats = vm.hitDie !== undefined || vm.armorMaxDef !== undefined || hasFamilyStats || hasStatsEntries;
     const hasMasteries = (vm.masteries?.length ?? 0) > 0 || vm.weaponsAndArmor !== undefined;
     const hasStartingEquipment = (vm.startingEquipment?.length ?? 0) > 0;
     const hasLoreTab = vm.description !== undefined || vm.note !== undefined || (vm.lore?.length ?? 0) > 0 || vm.family?.description !== undefined;
@@ -140,6 +142,16 @@ export const ProfileSheet: React.FC<ProfileSheetProps> = ({ vm, backTo, backLabe
                                         </div>
                                     )}
 
+                                    {vm.armorMaxDef !== undefined && (
+                                        <div className="flex justify-between items-center border-b border-white/5 pb-2">
+                                            <div className="flex items-center gap-2 text-stone-400">
+                                                <Shield size={16} className="text-blue-900" />
+                                                <span>DEF max d’armure</span>
+                                            </div>
+                                            <span className="font-display text-xl text-primary-200">{vm.armorMaxDef}</span>
+                                        </div>
+                                    )}
+
                                     {vm.stats && Object.entries(vm.stats).map(([key, value]) => (
                                         <div key={key} className="flex justify-between items-center border-b border-white/5 pb-2">
                                             <div className="flex items-center gap-2 text-stone-400">
@@ -150,54 +162,53 @@ export const ProfileSheet: React.FC<ProfileSheetProps> = ({ vm, backTo, backLabe
                                         </div>
                                     ))}
 
-                                    {vm.family && (
-                                        <>
-                                            {vm.family.baseHp !== undefined && (
-                                                <div className="flex justify-between items-center border-b border-white/5 pb-2">
-                                                    <div className="flex items-center gap-2 text-stone-400">
-                                                        <Activity size={16} className="text-green-900" />
-                                                        <span>PV / Niveau</span>
-                                                    </div>
-                                                    <span className="font-display text-xl text-primary-200">{vm.family.baseHp}</span>
-                                                </div>
-                                            )}
-                                            {vm.family.recoveryDie !== undefined && (
-                                                <div className="flex justify-between items-center border-b border-white/5 pb-2">
-                                                    <div className="flex items-center gap-2 text-stone-400">
-                                                        <Shield size={16} className="text-blue-900" />
-                                                        <span>Récupération</span>
-                                                    </div>
-                                                    <span className="font-display text-xl text-primary-200">{vm.family.recoveryDie}</span>
-                                                </div>
-                                            )}
-                                            {(vm.family.luckPoints ?? 0) > 0 && (
-                                                <div className="flex justify-between items-center border-b border-white/5 pb-2">
-                                                    <div className="flex items-center gap-2 text-stone-400">
-                                                        <Crown size={16} className="text-yellow-600" />
-                                                        <span>Points de Chance</span>
-                                                    </div>
-                                                    <span className="font-display text-xl text-primary-200">{vm.family.luckPoints}</span>
-                                                </div>
-                                            )}
-                                            {(vm.magicStat || vm.family.manaStat) && (
-                                                <div className="flex justify-between items-center border-b border-white/5 pb-2">
-                                                    <div className="flex items-center gap-2 text-stone-400">
-                                                        <Activity size={16} className="text-purple-500" />
-                                                        <span>Carac. Magique</span>
-                                                    </div>
-                                                    <span className="font-display text-xl text-primary-200">{vm.magicStat || vm.family.manaStat}</span>
-                                                </div>
-                                            )}
-                                            {vm.family.bonus && (
-                                                <div className="pt-2">
-                                                    <div className="flex items-center gap-2 text-stone-400 mb-1">
-                                                        <Crown size={14} className="text-primary-400" />
-                                                        <span className="text-xs uppercase tracking-wider font-bold">Bonus de Famille</span>
-                                                    </div>
-                                                    <p className="text-sm text-primary-100 italic leading-snug">{vm.family.bonus}</p>
-                                                </div>
-                                            )}
-                                        </>
+                                    {vm.family?.baseHp !== undefined && (
+                                        <div className="flex justify-between items-center border-b border-white/5 pb-2">
+                                            <div className="flex items-center gap-2 text-stone-400">
+                                                <Activity size={16} className="text-green-900" />
+                                                <span>PV / Niveau</span>
+                                            </div>
+                                            <span className="font-display text-xl text-primary-200">{vm.family.baseHp}</span>
+                                        </div>
+                                    )}
+                                    {vm.family?.recoveryDie !== undefined && (
+                                        <div className="flex justify-between items-center border-b border-white/5 pb-2">
+                                            <div className="flex items-center gap-2 text-stone-400">
+                                                <Shield size={16} className="text-blue-900" />
+                                                <span>Récupération</span>
+                                            </div>
+                                            <span className="font-display text-xl text-primary-200">{vm.family.recoveryDie}</span>
+                                        </div>
+                                    )}
+                                    {(vm.family?.luckPoints ?? 0) > 0 && (
+                                        <div className="flex justify-between items-center border-b border-white/5 pb-2">
+                                            <div className="flex items-center gap-2 text-stone-400">
+                                                <Crown size={16} className="text-yellow-600" />
+                                                <span>Points de Chance</span>
+                                            </div>
+                                            <span className="font-display text-xl text-primary-200">{vm.family?.luckPoints}</span>
+                                        </div>
+                                    )}
+                                    {/* Indépendant de la famille (I1) : côté communautaire, famille et caractéristique
+                                        de magie sont deux champs distincts du formulaire ; renseigner l'un sans l'autre
+                                        ne doit pas faire disparaître la donnée. */}
+                                    {(vm.magicStat !== undefined || vm.family?.manaStat !== undefined) && (
+                                        <div className="flex justify-between items-center border-b border-white/5 pb-2">
+                                            <div className="flex items-center gap-2 text-stone-400">
+                                                <Activity size={16} className="text-purple-500" />
+                                                <span>Carac. Magique</span>
+                                            </div>
+                                            <span className="font-display text-xl text-primary-200">{vm.magicStat ?? vm.family?.manaStat}</span>
+                                        </div>
+                                    )}
+                                    {vm.family?.bonus && (
+                                        <div className="pt-2">
+                                            <div className="flex items-center gap-2 text-stone-400 mb-1">
+                                                <Crown size={14} className="text-primary-400" />
+                                                <span className="text-xs uppercase tracking-wider font-bold">Bonus de Famille</span>
+                                            </div>
+                                            <p className="text-sm text-primary-100 italic leading-snug">{vm.family?.bonus}</p>
+                                        </div>
                                     )}
                                 </div>
                             </div>

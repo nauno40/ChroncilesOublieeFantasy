@@ -4,6 +4,8 @@ import { ArrowLeft, Globe, Lock, User as UserIcon } from 'lucide-react';
 import { HomebrewService, categoryLabel, type HomebrewEntry } from '../services/homebrewService';
 import { HOMEBREW_SCHEMAS, CARAC_KEYS, type HomebrewFieldDef } from '../services/homebrewSchemas';
 import { Loader } from '../components/common';
+import { RaceSheet } from '../components/sheets';
+import { homebrewToRaceVM } from '../components/sheets/adapters/fromHomebrew';
 
 const hasValue = (v: unknown): boolean => {
     if (v === undefined || v === null || v === '') return false;
@@ -34,6 +36,10 @@ export const HomebrewDetail: React.FC = () => {
 
     if (loading) return <Loader />;
     if (!entry) return <div className="p-8 text-center text-red-400">Contenu introuvable</div>;
+
+    if (entry.category === 'race') {
+        return <RaceSheet vm={homebrewToRaceVM(entry)} backTo="/races" backLabel="Retour aux Races" />;
+    }
 
     const schema = HOMEBREW_SCHEMAS[entry.category] ?? [];
     const data = entry.data ?? {};

@@ -58,6 +58,24 @@ describe('adaptateurs officiels', () => {
         expect(vm.voies?.[1].capabilities?.map(c => c.name)).toEqual(['Haut-elfe Rang 1']);
     });
 
+    it('reprend les details libres d\'une capacité (choix_capacite) ; undefined si absents', () => {
+        const race = { id: '1', name: 'Elfe' } as unknown as Race;
+        const voies = [{ id: '7201', name: "Voie de l'elfe sylvain" } as Voie];
+        const capacities = [
+            {
+                id: '1', name: 'Enfant de la forêt', rank: 2, voie: '/api/voies/7201',
+                details: { choix_capacite: ['Druide (Rang 1)', 'Rôdeur (Rang 1)'] },
+            } as unknown as Capacity,
+            { id: '2', name: 'Sans détail', rank: 1, voie: '/api/voies/7201' } as Capacity,
+        ];
+        const vm = raceToVM(race, voies, capacities);
+        const caps = vm.voies?.[0].capabilities;
+        expect(caps?.find(c => c.name === 'Enfant de la forêt')?.details).toEqual({
+            choix_capacite: ['Druide (Rang 1)', 'Rôdeur (Rang 1)'],
+        });
+        expect(caps?.find(c => c.name === 'Sans détail')?.details).toBeUndefined();
+    });
+
     it('laisse capabilities undefined pour une voie sans capacité', () => {
         const race = { id: '1', name: 'Elfe' } as unknown as Race;
         const voies = [{ id: '9', name: 'Voie sans capacité' } as Voie];

@@ -12,6 +12,18 @@ const list = (v: unknown): string[] | undefined => {
     const out = v.map(x => (typeof x === 'string' ? x : JSON.stringify(x))).filter(Boolean);
     return out.length ? out : undefined;
 };
+/** Vide/NULL → undefined : la majorité des capacités n'ont pas de `details`. */
+const details = (v: Record<string, unknown> | null | undefined): Record<string, unknown> | undefined =>
+    v && Object.keys(v).length ? v : undefined;
+
+const capRef = (c: Capacity): SheetCapabilityRef => ({
+    rank: num(c.rank),
+    name: c.name,
+    description: str(c.description),
+    isSpell: c.isSpell || undefined,
+    details: details(c.details),
+});
+
 /** Capacités d'une voie donnée : une capacité référence sa voie tantôt par IRI
  * (`/api/voies/123`), tantôt par identifiant brut (`voieId`) — même logique que
  * l'ancienne page RaceDetail.
@@ -24,7 +36,7 @@ const capsOfVoie = (voieId: string, caps?: Capacity[]): SheetCapabilityRef[] | u
             return String(String(ref).split('/').pop()) === String(voieId);
         })
         .sort((a, b) => (a.rank ?? 0) - (b.rank ?? 0))
-        .map(c => ({ rank: num(c.rank), name: c.name, description: str(c.description), isSpell: c.isSpell || undefined }));
+        .map(capRef);
     return out.length ? out : undefined;
 };
 
@@ -33,7 +45,7 @@ const refs = (voies?: Voie[], capacities?: Capacity[]): SheetVoieRef[] | undefin
         ? voies.map(v => ({
             id: String(v.id),
             name: v.name,
-            details: v.details && Object.keys(v.details).length ? v.details : undefined,
+            details: details(v.details),
             capabilities: capsOfVoie(String(v.id), capacities),
         }))
         : undefined;
@@ -96,7 +108,7 @@ export const voieToVM = (v: Voie, caps?: Capacity[]): VoieSheetVM => ({
     capabilities: caps && caps.length
         ? [...caps]
             .sort((a, b) => (a.rank ?? 0) - (b.rank ?? 0))
-            .map(c => ({ rank: num(c.rank), name: c.name, description: str(c.description), isSpell: c.isSpell || undefined }))
+            .map(capRef)
         : undefined,
 });
 

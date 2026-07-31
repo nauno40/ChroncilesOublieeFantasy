@@ -69,6 +69,8 @@ export interface SheetCapabilityRef {
     name: string;
     description?: string;
     isSpell?: boolean;
+    /** JSON libre de la capacité, rendu tel quel par DynamicDetailsRenderer. */
+    details?: Record<string, unknown>;
 }
 
 export interface VoieSheetVM {

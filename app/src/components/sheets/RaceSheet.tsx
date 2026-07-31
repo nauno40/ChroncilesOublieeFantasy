@@ -226,6 +226,11 @@ export const RaceSheet: React.FC<RaceSheetProps> = ({ vm, backTo, backLabel, hea
                                                                         <div className="h-[1px] flex-1 bg-white/5 mx-4 hidden md:block"></div>
                                                                     </div>
                                                                     {cap.description && <p className="text-stone-400 text-sm leading-relaxed pl-9">{cap.description}</p>}
+                                                                    {cap.details && (
+                                                                        <div className="pl-9">
+                                                                            <DynamicDetailsRenderer details={cap.details} />
+                                                                        </div>
+                                                                    )}
                                                                 </div>
                                                             ))}
                                                         </div>

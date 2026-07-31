@@ -3,6 +3,7 @@ import { raceToVM, profileToVM, voieToVM, capacityToVM } from './fromOfficial';
 import { homebrewToRaceVM, homebrewToProfileVM, homebrewToVoieVM, homebrewToCapaciteVM } from './fromHomebrew';
 import type { Race, Profile, Voie, Capacity, Family } from '../../../types/normalized';
 import type { HomebrewEntry } from '../../../services/homebrewService';
+import { HOMEBREW_SCHEMAS } from '../../../services/homebrewSchemas';
 
 // Fabrique une entrée homebrew minimale : seul le nom est renseigné.
 const emptyEntry = (category: string): HomebrewEntry => ({
@@ -13,87 +14,107 @@ const emptyEntry = (category: string): HomebrewEntry => ({
 describe('adaptateurs officiels', () => {
     it('projette une race complète', () => {
         const race = {
-            id: '1', name: 'Elfe', description: 'Peuple sylvestre', detailedDescription: 'Longue histoire',
+            id: 506, name: 'Elfe', description: 'Peuple sylvestre', detailedDescription: 'Longue histoire',
             publicPerception: 'Distants', abilities: 'Vision nocturne', startingAge: 20, lifeExpectancy: 400,
             physicalTraits: 'Élancés', typicalNames: 'Aelar', minHeight: 160, maxHeight: 190,
-            minWeight: 50, maxWeight: 75, roleplay: 'Fier', image: '/elfe.webp',
+            minWeight: 50, maxWeight: 75, roleplay: 'Fier', image: '/elfe.webp', speed: '20 m/tour',
             modifiers: [{ stat: 'AGI', value: 1 }, { stat: 'CON', value: -1 }],
         } as unknown as Race;
-        const vm = raceToVM(race, [{ id: '9', name: 'Voie des Elfes' } as Voie]);
+        const vm = raceToVM(race, [{ id: 9, name: 'Voie des Elfes' } as unknown as Voie]);
         expect(vm.name).toBe('Elfe');
         expect(vm.modifiers).toEqual([{ stat: 'AGI', value: 1, options: undefined, description: undefined }, { stat: 'CON', value: -1, options: undefined, description: undefined }]);
         expect(vm.startingAge).toBe(20);
+        expect(vm.speed).toBe('20 m/tour');
         expect(vm.voies).toEqual([{ id: '9', name: 'Voie des Elfes' }]);
     });
 
+    it('mappe `speed` (champ réel de l\'API sur les 8 races officielles, ex. "20 m/tour")', () => {
+        const race = { id: 506, name: 'Elfe sylvain', speed: '20 m/tour' } as unknown as Race;
+        expect(raceToVM(race).speed).toBe('20 m/tour');
+    });
+
+    it('laisse `speed` undefined quand absent', () => {
+        const race = { id: 506, name: 'Sans vitesse' } as unknown as Race;
+        expect(raceToVM(race).speed).toBeUndefined();
+    });
+
     it('projette une capacité et sa voie', () => {
-        const cap = { id: '3', name: 'Boule de feu', description: 'Explose', rank: 3, isSpell: true, limited: true } as Capacity;
+        const cap = { id: 35651, name: 'Boule de feu', description: 'Explose', rank: 3, isSpell: true, limited: true } as unknown as Capacity;
         const vm = capacityToVM(cap, 'Voie du Feu');
         expect(vm).toMatchObject({ name: 'Boule de feu', rank: 3, isSpell: true, limited: true, voieName: 'Voie du Feu' });
     });
 
     it('porte le drapeau `active` (capacité active vs passive) sur une capacité standalone', () => {
-        const active = { id: '1', name: 'Frappe', description: '', active: true } as Capacity;
-        const passive = { id: '2', name: 'Endurance', description: '', active: false } as Capacity;
+        const active = { id: 1, name: 'Frappe', description: '', active: true } as unknown as Capacity;
+        const passive = { id: 2, name: 'Endurance', description: '', active: false } as unknown as Capacity;
         expect(capacityToVM(active).active).toBe(true);
         expect(capacityToVM(passive).active).toBeUndefined();
     });
 
-    it('porte les JSON libres (Capacity.details) et le lien vers la voie (voieId) sur une capacité standalone', () => {
-        const cap = { id: '1', name: 'Pas de brume', description: 'Se téléporte', details: { note: 'Une fois par combat' } } as unknown as Capacity;
-        const vm = capacityToVM(cap, 'Voie de la brume', '42');
+    it('porte les JSON libres (Capacity.details) et le lien vers la voie (voieId, identifiant entier comme le renvoie l\'API) sur une capacité standalone', () => {
+        const cap = { id: 35651, name: 'Pas de brume', description: 'Se téléporte', details: { note: 'Une fois par combat' } } as unknown as Capacity;
+        // L'API renvoie des identifiants entiers (ex. `voie: "/api/voies/7131"` résolu en
+        // `voie.id: 7131`, un nombre) — jamais des chaînes. Avant la correction de `str()`
+        // (accepte désormais nombre ET chaîne via `idStr`), un id numérique produisait
+        // toujours `voieId: undefined`.
+        const vm = capacityToVM(cap, 'Voie de la brume', 42);
         expect(vm.details).toEqual({ note: 'Une fois par combat' });
         expect(vm.voieName).toBe('Voie de la brume');
         expect(vm.voieId).toBe('42');
     });
 
+    it('accepte aussi un voieId déjà en chaîne (objets renormalisés par d\'autres pages)', () => {
+        const cap = { id: 1, name: 'Solitaire', description: '' } as unknown as Capacity;
+        expect(capacityToVM(cap, undefined, '42').voieId).toBe('42');
+    });
+
     it('laisse voieId undefined quand aucune voie n\'est fournie', () => {
-        const cap = { id: '1', name: 'Solitaire', description: '' } as Capacity;
+        const cap = { id: 1, name: 'Solitaire', description: '' } as unknown as Capacity;
         expect(capacityToVM(cap).voieId).toBeUndefined();
     });
 
     it('porte isSpell et actionType sur une capacité standalone (isSpell déjà géré, actionType complété)', () => {
-        const spell = { id: '1', name: 'Éclair', description: '', isSpell: true, actionType: 'Attaque' } as Capacity;
-        const mundane = { id: '2', name: 'Coup de poing', description: '' } as Capacity;
+        const spell = { id: 1, name: 'Éclair', description: '', isSpell: true, actionType: 'Attaque' } as unknown as Capacity;
+        const mundane = { id: 2, name: 'Coup de poing', description: '' } as unknown as Capacity;
         expect(capacityToVM(spell)).toMatchObject({ isSpell: true, actionType: 'Attaque' });
         expect(capacityToVM(mundane).isSpell).toBeUndefined();
         expect(capacityToVM(mundane).actionType).toBeUndefined();
     });
 
     it('projette une voie et ses capacités triées par rang', () => {
-        const voie = { id: '9', name: 'Voie du Feu', description: 'Brûler', type: 'profil' } as unknown as Voie;
+        const voie = { id: 7131, name: 'Voie du Feu', description: 'Brûler', type: 'profil' } as unknown as Voie;
         const caps = [
-            { id: '2', name: 'Rang 2', rank: 2 } as Capacity,
-            { id: '1', name: 'Rang 1', rank: 1 } as Capacity,
+            { id: 35652, name: 'Rang 2', rank: 2 } as unknown as Capacity,
+            { id: 35651, name: 'Rang 1', rank: 1 } as unknown as Capacity,
         ];
         const vm = voieToVM(voie, caps);
         expect(vm.capabilities?.map(c => c.rank)).toEqual([1, 2]);
     });
 
     it('porte la catégorie et le rang max d\'une voie officielle (Voie.category, champ réel de l\'API, pas Voie.type)', () => {
-        const voie = { id: '7131', name: "Voie de l'Énergie Vitale", category: 'Personnage', maxRank: 5 } as unknown as Voie;
+        const voie = { id: 7131, name: "Voie de l'Énergie Vitale", category: 'Personnage', maxRank: 5 } as unknown as Voie;
         const vm = voieToVM(voie);
         expect(vm.category).toBe('Personnage');
         expect(vm.maxRank).toBe(5);
     });
 
     it('replie category sur `type` quand `category` (champ API réel) est absent, pour les objets déjà renormalisés', () => {
-        const voie = { id: '9', name: 'Voie du Feu', type: 'profil' } as unknown as Voie;
+        const voie = { id: 9, name: 'Voie du Feu', type: 'profil' } as unknown as Voie;
         expect(voieToVM(voie).category).toBe('profil');
     });
 
     it('porte les JSON libres de la voie (Détails & Mécaniques) ; undefined si absents', () => {
-        const withDetails = { id: '9', name: 'Voie du Feu', type: 'profil', details: { famille: 'Élémentaire' } } as unknown as Voie;
-        const withoutDetails = { id: '10', name: 'Voie sans détail', type: 'profil' } as unknown as Voie;
+        const withDetails = { id: 9, name: 'Voie du Feu', type: 'profil', details: { famille: 'Élémentaire' } } as unknown as Voie;
+        const withoutDetails = { id: 10, name: 'Voie sans détail', type: 'profil' } as unknown as Voie;
         expect(voieToVM(withDetails).details).toEqual({ famille: 'Élémentaire' });
         expect(voieToVM(withoutDetails).details).toBeUndefined();
     });
 
     it('porte le drapeau `active` sur les capacités listées par une voie', () => {
-        const voie = { id: '9', name: 'Voie de l\'Énergie Vitale', type: 'profil' } as unknown as Voie;
+        const voie = { id: 7131, name: 'Voie de l\'Énergie Vitale', type: 'profil' } as unknown as Voie;
         const caps = [
-            { id: '1', name: 'Frappe vitale', rank: 1, active: true } as Capacity,
-            { id: '2', name: 'Résistance', rank: 2, active: false } as Capacity,
+            { id: 35651, name: 'Frappe vitale', rank: 1, active: true } as unknown as Capacity,
+            { id: 35652, name: 'Résistance', rank: 2, active: false } as unknown as Capacity,
         ];
         const vm = voieToVM(voie, caps);
         expect(vm.capabilities?.find(c => c.name === 'Frappe vitale')?.active).toBe(true);
@@ -101,15 +122,15 @@ describe('adaptateurs officiels', () => {
     });
 
     it('rattache à chaque voie ses propres capacités, triées par rang (IRI ou voieId brut)', () => {
-        const race = { id: '1', name: 'Elfe' } as unknown as Race;
+        const race = { id: 506, name: 'Elfe' } as unknown as Race;
         const voies = [
-            { id: '7201', name: "Voie de l'elfe sylvain" } as Voie,
-            { id: '7207', name: 'Voie du haut-elfe' } as Voie,
+            { id: 7201, name: "Voie de l'elfe sylvain" } as unknown as Voie,
+            { id: 7207, name: 'Voie du haut-elfe' } as unknown as Voie,
         ];
         const capacities = [
-            { id: '1', name: 'Sylvain Rang 2', rank: 2, voie: '/api/voies/7201' } as Capacity,
-            { id: '2', name: 'Sylvain Rang 1', rank: 1, voie: '/api/voies/7201' } as Capacity,
-            { id: '3', name: 'Haut-elfe Rang 1', rank: 1, voieId: '7207' } as Capacity,
+            { id: 36002, name: 'Sylvain Rang 2', rank: 2, voie: '/api/voies/7201' } as unknown as Capacity,
+            { id: 36001, name: 'Sylvain Rang 1', rank: 1, voie: '/api/voies/7201' } as unknown as Capacity,
+            { id: 37001, name: 'Haut-elfe Rang 1', rank: 1, voieId: 7207 } as unknown as Capacity,
         ];
         const vm = raceToVM(race, voies, capacities);
         expect(vm.voies?.[0].capabilities?.map(c => c.name)).toEqual(['Sylvain Rang 1', 'Sylvain Rang 2']);
@@ -117,14 +138,14 @@ describe('adaptateurs officiels', () => {
     });
 
     it('reprend les details libres d\'une capacité (choix_capacite) ; undefined si absents', () => {
-        const race = { id: '1', name: 'Elfe' } as unknown as Race;
-        const voies = [{ id: '7201', name: "Voie de l'elfe sylvain" } as Voie];
+        const race = { id: 506, name: 'Elfe' } as unknown as Race;
+        const voies = [{ id: 7201, name: "Voie de l'elfe sylvain" } as unknown as Voie];
         const capacities = [
             {
-                id: '1', name: 'Enfant de la forêt', rank: 2, voie: '/api/voies/7201',
+                id: 36002, name: 'Enfant de la forêt', rank: 2, voie: '/api/voies/7201',
                 details: { choix_capacite: ['Druide (Rang 1)', 'Rôdeur (Rang 1)'] },
             } as unknown as Capacity,
-            { id: '2', name: 'Sans détail', rank: 1, voie: '/api/voies/7201' } as Capacity,
+            { id: 36001, name: 'Sans détail', rank: 1, voie: '/api/voies/7201' } as unknown as Capacity,
         ];
         const vm = raceToVM(race, voies, capacities);
         const caps = vm.voies?.[0].capabilities;
@@ -135,15 +156,15 @@ describe('adaptateurs officiels', () => {
     });
 
     it('laisse capabilities undefined pour une voie sans capacité', () => {
-        const race = { id: '1', name: 'Elfe' } as unknown as Race;
-        const voies = [{ id: '9', name: 'Voie sans capacité' } as Voie];
+        const race = { id: 506, name: 'Elfe' } as unknown as Race;
+        const voies = [{ id: 9, name: 'Voie sans capacité' } as unknown as Voie];
         const vm = raceToVM(race, voies, []);
         expect(vm.voies?.[0].capabilities).toBeUndefined();
     });
 
     it('préserve les modificateurs choice avec options', () => {
         const race = {
-            id: '1', name: 'Gnome', modifiers: [
+            id: 1, name: 'Gnome', modifiers: [
                 { type: 'choice', options: ['AGI', 'PER'], value: 1, stat: undefined },
             ],
         } as unknown as Race;
@@ -155,7 +176,7 @@ describe('adaptateurs officiels', () => {
 
     it('préserve les modificateurs logic avec description', () => {
         const race = {
-            id: '1', name: 'Humain', modifiers: [
+            id: 1, name: 'Humain', modifiers: [
                 { type: 'logic', description: '+1 à la valeur d\'une de ses deux plus faibles caractéristiques', value: 1, stat: undefined },
             ],
         } as unknown as Race;
@@ -234,10 +255,10 @@ describe('adaptateurs de profil (classes) — fidélité à ClassDetail.tsx', ()
 
     it('porte le badge « limité » (limited) sur les capacités de voie de classe', () => {
         const p = { id: 1, name: 'Voleur', description: 'Discret', hitDie: '1D8' } as unknown as Profile;
-        const voies = [{ id: '5', name: 'Voie du poison' } as Voie];
+        const voies = [{ id: 5, name: 'Voie du poison' } as unknown as Voie];
         const capacities = [
-            { id: '1', name: 'Coup sournois', rank: 1, voie: '/api/voies/5', limited: true } as Capacity,
-            { id: '2', name: 'Esquive', rank: 2, voie: '/api/voies/5', isSpell: true } as Capacity,
+            { id: 101, name: 'Coup sournois', rank: 1, voie: '/api/voies/5', limited: true } as unknown as Capacity,
+            { id: 102, name: 'Esquive', rank: 2, voie: '/api/voies/5', isSpell: true } as unknown as Capacity,
         ];
         const vm = profileToVM(p, voies, capacities);
         const caps = vm.voies?.[0].capabilities;
@@ -246,11 +267,14 @@ describe('adaptateurs de profil (classes) — fidélité à ClassDetail.tsx', ()
         expect(caps?.find(c => c.name === 'Esquive')?.isSpell).toBe(true);
     });
 
-    it('conserve l\'identifiant stable de chaque capacité officielle (clé React fiable)', () => {
+    it('conserve l\'identifiant stable de chaque capacité officielle (clé React fiable) — identifiant entier comme le renvoie l\'API', () => {
         const p = { id: 1, name: 'Voleur', description: 'Discret', hitDie: '1D8' } as unknown as Profile;
-        const voies = [{ id: '5', name: 'Voie du poison' } as Voie];
+        const voies = [{ id: 5, name: 'Voie du poison' } as unknown as Voie];
+        // L'API renvoie toujours un entier pour `Capacity.id` (ex. `"id": 35651`), jamais
+        // une chaîne : une fixture en chaîne masquait le bug `str(c.id) === undefined`
+        // pour un id numérique (corrigé via `idStr`, cf. adapters/shared.ts).
         const capacities = [
-            { id: '42', name: 'Coup sournois', rank: 1, voie: '/api/voies/5' } as Capacity,
+            { id: 42, name: 'Coup sournois', rank: 1, voie: '/api/voies/5' } as unknown as Capacity,
         ];
         const vm = profileToVM(p, voies, capacities);
         expect(vm.voies?.[0].capabilities?.[0].id).toBe('42');
@@ -398,5 +422,105 @@ describe('adaptateurs homebrew', () => {
     it('force isSpell=true pour la catégorie `sort` même sans champ isSpell explicite', () => {
         const entry = { ...emptyEntry('sort'), name: 'Éclair', data: {} } as HomebrewEntry;
         expect(homebrewToCapaciteVM(entry).isSpell).toBe(true);
+    });
+});
+
+/**
+ * Couverture de schéma (demandée par la revue finale) : pour chaque catégorie sur
+ * feuille (race, classe, voie, capacite), une entrée communautaire dont TOUTES les clés
+ * du schéma (`services/homebrewSchemas.ts`) sont renseignées doit produire un
+ * view-model où toutes les propriétés correspondantes sont définies. Un champ ajouté au
+ * schéma sans être mappé par l'adaptateur (le défaut C1 : `armorMaxDef` peuplé mais non
+ * rendu n'aurait pas suffi à passer inaperçu si un test avait vérifié systématiquement
+ * chaque clé du schéma plutôt qu'un sous-ensemble choisi à la main) fera échouer ces
+ * tests. Rappel (cf. tête de fichier) : ceci prouve la complétude de l'adaptateur
+ * (schéma → view-model), pas le rendu (view-model → JSX) — les deux doivent être
+ * vérifiés séparément.
+ */
+describe('couverture de schéma communautaire (toute clé du schéma → une propriété définie du view-model)', () => {
+    it('race : tous les champs du schéma produisent une propriété définie', () => {
+        const entry = {
+            ...emptyEntry('race'), name: 'Race complète', description: 'Une description',
+            data: {
+                modifiers: { AGI: 1, CON: -1 },
+                speed: '10 m',
+                minHeight: 150, maxHeight: 200,
+                minWeight: 40, maxWeight: 90,
+                startingAge: 18, lifeExpectancy: 80,
+                abilities: 'Vision nocturne',
+                physicalTraits: 'Petits et trapus',
+                publicPerception: 'Méfiants',
+                roleplay: 'Prudents',
+                typicalNames: 'Aldo, Berta',
+                detailedDescription: 'Longue histoire.',
+            },
+        } as HomebrewEntry;
+        const vm = homebrewToRaceVM(entry);
+        for (const field of HOMEBREW_SCHEMAS.race) {
+            expect(vm, `champ de schéma "${field.key}"`).toHaveProperty(field.key);
+            expect((vm as unknown as Record<string, unknown>)[field.key], `champ de schéma "${field.key}"`).not.toBeUndefined();
+        }
+    });
+
+    it('classe : tous les champs du schéma produisent une propriété définie (armorMaxDef inclus — défaut C1)', () => {
+        const entry = {
+            ...emptyEntry('classe'), name: 'Classe complète', description: 'Une description',
+            data: {
+                family: 'Guerriers',
+                note: 'Une note',
+                lore: ['Une ligne de lore.'],
+                weaponsAuth: ['Épées'],
+                armorAuth: ['Cuir'],
+                armorMaxDef: 4,
+                magicStat: 'INT',
+                stats: { AGI: 1, CON: 1, FOR: 1, PER: 1, CHA: 1, INT: 1, VOL: 1 },
+                startingEquipment: ['Une épée'],
+                masteries: ['Boucliers interdits'],
+            },
+        } as HomebrewEntry;
+        const vm = homebrewToProfileVM(entry);
+        expect(vm.family).toBeDefined();
+        expect(vm.note).toBeDefined();
+        expect(vm.lore).toBeDefined();
+        expect(vm.armorMaxDef).toBeDefined();
+        expect(vm.magicStat).toBeDefined();
+        expect(vm.stats).toBeDefined();
+        expect(vm.startingEquipment).toBeDefined();
+        // weaponsAuth/armorAuth/masteries n'ont pas de propriété dédiée : ils rejoignent
+        // tous la carte "Maîtrises" (vm.masteries), par design (cf. fromHomebrew.ts).
+        expect(vm.masteries).toBeDefined();
+        expect(vm.masteries?.some(m => m.label === 'Armes')).toBe(true);
+        expect(vm.masteries?.some(m => m.label === 'Armures')).toBe(true);
+        expect(vm.masteries?.some(m => m.label === '' && m.value === 'Boucliers interdits')).toBe(true);
+    });
+
+    it('voie : tous les champs du schéma produisent une propriété définie', () => {
+        const entry = {
+            ...emptyEntry('voie'), name: 'Voie complète', description: 'Une description',
+            data: { category: 'profil', maxRank: 5, details: ['Rang 1 — Effet.'] },
+        } as HomebrewEntry;
+        const vm = homebrewToVoieVM(entry);
+        expect(vm.category).toBeDefined();
+        expect(vm.maxRank).toBeDefined();
+        // `details` (schéma) n'a pas de propriété dédiée sur le VM : il devient
+        // `capabilities` (lignes → pseudo-capacités), par design (cf. fromHomebrew.ts).
+        expect(vm.capabilities).toBeDefined();
+        expect(vm.capabilities?.length).toBeGreaterThan(0);
+    });
+
+    it('capacite : tous les champs du schéma produisent une propriété définie', () => {
+        const entry = {
+            ...emptyEntry('capacite'), name: 'Capacité complète', description: 'Une description',
+            data: { rank: 3, actionType: 'Attaque', isSpell: true, limited: true, effect: ['1d6 DM'], details: ['Portée 5 m.'] },
+        } as HomebrewEntry;
+        const vm = homebrewToCapaciteVM(entry);
+        expect(vm.rank).toBeDefined();
+        expect(vm.actionType).toBeDefined();
+        expect(vm.isSpell).toBeDefined();
+        expect(vm.limited).toBeDefined();
+        expect(vm.effect).toBeDefined();
+        // `details` (schéma) n'a pas de propriété dédiée : il devient `detailLines`,
+        // forme différente du `details` officiel (objet JSON) — cf. fromHomebrew.ts.
+        expect(vm.detailLines).toBeDefined();
     });
 });

@@ -98,6 +98,36 @@ export const Layout: React.FC = () => {
         setOpenSection(prev => prev === path ? null : path);
     };
 
+    // Bouton flottant escamotable : sur mobile il survole le contenu et peut masquer
+    // les actions d'une carte (Modifier/Supprimer). On l'efface au défilement vers le
+    // bas — le geste naturel pour atteindre ce qu'il cachait — et on le ramène au
+    // défilement vers le haut ou en haut de page. Desktop inchangé.
+    const [fabHidden, setFabHidden] = React.useState(false);
+
+    React.useEffect(() => {
+        let lastY = window.scrollY;
+        let ticking = false;
+        const onScroll = () => {
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(() => {
+                const y = window.scrollY;
+                if (y < 80) setFabHidden(false);
+                else if (y > lastY + 8) setFabHidden(true);
+                else if (y < lastY - 8) setFabHidden(false);
+                lastY = y;
+                ticking = false;
+            });
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        return () => window.removeEventListener('scroll', onScroll);
+    }, []);
+
+    // Un bouton escamoté ne doit pas garder son bandeau d'outils ouvert.
+    React.useEffect(() => {
+        if (fabHidden && isFabOpen) toggleFab();
+    }, [fabHidden, isFabOpen, toggleFab]);
+
     return (
         <div className="min-h-screen text-stone-200 font-sans flex flex-col md:flex-row">
             {/* Mobile Header - Visible only on small screens */}
@@ -232,8 +262,12 @@ export const Layout: React.FC = () => {
                     })}
                 </div>
             </nav>
-            {/* Boutons flottants — repliables (au repos : un seul bouton, pour ne pas masquer le contenu). */}
-            <div className="fixed bottom-24 right-4 md:bottom-8 md:right-8 z-40 flex items-end gap-3 flex-col">
+            {/* Boutons flottants — repliables (au repos : un seul bouton, pour ne pas masquer le
+                contenu) et escamotés au défilement vers le bas sur mobile (cf. fabHidden). */}
+            <div className={clsx(
+                "fixed bottom-24 right-4 md:bottom-8 md:right-8 z-40 flex items-end gap-3 flex-col transition-all duration-300",
+                fabHidden && "translate-y-28 opacity-0 pointer-events-none md:translate-y-0 md:opacity-100 md:pointer-events-auto",
+            )}>
                 {isFabOpen && (
                     <>
                         {/* Recherche (mobile) */}

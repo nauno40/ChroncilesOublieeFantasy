@@ -136,18 +136,28 @@ Rendu au-dessus de la feuille, jamais à l'intérieur. Aucune autre divergence n
 | 3 | `VoieSheet` + `CapaciteSheet` + adaptateurs, même bascule pour `VoieDetail`, `CapaciteDetail` et `HomebrewDetail` | Idem sur une voie et une capacité ; vérification du cas « voie sans capacité » |
 | 4 | `OwnerBar` extrait et posé sur toutes les fiches communautaires ; contrôle du couple créature | Le delta se limite au bandeau ; audit visuel des 5 catégories |
 
+Les PR 2 et 3 sont indépendantes l'une de l'autre (feuilles distinctes, pages distinctes) ;
+la PR 4 dépend des deux. La PR 1 ne touche que la liste et peut partir en premier.
+
 Chaque PR passe les portes habituelles : `tsc -b` 0, `eslint` sans nouvelle erreur,
 `vitest` vert, vérification desktop **et** mobile (0 débordement, 0 erreur console).
 
 ## Tests
 
-- **Unitaires (Vitest)** sur les adaptateurs : une entité officielle et une entrée
-  homebrew partiellement remplie produisent un VM conforme ; les champs absents restent
-  `undefined` (jamais `null`, `""` ni `0` par défaut, qui afficheraient des sections vides).
-- **Rendu** : pour chaque feuille, un test montant le composant avec un VM complet puis
-  un VM minimal (`{ name }`) — le second ne doit produire aucune section vide ni crash.
-  C'est le garde-fou anti-régression de l'iso.
-- **Visuel** : captures Playwright officiel vs communautaire à chaque PR.
+Le projet n'a pas d'outillage de test de composants (pas de `jsdom` ni de
+`@testing-library/react`, pas de bloc `test` dans `vite.config.ts`) : les 162 tests
+existants portent sur des fonctions pures. **Décision : on n'en introduit pas ici.**
+La couverture repose donc sur deux niveaux :
+
+- **Unitaires (Vitest)** sur les adaptateurs — ce sont des fonctions pures, donc
+  testables sans nouvelle dépendance. Pour chaque adaptateur : une entité officielle
+  complète et une entrée homebrew quasi vide produisent un VM conforme ; les champs
+  absents restent `undefined` (jamais `null`, `""` ni `0` par défaut, qui afficheraient
+  des sections vides). Le cas « VM minimal » est couvert ici plutôt que par un montage.
+- **Visuel (Playwright)** — à chaque PR, captures officiel vs communautaire pour la
+  catégorie touchée, plus le cas d'une entrée quasi vide (aucune section vide affichée)
+  et une capture avant/après de la page officielle réécrite. C'est le garde-fou
+  anti-régression de l'iso.
 
 ## Risques
 

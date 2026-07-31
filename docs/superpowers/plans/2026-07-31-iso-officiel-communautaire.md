@@ -182,11 +182,25 @@ export interface SheetVoieRef {
     name: string;
 }
 
+/**
+ * Un modificateur de caractéristique tel que le compendium l'exprime réellement :
+ * fixe (`stat` + `value`), au choix (`options` + `value`), ou formulé librement
+ * (`description`, ex. l'Humain : « +1 à une de ses deux plus faibles caractéristiques »).
+ * Vérifié sur backend/data/Races/ : 7 races sur 8 portent des modificateurs `choice`,
+ * l'Humain un `logic` décrit. Un simple Record<string, number> les perdrait.
+ */
+export interface SheetModifier {
+    stat?: string;
+    value?: number;
+    options?: string[];
+    description?: string;
+}
+
 export interface RaceSheetVM {
     name: string;
     description?: string;
     image?: string;
-    modifiers?: Record<string, number>;
+    modifiers?: SheetModifier[];
     speed?: string;
     minHeight?: number;
     maxHeight?: number;
@@ -379,8 +393,9 @@ export const raceToVM = (race: Race, voies?: Voie[]): RaceSheetVM => ({
     name: race.name,
     description: str(race.description),
     image: str(race.image),
+    // Aucun filtrage sur `stat` : les modificateurs `choice` et `logic` doivent survivre.
     modifiers: race.modifiers?.length
-        ? Object.fromEntries(race.modifiers.filter(m => m.stat).map(m => [m.stat as string, m.value]))
+        ? race.modifiers.map(m => ({ stat: m.stat, value: m.value, options: m.options, description: m.description }))
         : undefined,
     minHeight: num(race.minHeight),
     maxHeight: num(race.maxHeight),
@@ -405,7 +420,7 @@ export const profileToVM = (p: Profile, voies?: Voie[]): ProfileSheetVM => ({
     hitDie: str(p.hitDie),
     magicStat: str(p.magicStat),
     armorMaxDef: num(p.armorMaxDef),
-    stats: p.stats as Record<string, number> | undefined,
+    stats: caracsOnly(p.stats),   // seules les caracs COF2 numériques ; cf. correctif round 1
     startingEquipment: list(p.startingEquipment),
     masteries: p.masteries ? list(Object.values(p.masteries)) : undefined,
     note: str(p.note),
@@ -481,7 +496,7 @@ export const homebrewToRaceVM = (e: HomebrewEntry): RaceSheetVM => {
         name: e.name,
         description: str(e.description),
         image: str(data.image),
-        modifiers: caracs(data.modifiers),
+        modifiers: toModifierList(caracs(data.modifiers)),
         speed: str(data.speed),
         minHeight: num(data.minHeight),
         maxHeight: num(data.maxHeight),
@@ -761,12 +776,20 @@ export const RaceSheet: React.FC<RaceSheetProps> = ({ vm, backTo, backLabel, hea
                                             <div className="mb-6">
                                                 <h4 className="text-sm font-bold text-stone-500 uppercase tracking-widest mb-3">Caractéristiques</h4>
                                                 <div className="flex flex-wrap gap-3">
-                                                    {Object.entries(vm.modifiers).map(([stat, value]) => (
-                                                        <div key={stat} className="px-4 py-2 rounded-lg bg-primary-600/20 border border-primary-500/30 text-primary-100 font-mono text-sm flex items-center gap-2">
-                                                            <span className={`font-bold ${value > 0 ? 'text-primary-300' : 'text-red-300'}`}>
-                                                                {value > 0 ? '+' : ''}{value}
-                                                            </span>
-                                                            <span className="uppercase tracking-wider opacity-90">{stat}</span>
+                                                    {vm.modifiers.map((mod, i) => (
+                                                        <div key={i} className="px-4 py-2 rounded-lg bg-primary-600/20 border border-primary-500/30 text-primary-100 font-mono text-sm flex items-center gap-2">
+                                                            {mod.description ? (
+                                                                <span>{mod.description}</span>
+                                                            ) : (
+                                                                <>
+                                                                    <span className={`font-bold ${(mod.value ?? 0) > 0 ? 'text-primary-300' : 'text-red-300'}`}>
+                                                                        {(mod.value ?? 0) > 0 ? '+' : ''}{mod.value}
+                                                                    </span>
+                                                                    <span className="uppercase tracking-wider opacity-90">
+                                                                        {mod.options?.length ? mod.options.join(' / ') : mod.stat}
+                                                                    </span>
+                                                                </>
+                                                            )}
                                                         </div>
                                                     ))}
                                                 </div>

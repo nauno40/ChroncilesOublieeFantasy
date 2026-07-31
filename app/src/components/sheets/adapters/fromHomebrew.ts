@@ -1,5 +1,5 @@
 import type { HomebrewEntry } from '../../../services/homebrewService';
-import type { RaceSheetVM, ProfileSheetVM, VoieSheetVM, CapaciteSheetVM, SheetModifier } from '../types';
+import type { RaceSheetVM, ProfileSheetVM, VoieSheetVM, CapaciteSheetVM, SheetModifier, SheetLabelled } from '../types';
 
 /**
  * Projection de `entry.data` (JSON libre, clés définies par services/homebrewSchemas.ts)
@@ -80,22 +80,34 @@ export const homebrewToRaceVM = (e: HomebrewEntry): RaceSheetVM => {
     };
 };
 
+/** Le schéma homebrew capture maîtrises et lore en simples lignes libres (`type: 'lines'`),
+ * sans intitulé par entrée (contrairement à l'officiel : objet weapons/armors/shields/
+ * constraints pour les maîtrises, objet clé/valeur pour le lore — cf. fromOfficial.ts).
+ * Chaque ligne devient une entrée sans label plutôt qu'un `string[]` à plat, pour rester
+ * compatible avec le rendu par entrées de `ProfileSheet` sans perdre le découpage en blocs.
+ */
+const unlabelled = (v: unknown): SheetLabelled[] | undefined => {
+    const lines = list(v);
+    return lines?.map(value => ({ label: '', value }));
+};
+
 export const homebrewToProfileVM = (e: HomebrewEntry): ProfileSheetVM => {
     const data = d(e);
+    const familyName = str(data.family);
     return {
         name: e.name,
         description: str(e.description),
         image: str(data.image),
-        family: str(data.family),
+        family: familyName ? { name: familyName } : undefined,
         magicStat: str(data.magicStat),
         armorMaxDef: num(data.armorMaxDef),
         stats: caracsForStats(data.stats),
         weaponsAuth: list(data.weaponsAuth),
         armorAuth: list(data.armorAuth),
         startingEquipment: list(data.startingEquipment),
-        masteries: list(data.masteries),
+        masteries: unlabelled(data.masteries),
         note: str(data.note),
-        lore: list(data.lore),
+        lore: unlabelled(data.lore),
     };
 };
 

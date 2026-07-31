@@ -46,21 +46,78 @@ export interface RaceSheetVM {
     voies?: SheetVoieRef[];
 }
 
+/** Entrée libellée : l'officiel stocke maîtrises et lore en objets clé → texte
+ * (`ClassDetail.tsx` fait `Object.entries(...)` et rend chaque paire avec son intitulé).
+ * Un simple `string[]` perdrait l'intitulé et mélangerait par ex. « armes » et « contraintes ».
+ */
+export interface SheetLabelled {
+    label: string;
+    value: string;
+}
+
+/** Élément d'équipement de départ : item simple, choix entre alternatives, ou ensemble.
+ * Récursif (`choice`/`set` contiennent eux-mêmes des `SheetEquipmentItem`) — reflète
+ * `ProfileStartingEquipmentItem` du compendium, rendu par un renderItem récursif dans
+ * `ClassDetail.tsx`. Une simple `string[]` perdrait la structure choix/ensemble.
+ */
+export interface SheetEquipmentItem {
+    item?: string;
+    stats?: string;
+    examples?: string;
+    choice?: (SheetEquipmentItem | string)[];
+    set?: (SheetEquipmentItem | string)[];
+}
+
+/**
+ * Famille de profil (Guerriers, Mages…) : une entité à part entière côté officiel, pas
+ * une simple étiquette. `ClassDetail.tsx` en tire un sous-titre (« Famille des … »), des
+ * stats de groupe (PV/niveau, dé de récupération, points de chance, carac. de magie de
+ * repli) et deux blocs de texte (description, bonus de famille — ce dernier apparaît
+ * deux fois dans la page officielle : sidebar ET onglet Légendes).
+ */
+export interface SheetFamily {
+    name: string;
+    /** "Famille des X" (ou `name` tel quel s'il commence déjà par "Famille") — calculé
+     * une fois dans l'adaptateur, logique reprise telle quelle de `ClassDetail.tsx`. */
+    subtitle?: string;
+    description?: string;
+    baseHp?: number;
+    recoveryDie?: string;
+    luckPoints?: number;
+    manaStat?: string;
+    /** `family.specials` — bloc "Bonus de Famille". */
+    bonus?: string;
+}
+
 export interface ProfileSheetVM {
     name: string;
     description?: string;
     image?: string;
-    family?: string;
+    family?: SheetFamily;
     hitDie?: string;
+    /** Titre du panneau "Statistiques Vitales" (`profile.stats.profileType`) ; repli
+     * générique "Statistiques Vitales" géré par la feuille, pas par l'adaptateur. */
+    profileType?: string;
     magicStat?: string;
     armorMaxDef?: number;
+    /** Caractéristiques COF2 numériques (AGI, CON…) — concept homebrew (« Stats de
+     * départ ») sans équivalent affiché sur la page officielle des classes. Conservé
+     * pour compatibilité mais non rendu par `ProfileSheet` (cf. rapport de tâche). */
     stats?: Record<string, number>;
+    /**
+     * Maîtrises libellées. L'officiel les rend une par une avec leur intitulé
+     * (armes, armures, boucliers, contraintes) : un simple string[] perdrait
+     * l'intitulé et mélangerait « armes » et « contraintes ».
+     */
+    masteries?: SheetLabelled[];
+    /** Repli texte de l'officiel, affiché quand les maîtrises structurées manquent. */
+    weaponsAndArmor?: string;
     weaponsAuth?: string[];
     armorAuth?: string[];
-    startingEquipment?: string[];
-    masteries?: string[];
+    startingEquipment?: (SheetEquipmentItem | string)[];
     note?: string;
-    lore?: string[];
+    /** Lore libellé : l'officiel le stocke en objet et le rend par entrées clé/valeur. */
+    lore?: SheetLabelled[];
     voies?: SheetVoieRef[];
 }
 
@@ -69,6 +126,8 @@ export interface SheetCapabilityRef {
     name: string;
     description?: string;
     isSpell?: boolean;
+    /** Usage limité : l'officiel affiche un badge « L ». */
+    limited?: boolean;
     /** JSON libre de la capacité, rendu tel quel par DynamicDetailsRenderer. */
     details?: Record<string, unknown>;
 }

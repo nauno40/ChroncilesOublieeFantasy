@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { raceToVM, profileToVM, voieToVM, capacityToVM } from './fromOfficial';
 import { homebrewToRaceVM, homebrewToProfileVM, homebrewToVoieVM, homebrewToCapaciteVM } from './fromHomebrew';
-import type { Race, Profile, Voie, Capacity } from '../../../types/normalized';
+import type { Race, Profile, Voie, Capacity, Family } from '../../../types/normalized';
 import type { HomebrewEntry } from '../../../services/homebrewService';
 
 // Fabrique une entrée homebrew minimale : seul le nom est renseigné.
@@ -133,6 +133,98 @@ describe('adaptateurs officiels', () => {
     });
 });
 
+describe('adaptateurs de profil (classes) — fidélité à ClassDetail.tsx', () => {
+    it('rend les maîtrises structurées en entrées libellées (armes/armures/boucliers/contraintes)', () => {
+        const p = {
+            id: 1, name: 'Guerrier', description: 'Brave', hitDie: '1D10',
+            masteries: { weapons: 'Toutes les armes', armors: 'Toutes les armures', shields: 'Tous les boucliers', constraints: 'Aucune' },
+        } as unknown as Profile;
+        const vm = profileToVM(p);
+        expect(vm.masteries).toEqual([
+            { label: 'Armes', value: 'Toutes les armes' },
+            { label: 'Armures', value: 'Toutes les armures' },
+            { label: 'Boucliers', value: 'Tous les boucliers' },
+            { label: 'Contraintes', value: 'Aucune' },
+        ]);
+        expect(vm.weaponsAndArmor).toBeUndefined();
+    });
+
+    it('ne garde que les blocs de maîtrise renseignés', () => {
+        const p = { id: 1, name: 'Moine', description: 'Ascète', hitDie: '1D8', masteries: { weapons: 'Armes de contact' } } as unknown as Profile;
+        const vm = profileToVM(p);
+        expect(vm.masteries).toEqual([{ label: 'Armes', value: 'Armes de contact' }]);
+    });
+
+    it('utilise le repli weaponsAndArmor quand les maîtrises structurées sont absentes', () => {
+        const p = { id: 1, name: 'Barde', description: 'Chante', hitDie: '1D8', weaponsAndArmor: 'Armes simples et armure légère' } as unknown as Profile;
+        const vm = profileToVM(p);
+        expect(vm.masteries).toBeUndefined();
+        expect(vm.weaponsAndArmor).toBe('Armes simples et armure légère');
+    });
+
+    it('rend le lore en entrées libellées (clé formatée → texte), tableau aplati sans perte', () => {
+        const p = {
+            id: 1, name: 'Barbare', description: 'Sauvage', hitDie: '1D12',
+            lore: { terres_d_osgild: 'On trouve quelques clans...', origines_possibles: ['Montagnards', 'Tribus de la jungle'] },
+        } as unknown as Profile;
+        const vm = profileToVM(p);
+        expect(vm.lore).toEqual([
+            { label: "Terres d'Osgild", value: 'On trouve quelques clans...' },
+            { label: 'Origines possibles', value: 'Montagnards\nTribus de la jungle' },
+        ]);
+    });
+
+    it('porte le badge « limité » (limited) sur les capacités de voie de classe', () => {
+        const p = { id: 1, name: 'Voleur', description: 'Discret', hitDie: '1D8' } as unknown as Profile;
+        const voies = [{ id: '5', name: 'Voie du poison' } as Voie];
+        const capacities = [
+            { id: '1', name: 'Coup sournois', rank: 1, voie: '/api/voies/5', limited: true } as Capacity,
+            { id: '2', name: 'Esquive', rank: 2, voie: '/api/voies/5', isSpell: true } as Capacity,
+        ];
+        const vm = profileToVM(p, voies, capacities);
+        const caps = vm.voies?.[0].capabilities;
+        expect(caps?.find(c => c.name === 'Coup sournois')?.limited).toBe(true);
+        expect(caps?.find(c => c.name === 'Esquive')?.limited).toBeUndefined();
+        expect(caps?.find(c => c.name === 'Esquive')?.isSpell).toBe(true);
+    });
+
+    it('projette la famille (entité, pas une chaîne) avec sous-titre calculé et bonus', () => {
+        const family = {
+            id: 1, name: 'Combattants', description: 'Les maîtres du champ de bataille.',
+            baseHp: 5, recoveryDie: '1d10', luckPoints: 2, manaStat: null, specials: 'Résistance accrue',
+        } as unknown as Family;
+        const p = { id: 1, name: 'Guerrier', description: 'Brave', hitDie: '1D10', magicStat: null } as unknown as Profile;
+        const vm = profileToVM(p, undefined, undefined, family);
+        expect(vm.family).toEqual({
+            name: 'Combattants', subtitle: 'Famille des Combattants', description: 'Les maîtres du champ de bataille.',
+            baseHp: 5, recoveryDie: '1d10', luckPoints: 2, manaStat: undefined, bonus: 'Résistance accrue',
+        });
+    });
+
+    it('n\'ajoute pas "Famille des" si le nom de famille commence déjà par "Famille"', () => {
+        const family = { id: 1, name: 'Famille des Mages', description: '', baseHp: 3, recoveryDie: '1d6', luckPoints: 0, manaStat: null } as unknown as Family;
+        const p = { id: 1, name: 'Magicien', description: 'Étudie', hitDie: '1D4' } as unknown as Profile;
+        const vm = profileToVM(p, undefined, undefined, family);
+        expect(vm.family?.subtitle).toBe('Famille des Mages');
+    });
+
+    it('masque les points de chance à 0 (pas une valeur affichable)', () => {
+        const family = { id: 1, name: 'Mages', description: '', baseHp: 3, recoveryDie: '1d6', luckPoints: 0, manaStat: 'INT' } as unknown as Family;
+        const p = { id: 1, name: 'Magicien', description: 'Étudie', hitDie: '1D4' } as unknown as Profile;
+        const vm = profileToVM(p, undefined, undefined, family);
+        expect(vm.family?.luckPoints).toBeUndefined();
+    });
+
+    it('titre le panneau de statistiques avec profile.stats.profileType', () => {
+        const p = {
+            id: 1, name: 'Moine', description: 'Ascète', hitDie: '1D8',
+            stats: { hpPerLevel: 4, profileType: 'Combattant agile / Corps à corps / Mystique', hitDie: '1D8', magicStat: 'PER' },
+        } as unknown as Profile;
+        const vm = profileToVM(p);
+        expect(vm.profileType).toBe('Combattant agile / Corps à corps / Mystique');
+    });
+});
+
 describe('adaptateurs homebrew', () => {
     it('projette une race homebrew complète', () => {
         const entry = {
@@ -161,6 +253,34 @@ describe('adaptateurs homebrew', () => {
         const vmCapacite = homebrewToCapaciteVM(emptyEntry('sort'));
         expect(vmCapacite.effect).toBeUndefined();
         expect(vmCapacite.details).toBeUndefined();
+    });
+
+    it('projette une classe homebrew complète : maîtrises/lore en entrées sans label, famille en {name}', () => {
+        const entry = {
+            ...emptyEntry('classe'), name: 'Berserker totémique', description: 'Guerrier lié à un esprit animal',
+            data: {
+                family: 'Combattants totémiques', magicStat: 'VOL', armorMaxDef: 4,
+                weaponsAuth: ['Armes à deux mains'], armorAuth: ['Cuir'],
+                startingEquipment: ['Hache tribale'], masteries: ['Toutes armes de contact', 'Boucliers interdits'],
+                lore: ['Les clans du nord vénèrent leurs totems.'],
+            },
+        } as HomebrewEntry;
+        const vm = homebrewToProfileVM(entry);
+        expect(vm.family).toEqual({ name: 'Combattants totémiques' });
+        expect(vm.masteries).toEqual([
+            { label: '', value: 'Toutes armes de contact' },
+            { label: '', value: 'Boucliers interdits' },
+        ]);
+        expect(vm.lore).toEqual([{ label: '', value: 'Les clans du nord vénèrent leurs totems.' }]);
+        expect(vm.weaponsAuth).toEqual(['Armes à deux mains']);
+        expect(vm.armorAuth).toEqual(['Cuir']);
+    });
+
+    it('laisse family/masteries/lore undefined pour une classe homebrew sans détail', () => {
+        const vm = homebrewToProfileVM(emptyEntry('classe'));
+        expect(vm.family).toBeUndefined();
+        expect(vm.masteries).toBeUndefined();
+        expect(vm.lore).toBeUndefined();
     });
 
     it('projette une voie homebrew', () => {

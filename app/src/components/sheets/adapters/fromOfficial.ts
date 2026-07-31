@@ -1,5 +1,5 @@
-import type { Race, Profile, Voie, Capacity } from '../../../types/normalized';
-import type { RaceSheetVM, ProfileSheetVM, VoieSheetVM, CapaciteSheetVM, SheetVoieRef, SheetCapabilityRef } from '../types';
+import type { Race, Profile, Voie, Capacity, Family } from '../../../types/normalized';
+import type { RaceSheetVM, ProfileSheetVM, VoieSheetVM, CapaciteSheetVM, SheetVoieRef, SheetCapabilityRef, SheetLabelled, SheetFamily } from '../types';
 
 /** Vide → undefined : une section sans contenu ne doit pas être rendue. */
 const str = (v: unknown): string | undefined => {
@@ -7,11 +7,6 @@ const str = (v: unknown): string | undefined => {
     return s === '' ? undefined : s;
 };
 const num = (v: unknown): number | undefined => (typeof v === 'number' && !Number.isNaN(v) ? v : undefined);
-const list = (v: unknown): string[] | undefined => {
-    if (!Array.isArray(v)) return undefined;
-    const out = v.map(x => (typeof x === 'string' ? x : JSON.stringify(x))).filter(Boolean);
-    return out.length ? out : undefined;
-};
 /** Vide/NULL → undefined : la majorité des capacités n'ont pas de `details`. */
 const details = (v: Record<string, unknown> | null | undefined): Record<string, unknown> | undefined =>
     v && Object.keys(v).length ? v : undefined;
@@ -21,6 +16,7 @@ const capRef = (c: Capacity): SheetCapabilityRef => ({
     name: c.name,
     description: str(c.description),
     isSpell: c.isSpell || undefined,
+    limited: c.limited || undefined,
     details: details(c.details),
 });
 
@@ -86,19 +82,105 @@ export const raceToVM = (race: Race, voies?: Voie[], capacities?: Capacity[]): R
     voies: refs(voies, capacities),
 });
 
-export const profileToVM = (p: Profile, voies?: Voie[]): ProfileSheetVM => ({
+/** Intitulés des blocs de `Profile.masteries` — ordre et libellés de `ClassDetail.tsx:230-256`. */
+const MASTERY_LABELS: Record<string, string> = {
+    weapons: 'Armes',
+    armors: 'Armures',
+    shields: 'Boucliers',
+    constraints: 'Contraintes',
+};
+
+/** `Profile.masteries` (objet weapons/armors/shields/constraints) → entrées libellées,
+ * une par bloc renseigné, dans l'ordre où `ClassDetail.tsx` les rend. Un simple
+ * `Object.values` perdrait l'intitulé et mélangerait armes et contraintes.
+ */
+const masteryList = (m: Profile['masteries']): SheetLabelled[] | undefined => {
+    if (!m) return undefined;
+    const out = Object.entries(MASTERY_LABELS)
+        .map(([key, label]): SheetLabelled | undefined => {
+            const value = str((m as Record<string, unknown>)[key]);
+            return value !== undefined ? { label, value } : undefined;
+        })
+        .filter((e): e is SheetLabelled => e !== undefined);
+    return out.length ? out : undefined;
+};
+
+/** Reprend telle quelle la logique de `ClassDetail.tsx` (`formatLoreKey`) : intitulé
+ * lisible d'une clé de `Profile.lore` (ex. `terres_d_osgild` → `Terres d'Osgild`).
+ */
+const formatLoreKey = (key: string): string =>
+    key
+        .replace(/_/g, ' ')
+        .replace(/\b([a-z])/, (match) => match.toUpperCase())
+        .replace(/ D /g, " d'")
+        .replace(/ L /g, " l'")
+        .replace(/d osgild/i, "d'Osgild");
+
+/** Valeur de `Profile.lore` → texte affichable. La valeur brute est tantôt une chaîne,
+ * tantôt un tableau (`ClassDetail.tsx` les rend en liste à puces), tantôt un objet
+ * imbriqué (rendu en sous-entrées clé/valeur) — jamais observé dans les fixtures
+ * officielles à ce jour (une seule race a un tableau), mais géré pour ne rien perdre
+ * si le compendium en ajoute. Aplati en texte multi-lignes (`SheetLabelled.value` est
+ * une chaîne) ; la feuille l'affiche avec `whitespace-pre-line`.
+ */
+const loreValue = (v: unknown): string | undefined => {
+    if (Array.isArray(v)) {
+        const lines = v.map(x => String(x)).filter(Boolean);
+        return lines.length ? lines.join('\n') : undefined;
+    }
+    if (v && typeof v === 'object') {
+        const lines = Object.entries(v as Record<string, unknown>).map(([k, val]) => `${formatLoreKey(k)} : ${String(val)}`);
+        return lines.length ? lines.join('\n') : undefined;
+    }
+    return str(v);
+};
+
+const loreList = (lore: Profile['lore']): SheetLabelled[] | undefined => {
+    if (!lore) return undefined;
+    const out = Object.entries(lore)
+        .map(([key, v]): SheetLabelled | undefined => {
+            const value = loreValue(v);
+            return value !== undefined ? { label: formatLoreKey(key), value } : undefined;
+        })
+        .filter((e): e is SheetLabelled => e !== undefined);
+    return out.length ? out : undefined;
+};
+
+/** `Profile.family` résolue (objet `Family`, pas l'IRI) → bloc famille du view-model.
+ * Le sous-titre reprend telle quelle la logique anti-répétition de `ClassDetail.tsx`
+ * (« Famille des X », sauf si `name` commence déjà par "Famille").
+ */
+const familyRef = (f?: Family): SheetFamily | undefined => {
+    if (!f?.name) return undefined;
+    const luck = num(f.luckPoints);
+    return {
+        name: f.name,
+        subtitle: f.name.startsWith('Famille') ? f.name : `Famille des ${f.name}`,
+        description: str(f.description),
+        baseHp: num(f.baseHp),
+        recoveryDie: str(f.recoveryDie),
+        luckPoints: luck !== undefined && luck > 0 ? luck : undefined,
+        manaStat: str(f.manaStat ?? undefined),
+        bonus: str(f.specials ?? undefined),
+    };
+};
+
+export const profileToVM = (p: Profile, voies?: Voie[], capacities?: Capacity[], family?: Family): ProfileSheetVM => ({
     name: p.name,
     description: str(p.description),
     image: str(p.imageUrl),
-    family: typeof p.family === 'string' ? str(p.family) : str((p.family as { name?: string } | undefined)?.name),
+    family: familyRef(family ?? (typeof p.family === 'object' ? (p.family as Family) : undefined)),
     hitDie: str(p.hitDie),
+    profileType: str(p.stats?.profileType),
     magicStat: str(p.magicStat),
     armorMaxDef: num(p.armorMaxDef),
     stats: profileStats(p.stats as Record<string, unknown> | undefined),
-    startingEquipment: list(p.startingEquipment),
-    masteries: p.masteries ? list(Object.values(p.masteries)) : undefined,
+    startingEquipment: p.startingEquipment && p.startingEquipment.length ? p.startingEquipment : undefined,
+    masteries: masteryList(p.masteries),
+    weaponsAndArmor: p.masteries ? undefined : str(p.weaponsAndArmor),
     note: str(p.note),
-    voies: refs(voies),
+    lore: loreList(p.lore),
+    voies: refs(voies, capacities),
 });
 
 export const voieToVM = (v: Voie, caps?: Capacity[]): VoieSheetVM => ({

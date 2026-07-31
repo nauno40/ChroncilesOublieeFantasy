@@ -4,8 +4,8 @@ import { ArrowLeft, Globe, Lock, User as UserIcon } from 'lucide-react';
 import { HomebrewService, categoryLabel, type HomebrewEntry } from '../services/homebrewService';
 import { HOMEBREW_SCHEMAS, CARAC_KEYS, type HomebrewFieldDef } from '../services/homebrewSchemas';
 import { Loader } from '../components/common';
-import { RaceSheet } from '../components/sheets';
-import { homebrewToRaceVM } from '../components/sheets/adapters/fromHomebrew';
+import { RaceSheet, ProfileSheet } from '../components/sheets';
+import { homebrewToRaceVM, homebrewToProfileVM } from '../components/sheets/adapters/fromHomebrew';
 
 const hasValue = (v: unknown): boolean => {
     if (v === undefined || v === null || v === '') return false;
@@ -39,6 +39,10 @@ export const HomebrewDetail: React.FC = () => {
 
     if (entry.category === 'race') {
         return <RaceSheet vm={homebrewToRaceVM(entry)} backTo="/races" backLabel="Retour aux Races" />;
+    }
+
+    if (entry.category === 'classe') {
+        return <ProfileSheet vm={homebrewToProfileVM(entry)} backTo="/classes" backLabel="Retour aux Classes" />;
     }
 
     const schema = HOMEBREW_SCHEMAS[entry.category] ?? [];

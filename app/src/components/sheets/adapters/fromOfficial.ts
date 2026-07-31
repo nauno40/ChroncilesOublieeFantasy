@@ -18,6 +18,7 @@ const capRef = (c: Capacity): SheetCapabilityRef => ({
     description: str(c.description),
     isSpell: c.isSpell || undefined,
     limited: c.limited || undefined,
+    active: c.active || undefined,
     details: details(c.details),
 });
 
@@ -193,6 +194,7 @@ export const voieToVM = (v: Voie, caps?: Capacity[]): VoieSheetVM => ({
     name: v.name,
     description: str(v.description),
     category: str(v.type),
+    details: details(v.details),
     capabilities: caps && caps.length
         ? [...caps]
             .sort((a, b) => (a.rank ?? 0) - (b.rank ?? 0))
@@ -200,11 +202,14 @@ export const voieToVM = (v: Voie, caps?: Capacity[]): VoieSheetVM => ({
         : undefined,
 });
 
-export const capacityToVM = (c: Capacity, voieName?: string): CapaciteSheetVM => ({
+export const capacityToVM = (c: Capacity, voieName?: string, voieId?: string): CapaciteSheetVM => ({
     name: c.name,
     description: str(c.description),
     rank: num(c.rank),
     isSpell: c.isSpell || undefined,
     limited: c.limited || undefined,
+    active: c.active || undefined,
+    details: details(c.details),
     voieName: str(voieName),
+    voieId: str(voieId),
 });

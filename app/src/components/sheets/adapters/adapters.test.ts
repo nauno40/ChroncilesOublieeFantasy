@@ -32,6 +32,26 @@ describe('adaptateurs officiels', () => {
         expect(vm).toMatchObject({ name: 'Boule de feu', rank: 3, isSpell: true, limited: true, voieName: 'Voie du Feu' });
     });
 
+    it('porte le drapeau `active` (capacité active vs passive) sur une capacité standalone', () => {
+        const active = { id: '1', name: 'Frappe', description: '', active: true } as Capacity;
+        const passive = { id: '2', name: 'Endurance', description: '', active: false } as Capacity;
+        expect(capacityToVM(active).active).toBe(true);
+        expect(capacityToVM(passive).active).toBeUndefined();
+    });
+
+    it('porte les JSON libres (Capacity.details) et le lien vers la voie (voieId) sur une capacité standalone', () => {
+        const cap = { id: '1', name: 'Pas de brume', description: 'Se téléporte', details: { note: 'Une fois par combat' } } as unknown as Capacity;
+        const vm = capacityToVM(cap, 'Voie de la brume', '42');
+        expect(vm.details).toEqual({ note: 'Une fois par combat' });
+        expect(vm.voieName).toBe('Voie de la brume');
+        expect(vm.voieId).toBe('42');
+    });
+
+    it('laisse voieId undefined quand aucune voie n\'est fournie', () => {
+        const cap = { id: '1', name: 'Solitaire', description: '' } as Capacity;
+        expect(capacityToVM(cap).voieId).toBeUndefined();
+    });
+
     it('projette une voie et ses capacités triées par rang', () => {
         const voie = { id: '9', name: 'Voie du Feu', description: 'Brûler', type: 'profil' } as unknown as Voie;
         const caps = [
@@ -40,6 +60,24 @@ describe('adaptateurs officiels', () => {
         ];
         const vm = voieToVM(voie, caps);
         expect(vm.capabilities?.map(c => c.rank)).toEqual([1, 2]);
+    });
+
+    it('porte les JSON libres de la voie (Détails & Mécaniques) ; undefined si absents', () => {
+        const withDetails = { id: '9', name: 'Voie du Feu', type: 'profil', details: { famille: 'Élémentaire' } } as unknown as Voie;
+        const withoutDetails = { id: '10', name: 'Voie sans détail', type: 'profil' } as unknown as Voie;
+        expect(voieToVM(withDetails).details).toEqual({ famille: 'Élémentaire' });
+        expect(voieToVM(withoutDetails).details).toBeUndefined();
+    });
+
+    it('porte le drapeau `active` sur les capacités listées par une voie', () => {
+        const voie = { id: '9', name: 'Voie de l\'Énergie Vitale', type: 'profil' } as unknown as Voie;
+        const caps = [
+            { id: '1', name: 'Frappe vitale', rank: 1, active: true } as Capacity,
+            { id: '2', name: 'Résistance', rank: 2, active: false } as Capacity,
+        ];
+        const vm = voieToVM(voie, caps);
+        expect(vm.capabilities?.find(c => c.name === 'Frappe vitale')?.active).toBe(true);
+        expect(vm.capabilities?.find(c => c.name === 'Résistance')?.active).toBeUndefined();
     });
 
     it('rattache à chaque voie ses propres capacités, triées par rang (IRI ou voieId brut)', () => {
@@ -261,7 +299,7 @@ describe('adaptateurs homebrew', () => {
         expect(vmProfile.masteries).toBeUndefined();
         const vmCapacite = homebrewToCapaciteVM(emptyEntry('sort'));
         expect(vmCapacite.effect).toBeUndefined();
-        expect(vmCapacite.details).toBeUndefined();
+        expect(vmCapacite.detailLines).toBeUndefined();
     });
 
     it('projette une classe homebrew complète : armes/armures autorisées + maîtrises libres rejoignent la carte Maîtrises (pas de carte à part), lore en entrées sans label, famille en {name}', () => {
@@ -315,5 +353,30 @@ describe('adaptateurs homebrew', () => {
         const entry = { ...emptyEntry('voie'), name: 'Voie du Gel', data: { category: 'profil', maxRank: 5 } } as HomebrewEntry;
         const vm = homebrewToVoieVM(entry);
         expect(vm).toMatchObject({ name: 'Voie du Gel', category: 'profil', maxRank: 5 });
+    });
+
+    it('laisse `details` (JSON libre officiel) undefined pour une voie homebrew : le schéma communautaire produit des lignes, pas un objet', () => {
+        const entry = { ...emptyEntry('voie'), name: 'Voie du Gel', data: { category: 'profil', details: ['Rang 1 — Souffle glacé.', 'Rang 2 — Armure de givre.'] } } as HomebrewEntry;
+        const vm = homebrewToVoieVM(entry);
+        expect(vm.details).toBeUndefined();
+        expect(vm.capabilities).toEqual([{ name: 'Rang 1 — Souffle glacé.' }, { name: 'Rang 2 — Armure de givre.' }]);
+    });
+
+    it('projette une capacité/sort homebrew : effect et details (lignes) restent deux listes distinctes', () => {
+        const entry = {
+            ...emptyEntry('capacite'), name: 'Frappe du vide', description: 'Frappe dans une brèche',
+            data: { rank: 2, isSpell: true, limited: true, effect: ['1d8 DM psychique.'], details: ['Portée 5 m.', 'Nécessite une arme tranchante.'] },
+        } as HomebrewEntry;
+        const vm = homebrewToCapaciteVM(entry);
+        expect(vm.effect).toEqual(['1d8 DM psychique.']);
+        expect(vm.detailLines).toEqual(['Portée 5 m.', 'Nécessite une arme tranchante.']);
+        expect(vm.details).toBeUndefined();
+        expect(vm.isSpell).toBe(true);
+        expect(vm.limited).toBe(true);
+    });
+
+    it('force isSpell=true pour la catégorie `sort` même sans champ isSpell explicite', () => {
+        const entry = { ...emptyEntry('sort'), name: 'Éclair', data: {} } as HomebrewEntry;
+        expect(homebrewToCapaciteVM(entry).isSpell).toBe(true);
     });
 });

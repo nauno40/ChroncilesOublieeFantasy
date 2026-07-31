@@ -137,6 +137,8 @@ export interface SheetCapabilityRef {
     isSpell?: boolean;
     /** Usage limité : l'officiel affiche un badge « L ». */
     limited?: boolean;
+    /** Capacité active (par opposition à passive) : l'officiel affiche un badge « Actif ». */
+    active?: boolean;
     /** JSON libre de la capacité, rendu tel quel par DynamicDetailsRenderer. */
     details?: Record<string, unknown>;
 }
@@ -147,6 +149,11 @@ export interface VoieSheetVM {
     category?: string;
     maxRank?: number;
     profileName?: string;
+    /** JSON libre de la voie (`Voie.details`), rendu par DynamicDetailsRenderer sous le
+     * titre "Détails & Mécaniques" (`VoieDetail.tsx`). Absent côté communautaire
+     * aujourd'hui (le schéma homebrew capture ces lignes dans `capabilities`, cf.
+     * `homebrewToVoieVM`) : la section disparaît alors entièrement, pas de titre orphelin. */
+    details?: Record<string, unknown>;
     capabilities?: SheetCapabilityRef[];
 }
 
@@ -157,7 +164,21 @@ export interface CapaciteSheetVM {
     actionType?: string;
     isSpell?: boolean;
     limited?: boolean;
+    /** Capacité active (par opposition à passive) : `CapaciteDetail.tsx` affiche un badge « Actif ». */
+    active?: boolean;
+    /** Lignes d'effet communautaires (schéma homebrew `effect`, type 'lines') — forme
+     * différente du champ `effect` de l'entité officielle (données de moteur de règles,
+     * jamais affichées). Rendu tel quel si présent, sans tester la provenance. */
     effect?: string[];
-    details?: string[];
+    /** JSON libre de la capacité officielle (`Capacity.details`), rendu par
+     * DynamicDetailsRenderer. Forme différente de son homonyme communautaire : le schéma
+     * homebrew produit des lignes (cf. `detailLines`), pas un objet — unifier les deux
+     * relève d'un chantier ultérieur. */
+    details?: Record<string, unknown>;
+    /** Lignes de détail communautaires (schéma homebrew `details`, type 'lines'). */
+    detailLines?: string[];
     voieName?: string;
+    /** Identifiant de la voie, pour que le badge `voieName` soit un lien cliquable
+     * (`CapaciteDetail.tsx` linke vers `/voies/:id`) — absent côté communautaire. */
+    voieId?: string;
 }

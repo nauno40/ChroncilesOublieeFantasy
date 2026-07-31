@@ -151,6 +151,9 @@ export const homebrewToCapaciteVM = (e: HomebrewEntry): CapaciteSheetVM => {
         isSpell: e.category === 'sort' ? true : bool(data.isSpell),
         limited: bool(data.limited),
         effect: list(data.effect),
-        details: list(data.details),
+        // Schéma homebrew : lignes libres (type 'lines'), forme différente du `details`
+        // officiel (objet JSON, cf. fromOfficial.ts) — la fiche rend les deux sans tester
+        // la provenance.
+        detailLines: list(data.details),
     };
 };

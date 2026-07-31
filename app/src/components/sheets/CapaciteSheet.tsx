@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import type { CapaciteSheetVM } from './types';
 import { Badge, DynamicDetailsRenderer } from '../common';
+import { cleanCapabilityName } from './cleanCapabilityName';
 
 interface CapaciteSheetProps {
     vm: CapaciteSheetVM;
@@ -11,20 +12,6 @@ interface CapaciteSheetProps {
     /** Bandeau propriétaire (contenu communautaire uniquement). */
     header?: React.ReactNode;
 }
-
-/** Nettoie les marqueurs hérités de l'import Drupal encore présents dans certains noms
- * de capacité (astérisques, suffixe "(L)"/" L") — repris tel quel de `CapaciteDetail.tsx`.
- * Purement cosmétique : le badge « Limité » reste piloté par le champ `limited`.
- */
-const cleanName = (name: string): string => {
-    let displayName = name.replace(/\*/g, '');
-    if (displayName.includes('(L)')) {
-        displayName = displayName.replace('(L)', '').trim();
-    } else if (displayName.endsWith(' L')) {
-        displayName = displayName.slice(0, -2).trim();
-    }
-    return displayName;
-};
 
 export const CapaciteSheet: React.FC<CapaciteSheetProps> = ({ vm, backTo, backLabel, header }) => {
     // Section "Description" : l'officiel l'affiche toujours (le champ est requis côté
@@ -49,7 +36,7 @@ export const CapaciteSheet: React.FC<CapaciteSheetProps> = ({ vm, backTo, backLa
 
                 <div className="bg-stone-900/40 p-8 backdrop-blur-sm">
                     <h1 className="text-4xl md:text-5xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary-200 to-primary-500 drop-shadow-sm mb-4">
-                        {cleanName(vm.name)}
+                        {cleanCapabilityName(vm.name)}
                     </h1>
                     <div className="flex flex-wrap gap-2">
                         {vm.limited && (
@@ -62,9 +49,19 @@ export const CapaciteSheet: React.FC<CapaciteSheetProps> = ({ vm, backTo, backLa
                                 Actif
                             </Badge>
                         )}
+                        {vm.isSpell && (
+                            <Badge variant="info" size="lg">
+                                Sort
+                            </Badge>
+                        )}
                         {vm.rank !== undefined && (
                             <Badge variant="primary" size="lg">
                                 Rang {vm.rank}
+                            </Badge>
+                        )}
+                        {vm.actionType && (
+                            <Badge variant="outline" size="lg">
+                                {vm.actionType}
                             </Badge>
                         )}
                         {vm.voieName && (

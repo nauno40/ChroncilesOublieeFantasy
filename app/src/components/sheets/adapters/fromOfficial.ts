@@ -193,7 +193,10 @@ export const profileToVM = (p: Profile, voies?: Voie[], capacities?: Capacity[],
 export const voieToVM = (v: Voie, caps?: Capacity[]): VoieSheetVM => ({
     name: v.name,
     description: str(v.description),
-    category: str(v.type),
+    // `v.category` : champ réel de l'API (`Voie.category`). `v.type` en repli pour les
+    // objets déjà renormalisés par d'autres pages consommatrices (ex. Voies.tsx).
+    category: str(v.category ?? v.type),
+    maxRank: num(v.maxRank),
     details: details(v.details),
     capabilities: caps && caps.length
         ? [...caps]
@@ -206,6 +209,7 @@ export const capacityToVM = (c: Capacity, voieName?: string, voieId?: string): C
     name: c.name,
     description: str(c.description),
     rank: num(c.rank),
+    actionType: str(c.actionType),
     isSpell: c.isSpell || undefined,
     limited: c.limited || undefined,
     active: c.active || undefined,

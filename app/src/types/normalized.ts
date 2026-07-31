@@ -120,6 +120,11 @@ export interface Voie {
     description?: string; // Added description
     note_speciale?: string | null;
     type: string;
+    /** Champ réel de l'API (`Voie.category`) : `type` ci-dessus est une valeur
+     * renormalisée ad-hoc par certaines pages consommatrices (ex. `Voies.tsx`), absente
+     * du JSON brut. Un objet obtenu via `getVoieById` ne porte que `category`. */
+    category?: string;
+    maxRank?: number;
     profileId: string | null; // Reference to profile ID
     details?: Record<string, unknown>; // Dynamic details from JSON
 }
@@ -135,6 +140,9 @@ export interface Capacity {
     rank: number | null;
     limited?: boolean;
     isSpell?: boolean;
+    /** Type d'action (ex. "Attaque", "Limitée", "Passive") : vide pour les 650
+     * capacités officielles à ce jour, mais saisi côté communautaire. */
+    actionType?: string;
     details?: Record<string, unknown>; // Dynamic details from JSON
 }
 

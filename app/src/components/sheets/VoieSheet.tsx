@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import type { VoieSheetVM } from './types';
 import { DynamicDetailsRenderer } from '../common';
+import { cleanCapabilityName } from './cleanCapabilityName';
 
 interface VoieSheetProps {
     vm: VoieSheetVM;
@@ -11,21 +12,6 @@ interface VoieSheetProps {
     /** Bandeau propriétaire (contenu communautaire uniquement). */
     header?: React.ReactNode;
 }
-
-/** Nettoie les marqueurs hérités de l'import Drupal encore présents dans certains noms
- * de capacité (astérisques, suffixe "(L)"/" L") — repris tel quel de `VoieDetail.tsx`.
- * Purement cosmétique : le badge « Limité » reste piloté par le champ `limited`
- * (déjà calculé côté back à partir du même marqueur, cf. AppFixtures::loadPrestigeVoies).
- */
-const cleanName = (name: string): string => {
-    let displayName = name.replace(/\*/g, '');
-    if (displayName.includes('(L)')) {
-        displayName = displayName.replace('(L)', '').trim();
-    } else if (displayName.endsWith(' L')) {
-        displayName = displayName.slice(0, -2).trim();
-    }
-    return displayName;
-};
 
 export const VoieSheet: React.FC<VoieSheetProps> = ({ vm, backTo, backLabel, header }) => {
     const hasDetails = vm.details !== undefined;
@@ -47,6 +33,20 @@ export const VoieSheet: React.FC<VoieSheetProps> = ({ vm, backTo, backLabel, hea
                     <h1 className="text-4xl md:text-5xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary-200 to-primary-500 drop-shadow-sm mb-4">
                         {vm.name}
                     </h1>
+                    {(vm.category || vm.maxRank !== undefined) && (
+                        <div className="flex items-center gap-3 mb-1">
+                            {vm.category && (
+                                <span className="text-[11px] uppercase font-bold tracking-widest text-primary-400/90 border border-primary-500/40 rounded px-2 py-0.5">
+                                    {vm.category}
+                                </span>
+                            )}
+                            {vm.maxRank !== undefined && (
+                                <span className="text-[11px] text-stone-500 uppercase tracking-widest">
+                                    Rang max. {vm.maxRank}
+                                </span>
+                            )}
+                        </div>
+                    )}
                     {header}
                 </div>
 
@@ -83,7 +83,7 @@ export const VoieSheet: React.FC<VoieSheetProps> = ({ vm, backTo, backLabel, hea
                                                         </span>
                                                     )}
                                                     <h4 className="text-lg font-bold text-stone-100 group-hover:text-primary-300 transition-colors">
-                                                        {cleanName(cap.name)}
+                                                        {cleanCapabilityName(cap.name)}
                                                     </h4>
                                                     <div className="flex gap-2 flex-wrap">
                                                         {cap.limited && (

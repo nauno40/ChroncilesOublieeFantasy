@@ -52,6 +52,14 @@ describe('adaptateurs officiels', () => {
         expect(capacityToVM(cap).voieId).toBeUndefined();
     });
 
+    it('porte isSpell et actionType sur une capacité standalone (isSpell déjà géré, actionType complété)', () => {
+        const spell = { id: '1', name: 'Éclair', description: '', isSpell: true, actionType: 'Attaque' } as Capacity;
+        const mundane = { id: '2', name: 'Coup de poing', description: '' } as Capacity;
+        expect(capacityToVM(spell)).toMatchObject({ isSpell: true, actionType: 'Attaque' });
+        expect(capacityToVM(mundane).isSpell).toBeUndefined();
+        expect(capacityToVM(mundane).actionType).toBeUndefined();
+    });
+
     it('projette une voie et ses capacités triées par rang', () => {
         const voie = { id: '9', name: 'Voie du Feu', description: 'Brûler', type: 'profil' } as unknown as Voie;
         const caps = [
@@ -60,6 +68,18 @@ describe('adaptateurs officiels', () => {
         ];
         const vm = voieToVM(voie, caps);
         expect(vm.capabilities?.map(c => c.rank)).toEqual([1, 2]);
+    });
+
+    it('porte la catégorie et le rang max d\'une voie officielle (Voie.category, champ réel de l\'API, pas Voie.type)', () => {
+        const voie = { id: '7131', name: "Voie de l'Énergie Vitale", category: 'Personnage', maxRank: 5 } as unknown as Voie;
+        const vm = voieToVM(voie);
+        expect(vm.category).toBe('Personnage');
+        expect(vm.maxRank).toBe(5);
+    });
+
+    it('replie category sur `type` quand `category` (champ API réel) est absent, pour les objets déjà renormalisés', () => {
+        const voie = { id: '9', name: 'Voie du Feu', type: 'profil' } as unknown as Voie;
+        expect(voieToVM(voie).category).toBe('profil');
     });
 
     it('porte les JSON libres de la voie (Détails & Mécaniques) ; undefined si absents', () => {

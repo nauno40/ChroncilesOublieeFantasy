@@ -23,7 +23,12 @@ export const CapaciteDetail: React.FC = () => {
                 const voies = await DataService.getVoies();
 
                 if (foundCapacite) {
-                    const foundVoie = foundCapacite.voieId ? voies.find(v => String(v.id) === String(foundCapacite.voieId)) : null;
+                    // L'API n'expose pas `voieId` : elle renvoie `voie` en IRI
+                    // (`/api/voies/7131`). `voieId` reste lu en repli pour les objets déjà
+                    // renormalisés par d'autres pages consommatrices.
+                    const voieRef = foundCapacite.voie ?? foundCapacite.voieId ?? undefined;
+                    const voieIdFromRef = voieRef ? String(voieRef).split('/').pop() : undefined;
+                    const foundVoie = voieIdFromRef ? voies.find(v => String(v.id) === voieIdFromRef) : null;
                     setVoie(foundVoie || null);
                 }
             } catch (error) {

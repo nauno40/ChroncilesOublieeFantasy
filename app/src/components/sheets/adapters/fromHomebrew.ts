@@ -1,6 +1,7 @@
 import type { HomebrewEntry } from '../../../services/homebrewService';
 import type { RaceSheetVM, ProfileSheetVM, VoieSheetVM, CapaciteSheetVM, SheetModifier, SheetLabelled } from '../types';
 import { familySubtitle } from './fromOfficial';
+import { str, num } from './shared';
 
 /**
  * Projection de `entry.data` (JSON libre, clés définies par services/homebrewSchemas.ts)
@@ -9,14 +10,6 @@ import { familySubtitle } from './fromOfficial';
  */
 const d = (e: HomebrewEntry): Record<string, unknown> => (e.data ?? {}) as Record<string, unknown>;
 
-const str = (v: unknown): string | undefined => {
-    const s = typeof v === 'string' ? v.trim() : '';
-    return s === '' ? undefined : s;
-};
-const num = (v: unknown): number | undefined => {
-    const n = typeof v === 'number' ? v : typeof v === 'string' && v.trim() !== '' ? Number(v) : NaN;
-    return Number.isNaN(n) ? undefined : n;
-};
 const bool = (v: unknown): boolean | undefined => (v === true ? true : undefined);
 const list = (v: unknown): string[] | undefined => {
     if (Array.isArray(v)) {

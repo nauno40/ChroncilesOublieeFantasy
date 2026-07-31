@@ -1,18 +1,13 @@
 import type { Race, Profile, Voie, Capacity, Family } from '../../../types/normalized';
 import type { RaceSheetVM, ProfileSheetVM, VoieSheetVM, CapaciteSheetVM, SheetVoieRef, SheetCapabilityRef, SheetLabelled, SheetFamily } from '../types';
+import { str, num, idStr } from './shared';
 
-/** Vide → undefined : une section sans contenu ne doit pas être rendue. */
-const str = (v: unknown): string | undefined => {
-    const s = typeof v === 'string' ? v.trim() : '';
-    return s === '' ? undefined : s;
-};
-const num = (v: unknown): number | undefined => (typeof v === 'number' && !Number.isNaN(v) ? v : undefined);
 /** Vide/NULL → undefined : la majorité des capacités n'ont pas de `details`. */
 const details = (v: Record<string, unknown> | null | undefined): Record<string, unknown> | undefined =>
     v && Object.keys(v).length ? v : undefined;
 
 const capRef = (c: Capacity): SheetCapabilityRef => ({
-    id: str(c.id),
+    id: idStr(c.id),
     rank: num(c.rank),
     name: c.name,
     description: str(c.description),
@@ -69,6 +64,7 @@ export const raceToVM = (race: Race, voies?: Voie[], capacities?: Capacity[]): R
     modifiers: race.modifiers?.length
         ? race.modifiers.map(m => ({ stat: m.stat, value: m.value, options: m.options, description: m.description }))
         : undefined,
+    speed: str(race.speed),
     minHeight: num(race.minHeight),
     maxHeight: num(race.maxHeight),
     minWeight: num(race.minWeight),
@@ -205,7 +201,7 @@ export const voieToVM = (v: Voie, caps?: Capacity[]): VoieSheetVM => ({
         : undefined,
 });
 
-export const capacityToVM = (c: Capacity, voieName?: string, voieId?: string): CapaciteSheetVM => ({
+export const capacityToVM = (c: Capacity, voieName?: string, voieId?: string | number): CapaciteSheetVM => ({
     name: c.name,
     description: str(c.description),
     rank: num(c.rank),
@@ -215,5 +211,5 @@ export const capacityToVM = (c: Capacity, voieName?: string, voieId?: string): C
     active: c.active || undefined,
     details: details(c.details),
     voieName: str(voieName),
-    voieId: str(voieId),
+    voieId: idStr(voieId),
 });

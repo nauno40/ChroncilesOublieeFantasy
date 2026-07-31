@@ -15,13 +15,27 @@ const list = (v: unknown): string[] | undefined => {
 const refs = (voies?: Voie[]): SheetVoieRef[] | undefined =>
     voies && voies.length ? voies.map(v => ({ id: String(v.id), name: v.name })) : undefined;
 
+/** Extrait caractéristiques COF2 numériques non-zéro d'un Profile.stats, masquant les métadonnées. */
+const profileStats = (stats: Record<string, unknown> | undefined): Record<string, number> | undefined => {
+    if (!stats || typeof stats !== 'object') return undefined;
+    const coafKeys = ['AGI', 'CON', 'FOR', 'PER', 'CHA', 'INT', 'VOL'];
+    const out: Record<string, number> = {};
+    for (const key of coafKeys) {
+        const n = num((stats as Record<string, unknown>)[key]);
+        if (n !== undefined && n !== 0) out[key] = n;
+    }
+    return Object.keys(out).length ? out : undefined;
+};
+
 export const raceToVM = (race: Race, voies?: Voie[]): RaceSheetVM => ({
     name: race.name,
     description: str(race.description),
     image: str(race.image),
-    modifiers: race.modifiers?.length
-        ? Object.fromEntries(race.modifiers.filter(m => m.stat).map(m => [m.stat as string, m.value]))
-        : undefined,
+    modifiers: (() => {
+        const filtered = race.modifiers?.filter(m => m.stat) ?? [];
+        const obj = Object.fromEntries(filtered.map(m => [m.stat as string, m.value]));
+        return Object.keys(obj).length ? obj : undefined;
+    })(),
     minHeight: num(race.minHeight),
     maxHeight: num(race.maxHeight),
     minWeight: num(race.minWeight),
@@ -45,7 +59,7 @@ export const profileToVM = (p: Profile, voies?: Voie[]): ProfileSheetVM => ({
     hitDie: str(p.hitDie),
     magicStat: str(p.magicStat),
     armorMaxDef: num(p.armorMaxDef),
-    stats: p.stats as Record<string, number> | undefined,
+    stats: profileStats(p.stats as Record<string, unknown> | undefined),
     startingEquipment: list(p.startingEquipment),
     masteries: p.masteries ? list(Object.values(p.masteries)) : undefined,
     note: str(p.note),

@@ -48,6 +48,26 @@ describe('adaptateurs officiels', () => {
         expect(vm).toMatchObject({ name: 'Guerrier', hitDie: '1D10', armorMaxDef: 5 });
         expect(vm.magicStat).toBeUndefined();
     });
+
+    it('exclut les modifieurs sans stat (choice/logic)', () => {
+        const race = {
+            id: '1', name: 'Demi-Elfe', modifiers: [
+                { stat: undefined, type: 'choice', value: 0 },
+                { stat: undefined, type: 'logic', value: 0 },
+            ],
+        } as unknown as Race;
+        const vm = raceToVM(race);
+        expect(vm.modifiers).toBeUndefined();
+    });
+
+    it('laisse stats undefined si aucune clé COF2 numérique (Profile.stats = métadonnées)', () => {
+        const p = {
+            id: 1, name: 'Moine', description: 'Ascète', hitDie: '1D8', magicStat: 'PER', armorMaxDef: 3,
+            stats: { hpPerLevel: 4, profileType: 'Combattant agile', hitDie: '1D8', magicStat: 'PER' } as unknown as Record<string, number>,
+        } as unknown as Profile;
+        const vm = profileToVM(p);
+        expect(vm.stats).toBeUndefined();
+    });
 });
 
 describe('adaptateurs homebrew', () => {

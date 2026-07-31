@@ -20,13 +20,16 @@ interface DiceRollerProps {
 export const DiceRoller: React.FC<DiceRollerProps> = ({ isOpen, mode = 'popup' }) => {
     const [history, setHistory] = useState<RollResult[]>([]);
     const [customFormula, setCustomFormula] = useState('');
-    const historyEndRef = useRef<HTMLDivElement>(null);
+    const historyListRef = useRef<HTMLDivElement>(null);
 
-    // Auto-scroll to bottom of history
+    // Défilement automatique vers le dernier jet. On défile le conteneur lui-même :
+    // scrollIntoView() entraînait aussi la fenêtre, si bien que la page des dés
+    // s'auto-défilait au chargement (titre poussé hors écran). Rien à faire tant
+    // qu'aucun jet n'a été lancé.
     useEffect(() => {
-        if (historyEndRef.current) {
-            historyEndRef.current.scrollIntoView({ behavior: 'smooth' });
-        }
+        if (!history.length) return;
+        const list = historyListRef.current;
+        if (list) list.scrollTo({ top: list.scrollHeight, behavior: 'smooth' });
     }, [history, isOpen]);
 
     const rollDice = (sides: number, count: number = 1, modifier: number = 0) => {
@@ -124,7 +127,7 @@ export const DiceRoller: React.FC<DiceRollerProps> = ({ isOpen, mode = 'popup' }
 
 
             {/* History Area */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-3 min-h-[100px] scrollbar-thin scrollbar-thumb-primary-900 scrollbar-track-transparent">
+            <div ref={historyListRef} className="flex-1 overflow-y-auto p-4 space-y-3 min-h-[100px] scrollbar-thin scrollbar-thumb-primary-900 scrollbar-track-transparent">
                 {history.length === 0 ? (
                     <div className="h-full flex flex-col items-center justify-center text-stone-600 space-y-2 opacity-50 py-4">
                         <Dices size={32} />
@@ -146,7 +149,6 @@ export const DiceRoller: React.FC<DiceRollerProps> = ({ isOpen, mode = 'popup' }
                         </div>
                     ))
                 )}
-                <div ref={historyEndRef} />
             </div>
 
             {/* Controls */}

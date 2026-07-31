@@ -217,6 +217,12 @@ export interface RaceSheetVM {
     voies?: SheetVoieRef[];
 }
 
+/** Entrée libellée : l'officiel stocke maîtrises et lore en objets clé → texte. */
+export interface SheetLabelled {
+    label: string;
+    value: string;
+}
+
 export interface ProfileSheetVM {
     name: string;
     description?: string;
@@ -226,12 +232,20 @@ export interface ProfileSheetVM {
     magicStat?: string;
     armorMaxDef?: number;
     stats?: Record<string, number>;
+    /**
+     * Maîtrises libellées. L'officiel les rend une par une avec leur intitulé
+     * (armes, armures, boucliers, contraintes) : un simple string[] perdrait
+     * l'intitulé et mélangerait « armes » et « contraintes ».
+     */
+    masteries?: SheetLabelled[];
+    /** Repli texte de l'officiel, affiché quand les maîtrises structurées manquent. */
+    weaponsAndArmor?: string;
     weaponsAuth?: string[];
     armorAuth?: string[];
     startingEquipment?: string[];
-    masteries?: string[];
     note?: string;
-    lore?: string[];
+    /** Lore libellé : l'officiel le stocke en objet et le rend par entrées clé/valeur. */
+    lore?: SheetLabelled[];
     voies?: SheetVoieRef[];
 }
 
@@ -240,6 +254,10 @@ export interface SheetCapabilityRef {
     name: string;
     description?: string;
     isSpell?: boolean;
+    /** Usage limité : l'officiel affiche un badge « L ». */
+    limited?: boolean;
+    /** JSON libre, rendu par DynamicDetailsRenderer. */
+    details?: Record<string, unknown>;
 }
 
 export interface VoieSheetVM {

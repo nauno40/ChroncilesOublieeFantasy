@@ -4,8 +4,8 @@ import { ArrowLeft, Globe, Lock, User as UserIcon } from 'lucide-react';
 import { HomebrewService, categoryLabel, type HomebrewEntry } from '../services/homebrewService';
 import { HOMEBREW_SCHEMAS, CARAC_KEYS, type HomebrewFieldDef } from '../services/homebrewSchemas';
 import { Loader } from '../components/common';
-import { RaceSheet, ProfileSheet } from '../components/sheets';
-import { homebrewToRaceVM, homebrewToProfileVM } from '../components/sheets/adapters/fromHomebrew';
+import { RaceSheet, ProfileSheet, VoieSheet, CapaciteSheet } from '../components/sheets';
+import { homebrewToRaceVM, homebrewToProfileVM, homebrewToVoieVM, homebrewToCapaciteVM } from '../components/sheets/adapters/fromHomebrew';
 
 const hasValue = (v: unknown): boolean => {
     if (v === undefined || v === null || v === '') return false;
@@ -43,6 +43,14 @@ export const HomebrewDetail: React.FC = () => {
 
     if (entry.category === 'classe') {
         return <ProfileSheet vm={homebrewToProfileVM(entry)} backTo="/classes" backLabel="Retour aux Classes" />;
+    }
+
+    if (entry.category === 'voie') {
+        return <VoieSheet vm={homebrewToVoieVM(entry)} backTo="/voies" backLabel="Retour aux Voies" />;
+    }
+
+    if (entry.category === 'capacite' || entry.category === 'sort') {
+        return <CapaciteSheet vm={homebrewToCapaciteVM(entry)} backTo="/capacites" backLabel="Retour aux Capacités" />;
     }
 
     const schema = HOMEBREW_SCHEMAS[entry.category] ?? [];

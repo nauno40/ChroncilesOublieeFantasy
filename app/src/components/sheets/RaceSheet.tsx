@@ -154,41 +154,43 @@ export const RaceSheet: React.FC<RaceSheetProps> = ({ vm, backTo, backLabel, hea
 
                         {hasRules && (!hasLore || activeTab === 'rules') && (
                             <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-500">
-                                <div className="relative">
-                                    <h3 className="text-2xl font-display font-bold text-white mb-6 flex items-center gap-3">
-                                        <div className="size-2 rounded-full bg-primary-500/50"></div>
-                                        Traits Raciaux
-                                    </h3>
-                                    <div className="bg-stone-900/60 rounded-2xl p-8 border border-white/5 relative overflow-hidden backdrop-blur-sm">
-                                        {vm.modifiers && (
-                                            <div className="mb-6">
-                                                <h4 className="text-sm font-bold text-stone-500 uppercase tracking-widest mb-3">Caractéristiques</h4>
-                                                <div className="flex flex-wrap gap-3">
-                                                    {vm.modifiers.map((mod, i) => (
-                                                        <div key={i} className="px-4 py-2 rounded-lg bg-primary-600/20 border border-primary-500/30 text-primary-100 font-mono text-sm flex items-center gap-2">
-                                                            {mod.description ? (
-                                                                <span>{mod.description}</span>
-                                                            ) : (
-                                                                <>
-                                                                    <span className={`font-bold ${(mod.value ?? 0) > 0 ? 'text-primary-300' : 'text-red-300'}`}>
-                                                                        {(mod.value ?? 0) > 0 ? '+' : ''}{mod.value}
-                                                                    </span>
-                                                                    <span className="uppercase tracking-wider opacity-90">
-                                                                        {mod.options?.length ? mod.options.join(' / ') : mod.stat}
-                                                                    </span>
-                                                                </>
-                                                            )}
-                                                        </div>
-                                                    ))}
+                                {(vm.modifiers || vm.abilities) && (
+                                    <div className="relative">
+                                        <h3 className="text-2xl font-display font-bold text-white mb-6 flex items-center gap-3">
+                                            <div className="size-2 rounded-full bg-primary-500/50"></div>
+                                            Traits Raciaux
+                                        </h3>
+                                        <div className="bg-stone-900/60 rounded-2xl p-8 border border-white/5 relative overflow-hidden backdrop-blur-sm">
+                                            {vm.modifiers && (
+                                                <div className="mb-6">
+                                                    <h4 className="text-sm font-bold text-stone-500 uppercase tracking-widest mb-3">Caractéristiques</h4>
+                                                    <div className="flex flex-wrap gap-3">
+                                                        {vm.modifiers.map((mod, i) => (
+                                                            <div key={i} className="px-4 py-2 rounded-lg bg-primary-600/20 border border-primary-500/30 text-primary-100 font-mono text-sm flex items-center gap-2">
+                                                                {mod.description ? (
+                                                                    <span>{mod.description}</span>
+                                                                ) : (
+                                                                    <>
+                                                                        <span className={`font-bold ${(mod.value ?? 0) > 0 ? 'text-primary-300' : 'text-red-300'}`}>
+                                                                            {(mod.value ?? 0) > 0 ? '+' : ''}{mod.value}
+                                                                        </span>
+                                                                        <span className="uppercase tracking-wider opacity-90">
+                                                                            {mod.options?.length ? mod.options.join(' / ') : mod.stat}
+                                                                        </span>
+                                                                    </>
+                                                                )}
+                                                            </div>
+                                                        ))}
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        )}
-                                        <div className="absolute top-0 right-0 p-32 bg-primary-900/10 blur-3xl rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
-                                        {vm.abilities && (
-                                            <p className="text-stone-300 leading-relaxed whitespace-pre-line relative z-10 text-lg">{vm.abilities}</p>
-                                        )}
+                                            )}
+                                            <div className="absolute top-0 right-0 p-32 bg-primary-900/10 blur-3xl rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+                                            {vm.abilities && (
+                                                <p className="text-stone-300 leading-relaxed whitespace-pre-line relative z-10 text-lg">{vm.abilities}</p>
+                                            )}
+                                        </div>
                                     </div>
-                                </div>
+                                )}
 
                                 {vm.voies && vm.voies.length > 0 && (
                                     <div className="relative">
@@ -198,7 +200,7 @@ export const RaceSheet: React.FC<RaceSheetProps> = ({ vm, backTo, backLabel, hea
                                         </h3>
                                         <div className="space-y-12">
                                             {vm.voies.map(v => (
-                                                <div key={v.name} className="space-y-6">
+                                                <div key={v.id ?? v.name} className="space-y-6">
                                                     <div className="flex items-baseline gap-4 border-b border-white/10 pb-4">
                                                         {v.id ? (
                                                             <Link to={`/voies/${v.id}`} className="text-3xl font-display font-bold text-primary-200 hover:text-primary-100 transition-colors">{v.name}</Link>
@@ -213,7 +215,7 @@ export const RaceSheet: React.FC<RaceSheetProps> = ({ vm, backTo, backLabel, hea
                                                     {v.capabilities && v.capabilities.length > 0 && (
                                                         <div className="grid gap-4">
                                                             {v.capabilities.map(cap => (
-                                                                <div key={cap.name} className="group relative bg-stone-900/80 hover:bg-stone-800 transition-colors p-6 rounded-xl border border-white/5 hover:border-primary-500/30">
+                                                                <div key={`${cap.rank ?? ''}-${cap.name}`} className="group relative bg-stone-900/80 hover:bg-stone-800 transition-colors p-6 rounded-xl border border-white/5 hover:border-primary-500/30">
                                                                     <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-2 mb-3">
                                                                         <div className="flex items-center gap-3">
                                                                             {cap.rank !== undefined && (

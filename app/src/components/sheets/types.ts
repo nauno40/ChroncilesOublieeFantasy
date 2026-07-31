@@ -8,6 +8,9 @@
 export interface SheetVoieRef {
     id?: string;
     name: string;
+    /** JSON libre de la voie, rendu tel quel par DynamicDetailsRenderer. */
+    details?: Record<string, unknown>;
+    capabilities?: SheetCapabilityRef[];
 }
 
 /**

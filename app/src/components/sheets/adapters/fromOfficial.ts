@@ -1,5 +1,5 @@
 import type { Race, Profile, Voie, Capacity } from '../../../types/normalized';
-import type { RaceSheetVM, ProfileSheetVM, VoieSheetVM, CapaciteSheetVM, SheetVoieRef } from '../types';
+import type { RaceSheetVM, ProfileSheetVM, VoieSheetVM, CapaciteSheetVM, SheetVoieRef, SheetCapabilityRef } from '../types';
 
 /** Vide → undefined : une section sans contenu ne doit pas être rendue. */
 const str = (v: unknown): string | undefined => {
@@ -12,8 +12,31 @@ const list = (v: unknown): string[] | undefined => {
     const out = v.map(x => (typeof x === 'string' ? x : JSON.stringify(x))).filter(Boolean);
     return out.length ? out : undefined;
 };
-const refs = (voies?: Voie[]): SheetVoieRef[] | undefined =>
-    voies && voies.length ? voies.map(v => ({ id: String(v.id), name: v.name })) : undefined;
+/** Capacités d'une voie donnée : une capacité référence sa voie tantôt par IRI
+ * (`/api/voies/123`), tantôt par identifiant brut (`voieId`) — même logique que
+ * l'ancienne page RaceDetail.
+ */
+const capsOfVoie = (voieId: string, caps?: Capacity[]): SheetCapabilityRef[] | undefined => {
+    const out = (caps ?? [])
+        .filter(c => {
+            const ref = c.voie || c.voieId;
+            if (!ref) return false;
+            return String(String(ref).split('/').pop()) === String(voieId);
+        })
+        .sort((a, b) => (a.rank ?? 0) - (b.rank ?? 0))
+        .map(c => ({ rank: num(c.rank), name: c.name, description: str(c.description), isSpell: c.isSpell || undefined }));
+    return out.length ? out : undefined;
+};
+
+const refs = (voies?: Voie[], capacities?: Capacity[]): SheetVoieRef[] | undefined =>
+    voies && voies.length
+        ? voies.map(v => ({
+            id: String(v.id),
+            name: v.name,
+            details: v.details && Object.keys(v.details).length ? v.details : undefined,
+            capabilities: capsOfVoie(String(v.id), capacities),
+        }))
+        : undefined;
 
 /** Extrait caractéristiques COF2 numériques d'un Profile.stats, masquant les métadonnées.
  * Conserve 0 : c'est une valeur légitime de stat de départ (−2 à +5 en COF2).
@@ -29,7 +52,7 @@ const profileStats = (stats: Record<string, unknown> | undefined): Record<string
     return Object.keys(out).length ? out : undefined;
 };
 
-export const raceToVM = (race: Race, voies?: Voie[]): RaceSheetVM => ({
+export const raceToVM = (race: Race, voies?: Voie[], capacities?: Capacity[]): RaceSheetVM => ({
     name: race.name,
     description: str(race.description),
     image: str(race.image),
@@ -48,7 +71,7 @@ export const raceToVM = (race: Race, voies?: Voie[]): RaceSheetVM => ({
     roleplay: str(race.roleplay),
     typicalNames: str(race.typicalNames),
     detailedDescription: str(race.detailedDescription),
-    voies: refs(voies),
+    voies: refs(voies, capacities),
 });
 
 export const profileToVM = (p: Profile, voies?: Voie[]): ProfileSheetVM => ({

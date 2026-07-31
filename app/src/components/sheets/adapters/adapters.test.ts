@@ -42,6 +42,29 @@ describe('adaptateurs officiels', () => {
         expect(vm.capabilities?.map(c => c.rank)).toEqual([1, 2]);
     });
 
+    it('rattache à chaque voie ses propres capacités, triées par rang (IRI ou voieId brut)', () => {
+        const race = { id: '1', name: 'Elfe' } as unknown as Race;
+        const voies = [
+            { id: '7201', name: "Voie de l'elfe sylvain" } as Voie,
+            { id: '7207', name: 'Voie du haut-elfe' } as Voie,
+        ];
+        const capacities = [
+            { id: '1', name: 'Sylvain Rang 2', rank: 2, voie: '/api/voies/7201' } as Capacity,
+            { id: '2', name: 'Sylvain Rang 1', rank: 1, voie: '/api/voies/7201' } as Capacity,
+            { id: '3', name: 'Haut-elfe Rang 1', rank: 1, voieId: '7207' } as Capacity,
+        ];
+        const vm = raceToVM(race, voies, capacities);
+        expect(vm.voies?.[0].capabilities?.map(c => c.name)).toEqual(['Sylvain Rang 1', 'Sylvain Rang 2']);
+        expect(vm.voies?.[1].capabilities?.map(c => c.name)).toEqual(['Haut-elfe Rang 1']);
+    });
+
+    it('laisse capabilities undefined pour une voie sans capacité', () => {
+        const race = { id: '1', name: 'Elfe' } as unknown as Race;
+        const voies = [{ id: '9', name: 'Voie sans capacité' } as Voie];
+        const vm = raceToVM(race, voies, []);
+        expect(vm.voies?.[0].capabilities).toBeUndefined();
+    });
+
     it('préserve les modificateurs choice avec options', () => {
         const race = {
             id: '1', name: 'Gnome', modifiers: [

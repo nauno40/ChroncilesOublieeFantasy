@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import type { RaceSheetVM } from './types';
+import { DynamicDetailsRenderer } from '../common';
 
 interface RaceSheetProps {
     vm: RaceSheetVM;
@@ -195,15 +196,40 @@ export const RaceSheet: React.FC<RaceSheetProps> = ({ vm, backTo, backLabel, hea
                                             <div className="size-2 rounded-full bg-primary-500/50"></div>
                                             Voies & Évolution
                                         </h3>
-                                        <div className="space-y-4">
+                                        <div className="space-y-12">
                                             {vm.voies.map(v => (
-                                                <div key={v.name} className="flex items-baseline gap-4 border-b border-white/10 pb-4">
-                                                    {v.id ? (
-                                                        <Link to={`/voies/${v.id}`} className="text-3xl font-display font-bold text-primary-200 hover:text-primary-100 transition-colors">{v.name}</Link>
-                                                    ) : (
-                                                        <span className="text-3xl font-display font-bold text-primary-200">{v.name}</span>
+                                                <div key={v.name} className="space-y-6">
+                                                    <div className="flex items-baseline gap-4 border-b border-white/10 pb-4">
+                                                        {v.id ? (
+                                                            <Link to={`/voies/${v.id}`} className="text-3xl font-display font-bold text-primary-200 hover:text-primary-100 transition-colors">{v.name}</Link>
+                                                        ) : (
+                                                            <span className="text-3xl font-display font-bold text-primary-200">{v.name}</span>
+                                                        )}
+                                                        <span className="text-stone-500 text-sm font-mono uppercase tracking-wider">Voie Raciale</span>
+                                                    </div>
+
+                                                    {v.details && <DynamicDetailsRenderer details={v.details} />}
+
+                                                    {v.capabilities && v.capabilities.length > 0 && (
+                                                        <div className="grid gap-4">
+                                                            {v.capabilities.map(cap => (
+                                                                <div key={cap.name} className="group relative bg-stone-900/80 hover:bg-stone-800 transition-colors p-6 rounded-xl border border-white/5 hover:border-primary-500/30">
+                                                                    <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-2 mb-3">
+                                                                        <div className="flex items-center gap-3">
+                                                                            {cap.rank !== undefined && (
+                                                                                <span className="flex items-center justify-center size-6 rounded bg-primary-950 text-primary-500 text-xs font-bold border border-primary-500/20">
+                                                                                    {cap.rank}
+                                                                                </span>
+                                                                            )}
+                                                                            <h5 className="text-lg font-bold text-stone-100 group-hover:text-primary-300 transition-colors">{cap.name}</h5>
+                                                                        </div>
+                                                                        <div className="h-[1px] flex-1 bg-white/5 mx-4 hidden md:block"></div>
+                                                                    </div>
+                                                                    {cap.description && <p className="text-stone-400 text-sm leading-relaxed pl-9">{cap.description}</p>}
+                                                                </div>
+                                                            ))}
+                                                        </div>
                                                     )}
-                                                    <span className="text-stone-500 text-sm font-mono uppercase tracking-wider">Voie Raciale</span>
                                                 </div>
                                             ))}
                                         </div>

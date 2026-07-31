@@ -21,7 +21,7 @@ describe('adaptateurs officiels', () => {
         } as unknown as Race;
         const vm = raceToVM(race, [{ id: '9', name: 'Voie des Elfes' } as Voie]);
         expect(vm.name).toBe('Elfe');
-        expect(vm.modifiers).toEqual({ AGI: 1, CON: -1 });
+        expect(vm.modifiers).toEqual([{ stat: 'AGI', value: 1, options: undefined, description: undefined }, { stat: 'CON', value: -1, options: undefined, description: undefined }]);
         expect(vm.startingAge).toBe(20);
         expect(vm.voies).toEqual([{ id: '9', name: 'Voie des Elfes' }]);
     });
@@ -42,22 +42,35 @@ describe('adaptateurs officiels', () => {
         expect(vm.capabilities?.map(c => c.rank)).toEqual([1, 2]);
     });
 
+    it('préserve les modificateurs choice avec options', () => {
+        const race = {
+            id: '1', name: 'Gnome', modifiers: [
+                { type: 'choice', options: ['AGI', 'PER'], value: 1, stat: undefined },
+            ],
+        } as unknown as Race;
+        const vm = raceToVM(race);
+        expect(vm.modifiers).toHaveLength(1);
+        expect(vm.modifiers?.[0]).toMatchObject({ value: 1, options: ['AGI', 'PER'] });
+        expect(vm.modifiers?.[0]?.stat).toBeUndefined();
+    });
+
+    it('préserve les modificateurs logic avec description', () => {
+        const race = {
+            id: '1', name: 'Humain', modifiers: [
+                { type: 'logic', description: '+1 à la valeur d\'une de ses deux plus faibles caractéristiques', value: 1, stat: undefined },
+            ],
+        } as unknown as Race;
+        const vm = raceToVM(race);
+        expect(vm.modifiers).toHaveLength(1);
+        expect(vm.modifiers?.[0]).toMatchObject({ value: 1, description: '+1 à la valeur d\'une de ses deux plus faibles caractéristiques' });
+        expect(vm.modifiers?.[0]?.stat).toBeUndefined();
+    });
+
     it('projette un profil', () => {
         const p = { id: 1, name: 'Guerrier', description: 'Brave', hitDie: '1D10', magicStat: null, armorMaxDef: 5 } as unknown as Profile;
         const vm = profileToVM(p);
         expect(vm).toMatchObject({ name: 'Guerrier', hitDie: '1D10', armorMaxDef: 5 });
         expect(vm.magicStat).toBeUndefined();
-    });
-
-    it('exclut les modifieurs sans stat (choice/logic)', () => {
-        const race = {
-            id: '1', name: 'Demi-Elfe', modifiers: [
-                { stat: undefined, type: 'choice', value: 0 },
-                { stat: undefined, type: 'logic', value: 0 },
-            ],
-        } as unknown as Race;
-        const vm = raceToVM(race);
-        expect(vm.modifiers).toBeUndefined();
     });
 
     it('laisse stats undefined si aucune clé COF2 numérique (Profile.stats = métadonnées)', () => {
@@ -67,6 +80,15 @@ describe('adaptateurs officiels', () => {
         } as unknown as Profile;
         const vm = profileToVM(p);
         expect(vm.stats).toBeUndefined();
+    });
+
+    it('conserve les stats à 0 (valeur légitime en COF2)', () => {
+        const p = {
+            id: 1, name: 'Paladin', description: 'Guerrier de foi', hitDie: '1D10', magicStat: 'VOL', armorMaxDef: 6,
+            stats: { AGI: 0, CON: 1, FOR: 2, PER: 0, CHA: 1, INT: -1, VOL: 0 } as unknown as Record<string, number>,
+        } as unknown as Profile;
+        const vm = profileToVM(p);
+        expect(vm.stats).toMatchObject({ AGI: 0, CON: 1, FOR: 2, PER: 0, CHA: 1, INT: -1, VOL: 0 });
     });
 });
 
@@ -78,7 +100,7 @@ describe('adaptateurs homebrew', () => {
         } as HomebrewEntry;
         const vm = homebrewToRaceVM(entry);
         expect(vm).toMatchObject({ name: 'Ondins', description: 'Peuple aquatique', speed: '10 m', startingAge: 16 });
-        expect(vm.modifiers).toEqual({ CON: 1 });
+        expect(vm.modifiers).toEqual([{ stat: 'CON', value: 1 }]);
     });
 
     it('laisse undefined tout champ absent (aucune section vide)', () => {

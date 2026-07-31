@@ -10,11 +10,23 @@ export interface SheetVoieRef {
     name: string;
 }
 
+/**
+ * Un modificateur de caractéristique tel que le compendium l'exprime réellement :
+ * fixe (`stat` + `value`), au choix (`options` + `value`), ou formulé librement
+ * (`description`). Un Record<string, number> perdrait les deux derniers cas.
+ */
+export interface SheetModifier {
+    stat?: string;
+    value?: number;
+    options?: string[];
+    description?: string;
+}
+
 export interface RaceSheetVM {
     name: string;
     description?: string;
     image?: string;
-    modifiers?: Record<string, number>;
+    modifiers?: SheetModifier[];
     speed?: string;
     minHeight?: number;
     maxHeight?: number;

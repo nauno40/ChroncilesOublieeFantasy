@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Plus, Globe, X, Search } from 'lucide-react';
-import { Loader } from '../common';
+import { Plus, Globe, X } from 'lucide-react';
+import { Loader, SearchBar } from '../common';
 import { useAuth } from '../../context/AuthContext';
 import { HomebrewService, HOMEBREW_CATEGORIES, categoryLabel, type HomebrewEntry, type HomebrewInput } from '../../services/homebrewService';
 import { HOMEBREW_SCHEMAS, hasStructuredSchema, pruneToSchema } from '../../services/homebrewSchemas';
@@ -95,14 +95,20 @@ export const HomebrewBrowser: React.FC<HomebrewBrowserProps> = ({ tab, onTabChan
         <div className="space-y-4">
             {/* Barre : recherche + créer */}
             <div className="flex flex-wrap items-center gap-3">
-                <div className="relative flex-1 min-w-[200px]">
-                    <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-500" />
-                    <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Rechercher…" className="w-full bg-stone-900/40 border border-white/10 rounded-xl py-2.5 pl-9 pr-3 text-stone-200 outline-none focus:border-primary-500 text-sm" />
-                </div>
+                <SearchBar
+                    value={search}
+                    onChange={setSearch}
+                    placeholder="Rechercher…"
+                    className="flex-1 min-w-[200px]"
+                />
                 {tab === 'mine' && (
-                    <button onClick={openNew} className="flex items-center gap-2 bg-primary-600 hover:bg-primary-500 text-stone-950 font-bold text-sm px-4 py-2.5 rounded-xl transition-all whitespace-nowrap"><Plus size={16} /> {createLabel}</button>
+                    <button onClick={openNew} className="flex items-center gap-2 bg-primary-600 hover:bg-primary-500 text-stone-950 font-bold text-sm px-4 py-3 rounded-xl transition-all whitespace-nowrap"><Plus size={16} /> {createLabel}</button>
                 )}
             </div>
+
+            <p className="text-stone-400 text-sm">
+                {visible.length} résultat{visible.length > 1 ? 's' : ''}
+            </p>
 
             {/* Filtre catégorie (uniquement en mode « toutes catégories ») */}
             {!cats && (

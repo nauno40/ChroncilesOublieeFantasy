@@ -256,6 +256,8 @@ export interface SheetCapabilityRef {
     isSpell?: boolean;
     /** Usage limité : l'officiel affiche un badge « L ». */
     limited?: boolean;
+    /** Capacité active (vs passive) : rendu par VoieDetail et CapaciteDetail. */
+    active?: boolean;
     /** JSON libre, rendu par DynamicDetailsRenderer. */
     details?: Record<string, unknown>;
 }
@@ -266,6 +268,8 @@ export interface VoieSheetVM {
     category?: string;
     maxRank?: number;
     profileName?: string;
+    /** JSON libre de la voie : VoieDetail le rend via DynamicDetailsRenderer. */
+    details?: Record<string, unknown>;
     capabilities?: SheetCapabilityRef[];
 }
 
@@ -276,9 +280,19 @@ export interface CapaciteSheetVM {
     actionType?: string;
     isSpell?: boolean;
     limited?: boolean;
+    active?: boolean;
+    /**
+     * Les deux sources ne stockent pas les détails sous la même forme, et les
+     * unifier relève du chantier « création imbriquée », pas de celui-ci :
+     * - `details` : JSON libre de l'officiel, rendu par DynamicDetailsRenderer ;
+     * - `effect` / `detailLines` : listes de lignes saisies côté communautaire.
+     * La feuille rend ce qui est présent, sans distinguer la provenance.
+     */
+    details?: Record<string, unknown>;
     effect?: string[];
-    details?: string[];
+    detailLines?: string[];
     voieName?: string;
+    voieId?: string;
 }
 ```
 

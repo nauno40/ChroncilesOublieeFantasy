@@ -127,6 +127,10 @@ export interface ProfileSheetVM {
 }
 
 export interface SheetCapabilityRef {
+    /** Identifiant stable de la capacité (compendium officiel uniquement — les
+     * capacités communautaires n'ont pas d'identifiant propre). Sert de clé React
+     * fiable ; à défaut, la feuille retombe sur une clé composée (`rank`-`name`). */
+    id?: string;
     rank?: number;
     name: string;
     description?: string;

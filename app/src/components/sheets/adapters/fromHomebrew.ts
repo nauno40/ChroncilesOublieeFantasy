@@ -1,5 +1,6 @@
 import type { HomebrewEntry } from '../../../services/homebrewService';
 import type { RaceSheetVM, ProfileSheetVM, VoieSheetVM, CapaciteSheetVM, SheetModifier, SheetLabelled } from '../types';
+import { familySubtitle } from './fromOfficial';
 
 /**
  * Projection de `entry.data` (JSON libre, clés définies par services/homebrewSchemas.ts)
@@ -115,7 +116,10 @@ export const homebrewToProfileVM = (e: HomebrewEntry): ProfileSheetVM => {
         name: e.name,
         description: str(e.description),
         image: str(data.image),
-        family: familyName ? { name: familyName } : undefined,
+        // Le schéma communautaire ne capture qu'un nom de famille (ni description, ni
+        // bonus) : le sous-titre reste calculé pour ne pas rendre ce nom invisible
+        // (cf. fromOfficial.ts:familySubtitle, même garde-fou anti-répétition).
+        family: familyName ? { name: familyName, subtitle: familySubtitle(familyName) } : undefined,
         magicStat: str(data.magicStat),
         armorMaxDef: num(data.armorMaxDef),
         stats: caracsForStats(data.stats),

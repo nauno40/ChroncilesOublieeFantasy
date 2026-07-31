@@ -188,6 +188,16 @@ describe('adaptateurs de profil (classes) — fidélité à ClassDetail.tsx', ()
         expect(caps?.find(c => c.name === 'Esquive')?.isSpell).toBe(true);
     });
 
+    it('conserve l\'identifiant stable de chaque capacité officielle (clé React fiable)', () => {
+        const p = { id: 1, name: 'Voleur', description: 'Discret', hitDie: '1D8' } as unknown as Profile;
+        const voies = [{ id: '5', name: 'Voie du poison' } as Voie];
+        const capacities = [
+            { id: '42', name: 'Coup sournois', rank: 1, voie: '/api/voies/5' } as Capacity,
+        ];
+        const vm = profileToVM(p, voies, capacities);
+        expect(vm.voies?.[0].capabilities?.[0].id).toBe('42');
+    });
+
     it('projette la famille (entité, pas une chaîne) avec sous-titre calculé et bonus', () => {
         const family = {
             id: 1, name: 'Combattants', description: 'Les maîtres du champ de bataille.',
@@ -265,7 +275,10 @@ describe('adaptateurs homebrew', () => {
             },
         } as HomebrewEntry;
         const vm = homebrewToProfileVM(entry);
-        expect(vm.family).toEqual({ name: 'Combattants totémiques' });
+        // Le schéma communautaire ne capture qu'un nom de famille : le sous-titre doit
+        // néanmoins être calculé (même logique que l'officiel), sinon ce nom saisi par
+        // l'auteur est silencieusement invisible sur sa propre fiche.
+        expect(vm.family).toEqual({ name: 'Combattants totémiques', subtitle: 'Famille des Combattants totémiques' });
         // weaponsAuth/armorAuth : mêmes intitulés que l'officiel (masteries.weapons/armors),
         // fondus en une seule entrée par champ, dans la même carte que les maîtrises libres.
         expect(vm.masteries).toEqual([
@@ -283,6 +296,12 @@ describe('adaptateurs homebrew', () => {
         } as HomebrewEntry;
         const vm = homebrewToProfileVM(entry);
         expect(vm.stats).toEqual({ AGI: 1, CON: 2, FOR: 3, PER: 0, CHA: 0, INT: -1, VOL: 0 });
+    });
+
+    it('n\'ajoute pas "Famille des" au sous-titre homebrew si le nom commence déjà par "Famille"', () => {
+        const entry = { ...emptyEntry('classe'), data: { family: 'Famille des Mages Errants' } } as HomebrewEntry;
+        const vm = homebrewToProfileVM(entry);
+        expect(vm.family?.subtitle).toBe('Famille des Mages Errants');
     });
 
     it('laisse family/masteries/lore undefined pour une classe homebrew sans détail', () => {

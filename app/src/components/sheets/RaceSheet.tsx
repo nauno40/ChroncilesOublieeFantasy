@@ -215,7 +215,7 @@ export const RaceSheet: React.FC<RaceSheetProps> = ({ vm, backTo, backLabel, hea
                                                     {v.capabilities && v.capabilities.length > 0 && (
                                                         <div className="grid gap-4">
                                                             {v.capabilities.map(cap => (
-                                                                <div key={`${cap.rank ?? ''}-${cap.name}`} className="group relative bg-stone-900/80 hover:bg-stone-800 transition-colors p-6 rounded-xl border border-white/5 hover:border-primary-500/30">
+                                                                <div key={cap.id ?? `${cap.rank ?? ''}-${cap.name}`} className="group relative bg-stone-900/80 hover:bg-stone-800 transition-colors p-6 rounded-xl border border-white/5 hover:border-primary-500/30">
                                                                     <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-2 mb-3">
                                                                         <div className="flex items-center gap-3">
                                                                             {cap.rank !== undefined && (

@@ -12,6 +12,7 @@ const details = (v: Record<string, unknown> | null | undefined): Record<string, 
     v && Object.keys(v).length ? v : undefined;
 
 const capRef = (c: Capacity): SheetCapabilityRef => ({
+    id: str(c.id),
     rank: num(c.rank),
     name: c.name,
     description: str(c.description),
@@ -146,16 +147,21 @@ const loreList = (lore: Profile['lore']): SheetLabelled[] | undefined => {
     return out.length ? out : undefined;
 };
 
-/** `Profile.family` résolue (objet `Family`, pas l'IRI) → bloc famille du view-model.
- * Le sous-titre reprend telle quelle la logique anti-répétition de `ClassDetail.tsx`
- * (« Famille des X », sauf si `name` commence déjà par "Famille").
+/** « Famille des X » — sauf si `name` commence déjà par "Famille" (garde-fou anti-
+ * répétition de `ClassDetail.tsx`). Exportée pour être réutilisée par `fromHomebrew.ts` :
+ * le schéma communautaire ne capture qu'un nom de famille, mais ce nom doit rester
+ * visible (sous-titre) même sans le reste de l'entité `Family`.
  */
+export const familySubtitle = (name: string): string =>
+    name.startsWith('Famille') ? name : `Famille des ${name}`;
+
+/** `Profile.family` résolue (objet `Family`, pas l'IRI) → bloc famille du view-model. */
 const familyRef = (f?: Family): SheetFamily | undefined => {
     if (!f?.name) return undefined;
     const luck = num(f.luckPoints);
     return {
         name: f.name,
-        subtitle: f.name.startsWith('Famille') ? f.name : `Famille des ${f.name}`,
+        subtitle: familySubtitle(f.name),
         description: str(f.description),
         baseHp: num(f.baseHp),
         recoveryDie: str(f.recoveryDie),

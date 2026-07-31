@@ -17,6 +17,44 @@ interface DiceRollerProps {
     mode?: 'popup' | 'inline';
 }
 
+/**
+ * Effectue un jet et construit son résultat. Défini hors du composant : la fonction
+ * appelle Math.random / Date.now / crypto.randomUUID, impurs et donc interdits dans
+ * le corps d'un composant (react-hooks/purity) — même appelés depuis un gestionnaire.
+ */
+const performRoll = (sides: number, count: number, modifier: number): RollResult => {
+    let total = 0;
+    const rolls: number[] = [];
+    let isCritSuccess = false;
+    let isCritFail = false;
+
+    for (let i = 0; i < count; i++) {
+        const roll = Math.floor(Math.random() * sides) + 1;
+        rolls.push(roll);
+        total += roll;
+
+        if (sides === 20 && count === 1) {
+            if (roll === 20) isCritSuccess = true;
+            if (roll === 1) isCritFail = true;
+        }
+    }
+
+    total += modifier;
+
+    const suffix = modifier !== 0 ? (modifier > 0 ? `+${modifier}` : String(modifier)) : '';
+    const details = count > 1 || modifier !== 0 ? `(${rolls.join('+')})${suffix}` : '';
+
+    return {
+        id: crypto.randomUUID(),
+        description: `${count}d${sides}${suffix}`,
+        result: total,
+        details,
+        timestamp: Date.now(),
+        isCritSuccess,
+        isCritFail,
+    };
+};
+
 export const DiceRoller: React.FC<DiceRollerProps> = ({ isOpen, mode = 'popup' }) => {
     const [history, setHistory] = useState<RollResult[]>([]);
     const [customFormula, setCustomFormula] = useState('');
@@ -33,39 +71,7 @@ export const DiceRoller: React.FC<DiceRollerProps> = ({ isOpen, mode = 'popup' }
     }, [history, isOpen]);
 
     const rollDice = (sides: number, count: number = 1, modifier: number = 0) => {
-        let total = 0;
-        const rolls: number[] = [];
-        let isCritSuccess = false;
-        let isCritFail = false;
-
-        for (let i = 0; i < count; i++) {
-            const roll = Math.floor(Math.random() * sides) + 1;
-            rolls.push(roll);
-            total += roll;
-
-            if (sides === 20 && count === 1) {
-                if (roll === 20) isCritSuccess = true;
-                if (roll === 1) isCritFail = true;
-            }
-        }
-
-        total += modifier;
-
-        const details = count > 1 || modifier !== 0
-            ? `(${rolls.join('+')})${modifier !== 0 ? (modifier > 0 ? `+${modifier}` : modifier) : ''}`
-            : '';
-
-        const newResult: RollResult = {
-            id: crypto.randomUUID(),
-            description: `${count}d${sides}${modifier !== 0 ? (modifier > 0 ? `+${modifier}` : modifier) : ''}`,
-            result: total,
-            details,
-            timestamp: Date.now(),
-            isCritSuccess,
-            isCritFail
-        };
-
-        setHistory(prev => [...prev, newResult]);
+        setHistory(prev => [...prev, performRoll(sides, count, modifier)]);
     };
 
     const handleCustomRoll = (e: React.FormEvent) => {

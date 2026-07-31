@@ -47,6 +47,9 @@ export const VoieSheet: React.FC<VoieSheetProps> = ({ vm, backTo, backLabel, hea
                             )}
                         </div>
                     )}
+                    {vm.description && (
+                        <p className="text-stone-300 leading-relaxed mt-4">{vm.description}</p>
+                    )}
                     {header}
                 </div>
 

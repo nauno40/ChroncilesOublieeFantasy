@@ -101,7 +101,9 @@ required?: boolean;
 ```
 
 Renseigné champ par champ : `true` pour les champs de règles, `false` pour les champs de
-lore et pour les champs conditionnels de l'équipement. Le nom reste requis dans tous les
+lore, pour les champs conditionnels de l'équipement, et pour les **cases à cocher** —
+celles-ci portent toujours une valeur, les déclarer obligatoires produirait une contrainte
+qui passe toujours. Le nom reste requis dans tous les
 cas ; la description ne l'est pas.
 
 Conséquence chiffrée, mesurée sur les schémas actuels :
@@ -110,9 +112,8 @@ Conséquence chiffrée, mesurée sur les schémas actuels :
 |---|---|
 | Race | 9 |
 | Classe | 8 |
-| Capacité | 6 |
-| Sort, Poison | 5 |
-| Piège | 4 |
+| Poison | 5 |
+| Capacité, Sort, Piège | 4 |
 | Voie | 3 |
 | Équipement, objet magique | 7 (13 moins les 6 conditionnels) |
 | État | 0 (le schéma n'a que nom et description) |

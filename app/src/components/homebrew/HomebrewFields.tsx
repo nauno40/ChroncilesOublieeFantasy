@@ -5,9 +5,17 @@ import { hasValue } from '../../services/homebrewValidation';
 
 type Data = Record<string, unknown>;
 
-export const inputCls = 'w-full bg-stone-950 border border-white/10 rounded-lg px-3 py-2 text-stone-200 text-sm outline-none focus:border-primary-500';
-export const inputErrCls = 'w-full bg-stone-950 border border-red-500/60 rounded-lg px-3 py-2 text-stone-200 text-sm outline-none focus:border-red-500';
+// Base commune, sans taille de police imposée : c'est celle-ci qu'utilisent telle quelle
+// les champs principaux du formulaire (Nom/Description dans HomebrewForm.tsx). Les champs
+// de schéma ci-dessous, plus denses, l'enrichissent de `text-sm` (fieldCls/fieldErrCls) —
+// une seule définition fait autorité, chaque famille de champs garde la taille qu'elle a
+// toujours eue.
+export const inputCls = 'w-full bg-stone-950 border border-white/10 rounded-lg px-3 py-2 text-stone-200 outline-none focus:border-primary-500';
+export const inputErrCls = 'w-full bg-stone-950 border border-red-500/60 rounded-lg px-3 py-2 text-stone-200 outline-none focus:border-red-500';
 export const labelCls = 'text-[10px] uppercase font-bold text-stone-500 block mb-1';
+
+const fieldCls = `${inputCls} text-sm`;
+const fieldErrCls = `${inputErrCls} text-sm`;
 
 // =================== Formulaire ===================
 
@@ -34,7 +42,7 @@ export const HomebrewFields: React.FC<{
 };
 
 const FieldInput: React.FC<{ field: HomebrewFieldDef; value: unknown; onChange: (v: unknown) => void; error?: boolean }> = ({ field, value, onChange, error }) => {
-    const cls = error ? inputErrCls : inputCls;
+    const cls = error ? fieldErrCls : fieldCls;
     switch (field.type) {
         case 'textarea':
             return (
@@ -125,7 +133,7 @@ const LinesInput: React.FC<{ label: string; value: string[]; onChange: (v: strin
             <div className={`space-y-1.5 ${emptyErr ? 'border border-red-500/60 rounded-lg p-2' : ''}`}>
                 {value.map((line, i) => (
                     <div key={i} className="flex gap-1.5">
-                        <input className={error ? inputErrCls : inputCls} value={line} onChange={e => update(i, e.target.value)} placeholder={placeholder} />
+                        <input className={error ? fieldErrCls : fieldCls} value={line} onChange={e => update(i, e.target.value)} placeholder={placeholder} />
                         <button type="button" onClick={() => remove(i)} className="text-stone-500 hover:text-red-400 px-2" aria-label="Retirer"><X size={16} /></button>
                     </div>
                 ))}

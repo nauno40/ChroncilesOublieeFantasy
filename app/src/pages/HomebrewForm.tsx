@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { Globe } from 'lucide-react';
 import { PageContainer, PageShell, Loader } from '../components/common';
-import { HomebrewFields } from '../components/homebrew/HomebrewFields';
+import { HomebrewFields, inputCls, inputErrCls, labelCls } from '../components/homebrew/HomebrewFields';
 import {
     HomebrewService,
     HOMEBREW_CATEGORIES,
@@ -15,10 +15,6 @@ import { HOMEBREW_SCHEMAS, hasStructuredSchema, pruneToSchema } from '../service
 import { validateHomebrew, type HomebrewFieldError } from '../services/homebrewValidation';
 
 type Data = Record<string, unknown>;
-
-const inputCls = 'w-full bg-stone-950 border border-white/10 rounded-lg px-3 py-2 text-stone-200 outline-none focus:border-primary-500';
-const inputErrCls = 'w-full bg-stone-950 border border-red-500/60 rounded-lg px-3 py-2 text-stone-200 outline-none focus:border-red-500';
-const labelCls = 'text-[10px] uppercase font-bold text-stone-500 block mb-1';
 
 /**
  * Page de création/édition d'une entrée homebrew — remplace, pour ce cas d'usage, la
@@ -68,6 +64,17 @@ export const HomebrewForm: React.FC = () => {
         if (!submitted) return;
         setErrors(validateHomebrew(category, name, data));
     }, [submitted, category, name, data]);
+
+    // Garde de fermeture d'onglet / rafraîchissement tant que le formulaire est modifié
+    // et non enregistré. Ne couvre pas le bouton retour du navigateur : le blocage
+    // d'historique de React Router exige un routeur de données (createBrowserRouter),
+    // hors périmètre ici (l'app utilise BrowserRouter).
+    useEffect(() => {
+        if (!dirty) return;
+        const onBeforeUnload = (e: BeforeUnloadEvent) => { e.preventDefault(); e.returnValue = ''; };
+        window.addEventListener('beforeunload', onBeforeUnload);
+        return () => window.removeEventListener('beforeunload', onBeforeUnload);
+    }, [dirty]);
 
     const errorsByKey = useMemo(
         () => Object.fromEntries(errors.filter(e => e.key).map(e => [e.key, e.message] as const)),
@@ -189,7 +196,7 @@ export const HomebrewForm: React.FC = () => {
                 </label>
 
                 <div className="flex justify-end gap-2 pt-2">
-                    <button onClick={handleCancel} className="px-4 py-2 text-sm font-bold text-stone-400 hover:text-white">Annuler</button>
+                    <button onClick={handleCancel} disabled={saving} className="px-4 py-2 text-sm font-bold text-stone-400 hover:text-white disabled:opacity-50">Annuler</button>
                     <button onClick={handleSave} disabled={saving} className="px-5 py-2 rounded-xl bg-primary-600 hover:bg-primary-500 text-stone-950 font-bold text-sm disabled:opacity-50">
                         {saving ? 'Enregistrement…' : 'Enregistrer'}
                     </button>

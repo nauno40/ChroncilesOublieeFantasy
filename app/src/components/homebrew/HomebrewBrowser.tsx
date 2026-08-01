@@ -52,7 +52,16 @@ export const HomebrewBrowser: React.FC<HomebrewBrowserProps> = ({ tab, onTabChan
 
     // La création/édition se fait désormais sur une page dédiée (HomebrewForm) — plus
     // adaptée au mobile qu'une modale — avec retour vers la page courante après coup.
-    const openNew = () => navigate(`/bibliotheque/nouveau/${cats ? cats[0] : 'sort'}?retour=${encodeURIComponent(location.pathname)}`);
+    // Catégories réellement proposables depuis ce contexte : celles de la page, ou
+    // toutes si aucune restriction (cas de la Bibliothèque). Transmises à la page via
+    // `cats` dès qu'il y en a plus d'une, pour qu'elle affiche un sélecteur — omis
+    // quand la catégorie est verrouillée sur une seule (comportement inchangé).
+    const openableCats = cats ?? HOMEBREW_CATEGORIES.map(c => c.value);
+    const openNew = () => {
+        const params = new URLSearchParams({ retour: location.pathname });
+        if (openableCats.length > 1) params.set('cats', openableCats.join(','));
+        navigate(`/bibliotheque/nouveau/${openableCats[0]}?${params.toString()}`);
+    };
     const openEdit = (e: HomebrewEntry) => navigate(`/bibliotheque/${e.id}/modifier?retour=${encodeURIComponent(location.pathname)}`);
 
     const handleDelete = async (e: HomebrewEntry) => {

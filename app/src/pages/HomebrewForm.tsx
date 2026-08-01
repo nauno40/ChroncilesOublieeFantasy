@@ -43,6 +43,7 @@ export const HomebrewForm: React.FC = () => {
     const [submitted, setSubmitted] = useState(false);
     const [errors, setErrors] = useState<HomebrewFieldError[]>([]);
     const [saving, setSaving] = useState(false);
+    const [saveError, setSaveError] = useState<string | null>(null);
     const [showPreview, setShowPreview] = useState(false);
 
     // Chargement de l'entrée existante (édition uniquement).
@@ -85,8 +86,24 @@ export const HomebrewForm: React.FC = () => {
     const globalErrors = errors.filter(e => e.key === '');
 
     const categoryKnown = HOMEBREW_CATEGORIES.some(c => c.value === category);
-    const destination = searchParams.get('retour') || categoryPath(category);
+    // Une redirection ne doit jamais quitter le site : seul un chemin interne (commence
+    // par `/`, pas par `//` — qui est une URL protocol-relative) est accepté.
+    const retourParam = searchParams.get('retour');
+    const safeRetour = retourParam && retourParam.startsWith('/') && !retourParam.startsWith('//') ? retourParam : null;
+    const destination = safeRetour || categoryPath(category);
     const previewSupported = HOMEBREW_SHEET_CATEGORIES.includes(category);
+
+    // Catégories proposables à la création, transmises par HomebrewBrowser via `cats`
+    // (ex. `cats=capacite,sort`) dès que le contexte d'origine en autorise plusieurs —
+    // absent quand la catégorie est verrouillée sur une seule. En édition, la catégorie
+    // reste toujours celle de l'entrée chargée : jamais de sélecteur.
+    const catsParam = searchParams.get('cats');
+    const selectableCategories = useMemo(() => {
+        if (isEdit || !catsParam) return null;
+        const values = catsParam.split(',').map(s => s.trim()).filter(Boolean);
+        const options = HOMEBREW_CATEGORIES.filter(c => values.includes(c.value));
+        return options.length > 1 ? options : null;
+    }, [isEdit, catsParam]);
 
     if (loading) return <Loader />;
 
@@ -109,6 +126,9 @@ export const HomebrewForm: React.FC = () => {
     }
 
     const markDirty = () => setDirty(true);
+    // Changer de catégorie vide les champs structurés (les schémas diffèrent d'une
+    // catégorie à l'autre) mais préserve le nom et la description déjà saisis.
+    const handleCategory = (v: string) => { setCategory(v); setData({}); markDirty(); };
     const handleName = (v: string) => { setName(v); markDirty(); };
     const handleDescription = (v: string) => { setDescription(v); markDirty(); };
     const handleVisibility = (v: HomebrewVisibility) => { setVisibility(v); markDirty(); };
@@ -124,26 +144,38 @@ export const HomebrewForm: React.FC = () => {
         setErrors(errs);
         if (errs.length > 0) {
             setSubmitted(true);
-            document.getElementById(`champ-${errs[0].key}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            // Une erreur transverse (ex. cohérence arme/armure) n'a pas de clé de champ :
+            // elle vit dans le bandeau en tête de formulaire, pas dans un `champ-*`.
+            const targetId = errs[0].key ? `champ-${errs[0].key}` : 'erreurs-formulaire';
+            document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
             return;
         }
         setSaving(true);
+        setSaveError(null);
         try {
             const payload: HomebrewInput = { category, name, description, visibility, data: pruneToSchema(category, data) };
             if (isEdit && id) await HomebrewService.update(Number(id), payload);
             else await HomebrewService.create(payload);
             setDirty(false);
             navigate(destination);
+        } catch (e) {
+            // L'auteur doit savoir que l'enregistrement a échoué — et garder sa saisie :
+            // ni la navigation ni la remise à zéro du formulaire n'ont lieu ici.
+            setSaveError(e instanceof Error ? e.message : "L'enregistrement a échoué.");
         } finally {
             setSaving(false);
         }
     };
 
-    const title = isEdit ? `Modifier — ${name || '…'}` : `Nouveau — ${categoryLabel(category)}`;
+    const title = isEdit
+        ? `Modifier — ${name || '…'}`
+        : selectableCategories
+            ? 'Nouveau contenu communautaire'
+            : `Nouveau — ${categoryLabel(category)}`;
 
     return (
         <PageContainer>
-            <PageShell title={title} subtitle={categoryLabel(category)} />
+            <PageShell title={title} subtitle={selectableCategories ? undefined : categoryLabel(category)} />
 
             <div className={previewSupported ? 'lg:grid lg:grid-cols-2 lg:gap-8 items-start' : ''}>
                 <div className={previewSupported ? '' : 'max-w-2xl'}>
@@ -164,9 +196,23 @@ export const HomebrewForm: React.FC = () => {
                     )}
 
                     <div className="glass-panel rounded-2xl border border-white/5 p-6 space-y-4">
-                        {globalErrors.length > 0 && (
-                            <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-3 space-y-1">
+                        {(globalErrors.length > 0 || saveError) && (
+                            <div id="erreurs-formulaire" className="bg-red-500/10 border border-red-500/30 rounded-lg p-3 space-y-1">
+                                {saveError && <p className="text-red-400 text-sm font-bold">Échec de l'enregistrement — {saveError}</p>}
                                 {globalErrors.map((e, i) => <p key={i} className="text-red-400 text-sm">{e.message}</p>)}
+                            </div>
+                        )}
+
+                        {selectableCategories && (
+                            <div>
+                                <label className={labelCls}>Catégorie</label>
+                                <select
+                                    value={category}
+                                    onChange={e => handleCategory(e.target.value)}
+                                    className={inputCls}
+                                >
+                                    {selectableCategories.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
+                                </select>
                             </div>
                         )}
 
@@ -176,6 +222,7 @@ export const HomebrewForm: React.FC = () => {
                                 value={name}
                                 onChange={e => handleName(e.target.value)}
                                 placeholder="Nom du contenu"
+                                maxLength={255}
                                 autoFocus
                                 className={errorsByKey.name ? inputErrCls : inputCls}
                             />

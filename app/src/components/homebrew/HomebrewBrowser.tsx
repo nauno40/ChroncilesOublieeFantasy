@@ -1,11 +1,9 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Plus, Globe, X } from 'lucide-react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Plus } from 'lucide-react';
 import { Loader, SearchBar } from '../common';
 import { useAuth } from '../../context/AuthContext';
-import { HomebrewService, HOMEBREW_CATEGORIES, categoryLabel, type HomebrewEntry, type HomebrewInput } from '../../services/homebrewService';
-import { HOMEBREW_SCHEMAS, hasStructuredSchema, pruneToSchema } from '../../services/homebrewSchemas';
-import { HomebrewFields } from './HomebrewFields';
+import { HomebrewService, HOMEBREW_CATEGORIES, categoryLabel, type HomebrewEntry } from '../../services/homebrewService';
 import { HomebrewList } from './HomebrewList';
 
 type Tab = 'mine' | 'community';
@@ -28,20 +26,15 @@ interface HomebrewBrowserProps {
 export const HomebrewBrowser: React.FC<HomebrewBrowserProps> = ({ tab, onTabChange, category }) => {
     const { user } = useAuth();
     const navigate = useNavigate();
+    const location = useLocation();
     const myId = user?.id;
     // Catégories de la page : null = toutes ; 1 = verrouillée ; >1 = choix limité.
     const cats: string[] | null = category ? (Array.isArray(category) ? category : [category]) : null;
     const locked = cats?.length === 1;                 // sélecteur/chips/badge masqués
-    const catOptions = cats
-        ? HOMEBREW_CATEGORIES.filter(c => cats.includes(c.value))
-        : HOMEBREW_CATEGORIES;                          // options du sélecteur du formulaire
-    const emptyInput = (): HomebrewInput => ({ category: cats ? cats[0] : 'sort', name: '', description: '', visibility: 'private', data: {} });
 
     const [entries, setEntries] = useState<HomebrewEntry[] | null>(null);
     const [categoryFilter, setCategoryFilter] = useState<string>('');
     const [search, setSearch] = useState('');
-    const [form, setForm] = useState<{ open: boolean; id: number | null; data: HomebrewInput }>({ open: false, id: null, data: emptyInput() });
-    const [saving, setSaving] = useState(false);
     const [duplicatingId, setDuplicatingId] = useState<number | null>(null);
 
     const reload = () => HomebrewService.getAll().then(setEntries).catch(() => setEntries([]));
@@ -57,20 +50,10 @@ export const HomebrewBrowser: React.FC<HomebrewBrowserProps> = ({ tab, onTabChan
             .filter(e => !search || (e.name + ' ' + (e.description ?? '')).toLowerCase().includes(search.toLowerCase()));
     }, [entries, tab, myId, cats, categoryFilter, search]);
 
-    const openNew = () => setForm({ open: true, id: null, data: emptyInput() });
-    const openEdit = (e: HomebrewEntry) => setForm({ open: true, id: e.id, data: { category: e.category, name: e.name, description: e.description ?? '', visibility: e.visibility, data: e.data ?? {} } });
-
-    const handleSave = async () => {
-        if (!form.data.name.trim()) return;
-        setSaving(true);
-        try {
-            const payload: HomebrewInput = { ...form.data, data: pruneToSchema(form.data.category, form.data.data ?? {}) };
-            if (form.id) await HomebrewService.update(form.id, payload);
-            else await HomebrewService.create(payload);
-            setForm({ open: false, id: null, data: emptyInput() });
-            await reload();
-        } finally { setSaving(false); }
-    };
+    // La création/édition se fait désormais sur une page dédiée (HomebrewForm) — plus
+    // adaptée au mobile qu'une modale — avec retour vers la page courante après coup.
+    const openNew = () => navigate(`/bibliotheque/nouveau/${cats ? cats[0] : 'sort'}?retour=${encodeURIComponent(location.pathname)}`);
+    const openEdit = (e: HomebrewEntry) => navigate(`/bibliotheque/${e.id}/modifier?retour=${encodeURIComponent(location.pathname)}`);
 
     const handleDelete = async (e: HomebrewEntry) => {
         if (!confirm(`Supprimer « ${e.name} » ?`)) return;
@@ -136,55 +119,6 @@ export const HomebrewBrowser: React.FC<HomebrewBrowserProps> = ({ tab, onTabChan
                     onDelete={handleDelete}
                     onDuplicate={handleDuplicate}
                 />
-            )}
-
-            {/* Modale création / édition */}
-            {form.open && (
-                <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4" onClick={() => setForm(f => ({ ...f, open: false }))}>
-                    <div className="glass-panel rounded-2xl border border-primary-500/20 w-full max-w-lg p-6 space-y-4 max-h-[90vh] overflow-y-auto" onClick={ev => ev.stopPropagation()}>
-                        <div className="flex items-center justify-between">
-                            <h2 className="text-lg font-display font-bold text-stone-100">{form.id ? 'Modifier le contenu' : 'Nouveau contenu'}</h2>
-                            <button onClick={() => setForm(f => ({ ...f, open: false }))} className="text-stone-500 hover:text-white"><X size={18} /></button>
-                        </div>
-                        {/* Sélecteur de catégorie : masqué si verrouillée ; limité aux catégories de la page sinon. */}
-                        {!locked && (
-                            <div>
-                                <label className="text-[10px] uppercase font-bold text-stone-500 block mb-1">Catégorie</label>
-                                <select value={form.data.category} onChange={e => setForm(f => ({ ...f, data: { ...f.data, category: e.target.value } }))} className="w-full bg-stone-950 border border-white/10 rounded-lg px-3 py-2 text-stone-200 outline-none focus:border-primary-500">
-                                    {catOptions.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
-                                </select>
-                            </div>
-                        )}
-                        <div>
-                            <label className="text-[10px] uppercase font-bold text-stone-500 block mb-1">Nom</label>
-                            <input value={form.data.name} onChange={e => setForm(f => ({ ...f, data: { ...f.data, name: e.target.value } }))} placeholder="Nom du contenu" autoFocus className="w-full bg-stone-950 border border-white/10 rounded-lg px-3 py-2 text-stone-200 outline-none focus:border-primary-500" />
-                        </div>
-                        <div>
-                            <label className="text-[10px] uppercase font-bold text-stone-500 block mb-1">Description {hasStructuredSchema(form.data.category) && <span className="text-stone-600 normal-case font-normal">(résumé court)</span>}</label>
-                            <textarea value={form.data.description} onChange={e => setForm(f => ({ ...f, data: { ...f.data, description: e.target.value } }))} placeholder="Effet, règles, saveur…" className="w-full min-h-[90px] bg-stone-950 border border-white/10 rounded-lg px-3 py-2 text-stone-200 outline-none focus:border-primary-500 resize-y leading-relaxed" />
-                        </div>
-
-                        {hasStructuredSchema(form.data.category) && (
-                            <div className="border-t border-white/5 pt-4">
-                                <p className="text-[11px] uppercase font-bold tracking-wider text-primary-400/70 mb-3">Détails — {categoryLabel(form.data.category)}</p>
-                                <HomebrewFields
-                                    schema={HOMEBREW_SCHEMAS[form.data.category] ?? []}
-                                    data={form.data.data ?? {}}
-                                    onChange={d => setForm(f => ({ ...f, data: { ...f.data, data: d } }))}
-                                />
-                            </div>
-                        )}
-
-                        <label className="flex items-center gap-2 text-sm text-stone-300 cursor-pointer">
-                            <input type="checkbox" checked={form.data.visibility === 'public'} onChange={e => setForm(f => ({ ...f, data: { ...f.data, visibility: e.target.checked ? 'public' : 'private' } }))} className="accent-primary-500 w-4 h-4" />
-                            <Globe size={14} className="text-green-500/70" /> Partager à la communauté (public)
-                        </label>
-                        <div className="flex justify-end gap-2 pt-2">
-                            <button onClick={() => setForm(f => ({ ...f, open: false }))} className="px-4 py-2 text-sm font-bold text-stone-400 hover:text-white">Annuler</button>
-                            <button onClick={handleSave} disabled={saving || !form.data.name.trim()} className="px-5 py-2 rounded-xl bg-primary-600 hover:bg-primary-500 text-stone-950 font-bold text-sm disabled:opacity-50">{saving ? 'Enregistrement…' : 'Enregistrer'}</button>
-                        </div>
-                    </div>
-                </div>
             )}
         </div>
     );

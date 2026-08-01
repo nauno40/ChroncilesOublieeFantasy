@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Globe, Lock, User as UserIcon } from 'lucide-react';
-import { HomebrewService, categoryLabel, type HomebrewEntry } from '../services/homebrewService';
+import { HomebrewService, categoryLabel, categoryPath, type HomebrewEntry } from '../services/homebrewService';
 import { HOMEBREW_SCHEMAS, CARAC_KEYS, type HomebrewFieldDef } from '../services/homebrewSchemas';
 import { Loader } from '../components/common';
 import { RaceSheet, ProfileSheet, VoieSheet, CapaciteSheet, OwnerBar } from '../components/sheets';
@@ -9,14 +9,6 @@ import { homebrewToRaceVM, homebrewToProfileVM, homebrewToVoieVM, homebrewToCapa
 import { useAuth } from '../context/AuthContext';
 
 /** Page de la catégorie (liste) vers laquelle revenir après suppression/duplication. */
-const categoryPath = (category: string): string => {
-    if (category === 'race') return '/races';
-    if (category === 'classe') return '/classes';
-    if (category === 'voie') return '/voies';
-    if (category === 'capacite' || category === 'sort') return '/capacites';
-    return '/bibliotheque';
-};
-
 const hasValue = (v: unknown): boolean => {
     if (v === undefined || v === null || v === '') return false;
     if (Array.isArray(v)) return v.some(x => x !== undefined && x !== null && String(x).trim() !== '');

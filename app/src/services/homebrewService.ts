@@ -43,6 +43,15 @@ export const HOMEBREW_CATEGORIES: { value: string; label: string }[] = [
 export const categoryLabel = (value: string): string =>
     HOMEBREW_CATEGORIES.find(c => c.value === value)?.label ?? value;
 
+/** Page de la catégorie (liste) vers laquelle revenir après suppression/duplication/enregistrement. */
+export const categoryPath = (category: string): string => {
+    if (category === 'race') return '/races';
+    if (category === 'classe') return '/classes';
+    if (category === 'voie') return '/voies';
+    if (category === 'capacite' || category === 'sort') return '/capacites';
+    return '/bibliotheque';
+};
+
 export const HomebrewService = {
     // Renvoie les entrées visibles : les miennes (privées + publiques) + les publiques d'autrui.
     getAll: () => ApiService.getAll<HomebrewEntry>('homebrew_entries?pagination=false&itemsPerPage=500'),

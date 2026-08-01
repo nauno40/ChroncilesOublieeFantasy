@@ -55,6 +55,24 @@ const FieldInput: React.FC<{ field: HomebrewFieldDef; value: unknown; onChange: 
             return <CaracsInput label={field.label} value={(value as Record<string, number>) ?? {}} onChange={onChange} />;
         case 'lines':
             return <LinesInput label={field.label} value={Array.isArray(value) ? (value as string[]) : []} onChange={onChange} placeholder={field.placeholder} />;
+        case 'image': {
+            const url = (value as string) ?? '';
+            return (
+                <div>
+                    <label className={labelCls}>{field.label}</label>
+                    <input type="url" className={inputCls} value={url} onChange={e => onChange(e.target.value)} placeholder={field.placeholder} />
+                    {url.trim() !== '' && (
+                        <img
+                            src={url}
+                            alt="Aperçu"
+                            className="mt-2 h-32 w-full object-cover rounded-lg border border-white/10"
+                            onError={e => { e.currentTarget.style.display = 'none'; }}
+                            onLoad={e => { e.currentTarget.style.display = ''; }}
+                        />
+                    )}
+                </div>
+            );
+        }
         default:
             return (
                 <div>

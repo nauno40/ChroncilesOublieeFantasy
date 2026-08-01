@@ -443,6 +443,7 @@ describe('couverture de schéma communautaire (toute clé du schéma → une pro
         const entry = {
             ...emptyEntry('race'), name: 'Race complète', description: 'Une description',
             data: {
+                image: 'https://exemple.test/race.png',
                 modifiers: { AGI: 1, CON: -1 },
                 speed: '10 m',
                 minHeight: 150, maxHeight: 200,
@@ -491,6 +492,7 @@ describe('couverture de schéma communautaire (toute clé du schéma → une pro
         const entry = {
             ...emptyEntry('classe'), name: 'Classe complète', description: 'Une description',
             data: {
+                image: 'https://exemple.test/classe.png',
                 family: 'Guerriers',
                 note: 'Une note',
                 lore: ['Une ligne de lore.'],
@@ -505,6 +507,7 @@ describe('couverture de schéma communautaire (toute clé du schéma → une pro
         } as HomebrewEntry;
         const vm = homebrewToProfileVM(entry);
         checkSchemaCoverage(HOMEBREW_SCHEMAS.classe, vm, {
+            image: v => v.image,
             family: v => v.family,
             note: v => v.note,
             lore: v => v.lore,

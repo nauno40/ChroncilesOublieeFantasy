@@ -4,7 +4,7 @@
  * <HomebrewData> (fiche). Vague 1 : race, classe, objet-magique, sort, état.
  */
 
-export type HomebrewFieldType = 'text' | 'textarea' | 'number' | 'bool' | 'select' | 'caracs' | 'lines';
+export type HomebrewFieldType = 'text' | 'textarea' | 'number' | 'bool' | 'select' | 'caracs' | 'lines' | 'image';
 
 export interface HomebrewFieldDef {
     key: string;
@@ -63,6 +63,7 @@ const equipmentFields: HomebrewFieldDef[] = [
 export const HOMEBREW_SCHEMAS: Record<string, HomebrewFieldDef[]> = {
     // → Race
     race: [
+        { key: 'image', label: 'Image (URL)', type: 'image', required: false, placeholder: 'https://…' },
         { key: 'modifiers', label: 'Modificateurs de caractéristiques', type: 'caracs', required: true },
         { key: 'speed', label: 'Vitesse', type: 'text', placeholder: 'ex. 10 m', required: true },
         { key: 'minHeight', label: 'Taille min (cm)', type: 'number', required: true },
@@ -80,6 +81,7 @@ export const HOMEBREW_SCHEMAS: Record<string, HomebrewFieldDef[]> = {
     ],
     // → Profile
     classe: [
+        { key: 'image', label: 'Image (URL)', type: 'image', required: false, placeholder: 'https://…' },
         { key: 'family', label: 'Famille', type: 'text', placeholder: 'ex. Combattants, Mages…', required: true },
         { key: 'note', label: 'Note', type: 'textarea', tab: 'lore', required: false },
         { key: 'lore', label: 'Lore', type: 'lines', tab: 'lore', required: false },

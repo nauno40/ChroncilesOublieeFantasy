@@ -143,6 +143,12 @@ export const HOMEBREW_SCHEMAS: Record<string, HomebrewFieldDef[]> = {
 export const hasStructuredSchema = (category: string): boolean =>
     (HOMEBREW_SCHEMAS[category]?.length ?? 0) > 0;
 
+/** Catégories disposant d'une feuille de présentation dédiée (`components/sheets`),
+ * donc d'un aperçu côté formulaire (`HomebrewFormPreview`) — les autres catégories
+ * n'ont pas de rendu de fiche communautaire dédié.
+ */
+export const HOMEBREW_SHEET_CATEGORIES = ['race', 'classe', 'voie', 'capacite', 'sort'];
+
 /** Restreint un objet data aux clés du schéma de la catégorie (élague le cross-catégorie). */
 export const pruneToSchema = (category: string, data: Record<string, unknown>): Record<string, unknown> => {
     const schema = HOMEBREW_SCHEMAS[category];

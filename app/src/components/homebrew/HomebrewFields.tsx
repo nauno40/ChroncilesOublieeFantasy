@@ -1,50 +1,67 @@
 import React from 'react';
 import { Plus, X } from 'lucide-react';
 import { CARAC_KEYS, type HomebrewFieldDef } from '../../services/homebrewSchemas';
+import { hasValue } from '../../services/homebrewValidation';
 
 type Data = Record<string, unknown>;
 
-const inputCls = 'w-full bg-stone-950 border border-white/10 rounded-lg px-3 py-2 text-stone-200 text-sm outline-none focus:border-primary-500';
-const labelCls = 'text-[10px] uppercase font-bold text-stone-500 block mb-1';
+// Base commune, sans taille de police imposée : c'est celle-ci qu'utilisent telle quelle
+// les champs principaux du formulaire (Nom/Description dans HomebrewForm.tsx). Les champs
+// de schéma ci-dessous, plus denses, l'enrichissent de `text-sm` (fieldCls/fieldErrCls) —
+// une seule définition fait autorité, chaque famille de champs garde la taille qu'elle a
+// toujours eue.
+export const inputCls = 'w-full bg-stone-950 border border-white/10 rounded-lg px-3 py-2 text-stone-200 outline-none focus:border-primary-500';
+export const inputErrCls = 'w-full bg-stone-950 border border-red-500/60 rounded-lg px-3 py-2 text-stone-200 outline-none focus:border-red-500';
+export const labelCls = 'text-[10px] uppercase font-bold text-stone-500 block mb-1';
 
-const hasValue = (v: unknown): boolean => {
-    if (v === undefined || v === null || v === '') return false;
-    if (Array.isArray(v)) return v.some(x => x !== undefined && x !== null && String(x).trim() !== '');
-    if (typeof v === 'object') return Object.values(v as Record<string, unknown>).some(x => Number(x) !== 0);
-    return true;
-};
+const fieldCls = `${inputCls} text-sm`;
+const fieldErrCls = `${inputErrCls} text-sm`;
 
 // =================== Formulaire ===================
 
-export const HomebrewFields: React.FC<{ schema: HomebrewFieldDef[]; data: Data; onChange: (d: Data) => void }> = ({ schema, data, onChange }) => {
+export const HomebrewFields: React.FC<{
+    schema: HomebrewFieldDef[];
+    data: Data;
+    onChange: (d: Data) => void;
+    errors?: Record<string, string>;
+}> = ({ schema, data, onChange, errors }) => {
     const set = (key: string, value: unknown) => onChange({ ...data, [key]: value });
     return (
         <div className="space-y-3">
-            {schema.map(f => <FieldInput key={f.key} field={f} value={data[f.key]} onChange={v => set(f.key, v)} />)}
+            {schema.map(f => {
+                const message = errors?.[f.key];
+                return (
+                    <div key={f.key} id={`champ-${f.key}`}>
+                        <FieldInput field={f} value={data[f.key]} onChange={v => set(f.key, v)} error={!!message} />
+                        {message && <p className="text-red-400 text-xs mt-1">{message}</p>}
+                    </div>
+                );
+            })}
         </div>
     );
 };
 
-const FieldInput: React.FC<{ field: HomebrewFieldDef; value: unknown; onChange: (v: unknown) => void }> = ({ field, value, onChange }) => {
+const FieldInput: React.FC<{ field: HomebrewFieldDef; value: unknown; onChange: (v: unknown) => void; error?: boolean }> = ({ field, value, onChange, error }) => {
+    const cls = error ? fieldErrCls : fieldCls;
     switch (field.type) {
         case 'textarea':
             return (
                 <div>
                     <label className={labelCls}>{field.label}</label>
-                    <textarea className={`${inputCls} min-h-[80px] resize-y leading-relaxed`} value={(value as string) ?? ''} onChange={e => onChange(e.target.value)} placeholder={field.placeholder} />
+                    <textarea className={`${cls} min-h-[80px] resize-y leading-relaxed`} value={(value as string) ?? ''} onChange={e => onChange(e.target.value)} placeholder={field.placeholder} />
                 </div>
             );
         case 'number':
             return (
                 <div>
                     <label className={labelCls}>{field.label}</label>
-                    <input type="number" className={inputCls} value={value === undefined || value === null ? '' : String(value)} onChange={e => onChange(e.target.value === '' ? undefined : Number(e.target.value))} placeholder={field.placeholder} />
+                    <input type="number" className={cls} value={value === undefined || value === null ? '' : String(value)} onChange={e => onChange(e.target.value === '' ? undefined : Number(e.target.value))} placeholder={field.placeholder} />
                 </div>
             );
         case 'bool':
             return (
-                <label className="flex items-center gap-2 text-sm text-stone-300 cursor-pointer">
-                    <input type="checkbox" className="accent-primary-500 w-4 h-4" checked={!!value} onChange={e => onChange(e.target.checked)} />
+                <label className={`flex items-center gap-2 text-sm cursor-pointer ${error ? 'text-red-400' : 'text-stone-300'}`}>
+                    <input type="checkbox" className={`w-4 h-4 ${error ? 'accent-red-500' : 'accent-primary-500'}`} checked={!!value} onChange={e => onChange(e.target.checked)} />
                     {field.label}
                 </label>
             );
@@ -52,33 +69,51 @@ const FieldInput: React.FC<{ field: HomebrewFieldDef; value: unknown; onChange: 
             return (
                 <div>
                     <label className={labelCls}>{field.label}</label>
-                    <select className={inputCls} value={(value as string) ?? ''} onChange={e => onChange(e.target.value)}>
+                    <select className={cls} value={(value as string) ?? ''} onChange={e => onChange(e.target.value)}>
                         {field.options?.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
                     </select>
                 </div>
             );
         case 'caracs':
-            return <CaracsInput label={field.label} value={(value as Record<string, number>) ?? {}} onChange={onChange} />;
+            return <CaracsInput label={field.label} value={(value as Record<string, number>) ?? {}} onChange={onChange} error={error} />;
         case 'lines':
-            return <LinesInput label={field.label} value={Array.isArray(value) ? (value as string[]) : []} onChange={onChange} placeholder={field.placeholder} />;
+            return <LinesInput label={field.label} value={Array.isArray(value) ? (value as string[]) : []} onChange={onChange} placeholder={field.placeholder} error={error} />;
+        case 'image': {
+            const url = (value as string) ?? '';
+            return (
+                <div>
+                    <label className={labelCls}>{field.label}</label>
+                    <input type="url" className={cls} value={url} onChange={e => onChange(e.target.value)} placeholder={field.placeholder} />
+                    {url.trim() !== '' && (
+                        <img
+                            src={url}
+                            alt="Aperçu"
+                            className="mt-2 h-32 w-full object-cover rounded-lg border border-white/10"
+                            onError={e => { e.currentTarget.style.display = 'none'; }}
+                            onLoad={e => { e.currentTarget.style.display = ''; }}
+                        />
+                    )}
+                </div>
+            );
+        }
         default:
             return (
                 <div>
                     <label className={labelCls}>{field.label}</label>
-                    <input className={inputCls} value={(value as string) ?? ''} onChange={e => onChange(e.target.value)} placeholder={field.placeholder} />
+                    <input className={cls} value={(value as string) ?? ''} onChange={e => onChange(e.target.value)} placeholder={field.placeholder} />
                 </div>
             );
     }
 };
 
-const CaracsInput: React.FC<{ label: string; value: Record<string, number>; onChange: (v: Record<string, number>) => void }> = ({ label, value, onChange }) => (
+const CaracsInput: React.FC<{ label: string; value: Record<string, number>; onChange: (v: Record<string, number>) => void; error?: boolean }> = ({ label, value, onChange, error }) => (
     <div>
         <label className={labelCls}>{label}</label>
         <div className="grid grid-cols-4 sm:grid-cols-7 gap-2">
             {CARAC_KEYS.map(k => (
                 <div key={k} className="text-center">
                     <div className="text-[10px] text-stone-500 mb-0.5">{k}</div>
-                    <input type="number" className="w-full bg-stone-950 border border-white/10 rounded px-1 py-1 text-center text-stone-200 text-sm outline-none focus:border-primary-500"
+                    <input type="number" className={`w-full bg-stone-950 border rounded px-1 py-1 text-center text-stone-200 text-sm outline-none focus:border-primary-500 ${error ? 'border-red-500/60' : 'border-white/10'}`}
                         value={value[k] ?? 0} onChange={e => onChange({ ...value, [k]: Number(e.target.value) || 0 })} />
                 </div>
             ))}
@@ -86,16 +121,19 @@ const CaracsInput: React.FC<{ label: string; value: Record<string, number>; onCh
     </div>
 );
 
-const LinesInput: React.FC<{ label: string; value: string[]; onChange: (v: string[]) => void; placeholder?: string }> = ({ label, value, onChange, placeholder }) => {
+const LinesInput: React.FC<{ label: string; value: string[]; onChange: (v: string[]) => void; placeholder?: string; error?: boolean }> = ({ label, value, onChange, placeholder, error }) => {
     const update = (i: number, v: string) => onChange(value.map((x, idx) => (idx === i ? v : x)));
     const remove = (i: number) => onChange(value.filter((_, idx) => idx !== i));
+    // Aucune ligne saisie : pas d'<input> sur lequel poser une bordure rouge, donc le
+    // conteneur lui-même porte le retour visuel d'erreur.
+    const emptyErr = error && value.length === 0;
     return (
         <div>
             <label className={labelCls}>{label}</label>
-            <div className="space-y-1.5">
+            <div className={`space-y-1.5 ${emptyErr ? 'border border-red-500/60 rounded-lg p-2' : ''}`}>
                 {value.map((line, i) => (
                     <div key={i} className="flex gap-1.5">
-                        <input className={inputCls} value={line} onChange={e => update(i, e.target.value)} placeholder={placeholder} />
+                        <input className={error ? fieldErrCls : fieldCls} value={line} onChange={e => update(i, e.target.value)} placeholder={placeholder} />
                         <button type="button" onClick={() => remove(i)} className="text-stone-500 hover:text-red-400 px-2" aria-label="Retirer"><X size={16} /></button>
                     </div>
                 ))}

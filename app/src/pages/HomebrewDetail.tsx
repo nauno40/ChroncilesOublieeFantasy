@@ -1,28 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { ArrowLeft, Globe, Lock, User as UserIcon } from 'lucide-react';
-import { HomebrewService, categoryLabel, type HomebrewEntry } from '../services/homebrewService';
+import { HomebrewService, categoryLabel, categoryPath, type HomebrewEntry } from '../services/homebrewService';
 import { HOMEBREW_SCHEMAS, CARAC_KEYS, type HomebrewFieldDef } from '../services/homebrewSchemas';
+import { hasValue } from '../services/homebrewValidation';
 import { Loader } from '../components/common';
 import { RaceSheet, ProfileSheet, VoieSheet, CapaciteSheet, OwnerBar } from '../components/sheets';
 import { homebrewToRaceVM, homebrewToProfileVM, homebrewToVoieVM, homebrewToCapaciteVM } from '../components/sheets/adapters/fromHomebrew';
 import { useAuth } from '../context/AuthContext';
-
-/** Page de la catégorie (liste) vers laquelle revenir après suppression/duplication. */
-const categoryPath = (category: string): string => {
-    if (category === 'race') return '/races';
-    if (category === 'classe') return '/classes';
-    if (category === 'voie') return '/voies';
-    if (category === 'capacite' || category === 'sort') return '/capacites';
-    return '/bibliotheque';
-};
-
-const hasValue = (v: unknown): boolean => {
-    if (v === undefined || v === null || v === '') return false;
-    if (Array.isArray(v)) return v.some(x => x !== undefined && x !== null && String(x).trim() !== '');
-    if (typeof v === 'object') return Object.values(v as Record<string, unknown>).some(x => Number(x) !== 0);
-    return true;
-};
 
 // Champs « compacts » (colonne latérale) vs « longs » (colonne principale).
 const isSidebar = (f: HomebrewFieldDef) => f.type === 'number' || f.type === 'select' || f.type === 'text' || f.type === 'bool';
@@ -35,6 +20,7 @@ const isSidebar = (f: HomebrewFieldDef) => f.type === 'number' || f.type === 'se
 export const HomebrewDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
+    const location = useLocation();
     const { user } = useAuth();
     const [entry, setEntry] = useState<HomebrewEntry | null>(null);
     const [loading, setLoading] = useState(true);
@@ -72,6 +58,7 @@ export const HomebrewDetail: React.FC = () => {
             visibility={entry.visibility}
             mine={mine}
             duplicating={duplicating}
+            onEdit={mine ? () => navigate(`/bibliotheque/${entry.id}/modifier?retour=${encodeURIComponent(location.pathname)}`) : undefined}
             onDuplicate={mine ? undefined : handleDuplicate}
             onDelete={mine ? handleDelete : undefined}
         />

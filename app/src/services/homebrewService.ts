@@ -43,6 +43,43 @@ export const HOMEBREW_CATEGORIES: { value: string; label: string }[] = [
 export const categoryLabel = (value: string): string =>
     HOMEBREW_CATEGORIES.find(c => c.value === value)?.label ?? value;
 
+/**
+ * Valide qu'une valeur candidate (ex. paramètre de requête `retour`) désigne bien un
+ * chemin interne au site, pour éviter toute redirection ouverte.
+ *
+ * Un filtrage par préfixes (`startsWith('/') && !startsWith('//')`) est fragile : il
+ * laisse passer des formes comme `/\exemple.tld`, que les navigateurs interprètent
+ * comme `//exemple.tld` (l'antislash vaut barre oblique dans la partie autorité d'une
+ * URL) — donc une redirection hors site. La seule approche robuste est de laisser le
+ * navigateur résoudre l'URL puis comparer son origine à celle du site.
+ *
+ * Renvoie le chemin (pathname + search + hash) si la valeur résout vers la même
+ * origine que le site, sinon `null`.
+ *
+ * `origine` est injectable (par défaut `window.location.origin`) pour rester testable
+ * en environnement Node, sans DOM — le paramètre par défaut n'est évalué que si
+ * l'appelant ne le fournit pas.
+ */
+export const cheminInterne = (valeur: string | null, origine: string = window.location.origin): string | null => {
+    if (!valeur) return null;
+    try {
+        const url = new URL(valeur, origine);
+        if (url.origin !== origine) return null;
+        return url.pathname + url.search + url.hash;
+    } catch {
+        return null;
+    }
+};
+
+/** Page de la catégorie (liste) vers laquelle revenir après suppression/duplication/enregistrement. */
+export const categoryPath = (category: string): string => {
+    if (category === 'race') return '/races';
+    if (category === 'classe') return '/classes';
+    if (category === 'voie') return '/voies';
+    if (category === 'capacite' || category === 'sort') return '/capacites';
+    return '/bibliotheque';
+};
+
 export const HomebrewService = {
     // Renvoie les entrées visibles : les miennes (privées + publiques) + les publiques d'autrui.
     getAll: () => ApiService.getAll<HomebrewEntry>('homebrew_entries?pagination=false&itemsPerPage=500'),

@@ -6,33 +6,48 @@ import { hasValue } from '../../services/homebrewValidation';
 type Data = Record<string, unknown>;
 
 const inputCls = 'w-full bg-stone-950 border border-white/10 rounded-lg px-3 py-2 text-stone-200 text-sm outline-none focus:border-primary-500';
+const inputErrCls = 'w-full bg-stone-950 border border-red-500/60 rounded-lg px-3 py-2 text-stone-200 text-sm outline-none focus:border-red-500';
 const labelCls = 'text-[10px] uppercase font-bold text-stone-500 block mb-1';
 
 // =================== Formulaire ===================
 
-export const HomebrewFields: React.FC<{ schema: HomebrewFieldDef[]; data: Data; onChange: (d: Data) => void }> = ({ schema, data, onChange }) => {
+export const HomebrewFields: React.FC<{
+    schema: HomebrewFieldDef[];
+    data: Data;
+    onChange: (d: Data) => void;
+    errors?: Record<string, string>;
+}> = ({ schema, data, onChange, errors }) => {
     const set = (key: string, value: unknown) => onChange({ ...data, [key]: value });
     return (
         <div className="space-y-3">
-            {schema.map(f => <FieldInput key={f.key} field={f} value={data[f.key]} onChange={v => set(f.key, v)} />)}
+            {schema.map(f => {
+                const message = errors?.[f.key];
+                return (
+                    <div key={f.key} id={`champ-${f.key}`}>
+                        <FieldInput field={f} value={data[f.key]} onChange={v => set(f.key, v)} error={!!message} />
+                        {message && <p className="text-red-400 text-xs mt-1">{message}</p>}
+                    </div>
+                );
+            })}
         </div>
     );
 };
 
-const FieldInput: React.FC<{ field: HomebrewFieldDef; value: unknown; onChange: (v: unknown) => void }> = ({ field, value, onChange }) => {
+const FieldInput: React.FC<{ field: HomebrewFieldDef; value: unknown; onChange: (v: unknown) => void; error?: boolean }> = ({ field, value, onChange, error }) => {
+    const cls = error ? inputErrCls : inputCls;
     switch (field.type) {
         case 'textarea':
             return (
                 <div>
                     <label className={labelCls}>{field.label}</label>
-                    <textarea className={`${inputCls} min-h-[80px] resize-y leading-relaxed`} value={(value as string) ?? ''} onChange={e => onChange(e.target.value)} placeholder={field.placeholder} />
+                    <textarea className={`${cls} min-h-[80px] resize-y leading-relaxed`} value={(value as string) ?? ''} onChange={e => onChange(e.target.value)} placeholder={field.placeholder} />
                 </div>
             );
         case 'number':
             return (
                 <div>
                     <label className={labelCls}>{field.label}</label>
-                    <input type="number" className={inputCls} value={value === undefined || value === null ? '' : String(value)} onChange={e => onChange(e.target.value === '' ? undefined : Number(e.target.value))} placeholder={field.placeholder} />
+                    <input type="number" className={cls} value={value === undefined || value === null ? '' : String(value)} onChange={e => onChange(e.target.value === '' ? undefined : Number(e.target.value))} placeholder={field.placeholder} />
                 </div>
             );
         case 'bool':
@@ -46,7 +61,7 @@ const FieldInput: React.FC<{ field: HomebrewFieldDef; value: unknown; onChange: 
             return (
                 <div>
                     <label className={labelCls}>{field.label}</label>
-                    <select className={inputCls} value={(value as string) ?? ''} onChange={e => onChange(e.target.value)}>
+                    <select className={cls} value={(value as string) ?? ''} onChange={e => onChange(e.target.value)}>
                         {field.options?.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
                     </select>
                 </div>
@@ -60,7 +75,7 @@ const FieldInput: React.FC<{ field: HomebrewFieldDef; value: unknown; onChange: 
             return (
                 <div>
                     <label className={labelCls}>{field.label}</label>
-                    <input type="url" className={inputCls} value={url} onChange={e => onChange(e.target.value)} placeholder={field.placeholder} />
+                    <input type="url" className={cls} value={url} onChange={e => onChange(e.target.value)} placeholder={field.placeholder} />
                     {url.trim() !== '' && (
                         <img
                             src={url}
@@ -77,7 +92,7 @@ const FieldInput: React.FC<{ field: HomebrewFieldDef; value: unknown; onChange: 
             return (
                 <div>
                     <label className={labelCls}>{field.label}</label>
-                    <input className={inputCls} value={(value as string) ?? ''} onChange={e => onChange(e.target.value)} placeholder={field.placeholder} />
+                    <input className={cls} value={(value as string) ?? ''} onChange={e => onChange(e.target.value)} placeholder={field.placeholder} />
                 </div>
             );
     }

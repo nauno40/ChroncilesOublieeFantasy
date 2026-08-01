@@ -22,3 +22,24 @@ describe('HomebrewFields — champ image', () => {
         expect(screen.queryByAltText('Aperçu')).toBeNull();
     });
 });
+
+describe('HomebrewFields — erreurs', () => {
+    const schema: HomebrewFieldDef[] = [
+        { key: 'speed', label: 'Vitesse', type: 'text', required: true },
+    ];
+
+    it('affiche le message sous le champ fautif', () => {
+        render(<HomebrewFields schema={schema} data={{}} onChange={() => {}} errors={{ speed: '« Vitesse » est obligatoire.' }} />);
+        expect(screen.getByText('« Vitesse » est obligatoire.')).toBeTruthy();
+    });
+
+    it("n'affiche rien quand il n'y a pas d'erreur", () => {
+        render(<HomebrewFields schema={schema} data={{ speed: '10 m' }} onChange={() => {}} />);
+        expect(screen.queryByText(/obligatoire/)).toBeNull();
+    });
+
+    it('expose une ancre de défilement par champ', () => {
+        const { container } = render(<HomebrewFields schema={schema} data={{}} onChange={() => {}} />);
+        expect(container.querySelector('#champ-speed')).toBeTruthy();
+    });
+});

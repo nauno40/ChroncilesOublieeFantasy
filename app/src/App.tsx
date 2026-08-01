@@ -41,6 +41,7 @@ const Traps = lazy(() => import('./pages/Traps').then(m => ({ default: m.Traps }
 const Rules = lazy(() => import('./pages/Rules').then(m => ({ default: m.Rules })));
 const Bibliotheque = lazy(() => import('./pages/Bibliotheque').then(m => ({ default: m.Bibliotheque })));
 const HomebrewDetail = lazy(() => import('./pages/HomebrewDetail').then(m => ({ default: m.HomebrewDetail })));
+const HomebrewForm = lazy(() => import('./pages/HomebrewForm').then(m => ({ default: m.HomebrewForm })));
 const SoundboardPage = lazy(() => import('./pages/SoundboardPage').then(m => ({ default: m.SoundboardPage })));
 const MagicItems = lazy(() => import('./pages/MagicItems').then(m => ({ default: m.MagicItems })));
 const CharacterList = lazy(() => import('./pages/CharacterList').then(m => ({ default: m.CharacterList })));
@@ -96,6 +97,8 @@ function App() {
                 <Route path="traps" element={<CompendiumType title="Pièges" category="piege" official={<Traps />} />} />
                 <Route path="rules" element={<Rules />} />
                 <Route path="bibliotheque" element={<Bibliotheque />} />
+                <Route path="bibliotheque/nouveau/:categorie" element={<HomebrewForm />} />
+                <Route path="bibliotheque/:id/modifier" element={<HomebrewForm />} />
                 <Route path="homebrew/:id" element={<HomebrewDetail />} />
                 <Route path="characters" element={<CharacterList />} />
                 <Route path="characters/new" element={<CharacterSheet />} />

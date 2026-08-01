@@ -9,6 +9,7 @@ import {
     HOMEBREW_CATEGORIES,
     categoryLabel,
     categoryPath,
+    cheminInterne,
     type HomebrewInput,
     type HomebrewVisibility,
 } from '../services/homebrewService';
@@ -86,10 +87,11 @@ export const HomebrewForm: React.FC = () => {
     const globalErrors = errors.filter(e => e.key === '');
 
     const categoryKnown = HOMEBREW_CATEGORIES.some(c => c.value === category);
-    // Une redirection ne doit jamais quitter le site : seul un chemin interne (commence
-    // par `/`, pas par `//` — qui est une URL protocol-relative) est accepté.
+    // Une redirection ne doit jamais quitter le site : seul un chemin interne (résolu
+    // et vérifié par `cheminInterne`, qui compare l'origine plutôt que de filtrer par
+    // préfixes) est accepté.
     const retourParam = searchParams.get('retour');
-    const safeRetour = retourParam && retourParam.startsWith('/') && !retourParam.startsWith('//') ? retourParam : null;
+    const safeRetour = cheminInterne(retourParam);
     const destination = safeRetour || categoryPath(category);
     const previewSupported = HOMEBREW_SHEET_CATEGORIES.includes(category);
 
@@ -160,8 +162,15 @@ export const HomebrewForm: React.FC = () => {
             navigate(destination);
         } catch (e) {
             // L'auteur doit savoir que l'enregistrement a échoué — et garder sa saisie :
-            // ni la navigation ni la remise à zéro du formulaire n'ont lieu ici.
-            setSaveError(e instanceof Error ? e.message : "L'enregistrement a échoué.");
+            // ni la navigation ni la remise à zéro du formulaire n'ont lieu ici. Le
+            // message affiché reste générique : l'erreur brute vient de l'API (souvent
+            // une exception Doctrine, ex. `SQLSTATE[22001]: … value too long for type
+            // character varying(255)`) et ne doit ni s'afficher (illisible, fuite de
+            // détails d'implémentation) ni être supposée avoir une cause unique — seul
+            // le champ Nom est borné côté formulaire (`maxLength`), d'autres champs
+            // peuvent dépasser des limites de colonnes côté serveur.
+            console.error('Échec de l\'enregistrement homebrew :', e);
+            setSaveError("L'enregistrement a échoué. Vérifiez la longueur de vos champs, puis réessayez.");
         } finally {
             setSaving(false);
         }
@@ -198,7 +207,7 @@ export const HomebrewForm: React.FC = () => {
                     <div className="glass-panel rounded-2xl border border-white/5 p-6 space-y-4">
                         {(globalErrors.length > 0 || saveError) && (
                             <div id="erreurs-formulaire" className="bg-red-500/10 border border-red-500/30 rounded-lg p-3 space-y-1">
-                                {saveError && <p className="text-red-400 text-sm font-bold">Échec de l'enregistrement — {saveError}</p>}
+                                {saveError && <p className="text-red-400 text-sm font-bold">{saveError}</p>}
                                 {globalErrors.map((e, i) => <p key={i} className="text-red-400 text-sm">{e.message}</p>)}
                             </div>
                         )}

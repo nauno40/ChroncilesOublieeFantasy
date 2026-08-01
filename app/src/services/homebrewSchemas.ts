@@ -21,9 +21,12 @@ export interface HomebrewFieldDef {
     tab?: 'lore' | 'rules';
     /**
      * Champ requis pour enregistrer. Explicite, jamais déduit de `tab` : c'est ce qui
-     * rend le niveau d'exigence réversible sans refonte.
+     * rend le niveau d'exigence réversible sans refonte. Non optionnel à dessein : la
+     * validation traite un `required` absent comme `true` (cf. homebrewValidation.ts),
+     * donc un champ ajouté sans y penser devenait obligatoire en silence (fail-closed
+     * par défaut). Le typage force désormais une erreur de compilation à la place.
      */
-    required?: boolean;
+    required: boolean;
 }
 
 /** Caractéristiques COF2 (valeurs directes, pas des scores). */
@@ -88,7 +91,7 @@ export const HOMEBREW_SCHEMAS: Record<string, HomebrewFieldDef[]> = {
         { key: 'weaponsAuth', label: 'Armes autorisées', type: 'lines', tab: 'rules', required: true },
         { key: 'armorAuth', label: 'Armures autorisées', type: 'lines', tab: 'rules', required: true },
         { key: 'armorMaxDef', label: 'DEF max d’armure', type: 'number', required: true },
-        { key: 'magicStat', label: 'Caractéristique de magie', type: 'select', options: magicStatOptions, required: true },
+        { key: 'magicStat', label: 'Caractéristique de magie', type: 'select', options: magicStatOptions, required: false },
         { key: 'stats', label: 'Stats de départ', type: 'caracs', required: true },
         { key: 'startingEquipment', label: 'Équipement de départ', type: 'lines', tab: 'rules', required: true },
         { key: 'masteries', label: 'Maîtrises', type: 'lines', tab: 'rules', required: true },

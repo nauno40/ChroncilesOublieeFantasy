@@ -1,18 +1,12 @@
 import React from 'react';
 import { Plus, X } from 'lucide-react';
 import { CARAC_KEYS, type HomebrewFieldDef } from '../../services/homebrewSchemas';
+import { hasValue } from '../../services/homebrewValidation';
 
 type Data = Record<string, unknown>;
 
 const inputCls = 'w-full bg-stone-950 border border-white/10 rounded-lg px-3 py-2 text-stone-200 text-sm outline-none focus:border-primary-500';
 const labelCls = 'text-[10px] uppercase font-bold text-stone-500 block mb-1';
-
-const hasValue = (v: unknown): boolean => {
-    if (v === undefined || v === null || v === '') return false;
-    if (Array.isArray(v)) return v.some(x => x !== undefined && x !== null && String(x).trim() !== '');
-    if (typeof v === 'object') return Object.values(v as Record<string, unknown>).some(x => Number(x) !== 0);
-    return true;
-};
 
 // =================== Formulaire ===================
 

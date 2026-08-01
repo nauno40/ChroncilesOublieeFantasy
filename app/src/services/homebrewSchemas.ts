@@ -19,6 +19,11 @@ export interface HomebrewFieldDef {
      * Les onglets n'apparaissent que si la catégorie a des champs des DEUX types.
      */
     tab?: 'lore' | 'rules';
+    /**
+     * Champ requis pour enregistrer. Explicite, jamais déduit de `tab` : c'est ce qui
+     * rend le niveau d'exigence réversible sans refonte.
+     */
+    required?: boolean;
 }
 
 /** Caractéristiques COF2 (valeurs directes, pas des scores). */
@@ -40,51 +45,51 @@ const rarityOptions = [
 
 // → Equipment : partagé entre « objet-magique » et « equipement » (même entité compendium).
 const equipmentFields: HomebrewFieldDef[] = [
-    { key: 'type', label: 'Type', type: 'text', placeholder: 'ex. Arme, Armure, Anneau…' },
-    { key: 'rarity', label: 'Rareté', type: 'select', options: rarityOptions },
-    { key: 'price', label: 'Prix', type: 'text', placeholder: 'ex. 500 po' },
-    { key: 'weight', label: 'Poids (kg)', type: 'number' },
-    { key: 'material', label: 'Matériau', type: 'text' },
-    { key: 'quality', label: 'Qualité', type: 'text' },
-    { key: 'damage', label: 'Dégâts (si arme)', type: 'text', placeholder: 'ex. 1d8' },
-    { key: 'range', label: 'Portée (si arme)', type: 'text' },
-    { key: 'critical', label: 'Critique (si arme)', type: 'text' },
-    { key: 'acBonus', label: 'Bonus DEF (si armure)', type: 'number' },
-    { key: 'acMaxAgi', label: 'AGI max (si armure)', type: 'number' },
-    { key: 'acPenalty', label: 'Malus (si armure)', type: 'number' },
-    { key: 'properties', label: 'Propriétés / effets', type: 'lines' },
+    { key: 'type', label: 'Type', type: 'text', placeholder: 'ex. Arme, Armure, Anneau…', required: true },
+    { key: 'rarity', label: 'Rareté', type: 'select', options: rarityOptions, required: true },
+    { key: 'price', label: 'Prix', type: 'text', placeholder: 'ex. 500 po', required: true },
+    { key: 'weight', label: 'Poids (kg)', type: 'number', required: true },
+    { key: 'material', label: 'Matériau', type: 'text', required: true },
+    { key: 'quality', label: 'Qualité', type: 'text', required: true },
+    { key: 'damage', label: 'Dégâts (si arme)', type: 'text', placeholder: 'ex. 1d8', required: false },
+    { key: 'range', label: 'Portée (si arme)', type: 'text', required: false },
+    { key: 'critical', label: 'Critique (si arme)', type: 'text', required: false },
+    { key: 'acBonus', label: 'Bonus DEF (si armure)', type: 'number', required: false },
+    { key: 'acMaxAgi', label: 'AGI max (si armure)', type: 'number', required: false },
+    { key: 'acPenalty', label: 'Malus (si armure)', type: 'number', required: false },
+    { key: 'properties', label: 'Propriétés / effets', type: 'lines', required: true },
 ];
 
 export const HOMEBREW_SCHEMAS: Record<string, HomebrewFieldDef[]> = {
     // → Race
     race: [
-        { key: 'modifiers', label: 'Modificateurs de caractéristiques', type: 'caracs' },
-        { key: 'speed', label: 'Vitesse', type: 'text', placeholder: 'ex. 10 m' },
-        { key: 'minHeight', label: 'Taille min (cm)', type: 'number' },
-        { key: 'maxHeight', label: 'Taille max (cm)', type: 'number' },
-        { key: 'minWeight', label: 'Poids min (kg)', type: 'number' },
-        { key: 'maxWeight', label: 'Poids max (kg)', type: 'number' },
-        { key: 'startingAge', label: 'Âge de départ', type: 'number' },
-        { key: 'lifeExpectancy', label: 'Espérance de vie', type: 'number' },
-        { key: 'abilities', label: 'Capacités raciales', type: 'textarea', tab: 'rules' },
-        { key: 'physicalTraits', label: 'Traits physiques', type: 'textarea', tab: 'lore' },
-        { key: 'publicPerception', label: 'Perception publique', type: 'textarea', tab: 'lore' },
-        { key: 'roleplay', label: 'Roleplay', type: 'textarea', tab: 'lore' },
-        { key: 'typicalNames', label: 'Noms typiques', type: 'textarea', tab: 'lore' },
-        { key: 'detailedDescription', label: 'Description détaillée', type: 'textarea', tab: 'lore' },
+        { key: 'modifiers', label: 'Modificateurs de caractéristiques', type: 'caracs', required: true },
+        { key: 'speed', label: 'Vitesse', type: 'text', placeholder: 'ex. 10 m', required: true },
+        { key: 'minHeight', label: 'Taille min (cm)', type: 'number', required: true },
+        { key: 'maxHeight', label: 'Taille max (cm)', type: 'number', required: true },
+        { key: 'minWeight', label: 'Poids min (kg)', type: 'number', required: true },
+        { key: 'maxWeight', label: 'Poids max (kg)', type: 'number', required: true },
+        { key: 'startingAge', label: 'Âge de départ', type: 'number', required: true },
+        { key: 'lifeExpectancy', label: 'Espérance de vie', type: 'number', required: true },
+        { key: 'abilities', label: 'Capacités raciales', type: 'textarea', tab: 'rules', required: true },
+        { key: 'physicalTraits', label: 'Traits physiques', type: 'textarea', tab: 'lore', required: false },
+        { key: 'publicPerception', label: 'Perception publique', type: 'textarea', tab: 'lore', required: false },
+        { key: 'roleplay', label: 'Roleplay', type: 'textarea', tab: 'lore', required: false },
+        { key: 'typicalNames', label: 'Noms typiques', type: 'textarea', tab: 'lore', required: false },
+        { key: 'detailedDescription', label: 'Description détaillée', type: 'textarea', tab: 'lore', required: false },
     ],
     // → Profile
     classe: [
-        { key: 'family', label: 'Famille', type: 'text', placeholder: 'ex. Combattants, Mages…' },
-        { key: 'note', label: 'Note', type: 'textarea', tab: 'lore' },
-        { key: 'lore', label: 'Lore', type: 'lines', tab: 'lore' },
-        { key: 'weaponsAuth', label: 'Armes autorisées', type: 'lines', tab: 'rules' },
-        { key: 'armorAuth', label: 'Armures autorisées', type: 'lines', tab: 'rules' },
-        { key: 'armorMaxDef', label: 'DEF max d’armure', type: 'number' },
-        { key: 'magicStat', label: 'Caractéristique de magie', type: 'select', options: magicStatOptions },
-        { key: 'stats', label: 'Stats de départ', type: 'caracs' },
-        { key: 'startingEquipment', label: 'Équipement de départ', type: 'lines', tab: 'rules' },
-        { key: 'masteries', label: 'Maîtrises', type: 'lines', tab: 'rules' },
+        { key: 'family', label: 'Famille', type: 'text', placeholder: 'ex. Combattants, Mages…', required: true },
+        { key: 'note', label: 'Note', type: 'textarea', tab: 'lore', required: false },
+        { key: 'lore', label: 'Lore', type: 'lines', tab: 'lore', required: false },
+        { key: 'weaponsAuth', label: 'Armes autorisées', type: 'lines', tab: 'rules', required: true },
+        { key: 'armorAuth', label: 'Armures autorisées', type: 'lines', tab: 'rules', required: true },
+        { key: 'armorMaxDef', label: 'DEF max d’armure', type: 'number', required: true },
+        { key: 'magicStat', label: 'Caractéristique de magie', type: 'select', options: magicStatOptions, required: true },
+        { key: 'stats', label: 'Stats de départ', type: 'caracs', required: true },
+        { key: 'startingEquipment', label: 'Équipement de départ', type: 'lines', tab: 'rules', required: true },
+        { key: 'masteries', label: 'Maîtrises', type: 'lines', tab: 'rules', required: true },
     ],
     // → Equipment (objet magique)
     'objet-magique': equipmentFields,
@@ -92,41 +97,41 @@ export const HOMEBREW_SCHEMAS: Record<string, HomebrewFieldDef[]> = {
     equipement: equipmentFields,
     // → Capability (isSpell)
     sort: [
-        { key: 'rank', label: 'Rang', type: 'number' },
-        { key: 'actionType', label: 'Type d’action', type: 'text', placeholder: 'ex. Limitée, Attaque…' },
-        { key: 'limited', label: 'Usage limité', type: 'bool' },
-        { key: 'effect', label: 'Effet(s)', type: 'lines' },
-        { key: 'details', label: 'Détails', type: 'lines' },
+        { key: 'rank', label: 'Rang', type: 'number', required: true },
+        { key: 'actionType', label: 'Type d’action', type: 'text', placeholder: 'ex. Limitée, Attaque…', required: true },
+        { key: 'limited', label: 'Usage limité', type: 'bool', required: false },
+        { key: 'effect', label: 'Effet(s)', type: 'lines', required: true },
+        { key: 'details', label: 'Détails', type: 'lines', required: true },
     ],
     // → Capability
     capacite: [
-        { key: 'rank', label: 'Rang', type: 'number' },
-        { key: 'actionType', label: 'Type d’action', type: 'text', placeholder: 'ex. Limitée, Attaque…' },
-        { key: 'isSpell', label: 'Est un sort', type: 'bool' },
-        { key: 'limited', label: 'Usage limité', type: 'bool' },
-        { key: 'effect', label: 'Effet(s)', type: 'lines' },
-        { key: 'details', label: 'Détails', type: 'lines' },
+        { key: 'rank', label: 'Rang', type: 'number', required: true },
+        { key: 'actionType', label: 'Type d’action', type: 'text', placeholder: 'ex. Limitée, Attaque…', required: true },
+        { key: 'isSpell', label: 'Est un sort', type: 'bool', required: false },
+        { key: 'limited', label: 'Usage limité', type: 'bool', required: false },
+        { key: 'effect', label: 'Effet(s)', type: 'lines', required: true },
+        { key: 'details', label: 'Détails', type: 'lines', required: true },
     ],
     // → Voie
     voie: [
-        { key: 'category', label: 'Catégorie', type: 'text', placeholder: 'ex. profil, peuple, prestige…' },
-        { key: 'maxRank', label: 'Rang maximum', type: 'number' },
-        { key: 'details', label: 'Capacités / détails (par rang)', type: 'lines' },
+        { key: 'category', label: 'Catégorie', type: 'text', placeholder: 'ex. profil, peuple, prestige…', required: true },
+        { key: 'maxRank', label: 'Rang maximum', type: 'number', required: true },
+        { key: 'details', label: 'Capacités / détails (par rang)', type: 'lines', required: true },
     ],
     // → Poison
     poison: [
-        { key: 'effectFail', label: 'Effet (échec)', type: 'textarea' },
-        { key: 'effectSuccess', label: 'Effet (réussite)', type: 'textarea' },
-        { key: 'duration', label: 'Durée', type: 'text' },
-        { key: 'delay', label: 'Délai', type: 'text' },
-        { key: 'note', label: 'Note', type: 'textarea' },
+        { key: 'effectFail', label: 'Effet (échec)', type: 'textarea', required: true },
+        { key: 'effectSuccess', label: 'Effet (réussite)', type: 'textarea', required: true },
+        { key: 'duration', label: 'Durée', type: 'text', required: true },
+        { key: 'delay', label: 'Délai', type: 'text', required: true },
+        { key: 'note', label: 'Note', type: 'textarea', required: true },
     ],
     // → Trap
     piege: [
-        { key: 'detectDifficulty', label: 'Difficulté de détection', type: 'text', placeholder: 'ex. DIF 15' },
-        { key: 'disarmDifficulty', label: 'Difficulté de désamorçage', type: 'text' },
-        { key: 'effect', label: 'Effet', type: 'textarea' },
-        { key: 'complement', label: 'Complément', type: 'textarea' },
+        { key: 'detectDifficulty', label: 'Difficulté de détection', type: 'text', placeholder: 'ex. DIF 15', required: true },
+        { key: 'disarmDifficulty', label: 'Difficulté de désamorçage', type: 'text', required: true },
+        { key: 'effect', label: 'Effet', type: 'textarea', required: true },
+        { key: 'complement', label: 'Complément', type: 'textarea', required: true },
     ],
     // → HarmfulState : schéma réel = nom + description (aucun champ data supplémentaire)
     etat: [],

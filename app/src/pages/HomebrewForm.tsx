@@ -16,7 +16,7 @@ import {
 } from '../services/homebrewService';
 import { HOMEBREW_SCHEMAS, HOMEBREW_SHEET_CATEGORIES, hasStructuredSchema, pruneChildren, pruneToSchema } from '../services/homebrewSchemas';
 import { validateHomebrew, type HomebrewFieldError } from '../services/homebrewValidation';
-import { saveChildren, echecsCapacitesEnErreurs, type ChildDraft, type SaveChildrenResult } from '../services/homebrewChildren';
+import { saveChildren, echecsCapacitesEnErreurs, resumeEchecsCapacites, type ChildDraft, type SaveChildrenResult } from '../services/homebrewChildren';
 
 type Data = Record<string, unknown>;
 
@@ -294,7 +294,7 @@ export const HomebrewForm: React.FC = () => {
                                 {childrenIssues && childrenIssues.failed.length > 0 && (
                                     <>
                                         <p className="text-red-400 text-sm font-bold">
-                                            La voie est enregistrée, mais {childrenIssues.failed.length} capacité(s) sur {drafts.length} n'a/n'ont pas pu être enregistrée(s) — corrigez puis réessayez :
+                                            {resumeEchecsCapacites(childrenIssues.failed, drafts.length)}
                                         </p>
                                         {childrenIssues.failed.map((f, i) => (
                                             <p key={i} className="text-red-400 text-xs">

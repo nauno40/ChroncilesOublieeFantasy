@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { saveChildren, echecsCapacitesEnErreurs } from './homebrewChildren';
+import { saveChildren, echecsCapacitesEnErreurs, resumeEchecsCapacites } from './homebrewChildren';
 import { HomebrewService } from './homebrewService';
 
 vi.mock('./homebrewService', () => ({
@@ -117,5 +117,30 @@ describe('echecsCapacitesEnErreurs', () => {
 
     it('ne produit aucune erreur en l’absence d’échec', () => {
         expect(echecsCapacitesEnErreurs([], 3)).toEqual({});
+    });
+});
+
+describe('resumeEchecsCapacites', () => {
+    it('parle d’enregistrement quand tous les échecs sont des créations/mises à jour', () => {
+        const phrase = resumeEchecsCapacites([{ position: 1, message: 'boum' }], 2);
+        expect(phrase).toContain('enregistrée(s)');
+        expect(phrase).not.toContain('supprimée(s)');
+    });
+
+    it('parle de suppression quand tous les échecs sont des suppressions refusées', () => {
+        // 1 seul bloc visible : une position 2 est nécessairement une suppression
+        // (capacité déjà retirée du formulaire par l'auteur), pas un échec d'enregistrement.
+        const phrase = resumeEchecsCapacites([{ position: 2, message: 'refus serveur' }], 1);
+        expect(phrase).toContain('supprimée(s)');
+        expect(phrase).not.toContain('enregistrée(s)');
+    });
+
+    it('mentionne les deux quand les échecs sont mixtes', () => {
+        const phrase = resumeEchecsCapacites(
+            [{ position: 1, message: 'boum' }, { position: 3, message: 'refus serveur' }],
+            2,
+        );
+        expect(phrase).toContain('enregistrée(s)');
+        expect(phrase).toContain('supprimée(s)');
     });
 });

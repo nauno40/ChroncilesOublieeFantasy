@@ -61,6 +61,27 @@ export const echecsCapacitesEnErreurs = (
 };
 
 /**
+ * Phrase de synthèse du bandeau d'erreur (`#erreurs-formulaire`). Une position au-delà
+ * de `blocsVisibles` est une suppression refusée (capacité déjà retirée du formulaire
+ * par l'auteur, cf. `echecsCapacitesEnErreurs`), pas un échec d'enregistrement : la
+ * verbalisation doit distinguer les deux plutôt que de parler d'enregistrement à tort
+ * pour une suppression.
+ */
+export const resumeEchecsCapacites = (failed: SaveChildrenResult['failed'], blocsVisibles: number): string => {
+    const total = failed.length;
+    const suppressions = failed.filter(f => f.position > blocsVisibles).length;
+    const enregistrements = total - suppressions;
+
+    if (suppressions === 0) {
+        return `La voie est enregistrée, mais ${total} capacité(s) sur ${blocsVisibles} n'a/n'ont pas pu être enregistrée(s) — corrigez puis réessayez :`;
+    }
+    if (enregistrements === 0) {
+        return `La voie est enregistrée, mais ${total} capacité(s) retirée(s) n'a/n'ont pas pu être supprimée(s) — réessayez :`;
+    }
+    return `La voie est enregistrée, mais ${total} capacité(s) n'a/n'ont pas pu être enregistrée(s) ou supprimée(s) — corrigez puis réessayez :`;
+};
+
+/**
  * Enregistre l'ensemble des capacités d'une voie : crée les brouillons sans `id`, met à
  * jour ceux qui en ont un, puis supprime les capacités confirmées côté serveur (`confirmed`,
  * chaque élément porte un id) absentes des brouillons finaux (capacités retirées par

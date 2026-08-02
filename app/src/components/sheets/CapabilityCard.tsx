@@ -17,7 +17,10 @@ interface CapabilityCardProps {
  * sa donnée, jamais par sa valeur.
  */
 export const CapabilityCard: React.FC<CapabilityCardProps> = ({ cap }) => (
-    <div className="glass-panel p-6 rounded-xl border border-white/5 hover:border-primary-500/30 transition-all duration-300">
+    // `group` rend vivant le `group-hover:` porté par le titre plus bas : il était inerte
+    // dans le rendu d'origine de `VoieSheet`, alors qu'il fonctionnait sur les fiches de
+    // peuple et de classe, dont le conteneur portait cette classe.
+    <div className="group glass-panel p-6 rounded-xl border border-white/5 hover:border-primary-500/30 transition-all duration-300">
         <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-2 mb-3">
             <div className="flex items-center gap-3">
                 {cap.rank !== undefined && (

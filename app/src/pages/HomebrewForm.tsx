@@ -202,7 +202,13 @@ export const HomebrewForm: React.FC = () => {
     const handleData = (d: Data) => { setData(d); markDirty(); };
 
     const handleCancel = () => {
-        if (dirty && !confirm('Abandonner les modifications non enregistrées ?')) return;
+        // Après un échec partiel, la voie EST enregistrée : dire « rien n'est enregistré »
+        // ferait repartir l'auteur en croyant n'avoir rien créé, alors qu'une voie
+        // incomplète l'attend dans sa bibliothèque.
+        const message = createdEntryId !== null
+            ? 'La voie est déjà enregistrée ; seules les capacités en échec seront perdues. Quitter ?'
+            : 'Abandonner les modifications non enregistrées ?';
+        if ((dirty || createdEntryId !== null) && !confirm(message)) return;
         navigate(destination);
     };
 
@@ -391,7 +397,14 @@ export const HomebrewForm: React.FC = () => {
                         {category === 'voie' && (
                             <CapabilityBlocks
                                 drafts={drafts}
-                                onChange={d => { setDrafts(d); markDirty(); }}
+                                onChange={d => {
+                                    setDrafts(d);
+                                    // Les clés d'échec sont positionnelles : retirer une
+                                    // capacité ferait hériter sa voisine du liseré rouge
+                                    // et du message d'un échec qui ne la concerne pas.
+                                    setChildrenIssues(null);
+                                    markDirty();
+                                }}
                                 errors={capabilityErrors}
                             />
                         )}

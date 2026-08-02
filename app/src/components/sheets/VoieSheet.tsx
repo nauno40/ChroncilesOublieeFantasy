@@ -73,8 +73,11 @@ export const VoieSheet: React.FC<VoieSheetProps> = ({ vm, backTo, backLabel, hea
                                 </h3>
 
                                 <div className="space-y-4">
-                                    {vm.capabilities!.map(cap => (
-                                        <CapabilityCard key={cap.id ?? `${cap.rank ?? ''}-${cap.name}`} cap={cap} />
+                                    {/* L'indice comme repli : une capacité communautaire n'a
+                                        pas d'identifiant, et deux blocs encore vierges
+                                        produiraient la même clé composée dans l'aperçu. */}
+                                    {vm.capabilities!.map((cap, i) => (
+                                        <CapabilityCard key={cap.id ?? i} cap={cap} />
                                     ))}
                                 </div>
                             </>

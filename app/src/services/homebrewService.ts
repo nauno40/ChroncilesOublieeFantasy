@@ -89,20 +89,6 @@ export const categoryPath = (category: string): string => {
 };
 
 /**
- * Enfants (capacités) d'une entrée parente, parmi une collection déjà chargée (typiquement
- * `HomebrewService.getAll()`, qui ramène déjà toutes les entrées visibles) : filtrer côté
- * client évite un appel réseau supplémentaire dédié.
- *
- * L'API renvoie `parent` en IRI (`/api/homebrew_entries/<id>`), jamais en objet imbriqué
- * ni en identifiant nu — vérifié sur l'API réelle (`ApiProperty(readableLink: false)`
- * côté backend), pas seulement sur des fixtures. Une entrée sans parent (autonome) porte
- * `parent: undefined` (clé absente du JSON), jamais `null` explicite ni chaîne vide.
- *
- * Fonction partagée entre la fiche de consultation (`HomebrewDetail`) et le formulaire
- * d'édition (`HomebrewForm`) : un seul mécanisme de filtrage, pas deux qui pourraient
- * diverger.
- */
-/**
  * Message de confirmation d'une suppression. La suppression est en cascade côté base :
  * effacer une voie efface ses capacités. La confirmation doit donc annoncer combien
  * elles sont — perdre cinq capacités sur un clic dont le message n'en disait rien
@@ -137,7 +123,21 @@ export const parRangCroissant = (
     return rang(a) - rang(b);
 };
 
-export const childrenOf =(parentId: number, entries: HomebrewEntry[]): HomebrewEntry[] =>
+/**
+ * Enfants (capacités) d'une entrée parente, parmi une collection déjà chargée (typiquement
+ * `HomebrewService.getAll()`, qui ramène déjà toutes les entrées visibles) : filtrer côté
+ * client évite un appel réseau supplémentaire dédié.
+ *
+ * L'API renvoie `parent` en IRI (`/api/homebrew_entries/<id>`), jamais en objet imbriqué
+ * ni en identifiant nu — vérifié sur l'API réelle (`ApiProperty(readableLink: false)`
+ * côté backend), pas seulement sur des fixtures. Une entrée sans parent (autonome) porte
+ * `parent: undefined` (clé absente du JSON), jamais `null` explicite ni chaîne vide.
+ *
+ * Fonction partagée entre la fiche de consultation (`HomebrewDetail`) et le formulaire
+ * d'édition (`HomebrewForm`) : un seul mécanisme de filtrage, pas deux qui pourraient
+ * diverger.
+ */
+export const childrenOf = (parentId: number, entries: HomebrewEntry[]): HomebrewEntry[] =>
     entries.filter(e => e.parent === `/api/homebrew_entries/${parentId}`);
 
 export const HomebrewService = {

@@ -11,6 +11,7 @@ import {
     categoryLabel,
     categoryPath,
     cheminInterne,
+    childrenOf,
     type HomebrewInput,
     type HomebrewVisibility,
 } from '../services/homebrewService';
@@ -67,23 +68,43 @@ export const HomebrewForm: React.FC = () => {
     const [createdEntryId, setCreatedEntryId] = useState<number | null>(null);
     const [showPreview, setShowPreview] = useState(false);
 
-    // Chargement de l'entrée existante (édition uniquement). Ne recharge pas les
-    // capacités déjà enregistrées d'une voie existante : `drafts` démarre vide même en
-    // édition (pas de point d'entrée pour lister les enfants d'un parent — hors
-    // périmètre de ce chantier). Éditer une voie qui a déjà des capacités permet donc
-    // d'en ajouter de nouvelles, mais n'affiche pas celles déjà enregistrées.
+    // Chargement de l'entrée existante (édition uniquement). Pour une voie, recharge
+    // aussi ses capacités déjà enregistrées — entrées à part entière filtrées côté
+    // client sur `parent` (`childrenOf`, la même fonction que la fiche de consultation,
+    // `HomebrewDetail.tsx`, pour ne pas avoir deux filtrages divergents). Sans quoi
+    // l'auteur ne verrait ni ne pourrait corriger ses capacités existantes, et risquerait
+    // d'en recréer des doublons.
+    //
+    // `confirmed` est alimenté avec les mêmes brouillons : ce sont précisément les
+    // capacités dont l'existence côté serveur est confirmée, et c'est cet état qui
+    // permet à `saveChildren` de supprimer celles que l'auteur retire ensuite (cf.
+    // `saveChildren`, 4e paramètre). `setDrafts`/`setConfirmed` sont appelés
+    // directement ici, jamais via `markDirty` : l'auteur n'a encore rien saisi, ce
+    // chargement ne doit pas armer la garde de fermeture (`dirty`).
     useEffect(() => {
         if (!isEdit || !id) return;
+        let annule = false;
         HomebrewService.getById(id)
-            .then(entry => {
+            .then(async entry => {
+                if (annule) return;
                 setCategory(entry.category);
                 setName(entry.name);
                 setDescription(entry.description ?? '');
                 setVisibility(entry.visibility);
                 setData(entry.data ?? {});
+                if (entry.category === 'voie') {
+                    const toutes = await HomebrewService.getAll();
+                    if (annule) return;
+                    const capacites: ChildDraft[] = childrenOf(entry.id, toutes)
+                        .map(c => ({ id: c.id, category: c.category, name: c.name, data: c.data ?? {} }))
+                        .sort((a, b) => (Number(a.data.rank) || 0) - (Number(b.data.rank) || 0));
+                    setDrafts(capacites);
+                    setConfirmed(capacites);
+                }
             })
             .catch(() => setNotFound(true))
-            .finally(() => setLoading(false));
+            .finally(() => { if (!annule) setLoading(false); });
+        return () => { annule = true; };
     }, [isEdit, id]);
 
     // Les erreurs ne sont recalculées en continu qu'après la première tentative
@@ -282,7 +303,7 @@ export const HomebrewForm: React.FC = () => {
 
                     {previewSupported && showPreview && (
                         <div className="lg:hidden mb-6">
-                            <HomebrewFormPreview category={category} name={name} description={description} data={data} />
+                            <HomebrewFormPreview category={category} name={name} description={description} data={data} drafts={category === 'voie' ? drafts : undefined} />
                         </div>
                     )}
 
@@ -387,7 +408,7 @@ export const HomebrewForm: React.FC = () => {
 
                 {previewSupported && (
                     <div className="hidden lg:block lg:sticky lg:top-24">
-                        <HomebrewFormPreview category={category} name={name} description={description} data={data} />
+                        <HomebrewFormPreview category={category} name={name} description={description} data={data} drafts={category === 'voie' ? drafts : undefined} />
                     </div>
                 )}
             </div>

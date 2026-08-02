@@ -150,9 +150,11 @@ export interface VoieSheetVM {
     maxRank?: number;
     profileName?: string;
     /** JSON libre de la voie (`Voie.details`), rendu par DynamicDetailsRenderer sous le
-     * titre "Détails & Mécaniques" (`VoieDetail.tsx`). Absent côté communautaire
-     * aujourd'hui (le schéma homebrew capture ces lignes dans `capabilities`, cf.
-     * `homebrewToVoieVM`) : la section disparaît alors entièrement, pas de titre orphelin. */
+     * titre "Détails & Mécaniques" (`VoieDetail.tsx`). Côté communautaire, les lignes
+     * libres du champ `details` (schéma homebrew) portent le même rôle — mécaniques de
+     * la voie elle-même, pas liées à une capacité précise — et sont regroupées dans une
+     * entrée générique par `homebrewToVoieVM`. Absent si le champ n'est pas renseigné :
+     * la section disparaît alors entièrement, pas de titre orphelin. */
     details?: Record<string, unknown>;
     capabilities?: SheetCapabilityRef[];
 }

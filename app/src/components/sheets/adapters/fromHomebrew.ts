@@ -123,14 +123,39 @@ export const homebrewToProfileVM = (e: HomebrewEntry): ProfileSheetVM => {
     };
 };
 
-export const homebrewToVoieVM = (e: HomebrewEntry): VoieSheetVM => {
+/** Regroupe les lignes libres « mécaniques de la voie » (schéma communautaire
+ * `details`, type 'lines') sous une entrée `mecaniques_*` consommée par
+ * `DynamicDetailsRenderer` — même convention que l'officiel (ex.
+ * `Profils/Voleur.json:mecaniques_specifiques`). Sans intitulé propre par ligne côté
+ * saisie libre (contrairement au JSON officiel, où chaque clé est un nom de mécanique),
+ * chaque ligne prend son index comme clé au rendu.
+ */
+const voieMechanics = (v: unknown): Record<string, unknown> | undefined => {
+    const lines = list(v);
+    return lines ? { mecaniques_voie: lines } : undefined;
+};
+
+export const homebrewToVoieVM = (e: HomebrewEntry, children?: HomebrewEntry[]): VoieSheetVM => {
     const data = d(e);
     return {
         name: e.name,
         description: str(e.description),
         category: str(data.category),
         maxRank: num(data.maxRank),
-        capabilities: list(data.details)?.map(l => ({ name: l })),
+        // Mécaniques propres de la voie (pas liées à une capacité précise) : `details`
+        // retrouve son rôle propre — celui du `Voie.details` officiel, rendu par
+        // DynamicDetailsRenderer — et cesse d'être transformé en pseudo-capacités.
+        details: voieMechanics(data.details),
+        // Capacités réelles de la voie : des entrées à part entière portant un
+        // `parent` (cf. HomebrewChild/ChildDraft), plus des lignes de texte libre.
+        // Projetées avec la même fonction qu'une capacité autonome
+        // (`homebrewToCapaciteVM`), jamais réécrite ici ; triées par rang croissant,
+        // comme `voieToVM` (adaptateur officiel).
+        capabilities: children?.length
+            ? [...children]
+                .sort((a, b) => (num(d(a).rank) ?? 0) - (num(d(b).rank) ?? 0))
+                .map(homebrewToCapaciteVM)
+            : undefined,
     };
 };
 

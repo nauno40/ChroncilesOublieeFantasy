@@ -18,7 +18,7 @@ vi.mock('../services/homebrewService', async (importOriginal) => {
     const actual = await importOriginal<typeof import('../services/homebrewService')>();
     return {
         ...actual,
-        HomebrewService: { create: vi.fn(), update: vi.fn(), remove: vi.fn(), getById: vi.fn() },
+        HomebrewService: { create: vi.fn(), update: vi.fn(), remove: vi.fn(), getById: vi.fn(), getAll: vi.fn() },
     };
 });
 
@@ -146,5 +146,82 @@ describe('HomebrewForm — défilement vers le bloc fautif', () => {
 
         await waitFor(() => expect(appelsOuverture.length).toBeGreaterThan(0));
         expect(appelsOuverture).toEqual([true]);
+    });
+});
+
+/**
+ * Travail supplémentaire hors cahier des charges (cf. Task 4 réserve n°2) : éditer une
+ * voie existante doit recharger ses capacités déjà enregistrées, avec le même filtrage
+ * sur `parent` que la fiche de consultation (`childrenOf`, `homebrewService.ts`).
+ */
+describe('HomebrewForm — édition d’une voie recharge ses capacités', () => {
+    const renderEditForm = () =>
+        render(
+            <MemoryRouter initialEntries={['/bibliotheque/42/modifier']}>
+                <Routes>
+                    <Route path="/bibliotheque/:id/modifier" element={<HomebrewForm />} />
+                    <Route path="*" element={null} />
+                </Routes>
+            </MemoryRouter>,
+        );
+
+    const voie = {
+        id: 42, category: 'voie', name: 'Voie du Gel', description: '', visibility: 'private' as const,
+        data: { category: 'profil', maxRank: 5, details: ['x'] }, authorId: 1, authorPseudo: 'N',
+        createdAt: '', updatedAt: '',
+    };
+    const capacite = (id: number, name: string, rank: number, parent: string) => ({
+        id, category: 'capacite', name, description: '', visibility: 'private' as const,
+        data: { rank }, parent, authorId: 1, authorPseudo: 'N', createdAt: '', updatedAt: '',
+    });
+
+    it('affiche, pré-remplis, les blocs des capacités déjà enregistrées — et pas celles d’une autre voie', async () => {
+        (HomebrewService.getById as ReturnType<typeof vi.fn>).mockResolvedValue(voie);
+        (HomebrewService.getAll as ReturnType<typeof vi.fn>).mockResolvedValue([
+            voie,
+            capacite(1, 'Frappe', 1, '/api/homebrew_entries/42'),
+            capacite(2, 'Griffe', 2, '/api/homebrew_entries/42'),
+            capacite(3, 'Sans lien', 1, '/api/homebrew_entries/999'),
+        ]);
+
+        renderEditForm();
+
+        await waitFor(() => expect(screen.getByText('Capacité 1 — Frappe')).toBeTruthy());
+        expect(screen.getByText('Capacité 2 — Griffe')).toBeTruthy();
+        expect(screen.queryByText(/Sans lien/)).toBeNull();
+        expect(document.querySelectorAll('details').length).toBe(2);
+    });
+
+    it('ne déclenche pas la garde de fermeture (dirty) lors du seul chargement des capacités', async () => {
+        (HomebrewService.getById as ReturnType<typeof vi.fn>).mockResolvedValue(voie);
+        (HomebrewService.getAll as ReturnType<typeof vi.fn>).mockResolvedValue([
+            voie,
+            capacite(1, 'Frappe', 1, '/api/homebrew_entries/42'),
+        ]);
+        const addSpy = vi.spyOn(window, 'addEventListener');
+
+        renderEditForm();
+        await waitFor(() => expect(screen.getByText('Capacité 1 — Frappe')).toBeTruthy());
+
+        expect(addSpy.mock.calls.some(([type]) => type === 'beforeunload')).toBe(false);
+        addSpy.mockRestore();
+    });
+
+    it('supprime côté serveur une capacité chargée puis retirée par l’auteur (« confirmed » correctement peuplé)', async () => {
+        (HomebrewService.getById as ReturnType<typeof vi.fn>).mockResolvedValue(voie);
+        (HomebrewService.getAll as ReturnType<typeof vi.fn>).mockResolvedValue([
+            voie,
+            capacite(1, 'Frappe', 1, '/api/homebrew_entries/42'),
+        ]);
+        (HomebrewService.update as ReturnType<typeof vi.fn>).mockResolvedValue({ id: 42 });
+        (HomebrewService.remove as ReturnType<typeof vi.fn>).mockResolvedValue(undefined);
+
+        renderEditForm();
+        await waitFor(() => expect(screen.getByText('Capacité 1 — Frappe')).toBeTruthy());
+
+        fireEvent.click(screen.getByLabelText('Supprimer la capacité'));
+        fireEvent.click(screen.getByText('Enregistrer'));
+
+        await waitFor(() => expect(HomebrewService.remove).toHaveBeenCalledWith(1));
     });
 });

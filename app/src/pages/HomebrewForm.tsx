@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { Eye, EyeOff, Globe } from 'lucide-react';
 import { PageContainer, PageShell, Loader } from '../components/common';
 import { HomebrewFields, inputCls, inputErrCls, labelCls } from '../components/homebrew/HomebrewFields';
+import { CapabilityBlocks } from '../components/homebrew/CapabilityBlocks';
 import { HomebrewFormPreview } from '../components/homebrew/HomebrewFormPreview';
 import {
     HomebrewService,
@@ -13,8 +14,9 @@ import {
     type HomebrewInput,
     type HomebrewVisibility,
 } from '../services/homebrewService';
-import { HOMEBREW_SCHEMAS, HOMEBREW_SHEET_CATEGORIES, hasStructuredSchema, pruneToSchema } from '../services/homebrewSchemas';
+import { HOMEBREW_SCHEMAS, HOMEBREW_SHEET_CATEGORIES, hasStructuredSchema, pruneChildren, pruneToSchema } from '../services/homebrewSchemas';
 import { validateHomebrew, type HomebrewFieldError } from '../services/homebrewValidation';
+import { saveChildren, type ChildDraft, type SaveChildrenResult } from '../services/homebrewChildren';
 
 type Data = Record<string, unknown>;
 
@@ -40,14 +42,31 @@ export const HomebrewForm: React.FC = () => {
     const [description, setDescription] = useState('');
     const [visibility, setVisibility] = useState<HomebrewVisibility>('private');
     const [data, setData] = useState<Data>({});
+    // Brouillons de capacités d'une voie (catégorie 'voie' uniquement) — saisis d'un
+    // seul tenant sous les champs de la voie, cf. CapabilityBlocks.
+    const [drafts, setDrafts] = useState<ChildDraft[]>([]);
     const [dirty, setDirty] = useState(false);
     const [submitted, setSubmitted] = useState(false);
     const [errors, setErrors] = useState<HomebrewFieldError[]>([]);
     const [saving, setSaving] = useState(false);
     const [saveError, setSaveError] = useState<string | null>(null);
+    // Compte-rendu d'un échec partiel lors de l'enregistrement des capacités : la voie
+    // elle-même est déjà enregistrée (createdEntryId la retient pour la suite), mais
+    // certaines capacités ne le sont pas. Distinct de saveError (échec de la voie
+    // elle-même, qui n'a alors rien enregistré du tout).
+    const [childrenIssues, setChildrenIssues] = useState<SaveChildrenResult | null>(null);
+    // Identifiant de la voie une fois créée avec succès, pour que les tentatives
+    // suivantes (après un échec partiel des capacités) mettent à jour cette même
+    // entrée au lieu d'en recréer une seconde — le formulaire ne navigue pas tant que
+    // des capacités restent en échec, donc `isEdit`/l'URL ne changent pas entre-temps.
+    const [createdEntryId, setCreatedEntryId] = useState<number | null>(null);
     const [showPreview, setShowPreview] = useState(false);
 
-    // Chargement de l'entrée existante (édition uniquement).
+    // Chargement de l'entrée existante (édition uniquement). Ne recharge pas les
+    // capacités déjà enregistrées d'une voie existante : `drafts` démarre vide même en
+    // édition (pas de point d'entrée pour lister les enfants d'un parent — hors
+    // périmètre de ce chantier). Éditer une voie qui a déjà des capacités permet donc
+    // d'en ajouter de nouvelles, mais n'affiche pas celles déjà enregistrées.
     useEffect(() => {
         if (!isEdit || !id) return;
         HomebrewService.getById(id)
@@ -66,8 +85,8 @@ export const HomebrewForm: React.FC = () => {
     // d'enregistrement — on n'affiche jamais d'erreur à un auteur qui n'a encore rien tenté.
     useEffect(() => {
         if (!submitted) return;
-        setErrors(validateHomebrew(category, name, data));
-    }, [submitted, category, name, data]);
+        setErrors(validateHomebrew(category, name, data, category === 'voie' ? drafts : undefined));
+    }, [submitted, category, name, data, drafts]);
 
     // Garde de fermeture d'onglet / rafraîchissement tant que le formulaire est modifié
     // et non enregistré. Ne couvre pas le bouton retour du navigateur : le blocage
@@ -130,7 +149,7 @@ export const HomebrewForm: React.FC = () => {
     const markDirty = () => setDirty(true);
     // Changer de catégorie vide les champs structurés (les schémas diffèrent d'une
     // catégorie à l'autre) mais préserve le nom et la description déjà saisis.
-    const handleCategory = (v: string) => { setCategory(v); setData({}); markDirty(); };
+    const handleCategory = (v: string) => { setCategory(v); setData({}); setDrafts([]); markDirty(); };
     const handleName = (v: string) => { setName(v); markDirty(); };
     const handleDescription = (v: string) => { setDescription(v); markDirty(); };
     const handleVisibility = (v: HomebrewVisibility) => { setVisibility(v); markDirty(); };
@@ -142,22 +161,53 @@ export const HomebrewForm: React.FC = () => {
     };
 
     const handleSave = async () => {
-        const errs = validateHomebrew(category, name, data);
+        const children = category === 'voie' ? drafts : undefined;
+        const errs = validateHomebrew(category, name, data, children);
         setErrors(errs);
         if (errs.length > 0) {
             setSubmitted(true);
             // Une erreur transverse (ex. cohérence arme/armure) n'a pas de clé de champ :
-            // elle vit dans le bandeau en tête de formulaire, pas dans un `champ-*`.
+            // elle vit dans le bandeau en tête de formulaire, pas dans un `champ-*`. Une
+            // erreur de capacité porte, elle, une clé préfixée (`capacites.0.rank`) qui
+            // désigne directement l'ancre posée par CapabilityBlocks/HomebrewFields.
             const targetId = errs[0].key ? `champ-${errs[0].key}` : 'erreurs-formulaire';
             document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
             return;
         }
         setSaving(true);
         setSaveError(null);
+        setChildrenIssues(null);
         try {
             const payload: HomebrewInput = { category, name, description, visibility, data: pruneToSchema(category, data) };
-            if (isEdit && id) await HomebrewService.update(Number(id), payload);
-            else await HomebrewService.create(payload);
+            // Une fois la voie créée (même si des capacités échouent ensuite), les
+            // tentatives suivantes doivent la mettre à jour, pas en recréer une seconde —
+            // le formulaire reste sur place tant que des capacités restent en échec.
+            let entryId: number;
+            if (isEdit && id) {
+                await HomebrewService.update(Number(id), payload);
+                entryId = Number(id);
+            } else if (createdEntryId !== null) {
+                await HomebrewService.update(createdEntryId, payload);
+                entryId = createdEntryId;
+            } else {
+                const created = await HomebrewService.create(payload);
+                entryId = created.id;
+                setCreatedEntryId(created.id);
+            }
+
+            if (category === 'voie') {
+                // pruneChildren élague chaque brouillon selon le schéma `capacite`, mais
+                // ne connaît pas la notion d'id (HomebrewChild n'en porte pas) : on le
+                // recolle après coup, dans le même ordre, pour que saveChildren distingue
+                // toujours création (id absent) et mise à jour (id présent).
+                const prepared: ChildDraft[] = pruneChildren(drafts).map((c, i) => ({ ...c, id: drafts[i].id }));
+                const result = await saveChildren(entryId, visibility, prepared, []);
+                if (result.failed.length > 0) {
+                    setChildrenIssues(result);
+                    return; // la voie est enregistrée, mais pas tout : on reste sur place
+                }
+            }
+
             setDirty(false);
             navigate(destination);
         } catch (e) {
@@ -205,10 +255,24 @@ export const HomebrewForm: React.FC = () => {
                     )}
 
                     <div className="glass-panel rounded-2xl border border-white/5 p-6 space-y-4">
-                        {(globalErrors.length > 0 || saveError) && (
+                        {(globalErrors.length > 0 || saveError || (childrenIssues && childrenIssues.failed.length > 0)) && (
                             <div id="erreurs-formulaire" className="bg-red-500/10 border border-red-500/30 rounded-lg p-3 space-y-1">
                                 {saveError && <p className="text-red-400 text-sm font-bold">{saveError}</p>}
                                 {globalErrors.map((e, i) => <p key={i} className="text-red-400 text-sm">{e.message}</p>)}
+                                {childrenIssues && childrenIssues.failed.length > 0 && (
+                                    <>
+                                        <p className="text-red-400 text-sm font-bold">
+                                            La voie est enregistrée, mais {childrenIssues.failed.length} capacité(s) sur {drafts.length} n'a/n'ont pas pu être enregistrée(s) — corrigez puis réessayez :
+                                        </p>
+                                        {childrenIssues.failed.map((f, i) => (
+                                            <p key={i} className="text-red-400 text-xs">
+                                                {f.position <= drafts.length
+                                                    ? `Capacité ${f.position} — échec de l'enregistrement.`
+                                                    : 'Une capacité retirée n\'a pas pu être supprimée côté serveur.'}
+                                            </p>
+                                        ))}
+                                    </>
+                                )}
                             </div>
                         )}
 
@@ -260,6 +324,14 @@ export const HomebrewForm: React.FC = () => {
                                     errors={errorsByKey}
                                 />
                             </div>
+                        )}
+
+                        {category === 'voie' && (
+                            <CapabilityBlocks
+                                drafts={drafts}
+                                onChange={d => { setDrafts(d); markDirty(); }}
+                                errors={errorsByKey}
+                            />
                         )}
 
                         <label className="flex items-center gap-2 text-sm text-stone-300 cursor-pointer">

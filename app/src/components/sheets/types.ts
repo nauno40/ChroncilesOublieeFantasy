@@ -141,6 +141,12 @@ export interface SheetCapabilityRef {
     active?: boolean;
     /** JSON libre de la capacité, rendu tel quel par DynamicDetailsRenderer. */
     details?: Record<string, unknown>;
+    /** Effet, en lignes libres — la forme sous laquelle une capacité communautaire
+     * porte son contenu principal, là où l'officiel le met dans `description`. Sans
+     * ce champ, une capacité communautaire s'affiche vide au sein de sa voie. */
+    effect?: string[];
+    /** Détails en lignes libres (schéma communautaire), pendant textuel de `details`. */
+    detailLines?: string[];
 }
 
 export interface VoieSheetVM {

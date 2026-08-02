@@ -59,5 +59,19 @@ export const CapabilityCard: React.FC<CapabilityCardProps> = ({ cap }) => (
         {cap.details && (
             <DynamicDetailsRenderer details={cap.details} className="pl-9 mt-4" />
         )}
+        {/* Une capacité communautaire porte son contenu principal en lignes libres
+            (`effect`), là où l'officiel le met dans `description` : sans ces deux
+            blocs, elle s'affiche réduite à son nom au sein de sa voie. Même
+            présentation que sur sa propre fiche (cf. CapaciteSheet). */}
+        {cap.effect && cap.effect.length > 0 && (
+            <ul className="list-disc list-inside text-stone-300 space-y-1 leading-relaxed pl-9 mt-4">
+                {cap.effect.map((line, i) => <li key={i}>{line}</li>)}
+            </ul>
+        )}
+        {cap.detailLines && cap.detailLines.length > 0 && (
+            <ul className="list-disc list-inside text-stone-400 text-sm space-y-1 leading-relaxed pl-9 mt-3">
+                {cap.detailLines.map((line, i) => <li key={i}>{line}</li>)}
+            </ul>
+        )}
     </div>
 );

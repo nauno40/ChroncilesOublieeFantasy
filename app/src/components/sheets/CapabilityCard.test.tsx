@@ -27,4 +27,23 @@ describe('CapabilityCard', () => {
         render(<CapabilityCard cap={{ rank: 0, name: 'Rang zéro' }} />);
         expect(screen.getByText('0')).toBeTruthy();
     });
+
+    it('affiche l’effet et les détails en lignes libres d’une capacité communautaire', () => {
+        // Une capacité communautaire porte son contenu principal dans `effect`, pas dans
+        // `description` : sans ces deux blocs elle s'affichait réduite à son nom au sein
+        // de sa voie — constaté dans un navigateur, invisible pour les tests du modèle.
+        render(<CapabilityCard cap={{
+            rank: 1, name: 'Braise',
+            effect: ['Inflige 1d6 dégâts de feu', 'Portée 10 m'],
+            detailLines: ['Une fois par combat'],
+        }} />);
+        expect(screen.getByText('Inflige 1d6 dégâts de feu')).toBeTruthy();
+        expect(screen.getByText('Portée 10 m')).toBeTruthy();
+        expect(screen.getByText('Une fois par combat')).toBeTruthy();
+    });
+
+    it('n’affiche pas de liste vide quand effet et détails sont absents', () => {
+        const { container } = render(<CapabilityCard cap={{ name: 'Sans effet', effect: [], detailLines: [] }} />);
+        expect(container.querySelectorAll('ul').length).toBe(0);
+    });
 });

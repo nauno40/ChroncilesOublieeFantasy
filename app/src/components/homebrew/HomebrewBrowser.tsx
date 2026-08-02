@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Plus } from 'lucide-react';
 import { Loader, SearchBar } from '../common';
 import { useAuth } from '../../context/AuthContext';
-import { HomebrewService, HOMEBREW_CATEGORIES, categoryLabel, type HomebrewEntry } from '../../services/homebrewService';
+import { HomebrewService, HOMEBREW_CATEGORIES, categoryLabel, childrenOf, messageSuppression, type HomebrewEntry } from '../../services/homebrewService';
 import { HomebrewList } from './HomebrewList';
 
 type Tab = 'mine' | 'community';
@@ -65,7 +65,10 @@ export const HomebrewBrowser: React.FC<HomebrewBrowserProps> = ({ tab, onTabChan
     const openEdit = (e: HomebrewEntry) => navigate(`/bibliotheque/${e.id}/modifier?retour=${encodeURIComponent(location.pathname)}`);
 
     const handleDelete = async (e: HomebrewEntry) => {
-        if (!confirm(`Supprimer « ${e.name} » ?`)) return;
+        // `entries` porte déjà toutes les entrées visibles : compter les capacités
+        // emportées par la cascade ne coûte aucun appel supplémentaire.
+        const enfants = childrenOf(e.id, entries ?? []);
+        if (!confirm(messageSuppression(e.name, enfants.length))) return;
         await HomebrewService.remove(e.id);
         await reload();
     };

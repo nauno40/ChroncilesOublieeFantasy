@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { cheminInterne, childrenOf } from './homebrewService';
+import { cheminInterne, childrenOf, messageSuppression } from './homebrewService';
 import type { HomebrewEntry } from './homebrewService';
 
 // Environnement Node (pas de `window`) : on injecte explicitement l'origine plutôt
@@ -67,5 +67,19 @@ describe('childrenOf', () => {
 
     it('renvoie un tableau vide quand aucune entrée n’a ce parent', () => {
         expect(childrenOf(593, [entree(1, undefined)])).toEqual([]);
+    });
+});
+
+describe('messageSuppression', () => {
+    it('n’annonce aucune capacité quand il n’y en a pas', () => {
+        expect(messageSuppression('Ma voie', 0)).toBe('Supprimer « Ma voie » ?');
+    });
+
+    it('ne compte pas au singulier', () => {
+        expect(messageSuppression('Ma voie', 1)).toBe('Supprimer « Ma voie » et sa capacité ?');
+    });
+
+    it('annonce le nombre exact au pluriel — c’est ce qui évite d’en perdre cinq d’un clic', () => {
+        expect(messageSuppression('Ma voie', 5)).toBe('Supprimer « Ma voie » et ses 5 capacités ?');
     });
 });

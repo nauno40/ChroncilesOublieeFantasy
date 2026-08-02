@@ -103,6 +103,24 @@ export const categoryPath = (category: string): string => {
  * diverger.
  */
 /**
+ * Message de confirmation d'une suppression. La suppression est en cascade côté base :
+ * effacer une voie efface ses capacités. La confirmation doit donc annoncer combien
+ * elles sont — perdre cinq capacités sur un clic dont le message n'en disait rien
+ * serait le pire défaut de ce chantier. Partagé par la liste et la fiche, qui offrent
+ * tous deux ce bouton : deux formulations écrites séparément finissent par diverger,
+ * et c'est le chemin le moins soigné qui fait le dégât.
+ */
+export const messageSuppression = (nom: string, nbEnfants: number): string => {
+    // « et sa 1 capacité » se dirait mal : au singulier on ne compte pas.
+    const suffixe = nbEnfants === 0
+        ? ''
+        : nbEnfants === 1
+            ? ' et sa capacité'
+            : ` et ses ${nbEnfants} capacités`;
+    return `Supprimer « ${nom} »${suffixe} ?`;
+};
+
+/**
  * Ordre d'affichage des capacités d'une voie : rang croissant. Partagé par l'adaptateur
  * de fiche et le formulaire d'édition, qui doivent présenter la même voie dans le même
  * ordre — deux tris écrits séparément finissent par diverger. Une capacité sans rang

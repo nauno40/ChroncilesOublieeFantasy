@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { ArrowLeft, Globe, Lock, User as UserIcon } from 'lucide-react';
-import { HomebrewService, categoryLabel, categoryPath, childrenOf, type HomebrewEntry } from '../services/homebrewService';
+import { HomebrewService, categoryLabel, categoryPath, childrenOf, messageSuppression, type HomebrewEntry } from '../services/homebrewService';
 import { HOMEBREW_SCHEMAS, CARAC_KEYS, type HomebrewFieldDef } from '../services/homebrewSchemas';
 import { hasValue } from '../services/homebrewValidation';
 import { Loader } from '../components/common';
@@ -56,13 +56,7 @@ export const HomebrewDetail: React.FC = () => {
     const handleDelete = async () => {
         // `children` n'est peuplé que pour une voie : la confirmation annonce le
         // nombre exact de capacités emportées par la suppression en cascade.
-        // « et sa 1 capacité » se dirait mal : au singulier on ne compte pas.
-        const suffixe = children.length === 0
-            ? ''
-            : children.length === 1
-                ? ' et sa capacité'
-                : ` et ses ${children.length} capacités`;
-        if (!confirm(`Supprimer « ${entry.name} »${suffixe} ?`)) return;
+        if (!confirm(messageSuppression(entry.name, children.length))) return;
         await HomebrewService.remove(entry.id);
         navigate(categoryPath(entry.category));
     };

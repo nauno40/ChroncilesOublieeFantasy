@@ -45,6 +45,11 @@ export const HomebrewForm: React.FC = () => {
     // Brouillons de capacités d'une voie (catégorie 'voie' uniquement) — saisis d'un
     // seul tenant sous les champs de la voie, cf. CapabilityBlocks.
     const [drafts, setDrafts] = useState<ChildDraft[]>([]);
+    // Capacités dont l'existence côté serveur est confirmée. Sert à deux choses lors
+    // d'une reprise après échec partiel : savoir lesquelles supprimer (confirmées mais
+    // retirées des brouillons) et ne jamais recréer ce qui existe déjà. Une capacité
+    // n'y entre qu'après confirmation du serveur, jamais sur la foi d'un envoi.
+    const [confirmed, setConfirmed] = useState<ChildDraft[]>([]);
     const [dirty, setDirty] = useState(false);
     const [submitted, setSubmitted] = useState(false);
     const [errors, setErrors] = useState<HomebrewFieldError[]>([]);
@@ -201,7 +206,13 @@ export const HomebrewForm: React.FC = () => {
                 // recolle après coup, dans le même ordre, pour que saveChildren distingue
                 // toujours création (id absent) et mise à jour (id présent).
                 const prepared: ChildDraft[] = pruneChildren(drafts).map((c, i) => ({ ...c, id: drafts[i].id }));
-                const result = await saveChildren(entryId, visibility, prepared, []);
+                const result = await saveChildren(entryId, visibility, prepared, confirmed);
+                // L'état local est remplacé par l'état réel renvoyé par le serveur AVANT
+                // toute reprise : une capacité créée avec succès porte désormais son id,
+                // donc un second essai la met à jour au lieu d'en créer un doublon. Une
+                // suppression qui a échoué réapparaît, puisqu'elle existe toujours.
+                setDrafts(result.drafts);
+                setConfirmed(result.drafts.filter(d => d.id !== undefined));
                 if (result.failed.length > 0) {
                     setChildrenIssues(result);
                     return; // la voie est enregistrée, mais pas tout : on reste sur place

@@ -177,4 +177,64 @@ final class HomebrewEntryTest extends ApiSecurityTestCase
         $body = json_decode((string) $this->client->getResponse()->getContent(), true);
         $this->assertArrayNotHasKey('parent', $body);
     }
+
+    public function testUpdatingParentVisibilityCascadesToExistingChildren(): void
+    {
+        $user = $this->createUser('mj@example.com');
+        $voie = $this->makeEntry($user, 'Voie du Chasseur', 'private');
+        $capacite = $this->makeEntry($user, 'Tir précis', 'private');
+        $capacite->setParent($voie);
+        $this->em->flush();
+
+        $this->client->request('PATCH', '/api/homebrew_entries/'.$voie->getId(), [
+            'headers' => array_merge($this->authHeaders($user), ['Content-Type' => 'application/merge-patch+json']),
+            'json' => ['visibility' => 'public'],
+        ]);
+        $this->assertResponseStatusCodeSame(200);
+
+        // La bascule de la voie en public doit se propager à la capacité déjà en base,
+        // sans que le client n'ait besoin d'écrire la capacité lui-même.
+        $this->em->clear();
+        $refreshed = $this->em->getRepository(HomebrewEntry::class)->find($capacite->getId());
+        $this->assertSame('public', $refreshed->getVisibility());
+    }
+
+    public function testSelfParentIsRejected(): void
+    {
+        $user = $this->createUser('mj@example.com');
+        $entry = $this->makeEntry($user, 'Voie récursive', 'private');
+
+        $this->client->request('PATCH', '/api/homebrew_entries/'.$entry->getId(), [
+            'headers' => array_merge($this->authHeaders($user), ['Content-Type' => 'application/merge-patch+json']),
+            'json' => ['parent' => '/api/homebrew_entries/'.$entry->getId()],
+        ]);
+        $this->assertContains($this->client->getResponse()->getStatusCode(), [403, 422]);
+    }
+
+    public function testParentWithExistingParentIsRejected(): void
+    {
+        $user = $this->createUser('mj@example.com');
+        $voie = $this->makeEntry($user, 'Voie', 'private');
+        $capacite = $this->makeEntry($user, 'Capacité A', 'private');
+        $capacite->setParent($voie);
+        $this->em->flush();
+
+        $countBefore = (int) $this->em->createQuery('SELECT COUNT(e.id) FROM App\Entity\HomebrewEntry e')->getSingleScalarResult();
+
+        // Tenter de rattacher une nouvelle entrée à une capacité (qui a elle-même un parent)
+        // formerait trois niveaux : refusé, la profondeur est bornée à deux.
+        $this->client->request('POST', '/api/homebrew_entries', [
+            'headers' => $this->authHeaders($user),
+            'json' => [
+                'category' => 'capacite',
+                'name' => 'Capacité B',
+                'visibility' => 'private',
+                'parent' => '/api/homebrew_entries/'.$capacite->getId(),
+            ],
+        ]);
+        $this->assertContains($this->client->getResponse()->getStatusCode(), [403, 422]);
+
+        $countAfter = (int) $this->em->createQuery('SELECT COUNT(e.id) FROM App\Entity\HomebrewEntry e')->getSingleScalarResult();
+        $this->assertSame($countBefore, $countAfter);
+    }
 }

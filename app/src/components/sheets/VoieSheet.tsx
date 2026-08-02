@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import type { VoieSheetVM } from './types';
 import { DynamicDetailsRenderer } from '../common';
-import { cleanCapabilityName } from './cleanCapabilityName';
+import { CapabilityCard } from './CapabilityCard';
 
 interface VoieSheetProps {
     vm: VoieSheetVM;
@@ -74,49 +74,7 @@ export const VoieSheet: React.FC<VoieSheetProps> = ({ vm, backTo, backLabel, hea
 
                                 <div className="space-y-4">
                                     {vm.capabilities!.map(cap => (
-                                        <div
-                                            key={cap.id ?? `${cap.rank ?? ''}-${cap.name}`}
-                                            className="glass-panel p-6 rounded-xl border border-white/5 hover:border-primary-500/30 transition-all duration-300"
-                                        >
-                                            <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-2 mb-3">
-                                                <div className="flex items-center gap-3">
-                                                    {cap.rank !== undefined && (
-                                                        <span className="flex items-center justify-center size-6 rounded bg-primary-950 text-primary-500 text-xs font-bold border border-primary-500/20">
-                                                            {cap.rank}
-                                                        </span>
-                                                    )}
-                                                    <h4 className="text-lg font-bold text-stone-100 group-hover:text-primary-300 transition-colors">
-                                                        {cleanCapabilityName(cap.name)}
-                                                    </h4>
-                                                    <div className="flex gap-2 flex-wrap">
-                                                        {cap.limited && (
-                                                            <span className="px-2 py-0.5 text-[10px] uppercase font-bold tracking-wider bg-red-900/20 text-red-400 rounded border border-red-500/20">
-                                                                Limité
-                                                            </span>
-                                                        )}
-                                                        {cap.isSpell && (
-                                                            <span className="px-2 py-0.5 text-[10px] uppercase font-bold tracking-wider bg-blue-900/20 text-blue-400 rounded border border-blue-500/20">
-                                                                Sort
-                                                            </span>
-                                                        )}
-                                                        {cap.active && (
-                                                            <span className="px-2 py-0.5 text-[10px] uppercase font-bold tracking-wider bg-amber-900/20 text-amber-400 rounded border border-amber-500/20">
-                                                                Actif
-                                                            </span>
-                                                        )}
-                                                    </div>
-                                                </div>
-                                                <div className="h-[1px] flex-1 bg-white/5 mx-4 hidden md:block"></div>
-                                            </div>
-                                            {cap.description && (
-                                                <p className="text-stone-300 leading-relaxed whitespace-pre-line pl-9">
-                                                    {cap.description}
-                                                </p>
-                                            )}
-                                            {cap.details && (
-                                                <DynamicDetailsRenderer details={cap.details} className="pl-9 mt-4" />
-                                            )}
-                                        </div>
+                                        <CapabilityCard key={cap.id ?? `${cap.rank ?? ''}-${cap.name}`} cap={cap} />
                                     ))}
                                 </div>
                             </>

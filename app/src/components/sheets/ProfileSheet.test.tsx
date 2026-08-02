@@ -145,7 +145,7 @@ describe('ProfileSheet', () => {
         // Badges booléens : libellés fixes rendus par le composant, pas des valeurs
         // distinctives du view-model — vérifiés par présence exacte de l'élément.
         expect(within(container).getByText('Sort')).toBeTruthy();
-        expect(within(container).getByText('L')).toBeTruthy();
+        expect(within(container).getByText(/Limité/)).toBeTruthy();
     });
 
     it('affiche les replis weaponsAndArmor et family.manaStat quand leur champ prioritaire est absent', () => {

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import type { RaceSheetVM } from './types';
 import { DynamicDetailsRenderer } from '../common';
+import { CapabilityCard } from './CapabilityCard';
 
 interface RaceSheetProps {
     vm: RaceSheetVM;
@@ -230,25 +231,7 @@ export const RaceSheet: React.FC<RaceSheetProps> = ({ vm, backTo, backLabel, hea
                                                     {v.capabilities && v.capabilities.length > 0 && (
                                                         <div className="grid gap-4">
                                                             {v.capabilities.map(cap => (
-                                                                <div key={cap.id ?? `${cap.rank ?? ''}-${cap.name}`} className="group relative bg-stone-900/80 hover:bg-stone-800 transition-colors p-6 rounded-xl border border-white/5 hover:border-primary-500/30">
-                                                                    <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-2 mb-3">
-                                                                        <div className="flex items-center gap-3">
-                                                                            {cap.rank !== undefined && (
-                                                                                <span className="flex items-center justify-center size-6 rounded bg-primary-950 text-primary-500 text-xs font-bold border border-primary-500/20">
-                                                                                    {cap.rank}
-                                                                                </span>
-                                                                            )}
-                                                                            <h5 className="text-lg font-bold text-stone-100 group-hover:text-primary-300 transition-colors">{cap.name}</h5>
-                                                                        </div>
-                                                                        <div className="h-[1px] flex-1 bg-white/5 mx-4 hidden md:block"></div>
-                                                                    </div>
-                                                                    {cap.description && <p className="text-stone-400 text-sm leading-relaxed pl-9">{cap.description}</p>}
-                                                                    {cap.details && (
-                                                                        <div className="pl-9">
-                                                                            <DynamicDetailsRenderer details={cap.details} />
-                                                                        </div>
-                                                                    )}
-                                                                </div>
+                                                                <CapabilityCard key={cap.id ?? `${cap.rank ?? ''}-${cap.name}`} cap={cap} />
                                                             ))}
                                                         </div>
                                                     )}

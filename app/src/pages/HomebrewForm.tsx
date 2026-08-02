@@ -52,6 +52,10 @@ export const HomebrewForm: React.FC = () => {
     // retirées des brouillons) et ne jamais recréer ce qui existe déjà. Une capacité
     // n'y entre qu'après confirmation du serveur, jamais sur la foi d'un envoi.
     const [confirmed, setConfirmed] = useState<ChildDraft[]>([]);
+    // Voie parente de l'entrée éditée, quand c'en est une capacité. Le serveur impose à
+    // un enfant la visibilité de son parent : proposer le choix ici ferait croire à
+    // l'auteur qu'il dépublie sa capacité alors que la demande est ignorée.
+    const [parentIri, setParentIri] = useState<string | null>(null);
     const [dirty, setDirty] = useState(false);
     const [submitted, setSubmitted] = useState(false);
     const [errors, setErrors] = useState<HomebrewFieldError[]>([]);
@@ -93,6 +97,7 @@ export const HomebrewForm: React.FC = () => {
                 setDescription(entry.description ?? '');
                 setVisibility(entry.visibility);
                 setData(entry.data ?? {});
+                setParentIri(entry.parent ?? null);
                 if (entry.category === 'voie') {
                     const toutes = await HomebrewService.getAll();
                     if (annule) return;
@@ -388,15 +393,22 @@ export const HomebrewForm: React.FC = () => {
                             />
                         )}
 
-                        <label className="flex items-center gap-2 text-sm text-stone-300 cursor-pointer">
-                            <input
-                                type="checkbox"
-                                checked={visibility === 'public'}
-                                onChange={e => handleVisibility(e.target.checked ? 'public' : 'private')}
-                                className="accent-primary-500 w-4 h-4"
-                            />
-                            <Globe size={14} className="text-green-500/70" /> Partager à la communauté (public)
-                        </label>
+                        {parentIri ? (
+                            <p className="flex items-center gap-2 text-sm text-stone-400">
+                                <Globe size={14} className="text-stone-500 shrink-0" />
+                                Cette capacité est {visibility === 'public' ? 'publique' : 'privée'} comme la voie qui la contient : sa visibilité se règle sur celle de la voie.
+                            </p>
+                        ) : (
+                            <label className="flex items-center gap-2 text-sm text-stone-300 cursor-pointer">
+                                <input
+                                    type="checkbox"
+                                    checked={visibility === 'public'}
+                                    onChange={e => handleVisibility(e.target.checked ? 'public' : 'private')}
+                                    className="accent-primary-500 w-4 h-4"
+                                />
+                                <Globe size={14} className="text-green-500/70" /> Partager à la communauté (public)
+                            </label>
+                        )}
 
                         <div className="flex justify-end gap-2 pt-2">
                             <button onClick={handleCancel} disabled={saving} className="px-4 py-2 text-sm font-bold text-stone-400 hover:text-white disabled:opacity-50">Annuler</button>

@@ -31,11 +31,20 @@ export interface SaveChildrenResult {
      * - Mise à jour (réussie ou non) → garde son id d'origine, inchangé.
      * - Création en échec → reste sans id, telle quelle (une reprise la recréera : il
      *   n'existe encore rien côté serveur pour elle).
-     * - Retirée par l'auteur mais dont la suppression a échoué → réapparaît ici (avec
-     *   son contenu confirmé le plus récent, cf. `confirmed`) : elle existe toujours
-     *   côté serveur, le formulaire ne doit pas prétendre le contraire.
+     * - Retirée par l'auteur → absente d'ici, que la suppression ait réussi ou non.
+     *   Une suppression en échec se rattrape par `confirmed`, pas en remettant la
+     *   capacité sous les yeux de l'auteur.
      */
     drafts: ChildDraft[];
+    /**
+     * Les capacités qui existent réellement côté serveur après cet appel — à substituer
+     * telle quelle à la liste des capacités confirmées du formulaire, et à repasser en
+     * 4ᵉ argument lors d'une reprise.
+     *
+     * Une suppression qui a échoué y figure toujours : c'est ce qui fait qu'une reprise
+     * la retente au lieu de l'oublier. Une suppression réussie en disparaît.
+     */
+    confirmed: ChildDraft[];
 }
 
 const messageDe = (e: unknown): string => (e instanceof Error ? e.message : 'Erreur inconnue.');
@@ -147,23 +156,32 @@ export const saveChildren = async (
     // pas en faire partie.
     const idsConserves = new Set(drafts.map(d => d.id).filter((id): id is number => id !== undefined));
     const aSupprimer = confirmed.filter(c => c.id !== undefined && !idsConserves.has(c.id));
+    // Capacités toujours présentes côté serveur : celles qu'on vient d'y écrire, plus
+    // celles qu'on n'a pas réussi à supprimer.
+    const resteEnBase: ChildDraft[] = resultDrafts.filter(d => d.id !== undefined);
+
     for (let i = 0; i < aSupprimer.length; i++) {
         const cible = aSupprimer[i];
         try {
             await HomebrewService.remove(cible.id as number);
-            // Succès : rien à rajouter à `resultDrafts`, elle est bel et bien partie.
+            // Succès : elle est bel et bien partie, elle ne reste nulle part.
         } catch (e) {
             console.error('Échec de la suppression d\'une capacité retirée :', e);
-            // La position est celle que la capacité occupera dans `resultDrafts`, où elle
-            // est réinsérée juste après — et non son rang dans `aSupprimer`, qui compte
-            // aussi les suppressions réussies : sur un lot d'issues mixtes, cet écart
-            // désignait un bloc voisin, ou aucun.
-            failed.push({ position: resultDrafts.length + 1, nature: 'suppression', message: messageDe(e) });
-            // Toujours là côté serveur : elle réapparaît dans le formulaire plutôt que
-            // de disparaître silencieusement sur la foi d'une suppression non confirmée.
-            resultDrafts.push(cible);
+            // Elle ne réapparaît PAS parmi les brouillons : l'auteur l'a retirée, et la
+            // lui remettre sous les yeux reviendrait à défaire son geste — pire, elle
+            // redeviendrait « à conserver » et la reprise la mettrait à jour au lieu de
+            // la resupprimer, alors que le message promet le contraire. Elle reste dans
+            // les capacités confirmées, donc la prochaine tentative retentera bien la
+            // suppression. Sa position est au-delà des blocs affichés : aucun bloc ne
+            // lui correspond, seul le bandeau de synthèse en rend compte.
+            failed.push({
+                position: resultDrafts.length + failed.filter(f => f.nature === 'suppression').length + 1,
+                nature: 'suppression',
+                message: messageDe(e),
+            });
+            resteEnBase.push(cible);
         }
     }
 
-    return { saved, failed, drafts: resultDrafts };
+    return { saved, failed, drafts: resultDrafts, confirmed: resteEnBase };
 };

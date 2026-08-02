@@ -260,7 +260,10 @@ export const HomebrewForm: React.FC = () => {
                 // donc un second essai la met à jour au lieu d'en créer un doublon. Une
                 // suppression qui a échoué réapparaît, puisqu'elle existe toujours.
                 setDrafts(result.drafts);
-                setConfirmed(result.drafts.filter(d => d.id !== undefined));
+                // `confirmed` vient du serveur, pas des brouillons : une capacité dont la
+                // suppression a échoué n'est plus affichée mais existe encore, et doit
+                // rester candidate à la suppression lors d'une reprise.
+                setConfirmed(result.confirmed);
                 if (result.failed.length > 0) {
                     setChildrenIssues(result);
                     return; // la voie est enregistrée, mais pas tout : on reste sur place

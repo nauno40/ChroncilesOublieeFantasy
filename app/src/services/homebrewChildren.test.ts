@@ -89,8 +89,31 @@ describe('saveChildren', () => {
         const res = await saveChildren(7, 'private', [], [confirmee]);
 
         expect(res.failed).toEqual([{ position: 1, nature: 'suppression', message: 'refus serveur' }]);
-        // Toujours là côté serveur : elle doit réapparaître, pas disparaître silencieusement.
-        expect(res.drafts).toEqual([confirmee]);
+        // L'auteur l'a retirée : on ne la lui remet pas sous les yeux…
+        expect(res.drafts).toEqual([]);
+        // …mais elle existe toujours côté serveur, donc elle reste confirmée.
+        expect(res.confirmed).toEqual([confirmee]);
+    });
+
+    it('une reprise après suppression en échec RESUPPRIME, elle ne met pas à jour', async () => {
+        // Le bandeau promet « réessayez » : si la reprise se contentait d'un PATCH,
+        // l'échec disparaîtrait de l'écran et la capacité resterait en base.
+        (HomebrewService.remove as ReturnType<typeof vi.fn>).mockRejectedValueOnce(new Error('refus serveur'));
+        const confirmee = { id: 55, ...nouvelle('Ancienne') };
+
+        const premier = await saveChildren(7, 'private', [], [confirmee]);
+        expect(premier.failed).toHaveLength(1);
+
+        vi.clearAllMocks();
+        (HomebrewService.remove as ReturnType<typeof vi.fn>).mockResolvedValue(undefined);
+
+        // Le formulaire rejoue avec l'état renvoyé : brouillons vides, confirmées reprises.
+        const second = await saveChildren(7, 'private', premier.drafts, premier.confirmed);
+
+        expect(HomebrewService.remove).toHaveBeenCalledWith(55);
+        expect(HomebrewService.update).not.toHaveBeenCalled();
+        expect(second.failed).toEqual([]);
+        expect(second.confirmed).toEqual([]);
     });
 
     it('sur un lot de suppressions aux issues mixtes, chaque échec pointe sur son propre bloc', async () => {
@@ -108,17 +131,18 @@ describe('saveChildren', () => {
             { id: 53, ...nouvelle('Restée B') },
         ]);
 
-        // Seules les deux capacités toujours présentes côté serveur réapparaissent…
-        expect(res.drafts.map(d => d.name)).toEqual(['Restée A', 'Restée B']);
-        // …et chaque échec porte la position qu'elle occupe vraiment dans ces brouillons.
+        // Aucune ne revient dans les brouillons : l'auteur les a toutes retirées.
+        expect(res.drafts).toEqual([]);
+        // Les deux qui résistent restent confirmées, donc rejouables.
+        expect(res.confirmed.map(d => d.name)).toEqual(['Restée A', 'Restée B']);
+        // Chaque échec porte une position distincte, au-delà des blocs affichés : compter
+        // sur le rang dans le lot (suppressions réussies incluses) les décalait.
         expect(res.failed).toEqual([
             { position: 1, nature: 'suppression', message: 'refus A' },
             { position: 2, nature: 'suppression', message: 'refus B' },
         ]);
-        // Conséquence visible pour l'auteur : les deux blocs réapparus sont signalés,
-        // aucun ne passe à la trappe.
-        expect(Object.keys(echecsCapacitesEnErreurs(res.failed, res.drafts.length)).sort())
-            .toEqual(['capacites.0.', 'capacites.1.']);
+        // Aucun bloc affiché ne leur correspond : seul le bandeau de synthèse en parle.
+        expect(echecsCapacitesEnErreurs(res.failed, res.drafts.length)).toEqual({});
     });
 });
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { AlertCircle, ArrowDown, ArrowUp, ChevronRight, Plus, Trash2 } from 'lucide-react';
 import { HomebrewFields, inputCls, inputErrCls, labelCls } from './HomebrewFields';
 import { HOMEBREW_SCHEMAS } from '../../services/homebrewSchemas';
@@ -21,13 +21,8 @@ const erreursEnfant = (errors: Record<string, string>, prefix: string): Record<s
  * Section « Capacités » du formulaire de voie : un bloc repliable par capacité, avec
  * ajout, suppression et réordonnancement.
  *
- * L'ouverture d'un bloc en erreur exploite un comportement standard de React avec
- * `<details open={…}>` sans gestionnaire `onToggle` : React ne réécrit l'attribut DOM
- * que lorsque la *valeur* du prop change d'un rendu à l'autre. Tant qu'un bloc n'est
- * pas en erreur, sa valeur reste `false` d'un rendu à l'autre et React laisse la main
- * aux clics natifs de l'auteur sur le `<summary>` (repli/dépli libres) ; dès qu'une
- * erreur apparaît sur ce bloc, la valeur bascule à `true` et React rouvre le bloc de
- * force — sans qu'aucun état local ne soit nécessaire ici.
+ * L'apparition d'une erreur ouvre le bloc de force, pour qu'aucune cause de refus ne
+ * reste cachée dans un repli. Rien ne le referme jamais : l'auteur seul en décide.
  */
 export const CapabilityBlocks: React.FC<{
     drafts: ChildDraft[];
@@ -36,6 +31,24 @@ export const CapabilityBlocks: React.FC<{
 }> = ({ drafts, onChange, errors }) => {
     const prefixDe = (i: number) => `capacites.${i}.`;
     const enErreur = (i: number) => Object.keys(errors).some(k => k.startsWith(prefixDe(i)));
+
+    // Les blocs sont laissés libres (`<details>` non contrôlé) : l'auteur les ouvre et
+    // les referme à sa guise. On n'intervient qu'au moment précis où une erreur
+    // APPARAÎT sur un bloc, pour l'ouvrir de force — jamais pour le refermer. Piloter
+    // l'attribut `open` depuis l'erreur refermerait le bloc à l'instant où l'auteur
+    // corrige la dernière, en pleine saisie ; et le mémoriser via `onToggle` ne suffit
+    // pas, cet événement étant asynchrone.
+    const blocs = useRef<(HTMLDetailsElement | null)[]>([]);
+    const erreurPrecedente = useRef<Record<number, boolean>>({});
+    useEffect(() => {
+        drafts.forEach((_, i) => {
+            const erreur = enErreur(i);
+            if (erreur && !erreurPrecedente.current[i] && blocs.current[i]) {
+                blocs.current[i]!.open = true;
+            }
+            erreurPrecedente.current[i] = erreur;
+        });
+    });
 
     const ajouter = () => onChange([...drafts, nouvelleCapacite()]);
     const supprimer = (i: number) => onChange(drafts.filter((_, idx) => idx !== i));
@@ -69,7 +82,7 @@ export const CapabilityBlocks: React.FC<{
                 return (
                     <details
                         key={i}
-                        open={blocEnErreur}
+                        ref={el => { blocs.current[i] = el; }}
                         className={`group rounded-xl border overflow-hidden ${blocEnErreur ? 'border-red-500/50' : 'border-white/10'}`}
                     >
                         <summary className="cursor-pointer list-none select-none flex items-center justify-between gap-2 px-3 py-2 bg-stone-950/40">

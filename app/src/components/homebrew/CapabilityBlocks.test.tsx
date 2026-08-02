@@ -46,6 +46,33 @@ describe('CapabilityBlocks', () => {
         expect(blocs[0].querySelector('[aria-label="Erreur dans cette capacité"]')).toBeNull();
     });
 
+    it('laisse le bloc ouvert une fois sa dernière erreur corrigée', () => {
+        // Sinon le bloc se referme au visage de l'auteur à l'instant où il finit de
+        // corriger : les champs qu'il est en train de remplir disparaissent.
+        const erreurs = { 'capacites.1.rank': 'Capacité 2 — « Rang » est obligatoire.' };
+        const { rerender } = render(<CapabilityBlocks drafts={drafts} onChange={() => {}} errors={erreurs} />);
+        expect(document.querySelectorAll('details')[1].open).toBe(true);
+
+        rerender(<CapabilityBlocks drafts={drafts} onChange={() => {}} errors={{}} />);
+        expect(document.querySelectorAll('details')[1].open).toBe(true);
+        // Le bloc voisin, lui, n'a aucune raison de s'être ouvert.
+        expect(document.querySelectorAll('details')[0].open).toBe(false);
+    });
+
+    it('rouvre un bloc que l’auteur avait refermé si une erreur y réapparaît', () => {
+        const erreurs = { 'capacites.0.rank': 'Capacité 1 — « Rang » est obligatoire.' };
+        const { rerender } = render(<CapabilityBlocks drafts={drafts} onChange={() => {}} errors={erreurs} />);
+        expect(document.querySelectorAll('details')[0].open).toBe(true);
+
+        // L'auteur corrige, puis referme lui-même le bloc.
+        rerender(<CapabilityBlocks drafts={drafts} onChange={() => {}} errors={{}} />);
+        document.querySelectorAll('details')[0].open = false;
+
+        // Une nouvelle erreur doit le ramener sous ses yeux.
+        rerender(<CapabilityBlocks drafts={drafts} onChange={() => {}} errors={erreurs} />);
+        expect(document.querySelectorAll('details')[0].open).toBe(true);
+    });
+
     it('ajoute un brouillon vide au clic sur « Ajouter une capacité »', () => {
         let dernierAppel: ChildDraft[] | null = null;
         render(<CapabilityBlocks drafts={[]} onChange={d => { dernierAppel = d; }} errors={{}} />);

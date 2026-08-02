@@ -8,7 +8,7 @@
  * (qu'un <details> fermé peut techniquement contenir sans l'exposer visuellement).
  */
 import { afterEach, describe, expect, it } from 'vitest';
-import { cleanup, render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { CapabilityBlocks } from './CapabilityBlocks';
 import type { ChildDraft } from '../../services/homebrewChildren';
 
@@ -71,6 +71,18 @@ describe('CapabilityBlocks', () => {
         // Une nouvelle erreur doit le ramener sous ses yeux.
         rerender(<CapabilityBlocks drafts={drafts} onChange={() => {}} errors={erreurs} />);
         expect(document.querySelectorAll('details')[0].open).toBe(true);
+    });
+
+    it('renumérote les rangs au déplacement d’une capacité', () => {
+        // L'affichage (aperçu et fiche) trie par rang : permuter les blocs sans toucher
+        // aux rangs donnerait un contrôle sans effet visible.
+        let dernierAppel: ChildDraft[] | null = null;
+        render(<CapabilityBlocks drafts={drafts} onChange={d => { dernierAppel = d; }} errors={{}} />);
+
+        fireEvent.click(screen.getAllByLabelText('Monter la capacité')[1]);
+
+        expect(dernierAppel!.map(d => d.name)).toEqual(['Parade', 'Frappe']);
+        expect(dernierAppel!.map(d => d.data.rank)).toEqual([1, 2]);
     });
 
     it('ajoute un brouillon vide au clic sur « Ajouter une capacité »', () => {

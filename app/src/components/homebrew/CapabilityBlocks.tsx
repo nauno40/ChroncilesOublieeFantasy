@@ -57,7 +57,10 @@ export const CapabilityBlocks: React.FC<{
         if (j < 0 || j >= drafts.length) return;
         const next = [...drafts];
         [next[i], next[j]] = [next[j], next[i]];
-        onChange(next);
+        // Les rangs suivent l'ordre des blocs. Sans ce recalcul, déplacer une capacité
+        // n'aurait aucun effet visible : l'aperçu comme la fiche trient par rang, et
+        // l'auteur croirait avoir réordonné sa voie sans que rien ne bouge.
+        onChange(next.map((d, idx) => ({ ...d, data: { ...d.data, rank: idx + 1 } })));
     };
     const modifier = (i: number, patch: Partial<ChildDraft>) =>
         onChange(drafts.map((d, idx) => (idx === i ? { ...d, ...patch } : d)));

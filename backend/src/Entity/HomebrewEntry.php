@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
@@ -66,6 +67,16 @@ class HomebrewEntry
     #[ORM\Column(length: 20, options: ['default' => 'private'])]
     #[Groups(['homebrew:read', 'homebrew:write'])]
     private string $visibility = 'private';
+
+    /**
+     * Voie parente d'une capacité. Nul pour une entrée autonome — les capacités créées
+     * avant l'imbrication n'ont pas de parent et doivent continuer de fonctionner.
+     */
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
+    #[ApiProperty(readableLink: false, writableLink: false)]
+    #[Groups(['homebrew:read', 'homebrew:write'])]
+    private ?HomebrewEntry $parent = null;
 
     /**
      * Champs structurés propres à la catégorie (schéma-less, comme CustomCreature.stats) :
@@ -169,6 +180,18 @@ class HomebrewEntry
     public function setData(?array $data): static
     {
         $this->data = $data;
+
+        return $this;
+    }
+
+    public function getParent(): ?self
+    {
+        return $this->parent;
+    }
+
+    public function setParent(?self $parent): static
+    {
+        $this->parent = $parent;
 
         return $this;
     }

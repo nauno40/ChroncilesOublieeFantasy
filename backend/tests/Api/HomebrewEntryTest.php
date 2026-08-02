@@ -94,4 +94,87 @@ final class HomebrewEntryTest extends ApiSecurityTestCase
         $this->client->request('GET', '/api/homebrew_entries/'.$entry->getId(), ['headers' => $this->authHeaders($alice)]);
         $this->assertResponseStatusCodeSame(404);
     }
+
+    public function testCreateWithParentAttachesToVoieAndReadsBack(): void
+    {
+        $user = $this->createUser('mj@example.com');
+        $voie = $this->makeEntry($user, 'Voie du Chasseur', 'private');
+
+        $this->client->request('POST', '/api/homebrew_entries', [
+            'headers' => $this->authHeaders($user),
+            'json' => [
+                'category' => 'capacite',
+                'name' => 'Tir précis',
+                'description' => '+2 en attaque à distance',
+                'visibility' => 'private',
+                'parent' => '/api/homebrew_entries/'.$voie->getId(),
+            ],
+        ]);
+        $this->assertResponseStatusCodeSame(201);
+        $this->assertJsonContains(['parent' => '/api/homebrew_entries/'.$voie->getId()]);
+
+        $created = json_decode($this->client->getResponse()->getContent(), true);
+        $this->client->request('GET', $created['@id'], ['headers' => $this->authHeaders($user)]);
+        $this->assertResponseStatusCodeSame(200);
+        $this->assertJsonContains(['parent' => '/api/homebrew_entries/'.$voie->getId()]);
+    }
+
+    public function testCreateWithForeignParentIsRejected(): void
+    {
+        $alice = $this->createUser('alice@example.com');
+        $bob = $this->createUser('bob@example.com');
+        // Publique pour que l'IRI soit résolvable par Bob : c'est bien le rattachement,
+        // pas la simple lecture du parent, que la règle serveur doit refuser.
+        $voie = $this->makeEntry($alice, "Voie d'Alice", 'public');
+
+        $countBefore = (int) $this->em->createQuery('SELECT COUNT(e.id) FROM App\Entity\HomebrewEntry e')->getSingleScalarResult();
+
+        $this->client->request('POST', '/api/homebrew_entries', [
+            'headers' => $this->authHeaders($bob),
+            'json' => [
+                'category' => 'capacite',
+                'name' => 'Capacité frauduleuse',
+                'visibility' => 'private',
+                'parent' => '/api/homebrew_entries/'.$voie->getId(),
+            ],
+        ]);
+        $this->assertContains($this->client->getResponse()->getStatusCode(), [403, 422]);
+
+        $countAfter = (int) $this->em->createQuery('SELECT COUNT(e.id) FROM App\Entity\HomebrewEntry e')->getSingleScalarResult();
+        $this->assertSame($countBefore, $countAfter, 'Aucune entrée ne doit avoir été créée lors du rattachement frauduleux.');
+    }
+
+    public function testCreateInheritsParentVisibility(): void
+    {
+        $user = $this->createUser('mj@example.com');
+        $voie = $this->makeEntry($user, 'Voie publique', 'public');
+
+        $this->client->request('POST', '/api/homebrew_entries', [
+            'headers' => $this->authHeaders($user),
+            'json' => [
+                'category' => 'capacite',
+                'name' => 'Capacité envoyée en privé',
+                'visibility' => 'private',
+                'parent' => '/api/homebrew_entries/'.$voie->getId(),
+            ],
+        ]);
+        $this->assertResponseStatusCodeSame(201);
+        // La capacité hérite de la visibilité publique de sa voie parente, quoi qu'ait envoyé le client.
+        $this->assertJsonContains(['visibility' => 'public']);
+    }
+
+    public function testCreateWithoutParentStillWorks(): void
+    {
+        $user = $this->createUser('mj@example.com');
+
+        $this->client->request('POST', '/api/homebrew_entries', [
+            'headers' => $this->authHeaders($user),
+            'json' => ['category' => 'sort', 'name' => 'Sort autonome', 'description' => '...', 'visibility' => 'private'],
+        ]);
+        $this->assertResponseStatusCodeSame(201);
+        // Champ omis (null) plutôt que rejeté : la création sans parent reste possible.
+        $this->assertJsonContains(['name' => 'Sort autonome']);
+        $body = json_decode((string) $this->client->getResponse()->getContent(), true);
+        $this->assertArrayNotHasKey('parent', $body);
+    }
 }

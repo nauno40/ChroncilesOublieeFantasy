@@ -7,6 +7,7 @@ use ApiPlatform\State\ProcessorInterface;
 use App\Entity\HomebrewEntry;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Pose l'owner (à la création) et les timestamps sur une entrée de bibliothèque homebrew,
@@ -36,6 +37,17 @@ final readonly class HomebrewEntryStateProcessor implements ProcessorInterface
                 $data->setCreatedAt($now);
             }
             $data->setUpdatedAt($now);
+
+            $parent = $data->getParent();
+            if (null !== $parent) {
+                // Un parent d'autrui ouvrirait la porte au rattachement frauduleux.
+                if ($parent->getOwner() !== $this->security->getUser()) {
+                    throw new AccessDeniedException("Le parent n'appartient pas à l'utilisateur courant.");
+                }
+                // La visibilité de l'enfant suit celle du parent : une voie publique dont
+                // les capacités seraient privées s'afficherait vide pour ses lecteurs.
+                $data->setVisibility($parent->getVisibility());
+            }
         }
 
         return $this->persistProcessor->process($data, $operation, $uriVariables, $context);

@@ -162,3 +162,18 @@ export const pruneToSchema = (category: string, data: Record<string, unknown>): 
     }
     return out;
 };
+
+/** Un enfant d'entrée : une capacité rattachée à sa voie. */
+export interface HomebrewChild {
+    category: string;
+    name: string;
+    data: Record<string, unknown>;
+}
+
+/**
+ * Élague chaque enfant selon le schéma de **sa propre** catégorie. `pruneToSchema` ne
+ * traite qu'un niveau : sans cette fonction, les champs parasites d'une capacité
+ * partiraient en base.
+ */
+export const pruneChildren = (children: HomebrewChild[]): HomebrewChild[] =>
+    children.map(c => ({ category: c.category, name: c.name, data: pruneToSchema(c.category, c.data) }));

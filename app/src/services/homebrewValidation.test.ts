@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { hasValue, validateHomebrew } from './homebrewValidation';
-import { HOMEBREW_SCHEMAS, type HomebrewFieldDef } from './homebrewSchemas';
+import { HOMEBREW_SCHEMAS, pruneChildren, type HomebrewFieldDef } from './homebrewSchemas';
 
 /** Construit une donnée qui remplit tous les champs requis d'une catégorie. */
 const complet = (categorie: string): Record<string, unknown> => {
@@ -103,6 +103,60 @@ describe('validateHomebrew', () => {
         expect(hasValue('')).toBe(false); // rappel de la cause du bug : '' n'est pas "renseigné"
         const data = { ...complet('classe'), magicStat: '' };
         expect(validateHomebrew('classe', 'Nom', data)).toEqual([]);
+    });
+});
+
+describe('validateHomebrew — enfants', () => {
+    const voieValide = { category: 'profil', maxRank: 5, details: ['x'] };
+
+    it('ne signale rien quand les capacités sont complètes', () => {
+        const enfants = [{ category: 'capacite', name: 'Frappe', data: { rank: 1, actionType: 'Limitée', effect: ['e'], details: ['d'] } }];
+        expect(validateHomebrew('voie', 'Voie test', voieValide, enfants)).toEqual([]);
+    });
+
+    it('préfixe l’erreur d’un enfant par sa position', () => {
+        const enfants = [
+            { category: 'capacite', name: 'Complète', data: { rank: 1, actionType: 'A', effect: ['e'], details: ['d'] } },
+            { category: 'capacite', name: 'Incomplète', data: {} },
+        ];
+        const erreurs = validateHomebrew('voie', 'Voie test', voieValide, enfants);
+        expect(erreurs.every(e => e.key.startsWith('capacites.1.'))).toBe(true);
+        expect(erreurs.some(e => e.key === 'capacites.1.rank')).toBe(true);
+    });
+
+    it('exige le nom d’une capacité', () => {
+        const enfants = [{ category: 'capacite', name: '   ', data: { rank: 1, actionType: 'A', effect: ['e'], details: ['d'] } }];
+        const erreurs = validateHomebrew('voie', 'Voie test', voieValide, enfants);
+        expect(erreurs.some(e => e.key === 'capacites.0.name')).toBe(true);
+    });
+
+    it('nomme la position dans le message, pas l’indice', () => {
+        const enfants = [
+            { category: 'capacite', name: 'A', data: { rank: 1, actionType: 'A', effect: ['e'], details: ['d'] } },
+            { category: 'capacite', name: 'B', data: {} },
+        ];
+        const erreurs = validateHomebrew('voie', 'Voie test', voieValide, enfants);
+        expect(erreurs[0].message).toContain('capacité 2');
+        expect(erreurs[0].message).not.toContain('capacites.1');
+    });
+
+    it('valide la voie même sans capacité', () => {
+        expect(validateHomebrew('voie', 'Voie test', voieValide, [])).toEqual([]);
+        expect(validateHomebrew('voie', 'Voie test', voieValide)).toEqual([]);
+    });
+});
+
+describe('pruneChildren', () => {
+    it('élague chaque enfant selon le schéma de sa catégorie', () => {
+        const out = pruneChildren([
+            { category: 'capacite', name: 'A', data: { rank: 2, parasite: 'x', speed: '10 m' } },
+        ]);
+        expect(out[0].data).toEqual({ rank: 2 });
+    });
+
+    it('conserve catégorie et nom', () => {
+        const out = pruneChildren([{ category: 'sort', name: 'Éclair', data: { rank: 1 } }]);
+        expect(out[0]).toMatchObject({ category: 'sort', name: 'Éclair' });
     });
 });
 

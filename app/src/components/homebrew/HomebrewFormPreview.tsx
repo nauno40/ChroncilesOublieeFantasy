@@ -2,12 +2,17 @@ import React from 'react';
 import { RaceSheet, ProfileSheet, VoieSheet, CapaciteSheet } from '../sheets';
 import { homebrewToRaceVM, homebrewToProfileVM, homebrewToVoieVM, homebrewToCapaciteVM } from '../sheets/adapters/fromHomebrew';
 import type { HomebrewEntry } from '../../services/homebrewService';
+import type { ChildDraft } from '../../services/homebrewChildren';
 
 interface HomebrewFormPreviewProps {
     category: string;
     name: string;
     description: string;
     data: Record<string, unknown>;
+    /** Brouillons de capacités en cours de saisie (catégorie 'voie' uniquement) — pour
+     * que l'aperçu affiche la voie avec ses capacités, exactement comme la fiche de
+     * consultation (`HomebrewDetail`). Ignoré pour toute autre catégorie. */
+    drafts?: ChildDraft[];
 }
 
 /**
@@ -24,7 +29,7 @@ interface HomebrewFormPreviewProps {
  * Les six catégories sans feuille dédiée (poison, piège, état préjudiciable, équipement,
  * objet magique, autre) n'ont pas d'aperçu : limite assumée par la conception.
  */
-export const HomebrewFormPreview: React.FC<HomebrewFormPreviewProps> = ({ category, name, description, data }) => {
+export const HomebrewFormPreview: React.FC<HomebrewFormPreviewProps> = ({ category, name, description, data, drafts }) => {
     const entry: HomebrewEntry = {
         id: 0,
         category,
@@ -40,7 +45,27 @@ export const HomebrewFormPreview: React.FC<HomebrewFormPreviewProps> = ({ catego
 
     if (category === 'race') return <RaceSheet vm={homebrewToRaceVM(entry)} />;
     if (category === 'classe') return <ProfileSheet vm={homebrewToProfileVM(entry)} />;
-    if (category === 'voie') return <VoieSheet vm={homebrewToVoieVM(entry)} />;
+    if (category === 'voie') {
+        // Un brouillon n'a pas encore d'identifiant serveur tant qu'il n'est pas
+        // enregistré : sans conséquence pour l'aperçu, `VoieSheet` retombe sur une clé
+        // rang+nom (cf. VoieSheet.tsx). Les autres champs qu'un brouillon ne porte pas
+        // (description, visibilité, auteur…) prennent les mêmes valeurs neutres que
+        // `entry` ci-dessus — jamais lues par `homebrewToCapaciteVM` au-delà de `name`/
+        // `description`/`data`/`category`.
+        const enfants: HomebrewEntry[] = (drafts ?? []).map(brouillon => ({
+            id: brouillon.id ?? 0,
+            category: brouillon.category,
+            name: brouillon.name,
+            description: null,
+            visibility: 'private',
+            data: brouillon.data,
+            authorId: 0,
+            authorPseudo: null,
+            createdAt: '',
+            updatedAt: '',
+        }));
+        return <VoieSheet vm={homebrewToVoieVM(entry, enfants)} />;
+    }
     if (category === 'capacite' || category === 'sort') return <CapaciteSheet vm={homebrewToCapaciteVM(entry)} />;
 
     return null; // catégories hors HOMEBREW_SHEET_CATEGORIES : pas de feuille dédiée

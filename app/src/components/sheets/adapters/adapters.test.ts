@@ -400,11 +400,16 @@ describe('adaptateurs homebrew', () => {
         expect(vm).toMatchObject({ name: 'Voie du Gel', category: 'profil', maxRank: 5 });
     });
 
-    it('laisse `details` (JSON libre officiel) undefined pour une voie homebrew : le schéma communautaire produit des lignes, pas un objet', () => {
+    it('projette `details` (lignes libres communautaires) en mécaniques de la voie, rendues par DynamicDetailsRenderer — ne produit plus de pseudo-capacités', () => {
         const entry = { ...emptyEntry('voie'), name: 'Voie du Gel', data: { category: 'profil', details: ['Rang 1 — Souffle glacé.', 'Rang 2 — Armure de givre.'] } } as HomebrewEntry;
         const vm = homebrewToVoieVM(entry);
-        expect(vm.details).toBeUndefined();
-        expect(vm.capabilities).toEqual([{ name: 'Rang 1 — Souffle glacé.' }, { name: 'Rang 2 — Armure de givre.' }]);
+        expect(vm.details).toEqual({ mecaniques_voie: ['Rang 1 — Souffle glacé.', 'Rang 2 — Armure de givre.'] });
+        expect(vm.capabilities).toBeUndefined();
+    });
+
+    it('laisse `details` undefined quand le champ communautaire est absent', () => {
+        const entry = { ...emptyEntry('voie'), name: 'Voie du Gel', data: { category: 'profil' } } as HomebrewEntry;
+        expect(homebrewToVoieVM(entry).details).toBeUndefined();
     });
 
     it('projette une capacité/sort homebrew : effect et details (lignes) restent deux listes distinctes', () => {
@@ -423,6 +428,32 @@ describe('adaptateurs homebrew', () => {
     it('force isSpell=true pour la catégorie `sort` même sans champ isSpell explicite', () => {
         const entry = { ...emptyEntry('sort'), name: 'Éclair', data: {} } as HomebrewEntry;
         expect(homebrewToCapaciteVM(entry).isSpell).toBe(true);
+    });
+});
+
+describe('homebrewToVoieVM — enfants', () => {
+    const voie = { id: 7, category: 'voie', name: 'Voie du Gel', description: 'Froid', visibility: 'private',
+        data: { category: 'profil', maxRank: 5 }, authorId: 1, authorPseudo: 'N' } as unknown as HomebrewEntry;
+
+    it('projette les enfants en capacités, triées par rang', () => {
+        const enfants = [
+            { id: 2, category: 'capacite', name: 'Rang 2', data: { rank: 2 } },
+            { id: 1, category: 'capacite', name: 'Rang 1', data: { rank: 1 } },
+        ] as unknown as HomebrewEntry[];
+        const vm = homebrewToVoieVM(voie, enfants);
+        expect(vm.capabilities?.map(c => c.rank)).toEqual([1, 2]);
+        expect(vm.capabilities?.[0].name).toBe('Rang 1');
+    });
+
+    it('laisse capabilities indéfini quand la voie n’a pas d’enfant', () => {
+        expect(homebrewToVoieVM(voie, []).capabilities).toBeUndefined();
+        expect(homebrewToVoieVM(voie).capabilities).toBeUndefined();
+    });
+
+    it('reporte les badges d’une capacité enfant', () => {
+        const enfants = [{ id: 3, category: 'sort', name: 'Givre', data: { rank: 1, limited: true } }] as unknown as HomebrewEntry[];
+        const vm = homebrewToVoieVM(voie, enfants);
+        expect(vm.capabilities?.[0]).toMatchObject({ isSpell: true, limited: true });
     });
 });
 
@@ -533,9 +564,9 @@ describe('couverture de schéma communautaire (toute clé du schéma → une pro
         checkSchemaCoverage(HOMEBREW_SCHEMAS.voie, vm, {
             category: v => v.category,
             maxRank: v => v.maxRank,
-            // `details` (schéma) n'a pas de propriété dédiée sur le VM : il devient
-            // `capabilities` (lignes → pseudo-capacités), par design (cf. fromHomebrew.ts).
-            details: v => (v.capabilities?.length ?? 0) > 0,
+            // `details` (schéma, lignes libres) rejoint `vm.details` (mécaniques de la
+            // voie, rendues par DynamicDetailsRenderer) — plus de pseudo-capacités.
+            details: v => v.details,
         });
     });
 

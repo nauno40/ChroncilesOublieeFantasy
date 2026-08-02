@@ -1,4 +1,4 @@
-import { HOMEBREW_SCHEMAS } from './homebrewSchemas';
+import { HOMEBREW_SCHEMAS, type HomebrewChild } from './homebrewSchemas';
 
 /**
  * Une valeur est-elle renseignée ? `0` compte comme une valeur ; un bloc de
@@ -28,6 +28,7 @@ export const validateHomebrew = (
     category: string,
     name: string,
     data: Record<string, unknown>,
+    children: HomebrewChild[] = [],
 ): HomebrewFieldError[] => {
     const erreurs: HomebrewFieldError[] = [];
 
@@ -54,6 +55,16 @@ export const validateHomebrew = (
             });
         }
     }
+
+    children.forEach((enfant, index) => {
+        const position = index + 1; // ce que l'auteur voit à l'écran
+        for (const e of validateHomebrew(enfant.category, enfant.name, enfant.data)) {
+            erreurs.push({
+                key: `capacites.${index}.${e.key}`,
+                message: `Capacité ${position} — ${e.message}`,
+            });
+        }
+    });
 
     return erreurs;
 };

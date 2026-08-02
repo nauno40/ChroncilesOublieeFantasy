@@ -10,6 +10,8 @@ export interface HomebrewEntry {
     visibility: HomebrewVisibility;
     /** Champs structurés propres à la catégorie (cf. homebrewSchemas). */
     data: Record<string, unknown> | null;
+    /** Voie parente (IRI), pour une capacité imbriquée — `null` pour une entrée autonome. */
+    parent?: string | null;
     authorId: number;
     authorPseudo: string | null;
     createdAt: string;
@@ -22,6 +24,12 @@ export interface HomebrewInput {
     description: string;
     visibility: HomebrewVisibility;
     data?: Record<string, unknown> | null;
+    /** Voie parente d'une capacité, en IRI (`/api/homebrew_entries/<id>`) — `null` (ou
+     *  absent) pour une entrée autonome. Le serveur réimpose de toute façon la
+     *  visibilité de l'enfant à celle du parent (cf. HomebrewEntryStateProcessor) ;
+     *  transmis quand même côté client, la règle serveur étant une garantie, pas une
+     *  dispense. */
+    parent?: string | null;
 }
 
 /** Catégories de contenu homebrew (miroir des types du compendium). */
@@ -79,6 +87,58 @@ export const categoryPath = (category: string): string => {
     if (category === 'capacite' || category === 'sort') return '/capacites';
     return '/bibliotheque';
 };
+
+/**
+ * Message de confirmation d'une suppression. La suppression est en cascade côté base :
+ * effacer une voie efface ses capacités. La confirmation doit donc annoncer combien
+ * elles sont — perdre cinq capacités sur un clic dont le message n'en disait rien
+ * serait le pire défaut de ce chantier. Partagé par la liste et la fiche, qui offrent
+ * tous deux ce bouton : deux formulations écrites séparément finissent par diverger,
+ * et c'est le chemin le moins soigné qui fait le dégât.
+ */
+export const messageSuppression = (nom: string, nbEnfants: number): string => {
+    // « et sa 1 capacité » se dirait mal : au singulier on ne compte pas.
+    const suffixe = nbEnfants === 0
+        ? ''
+        : nbEnfants === 1
+            ? ' et sa capacité'
+            : ` et ses ${nbEnfants} capacités`;
+    return `Supprimer « ${nom} »${suffixe} ?`;
+};
+
+/**
+ * Ordre d'affichage des capacités d'une voie : rang croissant. Partagé par l'adaptateur
+ * de fiche et le formulaire d'édition, qui doivent présenter la même voie dans le même
+ * ordre — deux tris écrits séparément finissent par diverger. Une capacité sans rang
+ * passe en tête, comme un rang 0 (qui est une valeur légitime, pas une absence).
+ */
+export const parRangCroissant = (
+    a: { data?: Record<string, unknown> | null },
+    b: { data?: Record<string, unknown> | null },
+): number => {
+    const rang = (x: { data?: Record<string, unknown> | null }): number => {
+        const v = Number(x.data?.rank);
+        return Number.isFinite(v) ? v : 0;
+    };
+    return rang(a) - rang(b);
+};
+
+/**
+ * Enfants (capacités) d'une entrée parente, parmi une collection déjà chargée (typiquement
+ * `HomebrewService.getAll()`, qui ramène déjà toutes les entrées visibles) : filtrer côté
+ * client évite un appel réseau supplémentaire dédié.
+ *
+ * L'API renvoie `parent` en IRI (`/api/homebrew_entries/<id>`), jamais en objet imbriqué
+ * ni en identifiant nu — vérifié sur l'API réelle (`ApiProperty(readableLink: false)`
+ * côté backend), pas seulement sur des fixtures. Une entrée sans parent (autonome) porte
+ * `parent: undefined` (clé absente du JSON), jamais `null` explicite ni chaîne vide.
+ *
+ * Fonction partagée entre la fiche de consultation (`HomebrewDetail`) et le formulaire
+ * d'édition (`HomebrewForm`) : un seul mécanisme de filtrage, pas deux qui pourraient
+ * diverger.
+ */
+export const childrenOf = (parentId: number, entries: HomebrewEntry[]): HomebrewEntry[] =>
+    entries.filter(e => e.parent === `/api/homebrew_entries/${parentId}`);
 
 export const HomebrewService = {
     // Renvoie les entrées visibles : les miennes (privées + publiques) + les publiques d'autrui.

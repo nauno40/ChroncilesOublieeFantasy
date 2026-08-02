@@ -141,6 +141,12 @@ export interface SheetCapabilityRef {
     active?: boolean;
     /** JSON libre de la capacité, rendu tel quel par DynamicDetailsRenderer. */
     details?: Record<string, unknown>;
+    /** Effet, en lignes libres — la forme sous laquelle une capacité communautaire
+     * porte son contenu principal, là où l'officiel le met dans `description`. Sans
+     * ce champ, une capacité communautaire s'affiche vide au sein de sa voie. */
+    effect?: string[];
+    /** Détails en lignes libres (schéma communautaire), pendant textuel de `details`. */
+    detailLines?: string[];
 }
 
 export interface VoieSheetVM {
@@ -150,9 +156,11 @@ export interface VoieSheetVM {
     maxRank?: number;
     profileName?: string;
     /** JSON libre de la voie (`Voie.details`), rendu par DynamicDetailsRenderer sous le
-     * titre "Détails & Mécaniques" (`VoieDetail.tsx`). Absent côté communautaire
-     * aujourd'hui (le schéma homebrew capture ces lignes dans `capabilities`, cf.
-     * `homebrewToVoieVM`) : la section disparaît alors entièrement, pas de titre orphelin. */
+     * titre "Détails & Mécaniques" (`VoieDetail.tsx`). Côté communautaire, les lignes
+     * libres du champ `details` (schéma homebrew) portent le même rôle — mécaniques de
+     * la voie elle-même, pas liées à une capacité précise — et sont regroupées dans une
+     * entrée générique par `homebrewToVoieVM`. Absent si le champ n'est pas renseigné :
+     * la section disparaît alors entièrement, pas de titre orphelin. */
     details?: Record<string, unknown>;
     capabilities?: SheetCapabilityRef[];
 }

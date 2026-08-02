@@ -121,7 +121,11 @@ export const HOMEBREW_SCHEMAS: Record<string, HomebrewFieldDef[]> = {
     voie: [
         { key: 'category', label: 'Catégorie', type: 'text', placeholder: 'ex. profil, peuple, prestige…', required: true },
         { key: 'maxRank', label: 'Rang maximum', type: 'number', required: true },
-        { key: 'details', label: 'Capacités / détails (par rang)', type: 'lines', required: true },
+        // Les capacités d'une voie ne se saisissent plus ici : elles ont leurs propres
+        // blocs, et sont enregistrées comme des entrées à part entière. Ce champ garde
+        // le rôle du `details` d'une voie officielle — les mécaniques qui ne relèvent
+        // d'aucune capacité précise — et n'est donc plus obligatoire.
+        { key: 'details', label: 'Mécaniques de la voie', type: 'lines', required: false, placeholder: 'ex. les capacités de cette voie ignorent le malus d\'armure' },
     ],
     // → Poison
     poison: [
@@ -162,3 +166,18 @@ export const pruneToSchema = (category: string, data: Record<string, unknown>): 
     }
     return out;
 };
+
+/** Un enfant d'entrée : une capacité rattachée à sa voie. */
+export interface HomebrewChild {
+    category: string;
+    name: string;
+    data: Record<string, unknown>;
+}
+
+/**
+ * Élague chaque enfant selon le schéma de **sa propre** catégorie. `pruneToSchema` ne
+ * traite qu'un niveau : sans cette fonction, les champs parasites d'une capacité
+ * partiraient en base.
+ */
+export const pruneChildren = (children: HomebrewChild[]): HomebrewChild[] =>
+    children.map(c => ({ category: c.category, name: c.name, data: pruneToSchema(c.category, c.data) }));

@@ -55,14 +55,24 @@ export const DynamicDetailsRenderer: React.FC<DynamicDetailsRendererProps> = ({ 
                             <strong className="block text-primary-300 mb-2 font-display text-xs uppercase tracking-wider">
                                 Mécaniques {key.replace('mecaniques_', '').replace(/_/g, ' ')}
                             </strong>
-                            <div className="space-y-2">
-                                {Object.entries(value).map(([mechKey, mechValue]: [string, any]) => (
-                                    <div key={mechKey} className="flex gap-2">
-                                        <span className="text-primary-500 font-bold min-w-[80px] text-xs uppercase">{mechKey}:</span>
-                                        <span className="text-stone-400 text-xs">{String(mechValue)}</span>
-                                    </div>
-                                ))}
-                            </div>
+                            {/* Une liste n'a pas d'intitulé par ligne — seulement des index.
+                                Les afficher (« 0: », « 1: ») n'apprendrait rien au lecteur :
+                                on rend les lignes telles quelles. Le JSON officiel, lui,
+                                nomme chaque mécanique et garde ses intitulés. */}
+                            {Array.isArray(value) ? (
+                                <ul className="list-disc list-inside space-y-1 text-stone-400 text-xs">
+                                    {value.map((line, i) => <li key={i}>{String(line)}</li>)}
+                                </ul>
+                            ) : (
+                                <div className="space-y-2">
+                                    {Object.entries(value).map(([mechKey, mechValue]: [string, any]) => (
+                                        <div key={mechKey} className="flex gap-2">
+                                            <span className="text-primary-500 font-bold min-w-[80px] text-xs uppercase">{mechKey}:</span>
+                                            <span className="text-stone-400 text-xs">{String(mechValue)}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
                         </div>
                     );
                 }

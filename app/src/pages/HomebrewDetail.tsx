@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { ArrowLeft, Globe, Lock, User as UserIcon } from 'lucide-react';
-import { HomebrewService, categoryLabel, categoryPath, type HomebrewEntry } from '../services/homebrewService';
+import { HomebrewService, categoryLabel, categoryPath, childrenOf, messageSuppression, type HomebrewEntry } from '../services/homebrewService';
 import { HOMEBREW_SCHEMAS, CARAC_KEYS, type HomebrewFieldDef } from '../services/homebrewSchemas';
 import { hasValue } from '../services/homebrewValidation';
 import { Loader } from '../components/common';
@@ -23,20 +23,40 @@ export const HomebrewDetail: React.FC = () => {
     const location = useLocation();
     const { user } = useAuth();
     const [entry, setEntry] = useState<HomebrewEntry | null>(null);
+    // Capacités d'une voie (catégorie 'voie' uniquement) — entrées à part entière
+    // portant un `parent` (cf. task 1-4). Reste `[]` pour toute autre catégorie.
+    const [children, setChildren] = useState<HomebrewEntry[]>([]);
     const [loading, setLoading] = useState(true);
     const [activeTab, setActiveTab] = useState<'lore' | 'rules'>('lore');
     const [duplicating, setDuplicating] = useState(false);
 
     useEffect(() => {
         if (!id) return;
-        HomebrewService.getById(id).then(setEntry).catch(() => setEntry(null)).finally(() => setLoading(false));
+        let annule = false;
+        HomebrewService.getById(id)
+            .then(async loaded => {
+                if (annule) return;
+                setEntry(loaded);
+                // `getAll()` ramène déjà toutes les entrées visibles : filtrer côté
+                // client (cf. `childrenOf`, partagée avec HomebrewForm) évite un appel
+                // réseau dédié.
+                if (loaded.category === 'voie') {
+                    const toutes = await HomebrewService.getAll();
+                    if (!annule) setChildren(childrenOf(loaded.id, toutes));
+                }
+            })
+            .catch(() => setEntry(null))
+            .finally(() => { if (!annule) setLoading(false); });
+        return () => { annule = true; };
     }, [id]);
 
     if (loading) return <Loader />;
     if (!entry) return <div className="p-8 text-center text-red-400">Contenu introuvable</div>;
 
     const handleDelete = async () => {
-        if (!confirm(`Supprimer « ${entry.name} » ?`)) return;
+        // `children` n'est peuplé que pour une voie : la confirmation annonce le
+        // nombre exact de capacités emportées par la suppression en cascade.
+        if (!confirm(messageSuppression(entry.name, children.length))) return;
         await HomebrewService.remove(entry.id);
         navigate(categoryPath(entry.category));
     };
@@ -73,7 +93,7 @@ export const HomebrewDetail: React.FC = () => {
     }
 
     if (entry.category === 'voie') {
-        return <VoieSheet vm={homebrewToVoieVM(entry)} backTo="/voies" backLabel="Retour aux Voies" header={ownerBar} />;
+        return <VoieSheet vm={homebrewToVoieVM(entry, children)} backTo="/voies" backLabel="Retour aux Voies" header={ownerBar} />;
     }
 
     if (entry.category === 'capacite' || entry.category === 'sort') {

@@ -24,14 +24,17 @@ export const HomebrewFields: React.FC<{
     data: Data;
     onChange: (d: Data) => void;
     errors?: Record<string, string>;
-}> = ({ schema, data, onChange, errors }) => {
+    /** Préfixe d'ancre, ex. `capacites.2.` — sans quoi deux capacités produiraient
+     *  deux `champ-rank` et le défilement irait au premier. */
+    prefix?: string;
+}> = ({ schema, data, onChange, errors, prefix = '' }) => {
     const set = (key: string, value: unknown) => onChange({ ...data, [key]: value });
     return (
         <div className="space-y-3">
             {schema.map(f => {
                 const message = errors?.[f.key];
                 return (
-                    <div key={f.key} id={`champ-${f.key}`}>
+                    <div key={f.key} id={`champ-${prefix}${f.key}`}>
                         <FieldInput field={f} value={data[f.key]} onChange={v => set(f.key, v)} error={!!message} />
                         {message && <p className="text-red-400 text-xs mt-1">{message}</p>}
                     </div>

@@ -10,10 +10,19 @@ export interface ChildDraft extends HomebrewChild {
 export interface SaveChildrenResult {
     /** Nombre de brouillons créés ou mis à jour avec succès (les suppressions n'y comptent pas). */
     saved: number;
-    /** Position affichée à l'auteur (indice + 1, comme dans validateHomebrew), pas
-     *  l'indice technique — et le message d'erreur brut, jamais préfixé ici (le
-     *  préfixage « Capacité N — » est le rôle de l'appelant, pas de cette fonction). */
-    failed: { position: number; message: string }[];
+    /**
+     * Chaque échec porte :
+     * - `position` : la position affichée à l'auteur (indice + 1, comme dans
+     *   `validateHomebrew`) **dans `drafts` ci-dessous**, donc dans l'état que le
+     *   formulaire affichera après l'appel — y compris pour une capacité réapparue
+     *   parce que sa suppression a échoué ;
+     * - `nature` : ce qui a échoué. Explicite, car elle ne se déduit pas de la
+     *   position : une capacité dont la suppression échoue réapparaît dans `drafts`,
+     *   sa position devient donc celle d'un bloc visible comme les autres ;
+     * - `message` : l'erreur brute, jamais préfixée ici (le préfixage « Capacité N — »
+     *   est le rôle de l'appelant).
+     */
+    failed: { position: number; nature: 'enregistrement' | 'suppression'; message: string }[];
     /**
      * L'état réel des capacités après cet appel : à substituer tel quel à l'état local
      * du formulaire, pour qu'une reprise ne recrée jamais ce qui a déjà réussi.
@@ -44,9 +53,11 @@ const messageDe = (e: unknown): string => (e instanceof Error ? e.message : 'Err
  * suffit à `CapabilityBlocks` (cf. `enErreur`, qui teste un préfixe) pour ouvrir le
  * bloc et le signaler visuellement.
  *
- * Une position au-delà de `blocsVisibles` ne désigne aucun bloc affiché — le cas d'une
- * suppression refusée pour une capacité déjà retirée du formulaire par l'auteur — et
- * n'est donc pas traduite ici : seul le bandeau de synthèse en rend compte.
+ * Les positions se rapportent aux brouillons renvoyés par `saveChildren` — que le
+ * formulaire adopte comme nouvel état. Une suppression refusée y fait réapparaître sa
+ * capacité : elle désigne donc un bloc bien visible, qu'il faut signaler comme les
+ * autres. La garde sur `blocsVisibles` ne protège que du cas dégénéré où l'appelant
+ * n'aurait pas adopté ces brouillons : on ne signale jamais un bloc inexistant.
  */
 export const echecsCapacitesEnErreurs = (
     failed: SaveChildrenResult['failed'],
@@ -55,21 +66,21 @@ export const echecsCapacitesEnErreurs = (
     const out: Record<string, string> = {};
     for (const f of failed) {
         if (f.position > blocsVisibles) continue;
-        out[`capacites.${f.position - 1}.`] = "Échec de l'enregistrement de cette capacité — réessayez.";
+        out[`capacites.${f.position - 1}.`] = f.nature === 'suppression'
+            ? 'La suppression de cette capacité a échoué — elle existe toujours.'
+            : "Échec de l'enregistrement de cette capacité — réessayez.";
     }
     return out;
 };
 
 /**
- * Phrase de synthèse du bandeau d'erreur (`#erreurs-formulaire`). Une position au-delà
- * de `blocsVisibles` est une suppression refusée (capacité déjà retirée du formulaire
- * par l'auteur, cf. `echecsCapacitesEnErreurs`), pas un échec d'enregistrement : la
- * verbalisation doit distinguer les deux plutôt que de parler d'enregistrement à tort
- * pour une suppression.
+ * Phrase de synthèse du bandeau d'erreur (`#erreurs-formulaire`). La nature de chaque
+ * échec est lue telle quelle : parler d'enregistrement pour une suppression refusée
+ * (ou l'inverse) désignerait à l'auteur une action qu'il n'a pas demandée.
  */
 export const resumeEchecsCapacites = (failed: SaveChildrenResult['failed'], blocsVisibles: number): string => {
     const total = failed.length;
-    const suppressions = failed.filter(f => f.position > blocsVisibles).length;
+    const suppressions = failed.filter(f => f.nature === 'suppression').length;
     const enregistrements = total - suppressions;
 
     if (suppressions === 0) {
@@ -124,7 +135,7 @@ export const saveChildren = async (
             saved++;
         } catch (e) {
             console.error('Échec de l\'enregistrement d\'une capacité :', e);
-            failed.push({ position: index + 1, message: messageDe(e) });
+            failed.push({ position: index + 1, nature: 'enregistrement', message: messageDe(e) });
             // Inchangée : une reprise retentera exactement la même opération (création
             // si elle n'avait pas d'id, mise à jour sinon).
             resultDrafts.push(draft);
@@ -143,10 +154,11 @@ export const saveChildren = async (
             // Succès : rien à rajouter à `resultDrafts`, elle est bel et bien partie.
         } catch (e) {
             console.error('Échec de la suppression d\'une capacité retirée :', e);
-            // Position au-delà du nombre de blocs affichés : ces échecs ne correspondent
-            // à aucun bloc visible au moment de l'appel (déjà retiré côté auteur), donc
-            // l'appelant les distingue des échecs de création/mise à jour.
-            failed.push({ position: drafts.length + i + 1, message: messageDe(e) });
+            // La position est celle que la capacité occupera dans `resultDrafts`, où elle
+            // est réinsérée juste après — et non son rang dans `aSupprimer`, qui compte
+            // aussi les suppressions réussies : sur un lot d'issues mixtes, cet écart
+            // désignait un bloc voisin, ou aucun.
+            failed.push({ position: resultDrafts.length + 1, nature: 'suppression', message: messageDe(e) });
             // Toujours là côté serveur : elle réapparaît dans le formulaire plutôt que
             // de disparaître silencieusement sur la foi d'une suppression non confirmée.
             resultDrafts.push(cible);

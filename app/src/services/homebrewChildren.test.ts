@@ -49,7 +49,7 @@ describe('saveChildren', () => {
         const res = await saveChildren(7, 'private', [nouvelle('A'), nouvelle('B'), nouvelle('C')], []);
 
         expect(res.saved).toBe(2);
-        expect(res.failed).toEqual([{ position: 2, message: 'boum' }]);
+        expect(res.failed).toEqual([{ position: 2, nature: 'enregistrement', message: 'boum' }]);
     });
 
     it('une reprise après échec partiel ne recrée pas les capacités déjà réussies', async () => {
@@ -60,7 +60,7 @@ describe('saveChildren', () => {
         const premier = await saveChildren(7, 'private', [nouvelle('A'), nouvelle('B')], []);
 
         expect(premier.saved).toBe(1);
-        expect(premier.failed).toEqual([{ position: 2, message: 'boum' }]);
+        expect(premier.failed).toEqual([{ position: 2, nature: 'enregistrement', message: 'boum' }]);
         // A porte désormais son id serveur — une reprise doit la mettre à jour, jamais
         // la recréer. B reste sans id — rien n'existe encore côté serveur pour elle.
         expect(premier.drafts[0]).toEqual({ category: 'capacite', name: 'A', data: { rank: 1 }, id: 101 });
@@ -88,22 +88,50 @@ describe('saveChildren', () => {
         // L'auteur a retiré la capacité 55 du formulaire (absente de `drafts`).
         const res = await saveChildren(7, 'private', [], [confirmee]);
 
-        expect(res.failed).toEqual([{ position: 1, message: 'refus serveur' }]);
+        expect(res.failed).toEqual([{ position: 1, nature: 'suppression', message: 'refus serveur' }]);
         // Toujours là côté serveur : elle doit réapparaître, pas disparaître silencieusement.
         expect(res.drafts).toEqual([confirmee]);
+    });
+
+    it('sur un lot de suppressions aux issues mixtes, chaque échec pointe sur son propre bloc', async () => {
+        // Trois suppressions demandées : la première réussit, les deux suivantes échouent.
+        // Compter les échecs sur le rang dans le lot (suppressions réussies incluses)
+        // décalait les positions : un échec désignait le bloc voisin, l'autre aucun.
+        (HomebrewService.remove as ReturnType<typeof vi.fn>)
+            .mockResolvedValueOnce(undefined)
+            .mockRejectedValueOnce(new Error('refus A'))
+            .mockRejectedValueOnce(new Error('refus B'));
+
+        const res = await saveChildren(7, 'private', [], [
+            { id: 51, ...nouvelle('Partie') },
+            { id: 52, ...nouvelle('Restée A') },
+            { id: 53, ...nouvelle('Restée B') },
+        ]);
+
+        // Seules les deux capacités toujours présentes côté serveur réapparaissent…
+        expect(res.drafts.map(d => d.name)).toEqual(['Restée A', 'Restée B']);
+        // …et chaque échec porte la position qu'elle occupe vraiment dans ces brouillons.
+        expect(res.failed).toEqual([
+            { position: 1, nature: 'suppression', message: 'refus A' },
+            { position: 2, nature: 'suppression', message: 'refus B' },
+        ]);
+        // Conséquence visible pour l'auteur : les deux blocs réapparus sont signalés,
+        // aucun ne passe à la trappe.
+        expect(Object.keys(echecsCapacitesEnErreurs(res.failed, res.drafts.length)).sort())
+            .toEqual(['capacites.0.', 'capacites.1.']);
     });
 });
 
 describe('echecsCapacitesEnErreurs', () => {
     it('traduit une position affichée (1-based) en clé de bloc (0-based)', () => {
-        expect(echecsCapacitesEnErreurs([{ position: 2, message: 'boum' }], 3)).toEqual({
+        expect(echecsCapacitesEnErreurs([{ position: 2, nature: 'enregistrement', message: 'boum' }], 3)).toEqual({
             'capacites.1.': "Échec de l'enregistrement de cette capacité — réessayez.",
         });
     });
 
     it('traduit chaque échec dont la position correspond à un bloc affiché', () => {
         const out = echecsCapacitesEnErreurs(
-            [{ position: 1, message: 'a' }, { position: 3, message: 'c' }],
+            [{ position: 1, nature: 'enregistrement', message: 'a' }, { position: 3, nature: 'enregistrement', message: 'c' }],
             3,
         );
         expect(Object.keys(out).sort()).toEqual(['capacites.0.', 'capacites.2.']);
@@ -112,7 +140,7 @@ describe('echecsCapacitesEnErreurs', () => {
     it('ignore une position au-delà des blocs affichés (ex. suppression d’une capacité déjà retirée du formulaire)', () => {
         // 1 seul bloc visible ; l'échec en position 2 (une suppression refusée) ne
         // désigne aucun bloc du formulaire — seul le bandeau de synthèse doit en rendre compte.
-        expect(echecsCapacitesEnErreurs([{ position: 2, message: 'refus serveur' }], 1)).toEqual({});
+        expect(echecsCapacitesEnErreurs([{ position: 2, nature: 'suppression', message: 'refus serveur' }], 1)).toEqual({});
     });
 
     it('ne produit aucune erreur en l’absence d’échec', () => {
@@ -122,7 +150,7 @@ describe('echecsCapacitesEnErreurs', () => {
 
 describe('resumeEchecsCapacites', () => {
     it('parle d’enregistrement quand tous les échecs sont des créations/mises à jour', () => {
-        const phrase = resumeEchecsCapacites([{ position: 1, message: 'boum' }], 2);
+        const phrase = resumeEchecsCapacites([{ position: 1, nature: 'enregistrement', message: 'boum' }], 2);
         expect(phrase).toContain('enregistrée(s)');
         expect(phrase).not.toContain('supprimée(s)');
     });
@@ -130,14 +158,14 @@ describe('resumeEchecsCapacites', () => {
     it('parle de suppression quand tous les échecs sont des suppressions refusées', () => {
         // 1 seul bloc visible : une position 2 est nécessairement une suppression
         // (capacité déjà retirée du formulaire par l'auteur), pas un échec d'enregistrement.
-        const phrase = resumeEchecsCapacites([{ position: 2, message: 'refus serveur' }], 1);
+        const phrase = resumeEchecsCapacites([{ position: 2, nature: 'suppression', message: 'refus serveur' }], 1);
         expect(phrase).toContain('supprimée(s)');
         expect(phrase).not.toContain('enregistrée(s)');
     });
 
     it('mentionne les deux quand les échecs sont mixtes', () => {
         const phrase = resumeEchecsCapacites(
-            [{ position: 1, message: 'boum' }, { position: 3, message: 'refus serveur' }],
+            [{ position: 1, nature: 'enregistrement', message: 'boum' }, { position: 3, nature: 'suppression', message: 'refus serveur' }],
             2,
         );
         expect(phrase).toContain('enregistrée(s)');

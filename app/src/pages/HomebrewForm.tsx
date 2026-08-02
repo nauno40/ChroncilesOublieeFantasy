@@ -16,7 +16,7 @@ import {
 } from '../services/homebrewService';
 import { HOMEBREW_SCHEMAS, HOMEBREW_SHEET_CATEGORIES, hasStructuredSchema, pruneChildren, pruneToSchema } from '../services/homebrewSchemas';
 import { validateHomebrew, type HomebrewFieldError } from '../services/homebrewValidation';
-import { saveChildren, type ChildDraft, type SaveChildrenResult } from '../services/homebrewChildren';
+import { saveChildren, echecsCapacitesEnErreurs, type ChildDraft, type SaveChildrenResult } from '../services/homebrewChildren';
 
 type Data = Record<string, unknown>;
 
@@ -109,6 +109,20 @@ export const HomebrewForm: React.FC = () => {
         [errors],
     );
     const globalErrors = errors.filter(e => e.key === '');
+
+    // Un échec côté serveur (après une validation cliente déjà réussie) doit signaler
+    // son bloc exactement comme une erreur de validation — cf. echecsCapacitesEnErreurs.
+    const childrenFailuresByKey = useMemo(
+        () => (childrenIssues ? echecsCapacitesEnErreurs(childrenIssues.failed, drafts.length) : {}),
+        [childrenIssues, drafts.length],
+    );
+
+    // Fusion des deux origines d'erreur pour les blocs de capacités uniquement : la
+    // synthèse en tête de page (globalErrors/saveError/childrenIssues) reste inchangée.
+    const capabilityErrors = useMemo(
+        () => ({ ...errorsByKey, ...childrenFailuresByKey }),
+        [errorsByKey, childrenFailuresByKey],
+    );
 
     const categoryKnown = HOMEBREW_CATEGORIES.some(c => c.value === category);
     // Une redirection ne doit jamais quitter le site : seul un chemin interne (résolu
@@ -341,7 +355,7 @@ export const HomebrewForm: React.FC = () => {
                             <CapabilityBlocks
                                 drafts={drafts}
                                 onChange={d => { setDrafts(d); markDirty(); }}
-                                errors={errorsByKey}
+                                errors={capabilityErrors}
                             />
                         )}
 

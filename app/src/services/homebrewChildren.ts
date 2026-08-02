@@ -32,6 +32,35 @@ export interface SaveChildrenResult {
 const messageDe = (e: unknown): string => (e instanceof Error ? e.message : 'Erreur inconnue.');
 
 /**
+ * Traduit les échecs renvoyés par `saveChildren` en erreurs indexées comme celles de
+ * `validateHomebrew` (clé `capacites.<indice>.`), pour que l'appelant (HomebrewForm)
+ * les fusionne dans les erreurs passées à `CapabilityBlocks` : un échec survenu après
+ * une validation cliente réussie (réseau, refus serveur…) doit signaler son bloc
+ * exactement comme une erreur de validation — sans quoi l'auteur voit un enregistrement
+ * refusé sans cause visible, l'erreur restant cachée dans un bloc replié.
+ *
+ * La clé posée n'a pas de suffixe de champ (`capacites.2.` et non `capacites.2.rank`) :
+ * l'échec ne vise pas un champ précis, seulement le bloc dans son ensemble — ce qui
+ * suffit à `CapabilityBlocks` (cf. `enErreur`, qui teste un préfixe) pour ouvrir le
+ * bloc et le signaler visuellement.
+ *
+ * Une position au-delà de `blocsVisibles` ne désigne aucun bloc affiché — le cas d'une
+ * suppression refusée pour une capacité déjà retirée du formulaire par l'auteur — et
+ * n'est donc pas traduite ici : seul le bandeau de synthèse en rend compte.
+ */
+export const echecsCapacitesEnErreurs = (
+    failed: SaveChildrenResult['failed'],
+    blocsVisibles: number,
+): Record<string, string> => {
+    const out: Record<string, string> = {};
+    for (const f of failed) {
+        if (f.position > blocsVisibles) continue;
+        out[`capacites.${f.position - 1}.`] = "Échec de l'enregistrement de cette capacité — réessayez.";
+    }
+    return out;
+};
+
+/**
  * Enregistre l'ensemble des capacités d'une voie : crée les brouillons sans `id`, met à
  * jour ceux qui en ont un, puis supprime les capacités confirmées côté serveur (`confirmed`,
  * chaque élément porte un id) absentes des brouillons finaux (capacités retirées par

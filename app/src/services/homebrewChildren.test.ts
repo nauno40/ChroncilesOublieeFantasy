@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { saveChildren } from './homebrewChildren';
+import { saveChildren, echecsCapacitesEnErreurs } from './homebrewChildren';
 import { HomebrewService } from './homebrewService';
 
 vi.mock('./homebrewService', () => ({
@@ -91,5 +91,31 @@ describe('saveChildren', () => {
         expect(res.failed).toEqual([{ position: 1, message: 'refus serveur' }]);
         // Toujours là côté serveur : elle doit réapparaître, pas disparaître silencieusement.
         expect(res.drafts).toEqual([confirmee]);
+    });
+});
+
+describe('echecsCapacitesEnErreurs', () => {
+    it('traduit une position affichée (1-based) en clé de bloc (0-based)', () => {
+        expect(echecsCapacitesEnErreurs([{ position: 2, message: 'boum' }], 3)).toEqual({
+            'capacites.1.': "Échec de l'enregistrement de cette capacité — réessayez.",
+        });
+    });
+
+    it('traduit chaque échec dont la position correspond à un bloc affiché', () => {
+        const out = echecsCapacitesEnErreurs(
+            [{ position: 1, message: 'a' }, { position: 3, message: 'c' }],
+            3,
+        );
+        expect(Object.keys(out).sort()).toEqual(['capacites.0.', 'capacites.2.']);
+    });
+
+    it('ignore une position au-delà des blocs affichés (ex. suppression d’une capacité déjà retirée du formulaire)', () => {
+        // 1 seul bloc visible ; l'échec en position 2 (une suppression refusée) ne
+        // désigne aucun bloc du formulaire — seul le bandeau de synthèse doit en rendre compte.
+        expect(echecsCapacitesEnErreurs([{ position: 2, message: 'refus serveur' }], 1)).toEqual({});
+    });
+
+    it('ne produit aucune erreur en l’absence d’échec', () => {
+        expect(echecsCapacitesEnErreurs([], 3)).toEqual({});
     });
 });

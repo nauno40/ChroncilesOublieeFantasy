@@ -10,6 +10,8 @@ export interface HomebrewEntry {
     visibility: HomebrewVisibility;
     /** Champs structurés propres à la catégorie (cf. homebrewSchemas). */
     data: Record<string, unknown> | null;
+    /** Voie parente (IRI), pour une capacité imbriquée — `null` pour une entrée autonome. */
+    parent?: string | null;
     authorId: number;
     authorPseudo: string | null;
     createdAt: string;
@@ -22,6 +24,12 @@ export interface HomebrewInput {
     description: string;
     visibility: HomebrewVisibility;
     data?: Record<string, unknown> | null;
+    /** Voie parente d'une capacité, en IRI (`/api/homebrew_entries/<id>`) — `null` (ou
+     *  absent) pour une entrée autonome. Le serveur réimpose de toute façon la
+     *  visibilité de l'enfant à celle du parent (cf. HomebrewEntryStateProcessor) ;
+     *  transmis quand même côté client, la règle serveur étant une garantie, pas une
+     *  dispense. */
+    parent?: string | null;
 }
 
 /** Catégories de contenu homebrew (miroir des types du compendium). */

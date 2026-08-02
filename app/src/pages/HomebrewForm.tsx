@@ -12,6 +12,7 @@ import {
     categoryPath,
     cheminInterne,
     childrenOf,
+    parRangCroissant,
     type HomebrewInput,
     type HomebrewVisibility,
 } from '../services/homebrewService';
@@ -97,7 +98,7 @@ export const HomebrewForm: React.FC = () => {
                     if (annule) return;
                     const capacites: ChildDraft[] = childrenOf(entry.id, toutes)
                         .map(c => ({ id: c.id, category: c.category, name: c.name, data: c.data ?? {} }))
-                        .sort((a, b) => (Number(a.data.rank) || 0) - (Number(b.data.rank) || 0));
+                        .sort(parRangCroissant);
                     setDrafts(capacites);
                     setConfirmed(capacites);
                 }

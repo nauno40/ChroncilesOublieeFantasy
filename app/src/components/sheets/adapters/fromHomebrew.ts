@@ -1,4 +1,4 @@
-import type { HomebrewEntry } from '../../../services/homebrewService';
+import { parRangCroissant, type HomebrewEntry } from '../../../services/homebrewService';
 import type { RaceSheetVM, ProfileSheetVM, VoieSheetVM, CapaciteSheetVM, SheetModifier, SheetLabelled } from '../types';
 import { familySubtitle } from './fromOfficial';
 import { str, num } from './shared';
@@ -153,7 +153,7 @@ export const homebrewToVoieVM = (e: HomebrewEntry, children?: HomebrewEntry[]): 
         // comme `voieToVM` (adaptateur officiel).
         capabilities: children?.length
             ? [...children]
-                .sort((a, b) => (num(d(a).rank) ?? 0) - (num(d(b).rank) ?? 0))
+                .sort(parRangCroissant)
                 .map(homebrewToCapaciteVM)
             : undefined,
     };

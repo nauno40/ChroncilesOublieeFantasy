@@ -102,7 +102,24 @@ export const categoryPath = (category: string): string => {
  * d'édition (`HomebrewForm`) : un seul mécanisme de filtrage, pas deux qui pourraient
  * diverger.
  */
-export const childrenOf = (parentId: number, entries: HomebrewEntry[]): HomebrewEntry[] =>
+/**
+ * Ordre d'affichage des capacités d'une voie : rang croissant. Partagé par l'adaptateur
+ * de fiche et le formulaire d'édition, qui doivent présenter la même voie dans le même
+ * ordre — deux tris écrits séparément finissent par diverger. Une capacité sans rang
+ * passe en tête, comme un rang 0 (qui est une valeur légitime, pas une absence).
+ */
+export const parRangCroissant = (
+    a: { data?: Record<string, unknown> | null },
+    b: { data?: Record<string, unknown> | null },
+): number => {
+    const rang = (x: { data?: Record<string, unknown> | null }): number => {
+        const v = Number(x.data?.rank);
+        return Number.isFinite(v) ? v : 0;
+    };
+    return rang(a) - rang(b);
+};
+
+export const childrenOf =(parentId: number, entries: HomebrewEntry[]): HomebrewEntry[] =>
     entries.filter(e => e.parent === `/api/homebrew_entries/${parentId}`);
 
 export const HomebrewService = {

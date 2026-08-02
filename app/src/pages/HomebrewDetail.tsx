@@ -56,9 +56,12 @@ export const HomebrewDetail: React.FC = () => {
     const handleDelete = async () => {
         // `children` n'est peuplé que pour une voie : la confirmation annonce le
         // nombre exact de capacités emportées par la suppression en cascade.
-        const suffixe = children.length > 0
-            ? ` et s${children.length > 1 ? 'es' : 'a'} ${children.length} capacité${children.length > 1 ? 's' : ''}`
-            : '';
+        // « et sa 1 capacité » se dirait mal : au singulier on ne compte pas.
+        const suffixe = children.length === 0
+            ? ''
+            : children.length === 1
+                ? ' et sa capacité'
+                : ` et ses ${children.length} capacités`;
         if (!confirm(`Supprimer « ${entry.name} »${suffixe} ?`)) return;
         await HomebrewService.remove(entry.id);
         navigate(categoryPath(entry.category));

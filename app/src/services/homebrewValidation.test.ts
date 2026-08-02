@@ -136,7 +136,7 @@ describe('validateHomebrew — enfants', () => {
             { category: 'capacite', name: 'B', data: {} },
         ];
         const erreurs = validateHomebrew('voie', 'Voie test', voieValide, enfants);
-        expect(erreurs[0].message).toContain('capacité 2');
+        expect(erreurs[0].message).toContain('Capacité 2');
         expect(erreurs[0].message).not.toContain('capacites.1');
     });
 

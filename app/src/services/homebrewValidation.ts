@@ -61,7 +61,7 @@ export const validateHomebrew = (
         for (const e of validateHomebrew(enfant.category, enfant.name, enfant.data)) {
             erreurs.push({
                 key: `capacites.${index}.${e.key}`,
-                message: `capacité ${position} — ${e.message}`,
+                message: `Capacité ${position} — ${e.message}`,
             });
         }
     });

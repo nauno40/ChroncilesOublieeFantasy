@@ -50,7 +50,10 @@ describe('validateHomebrew', () => {
 
     it('signale exactement les champs requis manquants', () => {
         const erreurs = validateHomebrew('voie', 'Nom', {});
-        expect(erreurs.map(e => e.key).sort()).toEqual(['category', 'details', 'maxRank']);
+        // `details` (les mécaniques de la voie) n'en fait plus partie : les capacités
+        // ont leurs propres blocs, exiger ce champ contraindrait l'auteur à les
+        // ressaisir en texte libre.
+        expect(erreurs.map(e => e.key).sort()).toEqual(['category', 'maxRank']);
     });
 
     it('accepte 0 comme valeur d’un champ requis', () => {
@@ -107,11 +110,21 @@ describe('validateHomebrew', () => {
 });
 
 describe('validateHomebrew — enfants', () => {
-    const voieValide = { category: 'profil', maxRank: 5, details: ['x'] };
+    const voieValide = { category: 'profil', maxRank: 5 };
 
     it('ne signale rien quand les capacités sont complètes', () => {
         const enfants = [{ category: 'capacite', name: 'Frappe', data: { rank: 1, actionType: 'Limitée', effect: ['e'], details: ['d'] } }];
         expect(validateHomebrew('voie', 'Voie test', voieValide, enfants)).toEqual([]);
+    });
+
+    it('accepte une voie sans mécaniques propres, dont les capacités sont saisies en blocs', () => {
+        // Le cas nominal du chantier : l'auteur remplit ses capacités, pas le champ
+        // texte libre. L'exiger le contraindrait à ressaisir ses rangs à la main.
+        const enfants = [
+            { category: 'capacite', name: 'Rang 1', data: { rank: 1, actionType: 'A', effect: ['e'], details: ['d'] } },
+            { category: 'capacite', name: 'Rang 2', data: { rank: 2, actionType: 'A', effect: ['e'], details: ['d'] } },
+        ];
+        expect(validateHomebrew('voie', 'Voie test', { category: 'profil', maxRank: 5 }, enfants)).toEqual([]);
     });
 
     it('préfixe l’erreur d’un enfant par sa position', () => {

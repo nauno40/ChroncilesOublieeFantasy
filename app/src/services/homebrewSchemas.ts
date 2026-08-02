@@ -121,7 +121,11 @@ export const HOMEBREW_SCHEMAS: Record<string, HomebrewFieldDef[]> = {
     voie: [
         { key: 'category', label: 'Catégorie', type: 'text', placeholder: 'ex. profil, peuple, prestige…', required: true },
         { key: 'maxRank', label: 'Rang maximum', type: 'number', required: true },
-        { key: 'details', label: 'Capacités / détails (par rang)', type: 'lines', required: true },
+        // Les capacités d'une voie ne se saisissent plus ici : elles ont leurs propres
+        // blocs, et sont enregistrées comme des entrées à part entière. Ce champ garde
+        // le rôle du `details` d'une voie officielle — les mécaniques qui ne relèvent
+        // d'aucune capacité précise — et n'est donc plus obligatoire.
+        { key: 'details', label: 'Mécaniques de la voie', type: 'lines', required: false, placeholder: 'ex. les capacités de cette voie ignorent le malus d\'armure' },
     ],
     // → Poison
     poison: [

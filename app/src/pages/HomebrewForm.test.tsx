@@ -56,7 +56,8 @@ const remplirFormulaireValide = () => {
     fireEvent.change(screen.getByPlaceholderText('Nom du contenu'), { target: { value: 'Voie de test' } });
     remplir('champ-category', 'profil');
     remplir('champ-maxRank', '5');
-    ajouterLigne('champ-details', 'Une ligne de détail');
+    // Volontairement PAS de `champ-details` : les mécaniques de la voie sont
+    // facultatives, et le remplir masquerait une régression du champ obligatoire.
 
     fireEvent.click(screen.getByText('Ajouter une capacité'));
     remplir('champ-capacites.0.name', 'Frappe');

@@ -190,7 +190,14 @@ export const HomebrewForm: React.FC = () => {
             // erreur de capacité porte, elle, une clé préfixée (`capacites.0.rank`) qui
             // désigne directement l'ancre posée par CapabilityBlocks/HomebrewFields.
             const targetId = errs[0].key ? `champ-${errs[0].key}` : 'erreurs-formulaire';
-            document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            // setErrors ci-dessus n'a pas encore été répercuté dans le DOM : React ne
+            // commite qu'après la fin de ce gestionnaire, donc un bloc de capacité tout
+            // juste mis en erreur (cf. CapabilityBlocks, `<details open={blocEnErreur}>`)
+            // est encore fermé — sans boîte de rendu, `scrollIntoView` peut manquer sa
+            // cible. On diffère d'un tick pour laisser React commiter d'abord ; les
+            // champs de la voie elle-même (toujours visibles, jamais dans un `<details>`)
+            // n'ont pas ce problème mais ce délai ne change rien pour eux.
+            setTimeout(() => document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 0);
             return;
         }
         setSaving(true);

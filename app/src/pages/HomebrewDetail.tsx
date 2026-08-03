@@ -84,7 +84,7 @@ export const HomebrewDetail: React.FC = () => {
             mine={mine}
             duplicating={duplicating}
             onEdit={mine ? () => navigate(`/bibliotheque/${entry.id}/modifier?retour=${encodeURIComponent(location.pathname)}`) : undefined}
-            onDuplicate={mine ? undefined : handleDuplicate}
+            onDuplicate={handleDuplicate}
             onDelete={mine ? handleDelete : undefined}
         />
     );

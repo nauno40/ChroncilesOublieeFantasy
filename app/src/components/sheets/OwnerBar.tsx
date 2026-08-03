@@ -31,9 +31,12 @@ export const OwnerBar: React.FC<OwnerBarProps> = ({ pseudo, visibility, mine, du
                     <Trash2 size={14} /> Supprimer
                 </button>
             )}
-            {!mine && onDuplicate && (
+            {/* Dupliquer vaut aussi pour son propre contenu : partir d'une de ses voies
+                pour en faire une variante est un usage légitime. Le libellé distingue les
+                deux cas — « chez moi » n'a de sens que pour le contenu d'autrui. */}
+            {onDuplicate && (
                 <button onClick={onDuplicate} disabled={duplicating} className="flex items-center gap-1.5 text-xs font-bold uppercase text-stone-400 hover:text-primary-300 transition-colors px-2 py-1 rounded-lg hover:bg-white/5 disabled:opacity-50">
-                    <Copy size={14} /> {duplicating ? 'Copie…' : 'Dupliquer chez moi'}
+                    <Copy size={14} /> {duplicating ? 'Copie…' : (mine ? 'Dupliquer' : 'Dupliquer chez moi')}
                 </button>
             )}
         </div>

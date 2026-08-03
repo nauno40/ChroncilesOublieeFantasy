@@ -652,17 +652,44 @@ console.log('exemple :', JSON.stringify(c.find(x=>x.states?.length)));"
 Attendu : 121 capacités déclarées (122 moins le faux positif retiré), et un exemple
 montrant `states`.
 
-- [ ] **Étape 5 : recharger les fixtures et vérifier que l'API sert bien les déclarations**
+- [ ] **Étape 5 : vérifier que l'API sait servir la clé, SANS recharger les fixtures**
 
+`doctrine:fixtures:load` **purge les tables** : la base de développement porte du contenu
+qu'on ne veut pas perdre. On vérifie donc la sérialisation sur **une seule** créature, par une
+écriture directe, sans rien détruire :
+
+```bash
+# Pose une déclaration d'essai sur une créature au hasard, lit ce que l'API en renvoie,
+# puis remet la valeur d'origine.
+docker compose exec -T database psql -U app -d app -t -A -c \
+  "SELECT id FROM creature WHERE capabilities IS NOT NULL LIMIT 1;"
 ```
-docker compose exec -T backend bin/console doctrine:fixtures:load --no-interaction
-curl -s 'http://localhost:8000/api/creatures?pagination=false' -H 'Accept: application/ld+json' \
-  | python3 -c "import sys,json; d=json.load(sys.stdin); m=d.get('hydra:member') or d.get('member') or []; \
-c=[x for cr in m for x in (cr.get('capabilities') or []) if x.get('states')]; \
-print('capacités déclarées servies par l API :', len(c)); print(c[0] if c else 'AUCUNE')"
+
+En notant l'identifiant obtenu (`<ID>`) :
+
+```bash
+docker compose exec -T database psql -U app -d app -c \
+  "UPDATE creature SET capabilities = '[{\"label\":\"Essai\",\"states\":[\"Renversé\"]}]'::json WHERE id = <ID>;"
+
+curl -s "http://localhost:8000/api/creatures/<ID>" -H 'Accept: application/ld+json' \
+  | python3 -c "import sys,json; c=json.load(sys.stdin)['capabilities']; print(c)"
 ```
-Attendu : un compte non nul et un exemple portant `states`. **Si le compte est nul**, la clé
-n'est pas sérialisée : s'arrêter et le signaler plutôt que de contourner.
+
+Attendu : `[{'label': 'Essai', 'states': ['Renversé']}]` — la clé traverse l'API telle quelle.
+**Si `states` disparaît**, s'arrêter et le signaler : la sérialisation filtre la donnée, ce
+que le plan n'a pas prévu.
+
+Puis **remettre la valeur d'origine** de cette créature, en la relisant depuis
+`backend/data/creatures.json` — la donnée du dépôt fait foi :
+
+```bash
+node -e "const d=require('./backend/data/creatures.json');const l=Array.isArray(d)?d:d.data;
+const c=l.find(x=>x.name==='<NOM DE LA CRÉATURE>');
+console.log(JSON.stringify(JSON.stringify(c.capabilities)));" 
+```
+
+et réinjecter le résultat par un `UPDATE` symétrique. Vérifier enfin que la fiche de cette
+créature s'affiche normalement dans l'application avant de passer à la suite.
 
 - [ ] **Étape 6 : commiter**
 

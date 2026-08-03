@@ -1,4 +1,9 @@
-import type { CustomCreatureCapability, HarmfulState } from '../types/normalized';
+import type {
+    CapabilitySummon, CustomCreatureCapability, HarmfulState,
+    Creature, CustomCreature, Weapon, Armor,
+} from '../types/normalized';
+import type { Combatant } from '../types/campaign';
+import type { HomebrewEntry } from '../services/homebrewService';
 
 /** Forme comparable d'un nom : sans casse ni accents, pour rapprocher « ÉTOURDI »,
  *  « etourdi » et « Étourdi ». */
@@ -44,3 +49,81 @@ export const etatsDeclares = (
 /** Chemin interne vers un état : la liste des états, filtrée sur son nom. Le compendium
  *  n'a pas de fiche d'état — cf. la conception, section « Cibles de liens ». */
 export const lienEtat = (nom: string): string => `/states?q=${encodeURIComponent(nom)}`;
+
+/** Préfixe des identifiants de monstres maison, déjà employé par `CombatTracker`
+ *  et `CampaignEncounters` pour distinguer un monstre maison d'une créature du bestiaire. */
+const PREFIXE_MAISON = 'custom-';
+/** Préfixe des entrées communautaires (`HomebrewEntry`). */
+const PREFIXE_COMMUNAUTAIRE = 'homebrew-';
+
+export type SourcesInvocation = {
+    creatures: Creature[];
+    monstresMaison: CustomCreature[];
+    armes: Weapon[];
+    armures: Armor[];
+    communautaire: HomebrewEntry[];
+};
+
+export type InvocationResolue =
+    | { type: 'creature'; creature: Creature | CustomCreature; lien: string }
+    | { type: 'item'; nom: string; lien: string };
+
+/**
+ * Entité désignée par une invocation. Ne crée jamais rien : si la référence ne correspond
+ * à rien d'existant, renvoie `undefined` et l'appelant n'affiche ni bouton ni lien.
+ */
+export const resoudreInvocation = (
+    invocation: CapabilitySummon,
+    sources: SourcesInvocation,
+): InvocationResolue | undefined => {
+    const { type, ref } = invocation;
+
+    if (type === 'creature') {
+        if (ref.startsWith(PREFIXE_MAISON)) {
+            const maison = sources.monstresMaison.find(m => `${PREFIXE_MAISON}${m.id}` === ref);
+            return maison ? { type: 'creature', creature: maison, lien: '/tools/monsters' } : undefined;
+        }
+        const officielle = sources.creatures.find(c => c.name === ref);
+        return officielle
+            ? { type: 'creature', creature: officielle, lien: `/bestiary/${officielle.id}` }
+            : undefined;
+    }
+
+    if (ref.startsWith(PREFIXE_COMMUNAUTAIRE)) {
+        const entree = sources.communautaire.find(e => `${PREFIXE_COMMUNAUTAIRE}${e.id}` === ref);
+        return entree ? { type: 'item', nom: entree.name, lien: `/homebrew/${entree.id}` } : undefined;
+    }
+
+    // Objet officiel : le compendium n'a pas de fiche d'objet, on ouvre la liste
+    // d'équipement filtrée — `Equipment.tsx` lit déjà `?q=` et `?tab=`.
+    const arme = sources.armes.find(a => a.name === ref);
+    const armure = arme ? undefined : sources.armures.find(a => a.name === ref);
+    const trouve = arme ?? armure;
+    if (!trouve) return undefined;
+    const onglet = arme ? 'weapons' : 'armors';
+    return {
+        type: 'item',
+        nom: trouve.name,
+        lien: `/equipment?q=${encodeURIComponent(trouve.name)}&tab=${onglet}`,
+    };
+};
+
+/**
+ * Capacités d'un combattant, quand il vient du bestiaire. `undefined` pour un ajout manuel
+ * ou un personnage joueur, dont les capacités passent par un tout autre chemin, et
+ * `undefined` aussi quand la créature référencée n'existe plus — le suivi de combat est
+ * persisté en `localStorage`, un monstre maison peut avoir été supprimé entre-temps.
+ */
+export const capacitesDuCombattant = (
+    combattant: Combatant,
+    creatures: Creature[],
+    monstresMaison: CustomCreature[],
+): CustomCreatureCapability[] | undefined => {
+    if (combattant.source !== 'bestiary' || !combattant.referenceId) return undefined;
+    const ref = combattant.referenceId;
+    const source = ref.startsWith(PREFIXE_MAISON)
+        ? monstresMaison.find(m => `${PREFIXE_MAISON}${m.id}` === ref)
+        : creatures.find(c => String(c.id) === ref);
+    const capacites = source?.capabilities;
+    return capacites && capacites.length > 0 ? capacites : undefined;
+};

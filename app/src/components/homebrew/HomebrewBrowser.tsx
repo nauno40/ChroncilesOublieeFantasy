@@ -4,6 +4,7 @@ import { Plus } from 'lucide-react';
 import { Loader, SearchBar } from '../common';
 import { useAuth } from '../../context/AuthContext';
 import { HomebrewService, HOMEBREW_CATEGORIES, categoryLabel, childrenOf, messageSuppression, type HomebrewEntry } from '../../services/homebrewService';
+import { duplicateEntry, resumeDuplication } from '../../services/homebrewChildren';
 import { HomebrewList } from './HomebrewList';
 
 type Tab = 'mine' | 'community';
@@ -76,7 +77,10 @@ export const HomebrewBrowser: React.FC<HomebrewBrowserProps> = ({ tab, onTabChan
     const handleDuplicate = async (e: HomebrewEntry) => {
         setDuplicatingId(e.id);
         try {
-            await HomebrewService.create({ category: e.category, name: `${e.name} (copie)`, description: e.description ?? '', visibility: 'private', data: e.data ?? {} });
+            // Les capacités d'une voie suivent la copie (`entries` les porte déjà).
+            const { copiees, echecs } = await duplicateEntry(e, childrenOf(e.id, entries ?? []));
+            const avertissement = resumeDuplication(copiees, echecs);
+            if (avertissement) alert(avertissement);
             onTabChange('mine');
             await reload();
         } finally { setDuplicatingId(null); }

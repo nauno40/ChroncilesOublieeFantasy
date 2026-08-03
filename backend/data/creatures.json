@@ -4414,11 +4414,7 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "La créature est passée maître dans l’art de se faufiler et de se mettre à couvert. Une fois par tour, au moment de son choix, le PNJ peut utiliser une action de mouvement supplémentaire pour se déplacer. Si un effet ou une créature le paralyse, le ralenti ou restreint ses mouvements, il a droit à un test d’INT ou de AGI au choix difficulté 10 pour s’en débarrasser une fois par tour. Il gagne +5 en DEF lorsqu’il lui reste moins de [NCx5] PV.\r\n",
-        "paths": "Voie du PNJ récurrent",
-        "states": [
-          "Paralysé",
-          "Ralenti"
-        ]
+        "paths": "Voie du PNJ récurrent"
       },
       {
         "target_id": "391",
@@ -5147,10 +5143,7 @@
         "is_limited": "1",
         "is_magical": "0",
         "description": "Si la créature attaque en même temps qu’un allié (elle peut volontairement retarder son Initiative), de dos ou par surprise, elle réalise une Attaque sournoise avec un bonus de +5 en attaque et +2d6 aux DM.\r\n",
-        "paths": "Voie de la meute",
-        "states": [
-          "Surpris"
-        ]
+        "paths": "Voie de la meute"
       }
     ],
     "familyId": "19"
@@ -6387,11 +6380,7 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "La créature est passée maître dans l’art de se faufiler et de se mettre à couvert. Une fois par tour, au moment de son choix, le PNJ peut utiliser une action de mouvement supplémentaire pour se déplacer. Si un effet ou une créature le paralyse, le ralenti ou restreint ses mouvements, il a droit à un test d’INT ou de AGI au choix difficulté 10 pour s’en débarrasser une fois par tour. Il gagne +5 en DEF lorsqu’il lui reste moins de [NCx5] PV.\r\n",
-        "paths": "Voie du PNJ récurrent",
-        "states": [
-          "Paralysé",
-          "Ralenti"
-        ]
+        "paths": "Voie du PNJ récurrent"
       },
       {
         "target_id": "391",
@@ -7774,10 +7763,7 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "L’Ensorceleur sait toujours légèrement en avance ce qui va arriver. Il gagne un bonus de +1 par Rang dans la Voie en Initiative et en DEF, ainsi qu’un bonus de +2 par Rang à tous les tests pour éviter d’être surpris.\r\n",
-        "paths": "Voie de la divination",
-        "states": [
-          "Surpris"
-        ]
+        "paths": "Voie de la divination"
       },
       {
         "target_id": "175",
@@ -7786,10 +7772,7 @@
         "is_limited": "1",
         "is_magical": "1",
         "description": "Pendant [5 + Mod. de CHA] tours, l’Ensorceleur détecte les créatures invisibles ou cachées à moins de 30 mètres et détecte si un sort de Clairvoyance affecte l’endroit. Aveuglé, ce sort lui permet de voir normalement.\r\n",
-        "paths": "Voie de la divination",
-        "states": [
-          "Aveuglé"
-        ]
+        "paths": "Voie de la divination"
       },
       {
         "target_id": "176",
@@ -8608,10 +8591,7 @@
         "is_limited": "1",
         "is_magical": "1",
         "description": "L’Ensorceleur peut déplacer dans les airs un objet inerte ou une cible volontaire (par exemple lui-même) dont le poids n’excède pas 50 kg par Rang, à une portée de 20 m et pendant [5+Mod. de CHA] tours. L’objet peut être déplacé de 10 m par tour au prix d'une action de mouvement. Il est possible de faire tomber un objet sur une cible surprise (DM 1d6 tous les 50 kg).\r\n",
-        "paths": "Voie de l'air",
-        "states": [
-          "Surpris"
-        ]
+        "paths": "Voie de l'air"
       },
       {
         "target_id": "172",
@@ -10282,10 +10262,7 @@
         "is_limited": "1",
         "is_magical": "1",
         "description": "Le Magicien prend la consistance d’un gaz. Il se déplace au ras du sol (s’il chute, il le fait au ralenti) à une vitesse de 10 m par tour. Il peut s’introduire par les plus petits interstices (comme sous une porte) mais ne peut utiliser aucune capacité sous cette forme. Il ne subit pas non plus de DM, à l’exception des sorts de zone occasionnant des DM (comme Boule de feu). Le sort a une durée de [1d4 + Mod. d’INT] tours.\r\n",
-        "paths": "Voie de la magie des arcanes",
-        "states": [
-          "Ralenti"
-        ]
+        "paths": "Voie de la magie des arcanes"
       },
       {
         "target_id": "293",
@@ -10698,11 +10675,7 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "La créature est passée maître dans l’art de se faufiler et de se mettre à couvert. Une fois par tour, au moment de son choix, le PNJ peut utiliser une action de mouvement supplémentaire pour se déplacer. Si un effet ou une créature le paralyse, le ralenti ou restreint ses mouvements, il a droit à un test d’INT ou de AGI au choix difficulté 10 pour s’en débarrasser une fois par tour. Il gagne +5 en DEF lorsqu’il lui reste moins de [NCx5] PV.\r\n",
-        "paths": "Voie du PNJ récurrent",
-        "states": [
-          "Paralysé",
-          "Ralenti"
-        ]
+        "paths": "Voie du PNJ récurrent"
       }
     ],
     "familyId": "46"
@@ -11215,10 +11188,7 @@
         "is_limited": "1",
         "is_magical": "0",
         "description": "Une attaque similaire à l’Attaque sournoise du Voleur qui doit être exécutée de dos ou par surprise. La créature obtient un bonus de +5 en attaque et ajoute [2d6 par rang] aux DM. La créature obtient aussi un bonus de +5 aux tests de discrétion.\r\n",
-        "paths": "Voie du tueur",
-        "states": [
-          "Surpris"
-        ]
+        "paths": "Voie du tueur"
       }
     ],
     "familyId": "46"
@@ -11263,10 +11233,7 @@
         "is_limited": "1",
         "is_magical": "0",
         "description": "Une attaque similaire à l’Attaque sournoise du Voleur qui doit être exécutée de dos ou par surprise. La créature obtient un bonus de +5 en attaque et ajoute [2d6 par rang] aux DM. La créature obtient aussi un bonus de +5 aux tests de discrétion.\r\n",
-        "paths": "Voie du tueur",
-        "states": [
-          "Surpris"
-        ]
+        "paths": "Voie du tueur"
       },
       {
         "target_id": "340",
@@ -11320,10 +11287,7 @@
         "is_limited": "1",
         "is_magical": "0",
         "description": "Une attaque similaire à l’Attaque sournoise du Voleur qui doit être exécutée de dos ou par surprise. La créature obtient un bonus de +5 en attaque et ajoute [2d6 par rang] aux DM. La créature obtient aussi un bonus de +5 aux tests de discrétion.\r\n",
-        "paths": "Voie du tueur",
-        "states": [
-          "Surpris"
-        ]
+        "paths": "Voie du tueur"
       },
       {
         "target_id": "340",
@@ -11341,10 +11305,7 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Au premier tour de combat, si la cible est Surprise, une Attaque mortelle réussie l’oblige à réussir un test de CON difficulté 15 ou tomber à 0 PV.\r\n",
-        "paths": "Voie du tueur",
-        "states": [
-          "Surpris"
-        ]
+        "paths": "Voie du tueur"
       }
     ],
     "familyId": "46"
@@ -11389,10 +11350,7 @@
         "is_limited": "1",
         "is_magical": "0",
         "description": "Une attaque similaire à l’Attaque sournoise du Voleur qui doit être exécutée de dos ou par surprise. La créature obtient un bonus de +5 en attaque et ajoute [2d6 par rang] aux DM. La créature obtient aussi un bonus de +5 aux tests de discrétion.\r\n",
-        "paths": "Voie du tueur",
-        "states": [
-          "Surpris"
-        ]
+        "paths": "Voie du tueur"
       },
       {
         "target_id": "340",
@@ -11410,10 +11368,7 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Au premier tour de combat, si la cible est Surprise, une Attaque mortelle réussie l’oblige à réussir un test de CON difficulté 15 ou tomber à 0 PV.\r\n",
-        "paths": "Voie du tueur",
-        "states": [
-          "Surpris"
-        ]
+        "paths": "Voie du tueur"
       },
       {
         "target_id": "390",
@@ -11422,11 +11377,7 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "La créature est passée maître dans l’art de se faufiler et de se mettre à couvert. Une fois par tour, au moment de son choix, le PNJ peut utiliser une action de mouvement supplémentaire pour se déplacer. Si un effet ou une créature le paralyse, le ralenti ou restreint ses mouvements, il a droit à un test d’INT ou de AGI au choix difficulté 10 pour s’en débarrasser une fois par tour. Il gagne +5 en DEF lorsqu’il lui reste moins de [NCx5] PV.\r\n",
-        "paths": "Voie du PNJ récurrent",
-        "states": [
-          "Paralysé",
-          "Ralenti"
-        ]
+        "paths": "Voie du PNJ récurrent"
       },
       {
         "target_id": "391",

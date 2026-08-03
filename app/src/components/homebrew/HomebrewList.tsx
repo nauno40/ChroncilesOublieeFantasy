@@ -105,6 +105,8 @@ const RowActions: React.FC<RowActionsProps> = ({ entry, mine, duplicating, onEdi
     mine ? (
         <div className="flex items-center justify-end gap-1">
             <button onClick={e => { e.stopPropagation(); onEdit(); }} title="Modifier" className="p-1.5 rounded-lg text-stone-500 hover:text-primary-400 hover:bg-white/5 transition-colors"><Edit size={14} /></button>
+            {/* Dupliquer son propre contenu : point de départ d'une variante. */}
+            <button onClick={e => { e.stopPropagation(); onDuplicate(); }} disabled={duplicating} title="Dupliquer" className="p-1.5 rounded-lg text-stone-500 hover:text-primary-400 hover:bg-white/5 transition-colors disabled:opacity-50"><Copy size={14} /></button>
             <button onClick={e => { e.stopPropagation(); onDelete(); }} title="Supprimer" className="p-1.5 rounded-lg text-stone-500 hover:text-red-400 hover:bg-white/5 transition-colors"><Trash2 size={14} /></button>
         </div>
     ) : (
@@ -251,6 +253,7 @@ export const HomebrewList: React.FC<HomebrewListProps> = ({ entries, category, m
                                 {mine ? (
                                     <div className="flex">
                                         <button onClick={e => { e.stopPropagation(); onEdit(entry); }} className="flex-1 py-1.5 text-[10px] font-bold uppercase text-stone-500 hover:text-primary-400 hover:bg-white/[0.03] flex items-center justify-center gap-1.5 transition-all"><Edit size={11} /> Modifier</button>
+                                        <button onClick={e => { e.stopPropagation(); onDuplicate(entry); }} disabled={duplicatingId === entry.id} className="flex-1 py-1.5 text-[10px] font-bold uppercase text-stone-500 hover:text-primary-400 hover:bg-white/[0.03] flex items-center justify-center gap-1.5 transition-all border-l border-white/5 disabled:opacity-50"><Copy size={11} /> {duplicatingId === entry.id ? 'Copie…' : 'Dupliquer'}</button>
                                         <button onClick={e => { e.stopPropagation(); onDelete(entry); }} className="flex-1 py-1.5 text-[10px] font-bold uppercase text-stone-500 hover:text-red-400 hover:bg-white/[0.03] flex items-center justify-center gap-1.5 transition-all border-l border-white/5"><Trash2 size={11} /> Supprimer</button>
                                     </div>
                                 ) : (
@@ -298,6 +301,7 @@ export const HomebrewList: React.FC<HomebrewListProps> = ({ entries, category, m
                             {mine ? (
                                 <div className="flex">
                                     <button onClick={e => { e.stopPropagation(); onEdit(entry); }} className="flex-1 py-2 text-[11px] font-bold uppercase text-stone-500 hover:text-primary-400 hover:bg-white/[0.03] flex items-center justify-center gap-1.5 transition-all"><Edit size={12} /> Modifier</button>
+                                    <button onClick={e => { e.stopPropagation(); onDuplicate(entry); }} disabled={duplicatingId === entry.id} className="flex-1 py-2 text-[11px] font-bold uppercase text-stone-500 hover:text-primary-400 hover:bg-white/[0.03] flex items-center justify-center gap-1.5 transition-all border-l border-white/5 disabled:opacity-50"><Copy size={12} /> {duplicatingId === entry.id ? 'Copie…' : 'Dupliquer'}</button>
                                     <button onClick={e => { e.stopPropagation(); onDelete(entry); }} className="flex-1 py-2 text-[11px] font-bold uppercase text-stone-500 hover:text-red-400 hover:bg-white/[0.03] flex items-center justify-center gap-1.5 transition-all border-l border-white/5"><Trash2 size={12} /> Supprimer</button>
                                 </div>
                             ) : (

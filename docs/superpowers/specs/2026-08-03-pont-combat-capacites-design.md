@@ -1,9 +1,9 @@
-# Capacités au suivi de combat — états déclarés et invocations
+# Capacités : états déclarés et invocations — compendium et suivi de combat
 
 > Premier volet du second temps du chantier 3. Le premier temps (création imbriquée
 > voie → capacités) est livré (PR #151, #152, #153). Ce volet construit le **pont** entre
-> les capacités et la table ; la déclaration côté communautaire viendra ensuite et se
-> branchera sur les mêmes clés.
+> les capacités et le reste du jeu : la lecture au compendium et l'action à la table. La
+> déclaration côté communautaire viendra ensuite et se branchera sur les mêmes clés.
 
 ## Problème
 
@@ -54,6 +54,10 @@ invocations ? ».
 
 - Deux clés facultatives sur une capacité de créature : `states` et `summons`.
 - Amorçage des déclarations d'états sur le bestiaire officiel (`backend/data/creatures.json`).
+- Affichage des états et invocations sur la **fiche de créature** (`CreatureDetail`), en
+  liens vers les entités désignées.
+- Lecture du paramètre `?q=` par la liste des états, à l'image de `Equipment.tsx` qui le
+  fait déjà — c'est ce qui donne une cible aux liens d'états.
 - Affichage des capacités d'un combattant issu du bestiaire dans le suivi de combat.
 - Application d'un état déclaré à un combattant choisi, en deux clics.
 - Ajout au combat d'une créature invoquée, en réutilisant le chemin d'ajout existant, et
@@ -119,6 +123,24 @@ Il n'est **pas** exécuté par l'application : son résultat est relu, corrigé,
 Le compte exact et les cas douteux sont présentés avant commit. Le script reste au dépôt,
 documenté comme outil de saisie unique, pour pouvoir être rejoué si le bestiaire s'enrichit.
 
+### Cibles de liens
+
+Le compendium n'a **ni fiche d'objet ni fiche d'état** : `/equipment` et `/states` sont des
+listes. Plutôt que d'ouvrir un chantier « fiches d'objets et d'états » étranger à celui-ci,
+on s'appuie sur le filtrage par URL — que `Equipment.tsx` implémente déjà (`?q=`, `?tab=`) :
+
+| Référence | Destination |
+|---|---|
+| Créature officielle | `/bestiary/:id` |
+| Monstre maison | `/tools/monsters` |
+| Objet officiel | `/equipment?q=<nom>&tab=<weapons\|armors>` |
+| Objet ou créature communautaire | `/homebrew/:id` |
+| État | `/states?q=<nom>` |
+
+Compromis assumé : pour un objet officiel et pour un état, on atterrit sur une **liste
+filtrée**, pas sur une fiche dédiée. Moins net, mais sans page nouvelle, et le motif existe
+déjà dans le dépôt.
+
 ### Fonctions pures
 
 Quatre fonctions dans `app/src/domain/`, testables sans DOM :
@@ -152,20 +174,35 @@ export const etatsDeclares = (
  *  le bouton. */
 export const resoudreInvocation = (
     invocation: CapabilitySummon,
-    creatures: Creature[],
-    monstresMaison: CustomCreature[],
-    objets: Equipment[],
-    communautaire: HomebrewEntry[],
-): { type: 'creature'; creature: Creature | CustomCreature }
+    sources: {
+        creatures: Creature[];
+        monstresMaison: CustomCreature[];
+        objets: Equipment[];
+        communautaire: HomebrewEntry[];
+    },
+): { type: 'creature'; creature: Creature | CustomCreature; lien: string }
  | { type: 'item'; nom: string; lien: string }
  | undefined => { /* … */ };
+
+/** Chemin interne vers un état, pour la fiche comme pour le suivi de combat. */
+export const lienEtat = (nom: string): string => { /* … */ };
 ```
 
 `capacitesDuCombattant` s'appuie sur `combattant.source === 'bestiary'` et
 `combattant.referenceId`, en reconnaissant le préfixe `custom-` déjà employé par
 `CombatTracker.addFromBestiary`.
 
-### Interface
+### Interface — fiche de créature
+
+Chaque capacité déjà rendue par `CreatureDetail` gagne, sous son texte :
+
+- une **pastille par état déclaré**, menant à la liste des états filtrée sur lui ;
+- un **lien par invocation**, vers la créature ou l'objet désigné.
+
+Rien n'est rendu quand la capacité ne déclare rien : le contrat de dégradation propre
+s'applique, une section sans donnée n'apparaît pas.
+
+### Interface — suivi de combat
 
 La ligne d'un combattant issu du bestiaire gagne un repli **« Capacités (n) »**, absent
 quand la fonction ne renvoie rien. Déplié, il liste les capacités : nom, texte, et selon la
@@ -210,11 +247,15 @@ rendue :
   qui ne correspond à rien est écarté.
 - **Unitaires** sur le script d'amorçage : les formes féminines et plurielles sont
   reconnues, un mot qui contient un nom d'état sans l'être ne l'est pas.
+- **Rendu (jsdom)** sur la fiche de créature : une capacité déclarant un état et une
+  invocation affiche les deux, chacun avec le bon chemin ; une capacité qui ne déclare rien
+  n'affiche ni pastille ni lien.
 - **Rendu (jsdom)** : un combattant du bestiaire affiche ses capacités ; un clic sur une
   pastille pose l'état sur la cible choisie et non sur une autre ; un clic sur une
   invocation ajoute le bon nombre de combattants ; un combattant manuel n'affiche pas le
   repli.
-- **Navigateur** : un troll ajouté au combat, sa capacité « Fauchage », « Renversé » posé
+- **Navigateur** : sur la fiche d'une créature, une pastille d'état mène à la liste des
+  états filtrée, et un lien d'invocation à sa cible. Puis un troll ajouté au combat, sa capacité « Fauchage », « Renversé » posé
   sur un personnage joueur. Pour l'invocation — dont la donnée officielle n'est pas amorcée,
   cf. « Hors périmètre » — un **monstre maison** portant une capacité à `summons` est créé
   pour la vérification, puis son invocation est ajoutée au combat. Aucune erreur console,
@@ -232,6 +273,9 @@ rendue :
   rapprocher deux états distincts ne l'est pas. Les 8 noms connus ne partagent aucun
   préfixe commun, ce qui borne le risque, et le script d'amorçage signale toute déclaration
   résolue vers un état différent de celui écrit.
+- **Atterrissage sur une liste filtrée** plutôt que sur une fiche. Si l'usage montre que
+  c'est frustrant, la réponse est une fiche d'objet et une fiche d'état — un chantier
+  propre, à mener pour lui-même et non en marge de celui-ci.
 - **Référence d'invocation par nom.** Renommer une créature officielle casserait le lien.
   Accepté : les noms du bestiaire sont stables, et l'alternative — l'identifiant — est
   déjà cassée par la régénération des fixtures.

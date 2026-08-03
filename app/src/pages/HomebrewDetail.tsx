@@ -7,6 +7,7 @@ import { hasValue } from '../services/homebrewValidation';
 import { Loader } from '../components/common';
 import { RaceSheet, ProfileSheet, VoieSheet, CapaciteSheet, OwnerBar } from '../components/sheets';
 import { homebrewToRaceVM, homebrewToProfileVM, homebrewToVoieVM, homebrewToCapaciteVM } from '../components/sheets/adapters/fromHomebrew';
+import { duplicateEntry, resumeDuplication } from '../services/homebrewChildren';
 import { useAuth } from '../context/AuthContext';
 
 // Champs « compacts » (colonne latérale) vs « longs » (colonne principale).
@@ -64,7 +65,11 @@ export const HomebrewDetail: React.FC = () => {
     const handleDuplicate = async () => {
         setDuplicating(true);
         try {
-            await HomebrewService.create({ category: entry.category, name: `${entry.name} (copie)`, description: entry.description ?? '', visibility: 'private', data: entry.data ?? {} });
+            // `children` porte les capacités d'une voie : la copie les emporte, sans quoi
+            // elle serait une coquille vide.
+            const { copiees, echecs } = await duplicateEntry(entry, children);
+            const avertissement = resumeDuplication(copiees, echecs);
+            if (avertissement) alert(avertissement);
             navigate(categoryPath(entry.category));
         } finally {
             setDuplicating(false);

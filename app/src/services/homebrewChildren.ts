@@ -1,4 +1,4 @@
-import { HomebrewService, type HomebrewVisibility } from './homebrewService';
+import { HomebrewService, parRangCroissant, type HomebrewEntry, type HomebrewVisibility } from './homebrewService';
 import type { HomebrewChild } from './homebrewSchemas';
 
 /** Une capacité en cours d'édition dans le formulaire de voie. `id` est absent tant que
@@ -184,4 +184,52 @@ export const saveChildren = async (
     }
 
     return { saved, failed, drafts: resultDrafts, confirmed: resteEnBase };
+};
+
+/**
+ * Duplique une entrée — et, pour une voie, ses capacités.
+ *
+ * Sans ce report des enfants, dupliquer une voie produisait une coquille vide là où
+ * l'original en affiche cinq : le bouton semblait avoir fonctionné, et l'auteur ne
+ * découvrait le vide qu'en ouvrant sa copie.
+ *
+ * La copie est toujours privée, comme avant : dupliquer le contenu d'autrui ne le
+ * republie pas au nom du copieur. Les capacités suivent cette visibilité, le serveur
+ * la leur imposant de toute façon.
+ *
+ * Les enfants passent par `saveChildren`, qui sait déjà rendre compte d'un échec
+ * partiel — l'API n'ayant pas de transaction, la copie de la voie peut réussir alors
+ * qu'une capacité échoue. L'appelant reçoit les compteurs pour le dire honnêtement
+ * plutôt que d'annoncer un succès entier.
+ */
+export const duplicateEntry = async (
+    entry: HomebrewEntry,
+    children: HomebrewEntry[] = [],
+): Promise<{ id: number; copiees: number; echecs: number }> => {
+    const copie = await HomebrewService.create({
+        category: entry.category,
+        name: `${entry.name} (copie)`,
+        description: entry.description ?? '',
+        visibility: 'private',
+        data: entry.data ?? {},
+    });
+
+    if (children.length === 0) return { id: copie.id, copiees: 0, echecs: 0 };
+
+    // Triées par rang : la copie doit présenter la voie dans le même ordre que
+    // l'original, y compris si l'API les a renvoyées dans un autre.
+    const aCopier: ChildDraft[] = [...children]
+        .sort(parRangCroissant)
+        .map(c => ({ category: c.category, name: c.name, data: c.data ?? {} }));
+
+    const res = await saveChildren(copie.id, 'private', aCopier, []);
+    return { id: copie.id, copiees: res.saved, echecs: res.failed.length };
+};
+
+/** Message honnête après une duplication : annonce ce qui a suivi, et ce qui manque. */
+export const resumeDuplication = (copiees: number, echecs: number): string | null => {
+    if (echecs === 0) return null;
+    return copiees === 0
+        ? `La copie est créée, mais aucune de ses ${echecs} capacité(s) n'a pu être copiée. Ouvrez-la pour les ajouter.`
+        : `La copie est créée avec ${copiees} capacité(s) sur ${copiees + echecs} : ${echecs} n'a/n'ont pas pu être copiée(s).`;
 };

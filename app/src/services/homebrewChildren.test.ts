@@ -1,8 +1,11 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { saveChildren, echecsCapacitesEnErreurs, resumeEchecsCapacites } from './homebrewChildren';
-import { HomebrewService } from './homebrewService';
+import { saveChildren, echecsCapacitesEnErreurs, resumeEchecsCapacites, duplicateEntry, resumeDuplication } from './homebrewChildren';
+import { HomebrewService, type HomebrewEntry } from './homebrewService';
 
-vi.mock('./homebrewService', () => ({
+// Seuls les appels réseau sont doublés : `parRangCroissant` est une fonction pure,
+// la doubler ferait passer le test sans rien prouver du tri réel.
+vi.mock('./homebrewService', async importOriginal => ({
+    ...(await importOriginal<typeof import('./homebrewService')>()),
     HomebrewService: { create: vi.fn(), update: vi.fn(), remove: vi.fn() },
 }));
 
@@ -194,5 +197,60 @@ describe('resumeEchecsCapacites', () => {
         );
         expect(phrase).toContain('enregistrée(s)');
         expect(phrase).toContain('supprimée(s)');
+    });
+});
+
+describe('duplicateEntry', () => {
+    const voie = {
+        id: 7, category: 'voie', name: 'Voie du feu', description: 'desc',
+        visibility: 'public', data: { category: 'profil', maxRank: 5 },
+        authorId: 1, authorPseudo: 'moi', createdAt: '', updatedAt: '',
+    } as unknown as HomebrewEntry;
+
+    const capacite = (id: number, name: string, rank: number) => ({
+        id, category: 'capacite', name, description: null, visibility: 'public',
+        data: { rank }, authorId: 1, authorPseudo: 'moi', createdAt: '', updatedAt: '',
+    }) as unknown as HomebrewEntry;
+
+    it('copie les capacités de la voie, dans l’ordre des rangs', async () => {
+        (HomebrewService.create as ReturnType<typeof vi.fn>)
+            .mockResolvedValueOnce({ id: 70 }) // la copie de la voie
+            .mockResolvedValue({ id: 71 });    // ses capacités
+
+        // Fournies dans le désordre : la copie doit rétablir l'ordre des rangs.
+        const res = await duplicateEntry(voie, [capacite(9, 'Rang 2', 2), capacite(8, 'Rang 1', 1)]);
+
+        expect(res).toEqual({ id: 70, copiees: 2, echecs: 0 });
+        const appels = (HomebrewService.create as ReturnType<typeof vi.fn>).mock.calls;
+        expect(appels[0][0]).toMatchObject({ name: 'Voie du feu (copie)', visibility: 'private' });
+        expect(appels[1][0]).toMatchObject({ name: 'Rang 1', parent: '/api/homebrew_entries/70', visibility: 'private' });
+        expect(appels[2][0]).toMatchObject({ name: 'Rang 2', parent: '/api/homebrew_entries/70' });
+    });
+
+    it('ne recopie jamais l’identifiant d’origine : ce sont de nouvelles entrées', async () => {
+        (HomebrewService.create as ReturnType<typeof vi.fn>).mockResolvedValue({ id: 70 });
+        await duplicateEntry(voie, [capacite(8, 'Rang 1', 1)]);
+        for (const [payload] of (HomebrewService.create as ReturnType<typeof vi.fn>).mock.calls) {
+            expect(payload).not.toHaveProperty('id');
+        }
+    });
+
+    it('rend compte d’une capacité qui n’a pas pu être copiée', async () => {
+        (HomebrewService.create as ReturnType<typeof vi.fn>)
+            .mockResolvedValueOnce({ id: 70 })
+            .mockResolvedValueOnce({ id: 71 })
+            .mockRejectedValueOnce(new Error('boum'));
+
+        const res = await duplicateEntry(voie, [capacite(8, 'A', 1), capacite(9, 'B', 2)]);
+        expect(res).toEqual({ id: 70, copiees: 1, echecs: 1 });
+        expect(resumeDuplication(res.copiees, res.echecs)).toContain('1 capacité(s) sur 2');
+    });
+
+    it('une entrée sans enfant se duplique comme avant', async () => {
+        (HomebrewService.create as ReturnType<typeof vi.fn>).mockResolvedValue({ id: 70 });
+        const res = await duplicateEntry(voie);
+        expect(res).toEqual({ id: 70, copiees: 0, echecs: 0 });
+        expect(HomebrewService.create).toHaveBeenCalledTimes(1);
+        expect(resumeDuplication(0, 0)).toBeNull();
     });
 });

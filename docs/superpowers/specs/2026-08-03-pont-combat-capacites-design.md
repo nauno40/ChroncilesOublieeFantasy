@@ -34,6 +34,17 @@ invocations ? ».
   `#[ORM\GeneratedValue]` et `AppFixtures::loadCreatures()` ne reprend pas l'`id` du JSON :
   l'identifiant d'une créature change à chaque rechargement des fixtures. Une référence par
   identifiant serait cassée. Les monstres maison, eux, portent un identifiant stable.
+- **Un état déclaré est résolu vers l'état canonique du compendium.** « Étourdie »,
+  « etourdi » et « Étourdi » désignent le même état : la déclaration est normalisée
+  (casse, accents, accords) puis rapprochée des 8 noms connus, et les doublons d'une même
+  capacité sont fusionnés. Sans cela, la même mécanique existerait sous plusieurs
+  orthographes et le suivi de combat poserait deux pastilles pour un seul état.
+- **Une invocation désigne toujours une entité qui existe déjà.** Jamais de formulaire de
+  création imbriqué : on choisit une créature du bestiaire, un monstre maison, ou un objet
+  existant. C'est ce qui empêche l'enchaînement sans fin de formulaires — créer une
+  créature qui invoque une créature qui invoque un objet… Le formulaire de la tranche
+  suivante offrira un sélecteur d'entités existantes, et un lien pour aller en créer une
+  séparément si elle manque.
 - **Rien n'est automatique.** Une déclaration ne fait qu'offrir un bouton ; c'est le MJ qui
   applique. Le jeu reste à la table, conformément à la vision du produit.
 
@@ -45,7 +56,9 @@ invocations ? ».
 - Amorçage des déclarations d'états sur le bestiaire officiel (`backend/data/creatures.json`).
 - Affichage des capacités d'un combattant issu du bestiaire dans le suivi de combat.
 - Application d'un état déclaré à un combattant choisi, en deux clics.
-- Ajout au combat d'une créature invoquée, en réutilisant le chemin d'ajout existant.
+- Ajout au combat d'une créature invoquée, en réutilisant le chemin d'ajout existant, et
+  lien vers la fiche d'un objet invoqué.
+- Résolution d'un état déclaré vers son nom canonique, doublons d'orthographe fusionnés.
 
 **Hors périmètre**
 
@@ -70,17 +83,26 @@ JSON libre dans les deux cas) accepte deux clés facultatives :
   "label": "Fauchage",
   "description": "…la victime doit réussir un test de FOR ou de AGI … ou être Renversée.",
   "states": ["Renversé"],
-  "summons": [{ "creature": "Loup", "quantity": 1 }]
+  "summons": [
+    { "type": "creature", "ref": "Loup", "quantity": 2 },
+    { "type": "item", "ref": "Épée longue" }
+  ]
 }
 ```
 
 - `states` : tableau de **noms d'états**, tels que portés par `HarmfulState.name`. Le nom
   plutôt que l'identifiant, pour la même raison que les créatures — et parce que le suivi de
-  combat stocke déjà les états d'un combattant sous forme de noms.
-- `summons` : tableau d'objets `{ creature, quantity }`. `creature` vaut le **nom** d'une
-  créature officielle, ou `custom-<id>` pour un monstre maison — la convention de préfixe
-  déjà utilisée par `CombatTracker` pour `referenceId`. `quantity` est un entier ≥ 1 ;
-  absent, il vaut 1.
+  combat stocke déjà les états d'un combattant sous forme de noms. Une valeur mal
+  orthographiée ou accordée est résolue vers l'état canonique (cf. `resoudreEtat`).
+- `summons` : tableau d'objets `{ type, ref, quantity }`.
+  - `type` vaut `'creature'` ou `'item'`. Une créature est **actionnable** au suivi de
+    combat ; un objet ne l'est pas — il n'est pas un combattant — et s'affiche comme un
+    lien vers sa fiche.
+  - `ref` désigne une entité **existante** : le **nom** pour le contenu officiel
+    (`Creature` comme `Equipment` utilisent `#[ORM\GeneratedValue]`, leurs identifiants
+    changent à chaque rechargement des fixtures), `custom-<id>` pour un monstre maison,
+    `homebrew-<id>` pour une entrée communautaire.
+  - `quantity` est un entier ≥ 1 ; absent, il vaut 1. Ignoré pour un objet.
 
 Aucun changement de schéma : `capabilities` est déjà du JSON libre côté serveur. Aucune
 migration du format persisté du suivi de combat : les états d'un combattant sont déjà un
@@ -99,7 +121,7 @@ documenté comme outil de saisie unique, pour pouvoir être rejoué si le bestia
 
 ### Fonctions pures
 
-Trois fonctions dans `app/src/domain/`, testables sans DOM :
+Quatre fonctions dans `app/src/domain/`, testables sans DOM :
 
 ```ts
 /** Capacités d'un combattant, quand il vient du bestiaire. `undefined` sinon
@@ -110,20 +132,33 @@ export const capacitesDuCombattant = (
     monstresMaison: CustomCreature[],
 ): CreatureCapability[] | undefined => { /* … */ };
 
-/** États déclarés par une capacité, filtrés sur ceux qui existent réellement :
+/** Nom canonique de l'état désigné, quelle qu'en soit la casse, les accents ou
+ *  l'accord (« Étourdie » → « Étourdi »). `undefined` si aucun état ne correspond :
  *  une déclaration périmée ne doit pas produire une pastille inapplicable. */
+export const resoudreEtat = (
+    declare: string,
+    etatsConnus: HarmfulState[],
+): string | undefined => { /* … */ };
+
+/** États d'une capacité, résolus vers leur nom canonique, sans doublon et dans
+ *  l'ordre de déclaration. Deux orthographes du même état n'en font qu'un. */
 export const etatsDeclares = (
     capacite: CreatureCapability,
     etatsConnus: HarmfulState[],
 ): string[] => { /* … */ };
 
-/** Créature désignée par une référence d'invocation : nom pour l'officiel,
- *  `custom-<id>` pour un monstre maison. `undefined` si introuvable. */
+/** Entité désignée par une invocation. Ne crée jamais rien : si la référence ne
+ *  correspond à rien d'existant, renvoie `undefined` et l'appelant n'affiche pas
+ *  le bouton. */
 export const resoudreInvocation = (
-    reference: string,
+    invocation: CapabilitySummon,
     creatures: Creature[],
     monstresMaison: CustomCreature[],
-): Creature | CustomCreature | undefined => { /* … */ };
+    objets: Equipment[],
+    communautaire: HomebrewEntry[],
+): { type: 'creature'; creature: Creature | CustomCreature }
+ | { type: 'item'; nom: string; lien: string }
+ | undefined => { /* … */ };
 ```
 
 `capacitesDuCombattant` s'appuie sur `combattant.source === 'bestiary'` et
@@ -139,9 +174,11 @@ déclaration :
 - **une pastille par état déclaré.** Un clic ouvre la liste des combattants ; choisir une
   cible pose l'état sur elle. Deux clics, pas de mode de ciblage global — rien qui puisse
   rester coincé si le MJ change d'avis.
-- **un bouton par invocation.** Un clic ajoute la ou les créatures aux combattants, par le
-  même chemin que l'ajout depuis le bestiaire : initiative, PV, DEF, départage, et
-  numérotation quand la quantité dépasse 1.
+- **un bouton par invocation de créature.** Un clic ajoute la ou les créatures aux
+  combattants, par le même chemin que l'ajout depuis le bestiaire : initiative, PV, DEF,
+  départage, et numérotation quand la quantité dépasse 1.
+- **un lien par invocation d'objet.** Un objet n'est pas un combattant : il mène à sa
+  fiche, rien de plus.
 
 L'ajout manuel d'un état par liste déroulante reste inchangé : le nouveau chemin est un
 raccourci, pas un remplacement.
@@ -156,16 +193,21 @@ rendue :
 | Combattant ajouté à la main, ou personnage joueur | Pas de repli « Capacités » |
 | Créature référencée supprimée depuis l'ajout (monstre maison effacé) | Pas de repli, pas d'erreur |
 | Capacité sans `states` ni `summons` | Affichée, sans pastille ni bouton |
-| État déclaré absent du compendium | Pastille masquée |
+| État déclaré absent du compendium, même après résolution | Pastille masquée |
+| Même état déclaré deux fois, sous deux orthographes | Une seule pastille |
 | Liste des états indisponible (appel en échec) | Capacités affichées, aucune pastille |
 | Invocation dont la créature est introuvable | Bouton absent |
 
 ## Tests
 
-- **Unitaires** sur les trois fonctions pures : combattant manuel et personnage joueur
+- **Unitaires** sur les quatre fonctions pures : combattant manuel et personnage joueur
   (aucune capacité) ; monstre maison via le préfixe `custom-` ; référence introuvable ;
-  état déclaré inconnu du compendium ; invocation résolue par nom, par préfixe, et en échec ;
-  quantité absente valant 1.
+  état déclaré inconnu du compendium ; invocation de créature résolue par nom, par préfixe
+  et en échec ; invocation d'objet officiel et communautaire ; quantité absente valant 1.
+- **Unitaires sur la résolution des états**, le point le plus piégeux : « Étourdie »,
+  « etourdi » et « ÉTOURDI » donnent tous « Étourdi » ; « Surprise » donne « Surpris » ;
+  une capacité déclarant « Renversé » et « Renversée » ne produit qu'un seul état ; un nom
+  qui ne correspond à rien est écarté.
 - **Unitaires** sur le script d'amorçage : les formes féminines et plurielles sont
   reconnues, un mot qui contient un nom d'état sans l'être ne l'est pas.
 - **Rendu (jsdom)** : un combattant du bestiaire affiche ses capacités ; un clic sur une
@@ -186,6 +228,10 @@ rendue :
 - **Le repli alourdit une ligne de combattant**, alors que le suivi de combat sert sous
   pression. Mitigation : replié par défaut, et le compte dans le libellé permet d'ignorer
   les créatures sans capacité intéressante.
+- **Résolution trop permissive.** Rapprocher « Ralentissement » de « Ralenti » est voulu ;
+  rapprocher deux états distincts ne l'est pas. Les 8 noms connus ne partagent aucun
+  préfixe commun, ce qui borne le risque, et le script d'amorçage signale toute déclaration
+  résolue vers un état différent de celui écrit.
 - **Référence d'invocation par nom.** Renommer une créature officielle casserait le lien.
   Accepté : les noms du bestiaire sont stables, et l'alternative — l'identifiant — est
   déjà cassée par la régénération des fixtures.

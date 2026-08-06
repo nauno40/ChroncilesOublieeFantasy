@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Sword, RefreshCw, Trash2, Shield } from 'lucide-react';
 import type { Combatant } from '../types/campaign';
 import type { TrackerState } from '../domain/combatTracker';
@@ -6,7 +6,9 @@ import { sortByInitiative, nextTurn, removeById, applyHp } from '../domain/comba
 import { DataService } from '../services/dataService';
 import { ApiService } from '../services/api';
 import { getMonsters } from '../services/monsterService';
-import type { Creature, CustomCreature, HarmfulState } from '../types/normalized';
+import type { Armor, Creature, CustomCreature, HarmfulState, Weapon } from '../types/normalized';
+import { CombatantCapabilities } from '../components/creature/CombatantCapabilities';
+import { capacitesDuCombattant, type SourcesInvocation } from '../domain/capabilityRefs';
 import type { Character } from '../types/character';
 
 /** Préfixe distinguant un monstre « maison » d'une créature SRD dans le sélecteur d'import. */
@@ -58,6 +60,10 @@ export const CombatTracker: React.FC = () => {
     const [characterId, setCharacterId] = useState('');
 
     const [harmfulStates, setHarmfulStates] = useState<HarmfulState[]>([]);
+    const [armes, setArmes] = useState<Weapon[]>([]);
+    const [armures, setArmures] = useState<Armor[]>([]);
+    // Pose d'état en cours : la capacité a désigné l'état, le MJ choisit encore la cible.
+    const [poseEnCours, setPoseEnCours] = useState<string | null>(null);
 
     useEffect(() => {
         DataService.getCreatures().then(setCreatures).catch(() => setCreatures([]));
@@ -67,7 +73,42 @@ export const CombatTracker: React.FC = () => {
 
     useEffect(() => {
         DataService.getStates().then(setHarmfulStates).catch(() => setHarmfulStates([]));
+        // Un échec de chargement prive des liens d'invocation, jamais des capacités.
+        DataService.getWeapons().then(setArmes).catch(() => setArmes([]));
+        DataService.getArmors().then(setArmures).catch(() => setArmures([]));
     }, []);
+
+    const sources: SourcesInvocation = useMemo(
+        () => ({ creatures, monstresMaison: customMonsters, armes, armures, communautaire: [] }),
+        [creatures, customMonsters, armes, armures],
+    );
+
+    /** Ajoute une créature invoquée aux combattants, par le même chemin que l'ajout depuis
+     *  le bestiaire, pour que son initiative et son départage suivent les mêmes règles. */
+    const ajouterInvocation = (
+        creature: Creature | CustomCreature,
+        quantite: number,
+        refOrigine: string,
+    ) => {
+        const nb = Math.max(1, quantite);
+        const ajouts: Combatant[] = Array.from({ length: nb }, (_, i) => ({
+            id: crypto.randomUUID(),
+            name: nb > 1 ? `${creature.name} ${i + 1}` : creature.name,
+            type: 'monster' as const,
+            initiative: creature.init,
+            hp: { current: creature.hp, max: creature.hp },
+            def: creature.def,
+            level: creature.nc ?? 0,
+            per: creature.stats?.PER ?? 0,
+            tiebreak: rollTiebreak(),
+            states: [],
+            source: 'bestiary' as const,
+            // La référence d'origine dit déjà de quel espace vient la créature : un monstre
+            // maison porte le préfixe, une créature officielle est nommée.
+            referenceId: refOrigine.startsWith(CUSTOM_PREFIX) ? refOrigine : String(creature.id),
+        }));
+        setState(s => ({ ...s, combatants: [...s.combatants, ...ajouts] }));
+    };
 
     useEffect(() => {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
@@ -278,6 +319,30 @@ export const CombatTracker: React.FC = () => {
 
             {/* Liste */}
             <div className="space-y-3">
+                {poseEnCours && (
+                    <div className="mb-3 p-3 rounded-xl bg-purple-950/30 border border-purple-500/30">
+                        <div className="text-xs text-purple-200 mb-2">
+                            Appliquer « {poseEnCours} » à quel combattant ?
+                        </div>
+                        <div className="flex flex-wrap gap-2">
+                            {state.combatants.map(cible => (
+                                <button
+                                    key={cible.id}
+                                    type="button"
+                                    onClick={() => { addState(cible.id, poseEnCours); setPoseEnCours(null); }}
+                                    className="text-[11px] px-2 py-1 rounded bg-black/40 border border-white/10 text-stone-200 hover:border-purple-400/50"
+                                >
+                                    Sur : {cible.name}
+                                </button>
+                            ))}
+                            <button type="button" onClick={() => setPoseEnCours(null)}
+                                className="text-[11px] px-2 py-1 rounded text-stone-500 hover:text-white">
+                                Annuler
+                            </button>
+                        </div>
+                    </div>
+                )}
+
                 {ordered.map(c => (
                     <div key={c.id}
                         className={`relative flex flex-wrap items-center gap-3 p-4 rounded-xl border transition-all duration-300 backdrop-blur-md ${
@@ -315,6 +380,20 @@ export const CombatTracker: React.FC = () => {
                                     {harmfulStates.map(hs => <option key={hs.id} value={hs.name}>{hs.name}</option>)}
                                 </select>
                             </div>
+
+                            {(() => {
+                                const capacites = capacitesDuCombattant(c, creatures, customMonsters);
+                                if (!capacites) return null;
+                                return (
+                                    <CombatantCapabilities
+                                        capacites={capacites}
+                                        etatsConnus={harmfulStates}
+                                        sources={sources}
+                                        onPoserEtat={setPoseEnCours}
+                                        onInvoquer={ajouterInvocation}
+                                    />
+                                );
+                            })()}
                         </div>
 
                         {/* PV : ±1 rapides + saisie libre dégâts/soins */}

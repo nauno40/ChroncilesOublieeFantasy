@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import type { HarmfulState } from '../types/normalized';
 import { PageContainer, PageHeader, Loader } from '../components/common';
 import { useSearch } from '../hooks';
@@ -7,6 +8,7 @@ import { DataService } from '../services/dataService';
 export const States: React.FC = () => {
     const [states, setStates] = useState<HarmfulState[]>([]);
     const [loading, setLoading] = useState(true);
+    const [searchParams] = useSearchParams();
 
     useEffect(() => {
         DataService.getStates()
@@ -17,7 +19,8 @@ export const States: React.FC = () => {
 
     const { searchTerm, setSearchTerm, filteredItems } = useSearch(
         states,
-        (state, term) => state.name.toLowerCase().includes(term.toLowerCase())
+        (state, term) => state.name.toLowerCase().includes(term.toLowerCase()),
+        searchParams.get('q') ?? ''
     );
 
     if (loading) return <PageContainer><Loader /></PageContainer>;

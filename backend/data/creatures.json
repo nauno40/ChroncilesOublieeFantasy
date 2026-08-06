@@ -46,7 +46,10 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Sur 15 à 20 au test d’attaque, si l’attaque est réussie, la victime doit réussir au choix un test de FOR ou de AGI difficulté [10+Mod. de FOR de la créature] ou être Renversée. La créature retranche 2 à tous les DM subis (RD 2) avec des armes (contact ou distance). Les sorts font des DM normaux.\r\n",
-        "paths": "Voie du colosse"
+        "paths": "Voie du colosse",
+        "states": [
+          "Renversé"
+        ]
       }
     ],
     "familyId": null
@@ -287,7 +290,11 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Au premier tour de combat, si l’environnement permet à la créature de se dissimuler, la cible doit faire un test de PER difficulté [15 + Mod. de AGI] ou être Surprise. Si elle attaque avec succès une cible surprise, la créature inflige +1d6 aux DM et toute créature dont la FOR est inférieure à la sienne est Renversée. La créature obtient un bonus de +5 à tous les tests de discrétion et en Init.\r\n",
-        "paths": "Voie du prédateur"
+        "paths": "Voie du prédateur",
+        "states": [
+          "Surpris",
+          "Renversé"
+        ]
       }
     ],
     "familyId": null
@@ -386,7 +393,10 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Sur un résultat de 15-20 au d20 en attaque, la créature agrippe sa proie et ne la lâche plus. Elle obtient un bonus de +5 en attaque et +1d6 aux DM contre la cible qu’elle agrippe et celle-ci est Immobilisée si elle est de taille inférieure. La victime peut essayer de se libérer au prix d’une action de mouvement en réussissant un test de FOR opposé.\r\n",
-        "paths": "Voie des créatures volantes"
+        "paths": "Voie des créatures volantes",
+        "states": [
+          "Immobilisé"
+        ]
       }
     ],
     "familyId": "2"
@@ -440,7 +450,10 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Sur un résultat de 15-20 au d20 en attaque, la créature agrippe sa proie et ne la lâche plus. Elle obtient un bonus de +5 en attaque et +1d6 aux DM contre la cible qu’elle agrippe et celle-ci est Immobilisée si elle est de taille inférieure. La victime peut essayer de se libérer au prix d’une action de mouvement en réussissant un test de FOR opposé.\r\n",
-        "paths": "Voie des créatures volantes"
+        "paths": "Voie des créatures volantes",
+        "states": [
+          "Immobilisé"
+        ]
       },
       {
         "target_id": "407",
@@ -697,7 +710,11 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Au premier tour de combat, si l’environnement permet à la créature de se dissimuler, la cible doit faire un test de PER difficulté [15 + Mod. de AGI] ou être Surprise. Si elle attaque avec succès une cible surprise, la créature inflige +1d6 aux DM et toute créature dont la FOR est inférieure à la sienne est Renversée. La créature obtient un bonus de +5 à tous les tests de discrétion et en Init.\r\n",
-        "paths": "Voie du prédateur"
+        "paths": "Voie du prédateur",
+        "states": [
+          "Surpris",
+          "Renversé"
+        ]
       },
       {
         "target_id": "388",
@@ -706,7 +723,11 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Lorsque la créature réussit une attaque avec un résultat de 15-20 au d20, elle saisit sa proie entre ses crocs ou ses griffes et lui inflige immédiatement une attaque gratuite supplémentaire. Si la FOR de la cible est inférieure ou égale au prédateur, elle est de plus Renversée et Immobilisée. Pour se libérer, la victime doit réussir un test de FOR opposé lors de son tour et cela lui demande une action de mouvement (et une autre pour se relever si elle a réussi).\r\n",
-        "paths": "Voie du prédateur"
+        "paths": "Voie du prédateur",
+        "states": [
+          "Renversé",
+          "Immobilisé"
+        ]
       }
     ],
     "familyId": null
@@ -751,7 +772,11 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Au premier tour de combat, si l’environnement permet à la créature de se dissimuler, la cible doit faire un test de PER difficulté [15 + Mod. de AGI] ou être Surprise. Si elle attaque avec succès une cible surprise, la créature inflige +1d6 aux DM et toute créature dont la FOR est inférieure à la sienne est Renversée. La créature obtient un bonus de +5 à tous les tests de discrétion et en Init.\r\n",
-        "paths": "Voie du prédateur"
+        "paths": "Voie du prédateur",
+        "states": [
+          "Surpris",
+          "Renversé"
+        ]
       },
       {
         "target_id": "388",
@@ -760,7 +785,11 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Lorsque la créature réussit une attaque avec un résultat de 15-20 au d20, elle saisit sa proie entre ses crocs ou ses griffes et lui inflige immédiatement une attaque gratuite supplémentaire. Si la FOR de la cible est inférieure ou égale au prédateur, elle est de plus Renversée et Immobilisée. Pour se libérer, la victime doit réussir un test de FOR opposé lors de son tour et cela lui demande une action de mouvement (et une autre pour se relever si elle a réussi).\r\n",
-        "paths": "Voie du prédateur"
+        "paths": "Voie du prédateur",
+        "states": [
+          "Renversé",
+          "Immobilisé"
+        ]
       }
     ],
     "familyId": null
@@ -805,7 +834,10 @@
         "is_limited": "1",
         "is_magical": "0",
         "description": "La créature parcourt une distance maximum de 30 mètres et réalise une attaque, lancez deux d20 et gardez le meilleur résultat. Si l’attaque est réussie, en plus des DM normaux, une victime de taille inférieure ou égale à la créature, doit faire un test opposé de FOR ou être Renversée. Dans ce cas, la créature piétine (ou embroche) sa victime et les DM sont doublés.\r\n",
-        "paths": "Voie du cogneur"
+        "paths": "Voie du cogneur",
+        "states": [
+          "Renversé"
+        ]
       }
     ],
     "familyId": "4"
@@ -850,7 +882,10 @@
         "is_limited": "1",
         "is_magical": "0",
         "description": "La créature parcourt une distance maximum de 30 mètres et réalise une attaque, lancez deux d20 et gardez le meilleur résultat. Si l’attaque est réussie, en plus des DM normaux, une victime de taille inférieure ou égale à la créature, doit faire un test opposé de FOR ou être Renversée. Dans ce cas, la créature piétine (ou embroche) sa victime et les DM sont doublés.\r\n",
-        "paths": "Voie du cogneur"
+        "paths": "Voie du cogneur",
+        "states": [
+          "Renversé"
+        ]
       }
     ],
     "familyId": "4"
@@ -944,7 +979,10 @@
         "is_limited": "1",
         "is_magical": "0",
         "description": "La créature parcourt une distance maximum de 30 mètres et réalise une attaque, lancez deux d20 et gardez le meilleur résultat. Si l’attaque est réussie, en plus des DM normaux, une victime de taille inférieure ou égale à la créature, doit faire un test opposé de FOR ou être Renversée. Dans ce cas, la créature piétine (ou embroche) sa victime et les DM sont doublés.\r\n",
-        "paths": "Voie du cogneur"
+        "paths": "Voie du cogneur",
+        "states": [
+          "Renversé"
+        ]
       }
     ],
     "familyId": "5"
@@ -1003,7 +1041,10 @@
         "is_limited": "1",
         "is_magical": "0",
         "description": "La créature parcourt une distance maximum de 30 mètres et réalise une attaque, lancez deux d20 et gardez le meilleur résultat. Si l’attaque est réussie, en plus des DM normaux, une victime de taille inférieure ou égale à la créature, doit faire un test opposé de FOR ou être Renversée. Dans ce cas, la créature piétine (ou embroche) sa victime et les DM sont doublés.\r\n",
-        "paths": "Voie du cogneur"
+        "paths": "Voie du cogneur",
+        "states": [
+          "Renversé"
+        ]
       },
       {
         "target_id": "193",
@@ -1435,7 +1476,11 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Au premier tour de combat, si l’environnement permet à la créature de se dissimuler, la cible doit faire un test de PER difficulté [15 + Mod. de AGI] ou être Surprise. Si elle attaque avec succès une cible surprise, la créature inflige +1d6 aux DM et toute créature dont la FOR est inférieure à la sienne est Renversée. La créature obtient un bonus de +5 à tous les tests de discrétion et en Init.\r\n",
-        "paths": "Voie du prédateur"
+        "paths": "Voie du prédateur",
+        "states": [
+          "Surpris",
+          "Renversé"
+        ]
       }
     ],
     "familyId": "8"
@@ -1480,7 +1525,11 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Au premier tour de combat, si l’environnement permet à la créature de se dissimuler, la cible doit faire un test de PER difficulté [15 + Mod. de AGI] ou être Surprise. Si elle attaque avec succès une cible surprise, la créature inflige +1d6 aux DM et toute créature dont la FOR est inférieure à la sienne est Renversée. La créature obtient un bonus de +5 à tous les tests de discrétion et en Init.\r\n",
-        "paths": "Voie du prédateur"
+        "paths": "Voie du prédateur",
+        "states": [
+          "Surpris",
+          "Renversé"
+        ]
       },
       {
         "target_id": "388",
@@ -1489,7 +1538,11 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Lorsque la créature réussit une attaque avec un résultat de 15-20 au d20, elle saisit sa proie entre ses crocs ou ses griffes et lui inflige immédiatement une attaque gratuite supplémentaire. Si la FOR de la cible est inférieure ou égale au prédateur, elle est de plus Renversée et Immobilisée. Pour se libérer, la victime doit réussir un test de FOR opposé lors de son tour et cela lui demande une action de mouvement (et une autre pour se relever si elle a réussi).\r\n",
-        "paths": "Voie du prédateur"
+        "paths": "Voie du prédateur",
+        "states": [
+          "Renversé",
+          "Immobilisé"
+        ]
       },
       {
         "target_id": "389",
@@ -1972,7 +2025,10 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Sur 15 à 20 au test d’attaque, si l’attaque est réussie, la victime doit réussir au choix un test de FOR ou de AGI difficulté [10+Mod. de FOR de la créature] ou être Renversée. La créature retranche 2 à tous les DM subis (RD 2) avec des armes (contact ou distance). Les sorts font des DM normaux.\r\n",
-        "paths": "Voie du colosse"
+        "paths": "Voie du colosse",
+        "states": [
+          "Renversé"
+        ]
       },
       {
         "target_id": "415",
@@ -1990,7 +2046,10 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Sur 15 à 20 au test d’attaque, la victime est projetée à [1d6+1] mètres de là (plus ou moins selon la taille des protagonistes) et subit +3d6 DM supplémentaires. Elle doit réussir un test de CON de difficulté 15 ou être Étourdie. A chaque tour elle peut tenter un nouveau test de CON pour retrouver ses esprits. Sa résistance aux DM passe à 6 (RD 6).\r\n",
-        "paths": "Voie du colosse"
+        "paths": "Voie du colosse",
+        "states": [
+          "Étourdi"
+        ]
       }
     ],
     "familyId": "10"
@@ -2035,7 +2094,11 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Au premier tour de combat, si l’environnement permet à la créature de se dissimuler, la cible doit faire un test de PER difficulté [15 + Mod. de AGI] ou être Surprise. Si elle attaque avec succès une cible surprise, la créature inflige +1d6 aux DM et toute créature dont la FOR est inférieure à la sienne est Renversée. La créature obtient un bonus de +5 à tous les tests de discrétion et en Init.\r\n",
-        "paths": "Voie du prédateur"
+        "paths": "Voie du prédateur",
+        "states": [
+          "Surpris",
+          "Renversé"
+        ]
       }
     ],
     "familyId": "10"
@@ -2089,7 +2152,10 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Sur un résultat de 15-20 au d20 en attaque, la créature agrippe sa proie et ne la lâche plus. Elle obtient un bonus de +5 en attaque et +1d6 aux DM contre la cible qu’elle agrippe et celle-ci est Immobilisée si elle est de taille inférieure. La victime peut essayer de se libérer au prix d’une action de mouvement en réussissant un test de FOR opposé.\r\n",
-        "paths": "Voie des créatures volantes"
+        "paths": "Voie des créatures volantes",
+        "states": [
+          "Immobilisé"
+        ]
       },
       {
         "target_id": "407",
@@ -2143,7 +2209,10 @@
         "is_limited": "1",
         "is_magical": "0",
         "description": "La créature parcourt une distance maximum de 30 mètres et réalise une attaque, lancez deux d20 et gardez le meilleur résultat. Si l’attaque est réussie, en plus des DM normaux, une victime de taille inférieure ou égale à la créature, doit faire un test opposé de FOR ou être Renversée. Dans ce cas, la créature piétine (ou embroche) sa victime et les DM sont doublés.\r\n",
-        "paths": "Voie du cogneur"
+        "paths": "Voie du cogneur",
+        "states": [
+          "Renversé"
+        ]
       },
       {
         "target_id": "418",
@@ -2161,7 +2230,10 @@
         "is_limited": "1",
         "is_magical": "0",
         "description": "Sur une charge réussie, si la victime est d’une taille inférieure à la créature, elle est de plus projetée à [1d6+1] mètres de là (plus ou moins selon la taille des protagonistes). Elle doit réussir un test de CON de difficulté 15 ou être Étourdie. A chaque tour, elle peut tenter un nouveau test de CON pour retrouver ses esprits.\r\n",
-        "paths": "Voie du cogneur"
+        "paths": "Voie du cogneur",
+        "states": [
+          "Étourdi"
+        ]
       }
     ],
     "familyId": "10"
@@ -2206,7 +2278,11 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Au premier tour de combat, si l’environnement permet à la créature de se dissimuler, la cible doit faire un test de PER difficulté [15 + Mod. de AGI] ou être Surprise. Si elle attaque avec succès une cible surprise, la créature inflige +1d6 aux DM et toute créature dont la FOR est inférieure à la sienne est Renversée. La créature obtient un bonus de +5 à tous les tests de discrétion et en Init.\r\n",
-        "paths": "Voie du prédateur"
+        "paths": "Voie du prédateur",
+        "states": [
+          "Surpris",
+          "Renversé"
+        ]
       },
       {
         "target_id": "388",
@@ -2215,7 +2291,11 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Lorsque la créature réussit une attaque avec un résultat de 15-20 au d20, elle saisit sa proie entre ses crocs ou ses griffes et lui inflige immédiatement une attaque gratuite supplémentaire. Si la FOR de la cible est inférieure ou égale au prédateur, elle est de plus Renversée et Immobilisée. Pour se libérer, la victime doit réussir un test de FOR opposé lors de son tour et cela lui demande une action de mouvement (et une autre pour se relever si elle a réussi).\r\n",
-        "paths": "Voie du prédateur"
+        "paths": "Voie du prédateur",
+        "states": [
+          "Renversé",
+          "Immobilisé"
+        ]
       },
       {
         "target_id": "389",
@@ -2343,7 +2423,11 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Au premier tour de combat, si l’environnement permet à la créature de se dissimuler, la cible doit faire un test de PER difficulté [15 + Mod. de AGI] ou être Surprise. Si elle attaque avec succès une cible surprise, la créature inflige +1d6 aux DM et toute créature dont la FOR est inférieure à la sienne est Renversée. La créature obtient un bonus de +5 à tous les tests de discrétion et en Init.\r\n",
-        "paths": "Voie du prédateur"
+        "paths": "Voie du prédateur",
+        "states": [
+          "Surpris",
+          "Renversé"
+        ]
       }
     ],
     "familyId": "11"
@@ -2413,7 +2497,10 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Sur un résultat de 15-20 au d20 en attaque, la créature agrippe sa proie et ne la lâche plus. Elle obtient un bonus de +5 en attaque et +1d6 aux DM contre la cible qu’elle agrippe et celle-ci est Immobilisée si elle est de taille inférieure. La victime peut essayer de se libérer au prix d’une action de mouvement en réussissant un test de FOR opposé.\r\n",
-        "paths": "Voie des créatures volantes"
+        "paths": "Voie des créatures volantes",
+        "states": [
+          "Immobilisé"
+        ]
       },
       {
         "target_id": "407",
@@ -2492,7 +2579,10 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Sur un résultat de 15-20 au d20 en attaque, la créature agrippe sa proie et ne la lâche plus. Elle obtient un bonus de +5 en attaque et +1d6 aux DM contre la cible qu’elle agrippe et celle-ci est Immobilisée si elle est de taille inférieure. La victime peut essayer de se libérer au prix d’une action de mouvement en réussissant un test de FOR opposé.\r\n",
-        "paths": "Voie des créatures volantes"
+        "paths": "Voie des créatures volantes",
+        "states": [
+          "Immobilisé"
+        ]
       },
       {
         "target_id": "407",
@@ -2510,7 +2600,10 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Sur 15 à 20 au test d’attaque, si l’attaque est réussie, la victime doit réussir au choix un test de FOR ou de AGI difficulté [10+Mod. de FOR de la créature] ou être Renversée. La créature retranche 2 à tous les DM subis (RD 2) avec des armes (contact ou distance). Les sorts font des DM normaux.\r\n",
-        "paths": "Voie du colosse"
+        "paths": "Voie du colosse",
+        "states": [
+          "Renversé"
+        ]
       }
     ],
     "familyId": "11"
@@ -2580,7 +2673,10 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Sur un résultat de 15-20 au d20 en attaque, la créature agrippe sa proie et ne la lâche plus. Elle obtient un bonus de +5 en attaque et +1d6 aux DM contre la cible qu’elle agrippe et celle-ci est Immobilisée si elle est de taille inférieure. La victime peut essayer de se libérer au prix d’une action de mouvement en réussissant un test de FOR opposé.\r\n",
-        "paths": "Voie des créatures volantes"
+        "paths": "Voie des créatures volantes",
+        "states": [
+          "Immobilisé"
+        ]
       },
       {
         "target_id": "407",
@@ -2598,7 +2694,10 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Sur 15 à 20 au test d’attaque, si l’attaque est réussie, la victime doit réussir au choix un test de FOR ou de AGI difficulté [10+Mod. de FOR de la créature] ou être Renversée. La créature retranche 2 à tous les DM subis (RD 2) avec des armes (contact ou distance). Les sorts font des DM normaux.\r\n",
-        "paths": "Voie du colosse"
+        "paths": "Voie du colosse",
+        "states": [
+          "Renversé"
+        ]
       },
       {
         "target_id": "415",
@@ -2659,7 +2758,11 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Au premier tour de combat, si l’environnement permet à la créature de se dissimuler, la cible doit faire un test de PER difficulté [15 + Mod. de AGI] ou être Surprise. Si elle attaque avec succès une cible surprise, la créature inflige +1d6 aux DM et toute créature dont la FOR est inférieure à la sienne est Renversée. La créature obtient un bonus de +5 à tous les tests de discrétion et en Init.\r\n",
-        "paths": "Voie du prédateur"
+        "paths": "Voie du prédateur",
+        "states": [
+          "Surpris",
+          "Renversé"
+        ]
       },
       {
         "target_id": "296",
@@ -2686,7 +2789,10 @@
         "is_limited": "1",
         "is_magical": "1",
         "description": "Le Nécromancien invoque une zone fixe de ténèbres magiques, de 10 m de diamètre, pour une durée de [5 + Mod. d’INT] tours. Même les créatures capables de voir dans le noir sont aveuglées dans cette zone.\r\n",
-        "paths": "Voie de la sombre magie"
+        "paths": "Voie de la sombre magie",
+        "states": [
+          "Aveuglé"
+        ]
       },
       {
         "target_id": "270",
@@ -2954,7 +3060,10 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Sur 15 à 20 au test d’attaque, si l’attaque est réussie, la victime doit réussir au choix un test de FOR ou de AGI difficulté [10+Mod. de FOR de la créature] ou être Renversée. La créature retranche 2 à tous les DM subis (RD 2) avec des armes (contact ou distance). Les sorts font des DM normaux.\r\n",
-        "paths": "Voie du colosse"
+        "paths": "Voie du colosse",
+        "states": [
+          "Renversé"
+        ]
       }
     ],
     "familyId": "12"
@@ -3008,7 +3117,10 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Sur 15 à 20 au test d’attaque, si l’attaque est réussie, la victime doit réussir au choix un test de FOR ou de AGI difficulté [10+Mod. de FOR de la créature] ou être Renversée. La créature retranche 2 à tous les DM subis (RD 2) avec des armes (contact ou distance). Les sorts font des DM normaux.\r\n",
-        "paths": "Voie du colosse"
+        "paths": "Voie du colosse",
+        "states": [
+          "Renversé"
+        ]
       },
       {
         "target_id": "415",
@@ -3071,7 +3183,10 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Sur 15 à 20 au test d’attaque, si l’attaque est réussie, la victime doit réussir au choix un test de FOR ou de AGI difficulté [10+Mod. de FOR de la créature] ou être Renversée. La créature retranche 2 à tous les DM subis (RD 2) avec des armes (contact ou distance). Les sorts font des DM normaux.\r\n",
-        "paths": "Voie du colosse"
+        "paths": "Voie du colosse",
+        "states": [
+          "Renversé"
+        ]
       },
       {
         "target_id": "415",
@@ -3089,7 +3204,10 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Sur 15 à 20 au test d’attaque, la victime est projetée à [1d6+1] mètres de là (plus ou moins selon la taille des protagonistes) et subit +3d6 DM supplémentaires. Elle doit réussir un test de CON de difficulté 15 ou être Étourdie. A chaque tour elle peut tenter un nouveau test de CON pour retrouver ses esprits. Sa résistance aux DM passe à 6 (RD 6).\r\n",
-        "paths": "Voie du colosse"
+        "paths": "Voie du colosse",
+        "states": [
+          "Étourdi"
+        ]
       }
     ],
     "familyId": "12"
@@ -3233,7 +3351,10 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Sur 15 à 20 au test d’attaque, si l’attaque est réussie, la victime doit réussir au choix un test de FOR ou de AGI difficulté [10+Mod. de FOR de la créature] ou être Renversée. La créature retranche 2 à tous les DM subis (RD 2) avec des armes (contact ou distance). Les sorts font des DM normaux.\r\n",
-        "paths": "Voie du colosse"
+        "paths": "Voie du colosse",
+        "states": [
+          "Renversé"
+        ]
       }
     ],
     "familyId": "12"
@@ -3287,7 +3408,10 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Sur 15 à 20 au test d’attaque, si l’attaque est réussie, la victime doit réussir au choix un test de FOR ou de AGI difficulté [10+Mod. de FOR de la créature] ou être Renversée. La créature retranche 2 à tous les DM subis (RD 2) avec des armes (contact ou distance). Les sorts font des DM normaux.\r\n",
-        "paths": "Voie du colosse"
+        "paths": "Voie du colosse",
+        "states": [
+          "Renversé"
+        ]
       },
       {
         "target_id": "415",
@@ -3350,7 +3474,10 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Sur 15 à 20 au test d’attaque, si l’attaque est réussie, la victime doit réussir au choix un test de FOR ou de AGI difficulté [10+Mod. de FOR de la créature] ou être Renversée. La créature retranche 2 à tous les DM subis (RD 2) avec des armes (contact ou distance). Les sorts font des DM normaux.\r\n",
-        "paths": "Voie du colosse"
+        "paths": "Voie du colosse",
+        "states": [
+          "Renversé"
+        ]
       },
       {
         "target_id": "415",
@@ -3368,7 +3495,10 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Sur 15 à 20 au test d’attaque, la victime est projetée à [1d6+1] mètres de là (plus ou moins selon la taille des protagonistes) et subit +3d6 DM supplémentaires. Elle doit réussir un test de CON de difficulté 15 ou être Étourdie. A chaque tour elle peut tenter un nouveau test de CON pour retrouver ses esprits. Sa résistance aux DM passe à 6 (RD 6).\r\n",
-        "paths": "Voie du colosse"
+        "paths": "Voie du colosse",
+        "states": [
+          "Étourdi"
+        ]
       }
     ],
     "familyId": "12"
@@ -3512,7 +3642,10 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Sur 15 à 20 au test d’attaque, si l’attaque est réussie, la victime doit réussir au choix un test de FOR ou de AGI difficulté [10+Mod. de FOR de la créature] ou être Renversée. La créature retranche 2 à tous les DM subis (RD 2) avec des armes (contact ou distance). Les sorts font des DM normaux.\r\n",
-        "paths": "Voie du colosse"
+        "paths": "Voie du colosse",
+        "states": [
+          "Renversé"
+        ]
       }
     ],
     "familyId": "12"
@@ -3566,7 +3699,10 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Sur 15 à 20 au test d’attaque, si l’attaque est réussie, la victime doit réussir au choix un test de FOR ou de AGI difficulté [10+Mod. de FOR de la créature] ou être Renversée. La créature retranche 2 à tous les DM subis (RD 2) avec des armes (contact ou distance). Les sorts font des DM normaux.\r\n",
-        "paths": "Voie du colosse"
+        "paths": "Voie du colosse",
+        "states": [
+          "Renversé"
+        ]
       },
       {
         "target_id": "415",
@@ -3629,7 +3765,10 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Sur 15 à 20 au test d’attaque, si l’attaque est réussie, la victime doit réussir au choix un test de FOR ou de AGI difficulté [10+Mod. de FOR de la créature] ou être Renversée. La créature retranche 2 à tous les DM subis (RD 2) avec des armes (contact ou distance). Les sorts font des DM normaux.\r\n",
-        "paths": "Voie du colosse"
+        "paths": "Voie du colosse",
+        "states": [
+          "Renversé"
+        ]
       },
       {
         "target_id": "415",
@@ -3647,7 +3786,10 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Sur 15 à 20 au test d’attaque, la victime est projetée à [1d6+1] mètres de là (plus ou moins selon la taille des protagonistes) et subit +3d6 DM supplémentaires. Elle doit réussir un test de CON de difficulté 15 ou être Étourdie. A chaque tour elle peut tenter un nouveau test de CON pour retrouver ses esprits. Sa résistance aux DM passe à 6 (RD 6).\r\n",
-        "paths": "Voie du colosse"
+        "paths": "Voie du colosse",
+        "states": [
+          "Étourdi"
+        ]
       }
     ],
     "familyId": "12"
@@ -3791,7 +3933,10 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Sur 15 à 20 au test d’attaque, si l’attaque est réussie, la victime doit réussir au choix un test de FOR ou de AGI difficulté [10+Mod. de FOR de la créature] ou être Renversée. La créature retranche 2 à tous les DM subis (RD 2) avec des armes (contact ou distance). Les sorts font des DM normaux.\r\n",
-        "paths": "Voie du colosse"
+        "paths": "Voie du colosse",
+        "states": [
+          "Renversé"
+        ]
       }
     ],
     "familyId": "12"
@@ -3845,7 +3990,10 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Sur 15 à 20 au test d’attaque, si l’attaque est réussie, la victime doit réussir au choix un test de FOR ou de AGI difficulté [10+Mod. de FOR de la créature] ou être Renversée. La créature retranche 2 à tous les DM subis (RD 2) avec des armes (contact ou distance). Les sorts font des DM normaux.\r\n",
-        "paths": "Voie du colosse"
+        "paths": "Voie du colosse",
+        "states": [
+          "Renversé"
+        ]
       },
       {
         "target_id": "415",
@@ -3908,7 +4056,10 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Sur 15 à 20 au test d’attaque, si l’attaque est réussie, la victime doit réussir au choix un test de FOR ou de AGI difficulté [10+Mod. de FOR de la créature] ou être Renversée. La créature retranche 2 à tous les DM subis (RD 2) avec des armes (contact ou distance). Les sorts font des DM normaux.\r\n",
-        "paths": "Voie du colosse"
+        "paths": "Voie du colosse",
+        "states": [
+          "Renversé"
+        ]
       },
       {
         "target_id": "415",
@@ -3926,7 +4077,10 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Sur 15 à 20 au test d’attaque, la victime est projetée à [1d6+1] mètres de là (plus ou moins selon la taille des protagonistes) et subit +3d6 DM supplémentaires. Elle doit réussir un test de CON de difficulté 15 ou être Étourdie. A chaque tour elle peut tenter un nouveau test de CON pour retrouver ses esprits. Sa résistance aux DM passe à 6 (RD 6).\r\n",
-        "paths": "Voie du colosse"
+        "paths": "Voie du colosse",
+        "states": [
+          "Étourdi"
+        ]
       }
     ],
     "familyId": "12"
@@ -3971,7 +4125,10 @@
         "is_limited": "1",
         "is_magical": "0",
         "description": "La créature parcourt une distance maximum de 30 mètres et réalise une attaque, lancez deux d20 et gardez le meilleur résultat. Si l’attaque est réussie, en plus des DM normaux, une victime de taille inférieure ou égale à la créature, doit faire un test opposé de FOR ou être Renversée. Dans ce cas, la créature piétine (ou embroche) sa victime et les DM sont doublés.\r\n",
-        "paths": "Voie du cogneur"
+        "paths": "Voie du cogneur",
+        "states": [
+          "Renversé"
+        ]
       }
     ],
     "familyId": "13"
@@ -4016,7 +4173,10 @@
         "is_limited": "1",
         "is_magical": "0",
         "description": "La créature parcourt une distance maximum de 30 mètres et réalise une attaque, lancez deux d20 et gardez le meilleur résultat. Si l’attaque est réussie, en plus des DM normaux, une victime de taille inférieure ou égale à la créature, doit faire un test opposé de FOR ou être Renversée. Dans ce cas, la créature piétine (ou embroche) sa victime et les DM sont doublés.\r\n",
-        "paths": "Voie du cogneur"
+        "paths": "Voie du cogneur",
+        "states": [
+          "Renversé"
+        ]
       }
     ],
     "familyId": "13"
@@ -4068,7 +4228,11 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Au premier tour de combat, si l’environnement permet à la créature de se dissimuler, la cible doit faire un test de PER difficulté [15 + Mod. de AGI] ou être Surprise. Si elle attaque avec succès une cible surprise, la créature inflige +1d6 aux DM et toute créature dont la FOR est inférieure à la sienne est Renversée. La créature obtient un bonus de +5 à tous les tests de discrétion et en Init.\r\n",
-        "paths": "Voie du prédateur"
+        "paths": "Voie du prédateur",
+        "states": [
+          "Surpris",
+          "Renversé"
+        ]
       }
     ],
     "familyId": "15"
@@ -4120,7 +4284,11 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Au premier tour de combat, si l’environnement permet à la créature de se dissimuler, la cible doit faire un test de PER difficulté [15 + Mod. de AGI] ou être Surprise. Si elle attaque avec succès une cible surprise, la créature inflige +1d6 aux DM et toute créature dont la FOR est inférieure à la sienne est Renversée. La créature obtient un bonus de +5 à tous les tests de discrétion et en Init.\r\n",
-        "paths": "Voie du prédateur"
+        "paths": "Voie du prédateur",
+        "states": [
+          "Surpris",
+          "Renversé"
+        ]
       }
     ],
     "familyId": "14"
@@ -4181,7 +4349,11 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Au premier tour de combat, si l’environnement permet à la créature de se dissimuler, la cible doit faire un test de PER difficulté [15 + Mod. de AGI] ou être Surprise. Si elle attaque avec succès une cible surprise, la créature inflige +1d6 aux DM et toute créature dont la FOR est inférieure à la sienne est Renversée. La créature obtient un bonus de +5 à tous les tests de discrétion et en Init.\r\n",
-        "paths": "Voie du prédateur"
+        "paths": "Voie du prédateur",
+        "states": [
+          "Surpris",
+          "Renversé"
+        ]
       }
     ],
     "familyId": "14"
@@ -4323,7 +4495,10 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Sur 15 à 20 au test d’attaque, si l’attaque est réussie, la victime doit réussir au choix un test de FOR ou de AGI difficulté [10+Mod. de FOR de la créature] ou être Renversée. La créature retranche 2 à tous les DM subis (RD 2) avec des armes (contact ou distance). Les sorts font des DM normaux.\r\n",
-        "paths": "Voie du colosse"
+        "paths": "Voie du colosse",
+        "states": [
+          "Renversé"
+        ]
       }
     ],
     "familyId": null
@@ -4476,7 +4651,11 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Au premier tour de combat, si l’environnement permet à la créature de se dissimuler, la cible doit faire un test de PER difficulté [15 + Mod. de AGI] ou être Surprise. Si elle attaque avec succès une cible surprise, la créature inflige +1d6 aux DM et toute créature dont la FOR est inférieure à la sienne est Renversée. La créature obtient un bonus de +5 à tous les tests de discrétion et en Init.\r\n",
-        "paths": "Voie du prédateur"
+        "paths": "Voie du prédateur",
+        "states": [
+          "Surpris",
+          "Renversé"
+        ]
       }
     ],
     "familyId": null
@@ -4528,7 +4707,10 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Sur 15 à 20 au test d’attaque, si l’attaque est réussie, la victime doit réussir au choix un test de FOR ou de AGI difficulté [10+Mod. de FOR de la créature] ou être Renversée. La créature retranche 2 à tous les DM subis (RD 2) avec des armes (contact ou distance). Les sorts font des DM normaux.\r\n",
-        "paths": "Voie du colosse"
+        "paths": "Voie du colosse",
+        "states": [
+          "Renversé"
+        ]
       }
     ],
     "familyId": "17"
@@ -4580,7 +4762,10 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Sur 15 à 20 au test d’attaque, si l’attaque est réussie, la victime doit réussir au choix un test de FOR ou de AGI difficulté [10+Mod. de FOR de la créature] ou être Renversée. La créature retranche 2 à tous les DM subis (RD 2) avec des armes (contact ou distance). Les sorts font des DM normaux.\r\n",
-        "paths": "Voie du colosse"
+        "paths": "Voie du colosse",
+        "states": [
+          "Renversé"
+        ]
       },
       {
         "target_id": "415",
@@ -4641,7 +4826,10 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Sur 15 à 20 au test d’attaque, si l’attaque est réussie, la victime doit réussir au choix un test de FOR ou de AGI difficulté [10+Mod. de FOR de la créature] ou être Renversée. La créature retranche 2 à tous les DM subis (RD 2) avec des armes (contact ou distance). Les sorts font des DM normaux.\r\n",
-        "paths": "Voie du colosse"
+        "paths": "Voie du colosse",
+        "states": [
+          "Renversé"
+        ]
       },
       {
         "target_id": "415",
@@ -4702,7 +4890,10 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Sur 15 à 20 au test d’attaque, si l’attaque est réussie, la victime doit réussir au choix un test de FOR ou de AGI difficulté [10+Mod. de FOR de la créature] ou être Renversée. La créature retranche 2 à tous les DM subis (RD 2) avec des armes (contact ou distance). Les sorts font des DM normaux.\r\n",
-        "paths": "Voie du colosse"
+        "paths": "Voie du colosse",
+        "states": [
+          "Renversé"
+        ]
       },
       {
         "target_id": "415",
@@ -4720,7 +4911,10 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Sur 15 à 20 au test d’attaque, la victime est projetée à [1d6+1] mètres de là (plus ou moins selon la taille des protagonistes) et subit +3d6 DM supplémentaires. Elle doit réussir un test de CON de difficulté 15 ou être Étourdie. A chaque tour elle peut tenter un nouveau test de CON pour retrouver ses esprits. Sa résistance aux DM passe à 6 (RD 6).\r\n",
-        "paths": "Voie du colosse"
+        "paths": "Voie du colosse",
+        "states": [
+          "Étourdi"
+        ]
       }
     ],
     "familyId": "17"
@@ -5143,7 +5337,10 @@
         "is_limited": "1",
         "is_magical": "0",
         "description": "La créature parcourt une distance maximum de 30 mètres et réalise une attaque, lancez deux d20 et gardez le meilleur résultat. Si l’attaque est réussie, en plus des DM normaux, une victime de taille inférieure ou égale à la créature, doit faire un test opposé de FOR ou être Renversée. Dans ce cas, la créature piétine (ou embroche) sa victime et les DM sont doublés.\r\n",
-        "paths": "Voie du cogneur"
+        "paths": "Voie du cogneur",
+        "states": [
+          "Renversé"
+        ]
       },
       {
         "target_id": "418",
@@ -5206,7 +5403,10 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Sur 15 à 20 au test d’attaque, si l’attaque est réussie, la victime doit réussir au choix un test de FOR ou de AGI difficulté [10+Mod. de FOR de la créature] ou être Renversée. La créature retranche 2 à tous les DM subis (RD 2) avec des armes (contact ou distance). Les sorts font des DM normaux.\r\n",
-        "paths": "Voie du colosse"
+        "paths": "Voie du colosse",
+        "states": [
+          "Renversé"
+        ]
       }
     ],
     "familyId": "21"
@@ -5260,7 +5460,10 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Sur 15 à 20 au test d’attaque, si l’attaque est réussie, la victime doit réussir au choix un test de FOR ou de AGI difficulté [10+Mod. de FOR de la créature] ou être Renversée. La créature retranche 2 à tous les DM subis (RD 2) avec des armes (contact ou distance). Les sorts font des DM normaux.\r\n",
-        "paths": "Voie du colosse"
+        "paths": "Voie du colosse",
+        "states": [
+          "Renversé"
+        ]
       },
       {
         "target_id": "415",
@@ -5314,7 +5517,10 @@
         "is_limited": "1",
         "is_magical": "0",
         "description": "La créature parcourt une distance maximum de 30 mètres et réalise une attaque, lancez deux d20 et gardez le meilleur résultat. Si l’attaque est réussie, en plus des DM normaux, une victime de taille inférieure ou égale à la créature, doit faire un test opposé de FOR ou être Renversée. Dans ce cas, la créature piétine (ou embroche) sa victime et les DM sont doublés.\r\n",
-        "paths": "Voie du cogneur"
+        "paths": "Voie du cogneur",
+        "states": [
+          "Renversé"
+        ]
       }
     ],
     "familyId": "22"
@@ -5359,7 +5565,10 @@
         "is_limited": "1",
         "is_magical": "0",
         "description": "La créature parcourt une distance maximum de 30 mètres et réalise une attaque, lancez deux d20 et gardez le meilleur résultat. Si l’attaque est réussie, en plus des DM normaux, une victime de taille inférieure ou égale à la créature, doit faire un test opposé de FOR ou être Renversée. Dans ce cas, la créature piétine (ou embroche) sa victime et les DM sont doublés.\r\n",
-        "paths": "Voie du cogneur"
+        "paths": "Voie du cogneur",
+        "states": [
+          "Renversé"
+        ]
       },
       {
         "target_id": "418",
@@ -5377,7 +5586,10 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Sur 15 à 20 au test d’attaque, si l’attaque est réussie, la victime doit réussir au choix un test de FOR ou de AGI difficulté [10+Mod. de FOR de la créature] ou être Renversée. La créature retranche 2 à tous les DM subis (RD 2) avec des armes (contact ou distance). Les sorts font des DM normaux.\r\n",
-        "paths": "Voie du colosse"
+        "paths": "Voie du colosse",
+        "states": [
+          "Renversé"
+        ]
       },
       {
         "target_id": "415",
@@ -6311,7 +6523,11 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Au premier tour de combat, si l’environnement permet à la créature de se dissimuler, la cible doit faire un test de PER difficulté [15 + Mod. de AGI] ou être Surprise. Si elle attaque avec succès une cible surprise, la créature inflige +1d6 aux DM et toute créature dont la FOR est inférieure à la sienne est Renversée. La créature obtient un bonus de +5 à tous les tests de discrétion et en Init.\r\n",
-        "paths": "Voie du prédateur"
+        "paths": "Voie du prédateur",
+        "states": [
+          "Surpris",
+          "Renversé"
+        ]
       },
       {
         "target_id": "388",
@@ -6320,7 +6536,11 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Lorsque la créature réussit une attaque avec un résultat de 15-20 au d20, elle saisit sa proie entre ses crocs ou ses griffes et lui inflige immédiatement une attaque gratuite supplémentaire. Si la FOR de la cible est inférieure ou égale au prédateur, elle est de plus Renversée et Immobilisée. Pour se libérer, la victime doit réussir un test de FOR opposé lors de son tour et cela lui demande une action de mouvement (et une autre pour se relever si elle a réussi).\r\n",
-        "paths": "Voie du prédateur"
+        "paths": "Voie du prédateur",
+        "states": [
+          "Renversé",
+          "Immobilisé"
+        ]
       }
     ],
     "familyId": "28"
@@ -6365,7 +6585,11 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Au premier tour de combat, si l’environnement permet à la créature de se dissimuler, la cible doit faire un test de PER difficulté [15 + Mod. de AGI] ou être Surprise. Si elle attaque avec succès une cible surprise, la créature inflige +1d6 aux DM et toute créature dont la FOR est inférieure à la sienne est Renversée. La créature obtient un bonus de +5 à tous les tests de discrétion et en Init.\r\n",
-        "paths": "Voie du prédateur"
+        "paths": "Voie du prédateur",
+        "states": [
+          "Surpris",
+          "Renversé"
+        ]
       },
       {
         "target_id": "388",
@@ -6374,7 +6598,11 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Lorsque la créature réussit une attaque avec un résultat de 15-20 au d20, elle saisit sa proie entre ses crocs ou ses griffes et lui inflige immédiatement une attaque gratuite supplémentaire. Si la FOR de la cible est inférieure ou égale au prédateur, elle est de plus Renversée et Immobilisée. Pour se libérer, la victime doit réussir un test de FOR opposé lors de son tour et cela lui demande une action de mouvement (et une autre pour se relever si elle a réussi).\r\n",
-        "paths": "Voie du prédateur"
+        "paths": "Voie du prédateur",
+        "states": [
+          "Renversé",
+          "Immobilisé"
+        ]
       }
     ],
     "familyId": "28"
@@ -6419,7 +6647,11 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Au premier tour de combat, si l’environnement permet à la créature de se dissimuler, la cible doit faire un test de PER difficulté [15 + Mod. de AGI] ou être Surprise. Si elle attaque avec succès une cible surprise, la créature inflige +1d6 aux DM et toute créature dont la FOR est inférieure à la sienne est Renversée. La créature obtient un bonus de +5 à tous les tests de discrétion et en Init.\r\n",
-        "paths": "Voie du prédateur"
+        "paths": "Voie du prédateur",
+        "states": [
+          "Surpris",
+          "Renversé"
+        ]
       },
       {
         "target_id": "388",
@@ -6428,7 +6660,11 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Lorsque la créature réussit une attaque avec un résultat de 15-20 au d20, elle saisit sa proie entre ses crocs ou ses griffes et lui inflige immédiatement une attaque gratuite supplémentaire. Si la FOR de la cible est inférieure ou égale au prédateur, elle est de plus Renversée et Immobilisée. Pour se libérer, la victime doit réussir un test de FOR opposé lors de son tour et cela lui demande une action de mouvement (et une autre pour se relever si elle a réussi).\r\n",
-        "paths": "Voie du prédateur"
+        "paths": "Voie du prédateur",
+        "states": [
+          "Renversé",
+          "Immobilisé"
+        ]
       }
     ],
     "familyId": "29"
@@ -6473,7 +6709,11 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Au premier tour de combat, si l’environnement permet à la créature de se dissimuler, la cible doit faire un test de PER difficulté [15 + Mod. de AGI] ou être Surprise. Si elle attaque avec succès une cible surprise, la créature inflige +1d6 aux DM et toute créature dont la FOR est inférieure à la sienne est Renversée. La créature obtient un bonus de +5 à tous les tests de discrétion et en Init.\r\n",
-        "paths": "Voie du prédateur"
+        "paths": "Voie du prédateur",
+        "states": [
+          "Surpris",
+          "Renversé"
+        ]
       },
       {
         "target_id": "388",
@@ -6482,7 +6722,11 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Lorsque la créature réussit une attaque avec un résultat de 15-20 au d20, elle saisit sa proie entre ses crocs ou ses griffes et lui inflige immédiatement une attaque gratuite supplémentaire. Si la FOR de la cible est inférieure ou égale au prédateur, elle est de plus Renversée et Immobilisée. Pour se libérer, la victime doit réussir un test de FOR opposé lors de son tour et cela lui demande une action de mouvement (et une autre pour se relever si elle a réussi).\r\n",
-        "paths": "Voie du prédateur"
+        "paths": "Voie du prédateur",
+        "states": [
+          "Renversé",
+          "Immobilisé"
+        ]
       }
     ],
     "familyId": "29"
@@ -6572,7 +6816,11 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Au premier tour de combat, si l’environnement permet à la créature de se dissimuler, la cible doit faire un test de PER difficulté [15 + Mod. de AGI] ou être Surprise. Si elle attaque avec succès une cible surprise, la créature inflige +1d6 aux DM et toute créature dont la FOR est inférieure à la sienne est Renversée. La créature obtient un bonus de +5 à tous les tests de discrétion et en Init.\r\n",
-        "paths": "Voie du prédateur"
+        "paths": "Voie du prédateur",
+        "states": [
+          "Surpris",
+          "Renversé"
+        ]
       }
     ],
     "familyId": "30"
@@ -6617,7 +6865,11 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Au premier tour de combat, si l’environnement permet à la créature de se dissimuler, la cible doit faire un test de PER difficulté [15 + Mod. de AGI] ou être Surprise. Si elle attaque avec succès une cible surprise, la créature inflige +1d6 aux DM et toute créature dont la FOR est inférieure à la sienne est Renversée. La créature obtient un bonus de +5 à tous les tests de discrétion et en Init.\r\n",
-        "paths": "Voie du prédateur"
+        "paths": "Voie du prédateur",
+        "states": [
+          "Surpris",
+          "Renversé"
+        ]
       }
     ],
     "familyId": "30"
@@ -6662,7 +6914,11 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Au premier tour de combat, si l’environnement permet à la créature de se dissimuler, la cible doit faire un test de PER difficulté [15 + Mod. de AGI] ou être Surprise. Si elle attaque avec succès une cible surprise, la créature inflige +1d6 aux DM et toute créature dont la FOR est inférieure à la sienne est Renversée. La créature obtient un bonus de +5 à tous les tests de discrétion et en Init.\r\n",
-        "paths": "Voie du prédateur"
+        "paths": "Voie du prédateur",
+        "states": [
+          "Surpris",
+          "Renversé"
+        ]
       },
       {
         "target_id": "388",
@@ -6671,7 +6927,11 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Lorsque la créature réussit une attaque avec un résultat de 15-20 au d20, elle saisit sa proie entre ses crocs ou ses griffes et lui inflige immédiatement une attaque gratuite supplémentaire. Si la FOR de la cible est inférieure ou égale au prédateur, elle est de plus Renversée et Immobilisée. Pour se libérer, la victime doit réussir un test de FOR opposé lors de son tour et cela lui demande une action de mouvement (et une autre pour se relever si elle a réussi).\r\n",
-        "paths": "Voie du prédateur"
+        "paths": "Voie du prédateur",
+        "states": [
+          "Renversé",
+          "Immobilisé"
+        ]
       }
     ],
     "familyId": "30"
@@ -6723,7 +6983,11 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Au premier tour de combat, si l’environnement permet à la créature de se dissimuler, la cible doit faire un test de PER difficulté [15 + Mod. de AGI] ou être Surprise. Si elle attaque avec succès une cible surprise, la créature inflige +1d6 aux DM et toute créature dont la FOR est inférieure à la sienne est Renversée. La créature obtient un bonus de +5 à tous les tests de discrétion et en Init.\r\n",
-        "paths": "Voie du prédateur"
+        "paths": "Voie du prédateur",
+        "states": [
+          "Surpris",
+          "Renversé"
+        ]
       },
       {
         "target_id": "393",
@@ -6786,7 +7050,11 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Au premier tour de combat, si l’environnement permet à la créature de se dissimuler, la cible doit faire un test de PER difficulté [15 + Mod. de AGI] ou être Surprise. Si elle attaque avec succès une cible surprise, la créature inflige +1d6 aux DM et toute créature dont la FOR est inférieure à la sienne est Renversée. La créature obtient un bonus de +5 à tous les tests de discrétion et en Init.\r\n",
-        "paths": "Voie du prédateur"
+        "paths": "Voie du prédateur",
+        "states": [
+          "Surpris",
+          "Renversé"
+        ]
       }
     ],
     "familyId": "31"
@@ -6838,7 +7106,11 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Au premier tour de combat, si l’environnement permet à la créature de se dissimuler, la cible doit faire un test de PER difficulté [15 + Mod. de AGI] ou être Surprise. Si elle attaque avec succès une cible surprise, la créature inflige +1d6 aux DM et toute créature dont la FOR est inférieure à la sienne est Renversée. La créature obtient un bonus de +5 à tous les tests de discrétion et en Init.\r\n",
-        "paths": "Voie du prédateur"
+        "paths": "Voie du prédateur",
+        "states": [
+          "Surpris",
+          "Renversé"
+        ]
       }
     ],
     "familyId": "31"
@@ -7068,7 +7340,10 @@
         "is_limited": "1",
         "is_magical": "0",
         "description": "La créature parcourt une distance maximum de 30 mètres et réalise une attaque, lancez deux d20 et gardez le meilleur résultat. Si l’attaque est réussie, en plus des DM normaux, une victime de taille inférieure ou égale à la créature, doit faire un test opposé de FOR ou être Renversée. Dans ce cas, la créature piétine (ou embroche) sa victime et les DM sont doublés.\r\n",
-        "paths": "Voie du cogneur"
+        "paths": "Voie du cogneur",
+        "states": [
+          "Renversé"
+        ]
       }
     ],
     "familyId": "32"
@@ -7120,7 +7395,10 @@
         "is_limited": "1",
         "is_magical": "0",
         "description": "La créature parcourt une distance maximum de 30 mètres et réalise une attaque, lancez deux d20 et gardez le meilleur résultat. Si l’attaque est réussie, en plus des DM normaux, une victime de taille inférieure ou égale à la créature, doit faire un test opposé de FOR ou être Renversée. Dans ce cas, la créature piétine (ou embroche) sa victime et les DM sont doublés.\r\n",
-        "paths": "Voie du cogneur"
+        "paths": "Voie du cogneur",
+        "states": [
+          "Renversé"
+        ]
       },
       {
         "target_id": "418",
@@ -7627,7 +7905,10 @@
         "is_limited": "1",
         "is_magical": "1",
         "description": "Une fois par combat, le Prêtre peut prononcer un mot avec la voix de son dieu. Cela dépasse l’entendement des mortels et ses ennemis à portée de vue sont paralysés de terreur pendant 1 tour tandis que tous ses alliés en vue bénéficient d’un bonus de +5 en attaque pendant cette période.\r\n",
-        "paths": "Voie de la guerre sainte"
+        "paths": "Voie de la guerre sainte",
+        "states": [
+          "Paralysé"
+        ]
       },
       {
         "target_id": "136",
@@ -8000,7 +8281,10 @@
         "is_limited": "1",
         "is_magical": "1",
         "description": "En réussissant un test d’attaque magique (portée 20 m), le Druide libère sur sa cible une nuée d’insectes volants qui piquent, aveuglent et la suivent pendant [5 + Mod. de PER] tours. La victime subit 1 point de DM par tour et un malus de -2 à toutes ses actions. Les DM de zone détruisent la nuée.\r\n",
-        "paths": "Voie des animaux"
+        "paths": "Voie des animaux",
+        "states": [
+          "Aveuglé"
+        ]
       },
       {
         "target_id": "86",
@@ -8189,7 +8473,10 @@
         "is_limited": "1",
         "is_magical": "0",
         "description": "La créature parcourt une distance maximum de 30 mètres et réalise une attaque, lancez deux d20 et gardez le meilleur résultat. Si l’attaque est réussie, en plus des DM normaux, une victime de taille inférieure ou égale à la créature, doit faire un test opposé de FOR ou être Renversée. Dans ce cas, la créature piétine (ou embroche) sa victime et les DM sont doublés.\r\n",
-        "paths": "Voie du cogneur"
+        "paths": "Voie du cogneur",
+        "states": [
+          "Renversé"
+        ]
       },
       {
         "target_id": "418",
@@ -8676,7 +8963,10 @@
         "is_limited": "1",
         "is_magical": "0",
         "description": "La créature parcourt une distance maximum de 30 mètres et réalise une attaque, lancez deux d20 et gardez le meilleur résultat. Si l’attaque est réussie, en plus des DM normaux, une victime de taille inférieure ou égale à la créature, doit faire un test opposé de FOR ou être Renversée. Dans ce cas, la créature piétine (ou embroche) sa victime et les DM sont doublés.\r\n",
-        "paths": "Voie du cogneur"
+        "paths": "Voie du cogneur",
+        "states": [
+          "Renversé"
+        ]
       }
     ],
     "familyId": "38"
@@ -8721,7 +9011,10 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Sur 15 à 20 au test d’attaque, si l’attaque est réussie, la victime doit réussir au choix un test de FOR ou de AGI difficulté [10+Mod. de FOR de la créature] ou être Renversée. La créature retranche 2 à tous les DM subis (RD 2) avec des armes (contact ou distance). Les sorts font des DM normaux.\r\n",
-        "paths": "Voie du colosse"
+        "paths": "Voie du colosse",
+        "states": [
+          "Renversé"
+        ]
       },
       {
         "target_id": "417",
@@ -8730,7 +9023,10 @@
         "is_limited": "1",
         "is_magical": "0",
         "description": "La créature parcourt une distance maximum de 30 mètres et réalise une attaque, lancez deux d20 et gardez le meilleur résultat. Si l’attaque est réussie, en plus des DM normaux, une victime de taille inférieure ou égale à la créature, doit faire un test opposé de FOR ou être Renversée. Dans ce cas, la créature piétine (ou embroche) sa victime et les DM sont doublés.\r\n",
-        "paths": "Voie du cogneur"
+        "paths": "Voie du cogneur",
+        "states": [
+          "Renversé"
+        ]
       }
     ],
     "familyId": "38"
@@ -8775,7 +9071,10 @@
         "is_limited": "1",
         "is_magical": "0",
         "description": "La créature parcourt une distance maximum de 30 mètres et réalise une attaque, lancez deux d20 et gardez le meilleur résultat. Si l’attaque est réussie, en plus des DM normaux, une victime de taille inférieure ou égale à la créature, doit faire un test opposé de FOR ou être Renversée. Dans ce cas, la créature piétine (ou embroche) sa victime et les DM sont doublés.\r\n",
-        "paths": "Voie du cogneur"
+        "paths": "Voie du cogneur",
+        "states": [
+          "Renversé"
+        ]
       },
       {
         "target_id": "418",
@@ -8829,7 +9128,10 @@
         "is_limited": "1",
         "is_magical": "0",
         "description": "La créature parcourt une distance maximum de 30 mètres et réalise une attaque, lancez deux d20 et gardez le meilleur résultat. Si l’attaque est réussie, en plus des DM normaux, une victime de taille inférieure ou égale à la créature, doit faire un test opposé de FOR ou être Renversée. Dans ce cas, la créature piétine (ou embroche) sa victime et les DM sont doublés.\r\n",
-        "paths": "Voie du cogneur"
+        "paths": "Voie du cogneur",
+        "states": [
+          "Renversé"
+        ]
       },
       {
         "target_id": "418",
@@ -8883,7 +9185,11 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Au premier tour de combat, si l’environnement permet à la créature de se dissimuler, la cible doit faire un test de PER difficulté [15 + Mod. de AGI] ou être Surprise. Si elle attaque avec succès une cible surprise, la créature inflige +1d6 aux DM et toute créature dont la FOR est inférieure à la sienne est Renversée. La créature obtient un bonus de +5 à tous les tests de discrétion et en Init.\r\n",
-        "paths": "Voie du prédateur"
+        "paths": "Voie du prédateur",
+        "states": [
+          "Surpris",
+          "Renversé"
+        ]
       }
     ],
     "familyId": null
@@ -9008,7 +9314,11 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Au premier tour de combat, si l’environnement permet à la créature de se dissimuler, la cible doit faire un test de PER difficulté [15 + Mod. de AGI] ou être Surprise. Si elle attaque avec succès une cible surprise, la créature inflige +1d6 aux DM et toute créature dont la FOR est inférieure à la sienne est Renversée. La créature obtient un bonus de +5 à tous les tests de discrétion et en Init.\r\n",
-        "paths": "Voie du prédateur"
+        "paths": "Voie du prédateur",
+        "states": [
+          "Surpris",
+          "Renversé"
+        ]
       }
     ],
     "familyId": "39"
@@ -9132,7 +9442,11 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Au premier tour de combat, si l’environnement permet à la créature de se dissimuler, la cible doit faire un test de PER difficulté [15 + Mod. de AGI] ou être Surprise. Si elle attaque avec succès une cible surprise, la créature inflige +1d6 aux DM et toute créature dont la FOR est inférieure à la sienne est Renversée. La créature obtient un bonus de +5 à tous les tests de discrétion et en Init.\r\n",
-        "paths": "Voie du prédateur"
+        "paths": "Voie du prédateur",
+        "states": [
+          "Surpris",
+          "Renversé"
+        ]
       }
     ],
     "familyId": "39"
@@ -9212,7 +9526,10 @@
         "is_limited": "1",
         "is_magical": "0",
         "description": "La créature parcourt une distance maximum de 30 mètres et réalise une attaque, lancez deux d20 et gardez le meilleur résultat. Si l’attaque est réussie, en plus des DM normaux, une victime de taille inférieure ou égale à la créature, doit faire un test opposé de FOR ou être Renversée. Dans ce cas, la créature piétine (ou embroche) sa victime et les DM sont doublés.\r\n",
-        "paths": "Voie du cogneur"
+        "paths": "Voie du cogneur",
+        "states": [
+          "Renversé"
+        ]
       }
     ],
     "familyId": null
@@ -9257,7 +9574,10 @@
         "is_limited": "1",
         "is_magical": "0",
         "description": "La créature parcourt une distance maximum de 30 mètres et réalise une attaque, lancez deux d20 et gardez le meilleur résultat. Si l’attaque est réussie, en plus des DM normaux, une victime de taille inférieure ou égale à la créature, doit faire un test opposé de FOR ou être Renversée. Dans ce cas, la créature piétine (ou embroche) sa victime et les DM sont doublés.\r\n",
-        "paths": "Voie du cogneur"
+        "paths": "Voie du cogneur",
+        "states": [
+          "Renversé"
+        ]
       },
       {
         "target_id": "418",
@@ -9311,7 +9631,10 @@
         "is_limited": "1",
         "is_magical": "0",
         "description": "La créature parcourt une distance maximum de 30 mètres et réalise une attaque, lancez deux d20 et gardez le meilleur résultat. Si l’attaque est réussie, en plus des DM normaux, une victime de taille inférieure ou égale à la créature, doit faire un test opposé de FOR ou être Renversée. Dans ce cas, la créature piétine (ou embroche) sa victime et les DM sont doublés.\r\n",
-        "paths": "Voie du cogneur"
+        "paths": "Voie du cogneur",
+        "states": [
+          "Renversé"
+        ]
       },
       {
         "target_id": "418",
@@ -9329,7 +9652,10 @@
         "is_limited": "1",
         "is_magical": "0",
         "description": "Sur une charge réussie, si la victime est d’une taille inférieure à la créature, elle est de plus projetée à [1d6+1] mètres de là (plus ou moins selon la taille des protagonistes). Elle doit réussir un test de CON de difficulté 15 ou être Étourdie. A chaque tour, elle peut tenter un nouveau test de CON pour retrouver ses esprits.\r\n",
-        "paths": "Voie du cogneur"
+        "paths": "Voie du cogneur",
+        "states": [
+          "Étourdi"
+        ]
       }
     ],
     "familyId": "41"
@@ -9374,7 +9700,11 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Au premier tour de combat, si l’environnement permet à la créature de se dissimuler, la cible doit faire un test de PER difficulté [15 + Mod. de AGI] ou être Surprise. Si elle attaque avec succès une cible surprise, la créature inflige +1d6 aux DM et toute créature dont la FOR est inférieure à la sienne est Renversée. La créature obtient un bonus de +5 à tous les tests de discrétion et en Init.\r\n",
-        "paths": "Voie du prédateur"
+        "paths": "Voie du prédateur",
+        "states": [
+          "Surpris",
+          "Renversé"
+        ]
       }
     ],
     "familyId": "42"
@@ -9419,7 +9749,11 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Au premier tour de combat, si l’environnement permet à la créature de se dissimuler, la cible doit faire un test de PER difficulté [15 + Mod. de AGI] ou être Surprise. Si elle attaque avec succès une cible surprise, la créature inflige +1d6 aux DM et toute créature dont la FOR est inférieure à la sienne est Renversée. La créature obtient un bonus de +5 à tous les tests de discrétion et en Init.\r\n",
-        "paths": "Voie du prédateur"
+        "paths": "Voie du prédateur",
+        "states": [
+          "Surpris",
+          "Renversé"
+        ]
       }
     ],
     "familyId": "42"
@@ -9623,7 +9957,10 @@
         "is_limited": "1",
         "is_magical": "0",
         "description": "La créature parcourt une distance maximum de 30 mètres et réalise une attaque, lancez deux d20 et gardez le meilleur résultat. Si l’attaque est réussie, en plus des DM normaux, une victime de taille inférieure ou égale à la créature, doit faire un test opposé de FOR ou être Renversée. Dans ce cas, la créature piétine (ou embroche) sa victime et les DM sont doublés.\r\n",
-        "paths": "Voie du cogneur"
+        "paths": "Voie du cogneur",
+        "states": [
+          "Renversé"
+        ]
       }
     ],
     "familyId": "43"
@@ -9668,7 +10005,10 @@
         "is_limited": "1",
         "is_magical": "0",
         "description": "La créature parcourt une distance maximum de 30 mètres et réalise une attaque, lancez deux d20 et gardez le meilleur résultat. Si l’attaque est réussie, en plus des DM normaux, une victime de taille inférieure ou égale à la créature, doit faire un test opposé de FOR ou être Renversée. Dans ce cas, la créature piétine (ou embroche) sa victime et les DM sont doublés.\r\n",
-        "paths": "Voie du cogneur"
+        "paths": "Voie du cogneur",
+        "states": [
+          "Renversé"
+        ]
       }
     ],
     "familyId": "43"
@@ -9747,7 +10087,10 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Sur 15 à 20 au test d’attaque, si l’attaque est réussie, la victime doit réussir au choix un test de FOR ou de AGI difficulté [10+Mod. de FOR de la créature] ou être Renversée. La créature retranche 2 à tous les DM subis (RD 2) avec des armes (contact ou distance). Les sorts font des DM normaux.\r\n",
-        "paths": "Voie du colosse"
+        "paths": "Voie du colosse",
+        "states": [
+          "Renversé"
+        ]
       },
       {
         "target_id": "415",
@@ -9765,7 +10108,10 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Sur 15 à 20 au test d’attaque, la victime est projetée à [1d6+1] mètres de là (plus ou moins selon la taille des protagonistes) et subit +3d6 DM supplémentaires. Elle doit réussir un test de CON de difficulté 15 ou être Étourdie. A chaque tour elle peut tenter un nouveau test de CON pour retrouver ses esprits. Sa résistance aux DM passe à 6 (RD 6).\r\n",
-        "paths": "Voie du colosse"
+        "paths": "Voie du colosse",
+        "states": [
+          "Étourdi"
+        ]
       }
     ],
     "familyId": null
@@ -9979,7 +10325,10 @@
         "is_limited": "1",
         "is_magical": "1",
         "description": "Le Nécromancien invoque une zone fixe de ténèbres magiques, de 10 m de diamètre, pour une durée de [5 + Mod. d’INT] tours. Même les créatures capables de voir dans le noir sont aveuglées dans cette zone.\r\n",
-        "paths": "Voie de la sombre magie"
+        "paths": "Voie de la sombre magie",
+        "states": [
+          "Aveuglé"
+        ]
       },
       {
         "target_id": "270",
@@ -10103,7 +10452,10 @@
         "is_limited": "0",
         "is_magical": "0",
         "description": "Sur un résultat de 15-20 au d20 en attaque, la créature agrippe sa proie et ne la lâche plus. Elle obtient un bonus de +5 en attaque et +1d6 aux DM contre la cible qu’elle agrippe et celle-ci est Immobilisée si elle est de taille inférieure. La victime peut essayer de se libérer au prix d’une action de mouvement en réussissant un test de FOR opposé.\r\n",
-        "paths": "Voie des créatures volantes"
+        "paths": "Voie des créatures volantes",
+        "states": [
+          "Immobilisé"
+        ]
       }
     ],
     "familyId": null
@@ -10743,7 +11095,10 @@
         "is_limited": "1",
         "is_magical": "0",
         "description": "La créature parcourt une distance maximum de 30 mètres et réalise une attaque, lancez deux d20 et gardez le meilleur résultat. Si l’attaque est réussie, en plus des DM normaux, une victime de taille inférieure ou égale à la créature, doit faire un test opposé de FOR ou être Renversée. Dans ce cas, la créature piétine (ou embroche) sa victime et les DM sont doublés.\r\n",
-        "paths": "Voie du cogneur"
+        "paths": "Voie du cogneur",
+        "states": [
+          "Renversé"
+        ]
       }
     ],
     "familyId": "46"

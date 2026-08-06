@@ -335,12 +335,34 @@ export interface CustomCreatureAttack {
     special?: string;
 }
 
+/**
+ * Entité invoquée par une capacité. Elle EXISTE toujours déjà : on ne crée rien depuis
+ * une invocation, ce qui interdit l'enchaînement sans fin de formulaires.
+ *
+ * `ref` désigne le **nom** pour le contenu officiel — `Creature` comme les tables
+ * d'équipement utilisent `#[ORM\GeneratedValue]`, leurs identifiants changent à chaque
+ * rechargement des fixtures — `custom-<id>` pour un monstre maison, `homebrew-<id>` pour
+ * une entrée communautaire.
+ */
+export interface CapabilitySummon {
+    type: 'creature' | 'item';
+    ref: string;
+    /** Nombre d'exemplaires ; absent, vaut 1. Sans objet pour un objet. */
+    quantity?: number;
+}
+
 export interface CustomCreatureCapability {
-    name: string;
-    // Les capacités SRD (Creature.capabilities) nomment parfois via `label` plutôt que `name`.
+    /** Nom d'une capacité de monstre maison. Absent du bestiaire officiel, dont les
+     *  393 capacités nomment TOUTES via `label` — d'où les deux champs facultatifs.
+     *  Tout affichage lit `label ?? name`. */
+    name?: string;
     label?: string;
     rank?: number;
     description?: string;
+    /** États infligés, déclarés — jamais devinés du texte à l'exécution. */
+    states?: string[];
+    /** Entités invoquées, toujours existantes. */
+    summons?: CapabilitySummon[];
 }
 
 // Monstre « maison » créé par un MJ (hors compendium SRD), owner-scopé côté API.

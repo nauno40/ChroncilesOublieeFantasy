@@ -61,7 +61,10 @@
                     "rank": 4,
                     "name": "Frappe des arcanes",
                     "type": "Action (A)*",
-                    "description": "Le forgesort frappe le sol de son bâton et provoque une onde dévastatrice dans un rayon de 10 m autour de lui. Toutes les créatures dans la zone subissent automatiquement [3d4°+INT] DM et doivent réussir un test de FOR difficulté [10 + INT] pour ne pas être renversées."
+                    "description": "Le forgesort frappe le sol de son bâton et provoque une onde dévastatrice dans un rayon de 10 m autour de lui. Toutes les créatures dans la zone subissent automatiquement [3d4°+INT] DM et doivent réussir un test de FOR difficulté [10 + INT] pour ne pas être renversées.",
+                    "states": [
+                        "Renversé"
+                    ]
                 },
                 {
                     "rank": 5,
@@ -250,7 +253,10 @@
                     "rank": 5,
                     "name": "Rune de garde",
                     "type": "Rituel (10 min)*",
-                    "description": "Le forgesort inscrit des runes invisibles au sol. Il protège une zone (10 m de diamètre, porte ou coffre) pendant 12 h. Déclenchement à l'intrusion. Coût : 3 PM. Effet au choix : 1) Alarme (Gong + étourdi 1 round, test CON 15) ou 2) Élémentaire ([3d4°+INT] DM feu/foudre/froid/acide)."
+                    "description": "Le forgesort inscrit des runes invisibles au sol. Il protège une zone (10 m de diamètre, porte ou coffre) pendant 12 h. Déclenchement à l'intrusion. Coût : 3 PM. Effet au choix : 1) Alarme (Gong + étourdi 1 round, test CON 15) ou 2) Élémentaire ([3d4°+INT] DM feu/foudre/froid/acide).",
+                    "states": [
+                        "Étourdi"
+                    ]
                 }
             ],
             "details": {

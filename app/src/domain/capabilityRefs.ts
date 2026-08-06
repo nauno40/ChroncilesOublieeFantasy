@@ -3,6 +3,8 @@ import type {
     Creature, CustomCreature, Weapon, Armor,
 } from '../types/normalized';
 import type { Combatant } from '../types/campaign';
+import type { Character } from '../types/character';
+import type { Capacity } from '../types/normalized';
 import type { HomebrewEntry } from '../services/homebrewService';
 
 /** Forme comparable d'un nom : sans casse ni accents, pour rapprocher « ÉTOURDI »,
@@ -126,4 +128,60 @@ export const capacitesDuCombattant = (
         : creatures.find(c => String(c.id) === ref);
     const capacites = source?.capabilities;
     return capacites && capacites.length > 0 ? capacites : undefined;
+};
+
+/** Identifiant de voie porté par une capacité : tantôt une IRI (`/api/voies/50`), tantôt
+ *  un identifiant brut. Même ambivalence que dans `fromOfficial.ts` (`capsOfVoie`). */
+const idDeVoie = (v: string | null | undefined): string | undefined => {
+    if (!v) return undefined;
+    return String(v).split('/').pop() || undefined;
+};
+
+/**
+ * Capacités d'un combattant PERSONNAGE : celles de ses voies dont le rang est acquis.
+ *
+ * Un personnage porte `characterVoies[] = { voie: IRI, rank }` ; un rang 3 donne les
+ * capacités 1 à 3, pas les cinq de la voie — proposer au MJ une capacité que le
+ * personnage ne possède pas serait pire que ne rien afficher.
+ *
+ * `undefined` pour tout autre combattant, pour un personnage introuvable — le suivi de
+ * combat est persisté, un personnage peut avoir été supprimé depuis — ou quand aucune
+ * capacité n'est acquise.
+ */
+export const capacitesDuPersonnage = (
+    combattant: Combatant,
+    personnages: Character[],
+    capacites: Capacity[],
+): CustomCreatureCapability[] | undefined => {
+    if (combattant.source !== 'character' || !combattant.referenceId) return undefined;
+
+    const personnage = personnages.find(p => String(p.id) === combattant.referenceId);
+    if (!personnage) return undefined;
+
+    // Rang acquis par voie : une capacité n'est retenue que si son rang lui est inférieur
+    // ou égal.
+    const rangParVoie = new Map<string, number>();
+    for (const entree of personnage.characterVoies ?? []) {
+        const id = idDeVoie(entree.voie);
+        if (id) rangParVoie.set(id, Math.max(rangParVoie.get(id) ?? 0, entree.rank));
+    }
+    if (rangParVoie.size === 0) return undefined;
+
+    const acquises = capacites
+        .filter(c => {
+            const id = idDeVoie(c.voie ?? c.voieId);
+            if (!id) return false;
+            const rangAcquis = rangParVoie.get(id);
+            return rangAcquis !== undefined && (c.rank ?? 0) > 0 && (c.rank ?? 0) <= rangAcquis;
+        })
+        .sort((a, b) => (a.rank ?? 0) - (b.rank ?? 0))
+        .map((c): CustomCreatureCapability => ({
+            name: c.name,
+            description: c.description,
+            rank: c.rank ?? undefined,
+            states: c.states,
+            summons: c.summons,
+        }));
+
+    return acquises.length > 0 ? acquises : undefined;
 };

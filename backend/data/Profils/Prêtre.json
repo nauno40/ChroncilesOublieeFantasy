@@ -113,7 +113,10 @@
                     "rank": 5,
                     "name": "Mot de pouvoir",
                     "type": "Action (A)*",
-                    "description": "Une fois par jour, le prêtre peut prononcer un mot avec la voix de son dieu. Cela dépasse l’entendement des mortels et tous ses ennemis dans un rayon de 10 m sont étourdis pendant 1 round (pas d’action et ‑5 en DEF)."
+                    "description": "Une fois par jour, le prêtre peut prononcer un mot avec la voix de son dieu. Cela dépasse l’entendement des mortels et tous ses ennemis dans un rayon de 10 m sont étourdis pendant 1 round (pas d’action et ‑5 en DEF).",
+                    "states": [
+                        "Étourdi"
+                    ]
                 }
             ]
         },

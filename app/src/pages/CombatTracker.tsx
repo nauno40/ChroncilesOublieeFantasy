@@ -6,9 +6,9 @@ import { sortByInitiative, nextTurn, removeById, applyHp } from '../domain/comba
 import { DataService } from '../services/dataService';
 import { ApiService } from '../services/api';
 import { getMonsters } from '../services/monsterService';
-import type { Armor, Creature, CustomCreature, HarmfulState, Weapon } from '../types/normalized';
+import type { Armor, Capacity, Creature, CustomCreature, HarmfulState, Weapon } from '../types/normalized';
 import { CombatantCapabilities } from '../components/creature/CombatantCapabilities';
-import { capacitesDuCombattant, type SourcesInvocation } from '../domain/capabilityRefs';
+import { capacitesDuCombattant, capacitesDuPersonnage, type SourcesInvocation } from '../domain/capabilityRefs';
 import type { Character } from '../types/character';
 
 /** Préfixe distinguant un monstre « maison » d'une créature SRD dans le sélecteur d'import. */
@@ -62,6 +62,7 @@ export const CombatTracker: React.FC = () => {
     const [harmfulStates, setHarmfulStates] = useState<HarmfulState[]>([]);
     const [armes, setArmes] = useState<Weapon[]>([]);
     const [armures, setArmures] = useState<Armor[]>([]);
+    const [capacites, setCapacites] = useState<Capacity[]>([]);
     // Pose d'état en cours : la capacité a désigné l'état, le MJ choisit encore la cible.
     const [poseEnCours, setPoseEnCours] = useState<string | null>(null);
 
@@ -76,6 +77,9 @@ export const CombatTracker: React.FC = () => {
         // Un échec de chargement prive des liens d'invocation, jamais des capacités.
         DataService.getWeapons().then(setArmes).catch(() => setArmes([]));
         DataService.getArmors().then(setArmures).catch(() => setArmures([]));
+        // Capacités du compendium : nécessaires pour résoudre celles d'un personnage joueur.
+        // Un échec de chargement prive du panneau, jamais du suivi de combat.
+        DataService.getCapabilities().then(setCapacites).catch(() => setCapacites([]));
     }, []);
 
     const sources: SourcesInvocation = useMemo(
@@ -382,11 +386,14 @@ export const CombatTracker: React.FC = () => {
                             </div>
 
                             {(() => {
-                                const capacites = capacitesDuCombattant(c, creatures, customMonsters);
-                                if (!capacites) return null;
+                                // Deux chemins : le bestiaire d'abord, le personnage ensuite.
+                                // Aucun ne répond pour un combattant ajouté à la main.
+                                const capacitesDuBestiaire = capacitesDuCombattant(c, creatures, customMonsters);
+                                const capacitesAcquises = capacitesDuBestiaire ?? capacitesDuPersonnage(c, characters, capacites);
+                                if (!capacitesAcquises) return null;
                                 return (
                                     <CombatantCapabilities
-                                        capacites={capacites}
+                                        capacites={capacitesAcquises}
                                         etatsConnus={harmfulStates}
                                         sources={sources}
                                         onPoserEtat={setPoseEnCours}

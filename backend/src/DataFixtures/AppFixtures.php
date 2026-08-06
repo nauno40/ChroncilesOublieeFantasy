@@ -306,6 +306,12 @@ class AppFixtures extends Fixture
                                 $c->setDetails($capData['details']);
                             }
                             
+                            // Déclarations facultatives (cf. spec 2026-08-03) : absentes du JSON, elles laissent
+                            // les colonnes nulles. Les QUATRE sites qui construisent une Capability doivent les
+                            // lire, sinon une partie du compendium resterait muette sans rien signaler.
+                            $c->setStates($capData['states'] ?? null);
+                            $c->setSummons($capData['summons'] ?? null);
+
                             $manager->persist($c);
                         }
                     }
@@ -450,6 +456,12 @@ class AppFixtures extends Fixture
                 $cap->setLimited(str_contains(strtolower($capData['name'] . ' ' . ($capData['description'] ?? '')), '(l)'));
                 $cap->setIsSpell(str_contains($capData['name'], '*'));
                 $cap->setVoie($voie);
+                // Déclarations facultatives (cf. spec 2026-08-03) : absentes du JSON, elles laissent
+                // les colonnes nulles. Les QUATRE sites qui construisent une Capability doivent les
+                // lire, sinon une partie du compendium resterait muette sans rien signaler.
+                $cap->setStates($capData['states'] ?? null);
+                $cap->setSummons($capData['summons'] ?? null);
+
                 $manager->persist($cap);
             }
         }
@@ -508,6 +520,12 @@ class AppFixtures extends Fixture
                             if (!empty($capData['details'])) {
                                 $cap->setDetails($capData['details']);
                             }
+                            // Déclarations facultatives (cf. spec 2026-08-03) : absentes du JSON, elles laissent
+                            // les colonnes nulles. Les QUATRE sites qui construisent une Capability doivent les
+                            // lire, sinon une partie du compendium resterait muette sans rien signaler.
+                            $cap->setStates($capData['states'] ?? null);
+                            $cap->setSummons($capData['summons'] ?? null);
+
                             $manager->persist($cap);
                         }
                     }
@@ -551,6 +569,12 @@ class AppFixtures extends Fixture
             $e->setIsSpell(false); // Default, need parser to detect spells
             $e->setLimited(str_contains($item['name'], '(L)'));
             
+            // Déclarations facultatives (cf. spec 2026-08-03) : absentes du JSON, elles laissent
+            // les colonnes nulles. Les QUATRE sites qui construisent une Capability doivent les
+            // lire, sinon une partie du compendium resterait muette sans rien signaler.
+            $e->setStates($item['states'] ?? null);
+            $e->setSummons($item['summons'] ?? null);
+
             $manager->persist($e);
         }
     }

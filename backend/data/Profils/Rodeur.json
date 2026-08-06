@@ -76,7 +76,13 @@
                     "rank": 5,
                     "name": "Flèche de mort",
                     "type": "Action Limitée (L)",
-                    "description": "Vous obtenez un dé bonus en attaque à distance et vous ajoutez +1d4° aux DM. Au lieu du dé bonus et de +1d4° aux DM, vous pouvez choisir d'infliger un état préjudiciable de votre choix parmi aveuglé, affaibli, ralenti ou immobilisé pendant 1 round à une cible d’un NC inférieur au vôtre. Vous ne pouvez infliger chaque état préjudiciable qu’une seule fois par combat."
+                    "description": "Vous obtenez un dé bonus en attaque à distance et vous ajoutez +1d4° aux DM. Au lieu du dé bonus et de +1d4° aux DM, vous pouvez choisir d'infliger un état préjudiciable de votre choix parmi aveuglé, affaibli, ralenti ou immobilisé pendant 1 round à une cible d’un NC inférieur au vôtre. Vous ne pouvez infliger chaque état préjudiciable qu’une seule fois par combat.",
+                    "states": [
+                        "Aveuglé",
+                        "Affaibli",
+                        "Ralenti",
+                        "Immobilisé"
+                    ]
                 }
             ],
             "details": {

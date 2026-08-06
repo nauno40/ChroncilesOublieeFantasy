@@ -62,8 +62,9 @@ describe('lienEtat', () => {
     });
 });
 
-import { resoudreInvocation, capacitesDuCombattant } from './capabilityRefs';
-import type { Creature, CustomCreature, Weapon, Armor } from '../types/normalized';
+import { resoudreInvocation, capacitesDuCombattant, capacitesDuPersonnage } from './capabilityRefs';
+import type { Capacity, Creature, CustomCreature, Weapon, Armor } from '../types/normalized';
+import type { Character } from '../types/character';
 import type { Combatant } from '../types/campaign';
 import type { HomebrewEntry } from '../services/homebrewService';
 
@@ -150,5 +151,74 @@ describe('capacitesDuCombattant', () => {
         const muet = { id: 8, name: 'Rat', capabilities: [] } as unknown as Creature;
         const c = combattant({ source: 'bestiary', referenceId: '8' });
         expect(capacitesDuCombattant(c, [muet], [])).toBeUndefined();
+    });
+});
+
+describe('capacitesDuPersonnage', () => {
+    // Une voie de 3 capacités ; le personnage n'en a acquis que 2 rangs.
+    const CAPS = [
+        { id: '1', name: 'Rang 1', description: 'A', rank: 1, voie: '/api/voies/50', voieId: null, active: false, profileId: null },
+        { id: '2', name: 'Rang 2', description: 'B', rank: 2, voie: '/api/voies/50', voieId: null, active: false, profileId: null },
+        { id: '3', name: 'Rang 3', description: 'C', rank: 3, voie: '/api/voies/50', voieId: null, active: false, profileId: null },
+        // Capacité d'une AUTRE voie, que le personnage ne possède pas.
+        { id: '4', name: 'Étrangère', description: 'D', rank: 1, voie: '/api/voies/99', voieId: null, active: false, profileId: null },
+    ] as unknown as Capacity[];
+
+    const heros = {
+        id: 12, name: 'Héros', level: 3,
+        characterVoies: [{ voie: '/api/voies/50', rank: 2, source: 'profile' }],
+    } as unknown as Character;
+
+    const combattantPerso = (extra: Partial<Combatant> = {}): Combatant => ({
+        id: 'c9', name: 'Héros', type: 'player', initiative: 12,
+        hp: { current: 10, max: 10 }, def: 13, per: 1, tiebreak: 5, states: [],
+        source: 'character', referenceId: '12',
+        ...extra,
+    });
+
+    it('ne rend que les capacités dont le rang est acquis', () => {
+        // Rang 2 acquis : les capacités 1 et 2, jamais la 3 — proposer au MJ une capacité
+        // que le personnage ne possède pas serait pire que ne rien afficher.
+        const out = capacitesDuPersonnage(combattantPerso(), [heros], CAPS);
+        expect(out?.map(c => c.name)).toEqual(['Rang 1', 'Rang 2']);
+    });
+
+    it('écarte les capacités des voies que le personnage n’a pas', () => {
+        const out = capacitesDuPersonnage(combattantPerso(), [heros], CAPS);
+        expect(out?.some(c => c.name === 'Étrangère')).toBe(false);
+    });
+
+    it('reconnaît une capacité qui référence sa voie par identifiant brut', () => {
+        const parId = [{ id: '5', name: 'Brut', description: 'E', rank: 1, voie: undefined, voieId: '50', active: false, profileId: null }] as unknown as Capacity[];
+        const out = capacitesDuPersonnage(combattantPerso(), [heros], parId);
+        expect(out?.map(c => c.name)).toEqual(['Brut']);
+    });
+
+    it('trie par rang croissant, quel que soit l’ordre reçu', () => {
+        const desordre = [CAPS[1], CAPS[0]] as unknown as Capacity[];
+        const out = capacitesDuPersonnage(combattantPerso(), [heros], desordre);
+        expect(out?.map(c => c.name)).toEqual(['Rang 1', 'Rang 2']);
+    });
+
+    it('reporte les déclarations de la capacité', () => {
+        const declarante = [{ ...CAPS[0], states: ['Renversé'], summons: [{ type: 'creature', ref: 'Loup' }] }] as unknown as Capacity[];
+        const out = capacitesDuPersonnage(combattantPerso(), [heros], declarante);
+        expect(out?.[0].states).toEqual(['Renversé']);
+        expect(out?.[0].summons).toEqual([{ type: 'creature', ref: 'Loup' }]);
+    });
+
+    it('ne rend rien pour un combattant qui n’est pas un personnage', () => {
+        expect(capacitesDuPersonnage(combattantPerso({ source: 'manual' }), [heros], CAPS)).toBeUndefined();
+        expect(capacitesDuPersonnage(combattantPerso({ source: 'bestiary' }), [heros], CAPS)).toBeUndefined();
+    });
+
+    it('ne rend rien quand le personnage est introuvable', () => {
+        // Le suivi de combat est persisté : un personnage peut avoir été supprimé depuis.
+        expect(capacitesDuPersonnage(combattantPerso({ referenceId: '999' }), [heros], CAPS)).toBeUndefined();
+    });
+
+    it('ne rend rien plutôt qu’un tableau vide quand aucun rang n’est acquis', () => {
+        const debutant = { ...heros, characterVoies: [{ voie: '/api/voies/50', rank: 0, source: 'profile' }] } as unknown as Character;
+        expect(capacitesDuPersonnage(combattantPerso(), [debutant], CAPS)).toBeUndefined();
     });
 });

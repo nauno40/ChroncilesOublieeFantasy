@@ -27,6 +27,9 @@ export const HomebrewDetail: React.FC = () => {
     // Capacités d'une voie (catégorie 'voie' uniquement) — entrées à part entière
     // portant un `parent` (cf. task 1-4). Reste `[]` pour toute autre catégorie.
     const [children, setChildren] = useState<HomebrewEntry[]>([]);
+    // Voie parente, quand l'entrée affichée est une capacité imbriquée : sans elle, on
+    // consulte une capacité sans jamais savoir de quelle voie elle vient.
+    const [voieParente, setVoieParente] = useState<HomebrewEntry | null>(null);
     const [loading, setLoading] = useState(true);
     const [activeTab, setActiveTab] = useState<'lore' | 'rules'>('lore');
     const [duplicating, setDuplicating] = useState(false);
@@ -44,6 +47,10 @@ export const HomebrewDetail: React.FC = () => {
                 if (loaded.category === 'voie') {
                     const toutes = await HomebrewService.getAll();
                     if (!annule) setChildren(childrenOf(loaded.id, toutes));
+                } else if (loaded.parent) {
+                    const toutes = await HomebrewService.getAll();
+                    const parentId = Number(loaded.parent.split('/').pop());
+                    if (!annule) setVoieParente(toutes.find(e => e.id === parentId) ?? null);
                 }
             })
             .catch(() => setEntry(null))
@@ -102,7 +109,13 @@ export const HomebrewDetail: React.FC = () => {
     }
 
     if (entry.category === 'capacite' || entry.category === 'sort') {
-        return <CapaciteSheet vm={homebrewToCapaciteVM(entry)} backTo="/capacites" backLabel="Retour aux Capacités" header={ownerBar} />;
+        const vm = homebrewToCapaciteVM(entry);
+        // Une capacité communautaire appartient à une entrée de bibliothèque, d'où
+        // `voieHref` plutôt que `voieId`, qui pointerait vers le compendium officiel.
+        const avecVoie = voieParente
+            ? { ...vm, voieName: voieParente.name, voieHref: `/homebrew/${voieParente.id}` }
+            : vm;
+        return <CapaciteSheet vm={avecVoie} backTo="/capacites" backLabel="Retour aux Capacités" header={ownerBar} />;
     }
 
     const schema = HOMEBREW_SCHEMAS[entry.category] ?? [];

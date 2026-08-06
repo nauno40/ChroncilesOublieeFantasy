@@ -65,8 +65,10 @@ export const CapaciteSheet: React.FC<CapaciteSheetProps> = ({ vm, backTo, backLa
                             </Badge>
                         )}
                         {vm.voieName && (
-                            vm.voieId ? (
-                                <Link to={`/voies/${vm.voieId}`} className="inline-block">
+                            // `voieHref` l'emporte : une capacité communautaire appartient à
+                            // une entrée de bibliothèque, pas au compendium officiel.
+                            (vm.voieHref || vm.voieId) ? (
+                                <Link to={vm.voieHref ?? `/voies/${vm.voieId}`} className="inline-block">
                                     <Badge variant="secondary" size="lg" className="hover:border-primary-500/30 hover:text-primary-300 transition-all">
                                         {vm.voieName}
                                     </Badge>

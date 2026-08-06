@@ -14,6 +14,7 @@ const capRef = (c: Capacity): SheetCapabilityRef => ({
     isSpell: c.isSpell || undefined,
     limited: c.limited || undefined,
     active: c.active || undefined,
+    actionType: str(c.actionType),
     details: details(c.details),
 });
 

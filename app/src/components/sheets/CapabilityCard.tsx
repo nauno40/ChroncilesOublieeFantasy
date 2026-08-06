@@ -42,6 +42,11 @@ export const CapabilityCard: React.FC<CapabilityCardProps> = ({ cap }) => (
                             Sort
                         </span>
                     )}
+                    {cap.actionType && (
+                        <span className="px-2 py-0.5 text-[10px] uppercase font-bold tracking-wider bg-stone-800/60 text-stone-300 rounded border border-white/10">
+                            {cap.actionType}
+                        </span>
+                    )}
                     {cap.active && (
                         <span className="px-2 py-0.5 text-[10px] uppercase font-bold tracking-wider bg-amber-900/20 text-amber-400 rounded border border-amber-500/20">
                             Actif

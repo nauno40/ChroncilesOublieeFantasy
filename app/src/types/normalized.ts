@@ -145,6 +145,11 @@ export interface Capacity {
      * capacités officielles à ce jour, mais saisi côté communautaire. */
     actionType?: string;
     details?: Record<string, unknown>; // Dynamic details from JSON
+    /** États infligés, déclarés (cf. colonne `Capability.states`). Absent tant que rien
+     *  n'est déclaré : l'API omet les valeurs nulles. */
+    states?: string[];
+    /** Entités invoquées, déclarées (cf. colonne `Capability.summons`). */
+    summons?: CapabilitySummon[];
 }
 
 // ============================================================================

@@ -52,6 +52,25 @@ class Capability
     #[Groups(['race:read', 'profile:read', 'voie:read'])]
     private ?array $details = null;
 
+    /**
+     * États infligés, par leur nom (`HarmfulState.name`). Déclarés, jamais devinés du
+     * texte à l'exécution — une mécanique de jeu ne doit pas dépendre d'une heuristique.
+     * Colonne dédiée plutôt qu'une clé de `details` : ce dernier est rendu tel quel par
+     * DynamicDetailsRenderer, la déclaration s'y afficherait en JSON brut.
+     */
+    #[ORM\Column(type: Types::JSON, nullable: true)]
+    #[Groups(['race:read', 'profile:read', 'voie:read'])]
+    private ?array $states = null;
+
+    /**
+     * Entités invoquées : `{ type: 'creature'|'item', ref, quantity? }`. Posée par symétrie
+     * avec les capacités de créatures et pour qu'aucune migration ne soit nécessaire le jour
+     * où une invocation apparaît — aucune capacité de personnage n'en déclare aujourd'hui.
+     */
+    #[ORM\Column(type: Types::JSON, nullable: true)]
+    #[Groups(['race:read', 'profile:read', 'voie:read'])]
+    private ?array $summons = null;
+
     #[ORM\ManyToOne(inversedBy: 'capabilities')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Voie $voie = null;
@@ -117,6 +136,30 @@ class Capability
     public function setIsSpell(bool $isSpell): static
     {
         $this->isSpell = $isSpell;
+
+        return $this;
+    }
+
+    public function getStates(): ?array
+    {
+        return $this->states;
+    }
+
+    public function setStates(?array $states): static
+    {
+        $this->states = $states;
+
+        return $this;
+    }
+
+    public function getSummons(): ?array
+    {
+        return $this->summons;
+    }
+
+    public function setSummons(?array $summons): static
+    {
+        $this->summons = $summons;
 
         return $this;
     }

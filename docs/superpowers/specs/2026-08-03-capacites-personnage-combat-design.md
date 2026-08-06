@@ -12,8 +12,8 @@ joueur ajouté au suivi de combat n'expose donc **aucune** capacité, alors que 
 précisément besoin de savoir ce que le personnage peut déclencher.
 
 Et aucune capacité officielle de personnage ne déclare d'état : l'amorçage de #154 n'a touché
-que `backend/data/creatures.json`. Les fichiers de profils et de peuples mentionnent pourtant
-des états une **soixantaine de fois**.
+que `backend/data/creatures.json`. Les fichiers de profils et de peuples portent pourtant
+**385 capacités, dont 45 mentionnent un état**.
 
 Afficher sans amorcer donnerait un panneau vide de sens ; amorcer sans afficher ne servirait
 qu'au compendium. Les deux vont ensemble.
@@ -43,7 +43,8 @@ qu'au compendium. Les deux vont ensemble.
   chargement par `AppFixtures`.
 - Fonction pure `capacitesDuPersonnage`, filtrée par rang acquis.
 - Branchement dans le suivi de combat, à côté du chemin bestiaire existant.
-- Amorçage des déclarations d'états sur les 14 fichiers de profils et les 8 de peuples.
+- Amorçage des déclarations d'états sur les 14 fichiers de profils (`paths[].abilities[]`) et
+  les 8 de peuples (`voies[].abilities[]`) — deux formes différentes, vérifiées.
 
 **Hors périmètre**
 

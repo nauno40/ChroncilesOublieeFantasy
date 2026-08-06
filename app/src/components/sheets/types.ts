@@ -139,6 +139,10 @@ export interface SheetCapabilityRef {
     limited?: boolean;
     /** Capacité active (par opposition à passive) : l'officiel affiche un badge « Actif ». */
     active?: boolean;
+    /** Type d'action (« Attaque », « Limitée »…). Obligatoire à la saisie communautaire ;
+     *  sans ce champ il restait invisible au sein d'une voie, alors que la fiche propre de
+     *  la capacité l'affichait. */
+    actionType?: string;
     /** JSON libre de la capacité, rendu tel quel par DynamicDetailsRenderer. */
     details?: Record<string, unknown>;
     /** Effet, en lignes libres — la forme sous laquelle une capacité communautaire
@@ -186,7 +190,10 @@ export interface CapaciteSheetVM {
     /** Lignes de détail communautaires (schéma homebrew `details`, type 'lines'). */
     detailLines?: string[];
     voieName?: string;
-    /** Identifiant de la voie, pour que le badge `voieName` soit un lien cliquable
-     * (`CapaciteDetail.tsx` linke vers `/voies/:id`) — absent côté communautaire. */
+    /** Identifiant de la voie officielle, le badge `voieName` renvoyant vers `/voies/:id`. */
     voieId?: string;
+    /** Chemin complet vers la voie, quand elle n'est pas officielle : une capacité
+     *  communautaire appartient à une entrée de bibliothèque (`/homebrew/:id`), pas au
+     *  compendium. Prioritaire sur `voieId` lorsqu'il est présent. */
+    voieHref?: string;
 }

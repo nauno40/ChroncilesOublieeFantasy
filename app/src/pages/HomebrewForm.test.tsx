@@ -7,6 +7,10 @@
  * survient nécessairement *après* une validation réussie ; sans la correspondance
  * position → clé `capacites.<indice>.`, le bloc reste replié et l'auteur ne voit
  * l'échec que dans le bandeau de synthèse, jamais sur le bloc lui-même.
+ *
+ * Délai porté à 15 s : ces cas montent la page entière et enchaînent plusieurs cycles
+ * de rendu. Ils passent en ~6 s isolément, mais dépassent les 5 s par défaut quand la
+ * suite complète tourne en parallèle — un échec de charge, jamais de comportement.
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
@@ -67,7 +71,7 @@ const remplirFormulaireValide = () => {
     ajouterLigne('champ-capacites.0.details', 'Un détail');
 };
 
-describe('HomebrewForm — échec serveur d’une capacité', () => {
+describe('HomebrewForm — échec serveur d’une capacité', { timeout: 15000 }, () => {
     it('ouvre et signale le bloc de la capacité dont l’enregistrement échoue côté serveur', async () => {
         (HomebrewService.create as ReturnType<typeof vi.fn>)
             .mockResolvedValueOnce({ id: 42 }) // la voie elle-même
@@ -112,7 +116,7 @@ describe('HomebrewForm — échec serveur d’une capacité', () => {
     });
 });
 
-describe('HomebrewForm — défilement vers le bloc fautif', () => {
+describe('HomebrewForm — défilement vers le bloc fautif', { timeout: 15000 }, () => {
     // jsdom n'implémente pas scrollIntoView : on le remplace par un espion qui
     // consigne, à l'instant précis de l'appel, si le <details> englobant la cible est
     // déjà ouvert dans le DOM réel — c'est exactement ce qui distingue un défilement
@@ -155,7 +159,7 @@ describe('HomebrewForm — défilement vers le bloc fautif', () => {
  * voie existante doit recharger ses capacités déjà enregistrées, avec le même filtrage
  * sur `parent` que la fiche de consultation (`childrenOf`, `homebrewService.ts`).
  */
-describe('HomebrewForm — édition d’une voie recharge ses capacités', () => {
+describe('HomebrewForm — édition d’une voie recharge ses capacités', { timeout: 15000 }, () => {
     const renderEditForm = () =>
         render(
             <MemoryRouter initialEntries={['/bibliotheque/42/modifier']}>

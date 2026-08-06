@@ -59,7 +59,11 @@
                     "rank": 3,
                     "name": "Intelligence du combat",
                     "type": "Action de Mouvement (M)",
-                    "description": "Une fois par combat, le barde peut au choix désarmer, renverser ou aveugler pour une durée de 1 round un adversaire dont le NC est inférieur au sien en emportant un test opposé d’INT. S’il a réussi une feinte contre cet adversaire à son tour précédent, il bénéficie d’un bonus de +5 au test d’INT."
+                    "description": "Une fois par combat, le barde peut au choix désarmer, renverser ou aveugler pour une durée de 1 round un adversaire dont le NC est inférieur au sien en emportant un test opposé d’INT. S’il a réussi une feinte contre cet adversaire à son tour précédent, il bénéficie d’un bonus de +5 au test d’INT.",
+                    "states": [
+                        "Renversé",
+                        "Aveuglé"
+                    ]
                 },
                 {
                     "rank": 4,

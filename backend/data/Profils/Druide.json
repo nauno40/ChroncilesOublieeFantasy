@@ -85,7 +85,10 @@
                     "rank": 3,
                     "name": "Nuée d’insectes",
                     "type": "Action (A)*",
-                    "description": "En réussissant un test d’attaque magique contre la DEF de sa cible (portée 20 m), le druide libère sur celle‑ci une nuée d’insectes volants qui piquent, aveuglent et la suivent pendant [3 + PER] rounds. La victime subit 1 DM par round et un malus de ‑2 à tous les tests. Les DM de zone détruisent la nuée."
+                    "description": "En réussissant un test d’attaque magique contre la DEF de sa cible (portée 20 m), le druide libère sur celle‑ci une nuée d’insectes volants qui piquent, aveuglent et la suivent pendant [3 + PER] rounds. La victime subit 1 DM par round et un malus de ‑2 à tous les tests. Les DM de zone détruisent la nuée.",
+                    "states": [
+                        "Aveuglé"
+                    ]
                 },
                 {
                     "rank": 4,
@@ -241,7 +244,10 @@
                     "rank": 2,
                     "name": "Prison végétale",
                     "type": "Action Limitée (L)*",
-                    "description": "Le druide peut commander à la végétation de pousser et bloquer ses ennemis (mais pas ses alliés) dans une zone de 10 m de diamètre (portée 20 m) pendant PER minutes. Les cibles sont immobilisées. À son tour, une créature peut se libérer (action d’attaque) avec un test de FOR difficulté [10 + PER du druide]. En cas de réussite, elle n’est plus affectée par le sort pour le reste du combat."
+                    "description": "Le druide peut commander à la végétation de pousser et bloquer ses ennemis (mais pas ses alliés) dans une zone de 10 m de diamètre (portée 20 m) pendant PER minutes. Les cibles sont immobilisées. À son tour, une créature peut se libérer (action d’attaque) avec un test de FOR difficulté [10 + PER du druide]. En cas de réussite, elle n’est plus affectée par le sort pour le reste du combat.",
+                    "states": [
+                        "Immobilisé"
+                    ]
                 },
                 {
                     "rank": 3,

@@ -131,7 +131,11 @@
                     "rank": 5,
                     "name": "Mon armure est une arme",
                     "type": "Action Gratuite (G)",
-                    "description": "Une fois par combat, le chevalier peut donner un coup avec son armure (gantelet, heaume, spallière, etc.) en action gratuite. Il inflige automatiquement [1d4° + FOR] DM, et si la FOR de la cible est inférieure à celle du chevalier, elle est (au choix du chevalier) renversée ou étourdie pour 1 round ou recule de 3 m."
+                    "description": "Une fois par combat, le chevalier peut donner un coup avec son armure (gantelet, heaume, spallière, etc.) en action gratuite. Il inflige automatiquement [1d4° + FOR] DM, et si la FOR de la cible est inférieure à celle du chevalier, elle est (au choix du chevalier) renversée ou étourdie pour 1 round ou recule de 3 m.",
+                    "states": [
+                        "Renversé",
+                        "Étourdi"
+                    ]
                 }
             ]
         },

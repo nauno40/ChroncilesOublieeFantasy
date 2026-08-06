@@ -135,7 +135,10 @@
                             "rayon": "5 m",
                             "effet": "Aveuglement (si test raté)"
                         }
-                    }
+                    },
+                    "states": [
+                        "Aveuglé"
+                    ]
                 }
             ],
             "details": {
@@ -155,7 +158,11 @@
                     "rank": 2,
                     "name": "Mort ou vif",
                     "type": "Action Limitée (L)",
-                    "description": "L’arquebusier effectue une attaque au contact ou à distance (avec l’arme en main). Si l’attaque est réussie, il inflige ses DM habituels (mais peut choisir d’infliger des DM temporaires) et il choisit entre désarmer, renverser ou affaiblir (1d4 rounds) un adversaire dont le NC est inférieur au rang atteint dans la voie. Si l’attaque est une réussite critique, il peut choisir de cumuler deux effets."
+                    "description": "L’arquebusier effectue une attaque au contact ou à distance (avec l’arme en main). Si l’attaque est réussie, il inflige ses DM habituels (mais peut choisir d’infliger des DM temporaires) et il choisit entre désarmer, renverser ou affaiblir (1d4 rounds) un adversaire dont le NC est inférieur au rang atteint dans la voie. Si l’attaque est une réussite critique, il peut choisir de cumuler deux effets.",
+                    "states": [
+                        "Renversé",
+                        "Affaibli"
+                    ]
                 },
                 {
                     "rank": 3,

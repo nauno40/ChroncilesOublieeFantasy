@@ -132,7 +132,10 @@
                     "rank": 1,
                     "name": "Un pied dans la tombe",
                     "type": "Action (A)*",
-                    "description": "Le sorcier désigne une cible vivante à portée (10 m) et doit réussir un test opposé d’attaque magique. En cas de succès, la cible ressent une douleur intense à l’emplacement du cœur, elle subit [1d4°+INT] DM et, si elle rate un test de CON difficulté 10, l’état ralenti durant 1 round."
+                    "description": "Le sorcier désigne une cible vivante à portée (10 m) et doit réussir un test opposé d’attaque magique. En cas de succès, la cible ressent une douleur intense à l’emplacement du cœur, elle subit [1d4°+INT] DM et, si elle rate un test de CON difficulté 10, l’état ralenti durant 1 round.",
+                    "states": [
+                        "Ralenti"
+                    ]
                 },
                 {
                     "rank": 2,
@@ -213,7 +216,10 @@
                     "rank": 1,
                     "name": "Ténèbres",
                     "type": "Action Limitée (L)*",
-                    "description": "Le sorcier invoque une zone fixe de ténèbres magiques, de 10 m de diamètre, à une portée de 20 m pour une durée d’INT minutes. Toutes les créatures, même celles capables de voir dans le noir, sont aveuglées dans cette zone. En plus de ce sort, le sorcier ajoute son rang + 2 à tous les tests d’INT basés sur les savoirs sombres (démons, morts‑vivants, rituels impies, etc.)."
+                    "description": "Le sorcier invoque une zone fixe de ténèbres magiques, de 10 m de diamètre, à une portée de 20 m pour une durée d’INT minutes. Toutes les créatures, même celles capables de voir dans le noir, sont aveuglées dans cette zone. En plus de ce sort, le sorcier ajoute son rang + 2 à tous les tests d’INT basés sur les savoirs sombres (démons, morts‑vivants, rituels impies, etc.).",
+                    "states": [
+                        "Aveuglé"
+                    ]
                 },
                 {
                     "rank": 2,

@@ -104,7 +104,8 @@ const toPayload = (form: MonsterForm): Partial<CustomCreature> => ({
     specialAbilities: { text: form.specialAbilitiesText.trim() },
     // On ne conserve que les lignes nommées.
     attacks: form.attacks.filter((a) => a.name.trim() !== ''),
-    capabilities: form.capabilities.filter((cap) => cap.name.trim() !== ''),
+    // Un monstre maison se saisit par `name` ; `label` reste la forme du bestiaire.
+    capabilities: form.capabilities.filter((cap) => (cap.name ?? '').trim() !== ''),
     picture: form.picture.trim() || undefined,
     category: form.category.trim() || undefined,
     environment: form.environment.trim() || undefined,

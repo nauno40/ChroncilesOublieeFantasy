@@ -352,8 +352,10 @@ export interface CapabilitySummon {
 }
 
 export interface CustomCreatureCapability {
-    name: string;
-    // Les capacités SRD (Creature.capabilities) nomment parfois via `label` plutôt que `name`.
+    /** Nom d'une capacité de monstre maison. Absent du bestiaire officiel, dont les
+     *  393 capacités nomment TOUTES via `label` — d'où les deux champs facultatifs.
+     *  Tout affichage lit `label ?? name`. */
+    name?: string;
     label?: string;
     rank?: number;
     description?: string;

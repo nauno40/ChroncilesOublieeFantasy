@@ -1,15 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import type { Creature } from '../types';
+import type { HarmfulState } from '../types/normalized';
 import { getCreatureCategory, getCreatureEnvironment, getCreatureArchetype, getCreatureSize, getCreatureImage } from '../domain/creature';
 import { ArrowLeft, Shield, Sword, Heart, Crown, Zap } from 'lucide-react';
 import { DataService } from '../services/dataService';
+import { CapabilityRefs } from '../components/creature/CapabilityRefs';
+import { type SourcesInvocation } from '../domain/capabilityRefs';
 
 export const CreatureDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const [creature, setCreature] = useState<Creature | null>(null);
     const [families, setFamilies] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
+    const [etatsConnus, setEtatsConnus] = useState<HarmfulState[]>([]);
+    const [sources, setSources] = useState<SourcesInvocation>({
+        creatures: [], monstresMaison: [], armes: [], armures: [], communautaire: [],
+    });
 
     useEffect(() => {
         const fetchData = async () => {
@@ -29,6 +36,20 @@ export const CreatureDetail: React.FC = () => {
         };
         fetchData();
     }, [id]);
+
+    useEffect(() => {
+        // Les liens d'invocation ont besoin des entités existantes ; un échec de chargement
+        // ne doit pas priver la page de ses capacités, seulement de ses liens.
+        Promise.all([
+            DataService.getStates().catch(() => []),
+            DataService.getCreatures().catch(() => []),
+            DataService.getWeapons().catch(() => []),
+            DataService.getArmors().catch(() => []),
+        ]).then(([etats, creatures, armes, armures]) => {
+            setEtatsConnus(etats);
+            setSources(s => ({ ...s, creatures, armes, armures }));
+        });
+    }, []);
 
     if (loading) return <div className="min-h-screen flex items-center justify-center text-primary-200">Chargement...</div>;
 
@@ -244,6 +265,9 @@ export const CreatureDetail: React.FC = () => {
                                                 <div className="text-sm text-stone-300 leading-relaxed opacity-90 whitespace-pre-line pl-2 border-l-2 border-white/10">
                                                     {cap.description}
                                                 </div>
+                                            )}
+                                            {typeof cap !== 'string' && (
+                                                <CapabilityRefs capacite={cap} etatsConnus={etatsConnus} sources={sources} />
                                             )}
                                         </div>
                                     ))}

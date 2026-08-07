@@ -21,6 +21,7 @@ import {
   computeActiveStateBonuses,
   resolveCapabilityEffect,
   resolveArmorCap,
+  armorImpacts,
   resolveCaracTestBonuses,
   capacityBudget,
   evolutiveDie,
@@ -177,6 +178,14 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
     const armorCap = useMemo(
         () => resolveArmorCap(characterVoies, races, profiles, allVoies, selectedProfile?.armorMaxDef ?? 3),
         [characterVoies, races, profiles, allVoies, selectedProfile],
+    );
+
+    // Ce que l'armure PORTÉE bride ou renchérit, profil par profil (COF2 chap. 9). Distinct
+    // de `armorCap` : celui-ci dit ce que le personnage a le droit de porter, celui-là ce
+    // qu'il perd — ou paie en PM — quand il porte plus lourd que ne l'autorise un profil.
+    const armorImpactList = useMemo(
+        () => armorImpacts(characterVoies, profiles, playState.protection?.armor?.def ?? 0),
+        [characterVoies, profiles, playState.protection?.armor?.def],
     );
 
     // Famille du profil principal (COF2 : fixe, pilote PV niveau 1, DR, PC, défauts hybrides).
@@ -510,7 +519,7 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
         caracs, stats: caracs, mods, finalStats,
         combatStats: activeForm ? { init: activeForm.init, def: activeForm.def } : { init: combatStats.init + bonuses.init, def: combatStats.def + bonuses.def },
         maxHp: activeForm ? activeForm.hp.max : maxHp + bonuses.pv, mainFamily, damageReduction: damageReduction + bonuses.rd, languageSlots,
-        armorCap, caracTestBonuses, racialGrant,
+        armorCap, armorImpacts: armorImpactList, caracTestBonuses, racialGrant,
         // PV max propres au personnage (hors override de forme) — le repos restaure CE pool.
         baseMaxHp: maxHp + bonuses.pv,
         bonuses,

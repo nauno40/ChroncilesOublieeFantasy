@@ -58,7 +58,11 @@ export const RacialGrantPanel: React.FC<Props> = ({ character, setCharacter, pro
                         onChange={e => setGrant(value, Number(e.target.value))}
                     >
                         <option value={1}>Rang 1</option>
-                        <option value={2}>Rang 2 (sans armure pour lancer le sort)</option>
+                        {/* « Si la capacité est de rang 2 ou accorde un bonus de DEF, il doit
+                            respecter les limitations d'armure » (COF2, voies de peuple) — le
+                            panneau « Sous l'armure » de la section Équipement en tire les
+                            conséquences, cette entrée n'a qu'à le rappeler. */}
+                        <option value={2}>Rang 2 (limitations d’armure du profil applicables)</option>
                     </select>
                 </div>
             )}

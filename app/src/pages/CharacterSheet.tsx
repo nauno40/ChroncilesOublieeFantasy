@@ -11,6 +11,7 @@ import { IdentityBlock } from '../components/character/IdentityBlock';
 import { PhysicalBlock } from '../components/character/PhysicalBlock';
 import { RoleplaySection } from '../components/character/RoleplaySection';
 import { LanguagesTalentsPanel } from '../components/character/LanguagesTalentsPanel';
+import { ArmorImpactPanel } from '../components/character/ArmorImpactPanel';
 import { ProtectionSection } from '../components/character/ProtectionSection';
 import { WeaponsSection } from '../components/character/WeaponsSection';
 import { MasteriesBlock } from '../components/character/MasteriesBlock';
@@ -45,7 +46,7 @@ export const CharacterSheet: React.FC = () => {
         character, setCharacter,
         loading, saving,
         stats, mods, finalStats, combatStats, evolutiveDie,
-        maxHp, baseMaxHp, mainFamily, damageReduction, luckPoints, manaPoints, recoveryDieString, recoveryInfo, bonuses, armorCap, caracTestBonuses, racialGrant,
+        maxHp, baseMaxHp, mainFamily, damageReduction, luckPoints, manaPoints, recoveryDieString, recoveryInfo, bonuses, armorCap, armorImpacts, caracTestBonuses, racialGrant,
         spentPoints, maxStartingPoints,
         selectedVoies, setSelectedVoies,
         selectedProfileType, setSelectedProfileType,
@@ -163,6 +164,7 @@ export const CharacterSheet: React.FC = () => {
                             allArmors={allArmors}
                             armorCap={armorCap}
                         />
+                        <ArmorImpactPanel impacts={armorImpacts} armorName={character.playState?.protection?.armor?.name || undefined} />
                         <WeaponsSection character={character} setCharacter={setCharacter} allWeapons={allWeapons} />
                         <MasteriesBlock character={character} profiles={profiles} />
                         <InventorySection character={character} setCharacter={setCharacter} />

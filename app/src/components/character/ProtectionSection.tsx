@@ -79,13 +79,18 @@ export const ProtectionSection: React.FC<Props> = ({ character, setCharacter, al
                         }}
                     >
                         <option value="">Aucune</option>
-                        {allArmors.filter(a => {
-                            if (a.type.includes('Bouclier')) return false;
+                        {/* Rien n'interdit de PORTER une armure plus lourde que ne l'autorise le
+                            profil : COF2 (chap. 9) bride l'usage des capacités, pas l'habillage.
+                            Les armures hors limite restent donc proposées, signalées — le panneau
+                            « Sous l'armure » énonce ce qu'elles coûtent. */}
+                        {allArmors.filter(a => !a.type.includes('Bouclier')).map(a => {
                             const armorDef = a.defense || 0;
-                            return armorDef <= armorCap;
-                        }).map(a => (
-                            <option key={a.id} value={a.name}>{a.name} (+{a.value || a.defense || 0})</option>
-                        ))}
+                            return (
+                                <option key={a.id} value={a.name}>
+                                    {a.name} (+{a.value || armorDef}){armorDef > armorCap ? ' — hors limite du profil' : ''}
+                                </option>
+                            );
+                        })}
                     </select>
                 </div>
                 <div>

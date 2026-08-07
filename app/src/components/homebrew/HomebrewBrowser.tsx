@@ -37,7 +37,11 @@ export const HomebrewBrowser: React.FC<HomebrewBrowserProps> = ({ tab, onTabChan
     const location = useLocation();
     const myId = user?.id;
     // Catégories de la page : null = toutes ; 1 = verrouillée ; >1 = choix limité.
-    const cats: string[] | null = category ? (Array.isArray(category) ? category : [category]) : null;
+    // Mémoïsé : recréé à chaque rendu, ce tableau annulait la mémoïsation de `visible`.
+    const cats = useMemo<string[] | null>(
+        () => (category ? (Array.isArray(category) ? category : [category]) : null),
+        [category],
+    );
     const locked = cats?.length === 1;                 // sélecteur/chips/badge masqués
 
     const [entries, setEntries] = useState<HomebrewEntry[] | null>(null);

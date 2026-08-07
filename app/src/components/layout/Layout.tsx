@@ -92,7 +92,11 @@ export const Layout: React.FC = () => {
         if (currentItem && !openSection) {
             setOpenSection(currentItem.path);
         }
-    }, [location.pathname, navItems]); // Intentionally not including openSection to allow user to close it
+        // `openSection` est volontairement absent des dépendances : l'inclure rouvrirait la
+        // section que l'utilisateur vient de refermer, à chaque rendu. L'effet n'a de sens
+        // qu'au changement d'URL.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [location.pathname, navItems]);
 
     const handleToggleSection = (path: string) => {
         setOpenSection(prev => prev === path ? null : path);

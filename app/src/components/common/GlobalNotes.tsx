@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { Check } from 'lucide-react';
 
 interface GlobalNotesProps {
@@ -9,17 +9,11 @@ interface GlobalNotesProps {
 const STORAGE_KEY = 'co_global_notes';
 
 export const GlobalNotes: React.FC<GlobalNotesProps> = ({ isOpen }) => {
-    const [notes, setNotes] = useState('');
+    // Lu à l'initialisation plutôt que dans un effet : hydrater après coup imposait un
+    // second rendu et faisait clignoter la zone de saisie.
+    const [notes, setNotes] = useState(() => localStorage.getItem(STORAGE_KEY) ?? '');
     const [isSaving, setIsSaving] = useState(false);
     const saveTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-    // Initial load
-    useEffect(() => {
-        const savedNotes = localStorage.getItem(STORAGE_KEY);
-        if (savedNotes) {
-            setNotes(savedNotes);
-        }
-    }, []);
 
     const handleNotesChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         const newValue = e.target.value;

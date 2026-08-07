@@ -25,7 +25,7 @@ export const Bibliotheque: React.FC = () => {
                     </button>
                 ))}
             </div>
-            <HomebrewBrowser tab={tab} onTabChange={setTab} />
+            <HomebrewBrowser tab={tab} onTabChange={setTab} retourLabel="Retour à la Bibliothèque" />
         </PageContainer>
     );
 };

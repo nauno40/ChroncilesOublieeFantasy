@@ -17,6 +17,13 @@ interface HomebrewBrowserProps {
      * masqués). Un tableau → sélecteur limité à ces catégories (ex. Capacités & Sorts). Absent → toutes.
      */
     category?: string | string[];
+    /**
+     * Intitulé du lien de retour posé sur la fiche ouverte depuis cette liste. Absent, la
+     * fiche retombe sur la page de type de sa catégorie — ce que fait déjà le compendium,
+     * d'où sa liste sans intitulé. La Bibliothèque, elle, n'est la page de type d'aucune
+     * catégorie : sans cet intitulé, en revenir renverrait ailleurs.
+     */
+    retourLabel?: string;
 }
 
 /**
@@ -24,7 +31,7 @@ interface HomebrewBrowserProps {
  * contenu homebrew. Utilisé tel quel par la Bibliothèque (toutes catégories) et par les
  * pages de type du compendium (catégorie verrouillée), sous l'onglet Communauté/Mes créations.
  */
-export const HomebrewBrowser: React.FC<HomebrewBrowserProps> = ({ tab, onTabChange, category }) => {
+export const HomebrewBrowser: React.FC<HomebrewBrowserProps> = ({ tab, onTabChange, category, retourLabel }) => {
     const { user } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
@@ -130,7 +137,9 @@ export const HomebrewBrowser: React.FC<HomebrewBrowserProps> = ({ tab, onTabChan
                     category={category}
                     myId={myId}
                     duplicatingId={duplicatingId}
-                    onOpen={e => navigate(`/homebrew/${e.id}`)}
+                    onOpen={e => navigate(`/homebrew/${e.id}`, {
+                        state: retourLabel ? { retour: location.pathname + location.search, retourLabel } : undefined,
+                    })}
                     onEdit={openEdit}
                     onDelete={handleDelete}
                     onDuplicate={handleDuplicate}

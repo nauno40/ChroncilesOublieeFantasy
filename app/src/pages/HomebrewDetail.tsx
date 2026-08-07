@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { ArrowLeft, Globe, Lock, User as UserIcon } from 'lucide-react';
-import { HomebrewService, categoryLabel, categoryPath, childrenOf, messageSuppression, type HomebrewEntry } from '../services/homebrewService';
+import { HomebrewService, categoryLabel, categoryPath, categoryPathLabel, cheminInterne, childrenOf, messageSuppression, type HomebrewEntry } from '../services/homebrewService';
 import { HOMEBREW_SCHEMAS, CARAC_KEYS, type HomebrewFieldDef } from '../services/homebrewSchemas';
 import { hasValue } from '../services/homebrewValidation';
 import { Loader } from '../components/common';
@@ -110,6 +110,17 @@ export const HomebrewDetail: React.FC = () => {
         }
     };
 
+    // Provenance : d'où l'on a ouvert cette fiche. Une entrée communautaire n'appartient à
+    // aucune page unique — elle se consulte depuis la page de type du compendium, la
+    // Bibliothèque ou le tableau de bord. Sans cette information, le retour renvoyait
+    // toujours vers la page de type, quitte à déplacer le lecteur.
+    const provenance = location.state as { retour?: string; retourLabel?: string } | null;
+    // `cheminInterne` par cohérence avec le retour du formulaire : une destination de retour
+    // ne sort jamais du site, quelle que soit la façon dont elle est arrivée jusqu'ici.
+    const retour = provenance?.retour ? cheminInterne(provenance.retour) : null;
+    const backTo = retour ?? categoryPath(entry.category);
+    const backLabel = (retour && provenance?.retourLabel) || categoryPathLabel(entry.category);
+
     const mine = entry.authorId === user?.id;
     const ownerBar = (
         <OwnerBar
@@ -124,15 +135,15 @@ export const HomebrewDetail: React.FC = () => {
     );
 
     if (entry.category === 'race') {
-        return <RaceSheet vm={homebrewToRaceVM(entry)} backTo="/races" backLabel="Retour aux Races" header={ownerBar} references={references} />;
+        return <RaceSheet vm={homebrewToRaceVM(entry)} backTo={backTo} backLabel={backLabel} header={ownerBar} references={references} />;
     }
 
     if (entry.category === 'classe') {
-        return <ProfileSheet vm={homebrewToProfileVM(entry)} backTo="/classes" backLabel="Retour aux Classes" header={ownerBar} references={references} />;
+        return <ProfileSheet vm={homebrewToProfileVM(entry)} backTo={backTo} backLabel={backLabel} header={ownerBar} references={references} />;
     }
 
     if (entry.category === 'voie') {
-        return <VoieSheet vm={homebrewToVoieVM(entry, children)} backTo="/voies" backLabel="Retour aux Voies" header={ownerBar} references={references} />;
+        return <VoieSheet vm={homebrewToVoieVM(entry, children)} backTo={backTo} backLabel={backLabel} header={ownerBar} references={references} />;
     }
 
     if (entry.category === 'capacite' || entry.category === 'sort') {
@@ -142,7 +153,7 @@ export const HomebrewDetail: React.FC = () => {
         const avecVoie = voieParente
             ? { ...vm, voieName: voieParente.name, voieHref: `/homebrew/${voieParente.id}` }
             : vm;
-        return <CapaciteSheet vm={avecVoie} backTo="/capacites" backLabel="Retour aux Capacités" header={ownerBar} references={references} />;
+        return <CapaciteSheet vm={avecVoie} backTo={backTo} backLabel={backLabel} header={ownerBar} references={references} />;
     }
 
     const schema = HOMEBREW_SCHEMAS[entry.category] ?? [];

@@ -88,6 +88,16 @@ export const categoryPath = (category: string): string => {
     return '/bibliotheque';
 };
 
+/** Intitulé de la page visée par `categoryPath` — les deux vont de pair, d'où le voisinage.
+ *  Un sort revient aux Capacités : c'est la page qui les liste, pas « aux Sorts ». */
+export const categoryPathLabel = (category: string): string => {
+    if (category === 'race') return 'Retour aux Races';
+    if (category === 'classe') return 'Retour aux Classes';
+    if (category === 'voie') return 'Retour aux Voies';
+    if (category === 'capacite' || category === 'sort') return 'Retour aux Capacités';
+    return 'Retour à la Bibliothèque';
+};
+
 /**
  * Message de confirmation d'une suppression. La suppression est en cascade côté base :
  * effacer une voie efface ses capacités. La confirmation doit donc annoncer combien

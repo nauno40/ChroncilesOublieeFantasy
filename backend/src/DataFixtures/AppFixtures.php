@@ -33,6 +33,20 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
+    /**
+     * Seuil de DEF de l'armure la plus lourde autorisée par profil (COF2, chap. 4 à 7 ;
+     * `-1` = aucune armure). Les clés sont les `class.name` EXACTS des fichiers de
+     * `data/Profils/` — accents compris : une clé qui ne correspond à rien laisse
+     * silencieusement `armorMaxDef` à null, et le front retombe alors sur une valeur par
+     * défaut qui autoriserait n'importe quoi. Publique pour être vérifiable
+     * (cf. tests/DataFixtures/ProfileDataTest.php).
+     */
+    public const ARMOR_MAX_DEF_BY_PROFILE = [
+        'Barbare' => 3, 'Chevalier' => 6, 'Guerrier' => 5,
+        'Magicien' => -1, 'Ensorceleur' => -1, 'Sorcier' => -1, 'Forgesort' => 2,
+        'Druide' => 2, 'Moine' => -1, 'Prêtre' => 4,
+        'Arquebusier' => 4, 'Barde' => 3, 'Rôdeur' => 3, 'Voleur' => 2,
+    ];
     private string $dataDir;
 
     public function __construct(
@@ -215,16 +229,8 @@ class AppFixtures extends Fixture
                 $e->setFamily($family);
             }
 
-            // Seuil de DEF max d'armure autorisée par profil (spec §8 ; -1 = aucune armure).
-            // Clés = class.name exactes (accents inclus).
-            $armorMaxDefByProfile = [
-                'Barbare' => 3, 'Chevalier' => 6, 'Guerrier' => 5,
-                'Magicien' => -1, 'Ensorceleur' => -1, 'Sorcier' => -1, 'Forgesort' => 2,
-                'Druide' => 2, 'Moine' => -1, 'Prêtre' => 4,
-                'Arquebusier' => 4, 'Barde' => 3, 'Rôdeur' => 3, 'Voleur' => 2,
-            ];
-            if (isset($armorMaxDefByProfile[$name])) {
-                $e->setArmorMaxDef($armorMaxDefByProfile[$name]);
+            if (isset(self::ARMOR_MAX_DEF_BY_PROFILE[$name])) {
+                $e->setArmorMaxDef(self::ARMOR_MAX_DEF_BY_PROFILE[$name]);
             }
 
             // Lore

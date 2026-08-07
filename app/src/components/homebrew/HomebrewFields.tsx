@@ -1,6 +1,15 @@
 import React from 'react';
 import { Plus, X } from 'lucide-react';
 import { CARAC_KEYS, type HomebrewFieldDef } from '../../services/homebrewSchemas';
+import type { CapabilitySummon, HarmfulState } from '../../types/normalized';
+import type { SourcesInvocation } from '../../domain/capabilityRefs';
+
+/** Entités existantes nécessaires aux champs `etats` et `invocations`. Chargées par la
+ *  page, jamais par le champ — ce composant reste présentationnel. */
+export interface ReferencesDeclaration {
+    etats: HarmfulState[];
+    sources: SourcesInvocation;
+}
 import { hasValue } from '../../services/homebrewValidation';
 
 type Data = Record<string, unknown>;
@@ -27,7 +36,10 @@ export const HomebrewFields: React.FC<{
     /** Préfixe d'ancre, ex. `capacites.2.` — sans quoi deux capacités produiraient
      *  deux `champ-rank` et le défilement irait au premier. */
     prefix?: string;
-}> = ({ schema, data, onChange, errors, prefix = '' }) => {
+    /** Absente, les champs `etats` et `invocations` ne sont pas rendus : mieux vaut ne
+     *  rien proposer qu'un sélecteur vide. */
+    references?: ReferencesDeclaration;
+}> = ({ schema, data, onChange, errors, prefix = '', references }) => {
     const set = (key: string, value: unknown) => onChange({ ...data, [key]: value });
     return (
         <div className="space-y-3">
@@ -35,7 +47,7 @@ export const HomebrewFields: React.FC<{
                 const message = errors?.[f.key];
                 return (
                     <div key={f.key} id={`champ-${prefix}${f.key}`}>
-                        <FieldInput field={f} value={data[f.key]} onChange={v => set(f.key, v)} error={!!message} />
+                        <FieldInput field={f} value={data[f.key]} onChange={v => set(f.key, v)} error={!!message} references={references} />
                         {message && <p className="text-red-400 text-xs mt-1">{message}</p>}
                     </div>
                 );
@@ -44,9 +56,29 @@ export const HomebrewFields: React.FC<{
     );
 };
 
-const FieldInput: React.FC<{ field: HomebrewFieldDef; value: unknown; onChange: (v: unknown) => void; error?: boolean }> = ({ field, value, onChange, error }) => {
+const FieldInput: React.FC<{ field: HomebrewFieldDef; value: unknown; onChange: (v: unknown) => void; error?: boolean; references?: ReferencesDeclaration }> = ({ field, value, onChange, error, references }) => {
     const cls = error ? fieldErrCls : fieldCls;
     switch (field.type) {
+        case 'etats':
+            if (!references) return null;
+            return (
+                <EtatsInput
+                    label={field.label}
+                    value={(value as string[]) ?? []}
+                    etats={references.etats}
+                    onChange={onChange}
+                />
+            );
+        case 'invocations':
+            if (!references) return null;
+            return (
+                <InvocationsInput
+                    label={field.label}
+                    value={(value as CapabilitySummon[]) ?? []}
+                    sources={references.sources}
+                    onChange={onChange}
+                />
+            );
         case 'textarea':
             return (
                 <div>
@@ -147,6 +179,117 @@ const LinesInput: React.FC<{ label: string; value: string[]; onChange: (v: strin
 };
 
 // =================== Rendu lecture seule (fiche) ===================
+
+/** Choix multiple fermé sur les états du compendium : aucune saisie libre, donc aucune
+ *  orthographe à résoudre — la valeur enregistrée est toujours le nom canonique. */
+const EtatsInput: React.FC<{
+    label: string;
+    value: string[];
+    etats: HarmfulState[];
+    onChange: (v: string[]) => void;
+}> = ({ label, value, etats, onChange }) => (
+    <div>
+        <div className={labelCls}>{label}</div>
+        <div className="flex flex-wrap gap-1.5">
+            {etats.map(etat => {
+                const choisi = value.includes(etat.name);
+                return (
+                    <button
+                        key={etat.id}
+                        type="button"
+                        // L'ordre stocké est celui du compendium, pas celui des clics :
+                        // deux capacités identiques doivent produire la même donnée.
+                        onClick={() => onChange(
+                            etats.map(e => e.name).filter(n => (n === etat.name ? !choisi : value.includes(n))),
+                        )}
+                        className={`text-[10px] uppercase tracking-wide px-2 py-0.5 rounded border transition-colors ${
+                            choisi
+                                ? 'bg-purple-900/50 text-purple-200 border-purple-500/40'
+                                : 'bg-stone-950 text-stone-500 border-white/10 hover:text-stone-300'
+                        }`}
+                    >
+                        {etat.name}
+                    </button>
+                );
+            })}
+        </div>
+    </div>
+);
+
+/** Lignes d'invocation. Une entité se CHOISIT parmi les existantes : rien ne se crée ici,
+ *  ce qui ferme l'enchaînement sans fin de formulaires. */
+const InvocationsInput: React.FC<{
+    label: string;
+    value: CapabilitySummon[];
+    sources: SourcesInvocation;
+    onChange: (v: CapabilitySummon[]) => void;
+}> = ({ label, value, sources, onChange }) => {
+    const nomsCreatures = [
+        ...sources.creatures.map(c => c.name),
+        ...sources.monstresMaison.map(m => `custom-${m.id}`),
+    ];
+    const nomsObjets = [
+        ...sources.armes.map(a => a.name),
+        ...sources.armures.map(a => a.name),
+        ...sources.communautaire.map(e => `homebrew-${e.id}`),
+    ];
+    const modifier = (i: number, patch: Partial<CapabilitySummon>) =>
+        onChange(value.map((s, idx) => (idx === i ? { ...s, ...patch } : s)));
+
+    return (
+        <div>
+            <div className={labelCls}>{label}</div>
+            <div className="space-y-2">
+                {value.map((invocation, i) => (
+                    <div key={i} className="flex flex-wrap items-center gap-2">
+                        <select
+                            aria-label="Type d’invocation"
+                            value={invocation.type}
+                            onChange={e => modifier(i, { type: e.target.value as CapabilitySummon['type'], ref: '' })}
+                            className={`${fieldCls} w-auto`}
+                        >
+                            <option value="creature">Créature</option>
+                            <option value="item">Objet</option>
+                        </select>
+                        <select
+                            aria-label="Entité invoquée"
+                            value={invocation.ref}
+                            onChange={e => modifier(i, { ref: e.target.value })}
+                            className={`${fieldCls} flex-1 min-w-[140px]`}
+                        >
+                            <option value="">— à choisir —</option>
+                            {(invocation.type === 'creature' ? nomsCreatures : nomsObjets)
+                                .map(n => <option key={n} value={n}>{n}</option>)}
+                        </select>
+                        <input
+                            aria-label="Quantité"
+                            type="number"
+                            min={1}
+                            value={invocation.quantity ?? 1}
+                            onChange={e => modifier(i, { quantity: Math.max(1, Number(e.target.value) || 1) })}
+                            className={`${fieldCls} w-20`}
+                        />
+                        <button
+                            type="button"
+                            aria-label="Retirer cette invocation"
+                            onClick={() => onChange(value.filter((_, idx) => idx !== i))}
+                            className="p-1 text-stone-500 hover:text-red-400"
+                        >
+                            <X size={14} />
+                        </button>
+                    </div>
+                ))}
+                <button
+                    type="button"
+                    onClick={() => onChange([...value, { type: 'creature', ref: '', quantity: 1 }])}
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-primary-400 hover:text-primary-300"
+                >
+                    <Plus size={14} /> Ajouter une invocation
+                </button>
+            </div>
+        </div>
+    );
+};
 
 export const HomebrewData: React.FC<{ schema: HomebrewFieldDef[]; data: Data }> = ({ schema, data }) => {
     const shown = schema.filter(f => hasValue(data[f.key]));

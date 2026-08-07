@@ -1,6 +1,8 @@
 // Normalized data types with IDs and relationships
 // Generated from data normalization - 2025-12-07
 
+import type { ItemBonusTarget } from './character';
+
 // ============================================================================
 // CHARACTER DATA
 // ============================================================================
@@ -213,11 +215,26 @@ export interface Mount {
 // STATES DATA
 // ============================================================================
 
+/** Mécaniques structurées d'un état préjudiciable (COF2, § États préjudiciables).
+ *  `note` porte ce que le modèle de bonus ne sait pas exprimer — l'attaque à distance
+ *  n'a pas de cible propre, par exemple. */
+export interface HarmfulStateEffects {
+    bonuses?: { target: ItemBonusTarget; value: number }[];
+    /** Dé malus : sur tous les tests, ou seulement sur les tests d'attaque. */
+    malusDie?: 'all' | 'attack';
+    noAction?: boolean;
+    noMove?: boolean;
+    /** Déplacement plafonné, en mètres. */
+    moveLimit?: number;
+    note?: string;
+}
+
 export interface HarmfulState {
     id: string;
     name: string;
     description: string;
     image: string;
+    effects?: HarmfulStateEffects;
 }
 
 export interface Poison {

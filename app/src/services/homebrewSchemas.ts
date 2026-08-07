@@ -4,7 +4,7 @@
  * <HomebrewData> (fiche). Vague 1 : race, classe, objet-magique, sort, état.
  */
 
-export type HomebrewFieldType = 'text' | 'textarea' | 'number' | 'bool' | 'select' | 'caracs' | 'lines' | 'image';
+export type HomebrewFieldType = 'text' | 'textarea' | 'number' | 'bool' | 'select' | 'caracs' | 'lines' | 'image' | 'etats' | 'invocations';
 
 export interface HomebrewFieldDef {
     key: string;
@@ -116,6 +116,11 @@ export const HOMEBREW_SCHEMAS: Record<string, HomebrewFieldDef[]> = {
         { key: 'limited', label: 'Usage limité', type: 'bool', required: false },
         { key: 'effect', label: 'Effet(s)', type: 'lines', required: true },
         { key: 'details', label: 'Détails', type: 'lines', required: true },
+        // Déclarations facultatives, de même forme que celles des capacités officielles
+        // (colonnes `Capability.states` / `summons`) : `etatsDeclares` et
+        // `resoudreInvocation` s'y appliquent sans adaptation.
+        { key: 'states', label: 'États infligés', type: 'etats', required: false },
+        { key: 'summons', label: 'Invocations', type: 'invocations', required: false },
     ],
     // → Voie
     voie: [
@@ -162,7 +167,14 @@ export const pruneToSchema = (category: string, data: Record<string, unknown>): 
     if (!schema) return {};
     const out: Record<string, unknown> = {};
     for (const f of schema) {
-        if (data[f.key] !== undefined) out[f.key] = data[f.key];
+        if (data[f.key] === undefined) continue;
+        // Une ligne d'invocation dont l'entité n'a pas été choisie ne désigne rien : la
+        // conserver polluerait la donnée et produirait un lien mort à l'affichage.
+        if (f.type === 'invocations' && Array.isArray(data[f.key])) {
+            out[f.key] = (data[f.key] as { ref?: string }[]).filter(s => s.ref);
+            continue;
+        }
+        out[f.key] = data[f.key];
     }
     return out;
 };

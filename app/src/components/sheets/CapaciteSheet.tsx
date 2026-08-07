@@ -4,6 +4,9 @@ import { ArrowLeft } from 'lucide-react';
 import type { CapaciteSheetVM } from './types';
 import { Badge, DynamicDetailsRenderer } from '../common';
 import { cleanCapabilityName } from './cleanCapabilityName';
+import { CapabilityRefs } from '../creature/CapabilityRefs';
+import type { ReferencesDeclaration } from '../homebrew/HomebrewFields';
+
 
 interface CapaciteSheetProps {
     vm: CapaciteSheetVM;
@@ -11,9 +14,12 @@ interface CapaciteSheetProps {
     backLabel?: string;
     /** Bandeau propriétaire (contenu communautaire uniquement). */
     header?: React.ReactNode;
+    /** Entités nécessaires à la résolution des liens de déclaration. Absente, aucune
+     *  pastille : une feuille est pure et ne charge rien elle-même. */
+    references?: ReferencesDeclaration;
 }
 
-export const CapaciteSheet: React.FC<CapaciteSheetProps> = ({ vm, backTo, backLabel, header }) => {
+export const CapaciteSheet: React.FC<CapaciteSheetProps> = ({ vm, backTo, backLabel, header, references }) => {
     // Section "Description" : l'officiel l'affiche toujours (le champ est requis côté
     // compendium), mais une entrée communautaire sans aucun de ces champs ne doit pas
     // laisser un titre orphelin.
@@ -78,6 +84,13 @@ export const CapaciteSheet: React.FC<CapaciteSheetProps> = ({ vm, backTo, backLa
                                     {vm.voieName}
                                 </Badge>
                             )
+                        )}
+                        {references && (
+                            <CapabilityRefs
+                                capacite={{ name: vm.name, states: vm.states, summons: vm.summons }}
+                                etatsConnus={references.etats}
+                                sources={references.sources}
+                            />
                         )}
                     </div>
                     {header}

@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useMemo, useRef } from 'react';
+import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Search, Command, X, ChevronRight, type LucideIcon, Ghost, Sparkles, BookOpen, User, Users, AlertCircle, Backpack } from 'lucide-react';
 import { createPortal } from 'react-dom';
@@ -40,21 +40,24 @@ export const GlobalSearch: React.FC<GlobalSearchProps> = ({ isOpen, onClose }) =
     const navigate = useNavigate();
 
     // Focus input when opened
+    // La recherche reste montée une fois fermée (elle rend `null`) pour garder son index
+    // en mémoire : la rouvrir doit être instantané. Son état de saisie doit donc être remis
+    // à zéro à la fermeture, ce que la règle interdit par principe — ici c'est le seul
+    // endroit d'où l'on sache que la fenêtre vient de se fermer.
     useEffect(() => {
         if (isOpen && inputRef.current) {
             setTimeout(() => inputRef.current?.focus(), 50);
         }
         if (!isOpen) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setQuery('');
             setSelectedIndex(0);
         }
     }, [isOpen]);
 
-    // Fetch and build index
+    // Fetch and build index — une seule fois (dépendances vides), la garde d'origine
+    // sur `allItems.length` ne pouvait donc jamais être vraie.
     useEffect(() => {
-        // Only fetch once
-        if (allItems.length > 0) return;
-
         const fetchData = async () => {
             try {
                 const [creatures, capacites, profiles, races, voies, states, weapons, armors, materials] = await Promise.all([
@@ -191,6 +194,11 @@ export const GlobalSearch: React.FC<GlobalSearchProps> = ({ isOpen, onClose }) =
             .slice(0, 50); // Limit to 50 results
     }, [query, allItems]);
 
+    const handleSelect = useCallback((result: SearchResult) => {
+        navigate(result.url);
+        onClose();
+    }, [navigate, onClose]);
+
     // Keyboard navigation
     useEffect(() => {
         const handleNavigation = (e: KeyboardEvent) => {
@@ -212,12 +220,7 @@ export const GlobalSearch: React.FC<GlobalSearchProps> = ({ isOpen, onClose }) =
 
         window.addEventListener('keydown', handleNavigation);
         return () => window.removeEventListener('keydown', handleNavigation);
-    }, [isOpen, results, selectedIndex]);
-
-    const handleSelect = (result: SearchResult) => {
-        navigate(result.url);
-        onClose();
-    };
+    }, [isOpen, results, selectedIndex, handleSelect]);
 
     if (!isOpen) return null;
 

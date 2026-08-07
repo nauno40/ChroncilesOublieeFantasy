@@ -24,17 +24,20 @@ const DEFAULT_TRACKS: Track[] = [
 ];
 
 export const Soundboard: React.FC<SoundboardProps> = ({ isOpen }) => {
-    const [tracks, setTracks] = useState<Track[]>(DEFAULT_TRACKS);
+    // Lu à l'initialisation plutôt que dans un effet : hydrater après coup affichait un
+    // instant les pistes par défaut avant celles du joueur. Un contenu illisible en base
+    // locale ne doit pas empêcher la table de tourner, d'où le repli sur les pistes
+    // par défaut.
+    const [tracks, setTracks] = useState<Track[]>(() => {
+        try {
+            const enregistre = localStorage.getItem(STORAGE_KEY);
+            return enregistre ? JSON.parse(enregistre) as Track[] : DEFAULT_TRACKS;
+        } catch {
+            return DEFAULT_TRACKS;
+        }
+    });
     const [isEditing, setIsEditing] = useState(false);
     const [editTrack, setEditTrack] = useState<Track | null>(null);
-
-    // Initial load
-    useEffect(() => {
-        const saved = localStorage.getItem(STORAGE_KEY);
-        if (saved) {
-            setTracks(JSON.parse(saved));
-        }
-    }, []);
 
     // Save whenever tracks change
     useEffect(() => {

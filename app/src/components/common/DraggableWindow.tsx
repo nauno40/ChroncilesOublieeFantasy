@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Rnd } from 'react-rnd';
 import { GripVertical, X } from 'lucide-react';
 
@@ -27,54 +27,34 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = ({
     minHeight = 150,
     headerContent
 }) => {
-    const [state, setState] = useState({
-        x: defaultPosition.x,
-        y: defaultPosition.y,
-        width: defaultSize.width,
-        height: defaultSize.height,
-    });
-
-    // Load from storage on mount
-    useEffect(() => {
+    // Position et taille lues à l'initialisation, pas dans un effet : restaurer après coup
+    // faisait apparaître la fenêtre à sa place par défaut avant de la déplacer d'un bond.
+    // La position enregistrée est écartée si elle laisse la fenêtre hors de l'écran — un
+    // moniteur débranché suffit à rendre une fenêtre inatteignable.
+    const [state, setState] = useState(() => {
+        const defaut = {
+            x: defaultPosition.x,
+            y: defaultPosition.y,
+            width: defaultSize.width,
+            height: defaultSize.height,
+        };
         const stored = localStorage.getItem(`window_state_${id}`);
-        if (stored) {
-            try {
-                const parsed = JSON.parse(stored);
-
-                // Validate position to ensure it's within viewport
-                const viewportWidth = window.innerWidth;
-                const viewportHeight = window.innerHeight;
-
-                let { x, y, width, height } = parsed;
-
-                // Ensure dimensions are valid
-                if (!width) width = defaultSize.width;
-                if (!height) height = defaultSize.height;
-
-                // Check if window is completely off-screen
-                const isOffScreen =
-                    x > viewportWidth - 50 ||
-                    y > viewportHeight - 50 ||
-                    x + parseFloat(width.toString()) < 50 ||
-                    y < 0;
-
-                if (isOffScreen) {
-                    console.log(`Window ${id} was off-screen, resetting position.`);
-                    // Reset to default if off-screen
-                    setState({
-                        x: defaultPosition.x,
-                        y: defaultPosition.y,
-                        width: defaultSize.width,
-                        height: defaultSize.height,
-                    });
-                } else {
-                    setState(prev => ({ ...prev, ...parsed }));
-                }
-            } catch (e) {
-                console.error("Failed to parse window state", e);
-            }
+        if (!stored) return defaut;
+        try {
+            const parsed = JSON.parse(stored);
+            const largeur = parsed.width || defaut.width;
+            const hauteur = parsed.height || defaut.height;
+            const horsEcran =
+                parsed.x > window.innerWidth - 50 ||
+                parsed.y > window.innerHeight - 50 ||
+                parsed.x + parseFloat(largeur.toString()) < 50 ||
+                parsed.y < 0;
+            return horsEcran ? defaut : { ...defaut, ...parsed, width: largeur, height: hauteur };
+        } catch (e) {
+            console.error("Failed to parse window state", e);
+            return defaut;
         }
-    }, [id]);
+    });
 
     // Save to storage on change
     const onDragStop = (_e: any, d: any) => {

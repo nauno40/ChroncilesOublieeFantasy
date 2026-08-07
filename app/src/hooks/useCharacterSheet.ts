@@ -191,6 +191,11 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
     // Famille du profil principal (COF2 : fixe, pilote PV niveau 1, DR, PC, défauts hybrides).
     const mainFamily = PROFILE_FAMILIES[profileName ?? '']?.id;
 
+    // PV courants extraits avant le calcul : dépendre de `playState.hp.current` depuis la
+    // liste de dépendances relit une valeur mutable à chaque rendu, ce que React ne sait
+    // pas comparer de façon fiable.
+    const hpCourants = playState.hp?.current;
+
     // PV max (dérivé, COF2 chap. 9 — cas hybride géré par computeHybridMaxHp).
     const maxHp = useMemo(() => {
         // `.class.stats.hpPerLevel` : forme héritée d'un export non normalisé, jamais modélisée
@@ -198,11 +203,11 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
         const baseHp = selectedProfile?.stats?.hpPerLevel
             || selectedProfile?.hpPerLevel
             || (selectedProfile as unknown as { class?: { stats?: { hpPerLevel?: number } } })?.class?.stats?.hpPerLevel;
-        if (!baseHp) return playState.hp?.current || 0;
+        if (!baseHp) return hpCourants || 0;
         const level = character.level || 1;
         if (!mainFamily) return computeMaxHp(baseHp, mods.CON, level);
         return computeHybridMaxHp(mainFamily, playState.hpByLevel, mods.CON, level);
-    }, [selectedProfile, mainFamily, mods.CON, character.level, playState.hp?.current, playState.hpByLevel]);
+    }, [selectedProfile, mainFamily, mods.CON, character.level, hpCourants, playState.hpByLevel]);
 
     // RD (dérivé) : somme des bonus fixes des capacités acquises (voir cofRules).
     const damageReduction = useMemo(

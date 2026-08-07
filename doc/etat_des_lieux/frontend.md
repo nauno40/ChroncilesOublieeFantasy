@@ -213,13 +213,23 @@ Fonctionnalités clés :
   - *E2E* — suite Playwright dans `app/e2e/` : `auth.spec.ts` (inscription/connexion/déconnexion),
     `stale-token.spec.ts` (régression du fix 401 : un JWT périmé est purgé + redirige vers `/login`),
     `compendium.spec.ts` (races/classes/bestiaire chargés depuis la BDD, sans erreur API),
-    `character-sheet.spec.ts` (rendu de la fiche + alimentation du sélecteur de race). Helpers partagés
-    dans `e2e/fixtures.ts`, config `playwright.config.ts` (`baseURL` via `PW_BASE_URL`).
+    `character-sheet.spec.ts` (rendu de la fiche + alimentation du sélecteur de race),
+    `character-voies.spec.ts` / `character-mechanics.spec.ts` (voies, dérivations), `campaign-*.spec.ts`
+    (rattachement d'un PJ, rencontres, renommage), `custom-monsters.spec.ts`, `password-reset.spec.ts`,
+    `bibliotheque.spec.ts` (voie communautaire et ses capacités imbriquées, déclaration d'état cliquable,
+    retour contextuel) et `printable-sheet.spec.ts` (sections de la fiche imprimable, coût des sorts sous
+    l'armure). Helpers partagés dans `e2e/fixtures.ts`, config `playwright.config.ts` (`baseURL` via
+    `PW_BASE_URL`).
+  - *Deux règles apprises à leurs dépens* : ne jamais écrire en dur un nom de donnée de démonstration
+    (les fixtures changent — un test doit lire les siennes depuis l'API), et ne jamais viser `.first()`
+    dans une liste où le test vient d'ajouter un élément (il désignait une entrée préexistante).
   - *Lancer les E2E* — `bash scripts/e2e.sh` depuis la racine (stack `docker compose up -d` requis + base
     seedée). Le conteneur `frontend` étant Alpine (musl) ne peut pas exécuter les navigateurs ; le script
     utilise l'image officielle `mcr.microsoft.com/playwright:vX-jammy` en `network_mode: host` pour que le
-    XHR du navigateur vers l'API en dur (`http://localhost:8000/api`) atteigne nginx. Cibler un fichier :
-    `bash scripts/e2e.sh e2e/stale-token.spec.ts`.
+    XHR du navigateur vers l'API atteigne nginx. Cibler un fichier :
+    `bash scripts/e2e.sh e2e/stale-token.spec.ts`. L'URL d'API des appels de préparation vient de
+    `API_URL` (`e2e/fixtures.ts`), surchargeable par `PW_API_URL` quand nginx n'est pas publié sur 8000 :
+    `PW_API_URL=http://localhost:8001/api bash scripts/e2e.sh`.
 - **Fiche personnage** : `CharacterSheet.tsx` a été refactorisé (god component → orchestrateur +
   `cofRules` + hooks + `components/character/`, cf. §9)
 - **Campagne** : `campaignService.ts` est désormais branché sur l'API backend (`ApiService`, persistance en base) avec mapping bidirectionnel frontend/backend — plus de `localStorage`

@@ -85,7 +85,9 @@ Suite à l'analyse approfondie du code source frontend et backend (juin 2026), v
 - [x] **Clefs JWT** : présentes dans `config/jwt/` (regénérables via `lexik:jwt:generate-keypair`)
 - [x] **Sécurisation fine de l'API** : User, Campaign et Character restreints par utilisateur / rôle
 - [x] **Tests automatisés des règles de sécurité** : suite PHPUnit dans `backend/tests/Api/`
-- [ ] **Étendre la couverture de tests** : reste du backend (PHPUnit) + élargir la suite E2E frontend (Playwright configurée, cf. `app/e2e/`)
+- [x] **Étendre la couverture de tests** : suite E2E portée à **27 tests verts** (14 fichiers) — ajout de `bibliotheque.spec.ts` (voie communautaire et ses capacités imbriquées, déclaration d'état cliquable, retour contextuel) et `printable-sheet.spec.ts` (sections de la fiche imprimable, coût des sorts sous l'armure). Backend : suppression en cascade d'une voie communautaire couverte (`HomebrewEntryTest`).
+  **Suite remise en marche au passage** : 5 tests échouaient en silence — sélecteur `a[href^="/campaign/"]` mort depuis le passage aux cartes cliquables (refonte UI/UX), nom de monstre de démonstration disparu des fixtures, et `.first()` qui lançait une rencontre préexistante au lieu de celle créée par le test. L'URL d'API est désormais surchargeable (`PW_API_URL`) au lieu d'être écrite en dur dans chaque spec.
+- [ ] **Couvrir le reste du backend en PHPUnit** : la suite couvre la sécurité et les contrats d'API ; la logique métier hors sécurité reste à couvrir
 
 ---
 *Ce document propose un état des lieux orienté fonctionnalités et produit pour l'application Chroniques Oubliées Fantasy.*

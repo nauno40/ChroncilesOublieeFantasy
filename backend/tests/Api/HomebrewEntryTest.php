@@ -119,6 +119,43 @@ final class HomebrewEntryTest extends ApiSecurityTestCase
         $this->assertJsonContains(['parent' => '/api/homebrew_entries/'.$voie->getId()]);
     }
 
+    public function testDeletingVoieAlsoDeletesItsCapabilities(): void
+    {
+        // La confirmation de suppression côté client annonce au joueur combien de
+        // capacités partent avec la voie. Cette promesse repose sur le ON DELETE CASCADE
+        // de la clé étrangère `parent` : sans ce test, rien ne la garde.
+        $user = $this->createUser('mj@example.com');
+        $voie = $this->makeEntry($user, 'Voie du Chasseur', 'private');
+
+        $ids = [];
+        foreach (['Tir précis', 'Pister'] as $nom) {
+            $this->client->request('POST', '/api/homebrew_entries', [
+                'headers' => $this->authHeaders($user),
+                'json' => [
+                    'category' => 'capacite',
+                    'name' => $nom,
+                    'visibility' => 'private',
+                    'parent' => '/api/homebrew_entries/'.$voie->getId(),
+                ],
+            ]);
+            $this->assertResponseStatusCodeSame(201);
+            $ids[] = json_decode($this->client->getResponse()->getContent(), true)['@id'];
+        }
+
+        $this->client->request('DELETE', '/api/homebrew_entries/'.$voie->getId(), [
+            'headers' => $this->authHeaders($user),
+        ]);
+        $this->assertResponseStatusCodeSame(204);
+
+        // L'entité gérée par Doctrine survivrait en mémoire à une suppression faite en base.
+        $this->em->clear();
+
+        foreach ($ids as $iri) {
+            $this->client->request('GET', $iri, ['headers' => $this->authHeaders($user)]);
+            $this->assertResponseStatusCodeSame(404, "La capacité $iri aurait dû partir avec sa voie.");
+        }
+    }
+
     public function testCreateWithForeignParentIsRejected(): void
     {
         $alice = $this->createUser('alice@example.com');

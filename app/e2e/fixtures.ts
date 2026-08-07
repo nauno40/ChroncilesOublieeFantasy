@@ -5,6 +5,11 @@ import { test, expect, type Page } from '@playwright/test';
 // button is the only button inside <form>) and the authenticated shell (Layout:
 // the sidebar <aside> renders a logout control titled "Déconnexion").
 
+// URL de l'API pour les appels directs des tests (préparation de données). Le stack de
+// développement publie nginx sur 8000, mais ce port est parfois pris sur la machine ;
+// `PW_API_URL` permet alors de viser le port réellement publié sans toucher aux specs.
+export const API_URL = process.env.PW_API_URL ?? 'http://localhost:8000/api';
+
 export const TOKEN_KEY = 'co_auth_token';
 export const USER_KEY = 'co_auth_user';
 export const DEFAULT_PASSWORD = 'Test1234!';

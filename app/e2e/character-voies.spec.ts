@@ -1,10 +1,10 @@
 import { type Page } from '@playwright/test';
-import { test, expect, register, uniqueEmail, getToken } from './fixtures';
+import { test, expect, register, uniqueEmail, getToken, API_URL } from './fixtures';
 
 // Helpers partagés — modèle Phase 2 : les voies sont référencées par IRI et le profil
 // embarque ses voies (avec @id). On résout profils et voies depuis le compendium.
 async function loadProfiles(page: Page) {
-    const profs = await (await page.request.get('http://localhost:8000/api/profiles?pagination=false', {
+    const profs = await (await page.request.get(`${API_URL}/profiles?pagination=false`, {
         headers: { Accept: 'application/ld+json' },
     })).json();
     const members: Array<{ name: string; '@id': string; voies?: Array<{ name: string; '@id': string }> }> =
@@ -16,7 +16,7 @@ async function loadProfiles(page: Page) {
 }
 
 async function createCharacter(page: Page, token: string, body: Record<string, unknown>) {
-    const res = await page.request.post('http://localhost:8000/api/characters', {
+    const res = await page.request.post(`${API_URL}/characters`, {
         headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/ld+json', Accept: 'application/ld+json' },
         data: body,
     });

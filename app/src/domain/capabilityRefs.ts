@@ -4,6 +4,7 @@ import type {
 } from '../types/normalized';
 import type { Combatant } from '../types/campaign';
 import type { Character } from '../types/character';
+import { isCapabilityGrantedByEntry } from './rules/progression';
 import type { Capacity } from '../types/normalized';
 import type { HomebrewEntry } from '../services/homebrewService';
 
@@ -158,21 +159,21 @@ export const capacitesDuPersonnage = (
     const personnage = personnages.find(p => String(p.id) === combattant.referenceId);
     if (!personnage) return undefined;
 
-    // Rang acquis par voie : une capacité n'est retenue que si son rang lui est inférieur
-    // ou égal.
-    const rangParVoie = new Map<string, number>();
-    for (const entree of personnage.characterVoies ?? []) {
-        const id = idDeVoie(entree.voie);
-        if (id) rangParVoie.set(id, Math.max(rangParVoie.get(id) ?? 0, entree.rank));
-    }
-    if (rangParVoie.size === 0) return undefined;
+    // Une entrée de voie accorde ses capacités selon une règle que le dépôt possède déjà,
+    // testée et consommée par le mode jeu et les règles de combat : le cas général donne
+    // tous les rangs jusqu'au rang courant, mais une entrée `trait` (octroi de capacité de
+    // peuple) n'accorde QUE la capacité de son rang. Réduire les entrées à un rang maximum
+    // par voie perdrait cette distinction et proposerait au MJ une capacité que le
+    // personnage ne possède pas.
+    const entrees = personnage.characterVoies ?? [];
+    if (entrees.length === 0) return undefined;
 
     const acquises = capacites
         .filter(c => {
             const id = idDeVoie(c.voie ?? c.voieId);
             if (!id) return false;
-            const rangAcquis = rangParVoie.get(id);
-            return rangAcquis !== undefined && (c.rank ?? 0) > 0 && (c.rank ?? 0) <= rangAcquis;
+            return entrees.some(entree =>
+                idDeVoie(entree.voie) === id && isCapabilityGrantedByEntry(c.rank ?? undefined, entree));
         })
         .sort((a, b) => (a.rank ?? 0) - (b.rank ?? 0))
         .map((c): CustomCreatureCapability => ({

@@ -2,7 +2,7 @@ import React from 'react';
 import { Plus, X } from 'lucide-react';
 import { CARAC_KEYS, type HomebrewFieldDef } from '../../services/homebrewSchemas';
 import type { CapabilitySummon, HarmfulState } from '../../types/normalized';
-import type { SourcesInvocation } from '../../domain/capabilityRefs';
+import { resoudreEtat, type SourcesInvocation } from '../../domain/capabilityRefs';
 
 /** Entités existantes nécessaires aux champs `etats` et `invocations`. Chargées par la
  *  page, jamais par le champ — ce composant reste présentationnel. */
@@ -194,12 +194,16 @@ const EtatsInput: React.FC<{
     value: string[];
     etats: HarmfulState[];
     onChange: (v: string[]) => void;
-}> = ({ label, value, etats, onChange }) => (
+}> = ({ label, value, etats, onChange }) => {
+    // Même correspondance dans les deux sens : l'affichage tolère l'accord (cf.
+    // `resoudreEtat`), la reconstruction doit en faire autant.
+    const dejaChoisi = (nom: string) => value.some(v => resoudreEtat(v, etats) === nom);
+    return (
     <div>
         <div className={labelCls}>{label}</div>
         <div className="flex flex-wrap gap-1.5">
             {etats.map(etat => {
-                const choisi = value.includes(etat.name);
+                const choisi = dejaChoisi(etat.name);
                 return (
                     <button
                         key={etat.id}
@@ -207,7 +211,10 @@ const EtatsInput: React.FC<{
                         // L'ordre stocké est celui du compendium, pas celui des clics :
                         // deux capacités identiques doivent produire la même donnée.
                         onClick={() => onChange(
-                            etats.map(e => e.name).filter(n => (n === etat.name ? !choisi : value.includes(n))),
+                            // `dejaChoisi` et non `value.includes` : une déclaration
+                            // écrite à la main (« Renversée ») s'affiche cochée, elle ne
+                            // doit pas disparaître quand l'auteur clique un autre état.
+                            etats.map(e => e.name).filter(n => (n === etat.name ? !choisi : dejaChoisi(n))),
                         )}
                         className={`text-[10px] uppercase tracking-wide px-2 py-0.5 rounded border transition-colors ${
                             choisi
@@ -221,7 +228,8 @@ const EtatsInput: React.FC<{
             })}
         </div>
     </div>
-);
+    );
+};
 
 /** Lignes d'invocation. Une entité se CHOISIT parmi les existantes : rien ne se crée ici,
  *  ce qui ferme l'enchaînement sans fin de formulaires. */
@@ -231,14 +239,20 @@ const InvocationsInput: React.FC<{
     sources: SourcesInvocation;
     onChange: (v: CapabilitySummon[]) => void;
 }> = ({ label, value, sources, onChange }) => {
-    const nomsCreatures = [
-        ...sources.creatures.map(c => c.name),
-        ...sources.monstresMaison.map(m => `custom-${m.id}`),
+    // La référence part en base, le libellé s'affiche : montrer `custom-12` à l'auteur
+    // ne lui apprend rien. La bibliothèque étant toutes catégories confondues, on ne
+    // propose en objets que ce qui en est un — sinon la liste offrirait des voies et
+    // des races, y compris l'entrée en cours d'édition.
+    const creaturesChoisissables = [
+        ...sources.creatures.map(c => ({ ref: c.name, libelle: c.name })),
+        ...sources.monstresMaison.map(m => ({ ref: `custom-${m.id}`, libelle: m.name })),
     ];
-    const nomsObjets = [
-        ...sources.armes.map(a => a.name),
-        ...sources.armures.map(a => a.name),
-        ...sources.communautaire.map(e => `homebrew-${e.id}`),
+    const objetsChoisissables = [
+        ...sources.armes.map(a => ({ ref: a.name, libelle: a.name })),
+        ...sources.armures.map(a => ({ ref: a.name, libelle: a.name })),
+        ...sources.communautaire
+            .filter(e => e.category === 'objet-magique' || e.category === 'equipement')
+            .map(e => ({ ref: `homebrew-${e.id}`, libelle: e.name })),
     ];
     const modifier = (i: number, patch: Partial<CapabilitySummon>) =>
         onChange(value.map((s, idx) => (idx === i ? { ...s, ...patch } : s)));
@@ -265,8 +279,8 @@ const InvocationsInput: React.FC<{
                             className={`${fieldCls} flex-1 min-w-[140px]`}
                         >
                             <option value="">— à choisir —</option>
-                            {(invocation.type === 'creature' ? nomsCreatures : nomsObjets)
-                                .map(n => <option key={n} value={n}>{n}</option>)}
+                            {(invocation.type === 'creature' ? creaturesChoisissables : objetsChoisissables)
+                                .map(o => <option key={o.ref} value={o.ref}>{o.libelle}</option>)}
                         </select>
                         <input
                             aria-label="Quantité"

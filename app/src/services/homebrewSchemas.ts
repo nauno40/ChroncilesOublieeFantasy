@@ -107,6 +107,10 @@ export const HOMEBREW_SCHEMAS: Record<string, HomebrewFieldDef[]> = {
         { key: 'limited', label: 'Usage limité', type: 'bool', required: false },
         { key: 'effect', label: 'Effet(s)', type: 'lines', required: true },
         { key: 'details', label: 'Détails', type: 'lines', required: true },
+        // Mêmes déclarations que `capacite` : un sort passe par le même adaptateur et la
+        // même feuille, et c'est précisément le contenu qui inflige des états.
+        { key: 'states', label: 'États infligés', type: 'etats', required: false },
+        { key: 'summons', label: 'Invocations', type: 'invocations', required: false },
     ],
     // → Capability
     capacite: [

@@ -166,7 +166,7 @@ describe('capacitesDuPersonnage', () => {
 
     const heros = {
         id: 12, name: 'Héros', level: 3,
-        characterVoies: [{ voie: '/api/voies/50', rank: 2, source: 'profile' }],
+        characterVoies: [{ voie: '/api/voies/50', rank: 2, source: 'profil' }],
     } as unknown as Character;
 
     const combattantPerso = (extra: Partial<Combatant> = {}): Combatant => ({
@@ -207,6 +207,18 @@ describe('capacitesDuPersonnage', () => {
         expect(out?.[0].summons).toEqual([{ type: 'creature', ref: 'Loup' }]);
     });
 
+    it('un octroi de peuple n’accorde QUE la capacité de son rang', () => {
+        // `source: 'trait'` est l'octroi d'une capacité de peuple : il donne exactement
+        // la capacité du rang choisi, pas la voie jusqu'à ce rang. Proposer au MJ le
+        // rang 1 d'une voie que le personnage n'a pas serait pire que ne rien afficher.
+        const eleve = {
+            ...heros,
+            characterVoies: [{ voie: '/api/voies/50', rank: 2, source: 'trait' }],
+        } as unknown as Character;
+        const out = capacitesDuPersonnage(combattantPerso(), [eleve], CAPS);
+        expect(out?.map(c => c.name)).toEqual(['Rang 2']);
+    });
+
     it('ne rend rien pour un combattant qui n’est pas un personnage', () => {
         expect(capacitesDuPersonnage(combattantPerso({ source: 'manual' }), [heros], CAPS)).toBeUndefined();
         expect(capacitesDuPersonnage(combattantPerso({ source: 'bestiary' }), [heros], CAPS)).toBeUndefined();
@@ -218,7 +230,7 @@ describe('capacitesDuPersonnage', () => {
     });
 
     it('ne rend rien plutôt qu’un tableau vide quand aucun rang n’est acquis', () => {
-        const debutant = { ...heros, characterVoies: [{ voie: '/api/voies/50', rank: 0, source: 'profile' }] } as unknown as Character;
+        const debutant = { ...heros, characterVoies: [{ voie: '/api/voies/50', rank: 0, source: 'profil' }] } as unknown as Character;
         expect(capacitesDuPersonnage(combattantPerso(), [debutant], CAPS)).toBeUndefined();
     });
 });

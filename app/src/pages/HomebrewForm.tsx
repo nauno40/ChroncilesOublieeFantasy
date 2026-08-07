@@ -84,6 +84,10 @@ export const HomebrewForm: React.FC = () => {
     });
 
     useEffect(() => {
+        // Seules les catégories qui peuvent déclarer ont besoin de ces six collections :
+        // ouvrir un poison ne doit pas tirer le bestiaire, l'équipement et la bibliothèque
+        // entière. `getMonsters` et `HomebrewService.getAll` ne sont pas mis en cache.
+        if (!['capacite', 'sort', 'voie'].includes(category)) return;
         Promise.all([
             DataService.getStates().catch(() => []),
             DataService.getCreatures().catch(() => []),
@@ -94,7 +98,7 @@ export const HomebrewForm: React.FC = () => {
         ]).then(([etats, creatures, armes, armures, monstresMaison, communautaire]) => {
             setReferences({ etats, sources: { creatures, monstresMaison, armes, armures, communautaire } });
         });
-    }, []);
+    }, [category]);
 
     // Chargement de l'entrée existante (édition uniquement). Pour une voie, recharge
     // aussi ses capacités déjà enregistrées — entrées à part entière filtrées côté
@@ -341,7 +345,8 @@ export const HomebrewForm: React.FC = () => {
 
                     {previewSupported && showPreview && (
                         <div className="lg:hidden mb-6">
-                            <HomebrewFormPreview category={category} name={name} description={description} data={data} drafts={category === 'voie' ? drafts : undefined} />
+                            <HomebrewFormPreview
+                                    references={references} category={category} name={name} description={description} data={data} drafts={category === 'voie' ? drafts : undefined} />
                         </div>
                     )}
 
@@ -462,7 +467,8 @@ export const HomebrewForm: React.FC = () => {
 
                 {previewSupported && (
                     <div className="hidden lg:block lg:sticky lg:top-24">
-                        <HomebrewFormPreview category={category} name={name} description={description} data={data} drafts={category === 'voie' ? drafts : undefined} />
+                        <HomebrewFormPreview
+                                    references={references} category={category} name={name} description={description} data={data} drafts={category === 'voie' ? drafts : undefined} />
                     </div>
                 )}
             </div>

@@ -45,6 +45,10 @@ export const HomebrewDetail: React.FC = () => {
     });
 
     useEffect(() => {
+        // Seules les catégories qui peuvent déclarer ont besoin de ces six collections :
+        // ouvrir un poison ne doit pas tirer le bestiaire, l'équipement et la bibliothèque
+        // entière. `getMonsters` et `HomebrewService.getAll` ne sont pas mis en cache.
+        if (!['capacite', 'sort', 'voie'].includes(entry?.category ?? "")) return;
         Promise.all([
             DataService.getStates().catch(() => []),
             DataService.getCreatures().catch(() => []),
@@ -55,7 +59,7 @@ export const HomebrewDetail: React.FC = () => {
         ]).then(([etats, creatures, armes, armures, monstresMaison, communautaire]) => {
             setReferences({ etats, sources: { creatures, monstresMaison, armes, armures, communautaire } });
         });
-    }, []);
+    }, [entry?.category]);
 
     useEffect(() => {
         if (!id) return;

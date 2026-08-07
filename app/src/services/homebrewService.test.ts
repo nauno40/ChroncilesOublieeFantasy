@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { cheminInterne, childrenOf, messageSuppression } from './homebrewService';
+import { categoryPath, categoryPathLabel, cheminInterne, childrenOf, messageSuppression } from './homebrewService';
 import type { HomebrewEntry } from './homebrewService';
 
 // Environnement Node (pas de `window`) : on injecte explicitement l'origine plutôt
@@ -81,5 +81,26 @@ describe('messageSuppression', () => {
 
     it('annonce le nombre exact au pluriel — c’est ce qui évite d’en perdre cinq d’un clic', () => {
         expect(messageSuppression('Ma voie', 5)).toBe('Supprimer « Ma voie » et ses 5 capacités ?');
+    });
+});
+
+describe('categoryPathLabel', () => {
+    it('nomme la page réellement visée par categoryPath', () => {
+        // Un sort revient à la page des Capacités : l'intitulé doit dire cette page-là,
+        // pas la catégorie de l'entrée.
+        expect(categoryPath('sort')).toBe('/capacites');
+        expect(categoryPathLabel('sort')).toBe('Retour aux Capacités');
+    });
+
+    it('couvre les quatre catégories à page de type', () => {
+        expect(categoryPathLabel('race')).toBe('Retour aux Races');
+        expect(categoryPathLabel('classe')).toBe('Retour aux Classes');
+        expect(categoryPathLabel('voie')).toBe('Retour aux Voies');
+        expect(categoryPathLabel('capacite')).toBe('Retour aux Capacités');
+    });
+
+    it('renvoie à la Bibliothèque pour une catégorie sans page de type', () => {
+        expect(categoryPath('poison')).toBe('/bibliotheque');
+        expect(categoryPathLabel('poison')).toBe('Retour à la Bibliothèque');
     });
 });

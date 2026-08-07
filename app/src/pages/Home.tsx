@@ -107,7 +107,7 @@ export const Home: React.FC = () => {
                     ) : (
                         <div className="space-y-3">
                             {community.slice(0, 4).map(e => (
-                                <button key={e.id} onClick={() => navigate(`/homebrew/${e.id}`)} className="w-full text-left glass-panel rounded-xl border border-white/5 hover:border-primary-500/30 transition-all p-4 flex items-center gap-3 group">
+                                <button key={e.id} onClick={() => navigate(`/homebrew/${e.id}`, { state: { retour: '/', retourLabel: 'Retour au tableau de bord' } })} className="w-full text-left glass-panel rounded-xl border border-white/5 hover:border-primary-500/30 transition-all p-4 flex items-center gap-3 group">
                                     <div className="min-w-0 flex-1">
                                         <div className="flex items-center gap-2 mb-0.5">
                                             <span className="text-[9px] uppercase font-bold tracking-wider text-primary-400/80 border border-primary-500/30 rounded px-1.5 py-0.5">{categoryLabel(e.category)}</span>

@@ -44,8 +44,7 @@ export interface SpellArmorCost {
     rank: number;
     /** Coût nominal du sort, en PM. */
     base: number;
-    /** Supplément dû à l'armure portée, en PM. */
-    surcharge: number;
+    /** Coût réel sous l'armure portée : `base + surcharge` du profil. */
     total: number;
 }
 
@@ -53,6 +52,9 @@ export interface ProfileArmorImpact {
     profileName: string;
     /** Plafond effectif du profil : sa limite, relevée par les capacités acquises qui l'ouvrent. */
     allowedDef: number;
+    /** Supplément en PM dû à l'armure portée. Propriété du profil, pas du sort : identique
+     *  pour tous ses sorts, d'où sa place ici plutôt que répétée sur chaque ligne. */
+    surcharge: number;
     /** Capacités acquises (hors sorts) inutilisables tant que cette armure est portée. */
     blocked: string[];
     /** Sorts acquis dont le coût change à cause de l'armure. */
@@ -105,11 +107,11 @@ export const armorImpacts = (
             .filter(c => c.isSpell)
             .map((c) => {
                 const base = spellManaCost(c.rank);
-                return { name: c.name ?? '', rank: c.rank ?? 0, base, surcharge, total: base + surcharge };
+                return { name: c.name ?? '', rank: c.rank ?? 0, base, total: base + surcharge };
             });
 
         if (blocked.length === 0 && spells.length === 0) return;
-        impacts.push({ profileName, allowedDef, blocked, spells });
+        impacts.push({ profileName, allowedDef, surcharge, blocked, spells });
     });
     return impacts;
 };

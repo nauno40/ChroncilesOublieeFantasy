@@ -68,7 +68,7 @@ export const PrintableCharacterSheet: React.FC = () => {
     const {
         character, loading, finalStats, combatStats, mods, maxHp, damageReduction,
         luckPoints, manaPoints, recoveryDieString, evolutiveDie, bonuses, caracTestBonuses,
-        getResolvedDice,
+        armorImpacts, getResolvedDice,
     } = useCharacterSheet({ races, profiles, allVoies, id, isNew: false, navigate });
 
     if (loading) return <div className="p-8 text-center">Chargement…</div>;
@@ -100,6 +100,13 @@ export const PrintableCharacterSheet: React.FC = () => {
     const rp = ps?.rp;
     const physical = ps?.physical;
     const isMage = manaPoints > 0;
+
+    // Une capacité garde la restriction d'armure de son profil (COF2 chap. 9) : le coût
+    // imprimé d'un sort doit être celui qu'on paie réellement à table, armure comprise.
+    const surchargeDeVoie = (iri: string): number => {
+        const profil = profiles.find(p => (p.voies ?? []).some(v => v['@id'] === iri));
+        return armorImpacts.find(i => i.profileName === profil?.name)?.surcharge ?? 0;
+    };
 
     const srcLabel = (s: string): string =>
         s === 'peuple' ? 'peuple' : s === 'prestige' ? 'prestige' : s === 'trait' ? 'octroi' : 'profil';
@@ -175,7 +182,7 @@ export const PrintableCharacterSheet: React.FC = () => {
                     <StatBox label="Dé de récupération" value={recoveryDieString} />
                     <StatBox label="Dé évolutif" value={evolutiveDie} />
                 </div>
-                {isMage && <p className="text-[10px] text-stone-500 mt-1">Un sort coûte son rang en PM (indiqué sur chaque sort ci-dessous).</p>}
+                {isMage && <p className="text-[10px] text-stone-500 mt-1">Un sort coûte son rang en PM, majoré par l’armure portée (coût réel indiqué sur chaque sort ci-dessous).</p>}
             </Section>
 
             {/* Voies & capacités — descriptions complètes */}
@@ -192,12 +199,17 @@ export const PrintableCharacterSheet: React.FC = () => {
                                 <div className="space-y-1.5">
                                     {caps.map((c, j) => {
                                         const dice = c.rank != null ? getResolvedDice(entry.voie, c.rank) : undefined;
+                                        const surcharge = c.isSpell ? surchargeDeVoie(entry.voie) : 0;
                                         const chosen = c.rank != null ? (entry.choices?.[String(c.rank)] as string | undefined) : undefined;
                                         return (
                                             <div key={j} style={{ breakInside: 'avoid' }}>
                                                 <div className="text-xs">
                                                     <span className="font-bold text-stone-800">Rang {c.rank} — {c.name}</span>
-                                                    {c.isSpell && <span className="ml-1 text-[9px] font-bold uppercase text-indigo-700 border border-indigo-300 rounded px-1">Sort · {c.rank} PM</span>}
+                                                    {c.isSpell && (
+                                                        <span className="ml-1 text-[9px] font-bold uppercase text-indigo-700 border border-indigo-300 rounded px-1">
+                                                            Sort · {(c.rank ?? 0) + surcharge} PM{surcharge > 0 ? ` (${c.rank} + ${surcharge} d’armure)` : ''}
+                                                        </span>
+                                                    )}
                                                     {dice && <span className="ml-1 text-[10px] text-stone-500">[{dice}]</span>}
                                                 </div>
                                                 {c.description && <p className="text-[11px] text-stone-700 leading-snug ml-1">{c.description}</p>}
@@ -219,6 +231,23 @@ export const PrintableCharacterSheet: React.FC = () => {
                       protection?.shield?.name && `${protection.shield.name} (DEF +${protection.shield.def})`]
                         .filter(Boolean).join(' · ') || '—'}
                 </Field>
+                {armorImpacts.length > 0 && (
+                    <div className="text-xs text-stone-700 mt-1 border-l-2 border-stone-400 pl-2">
+                        <strong className="text-stone-800">Sous cette armure :</strong>
+                        <ul className="ml-3 mt-0.5 space-y-0.5">
+                            {armorImpacts.map(impact => (
+                                <li key={impact.profileName}>
+                                    <strong>{impact.profileName}</strong>{' '}
+                                    <span className="text-stone-500">
+                                        (autorisée {impact.allowedDef === 0 ? 'aucune' : `DEF +${impact.allowedDef}`})
+                                    </span>
+                                    {impact.surcharge > 0 && <> — sorts +{impact.surcharge} PM</>}
+                                    {impact.blocked.length > 0 && <> — inutilisable : {impact.blocked.join(', ')}</>}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
                 {inventory.length > 0 && <Field label="Inventaire">{inventory.join(', ')}</Field>}
                 <Field label="Bourse">{moneyStr}</Field>
                 {magicItems.length > 0 && (

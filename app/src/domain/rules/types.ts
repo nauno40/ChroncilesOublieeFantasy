@@ -15,7 +15,8 @@ export interface CompendiumCapability {
   details?: Record<string, unknown>;
 }
 export interface CompendiumVoie { '@id'?: string; name?: string; capabilities?: CompendiumCapability[]; }
-export interface CompendiumProfile { name?: string; voies?: CompendiumVoie[]; }
+// `armorMaxDef` : DEF de l'armure la plus lourde autorisée au profil ; `-1` = aucune armure.
+export interface CompendiumProfile { name?: string; voies?: CompendiumVoie[]; armorMaxDef?: number | null; }
 export interface CompendiumRace { availableVoies?: CompendiumVoie[]; }
 export interface RaceModifier {
   type?: string; stat?: string | null; value: number; count?: number; options?: string[]; logic?: string;
@@ -71,5 +72,5 @@ export interface AcquireContext {
 export interface RacialGrant {
   capabilityRank: number;      // rang de la capacité choix_capacite dans la voie de peuple
   allowedProfiles: string[];   // noms de profils autorisés ; ['*'] = tous
-  allowsRank2: boolean;        // le peuple autorise une capacité de rang 2 à la place (Elfe haut, Humain) — non géré, affiché en note
+  allowsRank2: boolean;        // le peuple autorise une capacité de rang 2 à la place (Elfe haut, Humain)
 }

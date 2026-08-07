@@ -70,7 +70,8 @@ Suite à l'analyse approfondie du code source frontend et backend (juin 2026), v
 - [x] **Phase 1 — schéma backend** : entité `CharacterVoie`, `Character` = `caracs`+`playState`+`characterVoies` (fin de `data`), champs morts `Profile` retirés, armures numériques, `Profile.armorMaxDef`/`weaponsAuth`, dé évolutif dans `Capability.effect`
 - [x] **Phases 2-5 — front** : migration du modèle (voies par IRI), moteur de dérivation `cofRules.ts` (interpréteur d'effets, PV hybrides, RD, langues…), 7 mécaniques d'aide de table + système de repos, UI réorganisée en sections repliables
 - [x] **Long-tail fidélité** : dérivation Init/DEF data-driven, plafond d'armure conscient des capacités, résolution des capacités à choix (bonus aux tests, effet de combat), octroi de capacité de peuple (source `trait`), langues de peuple, bornes physiques, maîtrises sur la fiche, tests de contrat backend
-- **Tranché** : COF2 ne définit **aucune** pénalité mécanique pour une arme non maîtrisée → « weaponsAuth » reste descriptif (affiché, non dérivé). Reste niche : octroi rang 2, surcoût de PM en armure (surtout hybrides)
+- **Tranché** : COF2 ne définit **aucune** pénalité mécanique pour une arme non maîtrisée → « weaponsAuth » reste descriptif (affiché, non dérivé).
+- [x] **Armure et capacités (chap. 9)** : une capacité garde la restriction d'armure du profil dont elle est issue, même chez un hybride. La fiche propose désormais **toutes** les armures (porter n'est pas interdit — c'est l'usage des capacités qui tombe), signale celles hors limite, et un panneau « Sous l'armure » liste par profil les capacités bridées et le **surcoût de PM** des sorts (`domain/rules/spellcasting.ts`). Sorts de prêtre exemptés ; forgesort/druide/barde ne paient que la différence.
 
 ### Phase 3 : Nouvelles Features
 - [ ] **Import/Export PDF** : Générer une fiche de personnage imprimable

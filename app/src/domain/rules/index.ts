@@ -13,3 +13,4 @@ export * from './languages';
 export * from './racial';
 export * from './mechanics';
 export * from './choices';
+export * from './spellcasting';

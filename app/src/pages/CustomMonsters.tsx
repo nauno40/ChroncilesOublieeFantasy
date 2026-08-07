@@ -5,6 +5,7 @@ import { getMonsters, createMonster, updateMonster, deleteMonster } from '../ser
 import { DataService } from '../services/dataService';
 import { useAuth } from '../context/AuthContext';
 import type { CustomCreature, CustomCreatureAttack, CustomCreatureCapability, Creature } from '../types';
+import { LEXIQUE } from '../domain/lexique';
 
 const inputClass =
     'w-full bg-black/40 border border-white/10 text-stone-100 rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-primary-500';
@@ -169,7 +170,7 @@ export const CustomMonsters: React.FC<CustomMonstersProps> = ({ embedded = false
         };
     }, [srdCreatures, monsters]);
 
-    // Onglet « Mon contenu » = mes monstres ; « Communauté » = les publics d'autrui.
+    // Onglet « Mes créations » = mes créatures ; « Communauté » = les publiques d'autrui.
     const visible = useMemo(() => (
         tab === 'mine'
             ? monsters.filter((c) => c.authorId === myId)
@@ -264,9 +265,9 @@ export const CustomMonsters: React.FC<CustomMonstersProps> = ({ embedded = false
         <PageContainer>
             {!embedded && (
                 <PageHeader
-                    title="Mes Monstres"
+                    title={LEXIQUE.mesCreatures}
                     icon={Skull}
-                    subtitle="Créez vos créatures (privées par défaut) pour le Suivi de Combat, et partagez-les à la communauté si vous le souhaitez."
+                    subtitle="Créez vos créatures (privées par défaut) pour le Suivi de combat, et partagez-les à la communauté si vous le souhaitez."
                 />
             )}
 
@@ -280,7 +281,7 @@ export const CustomMonsters: React.FC<CustomMonstersProps> = ({ embedded = false
                                 onClick={() => setTab(t)}
                                 className={`px-4 py-2 rounded-xl text-sm font-bold transition-all ${tab === t ? 'bg-primary-500/20 text-primary-300 border border-primary-500/40' : 'bg-stone-900/40 text-stone-500 border border-white/5 hover:text-stone-300'}`}
                             >
-                                {t === 'mine' ? 'Mon contenu' : 'Communauté'}
+                                {t === 'mine' ? LEXIQUE.sourceMiennes : LEXIQUE.sourceCommunaute}
                             </button>
                         ))}
                     </div>

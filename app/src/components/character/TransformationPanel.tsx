@@ -49,7 +49,7 @@ export const TransformationPanel: React.FC<Props> = ({ character, setCharacter }
                         value=""
                         onChange={e => { if (e.target.value) addFromCreature(e.target.value); e.target.value = ''; }}
                     >
-                        <option value="">+ Bestiaire…</option>
+                        <option value="">+ Créatures…</option>
                         {creatures.map(c => <option key={c.id} value={String(c.id)}>{c.name}</option>)}
                     </select>
                     <button onClick={addCustom} className="text-stone-500 hover:text-primary-400 text-sm" title="Forme personnalisée">+ Custom</button>

@@ -57,7 +57,7 @@ export const CreatureDetail: React.FC = () => {
         return <div className="min-h-screen flex flex-col items-center justify-center p-8">
             <h2 className="text-2xl font-bold text-red-400 mb-4">Créature introuvable</h2>
             <Link to="/bestiary" className="text-primary-400 hover:text-primary-300 flex items-center justify-center gap-2">
-                <ArrowLeft size={20} /> Retour au Bestiaire
+                <ArrowLeft size={20} /> Retour aux créatures
             </Link>
         </div>;
     }
@@ -100,7 +100,7 @@ export const CreatureDetail: React.FC = () => {
                 <div className="mb-8">
                     <Link to="/bestiary" className="inline-flex items-center text-stone-400 hover:text-white transition-colors group mb-6">
                         <ArrowLeft size={16} className="mr-2 group-hover:-translate-x-1 transition-transform" />
-                        <span className="font-display font-medium tracking-wide text-sm uppercase">Retour au Bestiaire</span>
+                        <span className="font-display font-medium tracking-wide text-sm uppercase">Retour aux créatures</span>
                     </Link>
 
                     <h1 className="text-5xl md:text-7xl font-display font-bold text-white drop-shadow-xl mb-4">

@@ -9,6 +9,7 @@ import { useToggle } from '../../hooks/useToggle';
 import { Dices, StickyNote, Music, Search, LogOut, User as UserIcon, Wand2, X } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { preloadRoute } from '../../routePreload';
+import { LEXIQUE } from '../../domain/lexique';
 
 export const Layout: React.FC = () => {
     const location = useLocation();
@@ -43,7 +44,7 @@ export const Layout: React.FC = () => {
             label: 'Ma table',
             subItems: [
                 { path: '/campaign', icon: Map, label: 'Campagnes' },
-                { path: '/characters', icon: Users, label: 'Mes Personnages' },
+                { path: '/characters', icon: Users, label: LEXIQUE.mesPersonnages },
             ]
         },
         {
@@ -54,16 +55,16 @@ export const Layout: React.FC = () => {
             shortLabel: 'Compend.',
             subItems: [
                 { path: '/rules', icon: ScrollText, label: 'Règles' },
-                { path: '/races', icon: BookOpen, label: 'Races' },
-                { path: '/classes', icon: GraduationCap, label: 'Classes' },
-                { path: '/voies', icon: Sparkles, label: 'Voies' },
-                { path: '/capacites', icon: Zap, label: 'Capacités & Sorts' },
-                { path: '/creatures', icon: Ghost, label: 'Créatures' },
-                { path: '/equipment', icon: Package, label: 'Armes & Armures' },
-                { path: '/tools/magic-items', icon: Wand2, label: 'Objets magiques' },
+                { path: '/races', icon: BookOpen, label: LEXIQUE.peuples },
+                { path: '/classes', icon: GraduationCap, label: LEXIQUE.classes },
+                { path: '/voies', icon: Sparkles, label: LEXIQUE.voies },
+                { path: '/capacites', icon: Zap, label: LEXIQUE.capacites },
+                { path: '/creatures', icon: Ghost, label: LEXIQUE.creatures },
+                { path: '/equipment', icon: Package, label: LEXIQUE.equipement },
+                { path: '/tools/magic-items', icon: Wand2, label: LEXIQUE.objetsMagiques },
                 { path: '/mounts', icon: Truck, label: 'Montures' },
                 { path: '/provisions', icon: UtensilsCrossed, label: 'Provisions' },
-                { path: '/states', icon: AlertCircle, label: 'États' },
+                { path: '/states', icon: AlertCircle, label: LEXIQUE.etats },
                 { path: '/poisons', icon: Skull, label: 'Poisons' },
                 { path: '/traps', icon: Footprints, label: 'Pièges' },
             ]
@@ -75,9 +76,9 @@ export const Layout: React.FC = () => {
             label: 'Table de jeu',
             shortLabel: 'Table',
             subItems: [
-                { path: '/tools/tracker', icon: Sword, label: 'Suivi de combat' },
-                { path: '/tools/dice', icon: Dices, label: 'Dés' },
-                { path: '/tools/soundboard', icon: Music, label: 'Ambiances' },
+                { path: '/tools/tracker', icon: Sword, label: LEXIQUE.suiviCombat },
+                { path: '/tools/dice', icon: Dices, label: LEXIQUE.des },
+                { path: '/tools/soundboard', icon: Music, label: LEXIQUE.ambiances },
             ]
         },
     ], []);
@@ -313,7 +314,7 @@ export const Layout: React.FC = () => {
                         <button
                             onClick={() => { toggleDiceRoller(); toggleFab(); }}
                             className="bg-gradient-to-br from-primary-500 to-primary-700 hover:from-primary-400 text-stone-950 p-3 md:p-3.5 rounded-full shadow-xl shadow-primary-900/30 hover:scale-110 active:scale-95 transition-all animate-in slide-in-from-bottom-2 fade-in-0"
-                            title="Lanceur de dés"
+                            title={LEXIQUE.des}
                         >
                             <Dices size={24} strokeWidth={2.5} />
                         </button>
@@ -359,7 +360,7 @@ export const Layout: React.FC = () => {
 
             <DraggableWindow
                 id="dice_roller"
-                title="Lanceur de Dés"
+                title={LEXIQUE.des}
                 isOpen={isDiceRollerOpen}
                 onClose={toggleDiceRoller}
                 defaultPosition={{ x: window.innerWidth - 400, y: 100 }}

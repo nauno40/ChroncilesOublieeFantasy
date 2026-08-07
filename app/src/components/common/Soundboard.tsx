@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Edit, Plus, Trash2, Save, Music, ExternalLink } from 'lucide-react';
 import { clsx } from 'clsx';
+import { LEXIQUE } from '../../domain/lexique';
 
 interface SoundboardProps {
     isOpen: boolean;
@@ -82,7 +83,7 @@ export const Soundboard: React.FC<SoundboardProps> = ({ isOpen }) => {
             {/* Header Toolbar (Optional extra controls inside content if needed, but mostly pure content) */}
             <div className="p-2 border-b border-white/5 flex justify-between items-center bg-black/10">
                 <div className="text-[11px] uppercase font-bold text-primary-400 tracking-wider">
-                    {isEditing ? "Mode Édition" : "Pistes Audio"}
+                    {isEditing ? 'Mode édition' : LEXIQUE.ambiances}
                 </div>
                 <button
                     onClick={() => setIsEditing(!isEditing)}

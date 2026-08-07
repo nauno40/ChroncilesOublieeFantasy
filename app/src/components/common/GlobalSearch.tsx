@@ -17,7 +17,7 @@ interface SearchResult {
 }
 
 const TYPE_CONFIG: Record<string, { icon: LucideIcon; label: string }> = {
-    creature: { icon: Ghost, label: 'Bestiaire' },
+    creature: { icon: Ghost, label: 'Créatures' },
     capacity: { icon: Sparkles, label: 'Capacité' },
     class: { icon: User, label: 'Profil' },
     race: { icon: Users, label: 'Race' },

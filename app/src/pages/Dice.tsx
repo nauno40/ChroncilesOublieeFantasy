@@ -1,12 +1,13 @@
 import React from 'react';
 import { Dices } from 'lucide-react';
 import { PageContainer, PageShell, DiceRoller } from '../components/common';
+import { LEXIQUE } from '../domain/lexique';
 
 export const Dice: React.FC = () => {
     return (
         <PageContainer>
             <PageShell
-                title="Lanceur de dés"
+                title={LEXIQUE.des}
                 subtitle="Table de jeu virtuelle pour tous vos jets."
                 icon={Dices}
             />

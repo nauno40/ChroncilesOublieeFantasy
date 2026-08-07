@@ -25,7 +25,7 @@ interface Props {
 /**
  * Section « Rencontres » de la fiche de campagne (extraite de CampaignDetail) :
  * liste des rencontres préparées, générateur calibré sur le groupe, éditeur de roster
- * et lancement dans le Suivi de Combat. Ne connaît de la campagne que ses rencontres.
+ * et lancement dans le Suivi de combat. Ne connaît de la campagne que ses rencontres.
  */
 export const CampaignEncounters: React.FC<Props> = ({
     campaign, partySize, partyAvgLevel, creatures, customMonsters, onCampaignSaved,
@@ -150,7 +150,7 @@ export const CampaignEncounters: React.FC<Props> = ({
     };
 
     const handleLaunchEncounter = (enc: Encounter) => {
-        if (trackerHasCombat() && !confirm('Un combat est déjà en cours dans le Suivi de Combat. Le remplacer par cette rencontre ?')) return;
+        if (trackerHasCombat() && !confirm('Un combat est déjà en cours dans le Suivi de combat. Le remplacer par cette rencontre ?')) return;
         loadEncounterIntoTracker(enc);
         navigate('/tools/tracker');
     };
@@ -191,7 +191,7 @@ export const CampaignEncounters: React.FC<Props> = ({
                                             <div className="text-[11px] text-stone-600 mt-1">{total} créature{total > 1 ? 's' : ''}</div>
                                         </div>
                                         <div className="flex items-center gap-1 shrink-0">
-                                            <button onClick={() => handleLaunchEncounter(enc)} className="p-1.5 text-red-300 hover:text-red-200 hover:bg-red-900/30 rounded-lg transition-colors" title="Lancer dans le Suivi de Combat">
+                                            <button onClick={() => handleLaunchEncounter(enc)} className="p-1.5 text-red-300 hover:text-red-200 hover:bg-red-900/30 rounded-lg transition-colors" title="Lancer dans le Suivi de combat">
                                                 <Play size={16} />
                                             </button>
                                             <button onClick={() => openEditEncounter(enc)} className="p-1.5 text-stone-400 hover:text-primary-400 transition-colors" title="Modifier">
@@ -306,7 +306,7 @@ export const CampaignEncounters: React.FC<Props> = ({
                                 >
                                     <option value="">— Créature —</option>
                                     {customMonsters.length > 0 && (
-                                        <optgroup label="Mes monstres">
+                                        <optgroup label="Mes créatures">
                                             {customMonsters.map(c => (
                                                 <option key={`${CUSTOM_PREFIX}${c.id}`} value={`${CUSTOM_PREFIX}${c.id}`}>{c.name}</option>
                                             ))}

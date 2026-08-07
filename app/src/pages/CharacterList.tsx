@@ -5,6 +5,7 @@ import { DataService } from '../services/dataService';
 import type { Character } from '../types/character';
 import { Plus, User, Swords } from 'lucide-react';
 import { PageContainer, PageShell, ContentCard, EmptyState, Loader } from '../components/common';
+import { LEXIQUE } from '../domain/lexique';
 
 /**
  * L'API renvoie race/profile en IRI (« /api/races/349 »). On résout le nom via
@@ -61,7 +62,7 @@ export const CharacterList: React.FC = () => {
     return (
         <PageContainer>
             <PageShell
-                title="Mes Personnages"
+                title={LEXIQUE.mesPersonnages}
                 subtitle="Vos héros : fiches complètes, jouables à la table."
                 icon={User}
                 actions={

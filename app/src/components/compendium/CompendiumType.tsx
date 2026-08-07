@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { PageContainer, PageShell, SourceTabs } from '../common';
 import { HomebrewBrowser } from '../homebrew/HomebrewBrowser';
+import { LEXIQUE } from '../../domain/lexique';
 
 /**
  * Page de type du compendium unifié. Porte l'unique en-tête (titre + filtre source
@@ -10,9 +11,9 @@ import { HomebrewBrowser } from '../homebrew/HomebrewBrowser';
 type Source = 'official' | 'community' | 'mine';
 
 const SOURCES: { id: Source; label: string }[] = [
-    { id: 'official', label: 'Officiel' },
-    { id: 'community', label: 'Communauté' },
-    { id: 'mine', label: 'Mes créations' },
+    { id: 'official', label: LEXIQUE.sourceOfficiel },
+    { id: 'community', label: LEXIQUE.sourceCommunaute },
+    { id: 'mine', label: LEXIQUE.sourceMiennes },
 ];
 
 export const CompendiumType: React.FC<{ title: string; category: string | string[]; official: React.ReactNode }> = ({ title, category, official }) => {

@@ -247,7 +247,7 @@ export const CombatTracker: React.FC = () => {
             <header className="flex justify-between items-center pb-4 border-b border-white/10">
                 <div>
                     <h1 className="text-3xl font-display font-bold text-primary-400 flex items-center gap-3 drop-shadow-md">
-                        <Sword className="text-primary-600" size={32} /> Suivi de Combat
+                        <Sword className="text-primary-600" size={32} /> Suivi de combat
                     </h1>
                     <div className="text-stone-400 font-mono text-sm mt-1 ml-1">
                         ROUND <span className="text-primary-300 font-bold text-lg">{state.round}</span>
@@ -309,12 +309,12 @@ export const CombatTracker: React.FC = () => {
             {/* Import bestiaire / PJ */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div className="glass-panel p-4 rounded-xl flex flex-wrap gap-2 items-end shadow-lg">
-                    <div className="text-xs text-stone-400 uppercase font-bold w-full">Bestiaire</div>
+                    <div className="text-xs text-stone-400 uppercase font-bold w-full">Créatures</div>
                     <select value={creatureId} onChange={e => setCreatureId(e.target.value)}
                         className="flex-1 min-w-[140px] bg-black/40 border border-white/10 text-stone-100 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary-500">
                         <option value="">— Créature —</option>
                         {customMonsters.length > 0 && (
-                            <optgroup label="Mes monstres">
+                            <optgroup label="Mes créatures">
                                 {customMonsters.map(c => (
                                     <option key={`${CUSTOM_PREFIX}${c.id}`} value={`${CUSTOM_PREFIX}${c.id}`}>{c.name}</option>
                                 ))}

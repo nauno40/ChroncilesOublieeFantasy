@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Dices, Eraser, ChevronRight } from 'lucide-react';
+import { LEXIQUE } from '../../domain/lexique';
 
 interface RollResult {
     id: string;
@@ -113,7 +114,7 @@ export const DiceRoller: React.FC<DiceRollerProps> = ({ isOpen, mode = 'popup' }
                 <div className="flex justify-between items-center p-4 border-b border-white/10 bg-black/20 rounded-t-2xl">
                     <div className="flex items-center gap-2 text-primary-400">
                         <Dices size={20} />
-                        <h3 className="font-display font-bold text-lg">Lanceur de Dés</h3>
+                        <h3 className="font-display font-bold text-lg">{LEXIQUE.des}</h3>
                     </div>
                 </div>
             )}

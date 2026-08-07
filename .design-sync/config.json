@@ -1,0 +1,38 @@
+{
+  "projectId": "2c2d7d04-215d-4cef-8c6b-d7026dfc6559",
+  "shape": "package",
+  "pkg": "app",
+  "globalName": "CofDs",
+  "srcDir": "src",
+  "tsconfig": "tsconfig.app.json",
+  "cssEntry": "src/design-system/styles.built.css",
+  "provider": {
+    "component": "DesignSystemProvider"
+  },
+  "componentSrcMap": {
+    "AuthorTag": "src/components/common/AuthorTag.tsx",
+    "Badge": "src/components/common/Badge.tsx",
+    "Card": "src/components/common/Card.tsx",
+    "ContentCard": "src/components/common/ContentCard.tsx",
+    "DiceRoller": "src/components/common/DiceRoller.tsx",
+    "DraggableWindow": "src/components/common/DraggableWindow.tsx",
+    "DynamicDetailsRenderer": "src/components/common/DynamicDetailsRenderer.tsx",
+    "EmptyState": "src/components/common/EmptyState.tsx",
+    "FilterPanel": "src/components/common/FilterPanel.tsx",
+    "GlobalNotes": "src/components/common/GlobalNotes.tsx",
+    "GlobalSearch": "src/components/common/GlobalSearch.tsx",
+    "ItemTable": "src/components/common/ItemTable.tsx",
+    "Loader": "src/components/common/Loader.tsx",
+    "PageContainer": "src/components/common/PageContainer.tsx",
+    "PageHeader": "src/components/common/PageHeader.tsx",
+    "PageShell": "src/components/common/PageShell.tsx",
+    "SearchBar": "src/components/common/SearchBar.tsx",
+    "Soundboard": "src/components/common/Soundboard.tsx",
+    "SourceTabs": "src/components/common/SourceTabs.tsx",
+    "TabGroup": "src/components/common/TabGroup.tsx",
+    "Tooltip": "src/components/common/Tooltip.tsx",
+    "DesignSystemProvider": "src/design-system/provider.tsx"
+  },
+  "buildCmd": "node scripts/build-ds-css.mjs && npx tsc -p tsconfig.ds.json",
+  "readmeHeader": ".design-sync/conventions.md"
+}

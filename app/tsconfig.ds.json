@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "declarationDir": "dist-types",
+    "skipLibCheck": true
+  },
+  "include": ["src/design-system", "src/components/common", "src/domain/lexique.ts"]
+}

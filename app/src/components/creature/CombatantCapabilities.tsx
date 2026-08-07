@@ -48,6 +48,9 @@ export const CombatantCapabilities: React.FC<{
                                 {/* `||` et non `??` : un `label` vide doit céder au nom,
                                     comme le fait la fiche de créature. */}
                                 <div className="text-xs font-bold text-primary-300">{cap.label || cap.name}</div>
+                                {cap.voieName && (
+                                    <span className="text-[10px] text-stone-500 truncate">{cap.voieName}</span>
+                                )}
                             </div>
                             {cap.description && (
                                 <p className="text-[11px] text-stone-400 leading-relaxed mt-1">{cap.description}</p>

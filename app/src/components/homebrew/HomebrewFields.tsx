@@ -10,7 +10,6 @@ export interface ReferencesDeclaration {
     etats: HarmfulState[];
     sources: SourcesInvocation;
 }
-import { hasValue } from '../../services/homebrewValidation';
 
 type Data = Record<string, unknown>;
 
@@ -308,52 +307,6 @@ const InvocationsInput: React.FC<{
                     <Plus size={14} /> Ajouter une invocation
                 </button>
             </div>
-        </div>
-    );
-};
-
-export const HomebrewData: React.FC<{ schema: HomebrewFieldDef[]; data: Data }> = ({ schema, data }) => {
-    const shown = schema.filter(f => hasValue(data[f.key]));
-    if (shown.length === 0) return null;
-    return (
-        <div className="space-y-3 mt-4 border-t border-white/5 pt-4">
-            {shown.map(f => <DataRow key={f.key} field={f} value={data[f.key]} />)}
-        </div>
-    );
-};
-
-const DataRow: React.FC<{ field: HomebrewFieldDef; value: unknown }> = ({ field, value }) => {
-    if (field.type === 'caracs') {
-        const v = value as Record<string, number>;
-        return (
-            <div>
-                <div className={labelCls}>{field.label}</div>
-                <div className="flex flex-wrap gap-1.5">
-                    {CARAC_KEYS.filter(k => (v[k] ?? 0) !== 0).map(k => (
-                        <span key={k} className="text-xs font-mono bg-stone-900/60 border border-white/10 rounded px-2 py-0.5 text-stone-300">{k} {v[k] > 0 ? '+' : ''}{v[k]}</span>
-                    ))}
-                </div>
-            </div>
-        );
-    }
-    if (field.type === 'lines') {
-        const arr = (value as string[]).filter(x => x && x.trim() !== '');
-        return (
-            <div>
-                <div className={labelCls}>{field.label}</div>
-                <ul className="list-disc list-inside text-sm text-stone-300 space-y-0.5">
-                    {arr.map((x, i) => <li key={i}>{x}</li>)}
-                </ul>
-            </div>
-        );
-    }
-    if (field.type === 'bool') {
-        return <div className="text-sm text-stone-300"><span className="text-[10px] uppercase font-bold text-stone-500">{field.label} :</span> {value ? 'Oui' : 'Non'}</div>;
-    }
-    return (
-        <div>
-            <div className={labelCls}>{field.label}</div>
-            <p className="text-sm text-stone-300 whitespace-pre-line">{String(value)}</p>
         </div>
     );
 };

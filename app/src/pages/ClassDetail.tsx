@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { getMonsters } from '../services/monsterService';
+import { HomebrewService } from '../services/homebrewService';
+import type { ReferencesDeclaration } from '../components/homebrew/HomebrewFields';
 import { useParams, Link } from 'react-router-dom';
 import { DataService } from '../services/dataService';
 import type { Profile, Voie, Capacity, Family } from '../types/normalized';
@@ -9,6 +12,26 @@ import { Loader2, ArrowLeft } from 'lucide-react';
 const ClassDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const [profile, setProfile] = useState<Profile | null>(null);
+
+    // Entités nécessaires à la résolution des liens de déclaration. La feuille est pure :
+    // c'est la page qui charge. Un échec laisse la collection vide, donc aucune pastille.
+    const [references, setReferences] = useState<ReferencesDeclaration>({
+        etats: [],
+        sources: { creatures: [], monstresMaison: [], armes: [], armures: [], communautaire: [] },
+    });
+
+    useEffect(() => {
+        Promise.all([
+            DataService.getStates().catch(() => []),
+            DataService.getCreatures().catch(() => []),
+            DataService.getWeapons().catch(() => []),
+            DataService.getArmors().catch(() => []),
+            getMonsters().catch(() => []),
+            HomebrewService.getAll().catch(() => []),
+        ]).then(([etats, creatures, armes, armures, monstresMaison, communautaire]) => {
+            setReferences({ etats, sources: { creatures, monstresMaison, armes, armures, communautaire } });
+        });
+    }, []);
     const [family, setFamily] = useState<Family | undefined>(undefined);
     const [profileVoies, setProfileVoies] = useState<Voie[]>([]);
     const [capacities, setCapacities] = useState<Capacity[]>([]);
@@ -76,6 +99,7 @@ const ClassDetail: React.FC = () => {
 
     return (
         <ProfileSheet
+            references={references}
             vm={profileToVM(profile, profileVoies, capacities, family)}
             backTo="/classes"
             backLabel="Retour aux Classes"

@@ -47,8 +47,8 @@ export const HomebrewFormPreview: React.FC<HomebrewFormPreviewProps> = ({ catego
         updatedAt: '',
     };
 
-    if (category === 'race') return <RaceSheet vm={homebrewToRaceVM(entry)} />;
-    if (category === 'classe') return <ProfileSheet vm={homebrewToProfileVM(entry)} />;
+    if (category === 'race') return <RaceSheet references={references} vm={homebrewToRaceVM(entry)} />;
+    if (category === 'classe') return <ProfileSheet references={references} vm={homebrewToProfileVM(entry)} />;
     if (category === 'voie') {
         // Un brouillon n'a pas encore d'identifiant serveur tant qu'il n'est pas
         // enregistré : sans conséquence pour l'aperçu, `VoieSheet` retombe sur une clé

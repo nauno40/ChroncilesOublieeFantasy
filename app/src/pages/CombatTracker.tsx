@@ -6,7 +6,7 @@ import { sortByInitiative, nextTurn, removeById, applyHp } from '../domain/comba
 import { DataService } from '../services/dataService';
 import { ApiService } from '../services/api';
 import { getMonsters } from '../services/monsterService';
-import type { Armor, Capacity, Creature, CustomCreature, HarmfulState, Weapon } from '../types/normalized';
+import type { Armor, Capacity, Creature, CustomCreature, HarmfulState, Voie, Weapon } from '../types/normalized';
 import { CombatantCapabilities } from '../components/creature/CombatantCapabilities';
 import { capacitesDuCombattant, capacitesDuPersonnage, type SourcesInvocation } from '../domain/capabilityRefs';
 import type { Character } from '../types/character';
@@ -63,6 +63,7 @@ export const CombatTracker: React.FC = () => {
     const [armes, setArmes] = useState<Weapon[]>([]);
     const [armures, setArmures] = useState<Armor[]>([]);
     const [capacites, setCapacites] = useState<Capacity[]>([]);
+    const [voies, setVoies] = useState<Voie[]>([]);
     // Pose d'état en cours : la capacité a désigné l'état, le MJ choisit encore la cible.
     const [poseEnCours, setPoseEnCours] = useState<string | null>(null);
 
@@ -80,6 +81,8 @@ export const CombatTracker: React.FC = () => {
         // Capacités du compendium : nécessaires pour résoudre celles d'un personnage joueur.
         // Un échec de chargement prive du panneau, jamais du suivi de combat.
         DataService.getCapabilities().then(setCapacites).catch(() => setCapacites([]));
+        // Nomme la voie d'origine de chaque capacité de personnage.
+        DataService.getVoies().then(setVoies).catch(() => setVoies([]));
     }, []);
 
     const sources: SourcesInvocation = useMemo(
@@ -389,7 +392,7 @@ export const CombatTracker: React.FC = () => {
                                 // Deux chemins : le bestiaire d'abord, le personnage ensuite.
                                 // Aucun ne répond pour un combattant ajouté à la main.
                                 const capacitesDuBestiaire = capacitesDuCombattant(c, creatures, customMonsters);
-                                const capacitesAcquises = capacitesDuBestiaire ?? capacitesDuPersonnage(c, characters, capacites);
+                                const capacitesAcquises = capacitesDuBestiaire ?? capacitesDuPersonnage(c, characters, capacites, voies);
                                 if (!capacitesAcquises) return null;
                                 return (
                                     <CombatantCapabilities

@@ -4,6 +4,9 @@ import { ArrowLeft } from 'lucide-react';
 import type { RaceSheetVM } from './types';
 import { DynamicDetailsRenderer } from '../common';
 import { CapabilityCard } from './CapabilityCard';
+import { CapabilityRefs } from '../creature/CapabilityRefs';
+import type { ReferencesDeclaration } from '../homebrew/HomebrewFields';
+
 
 interface RaceSheetProps {
     vm: RaceSheetVM;
@@ -11,6 +14,9 @@ interface RaceSheetProps {
     backLabel?: string;
     /** Bandeau propriétaire (contenu communautaire uniquement). */
     header?: React.ReactNode;
+    /** Entités nécessaires à la résolution des liens de déclaration. Absente, aucune
+     *  pastille : une feuille est pure et ne charge rien elle-même. */
+    references?: ReferencesDeclaration;
 }
 
 /** Image générique (initiale) quand aucune illustration n'est fournie. */
@@ -30,7 +36,7 @@ const rangeLabel = (min: number | undefined, max: number | undefined, fmt: (n: n
     return undefined;
 };
 
-export const RaceSheet: React.FC<RaceSheetProps> = ({ vm, backTo, backLabel, header }) => {
+export const RaceSheet: React.FC<RaceSheetProps> = ({ vm, backTo, backLabel, header, references }) => {
     const [activeTab, setActiveTab] = useState<'lore' | 'rules'>('lore');
     const image = vm.image ?? placeholder(vm.name);
     const heightLabel = rangeLabel(vm.minHeight, vm.maxHeight, n => `${n / 100}m`);
@@ -231,7 +237,18 @@ export const RaceSheet: React.FC<RaceSheetProps> = ({ vm, backTo, backLabel, hea
                                                     {v.capabilities && v.capabilities.length > 0 && (
                                                         <div className="grid gap-4">
                                                             {v.capabilities.map(cap => (
-                                                                <CapabilityCard key={cap.id ?? `${cap.rank ?? ''}-${cap.name}`} cap={cap} />
+                                                                <div key={cap.id ?? `${cap.rank ?? ''}-${cap.name}`}>
+                                                                <CapabilityCard cap={cap} />
+                                                                {/* À côté de la carte, jamais dedans : CapabilityCard
+                                                                    est partagée et ne connaît pas les références. */}
+                                                                {references && (
+                                                                    <CapabilityRefs
+                                                                        capacite={{ name: cap.name, states: cap.states, summons: cap.summons }}
+                                                                        etatsConnus={references.etats}
+                                                                        sources={references.sources}
+                                                                    />
+                                                                )}
+                                                            </div>
                                                             ))}
                                                         </div>
                                                     )}

@@ -29,7 +29,13 @@ export const resoudreEtat = (declare: string, etatsConnus: HarmfulState[]): stri
     if (cible === '') return undefined;
     return [...etatsConnus]
         .sort((a, b) => normaliser(b.name).length - normaliser(a.name).length)
-        .find(e => cible.startsWith(normaliser(e.name)))
+        // Le préfixe seul rapprocherait « Affaiblissement » d'« Affaibli ». En français
+        // l'accord n'ajoute qu'un ou deux caractères (« Renversée », « Immobilisées ») :
+        // au-delà, c'est un autre mot.
+        .find(e => {
+            const connu = normaliser(e.name);
+            return cible.startsWith(connu) && cible.length <= connu.length + 2;
+        })
         ?.name;
 };
 
@@ -153,6 +159,9 @@ export const capacitesDuPersonnage = (
     combattant: Combatant,
     personnages: Character[],
     capacites: Capacity[],
+    /** Voies du compendium, pour nommer l'origine de chaque capacité. Facultatif :
+     *  sans elles, la capacité s'affiche sans son nom de voie, rien de plus. */
+    voies: { id: string | number; name: string }[] = [],
 ): CustomCreatureCapability[] | undefined => {
     if (combattant.source !== 'character' || !combattant.referenceId) return undefined;
 
@@ -182,6 +191,7 @@ export const capacitesDuPersonnage = (
             rank: c.rank ?? undefined,
             states: c.states,
             summons: c.summons,
+            voieName: voies.find(v => String(v.id) === idDeVoie(c.voie ?? c.voieId))?.name,
         }));
 
     return acquises.length > 0 ? acquises : undefined;

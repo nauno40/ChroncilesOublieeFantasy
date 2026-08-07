@@ -33,22 +33,22 @@ export const CapabilityCard: React.FC<CapabilityCardProps> = ({ cap }) => (
                 </h4>
                 <div className="flex gap-2 flex-wrap">
                     {cap.limited && (
-                        <span className="px-2 py-0.5 text-[10px] uppercase font-bold tracking-wider bg-red-900/20 text-red-400 rounded border border-red-500/20">
+                        <span className="px-2 py-0.5 text-[11px] uppercase font-bold tracking-wider bg-red-900/20 text-red-400 rounded border border-red-500/20">
                             Limité
                         </span>
                     )}
                     {cap.isSpell && (
-                        <span className="px-2 py-0.5 text-[10px] uppercase font-bold tracking-wider bg-blue-900/20 text-blue-400 rounded border border-blue-500/20">
+                        <span className="px-2 py-0.5 text-[11px] uppercase font-bold tracking-wider bg-blue-900/20 text-blue-400 rounded border border-blue-500/20">
                             Sort
                         </span>
                     )}
                     {cap.actionType && (
-                        <span className="px-2 py-0.5 text-[10px] uppercase font-bold tracking-wider bg-stone-800/60 text-stone-300 rounded border border-white/10">
+                        <span className="px-2 py-0.5 text-[11px] uppercase font-bold tracking-wider bg-stone-800/60 text-stone-300 rounded border border-white/10">
                             {cap.actionType}
                         </span>
                     )}
                     {cap.active && (
-                        <span className="px-2 py-0.5 text-[10px] uppercase font-bold tracking-wider bg-amber-900/20 text-amber-400 rounded border border-amber-500/20">
+                        <span className="px-2 py-0.5 text-[11px] uppercase font-bold tracking-wider bg-amber-900/20 text-amber-400 rounded border border-amber-500/20">
                             Actif
                         </span>
                     )}

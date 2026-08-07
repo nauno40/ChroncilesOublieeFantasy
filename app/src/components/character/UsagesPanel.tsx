@@ -33,7 +33,7 @@ export const UsagesPanel: React.FC<Props> = ({ character, setCharacter }) => {
     return (
         <div className="glass-panel p-6 rounded-2xl border-white/5 bg-stone-900/10 space-y-3">
             <div className="flex items-center justify-between border-b border-white/5 pb-2">
-                <h3 className="text-stone-400 font-display font-bold uppercase text-[10px] tracking-[0.2em]">Usages limités</h3>
+                <h3 className="text-stone-400 font-display font-bold uppercase text-[11px] tracking-[0.2em]">Usages limités</h3>
                 <button onClick={add} className="text-stone-500 hover:text-primary-400 text-sm" title="Ajouter un usage">+</button>
             </div>
             {usages.length === 0 && <p className="text-[11px] text-stone-600 italic">Aucune capacité à usage limité suivie.</p>}
@@ -75,9 +75,9 @@ export const UsagesPanel: React.FC<Props> = ({ character, setCharacter }) => {
             })}
             {usages.length > 0 && (
                 <div className="flex flex-wrap gap-2 pt-2 border-t border-white/5">
-                    <button onClick={() => reset(['jour', 'combat', 'round'])} className="text-[9px] uppercase font-bold px-2 py-1 rounded border border-stone-700 text-stone-400 hover:border-primary-500/50 hover:text-primary-300 transition-all">Repos long</button>
-                    <button onClick={() => reset(['combat', 'round'])} className="text-[9px] uppercase font-bold px-2 py-1 rounded border border-stone-700 text-stone-400 hover:border-primary-500/50 hover:text-primary-300 transition-all">Fin de combat</button>
-                    <button onClick={() => reset(['round'])} className="text-[9px] uppercase font-bold px-2 py-1 rounded border border-stone-700 text-stone-400 hover:border-primary-500/50 hover:text-primary-300 transition-all">Nouveau round</button>
+                    <button onClick={() => reset(['jour', 'combat', 'round'])} className="text-[11px] uppercase font-bold px-2 py-1 rounded border border-stone-700 text-stone-400 hover:border-primary-500/50 hover:text-primary-300 transition-all">Repos long</button>
+                    <button onClick={() => reset(['combat', 'round'])} className="text-[11px] uppercase font-bold px-2 py-1 rounded border border-stone-700 text-stone-400 hover:border-primary-500/50 hover:text-primary-300 transition-all">Fin de combat</button>
+                    <button onClick={() => reset(['round'])} className="text-[11px] uppercase font-bold px-2 py-1 rounded border border-stone-700 text-stone-400 hover:border-primary-500/50 hover:text-primary-300 transition-all">Nouveau round</button>
                 </div>
             )}
         </div>

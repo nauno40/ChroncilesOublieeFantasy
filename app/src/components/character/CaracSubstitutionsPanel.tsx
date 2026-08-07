@@ -32,7 +32,7 @@ export const CaracSubstitutionsPanel: React.FC<Props> = ({ character, setCharact
 
     return (
         <div className="glass-panel p-6 rounded-2xl border-white/5 bg-stone-900/10 space-y-3">
-            <h3 className="text-stone-400 font-display font-bold uppercase text-[10px] tracking-[0.2em] border-b border-white/5 pb-2">Substitution de caractéristique</h3>
+            <h3 className="text-stone-400 font-display font-bold uppercase text-[11px] tracking-[0.2em] border-b border-white/5 pb-2">Substitution de caractéristique</h3>
             {ROWS.map(row => {
                 const current = subs[row.target] ?? row.def;
                 const isDefault = current === row.def;

@@ -18,16 +18,16 @@ const Section: React.FC<{ title: string; children: React.ReactNode; avoidBreak?:
 
 const StatBox: React.FC<{ label: string; value: React.ReactNode; hint?: React.ReactNode }> = ({ label, value, hint }) => (
     <div className="border border-stone-400 rounded px-2 py-1 text-center">
-        <div className="text-[9px] uppercase tracking-wider text-stone-500">{label}</div>
+        <div className="text-[10px] uppercase tracking-wider text-stone-500">{label}</div>
         <div className="text-base font-bold text-stone-900 leading-tight">{value}</div>
-        {hint != null && <div className="text-[8px] text-stone-500">{hint}</div>}
+        {hint != null && <div className="text-[10px] text-stone-500">{hint}</div>}
     </div>
 );
 
 // Ressource « courant / max » avec une case à remplir pour le courant.
 const Resource: React.FC<{ label: string; current: React.ReactNode; max: React.ReactNode }> = ({ label, current, max }) => (
     <div className="border border-stone-400 rounded px-2 py-1 text-center">
-        <div className="text-[9px] uppercase tracking-wider text-stone-500">{label}</div>
+        <div className="text-[10px] uppercase tracking-wider text-stone-500">{label}</div>
         <div className="flex items-center justify-center gap-1 leading-tight">
             <span className="inline-block min-w-[1.6rem] border-b border-stone-400 text-base font-bold">{current}</span>
             <span className="text-stone-400 text-sm">/</span>
@@ -151,7 +151,7 @@ export const PrintableCharacterSheet: React.FC = () => {
                 </div>
                 <table className="w-full text-xs border-collapse">
                     <thead>
-                        <tr className="text-left text-stone-500 uppercase text-[9px]">
+                        <tr className="text-left text-stone-500 uppercase text-[10px]">
                             <th className="border-b border-stone-300 py-0.5">Attaque</th>
                             <th className="border-b border-stone-300 py-0.5 w-16 text-center">Valeur</th>
                             <th className="border-b border-stone-300 py-0.5 w-20">DM</th>
@@ -206,7 +206,7 @@ export const PrintableCharacterSheet: React.FC = () => {
                                                 <div className="text-xs">
                                                     <span className="font-bold text-stone-800">Rang {c.rank} — {c.name}</span>
                                                     {c.isSpell && (
-                                                        <span className="ml-1 text-[9px] font-bold uppercase text-indigo-700 border border-indigo-300 rounded px-1">
+                                                        <span className="ml-1 text-[10px] font-bold uppercase text-indigo-700 border border-indigo-300 rounded px-1">
                                                             Sort · {(c.rank ?? 0) + surcharge} PM{surcharge > 0 ? ` (${c.rank} + ${surcharge} d’armure)` : ''}
                                                         </span>
                                                     )}

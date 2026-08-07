@@ -391,7 +391,7 @@ export const CampaignDetail: React.FC = () => {
                                                 {Object.keys(st).length > 0 && (
                                                     <div className="mt-1.5 flex flex-wrap gap-1">
                                                         {STAT_KEYS.filter(k => st[k] != null).map(k => (
-                                                            <span key={k} className="text-[10px] text-stone-400 bg-stone-800/60 rounded px-1.5 py-0.5">
+                                                            <span key={k} className="text-[11px] text-stone-400 bg-stone-800/60 rounded px-1.5 py-0.5">
                                                                 <span className="text-stone-500">{k}</span> {st[k]}
                                                             </span>
                                                         ))}

@@ -52,7 +52,7 @@ export const HpByLevelEditor: React.FC<Props> = ({ character, setCharacter, main
 
     return (
         <details className="glass-panel p-3 rounded-xl border-white/5 bg-stone-900/10">
-            <summary className="text-[10px] uppercase font-black text-stone-400 tracking-[0.2em] cursor-pointer">
+            <summary className="text-[11px] uppercase font-black text-stone-400 tracking-[0.2em] cursor-pointer">
                 PV par niveau (hybride)
             </summary>
             <div className="mt-3 space-y-1.5">

@@ -80,7 +80,7 @@ export const CapabilityNode: React.FC<Props> = ({ rank, isActive, nextActive, ca
                     </div>
 
                     <div className="flex flex-col leading-tight pt-0.5">
-                        <span className={`font-bold text-[10px] uppercase tracking-[0.1em] ${isActive ? t.rank : 'text-stone-500'}`}>
+                        <span className={`font-bold text-[11px] uppercase tracking-[0.1em] ${isActive ? t.rank : 'text-stone-500'}`}>
                             Rang {rank}
                             {badge}
                             {isLocked && lockedLabel && (
@@ -91,10 +91,10 @@ export const CapabilityNode: React.FC<Props> = ({ rank, isActive, nextActive, ca
                             <span className={`font-display text-sm transition-colors duration-300 ${isActive ? 'text-white text-shadow-md' : 'text-stone-400'}`}>
                                 {cap.name}
                                 {resolvedDice && (
-                                    <span className={`ml-2 text-[10px] font-bold normal-case px-1.5 py-0.5 rounded ${t.rank} bg-black/30`}>{resolvedDice}</span>
+                                    <span className={`ml-2 text-[11px] font-bold normal-case px-1.5 py-0.5 rounded ${t.rank} bg-black/30`}>{resolvedDice}</span>
                                 )}
                                 {cap.isSpell && (
-                                    <span className="ml-2 text-[10px] font-bold normal-case px-1.5 py-0.5 rounded bg-blue-950/40 border border-blue-700/40 text-blue-400" title="Coût du sort = son rang">{rank} PM</span>
+                                    <span className="ml-2 text-[11px] font-bold normal-case px-1.5 py-0.5 rounded bg-blue-950/40 border border-blue-700/40 text-blue-400" title="Coût du sort = son rang">{rank} PM</span>
                                 )}
                             </span>
                         )}

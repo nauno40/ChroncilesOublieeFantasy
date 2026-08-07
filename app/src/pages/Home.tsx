@@ -110,7 +110,7 @@ export const Home: React.FC = () => {
                                 <button key={e.id} onClick={() => navigate(`/homebrew/${e.id}`, { state: { retour: '/', retourLabel: 'Retour au tableau de bord' } })} className="w-full text-left glass-panel rounded-xl border border-white/5 hover:border-primary-500/30 transition-all p-4 flex items-center gap-3 group">
                                     <div className="min-w-0 flex-1">
                                         <div className="flex items-center gap-2 mb-0.5">
-                                            <span className="text-[9px] uppercase font-bold tracking-wider text-primary-400/80 border border-primary-500/30 rounded px-1.5 py-0.5">{categoryLabel(e.category)}</span>
+                                            <span className="text-[11px] uppercase font-bold tracking-wider text-primary-400/80 border border-primary-500/30 rounded px-1.5 py-0.5">{categoryLabel(e.category)}</span>
                                         </div>
                                         <div className="font-display font-bold text-stone-100 group-hover:text-primary-300 truncate">{e.name}</div>
                                         <div className="mt-1"><AuthorTag pseudo={e.authorPseudo} /></div>
@@ -128,7 +128,7 @@ export const Home: React.FC = () => {
                 <QuickAction to="/characters/new" title="Nouveau personnage" icon={UserPlus} />
                 <QuickAction to="/campaign" title="Nouvelle campagne" icon={Scroll} />
                 <QuickAction to="/bibliotheque" title="Créer du contenu" icon={PlusCircle} />
-                <QuickAction to="/tools/tracker" title="Combat Tracker" icon={Swords} />
+                <QuickAction to="/tools/tracker" title="Suivi de combat" icon={Swords} />
             </div>
         </div>
     );

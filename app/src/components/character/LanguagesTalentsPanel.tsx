@@ -38,7 +38,7 @@ export const LanguagesTalentsPanel: React.FC<Props> = ({ character, setCharacter
     const column = (title: string, key: ListKey, list: string[], placeholder: string) => (
         <div className="space-y-2">
             <div className="flex items-center justify-between">
-                <label className="text-[10px] uppercase font-black text-stone-500 tracking-[0.2em]">{title}</label>
+                <label className="text-[11px] uppercase font-black text-stone-500 tracking-[0.2em]">{title}</label>
                 <button onClick={() => addItem(key, list)} className="text-stone-500 hover:text-primary-400 text-sm" title={`Ajouter ${title.toLowerCase()}`}>+</button>
             </div>
             {list.map((item, idx) => (
@@ -59,21 +59,21 @@ export const LanguagesTalentsPanel: React.FC<Props> = ({ character, setCharacter
     return (
         <div className="glass-panel p-6 rounded-2xl border-white/5 bg-stone-900/10 space-y-4">
             <div className="flex items-center justify-between border-b border-white/5 pb-2">
-                <h3 className="text-stone-400 font-display font-bold uppercase text-[10px] tracking-[0.2em]">Langues & Talents</h3>
+                <h3 className="text-stone-400 font-display font-bold uppercase text-[11px] tracking-[0.2em]">Langues & Talents</h3>
                 <div className="flex items-center gap-2">
                     {usage.illiterate && (
-                        <span className="text-[9px] uppercase font-bold px-2 py-0.5 rounded-full bg-red-900/30 border border-red-500/40 text-red-300">Illettré</span>
+                        <span className="text-[11px] uppercase font-bold px-2 py-0.5 rounded-full bg-red-900/30 border border-red-500/40 text-red-300">Illettré</span>
                     )}
-                    <span className={`text-[10px] font-mono font-bold ${over ? 'text-red-400' : 'text-stone-400'}`}>
+                    <span className={`text-[11px] font-mono font-bold ${over ? 'text-red-400' : 'text-stone-400'}`}>
                         {usage.used} / {usage.available} empl.
                     </span>
                 </div>
             </div>
             <div className="space-y-1">
-                <label className="text-[10px] uppercase font-black text-stone-500 tracking-[0.2em]">Connues de base</label>
+                <label className="text-[11px] uppercase font-black text-stone-500 tracking-[0.2em]">Connues de base</label>
                 <div className="flex flex-wrap gap-1.5">
                     {base.map(lang => (
-                        <span key={lang} className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-stone-800/60 border border-stone-700 text-stone-300" title="Langue de peuple — gratuite">
+                        <span key={lang} className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-stone-800/60 border border-stone-700 text-stone-300" title="Langue de peuple — gratuite">
                             {lang}
                         </span>
                     ))}

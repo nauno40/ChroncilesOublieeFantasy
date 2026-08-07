@@ -114,7 +114,7 @@ export const LandingPage: React.FC = () => {
                                 <div className="relative p-6 space-y-4">
                                     <div className="flex items-center justify-between">
                                         <div>
-                                            <div className="text-[10px] uppercase tracking-widest text-stone-500 font-bold">Suivi de combat</div>
+                                            <div className="text-[11px] uppercase tracking-widest text-stone-500 font-bold">Suivi de combat</div>
                                             <div className="text-lg font-display font-bold text-stone-100">Les Ombres de Val-Gelé</div>
                                         </div>
                                         <div className="text-xs font-mono text-primary-400/80 bg-primary-950/40 px-3 py-1.5 rounded-full border border-primary-500/20">Round 3</div>
@@ -149,7 +149,7 @@ export const LandingPage: React.FC = () => {
                                 <div className="p-4 bg-stone-900/80 backdrop-blur rounded-xl border border-white/10 max-w-[200px]">
                                     <div className="flex items-center gap-2 mb-2">
                                         <div className="size-2 rounded-full bg-primary-500 animate-ping"></div>
-                                        <span className="text-[10px] uppercase font-bold text-stone-500">Combat Actif</span>
+                                        <span className="text-[11px] uppercase font-bold text-stone-500">Combat Actif</span>
                                     </div>
                                     <div className="text-sm font-bold truncate">Dragon Rouge Ancien</div>
                                     <div className="mt-2 h-1 bg-white/5 rounded-full overflow-hidden">

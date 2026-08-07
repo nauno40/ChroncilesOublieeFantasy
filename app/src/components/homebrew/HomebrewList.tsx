@@ -143,7 +143,7 @@ export const HomebrewList: React.FC<HomebrewListProps> = ({ entries, category, m
             : 'hidden md:block glass-panel rounded-2xl border border-white/5 overflow-x-auto';
         const headRowCls = big
             ? 'border-b border-white/10 bg-black/20'
-            : 'text-[10px] uppercase tracking-wider text-primary-500/70 border-b border-white/10';
+            : 'text-[11px] uppercase tracking-wider text-primary-500/70 border-b border-white/10';
         const thCls = big ? 'p-4 text-primary-300 font-display font-bold whitespace-nowrap' : 'px-4 py-3 font-bold';
         const tdCls = big ? 'p-4' : 'px-4 py-3';
         return (
@@ -250,12 +250,12 @@ export const HomebrewList: React.FC<HomebrewListProps> = ({ entries, category, m
                             <div className="border-t border-white/5">
                                 {mine ? (
                                     <div className="flex">
-                                        <button onClick={e => { e.stopPropagation(); onEdit(entry); }} className="flex-1 py-1.5 text-[10px] font-bold uppercase text-stone-500 hover:text-primary-400 hover:bg-white/[0.03] flex items-center justify-center gap-1.5 transition-all"><Edit size={11} /> Modifier</button>
-                                        <button onClick={e => { e.stopPropagation(); onDuplicate(entry); }} disabled={duplicatingId === entry.id} className="flex-1 py-1.5 text-[10px] font-bold uppercase text-stone-500 hover:text-primary-400 hover:bg-white/[0.03] flex items-center justify-center gap-1.5 transition-all border-l border-white/5 disabled:opacity-50"><Copy size={11} /> {duplicatingId === entry.id ? 'Copie…' : 'Dupliquer'}</button>
-                                        <button onClick={e => { e.stopPropagation(); onDelete(entry); }} className="flex-1 py-1.5 text-[10px] font-bold uppercase text-stone-500 hover:text-red-400 hover:bg-white/[0.03] flex items-center justify-center gap-1.5 transition-all border-l border-white/5"><Trash2 size={11} /> Supprimer</button>
+                                        <button onClick={e => { e.stopPropagation(); onEdit(entry); }} className="flex-1 py-1.5 text-[11px] font-bold uppercase text-stone-500 hover:text-primary-400 hover:bg-white/[0.03] flex items-center justify-center gap-1.5 transition-all"><Edit size={11} /> Modifier</button>
+                                        <button onClick={e => { e.stopPropagation(); onDuplicate(entry); }} disabled={duplicatingId === entry.id} className="flex-1 py-1.5 text-[11px] font-bold uppercase text-stone-500 hover:text-primary-400 hover:bg-white/[0.03] flex items-center justify-center gap-1.5 transition-all border-l border-white/5 disabled:opacity-50"><Copy size={11} /> {duplicatingId === entry.id ? 'Copie…' : 'Dupliquer'}</button>
+                                        <button onClick={e => { e.stopPropagation(); onDelete(entry); }} className="flex-1 py-1.5 text-[11px] font-bold uppercase text-stone-500 hover:text-red-400 hover:bg-white/[0.03] flex items-center justify-center gap-1.5 transition-all border-l border-white/5"><Trash2 size={11} /> Supprimer</button>
                                     </div>
                                 ) : (
-                                    <button onClick={e => { e.stopPropagation(); onDuplicate(entry); }} disabled={duplicatingId === entry.id} className="w-full py-1.5 text-[10px] font-bold uppercase text-stone-500 hover:text-primary-400 hover:bg-white/[0.03] flex items-center justify-center gap-1.5 transition-all disabled:opacity-50"><Copy size={11} /> {duplicatingId === entry.id ? 'Copie…' : 'Dupliquer'}</button>
+                                    <button onClick={e => { e.stopPropagation(); onDuplicate(entry); }} disabled={duplicatingId === entry.id} className="w-full py-1.5 text-[11px] font-bold uppercase text-stone-500 hover:text-primary-400 hover:bg-white/[0.03] flex items-center justify-center gap-1.5 transition-all disabled:opacity-50"><Copy size={11} /> {duplicatingId === entry.id ? 'Copie…' : 'Dupliquer'}</button>
                                 )}
                             </div>
                         </div>
@@ -284,7 +284,7 @@ export const HomebrewList: React.FC<HomebrewListProps> = ({ entries, category, m
                             <div className="p-4 flex-1 flex flex-col min-w-0">
                                 <div className="flex items-start justify-between gap-2 mb-2">
                                     {!locked
-                                        ? <span className="text-[10px] uppercase font-bold tracking-wider text-primary-400/80 border border-primary-500/30 rounded px-1.5 py-0.5">{categoryLabel(entry.category)}</span>
+                                        ? <span className="text-[11px] uppercase font-bold tracking-wider text-primary-400/80 border border-primary-500/30 rounded px-1.5 py-0.5">{categoryLabel(entry.category)}</span>
                                         : <span />}
                                     {entry.visibility === 'public'
                                         ? <Globe size={14} className="text-green-500/70 shrink-0 mt-0.5" aria-label="Public" />

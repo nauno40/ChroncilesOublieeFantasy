@@ -75,7 +75,7 @@ export const Layout: React.FC = () => {
             label: 'Table de jeu',
             shortLabel: 'Table',
             subItems: [
-                { path: '/tools/tracker', icon: Sword, label: 'Combat Tracker' },
+                { path: '/tools/tracker', icon: Sword, label: 'Suivi de combat' },
                 { path: '/tools/dice', icon: Dices, label: 'Dés' },
                 { path: '/tools/soundboard', icon: Music, label: 'Ambiances' },
             ]
@@ -177,7 +177,7 @@ export const Layout: React.FC = () => {
                             CHRONIQUES<br />OUBLIÉES<br />FANTASY
                         </h1>
                         <div className="flex items-center justify-between mt-4">
-                            <div className="text-[10px] font-mono text-primary-400/60 border border-primary-500/20 px-2 py-0.5 rounded-full inline-block bg-primary-950/30">MJ TOOLKIT</div>
+                            <div className="text-[11px] font-mono text-primary-400/60 border border-primary-500/20 px-2 py-0.5 rounded-full inline-block bg-primary-950/30">MJ TOOLKIT</div>
                             <button
                                 onClick={toggleSearch}
                                 className="flex items-center gap-2 text-xs text-stone-500 hover:text-primary-400 transition-colors px-2 py-1 rounded hover:bg-white/5 border border-transparent hover:border-white/5"
@@ -211,7 +211,7 @@ export const Layout: React.FC = () => {
                             </div>
                             <div className="flex-1 min-w-0">
                                 <div className="text-sm font-bold truncate text-stone-100">{user?.email?.split('@')[0]}</div>
-                                <div className="text-[10px] text-stone-500 truncate">{user?.email}</div>
+                                <div className="text-[11px] text-stone-500 truncate">{user?.email}</div>
                             </div>
                             <button
                                 onClick={logout}
@@ -221,7 +221,7 @@ export const Layout: React.FC = () => {
                                 <LogOut size={18} />
                             </button>
                         </div>
-                        <div className="text-[10px] text-stone-600 font-display text-center pt-3 italic">v1.0.0 Alpha</div>
+                        <div className="text-[11px] text-stone-600 font-display text-center pt-3 italic">v1.0.0 Alpha</div>
                     </div>
                 </div>
             </aside>
@@ -269,7 +269,7 @@ export const Layout: React.FC = () => {
                                         isActive && "scale-110 drop-shadow-[0_0_8px_rgba(245,158,11,0.5)]"
                                     )}
                                 />
-                                <span className={clsx("text-[9px] mt-0.5 font-semibold z-10 transition-colors max-w-full truncate leading-none", isActive ? "text-primary-300" : "text-stone-600")}>
+                                <span className={clsx("text-[11px] mt-0.5 font-semibold z-10 transition-colors max-w-full truncate leading-none", isActive ? "text-primary-300" : "text-stone-600")}>
                                     {item.shortLabel ?? item.label}
                                 </span>
                             </Link>

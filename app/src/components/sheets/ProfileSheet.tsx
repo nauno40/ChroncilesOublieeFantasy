@@ -44,7 +44,7 @@ const renderEquipmentItem = (item: SheetEquipmentItem | string, idx: number, lev
                 <div className="pl-4 border-l border-white/10 space-y-2">
                     {item.choice.map((choice, cIdx) => (
                         <div key={cIdx}>
-                            {cIdx > 0 && <div className="text-[10px] text-stone-500 uppercase font-bold my-1">OU</div>}
+                            {cIdx > 0 && <div className="text-[11px] text-stone-500 uppercase font-bold my-1">OU</div>}
                             {renderEquipmentItem(choice, cIdx, level + 1)}
                         </div>
                     ))}

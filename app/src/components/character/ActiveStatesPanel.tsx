@@ -53,7 +53,7 @@ export const ActiveStatesPanel: React.FC<Props> = ({ character, setCharacter }) 
     return (
         <div className="glass-panel p-6 rounded-2xl border-white/5 bg-stone-900/10 space-y-3">
             <div className="flex items-center justify-between border-b border-white/5 pb-2">
-                <h3 className="text-stone-400 font-display font-bold uppercase text-[10px] tracking-[0.2em]">États activables</h3>
+                <h3 className="text-stone-400 font-display font-bold uppercase text-[11px] tracking-[0.2em]">États activables</h3>
                 <div className="flex items-center gap-1.5">
                     <select
                         className="bg-stone-950/40 border border-stone-800 rounded px-2 py-1 text-[11px] text-stone-300 outline-none focus:border-primary-500/40"
@@ -72,7 +72,7 @@ export const ActiveStatesPanel: React.FC<Props> = ({ character, setCharacter }) 
                     <button
                         onClick={() => toggle(idx, s)}
                         title={s.active ? 'Actif' : 'Inactif'}
-                        className={`text-[9px] uppercase font-black px-2 py-1 rounded border transition-all ${s.active ? 'bg-primary-500/20 border-primary-500 text-primary-200' : 'bg-stone-950 border-stone-700 text-stone-500 hover:text-white'}`}
+                        className={`text-[11px] uppercase font-black px-2 py-1 rounded border transition-all ${s.active ? 'bg-primary-500/20 border-primary-500 text-primary-200' : 'bg-stone-950 border-stone-700 text-stone-500 hover:text-white'}`}
                     >{s.active ? 'Actif' : 'Off'}</button>
                     <input type="text" className="flex-1 min-w-[80px] bg-stone-950/40 border border-stone-800 rounded px-2 py-1 text-stone-200 outline-none focus:border-primary-500/40"
                         placeholder="Nom (ex. Rage)" value={s.name} onChange={e => update(idx, { name: e.target.value })} />
@@ -86,7 +86,7 @@ export const ActiveStatesPanel: React.FC<Props> = ({ character, setCharacter }) 
                         value={s.value} onChange={e => update(idx, { value: parseInt(e.target.value) || 0 })} />
                     <button onClick={() => remove(idx)} className="text-stone-600 hover:text-red-400" title="Retirer">✕</button>
                     {resumes.get(s.name) && (
-                        <p className="basis-full text-[10px] text-amber-300/70 leading-snug pl-1">{resumes.get(s.name)}</p>
+                        <p className="basis-full text-[11px] text-amber-300/70 leading-snug pl-1">{resumes.get(s.name)}</p>
                     )}
                 </div>
             ))}

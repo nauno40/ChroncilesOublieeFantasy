@@ -115,7 +115,7 @@ export const CampaignClues: React.FC<Props> = ({ campaign, onCampaignSaved }) =>
                                     onKeyDown={e => { if (e.key === 'Escape') setEditingClueId(null); }}
                                     className="w-full bg-stone-950 border border-stone-500 rounded px-2 py-1 text-stone-200 outline-none focus:border-stone-400 min-h-[50px]"
                                 />
-                                <div className="flex gap-3 justify-end text-[10px] font-bold uppercase">
+                                <div className="flex gap-3 justify-end text-[11px] font-bold uppercase">
                                     <button onClick={handleSaveClueEdit} className="text-green-500 hover:text-green-400">Enregistrer</button>
                                     <button onClick={() => setEditingClueId(null)} className="text-stone-500 hover:text-white">Annuler</button>
                                 </div>
@@ -123,7 +123,7 @@ export const CampaignClues: React.FC<Props> = ({ campaign, onCampaignSaved }) =>
                         ) : (
                             <p className={clsx("mb-2", clue.status === 'solved' ? "text-stone-500 line-through" : "text-stone-300")}>{clue.content}</p>
                         )}
-                        <div className="flex justify-between items-center text-[10px] text-stone-600">
+                        <div className="flex justify-between items-center text-[11px] text-stone-600">
                             <span className="flex items-center gap-1"><MapPin size={10} /> Trouvé le {formatDateSafe(clue.found_at)}</span>
                             <div className="flex gap-2">
                                 <button onClick={() => handleToggleClue(clue.id)} className={clsx("hover:underline", clue.status === 'solved' ? "text-stone-500" : "text-green-600")}>

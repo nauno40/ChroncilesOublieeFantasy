@@ -45,7 +45,7 @@ export const AttributesPanel: React.FC<Props> = ({
                                 <button
                                     key={type}
                                     onClick={() => setSelectedProfileType(type)}
-                                    className={`flex-1 py-1.5 rounded text-[10px] font-bold uppercase border transition-all ${selectedProfileType === type
+                                    className={`flex-1 py-1.5 rounded text-[11px] font-bold uppercase border transition-all ${selectedProfileType === type
                                         ? 'bg-primary-500/20 border-primary-500 text-primary-300'
                                         : 'bg-stone-950 border-stone-800 text-stone-500 hover:border-primary-500/30'}`}
                                 >
@@ -53,7 +53,7 @@ export const AttributesPanel: React.FC<Props> = ({
                                 </button>
                             ))}
                         </div>
-                        <div className="text-[10px] text-stone-400 flex flex-wrap gap-2 justify-center">
+                        <div className="text-[11px] text-stone-400 flex flex-wrap gap-2 justify-center">
                             <span className="opacity-50">Valeurs à répartir :</span>
                             {profileValues.map((v, i) => (
                                 <span key={i} className="font-mono font-bold text-white bg-stone-800 px-1.5 rounded">{v}</span>
@@ -70,7 +70,7 @@ export const AttributesPanel: React.FC<Props> = ({
                             const isValid = Object.keys(targetCounts).every(k => (currentCounts[parseInt(k)] || 0) === targetCounts[parseInt(k)]);
 
                             return (
-                                <div className={`text-center text-[10px] font-bold uppercase ${isValid ? 'text-green-500' : 'text-amber-500'}`}>
+                                <div className={`text-center text-[11px] font-bold uppercase ${isValid ? 'text-green-500' : 'text-amber-500'}`}>
                                     {isValid ? 'Répartition Valide' : 'Ajustez vos caractéristiques pour correspondre au profil'}
                                 </div>
                             );
@@ -91,7 +91,7 @@ export const AttributesPanel: React.FC<Props> = ({
 
                         return (
                             <div className="flex flex-col gap-3 mt-4 pt-3 border-t border-white/10">
-                                <span className="text-[10px] font-bold uppercase tracking-widest text-stone-500">Bonus Raciaux</span>
+                                <span className="text-[11px] font-bold uppercase tracking-widest text-stone-500">Bonus Raciaux</span>
                                 {activeModifiers.map((mod: RaceModifier) => {
                                     // Find original index for unique key
                                     const originalIndex = selectedRace.modifiers.indexOf(mod);
@@ -106,15 +106,15 @@ export const AttributesPanel: React.FC<Props> = ({
                                         return (
                                             <div key={choiceKey} className="bg-stone-900/50 p-2 rounded border border-white/5 flex flex-col gap-2">
                                                 <div className="flex justify-between items-center">
-                                                    <span className="text-[10px] text-stone-400 uppercase font-bold">{mod.stat}</span>
-                                                    <span className={`text-[10px] font-bold ${labelColor}`}>{labelPrefix} ({sign}{mod.value})</span>
+                                                    <span className="text-[11px] text-stone-400 uppercase font-bold">{mod.stat}</span>
+                                                    <span className={`text-[11px] font-bold ${labelColor}`}>{labelPrefix} ({sign}{mod.value})</span>
                                                 </div>
                                                 <div className="flex gap-2">
                                                     {mod.options?.map((opt: string) => (
                                                         <button
                                                             key={opt}
                                                             onClick={() => setRacialBonusChoices(prev => ({ ...prev, [choiceKey]: opt }))}
-                                                            className={`flex-1 py-1 rounded border text-[10px] uppercase font-bold transition-all ${racialBonusChoices[choiceKey] === opt
+                                                            className={`flex-1 py-1 rounded border text-[11px] uppercase font-bold transition-all ${racialBonusChoices[choiceKey] === opt
                                                                 ? (isBonus ? 'bg-green-500/20 border-green-500 text-green-300' : 'bg-red-500/20 border-red-500 text-red-300')
                                                                 : 'bg-stone-950 border-stone-800 text-stone-500 hover:border-stone-600'}`}
                                                         >
@@ -152,14 +152,14 @@ export const AttributesPanel: React.FC<Props> = ({
                                             inputs.push(
                                                 <div key={subChoiceKey} className="bg-stone-900/50 p-2 rounded border border-white/5 flex flex-col gap-2">
                                                     <div className="flex justify-between items-center">
-                                                        <span className="text-[10px] text-stone-400 uppercase font-bold">Faiblesse à combler ({i + 1}/{count})</span>
-                                                        <span className="text-[10px] font-bold text-green-400">Bonus (+1)</span>
+                                                        <span className="text-[11px] text-stone-400 uppercase font-bold">Faiblesse à combler ({i + 1}/{count})</span>
+                                                        <span className="text-[11px] font-bold text-green-400">Bonus (+1)</span>
                                                     </div>
-                                                    <div className="text-[9px] text-stone-500 italic mb-1">
+                                                    <div className="text-[11px] text-stone-500 italic mb-1">
                                                         Restriction : {availableOptions.join(', ')}
                                                     </div>
                                                     <select
-                                                        className="bg-stone-950 border border-stone-800 text-stone-300 text-[10px] rounded px-2 py-1.5 outline-none focus:border-green-500/50 transition-all"
+                                                        className="bg-stone-950 border border-stone-800 text-stone-300 text-[11px] rounded px-2 py-1.5 outline-none focus:border-green-500/50 transition-all"
                                                         value={currentSelection || ''}
                                                         onChange={(e) => setRacialBonusChoices(prev => ({ ...prev, [subChoiceKey]: e.target.value }))}
                                                     >
@@ -223,14 +223,20 @@ export const AttributesPanel: React.FC<Props> = ({
                             )}
                         </div>
                         <div className="flex items-center gap-4">
-                            <div className="flex items-center gap-2">
-                                <span className="text-zinc-500 text-xs uppercase tracking-wider font-semibold">Valeur</span>
-                                <span className={`w-10 text-right font-display font-bold text-lg ${finalVal > 0 ? 'text-primary-400' : 'text-stone-500'}`}>
-                                    {withSign(finalVal)}
-                                </span>
-                            </div>
+                            {/* La valeur finale n'a d'intérêt qu'à la création, où elle diffère de la
+                                valeur répartie (modificateurs de peuple). En jeu, la colonne de gauche
+                                affiche déjà cette même valeur : la répéter sous l'intitulé « Valeur »
+                                donnait une ligne « AGI 0 — Valeur 0 » sur chaque caractéristique. */}
+                            {character.level === 0 && (
+                                <div className="flex items-center gap-2">
+                                    <span className="text-zinc-500 text-xs uppercase tracking-wider font-semibold">Valeur</span>
+                                    <span className={`w-10 text-right font-display font-bold text-lg ${finalVal > 0 ? 'text-primary-400' : 'text-stone-500'}`}>
+                                        {withSign(finalVal)}
+                                    </span>
+                                </div>
+                            )}
                             {(caracTestBonuses?.[stat] ?? 0) > 0 && (
-                                <span className="text-[9px] font-bold uppercase px-1.5 py-0.5 rounded-full bg-amber-950/40 border border-amber-700/40 text-amber-400" title="Bonus aux tests de cette caractéristique">
+                                <span className="text-[11px] font-bold uppercase px-1.5 py-0.5 rounded-full bg-amber-950/40 border border-amber-700/40 text-amber-400" title="Bonus aux tests de cette caractéristique">
                                     tests +{caracTestBonuses![stat]}
                                 </span>
                             )}

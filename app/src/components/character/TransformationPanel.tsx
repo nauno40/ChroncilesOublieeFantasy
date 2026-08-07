@@ -42,7 +42,7 @@ export const TransformationPanel: React.FC<Props> = ({ character, setCharacter }
     return (
         <div className="glass-panel p-6 rounded-2xl border-white/5 bg-stone-900/10 space-y-3">
             <div className="flex items-center justify-between border-b border-white/5 pb-2">
-                <h3 className="text-stone-400 font-display font-bold uppercase text-[10px] tracking-[0.2em]">Transformations</h3>
+                <h3 className="text-stone-400 font-display font-bold uppercase text-[11px] tracking-[0.2em]">Transformations</h3>
                 <div className="flex items-center gap-2">
                     <select
                         className="bg-stone-950/40 border border-stone-800 rounded px-1.5 py-1 text-[11px] text-stone-300 outline-none"
@@ -56,7 +56,7 @@ export const TransformationPanel: React.FC<Props> = ({ character, setCharacter }
                 </div>
             </div>
             {active && (
-                <div className="text-[10px] uppercase font-black tracking-[0.2em] text-purple-300 bg-purple-900/20 border border-purple-500/40 rounded-lg px-3 py-1.5">
+                <div className="text-[11px] uppercase font-black tracking-[0.2em] text-purple-300 bg-purple-900/20 border border-purple-500/40 rounded-lg px-3 py-1.5">
                     Transformé : {active.name || '(forme)'}
                 </div>
             )}
@@ -67,7 +67,7 @@ export const TransformationPanel: React.FC<Props> = ({ character, setCharacter }
                         <button
                             onClick={() => toggle(idx, f)}
                             title={f.active ? 'Active' : 'Inactive'}
-                            className={`text-[9px] uppercase font-black px-2 py-1 rounded border transition-all ${f.active ? 'bg-purple-500/20 border-purple-500 text-purple-200' : 'bg-stone-950 border-stone-700 text-stone-500 hover:text-white'}`}
+                            className={`text-[11px] uppercase font-black px-2 py-1 rounded border transition-all ${f.active ? 'bg-purple-500/20 border-purple-500 text-purple-200' : 'bg-stone-950 border-stone-700 text-stone-500 hover:text-white'}`}
                         >{f.active ? 'Active' : 'Off'}</button>
                         <input type="text" className="flex-1 bg-stone-950/40 border border-stone-800 rounded px-2 py-1 text-stone-200 font-bold outline-none focus:border-primary-500/40"
                             placeholder="Nom de la forme" value={f.name} onChange={e => update(idx, { name: e.target.value })} />

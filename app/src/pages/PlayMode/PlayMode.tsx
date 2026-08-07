@@ -26,7 +26,7 @@ const SaveIndicator: React.FC<{ status: SaveStatus }> = ({ status }) => {
 // Tracker « courant / max » avec gros boutons tactiles (−/+).
 const Tracker: React.FC<{ label: string; current: number; max: number; onChange: (v: number) => void; color: string }> = ({ label, current, max, onChange, color }) => (
     <div className="flex-1 min-w-[8rem] bg-stone-900/50 border border-white/10 rounded-2xl p-3 text-center">
-        <div className={`text-[10px] uppercase font-black tracking-widest ${color}`}>{label}</div>
+        <div className={`text-[11px] uppercase font-black tracking-widest ${color}`}>{label}</div>
         <div className="flex items-center justify-center gap-2 mt-1">
             <button onClick={() => onChange(current - 1)} className="w-11 h-11 rounded-xl bg-stone-800 active:bg-red-900/60 text-red-400 text-2xl font-bold flex items-center justify-center border border-white/5 active:scale-95 transition-all">−</button>
             <div className="min-w-[3.5rem]">
@@ -40,7 +40,7 @@ const Tracker: React.FC<{ label: string; current: number; max: number; onChange:
 
 const Chip: React.FC<{ label: string; value: React.ReactNode }> = ({ label, value }) => (
     <div className="bg-stone-900/40 border border-white/5 rounded-xl px-3 py-2 text-center min-w-[4.5rem]">
-        <div className="text-[9px] uppercase tracking-wider text-stone-500">{label}</div>
+        <div className="text-[11px] uppercase tracking-wider text-stone-500">{label}</div>
         <div className="text-lg font-bold text-stone-200 leading-tight">{value}</div>
     </div>
 );
@@ -58,7 +58,7 @@ const Collapsible: React.FC<{ title: string; children: React.ReactNode; defaultO
 const TabButton: React.FC<{ active: boolean; onClick: () => void; icon: React.ReactNode; label: string }> = ({ active, onClick, icon, label }) => (
     <button onClick={onClick} className={`flex-1 flex flex-col items-center justify-center gap-0.5 py-2 transition-colors ${active ? 'text-primary-400' : 'text-stone-500'}`}>
         {icon}
-        <span className="text-[10px] font-bold uppercase tracking-wider">{label}</span>
+        <span className="text-[11px] font-bold uppercase tracking-wider">{label}</span>
     </button>
 );
 
@@ -173,7 +173,7 @@ export const PlayMode: React.FC = () => {
                                     {activeStates.map((s, i) => (
                                         <button key={i} onClick={() => toggleState(i)} className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl border text-sm transition-all active:scale-[0.99] ${s.active ? 'bg-primary-500/15 border-primary-500/50 text-primary-200' : 'bg-stone-900/50 border-white/5 text-stone-400'}`}>
                                             <span>{s.name} <span className="text-[11px] opacity-70">({s.target} {sign(s.value)})</span></span>
-                                            <span className={`text-[10px] font-bold uppercase ${s.active ? 'text-primary-300' : 'text-stone-600'}`}>{s.active ? 'Actif' : 'Inactif'}</span>
+                                            <span className={`text-[11px] font-bold uppercase ${s.active ? 'text-primary-300' : 'text-stone-600'}`}>{s.active ? 'Actif' : 'Inactif'}</span>
                                         </button>
                                     ))}
                                 </div>
@@ -206,13 +206,13 @@ export const PlayMode: React.FC = () => {
                                     const caps = (v?.capabilities ?? []).filter(c => isCapabilityGrantedByEntry(c.rank, entry));
                                     return (
                                         <div key={i}>
-                                            <div className="text-xs font-bold text-stone-300 border-b border-white/5 mb-1">{v?.name || 'Voie'} <span className="text-[10px] font-normal text-stone-500">(rang {entry.rank})</span></div>
+                                            <div className="text-xs font-bold text-stone-300 border-b border-white/5 mb-1">{v?.name || 'Voie'} <span className="text-[11px] font-normal text-stone-500">(rang {entry.rank})</span></div>
                                             <div className="space-y-1.5">
                                                 {caps.map((c, j) => {
                                                     const dice = c.rank != null ? getResolvedDice(entry.voie, c.rank) : undefined;
                                                     return (
                                                         <div key={j} className="text-[13px]">
-                                                            <div><span className="font-bold text-stone-200">R{c.rank} — {c.name}</span>{c.isSpell && <span className="ml-1 text-[9px] font-bold uppercase text-indigo-400 border border-indigo-500/40 rounded px-1">Sort · {c.rank} PM</span>}{dice && <span className="ml-1 text-[10px] text-stone-500">[{dice}]</span>}</div>
+                                                            <div><span className="font-bold text-stone-200">R{c.rank} — {c.name}</span>{c.isSpell && <span className="ml-1 text-[11px] font-bold uppercase text-indigo-400 border border-indigo-500/40 rounded px-1">Sort · {c.rank} PM</span>}{dice && <span className="ml-1 text-[11px] text-stone-500">[{dice}]</span>}</div>
                                                             {c.description && <p className="text-[12px] text-stone-400 leading-snug">{c.description}</p>}
                                                         </div>
                                                     );
@@ -271,7 +271,7 @@ export const PlayMode: React.FC = () => {
                                             <div key={s.id} className="bg-stone-900/40 border border-white/5 rounded-2xl p-4">
                                                 <div className="flex items-baseline justify-between gap-2">
                                                     <span className="font-display font-bold text-stone-200 text-sm">{s.title}</span>
-                                                    {s.date && <span className="text-[10px] text-stone-500 flex-none">{s.date}</span>}
+                                                    {s.date && <span className="text-[11px] text-stone-500 flex-none">{s.date}</span>}
                                                 </div>
                                                 {s.summary && <p className="text-[13px] text-stone-400 leading-relaxed mt-1 whitespace-pre-line">{s.summary}</p>}
                                             </div>
@@ -287,7 +287,7 @@ export const PlayMode: React.FC = () => {
                                         if (qs.length === 0) return null;
                                         return (
                                             <div key={type} className="mb-2">
-                                                <div className="text-[10px] uppercase tracking-wider text-stone-500 mb-1">{type === 'main' ? 'Principale' : 'Secondaire'}</div>
+                                                <div className="text-[11px] uppercase tracking-wider text-stone-500 mb-1">{type === 'main' ? 'Principale' : 'Secondaire'}</div>
                                                 <div className="space-y-2">
                                                     {qs.map(q => (
                                                         <div key={q.id} className="bg-stone-900/40 border border-white/5 rounded-2xl p-3">
@@ -311,7 +311,7 @@ export const PlayMode: React.FC = () => {
                                     </div>
                                 </div>
                             )}
-                            <p className="text-[10px] text-stone-600 italic">Vue joueur : seuls le nom, le MJ, les résumés de séances et les éléments partagés par le MJ sont visibles.</p>
+                            <p className="text-[11px] text-stone-600 italic">Vue joueur : seuls le nom, le MJ, les résumés de séances et les éléments partagés par le MJ sont visibles.</p>
                         </div>
                     )
                 )}

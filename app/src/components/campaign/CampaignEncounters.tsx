@@ -176,7 +176,7 @@ export const CampaignEncounters: React.FC<Props> = ({
                                             <div className="flex items-center gap-2 flex-wrap">
                                                 <span className="truncate text-stone-200 font-medium">{enc.name}</span>
                                                 {threat && (
-                                                    <span className={clsx("text-[10px] font-bold uppercase tracking-wide px-1.5 py-0.5 rounded border", threat.tone)}>
+                                                    <span className={clsx("text-[11px] font-bold uppercase tracking-wide px-1.5 py-0.5 rounded border", threat.tone)}>
                                                         {threat.label}
                                                     </span>
                                                 )}
@@ -188,7 +188,7 @@ export const CampaignEncounters: React.FC<Props> = ({
                                                     </span>
                                                 ))}
                                             </div>
-                                            <div className="text-[10px] text-stone-600 mt-1">{total} créature{total > 1 ? 's' : ''}</div>
+                                            <div className="text-[11px] text-stone-600 mt-1">{total} créature{total > 1 ? 's' : ''}</div>
                                         </div>
                                         <div className="flex items-center gap-1 shrink-0">
                                             <button onClick={() => handleLaunchEncounter(enc)} className="p-1.5 text-red-300 hover:text-red-200 hover:bg-red-900/30 rounded-lg transition-colors" title="Lancer dans le Suivi de Combat">

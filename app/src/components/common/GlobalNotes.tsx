@@ -44,7 +44,7 @@ export const GlobalNotes: React.FC<GlobalNotesProps> = ({ isOpen }) => {
             </div>
 
             {/* Footer */}
-            <div className="p-2 text-[10px] text-stone-500 border-t border-white/10 bg-black/20 flex justify-between items-center select-none">
+            <div className="p-2 text-[11px] text-stone-500 border-t border-white/10 bg-black/20 flex justify-between items-center select-none">
                 <span className="flex items-center gap-1 min-w-[80px]">
                     {isSaving ? (
                         <>Enregistrement...</>

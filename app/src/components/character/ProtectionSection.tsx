@@ -18,7 +18,7 @@ export const ProtectionSection: React.FC<Props> = ({ character, setCharacter, al
                     Équipement & Inventaire
                 </h3>
                 <div className="flex items-center gap-1.5 bg-stone-900/50 px-3 py-1 rounded-full border border-yellow-500/20 focus-within:border-yellow-500/50 transition-colors">
-                    <span className="text-[10px] uppercase font-bold text-yellow-500/60 tracking-wider">Argent</span>
+                    <span className="text-[11px] uppercase font-bold text-yellow-500/60 tracking-wider">Argent</span>
                     <input
                         type="number"
                         min="0"
@@ -29,7 +29,7 @@ export const ProtectionSection: React.FC<Props> = ({ character, setCharacter, al
                             setCharacter(prev => ({ ...prev, playState: { ...prev.playState!, money: { ...prev.playState!.money, po: val } } }));
                         }}
                     />
-                    <span className="text-[10px] font-bold text-yellow-500/60">po</span>
+                    <span className="text-[11px] font-bold text-yellow-500/60">po</span>
                     <input
                         type="number"
                         min="0"
@@ -43,7 +43,7 @@ export const ProtectionSection: React.FC<Props> = ({ character, setCharacter, al
                             }));
                         }}
                     />
-                    <span className="text-[10px] font-bold text-yellow-500/60">pa</span>
+                    <span className="text-[11px] font-bold text-yellow-500/60">pa</span>
                     <input
                         type="number"
                         min="0"
@@ -54,12 +54,12 @@ export const ProtectionSection: React.FC<Props> = ({ character, setCharacter, al
                             setCharacter(prev => ({ ...prev, playState: { ...prev.playState!, money: { ...prev.playState!.money, pc: val } } }));
                         }}
                     />
-                    <span className="text-[10px] font-bold text-yellow-500/60">pc</span>
+                    <span className="text-[11px] font-bold text-yellow-500/60">pc</span>
                 </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                    <label className="text-[10px] uppercase font-bold text-stone-500 tracking-wider block mb-1">Armure</label>
+                    <label className="text-[11px] uppercase font-bold text-stone-500 tracking-wider block mb-1">Armure</label>
                     <select
                         className="w-full bg-stone-950/30 border border-stone-800 rounded-lg px-3 py-2 text-stone-300 outline-none focus:border-primary-500/50"
                         value={character.playState?.protection?.armor?.name || ''}
@@ -94,7 +94,7 @@ export const ProtectionSection: React.FC<Props> = ({ character, setCharacter, al
                     </select>
                 </div>
                 <div>
-                    <label className="text-[10px] uppercase font-bold text-stone-500 tracking-wider block mb-1">Bouclier</label>
+                    <label className="text-[11px] uppercase font-bold text-stone-500 tracking-wider block mb-1">Bouclier</label>
                     <select
                         className="w-full bg-stone-950/30 border border-stone-800 rounded-lg px-3 py-2 text-stone-300 outline-none focus:border-primary-500/50"
                         value={character.playState?.protection?.shield?.name || ''}

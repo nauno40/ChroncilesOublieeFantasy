@@ -27,6 +27,15 @@ describe('resoudreEtat', () => {
         expect(resoudreEtat('Surprise', ETATS)).toBe('Surpris');
     });
 
+    it('écarte un mot dérivé qui partage la racine d’un état', () => {
+        // « Affaiblissement » commence bien par « affaibli », mais ce n'est pas l'état :
+        // en français l'accord n'ajoute qu'un ou deux caractères.
+        expect(resoudreEtat('Affaiblissement', ETATS)).toBeUndefined();
+        expect(resoudreEtat('Ralentissement', ETATS)).toBeUndefined();
+        // Les accords, eux, restent reconnus.
+        expect(resoudreEtat('Immobilisées', ETATS)).toBe('Immobilisé');
+    });
+
     it('écarte ce qui ne correspond à aucun état connu', () => {
         expect(resoudreEtat('Enflammé', ETATS)).toBeUndefined();
         expect(resoudreEtat('', ETATS)).toBeUndefined();

@@ -1,7 +1,7 @@
 /**
  * Schémas structurés par catégorie de la Bibliothèque (HomebrewEntry.data), fidèles
- * aux entités du compendium. Consommés par <HomebrewFields> (formulaire) et
- * <HomebrewData> (fiche). Vague 1 : race, classe, objet-magique, sort, état.
+ * aux entités du compendium. Consommés par <HomebrewFields> (formulaire) ; la fiche
+ * passe par les feuilles partagées de components/sheets/.
  */
 
 export type HomebrewFieldType = 'text' | 'textarea' | 'number' | 'bool' | 'select' | 'caracs' | 'lines' | 'image' | 'etats' | 'invocations';

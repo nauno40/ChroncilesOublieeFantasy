@@ -87,7 +87,7 @@ export const HomebrewForm: React.FC = () => {
         // Seules les catégories qui peuvent déclarer ont besoin de ces six collections :
         // ouvrir un poison ne doit pas tirer le bestiaire, l'équipement et la bibliothèque
         // entière. `getMonsters` et `HomebrewService.getAll` ne sont pas mis en cache.
-        if (!['capacite', 'sort', 'voie'].includes(category)) return;
+        if (!['capacite', 'sort', 'voie', 'race', 'classe'].includes(category)) return;
         Promise.all([
             DataService.getStates().catch(() => []),
             DataService.getCreatures().catch(() => []),

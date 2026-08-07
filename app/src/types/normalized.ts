@@ -368,6 +368,10 @@ export interface CustomCreatureCapability {
     states?: string[];
     /** Entités invoquées, toujours existantes. */
     summons?: CapabilitySummon[];
+    /** Voie d'origine, pour une capacité de personnage projetée au suivi de combat :
+     *  un PJ à trois voies donne sinon une liste plate où deux capacités « rang 1 »
+     *  sont indiscernables. Absent pour une capacité de créature. */
+    voieName?: string;
 }
 
 // Monstre « maison » créé par un MJ (hors compendium SRD), owner-scopé côté API.

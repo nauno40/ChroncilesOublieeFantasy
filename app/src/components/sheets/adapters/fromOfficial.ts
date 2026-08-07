@@ -91,6 +91,8 @@ const MASTERY_LABELS: Record<string, string> = {
     armors: 'Armures',
     shields: 'Boucliers',
     constraints: 'Contraintes',
+    special: 'Particularités',
+    evolution_armure: 'Évolution d’armure',
 };
 
 /** `Profile.masteries` (objet weapons/armors/shields/constraints) → entrées libellées,
@@ -99,10 +101,22 @@ const MASTERY_LABELS: Record<string, string> = {
  */
 const masteryList = (m: Profile['masteries']): SheetLabelled[] | undefined => {
     if (!m) return undefined;
-    const out = Object.entries(MASTERY_LABELS)
-        .map(([key, label]): SheetLabelled | undefined => {
-            const value = str((m as Record<string, unknown>)[key]);
-            return value !== undefined ? { label, value } : undefined;
+    // On parcourt les clés RÉELLES de la donnée, pas la table d'intitulés : n'itérer que
+    // sur les intitulés connus laissait tomber en silence `special` et
+    // `evolution_armure`, présentes dans les profils officiels. Une clé inconnue prend un
+    // intitulé dérivé de son nom plutôt que de disparaître.
+    const ordre = Object.keys(MASTERY_LABELS);
+    const out = Object.entries(m as Record<string, unknown>)
+        .sort(([a], [b]) => {
+            const ia = ordre.indexOf(a), ib = ordre.indexOf(b);
+            return (ia === -1 ? ordre.length : ia) - (ib === -1 ? ordre.length : ib);
+        })
+        .map(([cle, brut]): SheetLabelled | undefined => {
+            const value = str(brut);
+            if (value === undefined) return undefined;
+            const label = MASTERY_LABELS[cle]
+                ?? cle.replace(/_/g, ' ').replace(/^./, c => c.toUpperCase());
+            return { label, value };
         })
         .filter((e): e is SheetLabelled => e !== undefined);
     return out.length ? out : undefined;

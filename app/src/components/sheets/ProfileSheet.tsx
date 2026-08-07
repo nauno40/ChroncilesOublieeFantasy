@@ -4,6 +4,9 @@ import { ArrowLeft, Heart, Shield, Crown, Activity, HelpCircle as HelpIcon } fro
 import type { ProfileSheetVM, SheetEquipmentItem } from './types';
 import { DynamicDetailsRenderer } from '../common';
 import { CapabilityCard } from './CapabilityCard';
+import { CapabilityRefs } from '../creature/CapabilityRefs';
+import type { ReferencesDeclaration } from '../homebrew/HomebrewFields';
+
 
 interface ProfileSheetProps {
     vm: ProfileSheetVM;
@@ -11,6 +14,9 @@ interface ProfileSheetProps {
     backLabel?: string;
     /** Bandeau propriétaire (contenu communautaire uniquement). */
     header?: React.ReactNode;
+    /** Entités nécessaires à la résolution des liens de déclaration. Absente, aucune
+     *  pastille : une feuille est pure et ne charge rien elle-même. */
+    references?: ReferencesDeclaration;
 }
 
 /** Image générique (initiale) quand aucune illustration n'est fournie. */
@@ -71,7 +77,7 @@ const renderEquipmentItem = (item: SheetEquipmentItem | string, idx: number, lev
     );
 };
 
-export const ProfileSheet: React.FC<ProfileSheetProps> = ({ vm, backTo, backLabel, header }) => {
+export const ProfileSheet: React.FC<ProfileSheetProps> = ({ vm, backTo, backLabel, header, references }) => {
     const [activeTab, setActiveTab] = useState<'lore' | 'voies'>('lore');
     const image = vm.image ?? placeholder(vm.name);
 
@@ -347,7 +353,18 @@ export const ProfileSheet: React.FC<ProfileSheetProps> = ({ vm, backTo, backLabe
                                             {v.capabilities && v.capabilities.length > 0 && (
                                                 <div className="grid gap-4">
                                                     {v.capabilities.map(cap => (
-                                                        <CapabilityCard key={cap.id ?? `${cap.rank ?? ''}-${cap.name}`} cap={cap} />
+                                                        <div key={cap.id ?? `${cap.rank ?? ''}-${cap.name}`}>
+                                                                <CapabilityCard cap={cap} />
+                                                                {/* À côté de la carte, jamais dedans : CapabilityCard
+                                                                    est partagée et ne connaît pas les références. */}
+                                                                {references && (
+                                                                    <CapabilityRefs
+                                                                        capacite={{ name: cap.name, states: cap.states, summons: cap.summons }}
+                                                                        etatsConnus={references.etats}
+                                                                        sources={references.sources}
+                                                                    />
+                                                                )}
+                                                            </div>
                                                     ))}
                                                 </div>
                                             )}

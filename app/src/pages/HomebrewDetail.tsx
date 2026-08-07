@@ -48,7 +48,7 @@ export const HomebrewDetail: React.FC = () => {
         // Seules les catégories qui peuvent déclarer ont besoin de ces six collections :
         // ouvrir un poison ne doit pas tirer le bestiaire, l'équipement et la bibliothèque
         // entière. `getMonsters` et `HomebrewService.getAll` ne sont pas mis en cache.
-        if (!['capacite', 'sort', 'voie'].includes(entry?.category ?? "")) return;
+        if (!['capacite', 'sort', 'voie', 'race', 'classe'].includes(entry?.category ?? "")) return;
         Promise.all([
             DataService.getStates().catch(() => []),
             DataService.getCreatures().catch(() => []),
@@ -124,11 +124,11 @@ export const HomebrewDetail: React.FC = () => {
     );
 
     if (entry.category === 'race') {
-        return <RaceSheet vm={homebrewToRaceVM(entry)} backTo="/races" backLabel="Retour aux Races" header={ownerBar} />;
+        return <RaceSheet vm={homebrewToRaceVM(entry)} backTo="/races" backLabel="Retour aux Races" header={ownerBar} references={references} />;
     }
 
     if (entry.category === 'classe') {
-        return <ProfileSheet vm={homebrewToProfileVM(entry)} backTo="/classes" backLabel="Retour aux Classes" header={ownerBar} />;
+        return <ProfileSheet vm={homebrewToProfileVM(entry)} backTo="/classes" backLabel="Retour aux Classes" header={ownerBar} references={references} />;
     }
 
     if (entry.category === 'voie') {

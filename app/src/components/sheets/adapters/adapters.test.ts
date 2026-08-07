@@ -573,7 +573,12 @@ describe('couverture de schéma communautaire (toute clé du schéma → une pro
     it('capacite : tous les champs du schéma produisent une propriété définie', () => {
         const entry = {
             ...emptyEntry('capacite'), name: 'Capacité complète', description: 'Une description',
-            data: { rank: 3, actionType: 'Attaque', isSpell: true, limited: true, effect: ['1d6 DM'], details: ['Portée 5 m.'] },
+            data: {
+                rank: 3, actionType: 'Attaque', isSpell: true, limited: true,
+                effect: ['1d6 DM'], details: ['Portée 5 m.'],
+                states: ['Renversé'],
+                summons: [{ type: 'creature', ref: 'Loup', quantity: 2 }],
+            },
         } as HomebrewEntry;
         const vm = homebrewToCapaciteVM(entry);
         checkSchemaCoverage(HOMEBREW_SCHEMAS.capacite, vm, {
@@ -585,6 +590,8 @@ describe('couverture de schéma communautaire (toute clé du schéma → une pro
             // `details` (schéma) n'a pas de propriété dédiée : il devient `detailLines`,
             // forme différente du `details` officiel (objet JSON) — cf. fromHomebrew.ts.
             details: v => v.detailLines,
+            states: v => v.states,
+            summons: v => v.summons,
         });
     });
 });

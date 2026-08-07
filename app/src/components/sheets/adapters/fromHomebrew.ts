@@ -1,4 +1,5 @@
 import { parRangCroissant, type HomebrewEntry } from '../../../services/homebrewService';
+import type { CapabilitySummon } from '../../../types/normalized';
 import type { RaceSheetVM, ProfileSheetVM, VoieSheetVM, CapaciteSheetVM, SheetModifier, SheetLabelled } from '../types';
 import { familySubtitle } from './fromOfficial';
 import { str, num } from './shared';
@@ -173,5 +174,9 @@ export const homebrewToCapaciteVM = (e: HomebrewEntry): CapaciteSheetVM => {
         // officiel (objet JSON, cf. fromOfficial.ts) — la fiche rend les deux sans tester
         // la provenance.
         detailLines: list(data.details),
+        // Déclarations facultatives, de même forme que celles des capacités officielles.
+        // `undefined` plutôt qu'un tableau vide : contrat de dégradation propre.
+        states: Array.isArray(data.states) && data.states.length ? (data.states as string[]) : undefined,
+        summons: Array.isArray(data.summons) && data.summons.length ? (data.summons as CapabilitySummon[]) : undefined,
     };
 };

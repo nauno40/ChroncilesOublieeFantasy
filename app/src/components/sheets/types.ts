@@ -1,3 +1,5 @@
+import type { CapabilitySummon } from '../../types/normalized';
+
 /**
  * View-models des feuilles de présentation. Tous les champs sont optionnels sauf
  * `name` : une entrée communautaire est partiellement remplie et la feuille doit se
@@ -151,6 +153,10 @@ export interface SheetCapabilityRef {
     effect?: string[];
     /** Détails en lignes libres (schéma communautaire), pendant textuel de `details`. */
     detailLines?: string[];
+    /** États infligés, déclarés — noms canoniques du compendium. */
+    states?: string[];
+    /** Entités invoquées, déclarées. */
+    summons?: CapabilitySummon[];
 }
 
 export interface VoieSheetVM {
@@ -189,6 +195,10 @@ export interface CapaciteSheetVM {
     details?: Record<string, unknown>;
     /** Lignes de détail communautaires (schéma homebrew `details`, type 'lines'). */
     detailLines?: string[];
+    /** États infligés, déclarés — noms canoniques du compendium. */
+    states?: string[];
+    /** Entités invoquées, déclarées. */
+    summons?: CapabilitySummon[];
     voieName?: string;
     /** Identifiant de la voie officielle, le badge `voieName` renvoyant vers `/voies/:id`. */
     voieId?: string;

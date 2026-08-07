@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { AlertCircle, ArrowDown, ArrowUp, ChevronRight, Plus, Trash2 } from 'lucide-react';
-import { HomebrewFields, inputCls, inputErrCls, labelCls } from './HomebrewFields';
+import { HomebrewFields, inputCls, inputErrCls, labelCls, type ReferencesDeclaration } from './HomebrewFields';
 import { HOMEBREW_SCHEMAS } from '../../services/homebrewSchemas';
 import type { ChildDraft } from '../../services/homebrewChildren';
 
@@ -28,7 +28,10 @@ export const CapabilityBlocks: React.FC<{
     drafts: ChildDraft[];
     onChange: (d: ChildDraft[]) => void;
     errors: Record<string, string>;
-}> = ({ drafts, onChange, errors }) => {
+    /** Relayée telle quelle aux champs d'une capacité : sans elle, une capacité saisie
+     *  dans une voie n'aurait pas les mêmes champs qu'une capacité autonome. */
+    references?: ReferencesDeclaration;
+}> = ({ drafts, onChange, errors, references }) => {
     const prefixDe = (i: number) => `capacites.${i}.`;
     const enErreur = (i: number) => Object.keys(errors).some(k => k.startsWith(prefixDe(i)));
 
@@ -126,6 +129,7 @@ export const CapabilityBlocks: React.FC<{
                                 onChange={d => modifier(i, { data: d })}
                                 errors={erreursEnfant(errors, prefix)}
                                 prefix={prefix}
+                                references={references}
                             />
                         </div>
                     </details>

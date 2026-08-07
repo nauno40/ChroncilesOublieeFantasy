@@ -19,6 +19,9 @@ import {
 import { HOMEBREW_SCHEMAS, HOMEBREW_SHEET_CATEGORIES, hasStructuredSchema, pruneChildren, pruneToSchema } from '../services/homebrewSchemas';
 import { validateHomebrew, type HomebrewFieldError } from '../services/homebrewValidation';
 import { saveChildren, echecsCapacitesEnErreurs, resumeEchecsCapacites, type ChildDraft, type SaveChildrenResult } from '../services/homebrewChildren';
+import { DataService } from '../services/dataService';
+import { getMonsters } from '../services/monsterService';
+import type { ReferencesDeclaration } from '../components/homebrew/HomebrewFields';
 
 type Data = Record<string, unknown>;
 
@@ -72,6 +75,26 @@ export const HomebrewForm: React.FC = () => {
     // des capacités restent en échec, donc `isEdit`/l'URL ne changent pas entre-temps.
     const [createdEntryId, setCreatedEntryId] = useState<number | null>(null);
     const [showPreview, setShowPreview] = useState(false);
+    // Entités existantes proposées par les champs `etats` et `invocations`. Chargées une
+    // fois par la page : le champ reste présentationnel. Un échec laisse la collection
+    // vide, ce qui masque le champ concerné sans bloquer la saisie du reste.
+    const [references, setReferences] = useState<ReferencesDeclaration>({
+        etats: [],
+        sources: { creatures: [], monstresMaison: [], armes: [], armures: [], communautaire: [] },
+    });
+
+    useEffect(() => {
+        Promise.all([
+            DataService.getStates().catch(() => []),
+            DataService.getCreatures().catch(() => []),
+            DataService.getWeapons().catch(() => []),
+            DataService.getArmors().catch(() => []),
+            getMonsters().catch(() => []),
+            HomebrewService.getAll().catch(() => []),
+        ]).then(([etats, creatures, armes, armures, monstresMaison, communautaire]) => {
+            setReferences({ etats, sources: { creatures, monstresMaison, armes, armures, communautaire } });
+        });
+    }, []);
 
     // Chargement de l'entrée existante (édition uniquement). Pour une voie, recharge
     // aussi ses capacités déjà enregistrées — entrées à part entière filtrées côté
@@ -390,6 +413,7 @@ export const HomebrewForm: React.FC = () => {
                                     data={data}
                                     onChange={handleData}
                                     errors={errorsByKey}
+                                    references={references}
                                 />
                             </div>
                         )}
@@ -406,6 +430,7 @@ export const HomebrewForm: React.FC = () => {
                                     markDirty();
                                 }}
                                 errors={capabilityErrors}
+                                references={references}
                             />
                         )}
 

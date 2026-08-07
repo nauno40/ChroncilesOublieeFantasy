@@ -8,6 +8,9 @@ import { Loader } from '../components/common';
 import { RaceSheet, ProfileSheet, VoieSheet, CapaciteSheet, OwnerBar } from '../components/sheets';
 import { homebrewToRaceVM, homebrewToProfileVM, homebrewToVoieVM, homebrewToCapaciteVM } from '../components/sheets/adapters/fromHomebrew';
 import { duplicateEntry, resumeDuplication } from '../services/homebrewChildren';
+import { DataService } from '../services/dataService';
+import { getMonsters } from '../services/monsterService';
+import type { ReferencesDeclaration } from '../components/homebrew/HomebrewFields';
 import { useAuth } from '../context/AuthContext';
 
 // Champs « compacts » (colonne latérale) vs « longs » (colonne principale).
@@ -33,6 +36,26 @@ export const HomebrewDetail: React.FC = () => {
     const [loading, setLoading] = useState(true);
     const [activeTab, setActiveTab] = useState<'lore' | 'rules'>('lore');
     const [duplicating, setDuplicating] = useState(false);
+    // Entités nécessaires à la résolution des liens de déclaration. La feuille est pure :
+    // c'est la page qui charge. Un échec laisse la collection vide, donc aucune pastille,
+    // sans empêcher la fiche de s'afficher.
+    const [references, setReferences] = useState<ReferencesDeclaration>({
+        etats: [],
+        sources: { creatures: [], monstresMaison: [], armes: [], armures: [], communautaire: [] },
+    });
+
+    useEffect(() => {
+        Promise.all([
+            DataService.getStates().catch(() => []),
+            DataService.getCreatures().catch(() => []),
+            DataService.getWeapons().catch(() => []),
+            DataService.getArmors().catch(() => []),
+            getMonsters().catch(() => []),
+            HomebrewService.getAll().catch(() => []),
+        ]).then(([etats, creatures, armes, armures, monstresMaison, communautaire]) => {
+            setReferences({ etats, sources: { creatures, monstresMaison, armes, armures, communautaire } });
+        });
+    }, []);
 
     useEffect(() => {
         if (!id) return;
@@ -105,7 +128,7 @@ export const HomebrewDetail: React.FC = () => {
     }
 
     if (entry.category === 'voie') {
-        return <VoieSheet vm={homebrewToVoieVM(entry, children)} backTo="/voies" backLabel="Retour aux Voies" header={ownerBar} />;
+        return <VoieSheet vm={homebrewToVoieVM(entry, children)} backTo="/voies" backLabel="Retour aux Voies" header={ownerBar} references={references} />;
     }
 
     if (entry.category === 'capacite' || entry.category === 'sort') {
@@ -115,7 +138,7 @@ export const HomebrewDetail: React.FC = () => {
         const avecVoie = voieParente
             ? { ...vm, voieName: voieParente.name, voieHref: `/homebrew/${voieParente.id}` }
             : vm;
-        return <CapaciteSheet vm={avecVoie} backTo="/capacites" backLabel="Retour aux Capacités" header={ownerBar} />;
+        return <CapaciteSheet vm={avecVoie} backTo="/capacites" backLabel="Retour aux Capacités" header={ownerBar} references={references} />;
     }
 
     const schema = HOMEBREW_SCHEMAS[entry.category] ?? [];

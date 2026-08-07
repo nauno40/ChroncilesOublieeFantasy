@@ -4,6 +4,9 @@ import { ArrowLeft } from 'lucide-react';
 import type { VoieSheetVM } from './types';
 import { DynamicDetailsRenderer } from '../common';
 import { CapabilityCard } from './CapabilityCard';
+import { CapabilityRefs } from '../creature/CapabilityRefs';
+import type { ReferencesDeclaration } from '../homebrew/HomebrewFields';
+
 
 interface VoieSheetProps {
     vm: VoieSheetVM;
@@ -11,9 +14,12 @@ interface VoieSheetProps {
     backLabel?: string;
     /** Bandeau propriétaire (contenu communautaire uniquement). */
     header?: React.ReactNode;
+    /** Entités nécessaires à la résolution des liens de déclaration. Absente, aucune
+     *  pastille : une feuille est pure et ne charge rien elle-même. */
+    references?: ReferencesDeclaration;
 }
 
-export const VoieSheet: React.FC<VoieSheetProps> = ({ vm, backTo, backLabel, header }) => {
+export const VoieSheet: React.FC<VoieSheetProps> = ({ vm, backTo, backLabel, header, references }) => {
     const hasDetails = vm.details !== undefined;
     const hasCapabilities = (vm.capabilities?.length ?? 0) > 0;
 
@@ -77,7 +83,19 @@ export const VoieSheet: React.FC<VoieSheetProps> = ({ vm, backTo, backLabel, hea
                                         pas d'identifiant, et deux blocs encore vierges
                                         produiraient la même clé composée dans l'aperçu. */}
                                     {vm.capabilities!.map((cap, i) => (
-                                        <CapabilityCard key={cap.id ?? i} cap={cap} />
+                                        <div key={cap.id ?? i}>
+                                            <CapabilityCard cap={cap} />
+                                            {/* Rendu À CÔTÉ de la carte, jamais dedans :
+                                                CapabilityCard sert aussi aux fiches de peuple
+                                                et de classe, qui n'ont pas de références. */}
+                                            {references && (
+                                                <CapabilityRefs
+                                                    capacite={{ name: cap.name, states: cap.states, summons: cap.summons }}
+                                                    etatsConnus={references.etats}
+                                                    sources={references.sources}
+                                                />
+                                            )}
+                                        </div>
                                     ))}
                                 </div>
                             </>

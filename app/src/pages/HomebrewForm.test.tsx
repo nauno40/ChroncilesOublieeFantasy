@@ -18,11 +18,26 @@ import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { HomebrewForm } from './HomebrewForm';
 import { HomebrewService } from '../services/homebrewService';
 
+// La page charge désormais les entités proposées par les champs de déclaration. Les
+// doubler évite un appel réseau réel — et un `getAll` non doublé renverrait `undefined`,
+// ce qui ferait échouer le `Promise.all` avant même le rendu.
+vi.mock('../services/dataService', () => ({
+    DataService: {
+        getStates: vi.fn(async () => []),
+        getCreatures: vi.fn(async () => []),
+        getWeapons: vi.fn(async () => []),
+        getArmors: vi.fn(async () => []),
+    },
+}));
+vi.mock('../services/monsterService', () => ({ getMonsters: vi.fn(async () => []) }));
+
 vi.mock('../services/homebrewService', async (importOriginal) => {
     const actual = await importOriginal<typeof import('../services/homebrewService')>();
     return {
         ...actual,
-        HomebrewService: { create: vi.fn(), update: vi.fn(), remove: vi.fn(), getById: vi.fn(), getAll: vi.fn() },
+        // `getAll` renvoie toujours un tableau dans la vraie implémentation : le double
+        // doit en faire autant, sinon la page échoue avant le rendu.
+        HomebrewService: { create: vi.fn(), update: vi.fn(), remove: vi.fn(), getById: vi.fn(), getAll: vi.fn(async () => []) },
     };
 });
 

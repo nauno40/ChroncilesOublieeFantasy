@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { hasValue, validateHomebrew } from './homebrewValidation';
-import { HOMEBREW_SCHEMAS, pruneChildren, type HomebrewFieldDef } from './homebrewSchemas';
+import { HOMEBREW_SCHEMAS, pruneChildren, pruneToSchema, type HomebrewFieldDef } from './homebrewSchemas';
 
 /** Construit une donnée qui remplit tous les champs requis d'une catégorie. */
 const complet = (categorie: string): Record<string, unknown> => {
@@ -188,5 +188,34 @@ describe('HomebrewFieldDef.required', () => {
         for (const champ of tousLesChamps) {
             expect(typeof champ.required).toBe('boolean');
         }
+    });
+});
+
+describe('déclarations d’une capacité communautaire', () => {
+    it('conserve states et summons à l’élagage', () => {
+        // Sans entrée de schéma, pruneToSchema effacerait les deux clés à l'enregistrement.
+        const data = {
+            rank: 1, actionType: 'Attaque', effect: ['e'], details: ['d'],
+            states: ['Renversé'],
+            summons: [{ type: 'creature', ref: 'Loup', quantity: 2 }],
+        };
+        const elague = pruneToSchema('capacite', data);
+        expect(elague.states).toEqual(['Renversé']);
+        expect(elague.summons).toEqual([{ type: 'creature', ref: 'Loup', quantity: 2 }]);
+    });
+
+    it('écarte une invocation dont l’entité n’a pas été choisie', () => {
+        // Une ligne ajoutée puis laissée vide ne vaut rien et polluerait la donnée.
+        const data = {
+            rank: 1, actionType: 'Attaque', effect: ['e'], details: ['d'],
+            summons: [{ type: 'creature', ref: '', quantity: 1 }, { type: 'creature', ref: 'Loup' }],
+        };
+        expect(pruneToSchema('capacite', data).summons).toEqual([{ type: 'creature', ref: 'Loup' }]);
+    });
+
+    it('n’exige ni états ni invocations', () => {
+        // Déclarer est facultatif : la plupart des capacités n'infligent rien.
+        const data = { rank: 1, actionType: 'Attaque', effect: ['e'], details: ['d'] };
+        expect(validateHomebrew('capacite', 'Frappe', data)).toEqual([]);
     });
 });

@@ -6,6 +6,7 @@ import { DynamicDetailsRenderer } from '../common';
 import { CapabilityCard } from './CapabilityCard';
 import { CapabilityRefs } from '../creature/CapabilityRefs';
 import type { ReferencesDeclaration } from '../homebrew/HomebrewFields';
+import { imagePlaceholder, onImageError } from '../common/imagePlaceholder';
 
 
 interface ProfileSheetProps {
@@ -18,10 +19,6 @@ interface ProfileSheetProps {
      *  pastille : une feuille est pure et ne charge rien elle-même. */
     references?: ReferencesDeclaration;
 }
-
-/** Image générique (initiale) quand aucune illustration n'est fournie. */
-const placeholder = (name: string) =>
-    `data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="533"%3E%3Crect fill="%23292524" width="400" height="533"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-size="160" fill="%23f59e0b"%3E${name.charAt(0).toUpperCase()}%3C/text%3E%3C/svg%3E`;
 
 /** Rendu récursif d'un élément d'équipement de départ : item simple, choix entre
  * alternatives (« Au choix »), ou ensemble groupé (« Ensemble »). Repris tel quel de
@@ -79,7 +76,7 @@ const renderEquipmentItem = (item: SheetEquipmentItem | string, idx: number, lev
 
 export const ProfileSheet: React.FC<ProfileSheetProps> = ({ vm, backTo, backLabel, header, references }) => {
     const [activeTab, setActiveTab] = useState<'lore' | 'voies'>('lore');
-    const image = vm.image ?? placeholder(vm.name);
+    const image = vm.image ?? imagePlaceholder(vm.name, 'portrait');
 
     // La carte "Statistiques Vitales" ne rend le bloc famille (PV/Niveau, Récupération,
     // Points de Chance, Bonus) que si l'un de ces champs est réellement renseigné — un
@@ -105,7 +102,7 @@ export const ProfileSheet: React.FC<ProfileSheetProps> = ({ vm, backTo, backLabe
     return (
         <div className="min-h-screen pb-12 relative">
             <div className="absolute top-0 left-0 w-full h-[500px] overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_40%,transparent)]">
-                <img src={image} alt={vm.name} className="w-full h-full object-cover object-top opacity-30" />
+                <img src={image} alt={vm.name} onError={onImageError(vm.name, 'portrait')} className="w-full h-full object-cover object-top opacity-30" />
             </div>
 
             <div className="container mx-auto px-4 relative z-10 pt-6">
@@ -128,7 +125,7 @@ export const ProfileSheet: React.FC<ProfileSheetProps> = ({ vm, backTo, backLabe
                         <div className="bg-stone-900 rounded-2xl overflow-hidden shadow-2xl border border-white/10 group">
                             <div className="aspect-[3/4] relative overflow-hidden">
                                 <div className="absolute inset-0 bg-gradient-to-t from-stone-900 via-transparent to-transparent opacity-60 z-10"></div>
-                                <img src={image} alt={vm.name} className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-105" />
+                                <img src={image} alt={vm.name} onError={onImageError(vm.name, 'portrait')} className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-105" />
                             </div>
                         </div>
 

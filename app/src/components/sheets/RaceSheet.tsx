@@ -6,6 +6,7 @@ import { DynamicDetailsRenderer } from '../common';
 import { CapabilityCard } from './CapabilityCard';
 import { CapabilityRefs } from '../creature/CapabilityRefs';
 import type { ReferencesDeclaration } from '../homebrew/HomebrewFields';
+import { imagePlaceholder, onImageError } from '../common/imagePlaceholder';
 
 
 interface RaceSheetProps {
@@ -18,10 +19,6 @@ interface RaceSheetProps {
      *  pastille : une feuille est pure et ne charge rien elle-même. */
     references?: ReferencesDeclaration;
 }
-
-/** Image générique (initiale) quand aucune illustration n'est fournie. */
-const placeholder = (name: string) =>
-    `data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="533"%3E%3Crect fill="%23292524" width="400" height="533"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-size="160" fill="%23f59e0b"%3E${name.charAt(0).toUpperCase()}%3C/text%3E%3C/svg%3E`;
 
 /** Formule lisible d'une plage partiellement connue (taille, poids) : les deux bornes
  * si les deux existent, la borne seule sinon. Les 8 races officielles ont toujours les
@@ -38,7 +35,7 @@ const rangeLabel = (min: number | undefined, max: number | undefined, fmt: (n: n
 
 export const RaceSheet: React.FC<RaceSheetProps> = ({ vm, backTo, backLabel, header, references }) => {
     const [activeTab, setActiveTab] = useState<'lore' | 'rules'>('lore');
-    const image = vm.image ?? placeholder(vm.name);
+    const image = vm.image ?? imagePlaceholder(vm.name, 'portrait');
     const heightLabel = rangeLabel(vm.minHeight, vm.maxHeight, n => `${n / 100}m`);
     const weightLabel = rangeLabel(vm.minWeight, vm.maxWeight, n => `${n} kg`);
     const hasVitals = [vm.startingAge, vm.lifeExpectancy, vm.minHeight, vm.maxHeight, vm.minWeight, vm.maxWeight, vm.speed].some(v => v !== undefined);
@@ -48,7 +45,7 @@ export const RaceSheet: React.FC<RaceSheetProps> = ({ vm, backTo, backLabel, hea
     return (
         <div className="min-h-screen pb-12 relative">
             <div className="absolute top-0 left-0 w-full h-[500px] overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_40%,transparent)]">
-                <img src={image} alt={vm.name} className="w-full h-full object-cover object-top opacity-30" />
+                <img src={image} alt={vm.name} onError={onImageError(vm.name, 'portrait')} className="w-full h-full object-cover object-top opacity-30" />
             </div>
 
             <div className="container mx-auto px-4 relative z-10 pt-6">
@@ -68,7 +65,7 @@ export const RaceSheet: React.FC<RaceSheetProps> = ({ vm, backTo, backLabel, hea
                         <div className="bg-stone-900 rounded-2xl overflow-hidden shadow-2xl border border-white/10 group">
                             <div className="aspect-[3/4] relative overflow-hidden">
                                 <div className="absolute inset-0 bg-gradient-to-t from-stone-900 via-transparent to-transparent opacity-60 z-10"></div>
-                                <img src={image} alt={vm.name} className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-105" />
+                                <img src={image} alt={vm.name} onError={onImageError(vm.name, 'portrait')} className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-105" />
                             </div>
                         </div>
 

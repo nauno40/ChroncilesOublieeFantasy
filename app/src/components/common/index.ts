@@ -20,4 +20,4 @@ export { PageShell } from './PageShell';
 export { ContentCard } from './ContentCard';
 export { AuthorTag } from './AuthorTag';
 export { SourceTabs } from './SourceTabs';
-
+export { imagePlaceholder, onImageError } from './imagePlaceholder';

@@ -2,6 +2,7 @@ import React from 'react';
 import { Globe, Lock, Edit, Trash2, Copy } from 'lucide-react';
 import { AuthorTag } from '../common';
 import { categoryLabel, type HomebrewEntry } from '../../services/homebrewService';
+import { imagePlaceholder, onImageError } from '../common/imagePlaceholder';
 
 /**
  * Rendu de la liste communautaire, fidèle au format officiel de chaque catégorie :
@@ -67,17 +68,14 @@ const IMAGE_CATEGORIES = new Set(['race', 'classe']);
 const DENSE_CATEGORIES = new Set(['voie', 'capacite', 'sort']);
 
 /** Placeholder SVG générique (initiale) — identique au fallback du composant Card officiel. */
-const genericImage = (alt: string) =>
-    `data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23292524" width="400" height="300"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-size="120" fill="%23f59e0b"%3E${alt.charAt(0).toUpperCase()}%3C/text%3E%3C/svg%3E`;
-
 /** En-tête image d'une carte communautaire (image fournie sinon générique), calqué sur Card. */
 const CardMedia: React.FC<{ alt: string; src?: string }> = ({ alt, src }) => (
     <div className="relative h-48 overflow-hidden bg-gradient-to-b from-stone-900/50 to-stone-950 rounded-t-xl">
         <img
-            src={src || genericImage(alt)}
+            src={src || imagePlaceholder(alt)}
             alt={alt}
             className="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-500"
-            onError={e => { e.currentTarget.src = genericImage(alt); }}
+            onError={onImageError(alt)}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-transparent to-transparent opacity-60"></div>
     </div>

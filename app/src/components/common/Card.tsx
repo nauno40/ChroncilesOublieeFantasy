@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
+import { onImageError } from './imagePlaceholder';
 
 interface CardProps {
     to?: string;
@@ -36,12 +37,8 @@ export const Card: React.FC<CardProps> = ({
                         alt={image.alt}
                         className="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-500"
                         onError={(e) => {
-                            if (image.fallback) {
-                                e.currentTarget.src = image.fallback;
-                            } else {
-                                // Default SVG placeholder
-                                e.currentTarget.src = `data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23292524" width="400" height="300"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-size="24" fill="%23f59e0b"%3E${image.alt.charAt(0)}%3C/text%3E%3C/svg%3E`;
-                            }
+                            if (image.fallback) e.currentTarget.src = image.fallback;
+                            else onImageError(image.alt)(e);
                         }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-transparent to-transparent opacity-60"></div>

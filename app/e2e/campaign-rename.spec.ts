@@ -1,4 +1,4 @@
-import { test, expect, register, uniqueEmail, getToken } from './fixtures';
+import { test, expect, register, uniqueEmail, getToken, API_URL } from './fixtures';
 
 // Régression : le nom et la description d'une campagne sont modifiables depuis
 // la fiche de campagne (ils n'étaient qu'affichés auparavant) et la modification
@@ -7,7 +7,7 @@ test('renommer une campagne depuis sa fiche persiste', async ({ page }) => {
     await register(page, uniqueEmail('camp'));
     const token = await getToken(page);
 
-    const res = await page.request.post('http://localhost:8000/api/campaigns', {
+    const res = await page.request.post(`${API_URL}/campaigns`, {
         headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/ld+json', Accept: 'application/ld+json' },
         data: { name: 'Nom Erroné', description: 'desc' },
     });
@@ -36,7 +36,7 @@ test('renommer une campagne depuis sa fiche persiste', async ({ page }) => {
 test('modifier le texte d’une quête persiste', async ({ page }) => {
     await register(page, uniqueEmail('quest'));
     const token = await getToken(page);
-    const res = await page.request.post('http://localhost:8000/api/campaigns', {
+    const res = await page.request.post(`${API_URL}/campaigns`, {
         headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/ld+json', Accept: 'application/ld+json' },
         data: { name: 'Campagne Quêtes', description: '' },
     });

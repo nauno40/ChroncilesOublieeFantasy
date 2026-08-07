@@ -8,6 +8,9 @@
 #
 # Prérequis : `docker compose up -d` + base seedée (fixtures chargées).
 # Usage : bash scripts/e2e.sh [args playwright]   (ex : bash scripts/e2e.sh e2e/stale-token.spec.ts)
+#
+# Si nginx n'est pas publié sur 8000 (port déjà pris sur la machine), viser le port réel :
+#   PW_API_URL=http://localhost:8001/api bash scripts/e2e.sh
 set -euo pipefail
 
 # La version de l'image DOIT correspondre à @playwright/test dans app/package.json.
@@ -18,6 +21,7 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 exec docker run --rm --network host \
     -v "${ROOT}/app":/work -w /work \
     -e PW_BASE_URL="${PW_BASE_URL:-http://localhost:5173}" \
+    -e PW_API_URL="${PW_API_URL:-http://localhost:8000/api}" \
     -e CI="${CI:-1}" \
     "${IMAGE}" \
     bash -c "npm ci --no-audit --no-fund && npx playwright test $*"

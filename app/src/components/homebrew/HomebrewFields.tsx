@@ -60,7 +60,10 @@ const FieldInput: React.FC<{ field: HomebrewFieldDef; value: unknown; onChange: 
     const cls = error ? fieldErrCls : fieldCls;
     switch (field.type) {
         case 'etats':
-            if (!references) return null;
+            // Le contenu, pas seulement la présence de l'objet : un chargement en cours
+            // ou en échec laisse la liste vide, et un choix multiple sans choix ne
+            // propose rien tout en occupant l'écran.
+            if (!references?.etats.length) return null;
             return (
                 <EtatsInput
                     label={field.label}
@@ -69,8 +72,11 @@ const FieldInput: React.FC<{ field: HomebrewFieldDef; value: unknown; onChange: 
                     onChange={onChange}
                 />
             );
-        case 'invocations':
-            if (!references) return null;
+        case 'invocations': {
+            const s = references?.sources;
+            const aucuneEntite = !s || [s.creatures, s.monstresMaison, s.armes, s.armures, s.communautaire]
+                .every(liste => liste.length === 0);
+            if (aucuneEntite) return null;
             return (
                 <InvocationsInput
                     label={field.label}
@@ -79,6 +85,7 @@ const FieldInput: React.FC<{ field: HomebrewFieldDef; value: unknown; onChange: 
                     onChange={onChange}
                 />
             );
+        }
         case 'textarea':
             return (
                 <div>

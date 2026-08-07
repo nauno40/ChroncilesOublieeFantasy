@@ -677,6 +677,7 @@ class AppFixtures extends Fixture
             $e->setName($item['name']);
             $e->setDescription($item['description'] ?? null);
             $e->setImage($item['image'] ?? null);
+            $e->setEffects($item['effects'] ?? null);
 
             $manager->persist($e);
         }

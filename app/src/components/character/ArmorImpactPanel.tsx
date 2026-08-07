@@ -45,7 +45,7 @@ export const ArmorImpactPanel: React.FC<Props> = ({ impacts, armorName }) => {
                                     <Sparkles size={11} className="text-primary-400/70 shrink-0" />
                                     <span className="text-stone-200">{spell.name}</span>
                                     <span className="font-mono">
-                                        {spell.base} + {spell.surcharge} = <strong className="text-primary-300">{spell.total} PM</strong>
+                                        {spell.base} + {impact.surcharge} = <strong className="text-primary-300">{spell.total} PM</strong>
                                     </span>
                                 </li>
                             ))}

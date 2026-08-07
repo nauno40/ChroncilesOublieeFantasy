@@ -97,8 +97,9 @@ describe('armorImpacts', () => {
         expect(impacts[0].profileName).toBe('Magicien');
         expect(impacts[0].allowedDef).toBe(0);
         expect(impacts[0].blocked).toEqual(['Maîtrise de la magie']);
+        expect(impacts[0].surcharge).toBe(5);
         expect(impacts[0].spells).toEqual([
-            { name: 'Projectile de mana', rank: 1, base: 1, surcharge: 5, total: 6 },
+            { name: 'Projectile de mana', rank: 1, base: 1, total: 6 },
         ]);
     });
 

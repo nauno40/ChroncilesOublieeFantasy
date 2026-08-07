@@ -1,5 +1,6 @@
 import React from 'react';
 import { RaceSheet, ProfileSheet, VoieSheet, CapaciteSheet } from '../sheets';
+import type { ReferencesDeclaration } from './HomebrewFields';
 import { homebrewToRaceVM, homebrewToProfileVM, homebrewToVoieVM, homebrewToCapaciteVM } from '../sheets/adapters/fromHomebrew';
 import type { HomebrewEntry } from '../../services/homebrewService';
 import type { ChildDraft } from '../../services/homebrewChildren';
@@ -13,6 +14,9 @@ interface HomebrewFormPreviewProps {
      * que l'aperçu affiche la voie avec ses capacités, exactement comme la fiche de
      * consultation (`HomebrewDetail`). Ignoré pour toute autre catégorie. */
     drafts?: ChildDraft[];
+    /** Références de déclaration, transmises aux feuilles : sans elles l'aperçu
+     *  n'afficherait pas les pastilles, contredisant sa promesse d'être le rendu réel. */
+    references?: ReferencesDeclaration;
 }
 
 /**
@@ -29,7 +33,7 @@ interface HomebrewFormPreviewProps {
  * Les six catégories sans feuille dédiée (poison, piège, état préjudiciable, équipement,
  * objet magique, autre) n'ont pas d'aperçu : limite assumée par la conception.
  */
-export const HomebrewFormPreview: React.FC<HomebrewFormPreviewProps> = ({ category, name, description, data, drafts }) => {
+export const HomebrewFormPreview: React.FC<HomebrewFormPreviewProps> = ({ category, name, description, data, drafts, references }) => {
     const entry: HomebrewEntry = {
         id: 0,
         category,
@@ -64,9 +68,9 @@ export const HomebrewFormPreview: React.FC<HomebrewFormPreviewProps> = ({ catego
             createdAt: '',
             updatedAt: '',
         }));
-        return <VoieSheet vm={homebrewToVoieVM(entry, enfants)} />;
+        return <VoieSheet references={references} vm={homebrewToVoieVM(entry, enfants)} />;
     }
-    if (category === 'capacite' || category === 'sort') return <CapaciteSheet vm={homebrewToCapaciteVM(entry)} />;
+    if (category === 'capacite' || category === 'sort') return <CapaciteSheet references={references} vm={homebrewToCapaciteVM(entry)} />;
 
     return null; // catégories hors HOMEBREW_SHEET_CATEGORIES : pas de feuille dédiée
 };

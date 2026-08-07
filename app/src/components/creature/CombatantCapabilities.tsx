@@ -36,7 +36,19 @@ export const CombatantCapabilities: React.FC<{
                 <div className="mt-2 space-y-2">
                     {capacites.map((cap, i) => (
                         <div key={i} className="bg-black/20 rounded-lg border border-white/5 p-2">
-                            <div className="text-xs font-bold text-primary-300">{cap.label ?? cap.name}</div>
+                            <div className="flex items-center gap-2">
+                                {/* Le rang distingue deux capacités homonymes de voies
+                                    différentes ; sans lui, un PJ à trois voies affiche
+                                    une liste plate indéchiffrable. */}
+                                {cap.rank !== undefined && (
+                                    <span className="shrink-0 flex items-center justify-center size-4 rounded bg-primary-950 text-primary-500 text-[9px] font-bold border border-primary-500/20">
+                                        {cap.rank}
+                                    </span>
+                                )}
+                                {/* `||` et non `??` : un `label` vide doit céder au nom,
+                                    comme le fait la fiche de créature. */}
+                                <div className="text-xs font-bold text-primary-300">{cap.label || cap.name}</div>
+                            </div>
                             {cap.description && (
                                 <p className="text-[11px] text-stone-400 leading-relaxed mt-1">{cap.description}</p>
                             )}

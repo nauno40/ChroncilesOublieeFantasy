@@ -16,6 +16,10 @@ const capRef = (c: Capacity): SheetCapabilityRef => ({
     active: c.active || undefined,
     actionType: str(c.actionType),
     details: details(c.details),
+    // Déclarations officielles (colonnes `Capability.states` / `summons`) : sans ce
+    // report, 23 capacités du compendium déclarent un état que leur fiche n'affiche pas.
+    states: c.states?.length ? c.states : undefined,
+    summons: c.summons?.length ? c.summons : undefined,
 });
 
 /** Capacités d'une voie donnée : une capacité référence sa voie tantôt par IRI
@@ -211,6 +215,8 @@ export const capacityToVM = (c: Capacity, voieName?: string, voieId?: string | n
     limited: c.limited || undefined,
     active: c.active || undefined,
     details: details(c.details),
+    states: c.states?.length ? c.states : undefined,
+    summons: c.summons?.length ? c.summons : undefined,
     voieName: str(voieName),
     voieId: idStr(voieId),
 });

@@ -45,6 +45,7 @@ export const TransformationPanel: React.FC<Props> = ({ character, setCharacter }
                 <h3 className="text-stone-400 font-display font-bold uppercase text-[11px] tracking-[0.2em]">Transformations</h3>
                 <div className="flex items-center gap-2">
                     <select
+                        aria-label="Créature à ajouter comme forme"
                         className="bg-stone-950/40 border border-stone-800 rounded px-1.5 py-1 text-[11px] text-stone-300 outline-none"
                         value=""
                         onChange={e => { if (e.target.value) addFromCreature(e.target.value); e.target.value = ''; }}

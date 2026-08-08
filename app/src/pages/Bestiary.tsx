@@ -124,6 +124,7 @@ export const Bestiary: React.FC = () => {
                                 <input
                                     type="text"
                                     placeholder="Rechercher une créature..."
+                                aria-label="Rechercher une créature"
                                     className="w-full bg-stone-900/50 border border-primary-500/20 text-stone-100 placeholder-primary-500/30 rounded-xl py-4 pl-14 pr-4 focus:ring-1 focus:ring-primary-400 focus:border-primary-400/50 transition-all font-display tracking-wide text-lg shadow-inner"
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}

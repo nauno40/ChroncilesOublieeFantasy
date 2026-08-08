@@ -32,6 +32,7 @@ export const IdentityBlock: React.FC<Props> = ({
                 <label className="text-xs uppercase font-bold text-stone-400 tracking-wider ml-1">Nom du Personnage</label>
                 <input
                     type="text"
+                    aria-label="Nom du personnage"
                     className="w-full bg-stone-950/30 border border-stone-800 rounded-lg px-4 py-3 text-2xl font-display font-bold text-white outline-none focus:border-primary-500/50 focus:bg-stone-900/50 transition-all placeholder:text-stone-700"
                     value={character.name || ''}
                     onChange={e => setCharacter({ ...character, name: e.target.value })}
@@ -44,6 +45,7 @@ export const IdentityBlock: React.FC<Props> = ({
                     <div className="relative">
                         <input
                             type="number"
+                            aria-label="Niveau du personnage"
                             className="w-full bg-stone-950/30 border border-stone-800 rounded-lg px-4 py-3 text-xl font-mono font-bold text-primary-400 outline-none focus:border-primary-500/50 transition-all text-center"
                             value={character.level || 1}
                             onChange={e => setCharacter({ ...character, level: parseInt(e.target.value) })}

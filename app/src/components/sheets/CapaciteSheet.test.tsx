@@ -26,7 +26,6 @@ const vm: CapaciteSheetVM = {
     actionType: 'CapaciteMarkerActionType',
     isSpell: true,
     limited: true,
-    active: true,
     effect: ['CapaciteMarkerEffectLigne'],
     details: { marqueur: 'CapaciteMarkerDetailsValue' },
     detailLines: ['CapaciteMarkerDetailLigne'],
@@ -58,7 +57,6 @@ describe('CapaciteSheet', () => {
 
         // Badges booléens : libellés fixes, vérifiés par présence exacte de l'élément.
         expect(within(container).getByText('Limité')).toBeTruthy();
-        expect(within(container).getByText('Actif')).toBeTruthy();
         expect(within(container).getByText('Sort')).toBeTruthy();
     });
 });

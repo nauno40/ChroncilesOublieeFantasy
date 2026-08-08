@@ -119,7 +119,6 @@ export interface Voie {
     id: string;
     name: string;
     description?: string; // Added description
-    note_speciale?: string | null;
     type: string;
     /** Champ réel de l'API (`Voie.category`) : `type` ci-dessus est une valeur
      * renormalisée ad-hoc par certaines pages consommatrices (ex. `Voies.tsx`), absente
@@ -134,7 +133,6 @@ export interface Capacity {
     id: string;
     name: string;
     description: string;
-    active: boolean;
     profileId: string | null; // Reference to profile ID
     voieId: string | null; // Reference to voie ID
     voie?: string; // IRI reference from API (e.g. /api/voies/123)

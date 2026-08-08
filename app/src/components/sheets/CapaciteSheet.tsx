@@ -50,11 +50,6 @@ export const CapaciteSheet: React.FC<CapaciteSheetProps> = ({ vm, backTo, backLa
                                 Limité
                             </Badge>
                         )}
-                        {vm.active && (
-                            <Badge variant="warning" size="lg">
-                                Actif
-                            </Badge>
-                        )}
                         {vm.isSpell && (
                             <Badge variant="info" size="lg">
                                 Sort

@@ -7,13 +7,12 @@ afterEach(cleanup);
 
 describe('CapabilityCard', () => {
     it('affiche rang, nom, description et les badges présents', () => {
-        render(<CapabilityCard cap={{ rank: 3, name: 'Boule de feu', description: 'Explose', isSpell: true, limited: true, active: true }} />);
+        render(<CapabilityCard cap={{ rank: 3, name: 'Boule de feu', description: 'Explose', isSpell: true, limited: true }} />);
         expect(screen.getByText('Boule de feu')).toBeTruthy();
         expect(screen.getByText('Explose')).toBeTruthy();
         expect(screen.getByText('3')).toBeTruthy();
         expect(screen.getByText(/Sort/)).toBeTruthy();
         expect(screen.getByText(/Limité/)).toBeTruthy();
-        expect(screen.getByText(/Actif/)).toBeTruthy();
     });
 
     it('n’affiche aucun badge absent', () => {

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { PageContainer, PageHeader } from '../components/common';
 import { HomebrewBrowser } from '../components/homebrew/HomebrewBrowser';
+import { LEXIQUE } from '../domain/lexique';
 
 /**
  * Bibliothèque : vue « toutes catégories » du contenu homebrew. Le cœur (liste + CRUD)
@@ -21,7 +22,7 @@ export const Bibliotheque: React.FC = () => {
                         onClick={() => setTab(t)}
                         className={`px-4 py-2 rounded-xl text-sm font-bold transition-all ${tab === t ? 'bg-primary-500/20 text-primary-300 border border-primary-500/40' : 'bg-stone-900/40 text-stone-500 border border-white/5 hover:text-stone-300'}`}
                     >
-                        {t === 'mine' ? 'Mon contenu' : 'Communauté'}
+                        {t === 'mine' ? LEXIQUE.sourceMiennes : LEXIQUE.sourceCommunaute}
                     </button>
                 ))}
             </div>

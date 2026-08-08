@@ -17,7 +17,7 @@ export const ArmorImpactPanel: React.FC<Props> = ({ impacts, armorName }) => {
 
     return (
         <div className="glass-panel p-4 rounded-2xl border-amber-500/20 bg-amber-950/10 space-y-3">
-            <h3 className="text-amber-300/80 font-display font-bold uppercase text-[10px] tracking-[0.2em] flex items-center gap-2">
+            <h3 className="text-amber-300/80 font-display font-bold uppercase text-[11px] tracking-[0.2em] flex items-center gap-2">
                 <ShieldAlert size={14} />
                 Sous l’armure{armorName ? ` — ${armorName}` : ''}
             </h3>
@@ -54,7 +54,7 @@ export const ArmorImpactPanel: React.FC<Props> = ({ impacts, armorName }) => {
                 </div>
             ))}
 
-            <p className="text-[10px] text-stone-500 italic leading-snug">
+            <p className="text-[11px] text-stone-500 italic leading-snug">
                 Lancer un sort en armure trop lourde exige aussi de maîtriser cette armure.
             </p>
         </div>

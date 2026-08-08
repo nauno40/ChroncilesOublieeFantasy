@@ -33,11 +33,11 @@ export const MasteriesBlock: React.FC<Props> = ({ character, profiles }) => {
 
     return (
         <div className="glass-panel p-4 rounded-2xl border-white/5 bg-stone-900/10">
-            <h3 className="text-stone-400 font-display font-bold uppercase text-[10px] tracking-[0.2em] mb-3">Maîtrises</h3>
+            <h3 className="text-stone-400 font-display font-bold uppercase text-[11px] tracking-[0.2em] mb-3">Maîtrises</h3>
             <div className="space-y-2">
                 {rows.map(f => (
                     <div key={f.key}>
-                        <span className="text-[9px] uppercase font-bold text-stone-500 tracking-wider">{f.label}</span>
+                        <span className="text-[11px] uppercase font-bold text-stone-500 tracking-wider">{f.label}</span>
                         <p className="text-xs text-stone-300 leading-snug">{m![f.key]}</p>
                     </div>
                 ))}

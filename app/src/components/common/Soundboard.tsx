@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Edit, Plus, Trash2, Save, Music, ExternalLink } from 'lucide-react';
 import { clsx } from 'clsx';
+import { LEXIQUE } from '../../domain/lexique';
 
 interface SoundboardProps {
     isOpen: boolean;
@@ -81,8 +82,8 @@ export const Soundboard: React.FC<SoundboardProps> = ({ isOpen }) => {
         <div className="flex flex-col h-full w-full">
             {/* Header Toolbar (Optional extra controls inside content if needed, but mostly pure content) */}
             <div className="p-2 border-b border-white/5 flex justify-between items-center bg-black/10">
-                <div className="text-[10px] uppercase font-bold text-primary-400 tracking-wider">
-                    {isEditing ? "Mode Édition" : "Pistes Audio"}
+                <div className="text-[11px] uppercase font-bold text-primary-400 tracking-wider">
+                    {isEditing ? 'Mode édition' : LEXIQUE.ambiances}
                 </div>
                 <button
                     onClick={() => setIsEditing(!isEditing)}
@@ -94,7 +95,7 @@ export const Soundboard: React.FC<SoundboardProps> = ({ isOpen }) => {
             </div>
 
             {!isEditing && (
-                <p className="px-3 pt-2 text-[10px] text-stone-500 italic leading-snug">
+                <p className="px-3 pt-2 text-[11px] text-stone-500 italic leading-snug">
                     Chaque bouton ouvre une recherche musicale d'ambiance (YouTube) dans un nouvel onglet.
                 </p>
             )}
@@ -115,7 +116,7 @@ export const Soundboard: React.FC<SoundboardProps> = ({ isOpen }) => {
                     <div className="bg-stone-900/80 p-3 rounded-xl border border-primary-500/50 space-y-3 animate-in fade-in">
                         <h4 className="text-xs font-bold text-primary-400 uppercase">Éditer le bouton</h4>
                         <div>
-                            <label className="text-[10px] text-stone-500 uppercase font-bold block mb-1">Label</label>
+                            <label className="text-[11px] text-stone-500 uppercase font-bold block mb-1">Label</label>
                             <input
                                 type="text"
                                 className="w-full bg-stone-950 border border-white/10 rounded px-2 py-1 text-sm text-stone-200 outline-none focus:border-primary-500"
@@ -124,7 +125,7 @@ export const Soundboard: React.FC<SoundboardProps> = ({ isOpen }) => {
                             />
                         </div>
                         <div>
-                            <label className="text-[10px] text-stone-500 uppercase font-bold block mb-1">URL</label>
+                            <label className="text-[11px] text-stone-500 uppercase font-bold block mb-1">URL</label>
                             <input
                                 type="text"
                                 className="w-full bg-stone-950 border border-white/10 rounded px-2 py-1 text-sm text-stone-200 outline-none focus:border-primary-500"
@@ -133,7 +134,7 @@ export const Soundboard: React.FC<SoundboardProps> = ({ isOpen }) => {
                             />
                         </div>
                         <div>
-                            <label className="text-[10px] text-stone-500 uppercase font-bold block mb-1">Style</label>
+                            <label className="text-[11px] text-stone-500 uppercase font-bold block mb-1">Style</label>
                             <div className="flex gap-2 flex-wrap">
                                 {[
                                     'bg-stone-800 border-stone-700 text-stone-300 hover:border-primary-500 hover:text-primary-400',

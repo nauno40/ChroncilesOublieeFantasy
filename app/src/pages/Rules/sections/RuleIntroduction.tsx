@@ -45,7 +45,7 @@ export const RuleIntroduction: React.FC = () => {
                                 <div className="bg-stone-900/40 p-3 rounded border border-white/5">
                                     <strong className="text-primary-300 block mb-1">Caractéristiques</strong>
                                     <p className="text-xs text-stone-300 mb-2">Inné et acquis. Indicateur des capacités physiques et mentales (-2 à +5).</p>
-                                    <div className="flex flex-col gap-1.5 text-[10px] text-stone-400 mt-2">
+                                    <div className="flex flex-col gap-1.5 text-[11px] text-stone-400 mt-2">
                                         <div><strong className="text-primary-300">FOR (Force) :</strong> Puissance musculaire, dégâts au contact.</div>
                                         <div><strong className="text-primary-300">AGI (Agilité) :</strong> Réflexes, souplesse, tir, initiative.</div>
                                         <div><strong className="text-primary-300">CON (Constitution) :</strong> Santé, endurance, résistance poison.</div>
@@ -70,7 +70,7 @@ export const RuleIntroduction: React.FC = () => {
                                 <div className="bg-stone-900/40 p-3 rounded border border-white/5">
                                     <strong className="text-primary-300 block mb-1">Voies & Capacités</strong>
                                     <p className="text-xs text-stone-300 mb-2">Chaque profil a 5 Voies, composées de 5 Capacités (Rangs 1 à 5). La règle spécifique de la capacité prime sur la règle générale.</p>
-                                    <div className="text-[10px] space-y-1 text-stone-400 border-t border-white/5 pt-1 mt-1">
+                                    <div className="text-[11px] space-y-1 text-stone-400 border-t border-white/5 pt-1 mt-1">
                                         <div className="flex justify-between"><span>* 1/combat</span> <span>Repos rapide (30 min)</span></div>
                                         <div className="flex justify-between"><span>* 1/jour</span> <span>Repos complet (8 h)</span></div>
                                     </div>
@@ -79,7 +79,7 @@ export const RuleIntroduction: React.FC = () => {
                                 <div className="bg-stone-900/40 p-3 rounded border border-white/5">
                                     <strong className="text-primary-300 block mb-1">Points de Vigueur (PV)</strong>
                                     <p className="text-xs text-stone-300 mb-2">Énergie vitale et capacité à éviter les coups (pas juste la santé).</p>
-                                    <ul className="text-[10px] text-stone-400 list-disc ml-3">
+                                    <ul className="text-[11px] text-stone-400 list-disc ml-3">
                                         <li><strong>40 PV :</strong> Combattant expert (encaisse, esquive).</li>
                                         <li><strong>6 PV :</strong> Coup mortel direct.</li>
                                         <li><strong>0 PV :</strong> Inconscience et risque de mort.</li>
@@ -115,7 +115,7 @@ export const RuleIntroduction: React.FC = () => {
                                         <li><em>(Ex: 3+5+2 = 10, +4 = 14).</em></li>
                                     </ul>
                                 </div>
-                                <p className="text-[10px] text-stone-500 mt-2 italic text-center">Note : Le "d3" est un d6 divisé par 2 (arrondi sup).</p>
+                                <p className="text-[11px] text-stone-500 mt-2 italic text-center">Note : Le "d3" est un d6 divisé par 2 (arrondi sup).</p>
                             </div>
 
                             <div className="space-y-3">

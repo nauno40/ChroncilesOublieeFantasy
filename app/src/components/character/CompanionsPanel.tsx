@@ -39,14 +39,14 @@ export const CompanionsPanel: React.FC<Props> = ({ character, setCharacter }) =>
     return (
         <div className="glass-panel p-6 rounded-2xl border-white/5 bg-stone-900/10 space-y-3">
             <div className="flex items-center justify-between border-b border-white/5 pb-2">
-                <h3 className="text-stone-400 font-display font-bold uppercase text-[10px] tracking-[0.2em]">Compagnons & Invocations</h3>
+                <h3 className="text-stone-400 font-display font-bold uppercase text-[11px] tracking-[0.2em]">Compagnons & Invocations</h3>
                 <div className="flex items-center gap-2">
                     <select
                         className="bg-stone-950/40 border border-stone-800 rounded px-1.5 py-1 text-[11px] text-stone-300 outline-none"
                         value=""
                         onChange={e => { if (e.target.value) addFromCreature(e.target.value); e.target.value = ''; }}
                     >
-                        <option value="">+ Bestiaire…</option>
+                        <option value="">+ Créatures…</option>
                         {creatures.map(c => <option key={c.id} value={String(c.id)}>{c.name}</option>)}
                     </select>
                     <button onClick={addCustom} className="text-stone-500 hover:text-primary-400 text-sm" title="Compagnon personnalisé">+ Custom</button>
@@ -85,7 +85,7 @@ export const CompanionsPanel: React.FC<Props> = ({ character, setCharacter }) =>
                         </div>
                         <input
                             type="text"
-                            className="w-full bg-transparent border-none outline-none text-[11px] text-stone-500 italic placeholder:text-stone-800"
+                            className="w-full bg-transparent border-none outline-none text-[11px] text-stone-500 italic placeholder:text-stone-600"
                             placeholder="Notes (attaques, capacités…)"
                             value={c.notes || ''}
                             onChange={e => update(idx, { notes: e.target.value })}

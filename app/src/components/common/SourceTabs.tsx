@@ -1,6 +1,6 @@
 /**
  * Contrôle segmenté générique du design system (ex. filtre source Officiel /
- * Communauté / Mes créations, ou Mon contenu / Communauté). Style unique, à passer
+ * Communauté / Mes créations — cf. `LEXIQUE`). Style unique, à passer
  * dans `PageShell.tabs`.
  */
 export interface SegTab<T extends string> {

@@ -26,7 +26,7 @@ export const CapabilityRefs: React.FC<{
 
     if (etats.length === 0 && invocations.length === 0) return null;
 
-    const styleEtat = 'inline-flex items-center gap-1 text-[10px] uppercase tracking-wide bg-purple-900/40 text-purple-200 px-2 py-0.5 rounded border border-purple-500/30 hover:bg-purple-800/50 transition-colors';
+    const styleEtat = 'inline-flex items-center gap-1 text-[11px] uppercase tracking-wide bg-purple-900/40 text-purple-200 px-2 py-0.5 rounded border border-purple-500/30 hover:bg-purple-800/50 transition-colors';
 
     return (
         <div className="flex flex-wrap items-center gap-1.5 mt-3">
@@ -44,7 +44,7 @@ export const CapabilityRefs: React.FC<{
                 <Link
                     key={`${invocation.ref}-${i}`}
                     to={resolue.lien}
-                    className="inline-flex items-center gap-1 text-[10px] uppercase tracking-wide bg-primary-950/40 text-primary-200 px-2 py-0.5 rounded border border-primary-500/30 hover:bg-primary-900/50 transition-colors"
+                    className="inline-flex items-center gap-1 text-[11px] uppercase tracking-wide bg-primary-950/40 text-primary-200 px-2 py-0.5 rounded border border-primary-500/30 hover:bg-primary-900/50 transition-colors"
                 >
                     <Sparkles size={10} />
                     {resolue.type === 'creature' ? resolue.creature.name : resolue.nom}

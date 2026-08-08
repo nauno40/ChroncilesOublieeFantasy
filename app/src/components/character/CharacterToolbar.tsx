@@ -26,16 +26,16 @@ export const CharacterToolbar: React.FC<Props> = ({ name, isNew, saving, onBack,
                     <h1 className="text-3xl font-bold font-display text-gradient-gold tracking-widest leading-none">
                         {isNew ? 'Nouveau Héros' : name}
                     </h1>
-                    <p className="text-[10px] uppercase font-black text-stone-500 tracking-[0.3em] mt-2 ml-0.5 opacity-70">
+                    <p className="text-[11px] uppercase font-black text-stone-500 tracking-[0.3em] mt-2 ml-0.5 opacity-70">
                         Chroniqueur de Légendes
                     </p>
                 </div>
             </div>
-            <div className="flex items-center gap-3 w-full md:w-auto">
+            <div className="flex flex-wrap items-center gap-2 md:gap-3 w-full md:w-auto">
                 <button
                     onClick={onSave}
                     disabled={saving}
-                    className="flex-1 md:flex-none flex items-center justify-center gap-3 bg-primary-600 hover:bg-primary-500 text-stone-950 font-display font-black uppercase text-xs tracking-widest px-8 py-3 rounded-xl transition-all shadow-lg shadow-primary-900/20 active:scale-95 disabled:opacity-50 border border-primary-400/20"
+                    className="flex-1 md:flex-none flex items-center justify-center gap-3 bg-primary-600 hover:bg-primary-500 text-stone-950 font-display font-black uppercase text-xs tracking-widest px-4 md:px-8 py-3 rounded-xl transition-all shadow-lg shadow-primary-900/20 active:scale-95 disabled:opacity-50 border border-primary-400/20"
                 >
                     {saving ? <RefreshCw className="animate-spin" size={16} /> : <Save size={16} />}
                     {saving ? 'Incantation...' : 'Enregistrer'}

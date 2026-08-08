@@ -57,7 +57,7 @@ export const CreatureDetail: React.FC = () => {
         return <div className="min-h-screen flex flex-col items-center justify-center p-8">
             <h2 className="text-2xl font-bold text-red-400 mb-4">Créature introuvable</h2>
             <Link to="/bestiary" className="text-primary-400 hover:text-primary-300 flex items-center justify-center gap-2">
-                <ArrowLeft size={20} /> Retour au Bestiaire
+                <ArrowLeft size={20} /> Retour aux créatures
             </Link>
         </div>;
     }
@@ -100,7 +100,7 @@ export const CreatureDetail: React.FC = () => {
                 <div className="mb-8">
                     <Link to="/bestiary" className="inline-flex items-center text-stone-400 hover:text-white transition-colors group mb-6">
                         <ArrowLeft size={16} className="mr-2 group-hover:-translate-x-1 transition-transform" />
-                        <span className="font-display font-medium tracking-wide text-sm uppercase">Retour au Bestiaire</span>
+                        <span className="font-display font-medium tracking-wide text-sm uppercase">Retour aux créatures</span>
                     </Link>
 
                     <h1 className="text-5xl md:text-7xl font-display font-bold text-white drop-shadow-xl mb-4">
@@ -193,7 +193,7 @@ export const CreatureDetail: React.FC = () => {
                             <div className="grid grid-cols-4 sm:grid-cols-7 gap-3 mb-8">
                                 {statsConfig.map(attr => (
                                     <div key={attr.label} className="bg-stone-900/60 rounded-xl p-3 border border-white/5 text-center hover:border-primary-500/30 transition-colors">
-                                        <div className="text-stone-500 text-[10px] font-bold uppercase tracking-wider mb-1">{attr.label}</div>
+                                        <div className="text-stone-500 text-[11px] font-bold uppercase tracking-wider mb-1">{attr.label}</div>
                                         <div className="font-display font-bold text-xl text-stone-200">
                                             {creature.stats![attr.key] ?? '0'}
                                         </div>
@@ -217,11 +217,11 @@ export const CreatureDetail: React.FC = () => {
                                                 </span>
                                                 <div className="flex gap-4 text-sm items-center self-start sm:self-auto">
                                                     <div className="flex items-center gap-2 bg-black/20 px-3 py-1 rounded-lg border border-white/5">
-                                                        <span className="text-[10px] text-stone-500 font-bold uppercase tracking-wider">Test</span>
+                                                        <span className="text-[11px] text-stone-500 font-bold uppercase tracking-wider">Test</span>
                                                         <span className="text-primary-400 font-mono font-bold">{attack.test || attack.atk || '-'}</span>
                                                     </div>
                                                     <div className="flex items-center gap-2 bg-black/20 px-3 py-1 rounded-lg border border-white/5">
-                                                        <span className="text-[10px] text-stone-500 font-bold uppercase tracking-wider">DM</span>
+                                                        <span className="text-[11px] text-stone-500 font-bold uppercase tracking-wider">DM</span>
                                                         <span className="text-stone-300 font-mono font-bold">{attack.dm || attack.dmg || '-'}</span>
                                                     </div>
                                                 </div>

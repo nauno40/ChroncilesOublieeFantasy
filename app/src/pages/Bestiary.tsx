@@ -340,7 +340,7 @@ export const Bestiary: React.FC = () => {
 
                                                 {creature.hp !== undefined && (
                                                     <div className="text-right bg-stone-950/30 px-2 py-1 rounded border border-white/5">
-                                                        <span className="text-[10px] text-stone-500 uppercase tracking-wider block">PV</span>
+                                                        <span className="text-[11px] text-stone-500 uppercase tracking-wider block">PV</span>
                                                         <span className="font-mono text-green-500/90 font-bold text-base">{creature.hp}</span>
                                                     </div>
                                                 )}
@@ -348,15 +348,15 @@ export const Bestiary: React.FC = () => {
 
                                             <div className="grid grid-cols-3 gap-px bg-stone-950/40 rounded-lg overflow-hidden border border-white/5">
                                                 <div className="p-2 text-center group-hover:bg-primary-500/5 transition-colors">
-                                                    <span className="text-[10px] text-stone-500 uppercase block mb-0.5 font-bold">DEF</span>
+                                                    <span className="text-[11px] text-stone-500 uppercase block mb-0.5 font-bold">DEF</span>
                                                     <span className="font-bold text-sm text-stone-300">{creature.def || '-'}</span>
                                                 </div>
                                                 <div className="p-2 text-center group-hover:bg-primary-500/5 transition-colors border-l border-r border-white/5">
-                                                    <span className="text-[10px] text-stone-500 uppercase block mb-0.5 font-bold">FOR</span>
+                                                    <span className="text-[11px] text-stone-500 uppercase block mb-0.5 font-bold">FOR</span>
                                                     <span className="font-bold text-sm text-stone-300">{creature.stats?.FOR ?? '0'}</span>
                                                 </div>
                                                 <div className="p-2 text-center group-hover:bg-primary-500/5 transition-colors">
-                                                    <span className="text-[10px] text-stone-500 uppercase block mb-0.5 font-bold">INIT</span>
+                                                    <span className="text-[11px] text-stone-500 uppercase block mb-0.5 font-bold">INIT</span>
                                                     <span className="font-bold text-sm text-stone-300">{creature.init || '-'}</span>
                                                 </div>
                                             </div>

@@ -20,7 +20,21 @@ type Data = Record<string, unknown>;
 // toujours eue.
 export const inputCls = 'w-full bg-stone-950 border border-white/10 rounded-lg px-3 py-2 text-stone-200 outline-none focus:border-primary-500';
 export const inputErrCls = 'w-full bg-stone-950 border border-red-500/60 rounded-lg px-3 py-2 text-stone-200 outline-none focus:border-red-500';
-export const labelCls = 'text-[10px] uppercase font-bold text-stone-500 block mb-1';
+export const labelCls = 'text-[11px] uppercase font-bold text-stone-500 block mb-1';
+
+/** Intitulé + champ. L'intitulé ENVELOPPE le champ : cliquer dessus y place le curseur,
+ *  ce qu'un `<label>` posé à côté ne fait pas. Le point d'obligation évite de découvrir
+ *  qu'un champ était requis au moment d'enregistrer. */
+const Champ: React.FC<{ label: string; required?: boolean; children: React.ReactNode }> = ({ label, required, children }) => (
+    <label className="block">
+        <span className={labelCls}>
+            {label}
+            {required && <span className="text-primary-400 ml-1" title="Champ obligatoire">*</span>}
+        </span>
+        {children}
+    </label>
+);
+
 
 const fieldCls = `${inputCls} text-sm`;
 const fieldErrCls = `${inputErrCls} text-sm`;
@@ -87,17 +101,15 @@ const FieldInput: React.FC<{ field: HomebrewFieldDef; value: unknown; onChange: 
         }
         case 'textarea':
             return (
-                <div>
-                    <label className={labelCls}>{field.label}</label>
+                <Champ label={field.label} required={field.required}>
                     <textarea className={`${cls} min-h-[80px] resize-y leading-relaxed`} value={(value as string) ?? ''} onChange={e => onChange(e.target.value)} placeholder={field.placeholder} />
-                </div>
+                </Champ>
             );
         case 'number':
             return (
-                <div>
-                    <label className={labelCls}>{field.label}</label>
+                <Champ label={field.label} required={field.required}>
                     <input type="number" className={cls} value={value === undefined || value === null ? '' : String(value)} onChange={e => onChange(e.target.value === '' ? undefined : Number(e.target.value))} placeholder={field.placeholder} />
-                </div>
+                </Champ>
             );
         case 'bool':
             return (
@@ -108,12 +120,11 @@ const FieldInput: React.FC<{ field: HomebrewFieldDef; value: unknown; onChange: 
             );
         case 'select':
             return (
-                <div>
-                    <label className={labelCls}>{field.label}</label>
+                <Champ label={field.label} required={field.required}>
                     <select className={cls} value={(value as string) ?? ''} onChange={e => onChange(e.target.value)}>
                         {field.options?.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
                     </select>
-                </div>
+                </Champ>
             );
         case 'caracs':
             return <CaracsInput label={field.label} value={(value as Record<string, number>) ?? {}} onChange={onChange} error={error} />;
@@ -122,8 +133,7 @@ const FieldInput: React.FC<{ field: HomebrewFieldDef; value: unknown; onChange: 
         case 'image': {
             const url = (value as string) ?? '';
             return (
-                <div>
-                    <label className={labelCls}>{field.label}</label>
+                <Champ label={field.label} required={field.required}>
                     <input type="url" className={cls} value={url} onChange={e => onChange(e.target.value)} placeholder={field.placeholder} />
                     {url.trim() !== '' && (
                         <img
@@ -134,15 +144,14 @@ const FieldInput: React.FC<{ field: HomebrewFieldDef; value: unknown; onChange: 
                             onLoad={e => { e.currentTarget.style.display = ''; }}
                         />
                     )}
-                </div>
+                </Champ>
             );
         }
         default:
             return (
-                <div>
-                    <label className={labelCls}>{field.label}</label>
+                <Champ label={field.label} required={field.required}>
                     <input className={cls} value={(value as string) ?? ''} onChange={e => onChange(e.target.value)} placeholder={field.placeholder} />
-                </div>
+                </Champ>
             );
     }
 };
@@ -153,7 +162,7 @@ const CaracsInput: React.FC<{ label: string; value: Record<string, number>; onCh
         <div className="grid grid-cols-4 sm:grid-cols-7 gap-2">
             {CARAC_KEYS.map(k => (
                 <div key={k} className="text-center">
-                    <div className="text-[10px] text-stone-500 mb-0.5">{k}</div>
+                    <div className="text-[11px] text-stone-500 mb-0.5">{k}</div>
                     <input type="number" className={`w-full bg-stone-950 border rounded px-1 py-1 text-center text-stone-200 text-sm outline-none focus:border-primary-500 ${error ? 'border-red-500/60' : 'border-white/10'}`}
                         value={value[k] ?? 0} onChange={e => onChange({ ...value, [k]: Number(e.target.value) || 0 })} />
                 </div>
@@ -215,7 +224,7 @@ const EtatsInput: React.FC<{
                             // doit pas disparaître quand l'auteur clique un autre état.
                             etats.map(e => e.name).filter(n => (n === etat.name ? !choisi : dejaChoisi(n))),
                         )}
-                        className={`text-[10px] uppercase tracking-wide px-2 py-0.5 rounded border transition-colors ${
+                        className={`text-[11px] uppercase tracking-wide px-2 py-0.5 rounded border transition-colors ${
                             choisi
                                 ? 'bg-purple-900/50 text-purple-200 border-purple-500/40'
                                 : 'bg-stone-950 text-stone-500 border-white/10 hover:text-stone-300'

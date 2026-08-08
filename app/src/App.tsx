@@ -12,6 +12,7 @@ import { LoginPage } from './pages/LoginPage';
 import { RegisterPage } from './pages/RegisterPage';
 import { ForgotPasswordPage } from './pages/ForgotPasswordPage';
 import { ResetPasswordPage } from './pages/ResetPasswordPage';
+import { LEXIQUE } from './domain/lexique';
 
 // Pages protégées : code-splitting (React.lazy) → un chunk par page, chargé à la demande.
 // Les exports nommés sont remappés en `default` (contrat attendu par React.lazy).
@@ -79,7 +80,7 @@ function App() {
                 <Route path="tools/tracker" element={<CombatTracker />} />
                 <Route path="tools/monsters" element={<CustomMonsters />} />
                 <Route path="tools/soundboard" element={<SoundboardPage />} />
-                <Route path="races" element={<CompendiumType title="Races" category="race" official={<Races />} />} />
+                <Route path="races" element={<CompendiumType title={LEXIQUE.peuples} category="race" official={<Races />} />} />
                 <Route path="races/:id" element={<RaceDetail />} />
                 <Route path="classes" element={<CompendiumType title="Classes" category="classe" official={<Classes />} />} />
                 <Route path="classes/:id" element={<ClassDetail />} />

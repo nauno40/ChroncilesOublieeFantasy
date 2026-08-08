@@ -167,14 +167,14 @@ export const VoiesTree: React.FC<Props> = ({
                                     <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-purple-500/10 to-transparent pointer-events-none rounded-tr-2xl" />
                                 )}
                                 <div className="mb-5 space-y-2">
-                                    <h3 className="text-primary-600/70 font-bold uppercase text-[10px] tracking-[0.2em] ml-1">
+                                    <h3 className="text-primary-600/70 font-bold uppercase text-[11px] tracking-[0.2em] ml-1">
                                         {mageReplacedRaceVoie ? 'Voie du Mage' : 'Héritage Racial'}
                                     </h3>
                                     {character.level === 0 && isMageFamily && (
                                         <div className="flex justify-end mb-1">
                                             <button
                                                 onClick={() => setMageReplacedRaceVoie(!mageReplacedRaceVoie)}
-                                                className={`text-[9px] uppercase font-bold py-1 px-2 rounded border transition-all ${mageReplacedRaceVoie
+                                                className={`text-[11px] uppercase font-bold py-1 px-2 rounded border transition-all ${mageReplacedRaceVoie
                                                     ? 'bg-purple-500/20 border-purple-500 text-purple-300'
                                                     : 'bg-stone-950 border-stone-700 text-stone-400 hover:text-white'
                                                     }`}
@@ -211,7 +211,7 @@ export const VoiesTree: React.FC<Props> = ({
                                 </div>
                                 <div className="space-y-2.5 overflow-visible">
                                     {isMageFamily && mageReplacedRaceVoie && (
-                                        <div className="text-[10px] text-purple-300/70 italic px-2 pb-2">
+                                        <div className="text-[11px] text-purple-300/70 italic px-2 pb-2">
                                             Bonus Passif : {racialVoieOptions[0]?.name} (Rang 1) conservé !
                                         </div>
                                     )}
@@ -267,7 +267,7 @@ export const VoiesTree: React.FC<Props> = ({
                                 return (
                                     <div key={vIdx} className={`glass-panel p-5 rounded-2xl border-primary-500/10 bg-stone-900/10 transition-all group/voie overflow-visible ${isCreation ? '' : 'hover:border-primary-500/20'}`}>
                                         <div className="mb-5 space-y-2">
-                                            <h3 className="text-stone-600/70 font-bold uppercase text-[10px] tracking-[0.2em] ml-1">Voie de Profil {vIdx + 1}</h3>
+                                            <h3 className="text-stone-600/70 font-bold uppercase text-[11px] tracking-[0.2em] ml-1">Voie de Profil {vIdx + 1}</h3>
                                             <div className="flex gap-2 items-center">
                                                 {isCreation ? (
                                                     <div className="w-full bg-stone-950/30 border border-stone-800 rounded-lg px-4 py-2 text-lg font-display font-bold text-white shadow-inner">
@@ -357,7 +357,7 @@ export const VoiesTree: React.FC<Props> = ({
                                         <div key={`prestige-${vIdx}`} className="glass-panel p-5 rounded-2xl border-amber-500/20 bg-stone-900/10 hover:border-amber-500/30 transition-all group/voie overflow-visible">
                                             <div className="mb-5 space-y-2">
                                                 <div className="flex justify-between items-center px-1">
-                                                    <h3 className="text-amber-600/70 font-bold uppercase text-[10px] tracking-[0.2em] ml-1">Voie de Prestige</h3>
+                                                    <h3 className="text-amber-600/70 font-bold uppercase text-[11px] tracking-[0.2em] ml-1">Voie de Prestige</h3>
                                                     <button
                                                         onClick={() => removePrestige(vIdx)}
                                                         className="text-stone-600 hover:text-red-500 transition-colors p-1"
@@ -420,18 +420,18 @@ export const VoiesTree: React.FC<Props> = ({
                                 onClick={addPrestige}
                                 disabled={atVoieCap || hasPrestige}
                                 title={hasPrestige ? 'Une seule voie de prestige par personnage (COF2)' : atVoieCap ? `Maximum ${MAX_VOIES} voies (hors voie de peuple)` : 'Prérequis : niveau 5+, et généralement rang 2 dans 3 voies du même profil'}
-                                className="flex items-center gap-2 px-6 py-3 rounded-full bg-stone-900/50 border border-amber-500/30 text-amber-500/70 hover:text-amber-400 hover:border-amber-500/50 hover:bg-stone-900 transition-all group font-display font-bold uppercase text-[10px] tracking-[0.2em] disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:text-amber-500/70 disabled:hover:border-amber-500/30 disabled:hover:bg-stone-900/50"
+                                className="flex items-center gap-2 px-6 py-3 rounded-full bg-stone-900/50 border border-amber-500/30 text-amber-500/70 hover:text-amber-400 hover:border-amber-500/50 hover:bg-stone-900 transition-all group font-display font-bold uppercase text-[11px] tracking-[0.2em] disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:text-amber-500/70 disabled:hover:border-amber-500/30 disabled:hover:bg-stone-900/50"
                             >
                                 <RefreshCw size={14} className="group-hover:rotate-180 transition-transform duration-500" />
                                 Ajouter une Voie de Prestige
                             </button>
                             {atVoieCap && (
-                                <span className="text-[9px] uppercase tracking-wider text-stone-600">Maximum {MAX_VOIES} voies (hors peuple)</span>
+                                <span className="text-[11px] uppercase tracking-wider text-stone-600">Maximum {MAX_VOIES} voies (hors peuple)</span>
                             )}
                             {hasPrestige ? (
-                                <span className="text-[9px] uppercase tracking-wider text-amber-700/70">Une seule voie de prestige (COF2)</span>
+                                <span className="text-[11px] uppercase tracking-wider text-amber-700/70">Une seule voie de prestige (COF2)</span>
                             ) : (
-                                <span className="text-[9px] tracking-wider text-stone-600 italic normal-case">Prérequis : niveau 5+, généralement rang 2 dans 3 voies du même profil (le rang 4 d'une voie pour une voie de spécialiste).</span>
+                                <span className="text-[11px] tracking-wider text-stone-600 italic normal-case">Prérequis : niveau 5+, généralement rang 2 dans 3 voies du même profil (le rang 4 d'une voie pour une voie de spécialiste).</span>
                             )}
                         </div>
                     </div>

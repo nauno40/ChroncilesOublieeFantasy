@@ -28,7 +28,7 @@ export const MagicItemsPanel: React.FC<Props> = ({ character, setCharacter }) =>
     return (
         <div className="glass-panel p-6 rounded-2xl border-white/5 bg-stone-900/10 space-y-3">
             <div className="flex items-center justify-between border-b border-white/5 pb-2">
-                <h3 className="text-stone-400 font-display font-bold uppercase text-[10px] tracking-[0.2em]">Objets magiques</h3>
+                <h3 className="text-stone-400 font-display font-bold uppercase text-[11px] tracking-[0.2em]">Objets magiques</h3>
                 <button onClick={add} className="text-stone-500 hover:text-primary-400 text-sm" title="Ajouter un objet">+</button>
             </div>
             {items.length === 0 && <p className="text-[11px] text-stone-600 italic">Aucun objet à bonus.</p>}

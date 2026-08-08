@@ -34,7 +34,7 @@ export const Traps: React.FC = () => {
             <div className="glass-panel rounded-2xl border border-white/5 overflow-x-auto">
                 <table className="w-full text-sm text-left border-collapse min-w-[700px]">
                     <thead>
-                        <tr className="text-[10px] uppercase tracking-wider text-primary-500/70 border-b border-white/10">
+                        <tr className="text-[11px] uppercase tracking-wider text-primary-500/70 border-b border-white/10">
                             <th className="px-4 py-3 font-bold">Piège</th>
                             <th className="px-4 py-3 font-bold text-center">Détecter</th>
                             <th className="px-4 py-3 font-bold text-center">Désamorcer</th>

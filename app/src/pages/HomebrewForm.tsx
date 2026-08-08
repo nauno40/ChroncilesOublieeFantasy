@@ -386,8 +386,11 @@ export const HomebrewForm: React.FC = () => {
                         )}
 
                         <div id="champ-name">
-                            <label className={labelCls}>Nom</label>
+                            <label className={labelCls} htmlFor="homebrew-nom">
+                                Nom<span className="text-primary-400 ml-1" title="Champ obligatoire">*</span>
+                            </label>
                             <input
+                                id="homebrew-nom"
                                 value={name}
                                 onChange={e => handleName(e.target.value)}
                                 placeholder="Nom du contenu"
@@ -399,10 +402,11 @@ export const HomebrewForm: React.FC = () => {
                         </div>
 
                         <div>
-                            <label className={labelCls}>
+                            <label className={labelCls} htmlFor="homebrew-description">
                                 Description {hasStructuredSchema(category) && <span className="text-stone-600 normal-case font-normal">(résumé court)</span>}
                             </label>
                             <textarea
+                                id="homebrew-description"
                                 value={description}
                                 onChange={e => handleDescription(e.target.value)}
                                 placeholder="Effet, règles, saveur…"
@@ -467,6 +471,11 @@ export const HomebrewForm: React.FC = () => {
 
                 {previewSupported && (
                     <div className="hidden lg:block lg:sticky lg:top-24">
+                        {/* Nommer l'aperçu : sans intitulé, un contenu encore vide se lit comme
+                            un panneau cassé plutôt que comme la fiche à venir. */}
+                        <p className="text-[11px] uppercase font-bold text-stone-500 tracking-[0.2em] mb-2">
+                            Aperçu de la fiche
+                        </p>
                         <HomebrewFormPreview
                                     references={references} category={category} name={name} description={description} data={data} drafts={category === 'voie' ? drafts : undefined} />
                     </div>

@@ -356,7 +356,7 @@ export const Campaign: React.FC = () => {
                                                 if (qs.length === 0) return null;
                                                 return (
                                                     <div key={type} className="mb-3">
-                                                        <div className="text-[10px] uppercase tracking-wider text-stone-600 mb-1.5">{type === 'main' ? 'Principale' : 'Secondaire'}</div>
+                                                        <div className="text-[11px] uppercase tracking-wider text-stone-600 mb-1.5">{type === 'main' ? 'Principale' : 'Secondaire'}</div>
                                                         <div className="space-y-2">
                                                             {qs.map(q => (
                                                                 <div key={q.id} className="bg-stone-900/50 p-3 rounded-xl border border-white/5">

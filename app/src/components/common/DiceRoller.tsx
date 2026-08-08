@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Dices, Eraser, ChevronRight } from 'lucide-react';
+import { LEXIQUE } from '../../domain/lexique';
 
 interface RollResult {
     id: string;
@@ -113,7 +114,7 @@ export const DiceRoller: React.FC<DiceRollerProps> = ({ isOpen, mode = 'popup' }
                 <div className="flex justify-between items-center p-4 border-b border-white/10 bg-black/20 rounded-t-2xl">
                     <div className="flex items-center gap-2 text-primary-400">
                         <Dices size={20} />
-                        <h3 className="font-display font-bold text-lg">Lanceur de Dés</h3>
+                        <h3 className="font-display font-bold text-lg">{LEXIQUE.des}</h3>
                     </div>
                 </div>
             )}
@@ -123,7 +124,7 @@ export const DiceRoller: React.FC<DiceRollerProps> = ({ isOpen, mode = 'popup' }
                 <div className="p-2 flex justify-end border-b border-white/5 bg-black/10">
                     <button
                         onClick={clearHistory}
-                        className="text-[10px] uppercase font-bold text-stone-500 hover:text-stone-300 flex items-center gap-1 transition-colors"
+                        className="text-[11px] uppercase font-bold text-stone-500 hover:text-stone-300 flex items-center gap-1 transition-colors"
                         title="Effacer l'historique"
                     >
                         <Eraser size={12} /> Effacer
@@ -144,7 +145,7 @@ export const DiceRoller: React.FC<DiceRollerProps> = ({ isOpen, mode = 'popup' }
                         <div key={roll.id} className="glass-panel p-2 rounded-lg border-white/5 bg-black/20 flex justify-between items-center animate-in slide-in-from-right-2 fade-in duration-300">
                             <div>
                                 <span className="text-xs font-bold text-stone-500 uppercase tracking-wider block">{roll.description}</span>
-                                {roll.details && <div className="text-[10px] text-stone-600 font-mono">{roll.details}</div>}
+                                {roll.details && <div className="text-[11px] text-stone-600 font-mono">{roll.details}</div>}
                             </div>
                             <div className={`text-xl font-bold font-display ${roll.isCritSuccess ? 'text-green-400 drop-shadow-[0_0_5px_rgba(74,222,128,0.5)]' :
                                 roll.isCritFail ? 'text-red-400 drop-shadow-[0_0_5px_rgba(248,113,113,0.5)]' :

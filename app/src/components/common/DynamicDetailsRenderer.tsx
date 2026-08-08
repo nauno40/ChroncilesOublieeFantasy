@@ -23,7 +23,7 @@ export const DynamicDetailsRenderer: React.FC<DynamicDetailsRendererProps> = ({ 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2">
                                 {Object.entries(value).map(([statKey, statValue]: [string, any]) => (
                                     <div key={statKey} className="flex flex-col border-b border-white/5 pb-1">
-                                        <span className="text-stone-500 text-[10px] uppercase font-bold">{statKey.replace(/_/g, ' ')}</span>
+                                        <span className="text-stone-500 text-[11px] uppercase font-bold">{statKey.replace(/_/g, ' ')}</span>
                                         <span className="text-stone-300 font-medium">{String(statValue)}</span>
                                     </div>
                                 ))}

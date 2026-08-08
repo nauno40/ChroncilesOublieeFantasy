@@ -18,7 +18,7 @@ export const WeaponsSection: React.FC<Props> = ({ character, setCharacter, allWe
 
             <div className="space-y-3">
                 {/* Header */}
-                <div className="grid grid-cols-12 gap-4 text-[9px] uppercase font-black text-stone-500 px-3 tracking-widest">
+                <div className="grid grid-cols-12 gap-4 text-[11px] uppercase font-black text-stone-500 px-3 tracking-widest">
                     <div className="col-span-4">Arme / Instrument</div>
                     <div className="col-span-2 text-center">Mod.</div>
                     <div className="col-span-2 text-center">Dégâts</div>
@@ -76,7 +76,7 @@ export const WeaponsSection: React.FC<Props> = ({ character, setCharacter, allWe
                         <div className="col-span-2">
                             <input
                                 type="text"
-                                className="w-full bg-transparent text-center border-none outline-none text-stone-300 font-mono placeholder:text-stone-800"
+                                className="w-full bg-transparent text-center border-none outline-none text-stone-300 font-mono placeholder:text-stone-600"
                                 placeholder="1d8"
                                 value={weapon.dmg}
                                 onChange={(e) => {
@@ -90,7 +90,7 @@ export const WeaponsSection: React.FC<Props> = ({ character, setCharacter, allWe
                         <div className="col-span-4">
                             <input
                                 type="text"
-                                className="w-full bg-transparent border-none outline-none text-[11px] text-stone-500 italic placeholder:text-stone-800"
+                                className="w-full bg-transparent border-none outline-none text-[11px] text-stone-500 italic placeholder:text-stone-600"
                                 placeholder="Critique, portée..."
                                 value={weapon.special}
                                 onChange={(e) => {

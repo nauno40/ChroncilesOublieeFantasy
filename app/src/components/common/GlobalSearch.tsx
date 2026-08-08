@@ -17,7 +17,7 @@ interface SearchResult {
 }
 
 const TYPE_CONFIG: Record<string, { icon: LucideIcon; label: string }> = {
-    creature: { icon: Ghost, label: 'Bestiaire' },
+    creature: { icon: Ghost, label: 'Créatures' },
     capacity: { icon: Sparkles, label: 'Capacité' },
     class: { icon: User, label: 'Profil' },
     race: { icon: Users, label: 'Race' },
@@ -302,7 +302,7 @@ export const GlobalSearch: React.FC<GlobalSearchProps> = ({ isOpen, onClose }) =
                                                     }`}>
                                                     {result.label}
                                                 </span>
-                                                <span className={`text-[10px] uppercase tracking-wider px-1.5 py-0.5 rounded ${isSelected ? 'bg-primary-500/20 text-primary-200' : 'bg-stone-800 text-stone-500'
+                                                <span className={`text-[11px] uppercase tracking-wider px-1.5 py-0.5 rounded ${isSelected ? 'bg-primary-500/20 text-primary-200' : 'bg-stone-800 text-stone-500'
                                                     }`}>
                                                     {TYPE_CONFIG[result.type].label}
                                                 </span>
@@ -326,7 +326,7 @@ export const GlobalSearch: React.FC<GlobalSearchProps> = ({ isOpen, onClose }) =
                 </div>
 
                 {/* Footer */}
-                <div className="p-3 bg-stone-950/50 border-t border-white/5 text-[10px] text-stone-500 flex justify-between items-center">
+                <div className="p-3 bg-stone-950/50 border-t border-white/5 text-[11px] text-stone-500 flex justify-between items-center">
                     <span>
                         <strong>{results.length}</strong> résultats trouvés
                     </span>

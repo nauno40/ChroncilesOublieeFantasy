@@ -1,4 +1,5 @@
 import { ApiService } from './api';
+import { LEXIQUE } from '../domain/lexique';
 
 export type HomebrewVisibility = 'private' | 'public';
 
@@ -36,12 +37,12 @@ export interface HomebrewInput {
 export const HOMEBREW_CATEGORIES: { value: string; label: string }[] = [
     { value: 'sort', label: 'Sort' },
     { value: 'capacite', label: 'Capacité' },
-    { value: 'race', label: 'Race / Peuple' },
+    { value: 'race', label: LEXIQUE.peuple },
     { value: 'classe', label: 'Classe / Profil' },
     { value: 'voie', label: 'Voie' },
     { value: 'objet-magique', label: 'Objet magique' },
     { value: 'equipement', label: 'Équipement' },
-    // Les créatures ont leur propre espace partageable (« Mes Monstres ») : pas de doublon ici.
+    // Les créatures ont leur propre espace partageable (« Mes créatures ») : pas de doublon ici.
     { value: 'poison', label: 'Poison' },
     { value: 'piege', label: 'Piège' },
     { value: 'etat', label: 'État préjudiciable' },

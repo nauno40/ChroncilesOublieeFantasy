@@ -27,7 +27,7 @@ export const CombatantCapabilities: React.FC<{
             <button
                 type="button"
                 onClick={() => setOuvert(o => !o)}
-                className="text-[10px] uppercase tracking-wide text-stone-500 hover:text-primary-400 transition-colors"
+                className="text-[11px] uppercase tracking-wide text-stone-500 hover:text-primary-400 transition-colors"
             >
                 Capacités ({capacites.length})
             </button>
@@ -41,7 +41,7 @@ export const CombatantCapabilities: React.FC<{
                                     différentes ; sans lui, un PJ à trois voies affiche
                                     une liste plate indéchiffrable. */}
                                 {cap.rank !== undefined && (
-                                    <span className="shrink-0 flex items-center justify-center size-4 rounded bg-primary-950 text-primary-500 text-[9px] font-bold border border-primary-500/20">
+                                    <span className="shrink-0 flex items-center justify-center size-4 rounded bg-primary-950 text-primary-500 text-[11px] font-bold border border-primary-500/20">
                                         {cap.rank}
                                     </span>
                                 )}
@@ -49,7 +49,7 @@ export const CombatantCapabilities: React.FC<{
                                     comme le fait la fiche de créature. */}
                                 <div className="text-xs font-bold text-primary-300">{cap.label || cap.name}</div>
                                 {cap.voieName && (
-                                    <span className="text-[10px] text-stone-500 truncate">{cap.voieName}</span>
+                                    <span className="text-[11px] text-stone-500 truncate">{cap.voieName}</span>
                                 )}
                             </div>
                             {cap.description && (
@@ -74,7 +74,7 @@ export const CombatantCapabilities: React.FC<{
                                         key={`inv-${j}`}
                                         type="button"
                                         onClick={() => onInvoquer(resolue.creature, quantite, invocation.ref)}
-                                        className="mt-2 text-[10px] uppercase tracking-wide px-2 py-1 rounded bg-primary-900/40 border border-primary-500/30 text-primary-200 hover:bg-primary-800/50 transition-colors"
+                                        className="mt-2 text-[11px] uppercase tracking-wide px-2 py-1 rounded bg-primary-900/40 border border-primary-500/30 text-primary-200 hover:bg-primary-800/50 transition-colors"
                                     >
                                         + Ajouter {resolue.creature.name}{quantite > 1 && ` ×${quantite}`} au combat
                                     </button>

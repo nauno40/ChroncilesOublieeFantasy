@@ -12,11 +12,11 @@ export const RuleChapter1: React.FC = () => {
 
                 <div className="flex flex-col md:flex-row gap-4 mb-6">
                     <div className="bg-stone-900/50 p-4 rounded border border-white/10 flex-1 text-center font-bold text-lg text-primary-200">
-                        <span className="block text-stone-500 text-sm uppercase mb-1">Formule</span>
+                        <span className="block text-stone-400 text-sm uppercase mb-1">Formule</span>
                         d20 + Mod. Carac. + Modificateurs
                     </div>
                     <div className="bg-stone-900/50 p-4 rounded border border-white/10 flex-1 text-center font-bold text-lg text-primary-200">
-                        <span className="block text-stone-500 text-sm uppercase mb-1">Résolution</span>
+                        <span className="block text-stone-400 text-sm uppercase mb-1">Résolution</span>
                         Si Résultat ≥ Difficulté (SD) : <strong>Réussite</strong><br />
                         <span className="text-sm font-normal text-stone-400">Sinon : Échec</span>
                     </div>
@@ -107,7 +107,7 @@ export const RuleChapter1: React.FC = () => {
                                 <span><strong>Voie de Peuple (Fixe)</strong></span> <span className="text-right text-stone-400">+3</span>
                                 <span><strong>Voie de Prestige (Fixe)</strong></span> <span className="text-right text-stone-400">+5</span>
                             </div>
-                            <p className="text-xs text-stone-500 italic mt-2 border-t border-white/5 pt-1">
+                            <p className="text-xs text-stone-400 italic mt-2 border-t border-white/5 pt-1">
                                 Règle de Cumul : On prend le meilleur bonus de chaque source. Total Max = +15.
                             </p>
                         </div>
@@ -150,7 +150,7 @@ export const RuleChapter1: React.FC = () => {
                         <h4 className="font-bold text-primary-300 mb-2">Utilisation (Max 1/test)</h4>
                         <ul className="list-disc ml-4 space-y-1">
                             <li><strong>Bonus Héroïque :</strong> +10 au résultat final.</li>
-                            <li><strong>Sauver sa peau :</strong> Transformer un Échec Critique (1) en réussite normale (si le score suffit). <em className="text-xs text-stone-500">Succès partiel "Oui mais..."</em></li>
+                            <li><strong>Sauver sa peau :</strong> Transformer un Échec Critique (1) en réussite normale (si le score suffit). <em className="text-xs text-stone-400">Succès partiel "Oui mais..."</em></li>
                         </ul>
                     </div>
                     <div>
@@ -173,7 +173,7 @@ export const RuleChapter1: React.FC = () => {
                         </div>
                     </div>
                 </div>
-                <p className="mt-4 text-xs text-stone-500 italic">Le Destin : Le MJ peut mettre un veto à l'usage d'un PC pour préserver le scénario majeur (le PC n'est pas dépensé).</p>
+                <p className="mt-4 text-xs text-stone-400 italic">Le Destin : Le MJ peut mettre un veto à l'usage d'un PC pour préserver le scénario majeur (le PC n'est pas dépensé).</p>
             </div>
 
             {/* ROLE DU MJ */}

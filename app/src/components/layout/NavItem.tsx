@@ -44,7 +44,7 @@ export const NavItemComponent: React.FC<NavItemComponentProps> = ({ item, isActi
             >
                 <Icon size={isMobile ? 24 : 20} className={clsx(
                     'transition-colors',
-                    isActive ? 'text-primary-400' : 'text-stone-500 group-hover:text-primary-400'
+                    isActive ? 'text-primary-400' : 'text-stone-400 group-hover:text-primary-400'
                 )} />
                 <span className={clsx(
                     'font-display font-semibold transition-colors',
@@ -69,7 +69,7 @@ export const NavItemComponent: React.FC<NavItemComponentProps> = ({ item, isActi
                 <div className="flex items-center gap-3">
                     <Icon size={20} className={clsx(
                         'transition-colors',
-                        isSubItemActive ? 'text-primary-400' : 'text-stone-500 group-hover:text-primary-400'
+                        isSubItemActive ? 'text-primary-400' : 'text-stone-400 group-hover:text-primary-400'
                     )} />
                     <span className="font-display font-semibold">{item.label}</span>
                 </div>
@@ -91,7 +91,7 @@ export const NavItemComponent: React.FC<NavItemComponentProps> = ({ item, isActi
                                     'flex items-center gap-2 px-3 py-2 rounded-lg transition-all text-base font-medium',
                                     isSubActive
                                         ? 'bg-primary-500/20 text-primary-300'
-                                        : 'text-stone-500 hover:bg-stone-900/30 hover:text-primary-400'
+                                        : 'text-stone-400 hover:bg-stone-900/30 hover:text-primary-400'
                                 )}
                             >
                                 <SubIcon size={16} />

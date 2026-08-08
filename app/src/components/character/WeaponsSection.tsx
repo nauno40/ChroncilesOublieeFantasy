@@ -18,7 +18,7 @@ export const WeaponsSection: React.FC<Props> = ({ character, setCharacter, allWe
 
             <div className="space-y-3">
                 {/* Header */}
-                <div className="grid grid-cols-12 gap-4 text-[11px] uppercase font-black text-stone-500 px-3 tracking-widest">
+                <div className="grid grid-cols-12 gap-4 text-[11px] uppercase font-black text-stone-400 px-3 tracking-widest">
                     <div className="col-span-4">Arme / Instrument</div>
                     <div className="col-span-2 text-center">Mod.</div>
                     <div className="col-span-2 text-center">Dégâts</div>
@@ -59,7 +59,7 @@ export const WeaponsSection: React.FC<Props> = ({ character, setCharacter, allWe
                         </div>
                         <div className="col-span-2 flex items-center justify-center">
                             <div className="flex items-center bg-stone-900 border border-stone-800 rounded px-2 py-1 shadow-inner">
-                                <span className="text-stone-600 font-bold text-xs mr-1">+</span>
+                                <span className="text-stone-400 font-bold text-xs mr-1">+</span>
                                 <input
                                     type="number"
                                     aria-label="Modificateur d’attaque" className="w-8 bg-transparent text-center font-mono font-bold text-primary-400 outline-none"
@@ -76,7 +76,7 @@ export const WeaponsSection: React.FC<Props> = ({ character, setCharacter, allWe
                         <div className="col-span-2">
                             <input
                                 type="text"
-                                className="w-full bg-transparent text-center border-none outline-none text-stone-300 font-mono placeholder:text-stone-600"
+                                className="w-full bg-transparent text-center border-none outline-none text-stone-300 font-mono placeholder:text-stone-400"
                                 placeholder="1d8" aria-label="1d8"
                                 value={weapon.dmg}
                                 onChange={(e) => {
@@ -90,7 +90,7 @@ export const WeaponsSection: React.FC<Props> = ({ character, setCharacter, allWe
                         <div className="col-span-4">
                             <input
                                 type="text"
-                                className="w-full bg-transparent border-none outline-none text-[11px] text-stone-500 italic placeholder:text-stone-600"
+                                className="w-full bg-transparent border-none outline-none text-[11px] text-stone-400 italic placeholder:text-stone-400"
                                 placeholder="Critique, portée..." aria-label="Critique, portée..."
                                 value={weapon.special}
                                 onChange={(e) => {

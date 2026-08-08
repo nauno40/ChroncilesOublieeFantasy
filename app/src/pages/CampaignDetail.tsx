@@ -320,7 +320,7 @@ export const CampaignDetail: React.FC = () => {
                             <button
                                 onClick={startEditHeader}
                                 title="Modifier le nom et la description"
-                                className="text-stone-600 hover:text-primary-400 transition-colors opacity-0 group-hover/header:opacity-100 focus:opacity-100 p-1.5 rounded-lg hover:bg-stone-900/50 mb-2"
+                                className="text-stone-400 hover:text-primary-400 transition-colors opacity-0 group-hover/header:opacity-100 focus:opacity-100 p-1.5 rounded-lg hover:bg-stone-900/50 mb-2"
                             >
                                 <Edit size={20} />
                             </button>
@@ -360,7 +360,7 @@ export const CampaignDetail: React.FC = () => {
                             <div className="flex items-center gap-2 mb-3">
                                 <Users size={16} className="text-primary-400" />
                                 <h3 className="text-sm font-bold uppercase tracking-wider text-stone-400">Personnages</h3>
-                                <span className="text-xs text-stone-600">{campaignCharacters.length}</span>
+                                <span className="text-xs text-stone-400">{campaignCharacters.length}</span>
                             </div>
                             {campaignCharacters.length > 0 && (
                                 <ul className="space-y-2 mb-3">
@@ -375,11 +375,11 @@ export const CampaignDetail: React.FC = () => {
                                                 <div className="flex items-start justify-between gap-2">
                                                     <Link to={`/characters/${c.id}`} className="min-w-0 group/pj">
                                                         <div className="truncate text-stone-200 font-medium group-hover/pj:text-primary-400 transition-colors">{c.name}</div>
-                                                        <div className="text-xs text-stone-500 truncate">{meta ? `${meta} · ` : ''}Niv {c.level}</div>
+                                                        <div className="text-xs text-stone-400 truncate">{meta ? `${meta} · ` : ''}Niv {c.level}</div>
                                                     </Link>
                                                     <button
                                                         onClick={() => handleDetachCharacter(c.id)}
-                                                        className="shrink-0 text-stone-500 hover:text-red-400 transition-colors"
+                                                        className="shrink-0 text-stone-400 hover:text-red-400 transition-colors"
                                                         title="Détacher de la campagne"
                                                     >
                                                         <X size={16} />
@@ -392,7 +392,7 @@ export const CampaignDetail: React.FC = () => {
                                                     <div className="mt-1.5 flex flex-wrap gap-1">
                                                         {STAT_KEYS.filter(k => st[k] != null).map(k => (
                                                             <span key={k} className="text-[11px] text-stone-400 bg-stone-800/60 rounded px-1.5 py-0.5">
-                                                                <span className="text-stone-500">{k}</span> {st[k]}
+                                                                <span className="text-stone-400">{k}</span> {st[k]}
                                                             </span>
                                                         ))}
                                                     </div>
@@ -404,7 +404,7 @@ export const CampaignDetail: React.FC = () => {
                             )}
                             <button
                                 onClick={() => setShowAddPjModal(true)}
-                                className="w-full py-2 rounded-lg border border-dashed border-stone-700 text-stone-500 hover:border-primary-500 hover:text-primary-400 transition-all text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2"
+                                className="w-full py-2 rounded-lg border border-dashed border-stone-700 text-stone-400 hover:border-primary-500 hover:text-primary-400 transition-all text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2"
                             >
                                 <Plus size={16} /> Ajouter un PJ
                             </button>
@@ -437,7 +437,7 @@ export const CampaignDetail: React.FC = () => {
                             <Users size={18} className="text-primary-400" />
                         </span>
                         <span className="font-display font-bold text-stone-200">Joueurs & partage</span>
-                        <span className="text-xs text-stone-500">
+                        <span className="text-xs text-stone-400">
                             {memberships.length} membre{memberships.length > 1 ? 's' : ''}{inviteCode ? ` · code ${inviteCode}` : ''}
                         </span>
                     </span>
@@ -469,7 +469,7 @@ export const CampaignDetail: React.FC = () => {
                                     <RefreshCw size={14} className={clsx(regeneratingInvite && "animate-spin")} /> Régénérer
                                 </button>
                             </div>
-                            <p className="text-stone-500 text-xs">Partagez ce code : vos joueurs rejoignent la campagne depuis leur compte.</p>
+                            <p className="text-stone-400 text-xs">Partagez ce code : vos joueurs rejoignent la campagne depuis leur compte.</p>
                         </div>
 
                         {/* Membres */}
@@ -478,7 +478,7 @@ export const CampaignDetail: React.FC = () => {
                                 <Users size={16} className="text-primary-400" /> Membres
                             </h4>
                             {memberships.length === 0 ? (
-                                <p className="text-stone-600 text-sm italic">Aucun joueur n'a encore rejoint cette campagne.</p>
+                                <p className="text-stone-400 text-sm italic">Aucun joueur n'a encore rejoint cette campagne.</p>
                             ) : (
                                 <div className="space-y-3">
                                     {memberships.map((m) => (
@@ -487,14 +487,14 @@ export const CampaignDetail: React.FC = () => {
                                                 <span className="font-bold text-stone-200">{getPlayerPseudo(m)}</span>
                                                 <button
                                                     onClick={() => handleRemoveMembership(m.id)}
-                                                    className="text-stone-500 hover:text-red-500 text-xs font-bold uppercase flex items-center gap-1 transition-colors shrink-0"
+                                                    className="text-stone-400 hover:text-red-500 text-xs font-bold uppercase flex items-center gap-1 transition-colors shrink-0"
                                                 >
                                                     <UserX size={14} /> Exclure
                                                 </button>
                                             </div>
                                             <div className="mt-2 flex flex-wrap gap-2">
                                                 {charactersForMember(m).length === 0 ? (
-                                                    <span className="text-stone-600 text-xs italic">Aucune fiche de personnage</span>
+                                                    <span className="text-stone-400 text-xs italic">Aucune fiche de personnage</span>
                                                 ) : (
                                                     charactersForMember(m).map((c) => (
                                                         <Link
@@ -534,7 +534,7 @@ export const CampaignDetail: React.FC = () => {
                                 <Plus size={16} /> Créer un nouveau personnage
                             </button>
 
-                            <div className="flex items-center gap-3 text-xs uppercase tracking-wider text-stone-500">
+                            <div className="flex items-center gap-3 text-xs uppercase tracking-wider text-stone-400">
                                 <div className="h-px flex-1 bg-white/10" /> ou rattacher un existant <div className="h-px flex-1 bg-white/10" />
                             </div>
 
@@ -550,7 +550,7 @@ export const CampaignDetail: React.FC = () => {
                                                 onClick={() => handleAttachCharacter(c.id)}
                                                 className="w-full flex items-center justify-between gap-2 bg-black/30 hover:bg-primary-900/30 border border-white/5 hover:border-primary-500/40 rounded-lg px-4 py-3 transition-colors text-left"
                                             >
-                                                <span className="text-stone-200">{c.name} <span className="text-stone-500 text-sm">· Niv {c.level}</span></span>
+                                                <span className="text-stone-200">{c.name} <span className="text-stone-400 text-sm">· Niv {c.level}</span></span>
                                                 <Plus size={16} className="text-primary-400 shrink-0" />
                                             </button>
                                         </li>

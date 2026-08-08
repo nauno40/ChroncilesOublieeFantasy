@@ -45,9 +45,9 @@ export const LoginPage: React.FC = () => {
 
                     <form className="space-y-6" onSubmit={handleSubmit}>
                         <div className="space-y-2">
-                            <label className="text-xs font-bold uppercase tracking-widest text-stone-500 ml-1">Email</label>
+                            <label className="text-xs font-bold uppercase tracking-widest text-stone-400 ml-1">Email</label>
                             <div className="relative">
-                                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-stone-600">
+                                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-stone-400">
                                     <Mail size={18} />
                                 </div>
                                 <input
@@ -63,11 +63,11 @@ export const LoginPage: React.FC = () => {
 
                         <div className="space-y-2">
                             <div className="flex justify-between">
-                                <label className="text-xs font-bold uppercase tracking-widest text-stone-500 ml-1">Mot de passe</label>
+                                <label className="text-xs font-bold uppercase tracking-widest text-stone-400 ml-1">Mot de passe</label>
                                 <Link to="/forgot-password" className="text-xs font-bold text-primary-500 hover:text-primary-400">Oublié ?</Link>
                             </div>
                             <div className="relative">
-                                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-stone-600">
+                                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-stone-400">
                                     <Lock size={18} />
                                 </div>
                                 <input

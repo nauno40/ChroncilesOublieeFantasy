@@ -38,7 +38,7 @@ export const RacialGrantPanel: React.FC<Props> = ({ character, setCharacter, pro
     return (
         <div className="glass-panel p-4 rounded-2xl border-white/5 bg-stone-900/10 space-y-2">
             <h3 className="text-stone-400 font-display font-bold uppercase text-[11px] tracking-[0.2em]">Capacité de peuple</h3>
-            <p className="text-[11px] text-stone-500 italic leading-snug">
+            <p className="text-[11px] text-stone-400 italic leading-snug">
                 Une capacité {grant.allowsRank2 ? 'de rang 1 ou 2 ' : 'de rang 1 '}{all ? "de n'importe quel profil" : `de ${grant.allowedProfiles.join(' ou ')}`}, offerte par ton peuple (gratuite).
             </p>
             <select
@@ -52,7 +52,7 @@ export const RacialGrantPanel: React.FC<Props> = ({ character, setCharacter, pro
             </select>
             {grant.allowsRank2 && value && (
                 <div className="flex items-center gap-2">
-                    <label className="text-[11px] uppercase font-bold text-stone-500 tracking-wider">Rang</label>
+                    <label className="text-[11px] uppercase font-bold text-stone-400 tracking-wider">Rang</label>
                     <select
                         className="bg-stone-950/40 border border-stone-800 rounded px-2 py-1 text-xs text-stone-200 outline-none focus:border-primary-500/40"
                         aria-label="Rang de la capacité octroyée"

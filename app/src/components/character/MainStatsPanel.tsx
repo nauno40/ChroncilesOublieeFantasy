@@ -38,11 +38,11 @@ export const MainStatsPanel: React.FC<Props> = ({ character, setCharacter, comba
     return (
         <div className="grid grid-cols-2 gap-3">
             <div className="glass-panel p-3 rounded-xl text-center border-stone-800 relative overflow-hidden bg-stone-900/10">
-                <label className="text-[11px] uppercase font-black text-stone-500 tracking-[0.2em] block mb-1">Initiative</label>
+                <label className="text-[11px] uppercase font-black text-stone-400 tracking-[0.2em] block mb-1">Initiative</label>
                 <div className="text-2xl font-display font-bold text-stone-300 drop-shadow-[0_0_10px_rgba(255,255,255,0.1)]">
                     {combatStats.init}
                 </div>
-                <div className="text-[11px] text-stone-600 font-bold uppercase mt-1">10 + PER + Bonus</div>
+                <div className="text-[11px] text-stone-400 font-bold uppercase mt-1">10 + PER + Bonus</div>
             </div>
             <div className="glass-panel p-3 rounded-xl text-center border-primary-500/20 relative overflow-hidden group bg-stone-900/10">
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary-500/40 to-transparent" />
@@ -50,7 +50,7 @@ export const MainStatsPanel: React.FC<Props> = ({ character, setCharacter, comba
                 <div className="text-2xl font-display font-bold text-white outline-none drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]">
                     {combatStats.def}
                 </div>
-                <div className="text-[11px] text-stone-500 font-bold uppercase mt-1">10 + AGI + Armure</div>
+                <div className="text-[11px] text-stone-400 font-bold uppercase mt-1">10 + AGI + Armure</div>
             </div>
             <div className="glass-panel p-3 rounded-xl text-center border-green-900/40 bg-green-950/5 relative overflow-hidden transition-all hover:bg-green-950/10 col-span-2">
                 <div className="absolute top-0 left-0 w-full h-1 bg-green-500/30" />
@@ -65,7 +65,7 @@ export const MainStatsPanel: React.FC<Props> = ({ character, setCharacter, comba
                         onChange={e => setHpCurrent(parseInt(e.target.value) || 0)}
                     />
                     <span className="text-stone-700 font-black text-sm">/</span>
-                    <span className="text-lg font-display font-bold text-stone-500">{maxHp}</span>
+                    <span className="text-lg font-display font-bold text-stone-400">{maxHp}</span>
                     <button onClick={() => setHpCurrent(hpCurrent + 1)} className="w-6 h-6 rounded bg-stone-800 hover:bg-green-900/50 text-green-400 border border-stone-700 text-xs flex items-center justify-center transition-all active:scale-95" title="+1 PV">+</button>
                     {damageReduction > 0 && (
                         <span className="text-[11px] font-black uppercase px-2 py-0.5 rounded-full bg-stone-800 border border-stone-600 text-stone-300">
@@ -95,7 +95,7 @@ export const MainStatsPanel: React.FC<Props> = ({ character, setCharacter, comba
                         }))}
                     />
                     <span className="text-stone-700 font-black text-xs">/</span>
-                    <span className="w-8 text-center text-sm text-stone-500 font-bold">{luckMax}</span>
+                    <span className="w-8 text-center text-sm text-stone-400 font-bold">{luckMax}</span>
                 </div>
                 <div className="text-[11px] text-amber-900/70 font-bold uppercase mt-1">1 PC = +10 à un test</div>
             </div>
@@ -116,12 +116,12 @@ export const MainStatsPanel: React.FC<Props> = ({ character, setCharacter, comba
             <div className="glass-panel p-3 rounded-xl border-white/5 bg-stone-900/20 col-span-2 flex items-center justify-around px-6">
                 <div className="flex flex-col items-center">
                     <div className="text-lg font-bold text-white font-display w-20 text-center">{recoveryDie}</div>
-                    <div className="text-[11px] text-stone-600 text-center font-bold uppercase mt-1">Dé de récup.</div>
+                    <div className="text-[11px] text-stone-400 text-center font-bold uppercase mt-1">Dé de récup.</div>
                 </div>
                 <div className="w-px self-stretch bg-white/5" />
                 <div className="flex flex-col items-center">
                     <div className="text-lg font-bold text-white font-display w-20 text-center">{evolutiveDie}</div>
-                    <div className="text-[11px] text-stone-600 text-center font-bold uppercase mt-1">Dé évolutif d4°</div>
+                    <div className="text-[11px] text-stone-400 text-center font-bold uppercase mt-1">Dé évolutif d4°</div>
                 </div>
             </div>
 
@@ -129,15 +129,15 @@ export const MainStatsPanel: React.FC<Props> = ({ character, setCharacter, comba
             <div className="glass-panel p-3 rounded-xl col-span-2 border-white/5 bg-stone-900/20">
                 <div className="grid grid-cols-2 gap-4 h-full divide-x divide-white/5">
                     <div className="text-center">
-                        <label className="text-[11px] uppercase font-black text-stone-500 tracking-widest block mb-1">Atk. CàC</label>
+                        <label className="text-[11px] uppercase font-black text-stone-400 tracking-widest block mb-1">Atk. CàC</label>
                         <div className="text-xl font-display font-bold text-white text-shadow-sm transition-all hover:scale-110">
-                            <span className="text-stone-600 text-xs mr-1">+</span>{attackValue(mods[contactCarac], character.level || 1) + attackBonus}
+                            <span className="text-stone-400 text-xs mr-1">+</span>{attackValue(mods[contactCarac], character.level || 1) + attackBonus}
                         </div>
                     </div>
                     <div className="text-center pl-4">
-                        <label className="text-[11px] uppercase font-black text-stone-500 tracking-widest block mb-1">Atk. Tir</label>
+                        <label className="text-[11px] uppercase font-black text-stone-400 tracking-widest block mb-1">Atk. Tir</label>
                         <div className="text-xl font-display font-bold text-white text-shadow-sm transition-all hover:scale-110">
-                            <span className="text-stone-600 text-xs mr-1">+</span>{attackValue(mods[distanceCarac], character.level || 1) + attackBonus}
+                            <span className="text-stone-400 text-xs mr-1">+</span>{attackValue(mods[distanceCarac], character.level || 1) + attackBonus}
                         </div>
                     </div>
                 </div>

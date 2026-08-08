@@ -20,7 +20,7 @@ type Data = Record<string, unknown>;
 // toujours eue.
 export const inputCls = 'w-full bg-stone-950 border border-white/10 rounded-lg px-3 py-2 text-stone-200 outline-none focus:border-primary-500';
 export const inputErrCls = 'w-full bg-stone-950 border border-red-500/60 rounded-lg px-3 py-2 text-stone-200 outline-none focus:border-red-500';
-export const labelCls = 'text-[11px] uppercase font-bold text-stone-500 block mb-1';
+export const labelCls = 'text-[11px] uppercase font-bold text-stone-400 block mb-1';
 
 /** Intitulé + champ. L'intitulé ENVELOPPE le champ : cliquer dessus y place le curseur,
  *  ce qu'un `<label>` posé à côté ne fait pas. Le point d'obligation évite de découvrir
@@ -164,7 +164,7 @@ const CaracsInput: React.FC<{ label: string; value: Record<string, number>; onCh
         <div className="grid grid-cols-4 sm:grid-cols-7 gap-2">
             {CARAC_KEYS.map(k => (
                 <label key={k} className="text-center block">
-                    <span className="text-[11px] text-stone-500 mb-0.5 block">{k}</span>
+                    <span className="text-[11px] text-stone-400 mb-0.5 block">{k}</span>
                     <input type="number" aria-label={`${label} — ${k}`}
                         className={`w-full bg-stone-950 border rounded px-1 py-1 text-center text-stone-200 text-sm outline-none focus:border-primary-500 ${error ? 'border-red-500/60' : 'border-white/10'}`}
                         value={value[k] ?? 0} onChange={e => onChange({ ...value, [k]: Number(e.target.value) || 0 })} />
@@ -188,7 +188,7 @@ const LinesInput: React.FC<{ label: string; value: string[]; onChange: (v: strin
                     <div key={i} className="flex gap-1.5">
                         <input className={error ? fieldErrCls : fieldCls} aria-label={`${label} — ligne ${i + 1}`}
                             value={line} onChange={e => update(i, e.target.value)} placeholder={placeholder} />
-                        <button type="button" onClick={() => remove(i)} className="text-stone-500 hover:text-red-400 px-2" aria-label="Retirer"><X size={16} /></button>
+                        <button type="button" onClick={() => remove(i)} className="text-stone-400 hover:text-red-400 px-2" aria-label="Retirer"><X size={16} /></button>
                     </div>
                 ))}
                 <button type="button" onClick={() => onChange([...value, ''])} className="text-primary-400 hover:text-primary-300 text-xs font-bold flex items-center gap-1"><Plus size={13} /> Ajouter</button>
@@ -231,7 +231,7 @@ const EtatsInput: React.FC<{
                         className={`text-[11px] uppercase tracking-wide px-2 py-0.5 rounded border transition-colors ${
                             choisi
                                 ? 'bg-purple-900/50 text-purple-200 border-purple-500/40'
-                                : 'bg-stone-950 text-stone-500 border-white/10 hover:text-stone-300'
+                                : 'bg-stone-950 text-stone-400 border-white/10 hover:text-stone-300'
                         }`}
                     >
                         {etat.name}
@@ -306,7 +306,7 @@ const InvocationsInput: React.FC<{
                             type="button"
                             aria-label="Retirer cette invocation"
                             onClick={() => onChange(value.filter((_, idx) => idx !== i))}
-                            className="p-1 text-stone-500 hover:text-red-400"
+                            className="p-1 text-stone-400 hover:text-red-400"
                         >
                             <X size={14} />
                         </button>

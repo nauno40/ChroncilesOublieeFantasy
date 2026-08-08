@@ -53,9 +53,9 @@ export const ForgotPasswordPage: React.FC = () => {
 
                             <form className="space-y-6" onSubmit={handleSubmit}>
                                 <div className="space-y-2">
-                                    <label className="text-xs font-bold uppercase tracking-widest text-stone-500 ml-1">Email</label>
+                                    <label className="text-xs font-bold uppercase tracking-widest text-stone-400 ml-1">Email</label>
                                     <div className="relative">
-                                        <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-stone-600">
+                                        <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-stone-400">
                                             <Mail size={18} />
                                         </div>
                                         <input

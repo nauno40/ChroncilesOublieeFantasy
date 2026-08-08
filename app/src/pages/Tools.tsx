@@ -16,7 +16,7 @@ export const Tools: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <Link to="/tools/tracker" className="glass-panel p-8 rounded-2xl border-primary-500/20 hover:border-primary-500/50 hover:shadow-[0_0_20px_rgba(245,158,11,0.15)] transition-all group relative overflow-hidden">
                     <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:scale-110 transition-transform duration-500">
-                        <Sword size={120} className="text-stone-500" />
+                        <Sword size={120} className="text-stone-400" />
                     </div>
 
                     <div className="relative z-10">
@@ -30,7 +30,7 @@ export const Tools: React.FC = () => {
 
                 <Link to="/tools/dice" className="glass-panel p-8 rounded-2xl border-primary-500/20 hover:border-primary-500/50 hover:shadow-[0_0_20px_rgba(245,158,11,0.15)] transition-all group relative overflow-hidden">
                     <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:scale-110 transition-transform duration-500">
-                        <Dices size={120} className="text-stone-500" />
+                        <Dices size={120} className="text-stone-400" />
                     </div>
 
                     <div className="relative z-10">
@@ -44,7 +44,7 @@ export const Tools: React.FC = () => {
 
                 <Link to="/tools/monsters" className="glass-panel p-8 rounded-2xl border-primary-500/20 hover:border-primary-500/50 hover:shadow-[0_0_20px_rgba(245,158,11,0.15)] transition-all group relative overflow-hidden">
                     <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:scale-110 transition-transform duration-500">
-                        <Skull size={120} className="text-stone-500" />
+                        <Skull size={120} className="text-stone-400" />
                     </div>
 
                     <div className="relative z-10">
@@ -58,7 +58,7 @@ export const Tools: React.FC = () => {
 
                 <Link to="/tools/soundboard" className="glass-panel p-8 rounded-2xl border-primary-500/20 hover:border-primary-500/50 hover:shadow-[0_0_20px_rgba(245,158,11,0.15)] transition-all group relative overflow-hidden">
                     <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:scale-110 transition-transform duration-500">
-                        <Music size={120} className="text-stone-500" />
+                        <Music size={120} className="text-stone-400" />
                     </div>
 
                     <div className="relative z-10">
@@ -72,7 +72,7 @@ export const Tools: React.FC = () => {
 
                 <Link to="/tools/magic-items" className="glass-panel p-8 rounded-2xl border-primary-500/20 hover:border-primary-500/50 hover:shadow-[0_0_20px_rgba(245,158,11,0.15)] transition-all group relative overflow-hidden">
                     <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:scale-110 transition-transform duration-500">
-                        <Sparkles size={120} className="text-stone-500" />
+                        <Sparkles size={120} className="text-stone-400" />
                     </div>
 
                     <div className="relative z-10">

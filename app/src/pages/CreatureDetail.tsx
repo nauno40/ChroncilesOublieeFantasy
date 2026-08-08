@@ -141,7 +141,7 @@ export const CreatureDetail: React.FC = () => {
 
                         {/* Vital Stats */}
                         <div className="bg-stone-900/80 backdrop-blur-sm rounded-2xl p-6 border border-white/5 shadow-xl">
-                            <h3 className="text-stone-500 text-xs font-bold uppercase tracking-widest mb-6 flex items-center gap-2">
+                            <h3 className="text-stone-400 text-xs font-bold uppercase tracking-widest mb-6 flex items-center gap-2">
                                 <span className="w-8 h-[1px] bg-stone-700"></span>
                                 Informations
                             </h3>
@@ -169,17 +169,17 @@ export const CreatureDetail: React.FC = () => {
                         <div className="grid grid-cols-3 gap-2">
                             <div className="bg-stone-900/80 p-4 rounded-xl border border-white/5 text-center flex flex-col items-center justify-center hover:border-white/20 transition-colors">
                                 <Shield className="mb-2 text-stone-400" size={20} />
-                                <div className="text-xs text-stone-500 font-bold uppercase tracking-wider mb-1">Défense</div>
+                                <div className="text-xs text-stone-400 font-bold uppercase tracking-wider mb-1">Défense</div>
                                 <div className="text-2xl font-display font-bold text-stone-200">{creature.def || '-'}</div>
                             </div>
                             <div className="bg-stone-900/80 p-4 rounded-xl border border-white/5 text-center flex flex-col items-center justify-center hover:border-green-500/30 transition-colors group">
                                 <Heart className="mb-2 text-green-900 group-hover:text-green-500 transition-colors" size={20} />
-                                <div className="text-xs text-stone-500 font-bold uppercase tracking-wider mb-1">PV</div>
+                                <div className="text-xs text-stone-400 font-bold uppercase tracking-wider mb-1">PV</div>
                                 <div className="text-2xl font-display font-bold text-green-500">{creature.hp || '-'}</div>
                             </div>
                             <div className="bg-stone-900/80 p-4 rounded-xl border border-white/5 text-center flex flex-col items-center justify-center hover:border-amber-500/30 transition-colors group">
                                 <Sword className="mb-2 text-amber-900 group-hover:text-amber-500 transition-colors" size={20} />
-                                <div className="text-xs text-stone-500 font-bold uppercase tracking-wider mb-1">Init</div>
+                                <div className="text-xs text-stone-400 font-bold uppercase tracking-wider mb-1">Init</div>
                                 <div className="text-2xl font-display font-bold text-amber-500">{creature.init || '-'}</div>
                             </div>
                         </div>
@@ -193,7 +193,7 @@ export const CreatureDetail: React.FC = () => {
                             <div className="grid grid-cols-4 sm:grid-cols-7 gap-3 mb-8">
                                 {statsConfig.map(attr => (
                                     <div key={attr.label} className="bg-stone-900/60 rounded-xl p-3 border border-white/5 text-center hover:border-primary-500/30 transition-colors">
-                                        <div className="text-stone-500 text-[11px] font-bold uppercase tracking-wider mb-1">{attr.label}</div>
+                                        <div className="text-stone-400 text-[11px] font-bold uppercase tracking-wider mb-1">{attr.label}</div>
                                         <div className="font-display font-bold text-xl text-stone-200">
                                             {creature.stats![attr.key] ?? '0'}
                                         </div>
@@ -217,11 +217,11 @@ export const CreatureDetail: React.FC = () => {
                                                 </span>
                                                 <div className="flex gap-4 text-sm items-center self-start sm:self-auto">
                                                     <div className="flex items-center gap-2 bg-black/20 px-3 py-1 rounded-lg border border-white/5">
-                                                        <span className="text-[11px] text-stone-500 font-bold uppercase tracking-wider">Test</span>
+                                                        <span className="text-[11px] text-stone-400 font-bold uppercase tracking-wider">Test</span>
                                                         <span className="text-primary-400 font-mono font-bold">{attack.test || attack.atk || '-'}</span>
                                                     </div>
                                                     <div className="flex items-center gap-2 bg-black/20 px-3 py-1 rounded-lg border border-white/5">
-                                                        <span className="text-[11px] text-stone-500 font-bold uppercase tracking-wider">DM</span>
+                                                        <span className="text-[11px] text-stone-400 font-bold uppercase tracking-wider">DM</span>
                                                         <span className="text-stone-300 font-mono font-bold">{attack.dm || attack.dmg || '-'}</span>
                                                     </div>
                                                 </div>
@@ -259,7 +259,7 @@ export const CreatureDetail: React.FC = () => {
                                         <div key={i} className="bg-stone-900/60 p-5 rounded-xl border border-white/5 hover:border-primary-500/30 transition-colors">
                                             <div className="font-bold text-primary-300 mb-2 flex items-baseline gap-2">
                                                 {typeof cap === 'string' ? cap : (cap.label || cap.name)}
-                                                {cap.rank && <span className="text-stone-500 font-normal text-xs bg-black/30 px-2 py-0.5 rounded border border-white/5">Rang {cap.rank}</span>}
+                                                {cap.rank && <span className="text-stone-400 font-normal text-xs bg-black/30 px-2 py-0.5 rounded border border-white/5">Rang {cap.rank}</span>}
                                             </div>
                                             {typeof cap !== 'string' && cap.description && (
                                                 <div className="text-sm text-stone-300 leading-relaxed opacity-90 whitespace-pre-line pl-2 border-l-2 border-white/10">

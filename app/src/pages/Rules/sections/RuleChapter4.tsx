@@ -34,7 +34,7 @@ export const RuleChapter4: React.FC = () => {
                             <span className="text-xs font-mono text-cyan-400 font-bold">-5 Attaque / PER (Aveuglé)</span>
                         </div>
                     </div>
-                    <p className="text-xs text-stone-500 mt-3 italic">Note : La Vision dans le noir ignore la pénombre et l'obscurité (portée 18m, noir & blanc).</p>
+                    <p className="text-xs text-stone-400 mt-3 italic">Note : La Vision dans le noir ignore la pénombre et l'obscurité (portée 18m, noir & blanc).</p>
                 </div>
 
                 {/* CHUTE & ASPHYXIE */}
@@ -73,9 +73,9 @@ export const RuleChapter4: React.FC = () => {
                         <div>
                             <strong className="text-orange-300">Feu & Acide (Par round)</strong>
                             <ul className="grid grid-cols-2 gap-2 mt-1">
-                                <li className="bg-stone-900/30 p-2 rounded"><span className="text-stone-500 text-xs block">Torche / Fiole d'acide</span> 1d6 DM</li>
-                                <li className="bg-stone-900/30 p-2 rounded"><span className="text-stone-500 text-xs block">Feu de camp / Bain acide</span> 2d6 DM</li>
-                                <li className="bg-stone-900/30 p-2 rounded"><span className="text-stone-500 text-xs block">Incendie / Lave</span> 10d6 DM</li>
+                                <li className="bg-stone-900/30 p-2 rounded"><span className="text-stone-400 text-xs block">Torche / Fiole d'acide</span> 1d6 DM</li>
+                                <li className="bg-stone-900/30 p-2 rounded"><span className="text-stone-400 text-xs block">Feu de camp / Bain acide</span> 2d6 DM</li>
+                                <li className="bg-stone-900/30 p-2 rounded"><span className="text-stone-400 text-xs block">Incendie / Lave</span> 10d6 DM</li>
                             </ul>
                         </div>
                         <div>

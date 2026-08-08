@@ -99,7 +99,7 @@ export const CampaignClues: React.FC<Props> = ({ campaign, onCampaignSaved }) =>
 
             <div className="space-y-3 flex-1 overflow-y-auto custom-scrollbar pr-1 max-h-[280px]">
                 {(campaign.clues || []).length === 0 && (
-                    <div className="text-center py-8 text-stone-600 text-sm">
+                    <div className="text-center py-8 text-stone-400 text-sm">
                         <HelpCircle className="mx-auto mb-2 opacity-50" size={24} />
                         Rien à signaler...
                     </div>
@@ -117,25 +117,25 @@ export const CampaignClues: React.FC<Props> = ({ campaign, onCampaignSaved }) =>
                                 />
                                 <div className="flex gap-3 justify-end text-[11px] font-bold uppercase">
                                     <button onClick={handleSaveClueEdit} className="text-green-500 hover:text-green-400">Enregistrer</button>
-                                    <button onClick={() => setEditingClueId(null)} className="text-stone-500 hover:text-white">Annuler</button>
+                                    <button onClick={() => setEditingClueId(null)} className="text-stone-400 hover:text-white">Annuler</button>
                                 </div>
                             </div>
                         ) : (
-                            <p className={clsx("mb-2", clue.status === 'solved' ? "text-stone-500 line-through" : "text-stone-300")}>{clue.content}</p>
+                            <p className={clsx("mb-2", clue.status === 'solved' ? "text-stone-400 line-through" : "text-stone-300")}>{clue.content}</p>
                         )}
-                        <div className="flex justify-between items-center text-[11px] text-stone-600">
+                        <div className="flex justify-between items-center text-[11px] text-stone-400">
                             <span className="flex items-center gap-1"><MapPin size={10} /> Trouvé le {formatDateSafe(clue.found_at)}</span>
                             <div className="flex gap-2">
-                                <button onClick={() => handleToggleClue(clue.id)} className={clsx("hover:underline", clue.status === 'solved' ? "text-stone-500" : "text-green-600")}>
+                                <button onClick={() => handleToggleClue(clue.id)} className={clsx("hover:underline", clue.status === 'solved' ? "text-stone-400" : "text-green-600")}>
                                     {clue.status === 'solved' ? "Rouvrir" : "Résoudre"}
                                 </button>
-                                <button onClick={() => handleToggleShareClue(clue.id)} title={clue.shared ? 'Partagé aux joueurs — cliquer pour masquer' : 'Partager aux joueurs'} className={clsx("flex items-center gap-1", clue.shared ? "text-primary-400" : "text-stone-600 hover:text-primary-400")}>
+                                <button onClick={() => handleToggleShareClue(clue.id)} title={clue.shared ? 'Partagé aux joueurs — cliquer pour masquer' : 'Partager aux joueurs'} className={clsx("flex items-center gap-1", clue.shared ? "text-primary-400" : "text-stone-400 hover:text-primary-400")}>
                                     {clue.shared ? <Eye size={11} /> : <EyeOff size={11} />} {clue.shared ? 'Partagé' : 'Partager'}
                                 </button>
                                 {editingClueId !== clue.id && (
-                                    <button onClick={() => startEditClue(clue)} className="text-stone-600 hover:text-stone-300 opacity-0 group-hover/clue:opacity-100 transition-opacity">Modifier</button>
+                                    <button onClick={() => startEditClue(clue)} className="text-stone-400 hover:text-stone-300 opacity-0 group-hover/clue:opacity-100 transition-opacity">Modifier</button>
                                 )}
-                                <button onClick={() => handleDeleteClue(clue.id)} className="text-stone-600 hover:text-red-500 opacity-0 group-hover/clue:opacity-100 transition-opacity">Suppr.</button>
+                                <button onClick={() => handleDeleteClue(clue.id)} className="text-stone-400 hover:text-red-500 opacity-0 group-hover/clue:opacity-100 transition-opacity">Suppr.</button>
                             </div>
                         </div>
                     </div>

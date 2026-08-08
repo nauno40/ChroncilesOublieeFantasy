@@ -131,7 +131,7 @@ export const Bestiary: React.FC = () => {
                                 {searchTerm && (
                                     <button
                                         onClick={() => setSearchTerm('')}
-                                        className="absolute right-4 top-1/2 -translate-y-1/2 text-stone-500 hover:text-stone-300 transition-colors"
+                                        className="absolute right-4 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-300 transition-colors"
                                     >
                                         <X size={18} />
                                     </button>
@@ -298,7 +298,7 @@ export const Bestiary: React.FC = () => {
             <div className="space-y-12 pb-12">
                 {Object.keys(groupedCreatures).length === 0 ? (
                     <div className="text-center py-20 bg-stone-900/40 rounded-3xl border border-white/5 border-dashed">
-                        <p className="text-stone-500 font-display text-lg">Aucune créature ne correspond à vos recherches.</p>
+                        <p className="text-stone-400 font-display text-lg">Aucune créature ne correspond à vos recherches.</p>
                     </div>
                 ) : (
                     Object.entries(groupedCreatures).map(([family, familyCreatures]) => (
@@ -334,7 +334,7 @@ export const Bestiary: React.FC = () => {
                                             <div className="flex justify-between items-start mb-3">
                                                 <div>
                                                     <h3 className="font-display font-bold text-lg text-stone-200 group-hover:text-primary-400 transition-colors">{getCreatureName(creature)}</h3>
-                                                    <div className="text-xs text-stone-500 flex flex-wrap gap-2 mt-1">
+                                                    <div className="text-xs text-stone-400 flex flex-wrap gap-2 mt-1">
                                                         <span className="bg-stone-950/50 px-2 py-0.5 rounded text-primary-400 font-bold border border-primary-900/30">NIV {getCreatureLevel(creature)}</span>
                                                         {getCreatureCategory(creature) && <span className="opacity-80">{getCreatureCategory(creature)}</span>}
                                                     </div>
@@ -342,7 +342,7 @@ export const Bestiary: React.FC = () => {
 
                                                 {creature.hp !== undefined && (
                                                     <div className="text-right bg-stone-950/30 px-2 py-1 rounded border border-white/5">
-                                                        <span className="text-[11px] text-stone-500 uppercase tracking-wider block">PV</span>
+                                                        <span className="text-[11px] text-stone-400 uppercase tracking-wider block">PV</span>
                                                         <span className="font-mono text-green-500/90 font-bold text-base">{creature.hp}</span>
                                                     </div>
                                                 )}
@@ -350,15 +350,15 @@ export const Bestiary: React.FC = () => {
 
                                             <div className="grid grid-cols-3 gap-px bg-stone-950/40 rounded-lg overflow-hidden border border-white/5">
                                                 <div className="p-2 text-center group-hover:bg-primary-500/5 transition-colors">
-                                                    <span className="text-[11px] text-stone-500 uppercase block mb-0.5 font-bold">DEF</span>
+                                                    <span className="text-[11px] text-stone-400 uppercase block mb-0.5 font-bold">DEF</span>
                                                     <span className="font-bold text-sm text-stone-300">{creature.def || '-'}</span>
                                                 </div>
                                                 <div className="p-2 text-center group-hover:bg-primary-500/5 transition-colors border-l border-r border-white/5">
-                                                    <span className="text-[11px] text-stone-500 uppercase block mb-0.5 font-bold">FOR</span>
+                                                    <span className="text-[11px] text-stone-400 uppercase block mb-0.5 font-bold">FOR</span>
                                                     <span className="font-bold text-sm text-stone-300">{creature.stats?.FOR ?? '0'}</span>
                                                 </div>
                                                 <div className="p-2 text-center group-hover:bg-primary-500/5 transition-colors">
-                                                    <span className="text-[11px] text-stone-500 uppercase block mb-0.5 font-bold">INIT</span>
+                                                    <span className="text-[11px] text-stone-400 uppercase block mb-0.5 font-bold">INIT</span>
                                                     <span className="font-bold text-sm text-stone-300">{creature.init || '-'}</span>
                                                 </div>
                                             </div>
@@ -371,7 +371,7 @@ export const Bestiary: React.FC = () => {
                 )}
             </div>
 
-            <div className="text-center text-xs text-stone-600 pb-8">
+            <div className="text-center text-xs text-stone-400 pb-8">
                 {filteredCreatures.length} résultats affichés
             </div>
         </div>

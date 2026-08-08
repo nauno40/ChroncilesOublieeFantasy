@@ -49,9 +49,9 @@ export const RegisterPage: React.FC = () => {
 
                     <form className="space-y-6" onSubmit={handleSubmit}>
                         <div className="space-y-2">
-                            <label className="text-xs font-bold uppercase tracking-widest text-stone-500 ml-1">Email</label>
+                            <label className="text-xs font-bold uppercase tracking-widest text-stone-400 ml-1">Email</label>
                             <div className="relative">
-                                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-stone-600">
+                                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-stone-400">
                                     <Mail size={18} />
                                 </div>
                                 <input
@@ -66,9 +66,9 @@ export const RegisterPage: React.FC = () => {
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-xs font-bold uppercase tracking-widest text-stone-500 ml-1">Pseudo</label>
+                            <label className="text-xs font-bold uppercase tracking-widest text-stone-400 ml-1">Pseudo</label>
                             <div className="relative">
-                                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-stone-600">
+                                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-stone-400">
                                     <User size={18} />
                                 </div>
                                 <input
@@ -83,9 +83,9 @@ export const RegisterPage: React.FC = () => {
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-xs font-bold uppercase tracking-widest text-stone-500 ml-1">Mot de passe</label>
+                            <label className="text-xs font-bold uppercase tracking-widest text-stone-400 ml-1">Mot de passe</label>
                             <div className="relative">
-                                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-stone-600">
+                                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-stone-400">
                                     <Lock size={18} />
                                 </div>
                                 <input

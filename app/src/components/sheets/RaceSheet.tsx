@@ -71,7 +71,7 @@ export const RaceSheet: React.FC<RaceSheetProps> = ({ vm, backTo, backLabel, hea
 
                         {hasVitals && (
                             <div className="bg-stone-900/80 backdrop-blur-sm rounded-2xl p-6 border border-white/5 shadow-xl">
-                                <h3 className="text-stone-500 text-xs font-bold uppercase tracking-widest mb-6 flex items-center gap-2">
+                                <h3 className="text-stone-400 text-xs font-bold uppercase tracking-widest mb-6 flex items-center gap-2">
                                     <span className="w-8 h-[1px] bg-stone-700"></span>
                                     Statistiques Vitales
                                 </h3>
@@ -118,7 +118,7 @@ export const RaceSheet: React.FC<RaceSheetProps> = ({ vm, backTo, backLabel, hea
                                     <button
                                         key={tab}
                                         onClick={() => setActiveTab(tab)}
-                                        className={`pb-4 text-lg font-display font-bold tracking-wide transition-all relative ${activeTab === tab ? 'text-white' : 'text-stone-500 hover:text-stone-300'}`}
+                                        className={`pb-4 text-lg font-display font-bold tracking-wide transition-all relative ${activeTab === tab ? 'text-white' : 'text-stone-400 hover:text-stone-300'}`}
                                     >
                                         {tab === 'lore' ? 'Légendes & Culture' : 'Règles & Capacités'}
                                         {activeTab === tab && (
@@ -160,7 +160,7 @@ export const RaceSheet: React.FC<RaceSheetProps> = ({ vm, backTo, backLabel, hea
                                     )}
                                     {vm.typicalNames && (
                                         <div className="bg-stone-900/40 p-6 rounded-xl border border-white/5">
-                                            <h4 className="text-stone-500 font-bold mb-3 uppercase text-sm tracking-wider flex items-center gap-2">
+                                            <h4 className="text-stone-400 font-bold mb-3 uppercase text-sm tracking-wider flex items-center gap-2">
                                                 <span className="w-8 h-[1px] bg-stone-700"></span>
                                                 Noms Typiques
                                             </h4>
@@ -182,7 +182,7 @@ export const RaceSheet: React.FC<RaceSheetProps> = ({ vm, backTo, backLabel, hea
                                         <div className="bg-stone-900/60 rounded-2xl p-8 border border-white/5 relative overflow-hidden backdrop-blur-sm">
                                             {vm.modifiers && (
                                                 <div className="mb-6">
-                                                    <h4 className="text-sm font-bold text-stone-500 uppercase tracking-widest mb-3">Caractéristiques</h4>
+                                                    <h4 className="text-sm font-bold text-stone-400 uppercase tracking-widest mb-3">Caractéristiques</h4>
                                                     <div className="flex flex-wrap gap-3">
                                                         {vm.modifiers.map((mod, i) => (
                                                             <div key={i} className="px-4 py-2 rounded-lg bg-primary-600/20 border border-primary-500/30 text-primary-100 font-mono text-sm flex items-center gap-2">
@@ -226,7 +226,7 @@ export const RaceSheet: React.FC<RaceSheetProps> = ({ vm, backTo, backLabel, hea
                                                         ) : (
                                                             <span className="text-3xl font-display font-bold text-primary-200">{v.name}</span>
                                                         )}
-                                                        <span className="text-stone-500 text-sm font-mono uppercase tracking-wider">Voie Raciale</span>
+                                                        <span className="text-stone-400 text-sm font-mono uppercase tracking-wider">Voie Raciale</span>
                                                     </div>
 
                                                     {v.details && <DynamicDetailsRenderer details={v.details} />}

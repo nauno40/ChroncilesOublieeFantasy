@@ -35,7 +35,7 @@ export const MagicItems: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="bg-stone-900/40 rounded-xl p-4 border border-stone-800">
                         <label className="block text-sm font-medium text-stone-300 mb-2">
-                            Niveau de magie <span className="text-stone-500">(= bonus accordé)</span>
+                            Niveau de magie <span className="text-stone-400">(= bonus accordé)</span>
                         </label>
                         <input
                             type="number" min={0} max={12} value={magicLevel}
@@ -43,13 +43,13 @@ export const MagicItems: React.FC = () => {
                             className="w-24 px-3 py-2 bg-stone-950/50 border border-stone-700 rounded-lg text-2xl font-display font-bold text-primary-300 outline-none focus:border-primary-500"
                         />
                         <div className="mt-3 text-sm text-stone-400 space-y-1">
-                            <div>Valeur : <b className="text-stone-200 font-mono">{itemValue.toLocaleString('fr-FR')} po</b> <span className="text-stone-600">(nm² × 200)</span></div>
+                            <div>Valeur : <b className="text-stone-200 font-mono">{itemValue.toLocaleString('fr-FR')} po</b> <span className="text-stone-400">(nm² × 200)</span></div>
                             <div>Revente (max 50 %) : <b className="text-stone-300 font-mono">{resaleValue(itemValue).toLocaleString('fr-FR')} po</b></div>
                         </div>
                     </div>
                     <div className="bg-stone-900/40 rounded-xl p-4 border border-stone-800">
                         <label className="block text-sm font-medium text-stone-300 mb-2">
-                            Potion / parchemin <span className="text-stone-500">(rang du sort)</span>
+                            Potion / parchemin <span className="text-stone-400">(rang du sort)</span>
                         </label>
                         <input
                             type="number" min={1} max={5} value={spellRank}
@@ -57,8 +57,8 @@ export const MagicItems: React.FC = () => {
                             className="w-24 px-3 py-2 bg-stone-950/50 border border-stone-700 rounded-lg text-2xl font-display font-bold text-blue-300 outline-none focus:border-blue-500"
                         />
                         <div className="mt-3 text-sm text-stone-400 space-y-1">
-                            <div>Valeur : <b className="text-stone-200 font-mono">{scrollValue.toLocaleString('fr-FR')} pa</b> <span className="text-stone-600">(rang² × 50)</span></div>
-                            <div className="text-stone-600 text-xs">Une baguette = ce prix × son nombre de charges.</div>
+                            <div>Valeur : <b className="text-stone-200 font-mono">{scrollValue.toLocaleString('fr-FR')} pa</b> <span className="text-stone-400">(rang² × 50)</span></div>
+                            <div className="text-stone-400 text-xs">Une baguette = ce prix × son nombre de charges.</div>
                         </div>
                     </div>
                 </div>
@@ -93,7 +93,7 @@ export const MagicItems: React.FC = () => {
                                 >
                                     <div className="flex items-center justify-between gap-2 mb-1.5">
                                         <span className="font-display font-bold text-stone-200 text-sm leading-tight">{t.name}</span>
-                                        <span className="text-[11px] font-mono font-bold text-stone-600 border border-stone-700 rounded px-1.5 py-0.5 flex-none uppercase">Réf.</span>
+                                        <span className="text-[11px] font-mono font-bold text-stone-400 border border-stone-700 rounded px-1.5 py-0.5 flex-none uppercase">Réf.</span>
                                     </div>
                                     <ul className="text-[11px] text-stone-400 space-y-0.5 leading-snug">
                                         {t.entries.map((e, i) => <li key={i}>{e[2]}</li>)}
@@ -107,9 +107,9 @@ export const MagicItems: React.FC = () => {
                                 >
                                     <div className="flex items-center justify-between gap-2">
                                         <span className="font-display font-bold text-stone-200 group-hover:text-primary-300 text-sm leading-tight">{t.name}</span>
-                                        <span className="text-[11px] font-mono font-bold text-stone-500 border border-stone-700 rounded px-1.5 py-0.5 flex-none">{t.roll || `d${t.die}`}</span>
+                                        <span className="text-[11px] font-mono font-bold text-stone-400 border border-stone-700 rounded px-1.5 py-0.5 flex-none">{t.roll || `d${t.die}`}</span>
                                     </div>
-                                    <span className="text-[11px] text-stone-500 mt-1 block">{t.entries.length} résultats · cliquer pour tirer</span>
+                                    <span className="text-[11px] text-stone-400 mt-1 block">{t.entries.length} résultats · cliquer pour tirer</span>
                                 </button>
                             ))}
                         </div>

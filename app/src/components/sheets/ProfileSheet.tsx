@@ -44,7 +44,7 @@ const renderEquipmentItem = (item: SheetEquipmentItem | string, idx: number, lev
                 <div className="pl-4 border-l border-white/10 space-y-2">
                     {item.choice.map((choice, cIdx) => (
                         <div key={cIdx}>
-                            {cIdx > 0 && <div className="text-[11px] text-stone-500 uppercase font-bold my-1">OU</div>}
+                            {cIdx > 0 && <div className="text-[11px] text-stone-400 uppercase font-bold my-1">OU</div>}
                             {renderEquipmentItem(choice, cIdx, level + 1)}
                         </div>
                     ))}
@@ -68,7 +68,7 @@ const renderEquipmentItem = (item: SheetEquipmentItem | string, idx: number, lev
             <span>
                 <strong className="text-stone-200">{item.item}</strong>
                 {item.stats && <span className="text-primary-400/80 ml-1">({item.stats})</span>}
-                {item.examples && <span className="text-stone-500 italic ml-1">- ex: {item.examples}</span>}
+                {item.examples && <span className="text-stone-400 italic ml-1">- ex: {item.examples}</span>}
             </span>
         </div>
     );
@@ -131,7 +131,7 @@ export const ProfileSheet: React.FC<ProfileSheetProps> = ({ vm, backTo, backLabe
 
                         {hasVitalStats && (
                             <div className="bg-stone-900/80 backdrop-blur-sm rounded-2xl p-6 border border-white/5 shadow-xl transition-all hover:border-primary-500/20">
-                                <h3 className="text-stone-500 text-xs font-bold uppercase tracking-widest mb-6 flex items-center gap-2">
+                                <h3 className="text-stone-400 text-xs font-bold uppercase tracking-widest mb-6 flex items-center gap-2">
                                     <span className="w-8 h-[1px] bg-stone-700"></span>
                                     {vm.profileType || 'Statistiques Vitales'}
                                 </h3>
@@ -220,7 +220,7 @@ export const ProfileSheet: React.FC<ProfileSheetProps> = ({ vm, backTo, backLabe
 
                         {hasMasteries && (
                             <div className="bg-stone-900/80 backdrop-blur-sm rounded-2xl p-6 border border-white/5 shadow-xl hover:border-primary-500/20">
-                                <h3 className="text-stone-500 text-xs font-bold uppercase tracking-widest mb-6 flex items-center gap-2">
+                                <h3 className="text-stone-400 text-xs font-bold uppercase tracking-widest mb-6 flex items-center gap-2">
                                     <span className="w-8 h-[1px] bg-stone-700"></span>
                                     Maîtrises
                                 </h3>
@@ -245,7 +245,7 @@ export const ProfileSheet: React.FC<ProfileSheetProps> = ({ vm, backTo, backLabe
 
                         {hasStartingEquipment && (
                             <div className="bg-stone-900/80 backdrop-blur-sm rounded-2xl p-6 border border-white/5 shadow-xl hover:border-primary-500/20">
-                                <h3 className="text-stone-500 text-xs font-bold uppercase tracking-widest mb-6 flex items-center gap-2">
+                                <h3 className="text-stone-400 text-xs font-bold uppercase tracking-widest mb-6 flex items-center gap-2">
                                     <span className="w-8 h-[1px] bg-stone-700"></span>
                                     Équipement de départ
                                 </h3>
@@ -265,7 +265,7 @@ export const ProfileSheet: React.FC<ProfileSheetProps> = ({ vm, backTo, backLabe
                                     <button
                                         key={tab}
                                         onClick={() => setActiveTab(tab)}
-                                        className={`pb-4 text-lg font-display font-bold tracking-wide transition-all relative ${activeTab === tab ? 'text-white' : 'text-stone-500 hover:text-stone-300'}`}
+                                        className={`pb-4 text-lg font-display font-bold tracking-wide transition-all relative ${activeTab === tab ? 'text-white' : 'text-stone-400 hover:text-stone-300'}`}
                                     >
                                         {tab === 'lore' ? 'Légendes & Histoire' : 'Voies & Capacités'}
                                         {activeTab === tab && (
@@ -342,7 +342,7 @@ export const ProfileSheet: React.FC<ProfileSheetProps> = ({ vm, backTo, backLabe
                                                 ) : (
                                                     <span className="text-3xl font-display font-bold text-primary-200">{v.name}</span>
                                                 )}
-                                                <span className="text-stone-500 text-sm font-mono uppercase tracking-wider">Voie de Classe</span>
+                                                <span className="text-stone-400 text-sm font-mono uppercase tracking-wider">Voie de Classe</span>
                                             </div>
 
                                             {v.details && <DynamicDetailsRenderer details={v.details} />}

@@ -26,7 +26,7 @@ export const ArmorImpactPanel: React.FC<Props> = ({ impacts, armorName }) => {
                 <div key={impact.profileName} className="space-y-1.5 border-t border-amber-500/10 pt-2 first:border-t-0 first:pt-0">
                     <p className="text-[11px] text-stone-300">
                         <strong className="text-amber-200">{impact.profileName}</strong>
-                        <span className="text-stone-500">
+                        <span className="text-stone-400">
                             {' '}— armure autorisée {impact.allowedDef === 0 ? 'aucune' : `DEF +${impact.allowedDef}`}
                         </span>
                     </p>
@@ -54,7 +54,7 @@ export const ArmorImpactPanel: React.FC<Props> = ({ impacts, armorName }) => {
                 </div>
             ))}
 
-            <p className="text-[11px] text-stone-500 italic leading-snug">
+            <p className="text-[11px] text-stone-400 italic leading-snug">
                 Lancer un sort en armure trop lourde exige aussi de maîtriser cette armure.
             </p>
         </div>

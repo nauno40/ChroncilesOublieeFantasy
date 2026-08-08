@@ -29,7 +29,7 @@ export const IdentityBlock: React.FC<Props> = ({
     return (
         <div className="glass-panel p-6 rounded-xl grid grid-cols-1 md:grid-cols-2 gap-6 border border-white/10">
             <div className="space-y-1">
-                <label className="text-xs uppercase font-bold text-stone-500 tracking-wider ml-1">Nom du Personnage</label>
+                <label className="text-xs uppercase font-bold text-stone-400 tracking-wider ml-1">Nom du Personnage</label>
                 <input
                     type="text"
                     className="w-full bg-stone-950/30 border border-stone-800 rounded-lg px-4 py-3 text-2xl font-display font-bold text-white outline-none focus:border-primary-500/50 focus:bg-stone-900/50 transition-all placeholder:text-stone-700"
@@ -40,7 +40,7 @@ export const IdentityBlock: React.FC<Props> = ({
             </div>
             <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                    <label className="text-xs uppercase font-bold text-stone-500 tracking-wider ml-1">Niveau</label>
+                    <label className="text-xs uppercase font-bold text-stone-400 tracking-wider ml-1">Niveau</label>
                     <div className="relative">
                         <input
                             type="number"
@@ -48,7 +48,7 @@ export const IdentityBlock: React.FC<Props> = ({
                             value={character.level || 1}
                             onChange={e => setCharacter({ ...character, level: parseInt(e.target.value) })}
                         />
-                        <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none text-stone-600 font-bold text-xs uppercase">
+                        <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none text-stone-400 font-bold text-xs uppercase">
                             NIV
                         </div>
                     </div>
@@ -56,7 +56,7 @@ export const IdentityBlock: React.FC<Props> = ({
             </div>
 
             <div className="space-y-1">
-                <label className="text-xs uppercase font-bold text-stone-500 tracking-wider ml-1">Race</label>
+                <label className="text-xs uppercase font-bold text-stone-400 tracking-wider ml-1">Race</label>
                 <select
                     aria-label="Peuple"
                     className="w-full bg-stone-950/30 border border-stone-800 rounded-lg px-4 py-3 text-lg font-bold text-stone-200 outline-none focus:border-primary-500/50 focus:bg-stone-900/50 transition-all cursor-pointer appearance-none"
@@ -81,7 +81,7 @@ export const IdentityBlock: React.FC<Props> = ({
 
 
             <div className="space-y-1">
-                <label className="text-xs uppercase font-bold text-stone-500 tracking-wider ml-1">Profil (Classe)</label>
+                <label className="text-xs uppercase font-bold text-stone-400 tracking-wider ml-1">Profil (Classe)</label>
                 <select
                     aria-label="Profil (classe)"
                     className="w-full bg-stone-950/30 border border-stone-800 rounded-lg px-4 py-3 text-lg font-bold text-stone-200 outline-none focus:border-primary-500/50 focus:bg-stone-900/50 transition-all cursor-pointer appearance-none"

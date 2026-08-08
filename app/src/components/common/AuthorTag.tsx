@@ -33,7 +33,7 @@ export const AuthorTag: React.FC<AuthorTagProps> = ({ pseudo, visibility, size =
             <span className={`inline-flex items-center justify-center rounded-full font-bold shrink-0 ${sm ? 'size-5 text-[11px]' : 'size-7 text-xs'} ${colorFor(name)}`}>{initial}</span>
             <span className={`truncate ${sm ? 'text-[11px]' : 'text-sm'}`}>{name}</span>
             {visibility === 'public' && <Globe size={sm ? 11 : 13} className="text-green-500/70 shrink-0" aria-label="Public" />}
-            {visibility === 'private' && <Lock size={sm ? 11 : 13} className="text-stone-600 shrink-0" aria-label="Privé" />}
+            {visibility === 'private' && <Lock size={sm ? 11 : 13} className="text-stone-400 shrink-0" aria-label="Privé" />}
         </span>
     );
 };

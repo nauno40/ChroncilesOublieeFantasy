@@ -38,10 +38,10 @@ export const CaracSubstitutionsPanel: React.FC<Props> = ({ character, setCharact
                 const isDefault = current === row.def;
                 return (
                     <div key={row.target} className="flex items-center justify-between text-xs">
-                        <span className="text-stone-500 uppercase font-bold tracking-wider">{row.label}</span>
+                        <span className="text-stone-400 uppercase font-bold tracking-wider">{row.label}</span>
                         <select
                             aria-label={`Caractéristique utilisée pour ${row.label}`}
-                            className={`bg-stone-950/40 border border-stone-800 rounded px-2 py-1 outline-none focus:border-primary-500/40 ${isDefault ? 'text-stone-500' : 'text-primary-300'}`}
+                            className={`bg-stone-950/40 border border-stone-800 rounded px-2 py-1 outline-none focus:border-primary-500/40 ${isDefault ? 'text-stone-400' : 'text-primary-300'}`}
                             value={current}
                             onChange={e => setCarac(row.target, e.target.value as CaracKey, row.def)}
                         >

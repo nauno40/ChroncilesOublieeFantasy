@@ -18,7 +18,7 @@ export const CharacterToolbar: React.FC<Props> = ({ name, isNew, saving, onBack,
             <div className="flex items-center gap-5">
                 <button
                     onClick={onBack}
-                    className="w-10 h-10 rounded-xl glass-panel flex items-center justify-center text-stone-500 hover:text-primary-400 hover:border-primary-500/30 transition-all group border border-white/5"
+                    className="w-10 h-10 rounded-xl glass-panel flex items-center justify-center text-stone-400 hover:text-primary-400 hover:border-primary-500/30 transition-all group border border-white/5"
                 >
                     <ChevronLeft size={20} className="group-hover:-translate-x-0.5 transition-transform" />
                 </button>
@@ -26,7 +26,7 @@ export const CharacterToolbar: React.FC<Props> = ({ name, isNew, saving, onBack,
                     <h1 className="text-3xl font-bold font-display text-gradient-gold tracking-widest leading-none">
                         {isNew ? 'Nouveau Héros' : name}
                     </h1>
-                    <p className="text-[11px] uppercase font-black text-stone-500 tracking-[0.3em] mt-2 ml-0.5 opacity-70">
+                    <p className="text-[11px] uppercase font-black text-stone-400 tracking-[0.3em] mt-2 ml-0.5 opacity-70">
                         Chroniqueur de Légendes
                     </p>
                 </div>
@@ -52,7 +52,7 @@ export const CharacterToolbar: React.FC<Props> = ({ name, isNew, saving, onBack,
                 {!isNew && onPrint && (
                     <button
                         onClick={onPrint}
-                        className="p-3 glass-panel text-stone-600 hover:text-primary-400 hover:border-primary-500/30 transition-all rounded-xl border border-white/5"
+                        className="p-3 glass-panel text-stone-400 hover:text-primary-400 hover:border-primary-500/30 transition-all rounded-xl border border-white/5"
                         title="Imprimer / PDF"
                     >
                         <Printer size={20} />
@@ -61,7 +61,7 @@ export const CharacterToolbar: React.FC<Props> = ({ name, isNew, saving, onBack,
                 {!isNew && (
                     <button
                         onClick={onDelete}
-                        className="p-3 glass-panel text-stone-600 hover:text-red-500 hover:border-red-900/30 transition-all rounded-xl border border-white/5"
+                        className="p-3 glass-panel text-stone-400 hover:text-red-500 hover:border-red-900/30 transition-all rounded-xl border border-white/5"
                         title="Supprimer"
                     >
                         <Trash2 size={20} />

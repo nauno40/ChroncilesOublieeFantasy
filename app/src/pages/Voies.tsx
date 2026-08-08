@@ -113,7 +113,7 @@ export const Voies: React.FC = () => {
                     {/* Class/Profile Filter */}
                     <div className="flex items-center gap-2 w-full lg:w-auto">
                         <div className="relative group w-full lg:w-64">
-                            <Filter className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-500 group-hover:text-primary-400 transition-colors" size={14} />
+                            <Filter className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 group-hover:text-primary-400 transition-colors" size={14} />
                             <select
                                 aria-label="Filtrer par classe"
                                 value={selectedProfile}
@@ -130,7 +130,7 @@ export const Voies: React.FC = () => {
                         {(selectedType !== 'all' || selectedProfile !== 'all') && (
                             <button
                                 onClick={() => { setSelectedType('all'); setSelectedProfile('all'); }}
-                                className="p-1.5 text-stone-500 hover:text-red-400 hover:bg-red-400/10 rounded-lg transition-colors"
+                                className="p-1.5 text-stone-400 hover:text-red-400 hover:bg-red-400/10 rounded-lg transition-colors"
                             >
                                 <X size={18} />
                             </button>
@@ -152,7 +152,7 @@ export const Voies: React.FC = () => {
                             className="flex flex-col h-full"
                         >
                             <div className="flex justify-between items-start mb-3">
-                                <div className="text-stone-500">
+                                <div className="text-stone-400">
                                     <TypeIcon size={18} />
                                 </div>
                                 {profileName && (
@@ -187,10 +187,10 @@ export const Voies: React.FC = () => {
             {filteredItems.length === 0 && (
                 <div className="text-center py-20 animate-fade-in">
                     <div className="w-16 h-16 bg-stone-900/50 rounded-full flex items-center justify-center mx-auto mb-4 border border-stone-800">
-                        <Search size={24} className="text-stone-600" />
+                        <Search size={24} className="text-stone-400" />
                     </div>
                     <h3 className="text-lg font-display text-stone-300 mb-2">Aucune voie trouvée</h3>
-                    <p className="text-sm text-stone-500">Essayez de modifier vos filtres de recherche</p>
+                    <p className="text-sm text-stone-400">Essayez de modifier vos filtres de recherche</p>
                 </div>
             )}
         </PageContainer>

@@ -123,15 +123,15 @@ export const HomebrewBrowser: React.FC<HomebrewBrowserProps> = ({ tab, onTabChan
             {/* Filtre catégorie (uniquement en mode « toutes catégories ») */}
             {!cats && (
                 <div className="flex flex-wrap gap-1.5">
-                    <button onClick={() => setCategoryFilter('')} className={`text-[11px] font-bold uppercase px-2.5 py-1 rounded-full border transition-all ${!categoryFilter ? 'bg-primary-500/20 text-primary-300 border-primary-500/40' : 'bg-stone-900/40 text-stone-500 border-white/5'}`}>Toutes</button>
+                    <button onClick={() => setCategoryFilter('')} className={`text-[11px] font-bold uppercase px-2.5 py-1 rounded-full border transition-all ${!categoryFilter ? 'bg-primary-500/20 text-primary-300 border-primary-500/40' : 'bg-stone-900/40 text-stone-400 border-white/5'}`}>Toutes</button>
                     {HOMEBREW_CATEGORIES.map(c => (
-                        <button key={c.value} onClick={() => setCategoryFilter(c.value)} className={`text-[11px] font-bold uppercase px-2.5 py-1 rounded-full border transition-all ${categoryFilter === c.value ? 'bg-primary-500/20 text-primary-300 border-primary-500/40' : 'bg-stone-900/40 text-stone-500 border-white/5 hover:text-stone-300'}`}>{c.label}</button>
+                        <button key={c.value} onClick={() => setCategoryFilter(c.value)} className={`text-[11px] font-bold uppercase px-2.5 py-1 rounded-full border transition-all ${categoryFilter === c.value ? 'bg-primary-500/20 text-primary-300 border-primary-500/40' : 'bg-stone-900/40 text-stone-400 border-white/5 hover:text-stone-300'}`}>{c.label}</button>
                     ))}
                 </div>
             )}
 
             {visible.length === 0 ? (
-                <div className="text-center py-16 text-stone-600">
+                <div className="text-center py-16 text-stone-400">
                     <p className="text-sm">{tab === 'mine' ? "Vous n'avez pas encore créé de contenu ici." : "Aucun contenu partagé pour cette section."}</p>
                     {tab === 'mine' && <button onClick={openNew} className="text-primary-400 hover:text-primary-300 text-sm underline mt-2">Créer votre premier contenu</button>}
                 </div>

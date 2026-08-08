@@ -47,7 +47,7 @@ export const SearchToolbar: React.FC<SearchToolbarProps> = ({
         <div className={`space-y-3 ${className ?? ''}`}>
             <div className="flex flex-wrap items-center gap-3">
                 <label className="relative flex-1 min-w-[220px]">
-                    <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-stone-500 pointer-events-none" />
+                    <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-stone-400 pointer-events-none" />
                     <input
                         value={value}
                         onChange={e => onChange(e.target.value)}
@@ -67,7 +67,7 @@ export const SearchToolbar: React.FC<SearchToolbarProps> = ({
                             className={`text-[11px] font-bold uppercase px-2.5 py-1 rounded-full border transition-all ${
                                 chipActif === c.id
                                     ? 'bg-primary-500/20 text-primary-300 border-primary-500/40'
-                                    : 'bg-stone-900/40 text-stone-500 border-white/5 hover:text-stone-300'
+                                    : 'bg-stone-900/40 text-stone-400 border-white/5 hover:text-stone-300'
                             }`}
                         >
                             {c.label}
@@ -78,7 +78,7 @@ export const SearchToolbar: React.FC<SearchToolbarProps> = ({
 
             {filters}
 
-            {libelleCount && <p className="text-[11px] uppercase tracking-wider text-stone-500">{libelleCount}</p>}
+            {libelleCount && <p className="text-[11px] uppercase tracking-wider text-stone-400">{libelleCount}</p>}
         </div>
     );
 };

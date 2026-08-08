@@ -93,11 +93,11 @@ export const CampaignSessions: React.FC<Props> = ({ campaign, onCampaignSaved })
                 <div className="glass-panel p-6 rounded-xl border-primary-500/30 animate-in slide-in-from-top-4 fade-in duration-200 space-y-4 bg-stone-900/80">
                     <div className="flex justify-between items-center mb-2">
                         <h3 className="font-bold text-stone-300">{editingId ? 'Modifier la session' : 'Nouvelle session'}</h3>
-                        <button onClick={handleCancel} className="text-stone-500 hover:text-white"><X size={16} /></button>
+                        <button onClick={handleCancel} className="text-stone-400 hover:text-white"><X size={16} /></button>
                     </div>
                     <div className="grid md:grid-cols-2 gap-4">
                         <div className="space-y-1">
-                            <label className="text-xs font-bold text-stone-500 uppercase">Titre de la session</label>
+                            <label className="text-xs font-bold text-stone-400 uppercase">Titre de la session</label>
                             <input
                                 type="text"
                                 className="w-full bg-stone-950/50 border border-white/10 rounded-lg px-4 py-2 text-stone-200 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none"
@@ -108,7 +108,7 @@ export const CampaignSessions: React.FC<Props> = ({ campaign, onCampaignSaved })
                             />
                         </div>
                         <div className="space-y-1">
-                            <label className="text-xs font-bold text-stone-500 uppercase">Date</label>
+                            <label className="text-xs font-bold text-stone-400 uppercase">Date</label>
                             <input
                                 type="date"
                                 className="w-full bg-stone-950/50 border border-white/10 rounded-lg px-4 py-2 text-stone-200 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none"
@@ -117,7 +117,7 @@ export const CampaignSessions: React.FC<Props> = ({ campaign, onCampaignSaved })
                             />
                         </div>
                         <div className="space-y-1">
-                            <label className="text-xs font-bold text-stone-500 uppercase">Durée (approx)</label>
+                            <label className="text-xs font-bold text-stone-400 uppercase">Durée (approx)</label>
                             <input
                                 type="text"
                                 className="w-full bg-stone-950/50 border border-white/10 rounded-lg px-4 py-2 text-stone-200 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none"
@@ -127,7 +127,7 @@ export const CampaignSessions: React.FC<Props> = ({ campaign, onCampaignSaved })
                             />
                         </div>
                         <div className="space-y-1">
-                            <label className="text-xs font-bold text-stone-500 uppercase">Niveau moyen</label>
+                            <label className="text-xs font-bold text-stone-400 uppercase">Niveau moyen</label>
                             <input
                                 type="text"
                                 className="w-full bg-stone-950/50 border border-white/10 rounded-lg px-4 py-2 text-stone-200 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none"
@@ -138,7 +138,7 @@ export const CampaignSessions: React.FC<Props> = ({ campaign, onCampaignSaved })
                         </div>
                     </div>
                     <div className="space-y-1">
-                        <label className="text-xs font-bold text-stone-500 uppercase">Résumé</label>
+                        <label className="text-xs font-bold text-stone-400 uppercase">Résumé</label>
                         <textarea
                             className="w-full bg-stone-950/50 border border-white/10 rounded-lg px-4 py-2 text-stone-200 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none min-h-[100px]"
                             placeholder="Que s'est-il passé ?"
@@ -147,7 +147,7 @@ export const CampaignSessions: React.FC<Props> = ({ campaign, onCampaignSaved })
                         />
                     </div>
                     <div className="flex justify-end gap-2 pt-2">
-                        <button onClick={handleCancel} className="px-4 py-2 rounded-lg font-bold text-stone-500 hover:bg-white/5 transition-colors">Annuler</button>
+                        <button onClick={handleCancel} className="px-4 py-2 rounded-lg font-bold text-stone-400 hover:bg-white/5 transition-colors">Annuler</button>
                         <button
                             onClick={handleSave}
                             disabled={!newSession.title}
@@ -162,8 +162,8 @@ export const CampaignSessions: React.FC<Props> = ({ campaign, onCampaignSaved })
             <div className="space-y-4">
                 {sortedSessions.length === 0 ? (
                     <div className="glass-panel p-8 text-center border-dashed border-white/10">
-                        <FileText className="mx-auto text-stone-600 mb-2" size={32} />
-                        <p className="text-stone-500">Aucune session enregistrée pour le moment.</p>
+                        <FileText className="mx-auto text-stone-400 mb-2" size={32} />
+                        <p className="text-stone-400">Aucune session enregistrée pour le moment.</p>
                     </div>
                 ) : (
                     sortedSessions.map((session: Session) => (
@@ -177,7 +177,7 @@ export const CampaignSessions: React.FC<Props> = ({ campaign, onCampaignSaved })
                                         </span>
                                     )}
                                 </div>
-                                <div className="text-xs text-stone-500 flex items-center gap-3 mt-1">
+                                <div className="text-xs text-stone-400 flex items-center gap-3 mt-1">
                                     <span className="flex items-center gap-1 bg-stone-900/50 px-2 py-0.5 rounded border border-white/5">
                                         <Calendar size={12} /> {formatDateSafe(session.date)}
                                     </span>

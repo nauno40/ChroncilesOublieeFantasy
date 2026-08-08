@@ -42,7 +42,7 @@ export const RuleChapter7: React.FC = () => {
                 <div className="bg-stone-950 p-4 rounded border border-stone-800 font-mono text-sm text-stone-400 mb-6 max-w-2xl mx-auto shadow-lg">
                     <div className="flex justify-between items-baseline mb-2 border-b border-stone-800 pb-2">
                         <strong className="text-xl text-red-400">Gros Orque</strong>
-                        <span className="text-stone-500">NC 2</span>
+                        <span className="text-stone-400">NC 2</span>
                     </div>
                     <div className="grid grid-cols-2 gap-4 mb-2 text-xs">
                         <div>
@@ -58,7 +58,7 @@ export const RuleChapter7: React.FC = () => {
                     <div className="mb-2">
                         <strong className="text-stone-300">Cimeterre +5</strong> (DM 1d6+3)
                     </div>
-                    <div className="text-xs italic text-stone-500">
+                    <div className="text-xs italic text-stone-400">
                         <strong>Capacité : Rage (1/combat).</strong> +2 Att/DM pendant 3 tours mais -2 DEF.
                     </div>
                 </div>

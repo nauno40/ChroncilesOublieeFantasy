@@ -63,16 +63,16 @@ export const ActiveStatesPanel: React.FC<Props> = ({ character, setCharacter }) 
                         <option value="">État officiel…</option>
                         {compendium.map(e => <option key={e.name} value={e.name}>{e.name}</option>)}
                     </select>
-                    <button onClick={add} className="text-stone-500 hover:text-primary-400 text-sm" title="Ajouter un état libre">+</button>
+                    <button onClick={add} className="text-stone-400 hover:text-primary-400 text-sm" title="Ajouter un état libre">+</button>
                 </div>
             </div>
-            {states.length === 0 && <p className="text-[11px] text-stone-600 italic">Aucun état.</p>}
+            {states.length === 0 && <p className="text-[11px] text-stone-400 italic">Aucun état.</p>}
             {states.map((s, idx) => (
                 <div key={idx} className={`flex flex-wrap items-center gap-1.5 text-xs rounded-lg border p-1.5 ${s.active ? 'border-primary-500/40 bg-primary-900/10' : 'border-white/5'}`}>
                     <button
                         onClick={() => toggle(idx, s)}
                         title={s.active ? 'Actif' : 'Inactif'}
-                        className={`text-[11px] uppercase font-black px-2 py-1 rounded border transition-all ${s.active ? 'bg-primary-500/20 border-primary-500 text-primary-200' : 'bg-stone-950 border-stone-700 text-stone-500 hover:text-white'}`}
+                        className={`text-[11px] uppercase font-black px-2 py-1 rounded border transition-all ${s.active ? 'bg-primary-500/20 border-primary-500 text-primary-200' : 'bg-stone-950 border-stone-700 text-stone-400 hover:text-white'}`}
                     >{s.active ? 'Actif' : 'Off'}</button>
                     <input type="text" className="flex-1 min-w-[80px] bg-stone-950/40 border border-stone-800 rounded px-2 py-1 text-stone-200 outline-none focus:border-primary-500/40"
                         placeholder="Nom (ex. Rage)" aria-label="Nom (ex. Rage)" value={s.name} onChange={e => update(idx, { name: e.target.value })} />
@@ -84,7 +84,7 @@ export const ActiveStatesPanel: React.FC<Props> = ({ character, setCharacter }) 
                     </select>
                     <input type="number" className="w-12 bg-stone-950/40 border border-stone-800 rounded px-1.5 py-1 text-center text-stone-200 outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none"
                         aria-label="Valeur du bonus" value={s.value} onChange={e => update(idx, { value: parseInt(e.target.value) || 0 })} />
-                    <button onClick={() => remove(idx)} className="text-stone-600 hover:text-red-400" title="Retirer">✕</button>
+                    <button onClick={() => remove(idx)} className="text-stone-400 hover:text-red-400" title="Retirer">✕</button>
                     {resumes.get(s.name) && (
                         <p className="basis-full text-[11px] text-amber-300/70 leading-snug pl-1">{resumes.get(s.name)}</p>
                     )}

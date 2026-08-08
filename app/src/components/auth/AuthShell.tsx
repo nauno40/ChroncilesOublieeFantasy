@@ -23,7 +23,7 @@ export const AuthShell: React.FC<AuthShellProps> = ({ backTo, backLabel, childre
         <div className="sm:mx-auto sm:w-full sm:max-w-md animate-in fade-in slide-in-from-bottom-4 duration-500">
             <Link
                 to={backTo}
-                className="mb-8 flex items-center gap-2 text-stone-500 hover:text-stone-200 transition-colors text-sm font-bold group w-fit"
+                className="mb-8 flex items-center gap-2 text-stone-400 hover:text-stone-200 transition-colors text-sm font-bold group w-fit"
             >
                 <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
                 {backLabel}

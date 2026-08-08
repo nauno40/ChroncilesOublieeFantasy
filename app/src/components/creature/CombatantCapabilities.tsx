@@ -27,7 +27,7 @@ export const CombatantCapabilities: React.FC<{
             <button
                 type="button"
                 onClick={() => setOuvert(o => !o)}
-                className="text-[11px] uppercase tracking-wide text-stone-500 hover:text-primary-400 transition-colors"
+                className="text-[11px] uppercase tracking-wide text-stone-400 hover:text-primary-400 transition-colors"
             >
                 Capacités ({capacites.length})
             </button>
@@ -49,7 +49,7 @@ export const CombatantCapabilities: React.FC<{
                                     comme le fait la fiche de créature. */}
                                 <div className="text-xs font-bold text-primary-300">{cap.label || cap.name}</div>
                                 {cap.voieName && (
-                                    <span className="text-[11px] text-stone-500 truncate">{cap.voieName}</span>
+                                    <span className="text-[11px] text-stone-400 truncate">{cap.voieName}</span>
                                 )}
                             </div>
                             {cap.description && (

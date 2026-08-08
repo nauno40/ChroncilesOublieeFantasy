@@ -34,9 +34,9 @@ export const UsagesPanel: React.FC<Props> = ({ character, setCharacter }) => {
         <div className="glass-panel p-6 rounded-2xl border-white/5 bg-stone-900/10 space-y-3">
             <div className="flex items-center justify-between border-b border-white/5 pb-2">
                 <h3 className="text-stone-400 font-display font-bold uppercase text-[11px] tracking-[0.2em]">Usages limités</h3>
-                <button onClick={add} className="text-stone-500 hover:text-primary-400 text-sm" title="Ajouter un usage">+</button>
+                <button onClick={add} className="text-stone-400 hover:text-primary-400 text-sm" title="Ajouter un usage">+</button>
             </div>
-            {usages.length === 0 && <p className="text-[11px] text-stone-600 italic">Aucune capacité à usage limité suivie.</p>}
+            {usages.length === 0 && <p className="text-[11px] text-stone-400 italic">Aucune capacité à usage limité suivie.</p>}
             {usages.map((u, idx) => {
                 const spent = u.used >= u.max;
                 return (
@@ -57,7 +57,7 @@ export const UsagesPanel: React.FC<Props> = ({ character, setCharacter }) => {
                             {PERIODS.map(p => <option key={p} value={p}>{PERIOD_LABELS[p]}</option>)}
                         </select>
                         <div className="flex items-center gap-1">
-                            <button onClick={() => setUsed(idx, u, -1)} className="text-stone-500 hover:text-green-400 w-5 text-center" title="−1 utilisé">−</button>
+                            <button onClick={() => setUsed(idx, u, -1)} className="text-stone-400 hover:text-green-400 w-5 text-center" title="−1 utilisé">−</button>
                             <span className={`font-mono font-bold ${spent ? 'text-red-400' : 'text-stone-300'}`}>{u.used}/</span>
                             <input
                                 type="number"
@@ -68,9 +68,9 @@ export const UsagesPanel: React.FC<Props> = ({ character, setCharacter }) => {
                                     update(idx, { max, used: Math.min(u.used, max) }); // re-borne `used` si le max baisse
                                 }}
                             />
-                            <button onClick={() => setUsed(idx, u, 1)} className="text-stone-500 hover:text-red-400 w-5 text-center" title="+1 utilisé">+</button>
+                            <button onClick={() => setUsed(idx, u, 1)} className="text-stone-400 hover:text-red-400 w-5 text-center" title="+1 utilisé">+</button>
                         </div>
-                        <button onClick={() => remove(idx)} className="text-stone-600 hover:text-red-400" title="Retirer">✕</button>
+                        <button onClick={() => remove(idx)} className="text-stone-400 hover:text-red-400" title="Retirer">✕</button>
                     </div>
                 );
             })}

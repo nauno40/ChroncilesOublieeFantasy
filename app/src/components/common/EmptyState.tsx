@@ -22,7 +22,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
 }) => {
     return (
         <div className={clsx('glass-panel p-12 rounded-xl text-center', className)}>
-            <Icon className="mx-auto text-stone-600 mb-4" size={48} />
+            <Icon className="mx-auto text-stone-400 mb-4" size={48} />
             {title && (
                 <h3 className="text-xl font-display font-bold text-stone-400 mb-2">
                     {title}

@@ -43,7 +43,7 @@ export const CampaignNotes: React.FC<Props> = ({ campaign }) => {
                     value={notes}
                     onChange={handleChange}
                 />
-                <div className="px-3 py-2 text-[11px] text-stone-600 border-t border-white/5 flex justify-between items-center bg-black/20 rounded-b-xl">
+                <div className="px-3 py-2 text-[11px] text-stone-400 border-t border-white/5 flex justify-between items-center bg-black/20 rounded-b-xl">
                     <span className="flex items-center gap-1">
                         {isSaving ? (
                             <>Enregistrement...</>

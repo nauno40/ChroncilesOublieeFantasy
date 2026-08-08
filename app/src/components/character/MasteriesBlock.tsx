@@ -37,7 +37,7 @@ export const MasteriesBlock: React.FC<Props> = ({ character, profiles }) => {
             <div className="space-y-2">
                 {rows.map(f => (
                     <div key={f.key}>
-                        <span className="text-[11px] uppercase font-bold text-stone-500 tracking-wider">{f.label}</span>
+                        <span className="text-[11px] uppercase font-bold text-stone-400 tracking-wider">{f.label}</span>
                         <p className="text-xs text-stone-300 leading-snug">{m![f.key]}</p>
                     </div>
                 ))}

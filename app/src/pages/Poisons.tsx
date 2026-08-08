@@ -51,14 +51,14 @@ export const Poisons: React.FC = () => {
                                 <td className="px-4 py-3 text-stone-400">{p.effectSuccess || '—'}</td>
                                 <td className="px-4 py-3 text-stone-400 whitespace-nowrap">{p.duration || '—'}</td>
                                 <td className="px-4 py-3 text-stone-400 whitespace-nowrap">{p.delay || '—'}</td>
-                                <td className="px-4 py-3 text-stone-500 text-xs">{p.note || ''}</td>
+                                <td className="px-4 py-3 text-stone-400 text-xs">{p.note || ''}</td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
             </div>
 
-            <p className="text-[11px] text-stone-600 mt-3 italic">
+            <p className="text-[11px] text-stone-400 mt-3 italic">
                 À la création d'un poison, le MJ choisit un type et une voie d'administration (ingestion, contact, blessure…). Un test de CON réussi réduit ou annule l'effet selon le type.
             </p>
         </PageContainer>

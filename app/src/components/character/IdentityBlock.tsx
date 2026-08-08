@@ -58,6 +58,7 @@ export const IdentityBlock: React.FC<Props> = ({
             <div className="space-y-1">
                 <label className="text-xs uppercase font-bold text-stone-500 tracking-wider ml-1">Race</label>
                 <select
+                    aria-label="Peuple"
                     className="w-full bg-stone-950/30 border border-stone-800 rounded-lg px-4 py-3 text-lg font-bold text-stone-200 outline-none focus:border-primary-500/50 focus:bg-stone-900/50 transition-all cursor-pointer appearance-none"
                     value={(character.race as { '@id'?: string })?.['@id'] || (typeof character.race === 'string' ? character.race : '')}
                     onChange={e => {
@@ -82,6 +83,7 @@ export const IdentityBlock: React.FC<Props> = ({
             <div className="space-y-1">
                 <label className="text-xs uppercase font-bold text-stone-500 tracking-wider ml-1">Profil (Classe)</label>
                 <select
+                    aria-label="Profil (classe)"
                     className="w-full bg-stone-950/30 border border-stone-800 rounded-lg px-4 py-3 text-lg font-bold text-stone-200 outline-none focus:border-primary-500/50 focus:bg-stone-900/50 transition-all cursor-pointer appearance-none"
                     value={(character.profile as { '@id'?: string })?.['@id'] || (typeof character.profile === 'string' ? character.profile : '')}
                     onChange={e => {

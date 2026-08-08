@@ -124,7 +124,7 @@ export const Capacites: React.FC = () => {
                         <label className="block text-sm font-medium text-stone-300 mb-2">
                             Type
                         </label>
-                        <select
+                        <select aria-label="Type"
                             value={selectedType}
                             onChange={(e) => setSelectedType(e.target.value)}
                             className="w-full px-3 py-2 bg-stone-900/50 border border-stone-700 rounded-lg text-stone-200 focus:border-primary-500 focus:outline-none transition-colors"
@@ -138,7 +138,7 @@ export const Capacites: React.FC = () => {
                         <label className="block text-sm font-medium text-stone-300 mb-2">
                             Rang
                         </label>
-                        <select
+                        <select aria-label="Rang"
                             value={selectedRank}
                             onChange={(e) => setSelectedRank(e.target.value)}
                             className="w-full px-3 py-2 bg-stone-900/50 border border-stone-700 rounded-lg text-stone-200 focus:border-primary-500 focus:outline-none transition-colors"
@@ -156,7 +156,7 @@ export const Capacites: React.FC = () => {
                         <label className="block text-sm font-medium text-stone-300 mb-2">
                             Classe
                         </label>
-                        <select
+                        <select aria-label="Classe"
                             value={selectedProfile}
                             onChange={(e) => {
                                 setSelectedProfile(e.target.value);

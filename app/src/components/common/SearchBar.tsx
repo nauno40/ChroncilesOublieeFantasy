@@ -23,6 +23,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
             <input
                 type="text"
                 placeholder={placeholder}
+                aria-label={placeholder}
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
                 autoFocus={autoFocus}

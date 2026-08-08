@@ -196,6 +196,7 @@ export const Campaign: React.FC = () => {
                         onChange={e => setJoinCode(e.target.value)}
                         className="flex-1 min-w-[200px] bg-black/40 border border-white/10 text-stone-100 rounded-lg px-4 py-3 focus:ring-1 focus:ring-primary-500 focus:border-primary-500 transition-all font-mono tracking-widest placeholder-stone-600"
                         placeholder="Code d'invitation"
+                        aria-label="Code d'invitation"
                     />
                     <button
                         type="submit"
@@ -307,6 +308,7 @@ export const Campaign: React.FC = () => {
                                     <div className="flex flex-wrap items-center gap-2 mb-6 bg-stone-900/50 p-3 rounded-xl border border-white/5">
                                         <UserPlus size={16} className="text-stone-500 shrink-0" />
                                         <select
+                                            aria-label="Fiche à rattacher à cette campagne"
                                             value={selectedCharacterId}
                                             onChange={e => setSelectedCharacterByCampaign(prev => ({ ...prev, [shared.id]: e.target.value }))}
                                             className="flex-1 min-w-[160px] bg-stone-950 border border-white/10 text-stone-200 rounded-lg px-3 py-2 text-sm focus:border-primary-500 outline-none"

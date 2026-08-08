@@ -33,7 +33,7 @@ export const RoleplaySection: React.FC<Props> = ({ character, setCharacter }) =>
                 </div>
                 <textarea
                     className="w-full bg-stone-950/40 border border-stone-800/50 rounded-xl p-4 text-stone-300 focus:border-primary-500/30 focus:bg-stone-900/40 outline-none h-32 resize-none transition-all font-body leading-relaxed placeholder:text-stone-600"
-                    placeholder="Ce qui anime votre héros..."
+                    placeholder="Ce qui anime votre héros..." aria-label="Ce qui anime votre héros..."
                     value={character.playState?.rp?.ideal || ''}
                     onChange={e => setCharacter(prev => ({ ...prev, playState: { ...prev.playState!, rp: { ...prev.playState!.rp, ideal: e.target.value } } }))}
                 />
@@ -45,7 +45,7 @@ export const RoleplaySection: React.FC<Props> = ({ character, setCharacter }) =>
                 </div>
                 <textarea
                     className="w-full bg-stone-950/40 border border-stone-800/50 rounded-xl p-4 text-stone-300 focus:border-red-900/30 focus:bg-stone-900/40 outline-none h-32 resize-none transition-all font-body leading-relaxed placeholder:text-stone-600"
-                    placeholder="Les ombres de votre passé..."
+                    placeholder="Les ombres de votre passé..." aria-label="Les ombres de votre passé..."
                     value={character.playState?.rp?.flaw || ''}
                     onChange={e => setCharacter(prev => ({ ...prev, playState: { ...prev.playState!, rp: { ...prev.playState!.rp, flaw: e.target.value } } }))}
                 />
@@ -57,7 +57,7 @@ export const RoleplaySection: React.FC<Props> = ({ character, setCharacter }) =>
                 </div>
                 <textarea
                     className="w-full bg-stone-950/40 border border-stone-800/50 rounded-xl p-4 text-stone-300 focus:border-purple-500/30 focus:bg-stone-900/40 outline-none h-32 resize-none transition-all font-body leading-relaxed placeholder:text-stone-600"
-                    placeholder="Ce que votre héros cache..."
+                    placeholder="Ce que votre héros cache..." aria-label="Ce que votre héros cache..."
                     value={character.playState?.rp?.secret || ''}
                     onChange={e => setCharacter(prev => ({ ...prev, playState: { ...prev.playState!, rp: { ...prev.playState!.rp, secret: e.target.value } } }))}
                 />
@@ -66,7 +66,7 @@ export const RoleplaySection: React.FC<Props> = ({ character, setCharacter }) =>
                 <label className="text-xs uppercase font-black text-stone-500/60 tracking-[0.2em] ml-1">Notes</label>
                 <textarea
                     className="w-full bg-stone-950/40 border border-stone-800/50 rounded-xl p-4 text-stone-300 focus:border-stone-500/30 focus:bg-stone-900/40 outline-none h-32 resize-none transition-all font-body leading-relaxed placeholder:text-stone-600"
-                    placeholder="Notes libres..."
+                    placeholder="Notes libres..." aria-label="Notes libres..."
                     value={character.playState?.rp?.notes || ''}
                     onChange={e => setCharacter(prev => ({ ...prev, playState: { ...prev.playState!, rp: { ...prev.playState!.rp, notes: e.target.value } } }))}
                 />

@@ -174,7 +174,7 @@ export const Bestiary: React.FC = () => {
                         )}>
                             <div className="space-y-1.5">
                                 <label className="text-xs font-bold text-primary-500/70 uppercase tracking-wider ml-1">Famille</label>
-                                <select
+                                <select aria-label="Famille"
                                     className="w-full bg-stone-900/50 border border-primary-500/20 text-stone-300 rounded-lg py-2.5 px-4 focus:ring-1 focus:ring-primary-500/50 focus:border-primary-500/50 transition-colors cursor-pointer hover:bg-stone-800/50"
                                     value={selectedFamily}
                                     onChange={(e) => setSelectedFamily(e.target.value)}
@@ -186,7 +186,7 @@ export const Bestiary: React.FC = () => {
 
                             <div className="space-y-1.5">
                                 <label className="text-xs font-bold text-primary-500/70 uppercase tracking-wider ml-1">Catégorie</label>
-                                <select
+                                <select aria-label="Catégorie"
                                     className="w-full bg-stone-900/50 border border-primary-500/20 text-stone-300 rounded-lg py-2.5 px-4 focus:ring-1 focus:ring-primary-500/50 focus:border-primary-500/50 transition-colors cursor-pointer hover:bg-stone-800/50"
                                     value={selectedCategory}
                                     onChange={(e) => setSelectedCategory(e.target.value)}
@@ -198,7 +198,7 @@ export const Bestiary: React.FC = () => {
 
                             <div className="space-y-1.5">
                                 <label className="text-xs font-bold text-primary-500/70 uppercase tracking-wider ml-1">Archétype</label>
-                                <select
+                                <select aria-label="Archétype"
                                     className="w-full bg-stone-900/50 border border-primary-500/20 text-stone-300 rounded-lg py-2.5 px-4 focus:ring-1 focus:ring-primary-500/50 focus:border-primary-500/50 transition-colors cursor-pointer hover:bg-stone-800/50"
                                     value={selectedArchetype}
                                     onChange={(e) => setSelectedArchetype(e.target.value)}
@@ -210,7 +210,7 @@ export const Bestiary: React.FC = () => {
 
                             <div className="space-y-1.5">
                                 <label className="text-xs font-bold text-primary-500/70 uppercase tracking-wider ml-1">Environnement</label>
-                                <select
+                                <select aria-label="Environnement"
                                     className="w-full bg-stone-900/50 border border-primary-500/20 text-stone-300 rounded-lg py-2.5 px-4 focus:ring-1 focus:ring-primary-500/50 focus:border-primary-500/50 transition-colors cursor-pointer hover:bg-stone-800/50"
                                     value={selectedEnvironment}
                                     onChange={(e) => setSelectedEnvironment(e.target.value)}
@@ -222,7 +222,7 @@ export const Bestiary: React.FC = () => {
 
                             <div className="space-y-1.5">
                                 <label className="text-xs font-bold text-primary-500/70 uppercase tracking-wider ml-1">Taille</label>
-                                <select
+                                <select aria-label="Taille"
                                     className="w-full bg-stone-900/50 border border-primary-500/20 text-stone-300 rounded-lg py-2.5 px-4 focus:ring-1 focus:ring-primary-500/50 focus:border-primary-500/50 transition-colors cursor-pointer hover:bg-stone-800/50"
                                     value={selectedSize}
                                     onChange={(e) => setSelectedSize(e.target.value)}
@@ -236,6 +236,7 @@ export const Bestiary: React.FC = () => {
                                 <label className="text-xs font-bold text-primary-500/70 uppercase tracking-wider ml-1">Niveau ({minLevel} - {maxLevel})</label>
                                 <div className="flex items-center gap-2 bg-stone-900/50 border border-primary-500/20 rounded-lg px-3 py-2">
                                     <input
+                                        aria-label="Niveau minimum"
                                         type="number"
                                         min="0" max="99"
                                         value={minLevel}
@@ -244,6 +245,7 @@ export const Bestiary: React.FC = () => {
                                     />
                                     <span className="text-primary-500/50 font-bold">-</span>
                                     <input
+                                        aria-label="Niveau maximum"
                                         type="number"
                                         min="0" max="99"
                                         value={maxLevel}

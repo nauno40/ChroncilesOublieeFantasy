@@ -65,6 +65,7 @@ export const HpByLevelEditor: React.FC<Props> = ({ character, setCharacter, main
                             <span className="w-12 text-stone-500 font-mono">Niv {L}</span>
                             {fams.map((f, idx) => (
                                 <select key={idx}
+                                    aria-label={`Famille de la capacité ${idx + 1} du niveau ${L}`}
                                     className={`bg-stone-950/40 border border-stone-800 rounded px-1.5 py-0.5 text-xs ${isDefault ? 'text-stone-500' : 'text-stone-200'}`}
                                     value={f}
                                     onChange={e => setFamily(L, idx, e.target.value)}>

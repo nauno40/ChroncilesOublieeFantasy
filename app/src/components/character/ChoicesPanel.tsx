@@ -64,6 +64,7 @@ export const ChoicesPanel: React.FC<Props> = ({ character, setCharacter, races, 
                     {row.help && <p className="text-[11px] text-stone-500 italic leading-snug">{row.help}</p>}
                     {row.options && row.options.length > 0 ? (
                         <select
+                            aria-label={`Choix — ${row.capName}`}
                             className="w-full bg-stone-950/40 border border-stone-800 rounded px-2 py-1 text-xs text-stone-200 outline-none focus:border-primary-500/40"
                             value={row.value}
                             onChange={e => setChoice(row.idx, row.rank, e.target.value)}
@@ -75,7 +76,7 @@ export const ChoicesPanel: React.FC<Props> = ({ character, setCharacter, races, 
                         <input
                             type="text"
                             className="w-full bg-stone-950/40 border border-stone-800 rounded px-2 py-1 text-xs text-stone-200 outline-none focus:border-primary-500/40"
-                            placeholder="Votre choix…"
+                            placeholder="Votre choix…" aria-label="Votre choix…"
                             value={row.value}
                             onChange={e => setChoice(row.idx, row.rank, e.target.value)}
                         />

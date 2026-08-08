@@ -115,6 +115,7 @@ export const Voies: React.FC = () => {
                         <div className="relative group w-full lg:w-64">
                             <Filter className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-500 group-hover:text-primary-400 transition-colors" size={14} />
                             <select
+                                aria-label="Filtrer par classe"
                                 value={selectedProfile}
                                 onChange={(e) => setSelectedProfile(e.target.value)}
                                 className="w-full pl-9 pr-8 py-1.5 bg-stone-900/50 border border-stone-700 rounded-lg text-stone-300 text-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500/50 transition-all appearance-none cursor-pointer"

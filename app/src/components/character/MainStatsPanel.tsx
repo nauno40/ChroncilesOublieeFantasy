@@ -60,6 +60,7 @@ export const MainStatsPanel: React.FC<Props> = ({ character, setCharacter, comba
                     <input
                         type="number"
                         className={`w-14 bg-transparent text-center text-2xl font-display font-bold outline-none ${hpCurrent <= 0 ? 'text-red-500' : 'text-green-400'}`}
+                        aria-label="Points de vie courants"
                         value={hpCurrent}
                         onChange={e => setHpCurrent(parseInt(e.target.value) || 0)}
                     />
@@ -86,6 +87,7 @@ export const MainStatsPanel: React.FC<Props> = ({ character, setCharacter, comba
                     <input
                         type="number"
                         className="w-10 bg-stone-950/50 border border-stone-800 rounded text-center text-lg font-bold text-amber-400 outline-none focus:border-amber-500/50 shadow-inner p-0.5"
+                        aria-label="Points de chance restants"
                         value={luckCurrent}
                         onChange={e => setCharacter(prev => ({
                             ...prev,

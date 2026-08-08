@@ -44,11 +44,12 @@ export const UsagesPanel: React.FC<Props> = ({ character, setCharacter }) => {
                         <input
                             type="text"
                             className="flex-1 bg-stone-950/40 border border-stone-800 rounded px-2 py-1 text-stone-200 outline-none focus:border-primary-500/40"
-                            placeholder="Nom de la capacité"
+                            placeholder="Nom de la capacité" aria-label="Nom de la capacité"
                             value={u.name}
                             onChange={e => update(idx, { name: e.target.value })}
                         />
                         <select
+                            aria-label="Période de réinitialisation"
                             className="bg-stone-950/40 border border-stone-800 rounded px-1.5 py-1 text-stone-200 outline-none"
                             value={u.per}
                             onChange={e => update(idx, { per: e.target.value as UsagePeriod })}

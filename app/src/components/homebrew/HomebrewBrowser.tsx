@@ -122,10 +122,10 @@ export const HomebrewBrowser: React.FC<HomebrewBrowserProps> = ({ tab, onTabChan
 
             {/* Filtre catégorie (uniquement en mode « toutes catégories ») */}
             {!cats && (
-                <div className="flex flex-wrap gap-1.5">
-                    <button onClick={() => setCategoryFilter('')} className={`text-[11px] font-bold uppercase px-2.5 py-1 rounded-full border transition-all ${!categoryFilter ? 'bg-primary-500/20 text-primary-300 border-primary-500/40' : 'bg-stone-900/40 text-stone-400 border-white/5'}`}>Toutes</button>
+                <div role="tablist" className="flex flex-wrap gap-1.5">
+                    <button role="tab" aria-selected={!categoryFilter} onClick={() => setCategoryFilter('')} className={`text-[11px] font-bold uppercase px-2.5 py-1 rounded-full border transition-all ${!categoryFilter ? 'bg-primary-500/20 text-primary-300 border-primary-500/40' : 'bg-stone-900/40 text-stone-400 border-white/5'}`}>Toutes</button>
                     {HOMEBREW_CATEGORIES.map(c => (
-                        <button key={c.value} onClick={() => setCategoryFilter(c.value)} className={`text-[11px] font-bold uppercase px-2.5 py-1 rounded-full border transition-all ${categoryFilter === c.value ? 'bg-primary-500/20 text-primary-300 border-primary-500/40' : 'bg-stone-900/40 text-stone-400 border-white/5 hover:text-stone-300'}`}>{c.label}</button>
+                        <button key={c.value} role="tab" aria-selected={categoryFilter === c.value} onClick={() => setCategoryFilter(c.value)} className={`text-[11px] font-bold uppercase px-2.5 py-1 rounded-full border transition-all ${categoryFilter === c.value ? 'bg-primary-500/20 text-primary-300 border-primary-500/40' : 'bg-stone-900/40 text-stone-400 border-white/5 hover:text-stone-300'}`}>{c.label}</button>
                     ))}
                 </div>
             )}

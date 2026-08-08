@@ -59,10 +59,12 @@ export const SearchToolbar: React.FC<SearchToolbarProps> = ({
             </div>
 
             {chips && chips.length > 0 && (
-                <div className="flex flex-wrap gap-1.5">
+                <div role="tablist" className="flex flex-wrap gap-1.5">
                     {chips.map(c => (
                         <button
                             key={c.id}
+                            role="tab"
+                            aria-selected={chipActif === c.id}
                             onClick={() => onChipChange?.(c.id)}
                             className={`text-[11px] font-bold uppercase px-2.5 py-1 rounded-full border transition-all ${
                                 chipActif === c.id

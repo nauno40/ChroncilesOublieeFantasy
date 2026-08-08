@@ -188,7 +188,12 @@ describe('adaptateurs officiels', () => {
     });
 
     it('projette un profil', () => {
-        const p = { id: 1, name: 'Guerrier', description: 'Brave', hitDie: '1D10', magicStat: null, armorMaxDef: 5 } as unknown as Profile;
+        // Le dé de vie est servi sous `stats`, jamais à la racine : une fixture qui le
+        // pose ailleurs ferait passer un adaptateur qui lit une forme inexistante.
+        const p = {
+            id: 1, name: 'Guerrier', description: 'Brave', magicStat: null, armorMaxDef: 5,
+            stats: { hitDie: '1D10' },
+        } as unknown as Profile;
         const vm = profileToVM(p);
         expect(vm).toMatchObject({ name: 'Guerrier', hitDie: '1D10', armorMaxDef: 5 });
         expect(vm.magicStat).toBeUndefined();

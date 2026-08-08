@@ -75,6 +75,12 @@ export const GlobalSearch: React.FC<GlobalSearchProps> = ({ isOpen, onClose }) =
                 const items: SearchResult[] = [];
 
                 // Helper to safely add items
+                // `any` assumé ici : l'index agrège neuf collections dont les types
+                // déclarés sont incomplets par rapport aux charges utiles de l'API
+                // (`Creature.level`, `Armor.defense`… existent en base, pas dans le type).
+                // Typer strictement demanderait de compléter ces types d'abord — c'est un
+                // chantier à part, pas un remplacement de mot-clé.
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 const safeAdd = (data: any[], type: SearchResult['type'], mapFn: (item: any, index: number) => Partial<SearchResult> | null) => {
                     if (!Array.isArray(data)) return;
                     data.forEach((item, index) => {

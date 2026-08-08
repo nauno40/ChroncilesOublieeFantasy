@@ -52,7 +52,7 @@ export const WeaponsSection: React.FC<Props> = ({ character, setCharacter, allWe
                                 }}
                             />
                             <datalist id={`weapons-list-${idx}`}>
-                                {allWeapons.map((w: any) => (
+                                {allWeapons.map(w => (
                                     <option key={w.id} value={w.name}>{w.type} - {w.damage}</option>
                                 ))}
                             </datalist>

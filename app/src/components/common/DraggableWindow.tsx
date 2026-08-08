@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Rnd } from 'react-rnd';
+import { Rnd, type RndDragCallback, type RndResizeCallback } from 'react-rnd';
 import { GripVertical, X } from 'lucide-react';
 
 interface DraggableWindowProps {
@@ -57,13 +57,13 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = ({
     });
 
     // Save to storage on change
-    const onDragStop = (_e: any, d: any) => {
+    const onDragStop: RndDragCallback = (_e, d) => {
         const newState = { ...state, x: d.x, y: d.y };
         setState(newState);
         localStorage.setItem(`window_state_${id}`, JSON.stringify(newState));
     };
 
-    const onResizeStop = (_e: any, _direction: any, ref: any, _delta: any, position: any) => {
+    const onResizeStop: RndResizeCallback = (_e, _direction, ref, _delta, position) => {
         const newState = {
             width: ref.style.width,
             height: ref.style.height,

@@ -19,11 +19,15 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
     className
 }) => {
     const [isOpen, toggleOpen] = useToggle(defaultOpen);
+    // `aria-controls` doit désigner le panneau : un identifiant stable par instance.
+    const idContenu = React.useId();
 
     return (
         <div className={clsx('glass-panel rounded-xl border-white/5 overflow-hidden', className)}>
             <button
                 onClick={toggleOpen}
+                aria-expanded={isOpen}
+                aria-controls={idContenu}
                 className="w-full p-4 flex items-center justify-between hover:bg-stone-900/30 transition-colors"
             >
                 <div className="flex items-center gap-2">
@@ -59,7 +63,7 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
             </button>
 
             {isOpen && (
-                <div className="p-4 border-t border-white/5 space-y-4">
+                <div id={idContenu} className="p-4 border-t border-white/5 space-y-4">
                     {children}
                 </div>
             )}

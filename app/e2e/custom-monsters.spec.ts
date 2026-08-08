@@ -23,9 +23,9 @@ test.describe('Monstres custom (MJ)', () => {
         // Le monstre apparaît dans la liste.
         await expect(page.getByRole('heading', { name: monsterName })).toBeVisible({ timeout: 15_000 });
 
-        // Il est importable dans le Suivi de Combat via l'optgroup « Mes monstres ».
+        // Il est importable dans le Suivi de Combat via l'optgroup « Mes créatures ».
         await page.goto('/tools/tracker');
-        const option = page.locator('optgroup[label="Mes monstres"] option', { hasText: monsterName });
+        const option = page.locator('optgroup[label="Mes créatures"] option', { hasText: monsterName });
         await expect(option).toHaveCount(1, { timeout: 15_000 });
     });
 

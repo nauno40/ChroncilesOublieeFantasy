@@ -16,10 +16,12 @@ interface SourceTabsProps<T extends string> {
 
 export function SourceTabs<T extends string>({ tabs, value, onChange }: SourceTabsProps<T>) {
     return (
-        <>
+        <div role="tablist" className="flex flex-wrap gap-2">
             {tabs.map(t => (
                 <button
                     key={t.id}
+                    role="tab"
+                    aria-selected={value === t.id}
                     onClick={() => onChange(t.id)}
                     className={`px-4 py-2 rounded-xl text-sm font-bold transition-all ${value === t.id
                         ? 'bg-primary-500/20 text-primary-300 border border-primary-500/40'
@@ -28,6 +30,6 @@ export function SourceTabs<T extends string>({ tabs, value, onChange }: SourceTa
                     {t.label}
                 </button>
             ))}
-        </>
+        </div>
     );
 }

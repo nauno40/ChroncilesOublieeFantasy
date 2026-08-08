@@ -11,7 +11,9 @@ test.describe('Compendium (données depuis la BDD)', () => {
         // Les cartes de race sont des liens vers /races/:id (le lien de nav est /races, non matché).
         const cards = page.locator('a[href^="/races/"]');
         await expect.poll(() => cards.count(), { timeout: 15_000 }).toBeGreaterThanOrEqual(8);
-        await expect(page.getByText(/races? trouvée/i)).toBeVisible();
+        // Le compteur a quitté le sous-titre de page pour la barre de recherche, où il
+        // décrit ce que le filtrage a retenu (cf. plan de cohérence, phase 3).
+        await expect(page.getByText(/\d+ peuples?/i)).toBeVisible();
     });
 
     test('/classes et /bestiary chargent sans erreur API', async ({ page }) => {

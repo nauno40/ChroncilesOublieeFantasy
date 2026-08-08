@@ -217,8 +217,9 @@ Fonctionnalités clés :
     `character-voies.spec.ts` / `character-mechanics.spec.ts` (voies, dérivations), `campaign-*.spec.ts`
     (rattachement d'un PJ, rencontres, renommage), `custom-monsters.spec.ts`, `password-reset.spec.ts`,
     `bibliotheque.spec.ts` (voie communautaire et ses capacités imbriquées, déclaration d'état cliquable,
-    retour contextuel) et `printable-sheet.spec.ts` (sections de la fiche imprimable, coût des sorts sous
-    l'armure). Helpers partagés dans `e2e/fixtures.ts`, config `playwright.config.ts` (`baseURL` via
+    retour contextuel), `printable-sheet.spec.ts` (sections de la fiche imprimable, coût des sorts sous
+    l'armure) et `global-search.spec.ts` (les huit familles de contenu restent indexées — le bestiaire
+    en était sorti sans bruit pendant des mois). Helpers partagés dans `e2e/fixtures.ts`, config `playwright.config.ts` (`baseURL` via
     `PW_BASE_URL`).
   - *Deux règles apprises à leurs dépens* : ne jamais écrire en dur un nom de donnée de démonstration
     (les fixtures changent — un test doit lire les siennes depuis l'API), et ne jamais viser `.first()`

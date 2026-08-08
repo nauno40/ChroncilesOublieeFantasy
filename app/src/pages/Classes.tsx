@@ -12,9 +12,9 @@ import { DataService } from '../services/dataService';
  */
 const statsDeLaClasse = (profile: Profile) => {
     const stats: { label: string; value: React.ReactNode }[] = [];
-    // Les PV par niveau viennent de la famille de profil : c'est ce que l'API sert dans la
-    // liste (le dé de vie, lui, n'y figure pas).
-    if (profile.stats?.hpPerLevel) stats.push({ label: 'PV/niv.', value: profile.stats.hpPerLevel });
+    const de = profile.stats?.hitDie;
+    if (de) stats.push({ label: 'Dé de vie', value: String(de).replace('1D', 'd') });
+    else if (profile.stats?.hpPerLevel) stats.push({ label: 'PV/niv.', value: profile.stats.hpPerLevel });
     if (profile.armorMaxDef !== undefined && profile.armorMaxDef !== null) {
         stats.push({ label: 'Armure', value: profile.armorMaxDef < 0 ? 'aucune' : `DEF +${profile.armorMaxDef}` });
     }
@@ -39,13 +39,15 @@ export const Classes: React.FC = () => {
     // Filter profiles based on selected filters
     const filteredByFilters = useMemo(() => {
         return profiles.filter(profile => {
-            if (selectedHitDie !== 'all' && profile.hitDie !== selectedHitDie) {
+            if (selectedHitDie !== 'all' && profile.stats?.hitDie !== selectedHitDie) {
                 return false;
             }
-            if (selectedMagic === 'yes' && !profile.magicModifier) {
+            // `magicStat` est le champ servi (INT/CHA/PER) ; `magicModifier` ne l'a jamais
+            // été, et le filtre ne rendait donc jamais rien sous « Avec magie ».
+            if (selectedMagic === 'yes' && !profile.magicStat) {
                 return false;
             }
-            if (selectedMagic === 'no' && profile.magicModifier) {
+            if (selectedMagic === 'no' && profile.magicStat) {
                 return false;
             }
             return true;

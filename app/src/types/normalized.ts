@@ -83,11 +83,10 @@ export interface Profile {
     name: string;
     description: string;
     note: string | null;
-    hitDie: string;
     stats?: ProfileStats;
-    skillPoints: number;
 
-    // Virtual/Mapped fields for frontend display
+    /** Ancienne prose « armes et armures » d'un profil, remplacée par `masteries`.
+     *  L'API ne la sert plus ; conservée pour le repli des fiches communautaires. */
     weaponsAndArmor?: string;
 
     // Updated startingEquipment to reflect recent backend changes (raw array from JSON)
@@ -104,7 +103,6 @@ export interface Profile {
     } | null;
 
     imageUrl?: string;
-    magicModifier?: string | null;
     magicStat?: string | null; // carac de magie du profil (INT/CHA/PER) — source précise, cf. design §8
     armorMaxDef?: number | null; // seuil de DEF max d'armure autorisée (spec §8 ; -1 = aucune armure)
 

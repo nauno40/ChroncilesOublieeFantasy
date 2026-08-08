@@ -9,10 +9,17 @@ async function ouvrirPremiereCampagne(page: Page, token: string): Promise<void> 
         headers: { Authorization: `Bearer ${token}`, Accept: 'application/ld+json' },
     });
     const body = await res.json();
-    const campagnes: Array<{ name: string }> = body.member || body['hydra:member'];
+    const toutes: Array<{ id: number; name: string; characters?: unknown[] }> = body.member || body['hydra:member'];
+    // Une campagne PEUPLÉE : le générateur de rencontre compose selon la taille du groupe,
+    // et une campagne vide ne lui donne rien à composer.
+    const campagnes = toutes.filter(c => (c.characters?.length ?? 0) > 0).length > 0
+        ? toutes.filter(c => (c.characters?.length ?? 0) > 0)
+        : toutes;
     expect(campagnes.length, 'le MJ de démo doit avoir au moins une campagne').toBeGreaterThan(0);
-    await page.goto('/campaign');
-    await page.getByText(campagnes[0].name, { exact: true }).first().click();
+    // On y va par son identifiant plutôt qu'en cliquant son nom : le nom apparaît deux fois
+    // sur la page (carte et rappel), et `.first()` tombait parfois sur l'occurrence qui ne
+    // navigue pas — le test échouait alors sur le panneau, pas sur ce qu'il vérifie.
+    await page.goto(`/campaign/${campagnes[0].id}`);
 }
 
 
@@ -76,6 +83,19 @@ test.describe('Campagne — Rencontres', () => {
 
         await page.getByRole('button', { name: /créer une rencontre/i }).click();
         const modal = page.locator('div.fixed.inset-0', { hasText: 'Créer une rencontre' });
+
+        // L'environnement décide du vivier : le générateur refuse (et alerte) quand aucune
+        // créature de l'environnement retenu ne rentre dans le budget. On choisit donc celui
+        // qui en compte le plus, plutôt que de dépendre du premier par ordre alphabétique.
+        const creatures = await (await page.request.get(`${API_URL}/creatures?pagination=false`, {
+            headers: { Accept: 'application/ld+json' },
+        })).json();
+        const parEnv = new Map<string, number>();
+        for (const c of (creatures.member || creatures['hydra:member']) as Array<{ environment?: string }>) {
+            if (c.environment) parEnv.set(c.environment, (parEnv.get(c.environment) ?? 0) + 1);
+        }
+        const environnement = [...parEnv.entries()].sort((a, b) => b[1] - a[1])[0][0];
+        await modal.locator('select').first().selectOption(environnement);
 
         await modal.getByRole('button', { name: /^difficile$/i }).click();
         await modal.getByRole('button', { name: /^générer/i }).click();

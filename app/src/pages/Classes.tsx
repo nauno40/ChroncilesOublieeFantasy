@@ -82,7 +82,7 @@ export const Classes: React.FC = () => {
                         <label className="block text-sm font-medium text-stone-300 mb-2">
                             Dé de vie
                         </label>
-                        <select
+                        <select aria-label="Dé de vie"
                             value={selectedHitDie}
                             onChange={(e) => setSelectedHitDie(e.target.value)}
                             className="w-full px-3 py-2 bg-stone-900/50 border border-stone-700 rounded-lg text-stone-200 focus:border-primary-500 focus:outline-none transition-colors"
@@ -100,7 +100,7 @@ export const Classes: React.FC = () => {
                         <label className="block text-sm font-medium text-stone-300 mb-2">
                             Magie
                         </label>
-                        <select
+                        <select aria-label="Magie"
                             value={selectedMagic}
                             onChange={(e) => setSelectedMagic(e.target.value)}
                             className="w-full px-3 py-2 bg-stone-900/50 border border-stone-700 rounded-lg text-stone-200 focus:border-primary-500 focus:outline-none transition-colors"

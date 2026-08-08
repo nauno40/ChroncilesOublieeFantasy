@@ -61,7 +61,7 @@ export const CompanionsPanel: React.FC<Props> = ({ character, setCharacter }) =>
                             <input
                                 type="text"
                                 className="flex-1 bg-stone-950/40 border border-stone-800 rounded px-2 py-1 text-stone-200 font-bold outline-none focus:border-primary-500/40"
-                                placeholder="Nom du compagnon"
+                                placeholder="Nom du compagnon" aria-label="Nom du compagnon"
                                 value={c.name}
                                 onChange={e => update(idx, { name: e.target.value })}
                             />
@@ -73,20 +73,23 @@ export const CompanionsPanel: React.FC<Props> = ({ character, setCharacter }) =>
                                 <button onClick={() => setHp(idx, c, -1)} className="text-stone-500 hover:text-red-400 w-4 text-center">−</button>
                                 <span className={`font-mono font-bold ${down ? 'text-red-400' : 'text-green-400'}`}>{c.hp.current}/</span>
                                 <input type="number" className="w-9 bg-stone-950/40 border border-stone-800 rounded px-1 py-0.5 text-center text-stone-300 outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none"
+                                    aria-label="PV maximum du compagnon"
                                     value={c.hp.max} onChange={e => setMaxHp(idx, c, Math.max(0, parseInt(e.target.value) || 0))} />
                                 <button onClick={() => setHp(idx, c, 1)} className="text-stone-500 hover:text-green-400 w-4 text-center">+</button>
                             </span>
                             <label className="flex items-center gap-1"><span className="text-stone-500 uppercase font-bold">DEF</span>
                                 <input type="number" className="w-10 bg-stone-950/40 border border-stone-800 rounded px-1 py-0.5 text-center text-stone-300 outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none"
+                                    aria-label="DEF du compagnon"
                                     value={c.def} onChange={e => update(idx, { def: parseInt(e.target.value) || 0 })} /></label>
                             <label className="flex items-center gap-1"><span className="text-stone-500 uppercase font-bold">Init</span>
                                 <input type="number" className="w-10 bg-stone-950/40 border border-stone-800 rounded px-1 py-0.5 text-center text-stone-300 outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none"
+                                    aria-label="Initiative du compagnon"
                                     value={c.init} onChange={e => update(idx, { init: parseInt(e.target.value) || 0 })} /></label>
                         </div>
                         <input
                             type="text"
                             className="w-full bg-transparent border-none outline-none text-[11px] text-stone-500 italic placeholder:text-stone-600"
-                            placeholder="Notes (attaques, capacités…)"
+                            placeholder="Notes (attaques, capacités…)" aria-label="Notes (attaques, capacités…)"
                             value={c.notes || ''}
                             onChange={e => update(idx, { notes: e.target.value })}
                         />

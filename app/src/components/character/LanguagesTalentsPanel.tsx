@@ -47,6 +47,7 @@ export const LanguagesTalentsPanel: React.FC<Props> = ({ character, setCharacter
                         type="text"
                         className="flex-1 bg-stone-950/40 border border-stone-800 rounded px-2 py-1 text-xs text-stone-200 outline-none focus:border-primary-500/40"
                         placeholder={placeholder}
+                        aria-label={`${title} ${idx + 1}`}
                         value={item}
                         onChange={e => updateItem(key, list, idx, e.target.value)}
                     />

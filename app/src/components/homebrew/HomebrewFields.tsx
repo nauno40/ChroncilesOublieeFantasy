@@ -158,14 +158,17 @@ const FieldInput: React.FC<{ field: HomebrewFieldDef; value: unknown; onChange: 
 
 const CaracsInput: React.FC<{ label: string; value: Record<string, number>; onChange: (v: Record<string, number>) => void; error?: boolean }> = ({ label, value, onChange, error }) => (
     <div>
-        <label className={labelCls}>{label}</label>
+        {/* Un groupe de champs n'a pas d'intitulé au sens HTML : chaque case porte le sien
+            (`aria-label`), et ce titre nomme le groupe. */}
+        <div className={labelCls}>{label}</div>
         <div className="grid grid-cols-4 sm:grid-cols-7 gap-2">
             {CARAC_KEYS.map(k => (
-                <div key={k} className="text-center">
-                    <div className="text-[11px] text-stone-500 mb-0.5">{k}</div>
-                    <input type="number" className={`w-full bg-stone-950 border rounded px-1 py-1 text-center text-stone-200 text-sm outline-none focus:border-primary-500 ${error ? 'border-red-500/60' : 'border-white/10'}`}
+                <label key={k} className="text-center block">
+                    <span className="text-[11px] text-stone-500 mb-0.5 block">{k}</span>
+                    <input type="number" aria-label={`${label} — ${k}`}
+                        className={`w-full bg-stone-950 border rounded px-1 py-1 text-center text-stone-200 text-sm outline-none focus:border-primary-500 ${error ? 'border-red-500/60' : 'border-white/10'}`}
                         value={value[k] ?? 0} onChange={e => onChange({ ...value, [k]: Number(e.target.value) || 0 })} />
-                </div>
+                </label>
             ))}
         </div>
     </div>
@@ -179,11 +182,12 @@ const LinesInput: React.FC<{ label: string; value: string[]; onChange: (v: strin
     const emptyErr = error && value.length === 0;
     return (
         <div>
-            <label className={labelCls}>{label}</label>
+            <div className={labelCls}>{label}</div>
             <div className={`space-y-1.5 ${emptyErr ? 'border border-red-500/60 rounded-lg p-2' : ''}`}>
                 {value.map((line, i) => (
                     <div key={i} className="flex gap-1.5">
-                        <input className={error ? fieldErrCls : fieldCls} value={line} onChange={e => update(i, e.target.value)} placeholder={placeholder} />
+                        <input className={error ? fieldErrCls : fieldCls} aria-label={`${label} — ligne ${i + 1}`}
+                            value={line} onChange={e => update(i, e.target.value)} placeholder={placeholder} />
                         <button type="button" onClick={() => remove(i)} className="text-stone-500 hover:text-red-400 px-2" aria-label="Retirer"><X size={16} /></button>
                     </div>
                 ))}

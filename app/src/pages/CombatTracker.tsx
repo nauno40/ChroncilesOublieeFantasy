@@ -295,7 +295,7 @@ export const CombatTracker: React.FC = () => {
                     <input type="number" value={per} onChange={e => setPer(e.target.value)}
                         className="w-20 bg-black/40 border border-white/10 text-stone-100 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary-500 placeholder-stone-600" />
                 </label>
-                <select value={type} onChange={e => setType(e.target.value as 'player' | 'monster')}
+                <select aria-label="Camp du combattant" value={type} onChange={e => setType(e.target.value as 'player' | 'monster')}
                     className="bg-black/40 border border-white/10 text-stone-100 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary-500">
                     <option value="monster">Adversaire</option>
                     <option value="player">Personnage</option>
@@ -310,7 +310,7 @@ export const CombatTracker: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div className="glass-panel p-4 rounded-xl flex flex-wrap gap-2 items-end shadow-lg">
                     <div className="text-xs text-stone-400 uppercase font-bold w-full">Créatures</div>
-                    <select value={creatureId} onChange={e => setCreatureId(e.target.value)}
+                    <select aria-label="Créature à ajouter" value={creatureId} onChange={e => setCreatureId(e.target.value)}
                         className="flex-1 min-w-[140px] bg-black/40 border border-white/10 text-stone-100 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary-500">
                         <option value="">— Créature —</option>
                         {customMonsters.length > 0 && (
@@ -322,14 +322,14 @@ export const CombatTracker: React.FC = () => {
                         )}
                         {creatures.map(c => <option key={c.id} value={String(c.id)}>{c.name}</option>)}
                     </select>
-                    <input type="number" min="1" value={quantity} onChange={e => setQuantity(e.target.value)}
+                    <input type="number" min="1" aria-label="Nombre d’exemplaires" value={quantity} onChange={e => setQuantity(e.target.value)}
                         className="w-16 bg-black/40 border border-white/10 text-stone-100 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary-500" />
                     <button onClick={addFromBestiary}
                         className="bg-red-900/40 hover:bg-red-800/60 text-red-200 px-4 py-2 rounded-lg text-sm font-bold border border-red-500/30 transition-colors">+ Monstre</button>
                 </div>
                 <div className="glass-panel p-4 rounded-xl flex flex-wrap gap-2 items-end shadow-lg">
                     <div className="text-xs text-stone-400 uppercase font-bold w-full">Personnages</div>
-                    <select value={characterId} onChange={e => setCharacterId(e.target.value)}
+                    <select aria-label="Personnage à ajouter" value={characterId} onChange={e => setCharacterId(e.target.value)}
                         className="flex-1 min-w-[140px] bg-black/40 border border-white/10 text-stone-100 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary-500">
                         <option value="">— Personnage —</option>
                         {characters.map(c => <option key={c.id} value={String(c.id)}>{c.name}</option>)}

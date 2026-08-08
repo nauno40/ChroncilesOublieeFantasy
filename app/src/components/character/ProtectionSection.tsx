@@ -23,7 +23,7 @@ export const ProtectionSection: React.FC<Props> = ({ character, setCharacter, al
                         type="number"
                         min="0"
                         className="w-14 bg-transparent text-right text-sm font-mono font-bold text-yellow-500 outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none"
-                        value={character.playState?.money?.po ?? 0}
+                        aria-label="Pièces d’or" value={character.playState?.money?.po ?? 0}
                         onChange={e => {
                             const val = Math.max(0, parseInt(e.target.value) || 0);
                             setCharacter(prev => ({ ...prev, playState: { ...prev.playState!, money: { ...prev.playState!.money, po: val } } }));
@@ -34,7 +34,7 @@ export const ProtectionSection: React.FC<Props> = ({ character, setCharacter, al
                         type="number"
                         min="0"
                         className="w-16 bg-transparent text-right text-sm font-mono font-bold text-yellow-500 outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none"
-                        value={character.playState?.money?.pa ?? 0}
+                        aria-label="Pièces d’argent" value={character.playState?.money?.pa ?? 0}
                         onChange={e => {
                             const val = Math.max(0, parseInt(e.target.value) || 0);
                             setCharacter(prev => ({
@@ -48,7 +48,7 @@ export const ProtectionSection: React.FC<Props> = ({ character, setCharacter, al
                         type="number"
                         min="0"
                         className="w-14 bg-transparent text-right text-sm font-mono font-bold text-yellow-500 outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none"
-                        value={character.playState?.money?.pc ?? 0}
+                        aria-label="Pièces de cuivre" value={character.playState?.money?.pc ?? 0}
                         onChange={e => {
                             const val = Math.max(0, parseInt(e.target.value) || 0);
                             setCharacter(prev => ({ ...prev, playState: { ...prev.playState!, money: { ...prev.playState!.money, pc: val } } }));
@@ -62,7 +62,7 @@ export const ProtectionSection: React.FC<Props> = ({ character, setCharacter, al
                     <label className="text-[11px] uppercase font-bold text-stone-500 tracking-wider block mb-1">Armure</label>
                     <select
                         className="w-full bg-stone-950/30 border border-stone-800 rounded-lg px-3 py-2 text-stone-300 outline-none focus:border-primary-500/50"
-                        value={character.playState?.protection?.armor?.name || ''}
+                        aria-label="Armure portée" value={character.playState?.protection?.armor?.name || ''}
                         onChange={e => {
                             const val = e.target.value;
                             const found = allArmors.find(a => a.name === val);
@@ -97,7 +97,7 @@ export const ProtectionSection: React.FC<Props> = ({ character, setCharacter, al
                     <label className="text-[11px] uppercase font-bold text-stone-500 tracking-wider block mb-1">Bouclier</label>
                     <select
                         className="w-full bg-stone-950/30 border border-stone-800 rounded-lg px-3 py-2 text-stone-300 outline-none focus:border-primary-500/50"
-                        value={character.playState?.protection?.shield?.name || ''}
+                        aria-label="Bouclier" value={character.playState?.protection?.shield?.name || ''}
                         onChange={e => {
                             const val = e.target.value;
                             const found = allArmors.find(a => a.name === val);

@@ -449,25 +449,25 @@ export const CustomMonsters: React.FC<CustomMonstersProps> = ({ embedded = false
                                     <input
                                         list={LIST.attack}
                                         className={`${inputClass} col-span-4`}
-                                        placeholder="Nom (Griffe…)"
+                                        placeholder="Nom (Griffe…)" aria-label="Nom (Griffe…)"
                                         value={atk.name}
                                         onChange={(e) => updateAttack(i, { name: e.target.value })}
                                     />
                                     <input
                                         className={`${inputClass} col-span-2`}
-                                        placeholder="Atk"
+                                        placeholder="Atk" aria-label="Atk"
                                         value={atk.atk ?? ''}
                                         onChange={(e) => updateAttack(i, { atk: e.target.value })}
                                     />
                                     <input
                                         className={`${inputClass} col-span-2`}
-                                        placeholder="Dégâts"
+                                        placeholder="Dégâts" aria-label="Dégâts"
                                         value={atk.dm ?? ''}
                                         onChange={(e) => updateAttack(i, { dm: e.target.value })}
                                     />
                                     <input
                                         className={`${inputClass} col-span-3`}
-                                        placeholder="Spécial"
+                                        placeholder="Spécial" aria-label="Spécial"
                                         value={atk.special ?? ''}
                                         onChange={(e) => updateAttack(i, { special: e.target.value })}
                                     />
@@ -500,14 +500,14 @@ export const CustomMonsters: React.FC<CustomMonstersProps> = ({ embedded = false
                                     <input
                                         list={LIST.capability}
                                         className={`${inputClass} col-span-4`}
-                                        placeholder="Nom"
+                                        placeholder="Nom" aria-label="Nom"
                                         value={cap.name}
                                         onChange={(e) => updateCapability(i, { name: e.target.value })}
                                     />
                                     <input
                                         type="number"
                                         className={`${inputClass} col-span-2`}
-                                        placeholder="Rang"
+                                        placeholder="Rang" aria-label="Rang"
                                         value={cap.rank ?? ''}
                                         onChange={(e) =>
                                             updateCapability(i, {
@@ -517,7 +517,7 @@ export const CustomMonsters: React.FC<CustomMonstersProps> = ({ embedded = false
                                     />
                                     <input
                                         className={`${inputClass} col-span-5`}
-                                        placeholder="Description"
+                                        placeholder="Description" aria-label="Description"
                                         value={cap.description ?? ''}
                                         onChange={(e) => updateCapability(i, { description: e.target.value })}
                                     />

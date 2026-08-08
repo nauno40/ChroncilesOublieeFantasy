@@ -33,7 +33,7 @@ export const WeaponsSection: React.FC<Props> = ({ character, setCharacter, allWe
                                 list={`weapons-list-${idx}`}
                                 type="text"
                                 className="w-full bg-stone-900/50 border border-stone-800 rounded px-2 py-1 text-sm font-bold text-white outline-none focus:border-primary-500/50 placeholder:text-stone-700"
-                                placeholder="Nom de l'arme..."
+                                placeholder="Nom de l'arme..." aria-label="Nom de l'arme..."
                                 value={weapon.name}
                                 onChange={(e) => {
                                     const val = e.target.value;
@@ -62,7 +62,7 @@ export const WeaponsSection: React.FC<Props> = ({ character, setCharacter, allWe
                                 <span className="text-stone-600 font-bold text-xs mr-1">+</span>
                                 <input
                                     type="number"
-                                    className="w-8 bg-transparent text-center font-mono font-bold text-primary-400 outline-none"
+                                    aria-label="Modificateur d’attaque" className="w-8 bg-transparent text-center font-mono font-bold text-primary-400 outline-none"
                                     value={weapon.atkMod || 0}
                                     onChange={(e) => {
                                         const newWeapons = [...(character.playState?.weapons || [])];
@@ -77,7 +77,7 @@ export const WeaponsSection: React.FC<Props> = ({ character, setCharacter, allWe
                             <input
                                 type="text"
                                 className="w-full bg-transparent text-center border-none outline-none text-stone-300 font-mono placeholder:text-stone-600"
-                                placeholder="1d8"
+                                placeholder="1d8" aria-label="1d8"
                                 value={weapon.dmg}
                                 onChange={(e) => {
                                     const newWeapons = [...(character.playState?.weapons || [])];
@@ -91,7 +91,7 @@ export const WeaponsSection: React.FC<Props> = ({ character, setCharacter, allWe
                             <input
                                 type="text"
                                 className="w-full bg-transparent border-none outline-none text-[11px] text-stone-500 italic placeholder:text-stone-600"
-                                placeholder="Critique, portée..."
+                                placeholder="Critique, portée..." aria-label="Critique, portée..."
                                 value={weapon.special}
                                 onChange={(e) => {
                                     const newWeapons = [...(character.playState?.weapons || [])];

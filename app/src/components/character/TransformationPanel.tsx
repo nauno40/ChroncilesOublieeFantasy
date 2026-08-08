@@ -70,7 +70,7 @@ export const TransformationPanel: React.FC<Props> = ({ character, setCharacter }
                             className={`text-[11px] uppercase font-black px-2 py-1 rounded border transition-all ${f.active ? 'bg-purple-500/20 border-purple-500 text-purple-200' : 'bg-stone-950 border-stone-700 text-stone-500 hover:text-white'}`}
                         >{f.active ? 'Active' : 'Off'}</button>
                         <input type="text" className="flex-1 bg-stone-950/40 border border-stone-800 rounded px-2 py-1 text-stone-200 font-bold outline-none focus:border-primary-500/40"
-                            placeholder="Nom de la forme" value={f.name} onChange={e => update(idx, { name: e.target.value })} />
+                            placeholder="Nom de la forme" aria-label="Nom de la forme" value={f.name} onChange={e => update(idx, { name: e.target.value })} />
                         <button onClick={() => remove(idx)} className="text-stone-600 hover:text-red-400" title="Retirer">✕</button>
                     </div>
                     <div className="flex flex-wrap items-center gap-2 text-[11px]">
@@ -79,14 +79,17 @@ export const TransformationPanel: React.FC<Props> = ({ character, setCharacter }
                             <button onClick={() => setHp(idx, f, -1)} className="text-stone-500 hover:text-red-400 w-4 text-center">−</button>
                             <span className="font-mono font-bold text-green-400">{f.hp.current}/</span>
                             <input type="number" className="w-9 bg-stone-950/40 border border-stone-800 rounded px-1 py-0.5 text-center text-stone-300 outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none"
+                                aria-label="PV maximum de la forme"
                                 value={f.hp.max} onChange={e => setMaxHp(idx, f, Math.max(0, parseInt(e.target.value) || 0))} />
                             <button onClick={() => setHp(idx, f, 1)} className="text-stone-500 hover:text-green-400 w-4 text-center">+</button>
                         </span>
                         <label className="flex items-center gap-1"><span className="text-stone-500 uppercase font-bold">DEF</span>
                             <input type="number" className="w-10 bg-stone-950/40 border border-stone-800 rounded px-1 py-0.5 text-center text-stone-300 outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none"
+                                aria-label="DEF de la forme"
                                 value={f.def} onChange={e => update(idx, { def: parseInt(e.target.value) || 0 })} /></label>
                         <label className="flex items-center gap-1"><span className="text-stone-500 uppercase font-bold">Init</span>
                             <input type="number" className="w-10 bg-stone-950/40 border border-stone-800 rounded px-1 py-0.5 text-center text-stone-300 outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none"
+                                aria-label="Initiative de la forme"
                                 value={f.init} onChange={e => update(idx, { init: parseInt(e.target.value) || 0 })} /></label>
                     </div>
                 </div>

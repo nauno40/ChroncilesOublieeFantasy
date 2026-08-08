@@ -43,6 +43,7 @@ export const RacialGrantPanel: React.FC<Props> = ({ character, setCharacter, pro
             </p>
             <select
                 className="w-full bg-stone-950/40 border border-stone-800 rounded px-2 py-1 text-xs text-stone-200 outline-none focus:border-primary-500/40"
+                aria-label="Voie de la capacité octroyée"
                 value={value}
                 onChange={e => setGrant(e.target.value, grant.allowsRank2 ? chosenRank : 1)}
             >
@@ -54,6 +55,7 @@ export const RacialGrantPanel: React.FC<Props> = ({ character, setCharacter, pro
                     <label className="text-[11px] uppercase font-bold text-stone-500 tracking-wider">Rang</label>
                     <select
                         className="bg-stone-950/40 border border-stone-800 rounded px-2 py-1 text-xs text-stone-200 outline-none focus:border-primary-500/40"
+                        aria-label="Rang de la capacité octroyée"
                         value={chosenRank}
                         onChange={e => setGrant(value, Number(e.target.value))}
                     >

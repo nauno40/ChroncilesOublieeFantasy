@@ -159,6 +159,7 @@ export const AttributesPanel: React.FC<Props> = ({
                                                         Restriction : {availableOptions.join(', ')}
                                                     </div>
                                                     <select
+                                                        aria-label="Caractéristique à augmenter"
                                                         className="bg-stone-950 border border-stone-800 text-stone-300 text-[11px] rounded px-2 py-1.5 outline-none focus:border-green-500/50 transition-all"
                                                         value={currentSelection || ''}
                                                         onChange={(e) => setRacialBonusChoices(prev => ({ ...prev, [subChoiceKey]: e.target.value }))}

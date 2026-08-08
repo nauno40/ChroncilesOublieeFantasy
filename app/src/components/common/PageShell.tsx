@@ -9,8 +9,16 @@ import { Search, type LucideIcon } from 'lucide-react';
  */
 interface PageShellProps {
     title: string;
+    /**
+     * **Ce qu'on vient faire sur cette page**, en une phrase — jamais un compte de
+     * résultats, qui décrit le filtrage et vit avec la recherche (`SearchToolbar`).
+     * Le même emplacement portait tantôt une donnée, tantôt une accroche, tantôt rien :
+     * un lecteur ne pouvait pas apprendre à le lire.
+     */
     subtitle?: string;
-    icon?: LucideIcon;
+    /** Obligatoire : c'est le repère visuel qu'une page partage avec son entrée de
+     *  navigation. Une page sans icône se distingue mal d'une autre au premier coup d'œil. */
+    icon: LucideIcon;
     actions?: React.ReactNode;
     /** Barre d'onglets / filtres source (ex. <SourceTabs/>). Rendue sous le titre. */
     tabs?: React.ReactNode;
@@ -23,7 +31,7 @@ export const PageShell: React.FC<PageShellProps> = ({ title, subtitle, icon: Ico
         <div className="flex flex-wrap items-start justify-between gap-4">
             <div className="min-w-0">
                 <h1 className="text-3xl md:text-4xl font-display font-bold text-white drop-shadow-sm flex items-center gap-3">
-                    {Icon && <Icon className="text-primary-400/90 shrink-0" size={28} />}
+                    <Icon className="text-primary-400/90 shrink-0" size={28} />
                     <span className="truncate">{title}</span>
                 </h1>
                 {subtitle && <p className="text-stone-400 mt-1.5 text-sm max-w-2xl">{subtitle}</p>}

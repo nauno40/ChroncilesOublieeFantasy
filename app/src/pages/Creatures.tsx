@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Bestiary } from './Bestiary';
 import { CustomMonsters } from './CustomMonsters';
+import { Ghost } from 'lucide-react';
 import { PageContainer, PageShell, SourceTabs } from '../components/common';
+import { LEXIQUE } from '../domain/lexique';
 
 /**
  * Page « Créatures » unifiée (compendium communautaire) : en-tête PageShell + filtre
@@ -11,9 +13,9 @@ import { PageContainer, PageShell, SourceTabs } from '../components/common';
 type Source = 'official' | 'community' | 'mine';
 
 const SOURCES: { id: Source; label: string }[] = [
-    { id: 'official', label: 'Officiel' },
-    { id: 'community', label: 'Communauté' },
-    { id: 'mine', label: 'Mes créations' },
+    { id: 'official', label: LEXIQUE.sourceOfficiel },
+    { id: 'community', label: LEXIQUE.sourceCommunaute },
+    { id: 'mine', label: LEXIQUE.sourceMiennes },
 ];
 
 export const Creatures: React.FC = () => {
@@ -23,7 +25,9 @@ export const Creatures: React.FC = () => {
         <div>
             <PageContainer>
                 <PageShell
-                    title="Créatures"
+                    title={LEXIQUE.creatures}
+                    subtitle="Le bestiaire officiel, vos créatures et celles de la communauté."
+                    icon={Ghost}
                     tabs={<SourceTabs tabs={SOURCES} value={source} onChange={setSource} />}
                     className="mb-0"
                 />

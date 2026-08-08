@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
-import { Eye, EyeOff, Globe } from 'lucide-react';
+import { Eye, EyeOff, Globe, PenLine } from 'lucide-react';
 import { PageContainer, PageShell, Loader } from '../components/common';
 import { HomebrewFields, inputCls, inputErrCls, labelCls } from '../components/homebrew/HomebrewFields';
 import { CapabilityBlocks } from '../components/homebrew/CapabilityBlocks';
@@ -329,7 +329,7 @@ export const HomebrewForm: React.FC = () => {
 
     return (
         <PageContainer>
-            <PageShell title={title} subtitle={selectableCategories ? undefined : categoryLabel(category)} />
+            <PageShell title={title} subtitle={selectableCategories ? undefined : categoryLabel(category)} icon={PenLine} />
 
             <div className={previewSupported ? 'lg:grid lg:grid-cols-2 lg:gap-8 items-start' : ''}>
                 <div className={previewSupported ? '' : 'max-w-2xl'}>

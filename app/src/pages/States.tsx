@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import type { HarmfulState } from '../types/normalized';
-import { PageContainer, PageHeader, Loader } from '../components/common';
+import { PageContainer, SearchToolbar, Loader } from '../components/common';
 import { useSearch } from '../hooks';
 import { DataService } from '../services/dataService';
 
@@ -27,11 +27,11 @@ export const States: React.FC = () => {
 
     return (
         <PageContainer>
-            <PageHeader
-                searchValue={searchTerm}
-                onSearchChange={setSearchTerm}
-                searchPlaceholder="Rechercher un état..."
-                subtitle={`${filteredItems.length} état${filteredItems.length > 1 ? 's' : ''} trouvé${filteredItems.length > 1 ? 's' : ''}`}
+            <SearchToolbar
+                value={searchTerm}
+                onChange={setSearchTerm}
+                placeholder="Rechercher un état…"
+                count={{ n: filteredItems.length, singulier: 'état' }}
             />
 
             <div className="flex flex-wrap gap-3">

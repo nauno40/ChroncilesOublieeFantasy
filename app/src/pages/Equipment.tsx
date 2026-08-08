@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { PageContainer, SearchBar, EmptyState, TabGroup, Loader } from '../components/common';
+import { PageContainer, SearchToolbar, EmptyState, Loader } from '../components/common';
 import { useSearch } from '../hooks';
-import { Sword, Shield, Gem } from 'lucide-react';
 import { DataService } from '../services/dataService';
 
 import type { Weapon, Armor, Material } from '../types/normalized';
@@ -98,11 +97,23 @@ export const Equipment: React.FC = () => {
     const armorSearch = useSearch(armors, (a, term) => a.name.toLowerCase().includes(term.toLowerCase()), initialTab === 'armors' ? initialQuery : '');
     const materialSearch = useSearch(materials, (m, term) => m.name.toLowerCase().includes(term.toLowerCase()), initialTab === 'materials' ? initialQuery : '');
 
-    const tabs = [
-        { id: 'weapons', label: 'Armes', icon: Sword },
-        { id: 'armors', label: 'Armures', icon: Shield },
-        { id: 'materials', label: 'Matériel', icon: Gem }
+    // Sous-types de la page. Ils vivaient dans un second système d'onglets empilé sous le
+    // filtre de source : deux grammaires visuelles pour la même intention, restreindre ce
+    // qu'on regarde. Ce sont désormais des pastilles dans la barre de recherche, avec
+    // laquelle elles font corps.
+    const [sousType, setSousType] = useState<'weapons' | 'armors' | 'materials'>(
+        (initialTab as 'weapons' | 'armors' | 'materials') ?? 'weapons');
+
+    const CHIPS = [
+        { id: 'weapons', label: 'Armes' },
+        { id: 'armors', label: 'Armures' },
+        { id: 'materials', label: 'Matériel' },
     ];
+
+    const recherche = sousType === 'weapons' ? weaponSearch : sousType === 'armors' ? armorSearch : materialSearch;
+    const invite = sousType === 'weapons' ? 'Rechercher une arme…'
+        : sousType === 'armors' ? 'Rechercher une armure…' : 'Rechercher un matériel…';
+    const singulier = sousType === 'weapons' ? 'arme' : sousType === 'armors' ? 'armure' : 'matériel';
 
     return (
         <PageContainer>
@@ -115,16 +126,20 @@ export const Equipment: React.FC = () => {
                     <code className="text-sm bg-black/20 p-1 rounded block mt-2">{error}</code>
                 </div>
             ) : (
-                <TabGroup tabs={tabs} defaultTab={initialTab}>
-                    {(activeTab) => (
+                <div className="space-y-4">
+                    <SearchToolbar
+                        value={recherche.searchTerm}
+                        onChange={recherche.setSearchTerm}
+                        placeholder={invite}
+                        chips={CHIPS}
+                        chipActif={sousType}
+                        onChipChange={id => setSousType(id as 'weapons' | 'armors' | 'materials')}
+                        count={{ n: recherche.filteredItems.length, singulier, pluriel: singulier === 'matériel' ? 'matériels' : undefined }}
+                    />
+                    {(() => { const activeTab = sousType; return (
                         <>
                             {activeTab === 'weapons' && (
                                 <div className="space-y-4">
-                                    <SearchBar
-                                        value={weaponSearch.searchTerm}
-                                        onChange={weaponSearch.setSearchTerm}
-                                        placeholder="Rechercher une arme..."
-                                    />
 
                                     {weaponSearch.filteredItems.length === 0 ? (
                                         <EmptyState message="Aucune arme trouvée" />
@@ -174,11 +189,6 @@ export const Equipment: React.FC = () => {
 
                             {activeTab === 'armors' && (
                                 <div className="space-y-4">
-                                    <SearchBar
-                                        value={armorSearch.searchTerm}
-                                        onChange={armorSearch.setSearchTerm}
-                                        placeholder="Rechercher une armure..."
-                                    />
 
                                     {armorSearch.filteredItems.length === 0 ? (
                                         <EmptyState message="Aucune armure trouvée" />
@@ -220,11 +230,6 @@ export const Equipment: React.FC = () => {
 
                             {activeTab === 'materials' && (
                                 <div className="space-y-4">
-                                    <SearchBar
-                                        value={materialSearch.searchTerm}
-                                        onChange={materialSearch.setSearchTerm}
-                                        placeholder="Rechercher du matériel..."
-                                    />
                                     {materialSearch.filteredItems.length === 0 ? (
                                         <EmptyState message="Aucun matériel trouvé" />
                                     ) : (
@@ -257,8 +262,8 @@ export const Equipment: React.FC = () => {
                                 </div>
                             )}
                         </>
-                    )}
-                </TabGroup>
+                    ); })()}
+                </div>
             )}
         </PageContainer>
     );

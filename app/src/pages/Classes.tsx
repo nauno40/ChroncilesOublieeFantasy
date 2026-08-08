@@ -1,8 +1,26 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import type { Profile } from '../types/normalized';
-import { PageContainer, PageHeader, Card, Badge, FilterPanel, Loader } from '../components/common';
+import { PageContainer, SearchToolbar, ContentCard, CardStats, FilterPanel, Loader, onImageError } from '../components/common';
 import { useSearch } from '../hooks';
 import { DataService } from '../services/dataService';
+
+/**
+ * Ce qu'une carte de classe montre en pied : les PV par niveau, la limite d'armure et la
+ * caractéristique de magie. Trois chiffres qui décident d'un choix de profil, et qui
+ * dormaient dans la donnée pendant qu'on n'affichait qu'un badge « Magie ».
+ * `armorMaxDef` vaut -1 pour « aucune armure » (cf. AppFixtures).
+ */
+const statsDeLaClasse = (profile: Profile) => {
+    const stats: { label: string; value: React.ReactNode }[] = [];
+    // Les PV par niveau viennent de la famille de profil : c'est ce que l'API sert dans la
+    // liste (le dé de vie, lui, n'y figure pas).
+    if (profile.stats?.hpPerLevel) stats.push({ label: 'PV/niv.', value: profile.stats.hpPerLevel });
+    if (profile.armorMaxDef !== undefined && profile.armorMaxDef !== null) {
+        stats.push({ label: 'Armure', value: profile.armorMaxDef < 0 ? 'aucune' : `DEF +${profile.armorMaxDef}` });
+    }
+    if (profile.magicStat) stats.push({ label: 'Magie', value: profile.magicStat });
+    return stats;
+};
 
 export const Classes: React.FC = () => {
     const [profiles, setProfiles] = useState<Profile[]>([]);
@@ -45,11 +63,11 @@ export const Classes: React.FC = () => {
 
     return (
         <PageContainer>
-            <PageHeader
-                searchValue={searchTerm}
-                onSearchChange={setSearchTerm}
-                searchPlaceholder="Rechercher une classe..."
-                subtitle={`${filteredItems.length} classe${filteredItems.length > 1 ? 's' : ''} trouvée${filteredItems.length > 1 ? 's' : ''}`}
+            <SearchToolbar
+                value={searchTerm}
+                onChange={setSearchTerm}
+                placeholder="Rechercher une classe…"
+                count={{ n: filteredItems.length, singulier: 'classe' }}
             />
 
             <FilterPanel
@@ -97,37 +115,28 @@ export const Classes: React.FC = () => {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {filteredItems.map((profile) => (
-                    <Card
+                    <ContentCard
                         key={profile.id}
                         to={`/classes/${profile.id}`}
-                        image={{
-                            src: profile.imageUrl || `/assets/profils/${profile.name}.jpg`,
-                            alt: profile.name
-                        }}
+                        media={
+                            <img
+                                src={profile.imageUrl || `/assets/profils/${profile.name}.jpg`}
+                                alt={profile.name}
+                                onError={onImageError(profile.name)}
+                                className="w-full h-48 object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                            />
+                        }
+                        footer={<CardStats stats={statsDeLaClasse(profile)} />}
                     >
-                        <h3 className="text-xl font-display font-bold text-primary-300 mb-3 group-hover:text-primary-200 transition-colors">
+                        <h3 className="text-xl font-display font-bold text-primary-300 group-hover:text-primary-200 transition-colors">
                             {profile.name}
                         </h3>
-
                         {profile.description && (
-                            <p className="text-sm text-stone-400 line-clamp-3 mb-4">
+                            <p className="text-sm text-stone-400 line-clamp-3 mt-1">
                                 {profile.description}
                             </p>
                         )}
-
-                        <div className="flex flex-wrap gap-2">
-                            {profile.hitDie && (
-                                <Badge variant="success" size="sm">
-                                    DV: {profile.hitDie}
-                                </Badge>
-                            )}
-                            {profile.magicModifier && (
-                                <Badge variant="primary" size="sm">
-                                    Magie
-                                </Badge>
-                            )}
-                        </div>
-                    </Card>
+                    </ContentCard>
                 ))}
             </div>
         </PageContainer>

@@ -75,11 +75,11 @@ export const GlobalSearch: React.FC<GlobalSearchProps> = ({ isOpen, onClose }) =
                 const items: SearchResult[] = [];
 
                 // Helper to safely add items
-                // `any` assumé ici : l'index agrège neuf collections dont les types
-                // déclarés sont incomplets par rapport aux charges utiles de l'API
-                // (`Creature.level`, `Armor.defense`… existent en base, pas dans le type).
-                // Typer strictement demanderait de compléter ces types d'abord — c'est un
-                // chantier à part, pas un remplacement de mot-clé.
+                // `any` assumé ici : l'index agrège neuf collections aux formes différentes,
+                // et le mappeur ne lit de chacune que deux ou trois champs. Le typer
+                // strictement demanderait neuf surcharges pour un gain nul — ce qui compte,
+                // c'est que chaque mappeur lise les champs RÉELLEMENT servis par l'API,
+                // vérifiés contre les charges utiles.
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 const safeAdd = (data: any[], type: SearchResult['type'], mapFn: (item: any, index: number) => Partial<SearchResult> | null) => {
                     if (!Array.isArray(data)) return;
@@ -104,18 +104,20 @@ export const GlobalSearch: React.FC<GlobalSearchProps> = ({ isOpen, onClose }) =
                     });
                 };
 
+                // Ce bloc lisait encore la forme d'export Drupal (`name[0].value`), abandonnée
+                // à la normalisation de l'API : `name` étant devenu une chaîne, la garde
+                // `if (!name) return null` écartait TOUTES les créatures — le bestiaire était
+                // absent de la recherche globale sans que rien ne le signale. Le niveau,
+                // lui, s'appelle `nc` (niveau de challenge) côté API.
                 safeAdd(creatures, 'creature', (c, index) => {
-                    const name = c.name?.[0]?.value;
-                    if (!name) return null;
-                    const level = c.level?.[0]?.value;
-                    const category = c.category?.[0]?.label;
-                    const id = c.id || index; // Use ID if available
-
+                    if (!c.name) return null;
+                    const id = c.id ?? index;
+                    const categorie = typeof c.category === 'string' ? c.category : undefined;
                     return {
                         id: `creature-${id}`,
-                        label: name,
-                        subLabel: level ? `Niv ${level} • ${category || ''}` : category,
-                        url: `/bestiary/${id}` // This now assumes ID based routing for bestiary if c.id is present, else index might fail if refactored
+                        label: c.name,
+                        subLabel: c.nc != null ? `NC ${c.nc}${categorie ? ` • ${categorie}` : ''}` : categorie,
+                        url: `/bestiary/${id}`,
                     };
                 });
 
@@ -160,7 +162,9 @@ export const GlobalSearch: React.FC<GlobalSearchProps> = ({ isOpen, onClose }) =
                 safeAdd(armors, 'equipment', a => ({
                     id: `armor-${a.id}`,
                     label: a.name,
-                    subLabel: a.defense ? `Armure • DEF ${a.defense}` : 'Armure',
+                    // `acBonus` est le champ servi par l'API ; `defense` n'existe que sur la
+                    // forme dérivée par `useCharacterData`, pas ici.
+                    subLabel: a.acBonus ? `Armure • DEF +${a.acBonus}` : 'Armure',
                     url: '/equipment'
                 }));
 

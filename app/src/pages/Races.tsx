@@ -1,7 +1,7 @@
 import React from 'react';
 import { DataService } from '../services/dataService';
 import type { Race } from '../types/normalized';
-import { PageContainer, PageHeader, Card, Loader } from '../components/common';
+import { PageContainer, SearchToolbar, Card, Loader } from '../components/common';
 import { useSearch } from '../hooks';
 
 export const Races: React.FC = () => {
@@ -24,11 +24,11 @@ export const Races: React.FC = () => {
 
     return (
         <PageContainer>
-            <PageHeader
-                searchValue={searchTerm}
-                onSearchChange={setSearchTerm}
-                searchPlaceholder="Rechercher une race..."
-                subtitle={`${filteredItems.length} race${filteredItems.length > 1 ? 's' : ''} trouvée${filteredItems.length > 1 ? 's' : ''}`}
+            <SearchToolbar
+                value={searchTerm}
+                onChange={setSearchTerm}
+                placeholder="Rechercher un peuple…"
+                count={{ n: filteredItems.length, singulier: 'peuple' }}
             />
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">

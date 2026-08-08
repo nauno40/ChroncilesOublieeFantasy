@@ -12,7 +12,6 @@ import { LoginPage } from './pages/LoginPage';
 import { RegisterPage } from './pages/RegisterPage';
 import { ForgotPasswordPage } from './pages/ForgotPasswordPage';
 import { ResetPasswordPage } from './pages/ResetPasswordPage';
-import { LEXIQUE } from './domain/lexique';
 
 // Pages protégées : code-splitting (React.lazy) → un chunk par page, chargé à la demande.
 // Les exports nommés sont remappés en `default` (contrat attendu par React.lazy).
@@ -80,22 +79,22 @@ function App() {
                 <Route path="tools/tracker" element={<CombatTracker />} />
                 <Route path="tools/monsters" element={<CustomMonsters />} />
                 <Route path="tools/soundboard" element={<SoundboardPage />} />
-                <Route path="races" element={<CompendiumType title={LEXIQUE.peuples} category="race" official={<Races />} />} />
+                <Route path="races" element={<CompendiumType category="race" official={<Races />} />} />
                 <Route path="races/:id" element={<RaceDetail />} />
-                <Route path="classes" element={<CompendiumType title="Classes" category="classe" official={<Classes />} />} />
+                <Route path="classes" element={<CompendiumType category="classe" official={<Classes />} />} />
                 <Route path="classes/:id" element={<ClassDetail />} />
-                <Route path="voies" element={<CompendiumType title="Voies" category="voie" official={<Voies />} />} />
+                <Route path="voies" element={<CompendiumType category="voie" official={<Voies />} />} />
                 <Route path="voies/:id" element={<VoieDetail />} />
-                <Route path="capacites" element={<CompendiumType title="Capacités & Sorts" category={['capacite', 'sort']} official={<Capacites />} />} />
+                <Route path="capacites" element={<CompendiumType category={['capacite', 'sort']} official={<Capacites />} />} />
                 <Route path="capacites/:id" element={<CapaciteDetail />} />
-                <Route path="equipment" element={<CompendiumType title="Équipement" category="equipement" official={<Equipment />} />} />
+                <Route path="equipment" element={<CompendiumType category="equipement" official={<Equipment />} />} />
                 <Route path="mounts" element={<Mounts />} />
                 <Route path="provisions" element={<Provisions />} />
                 <Route path="tools/dice" element={<Dice />} />
-                <Route path="tools/magic-items" element={<CompendiumType title="Objets magiques" category="objet-magique" official={<MagicItems />} />} />
-                <Route path="states" element={<CompendiumType title="États" category="etat" official={<States />} />} />
-                <Route path="poisons" element={<CompendiumType title="Poisons" category="poison" official={<Poisons />} />} />
-                <Route path="traps" element={<CompendiumType title="Pièges" category="piege" official={<Traps />} />} />
+                <Route path="tools/magic-items" element={<CompendiumType category="objet-magique" official={<MagicItems />} />} />
+                <Route path="states" element={<CompendiumType category="etat" official={<States />} />} />
+                <Route path="poisons" element={<CompendiumType category="poison" official={<Poisons />} />} />
+                <Route path="traps" element={<CompendiumType category="piege" official={<Traps />} />} />
                 <Route path="rules" element={<Rules />} />
                 <Route path="bibliotheque" element={<Bibliotheque />} />
                 <Route path="bibliotheque/nouveau/:categorie" element={<HomebrewForm />} />

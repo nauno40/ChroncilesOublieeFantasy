@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import type { Profile } from '../types/normalized';
-import { PageContainer, PageHeader, Card, Badge, FilterPanel, Loader } from '../components/common';
+import { PageContainer, SearchToolbar, Card, Badge, FilterPanel, Loader } from '../components/common';
 import { useSearch } from '../hooks';
 import { DataService } from '../services/dataService';
 
@@ -45,11 +45,11 @@ export const Classes: React.FC = () => {
 
     return (
         <PageContainer>
-            <PageHeader
-                searchValue={searchTerm}
-                onSearchChange={setSearchTerm}
-                searchPlaceholder="Rechercher une classe..."
-                subtitle={`${filteredItems.length} classe${filteredItems.length > 1 ? 's' : ''} trouvée${filteredItems.length > 1 ? 's' : ''}`}
+            <SearchToolbar
+                value={searchTerm}
+                onChange={setSearchTerm}
+                placeholder="Rechercher une classe…"
+                count={{ n: filteredItems.length, singulier: 'classe' }}
             />
 
             <FilterPanel

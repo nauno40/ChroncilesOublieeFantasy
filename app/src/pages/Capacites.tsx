@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import type { Capacity, Profile, Voie } from '../types/normalized';
-import { PageContainer, PageHeader, Card, Badge, FilterPanel, Loader } from '../components/common';
+import { PageContainer, SearchToolbar, Card, Badge, FilterPanel, Loader } from '../components/common';
 import { DataService } from '../services/dataService';
 
 export const Capacites: React.FC = () => {
@@ -104,11 +104,11 @@ export const Capacites: React.FC = () => {
 
     return (
         <PageContainer>
-            <PageHeader
-                searchValue={searchTerm}
-                onSearchChange={setSearchTerm}
-                searchPlaceholder="Rechercher une capacité..."
-                subtitle={`${filteredItems.length} capacité${filteredItems.length > 1 ? 's' : ''} trouvée${filteredItems.length > 1 ? 's' : ''}`}
+            <SearchToolbar
+                value={searchTerm}
+                onChange={setSearchTerm}
+                placeholder="Rechercher une capacité…"
+                count={{ n: filteredItems.length, singulier: 'capacité' }}
             />
 
             <FilterPanel

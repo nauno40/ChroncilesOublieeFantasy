@@ -212,9 +212,12 @@ class AppFixtures extends Fixture
                 $e->setMagicStat($stats['magicStat']);
             }
 
-            // Save remaining stats in JSON
+            // Le reste des stats part en JSON. `magicStat` a sa propre colonne, donc on
+            // l'en retire ; `hitDie` était retiré aussi, sans colonne pour l'accueillir —
+            // il disparaissait purement et simplement, et la fiche de classe ne pouvait
+            // pas afficher le dé de vie qu'elle prévoyait.
             $extraStats = $stats;
-            unset($extraStats['hitDie'], $extraStats['magicStat']);
+            unset($extraStats['magicStat']);
             if (!empty($extraStats)) {
                 $e->setStats($extraStats);
             }

@@ -91,6 +91,21 @@ final class ProfileDataTest extends TestCase
         );
     }
 
+    public function testLeDeDeVieSurvitAuChargement(): void
+    {
+        // Les fixtures retiraient `hitDie` des stats avant de les enregistrer, sans colonne
+        // pour l'accueillir : le dé de vie disparaissait entre le fichier et la base, et la
+        // fiche de classe ne pouvait pas afficher une valeur qu'elle prévoyait pourtant.
+        foreach (self::profils() as $nom => $data) {
+            $this->assertArrayHasKey('hitDie', $data['class']['stats'] ?? [], "Le profil « $nom » n'a pas de dé de vie.");
+            $this->assertMatchesRegularExpression('/^1D\d+$/', $data['class']['stats']['hitDie'], "Dé de vie mal formé pour « $nom ».");
+        }
+
+        // Le chargement ne doit retirer que `magicStat`, qui a sa propre colonne.
+        $fixtures = file_get_contents(\dirname(__DIR__, 2).'/src/DataFixtures/AppFixtures.php');
+        $this->assertStringNotContainsString("unset(\$extraStats['hitDie']", $fixtures);
+    }
+
     public function testChaqueProfilACinqVoiesDeCinqCapacites(): void
     {
         // Structure invariante de COF2 : 5 voies × 5 rangs. Une voie tronquée à l'import

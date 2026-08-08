@@ -207,6 +207,16 @@ Fonctionnalités clés :
 
 ## 10. Points d'attention
 
+- **Écart types ↔ API** : `node scripts/audit-types-api.mjs [url]` confronte
+  `types/normalized.ts` aux charges utiles réellement servies. Un champ **déclaré mais
+  jamais servi** autorise une lecture qui ne peut pas aboutir — c'est ainsi que le
+  bestiaire avait disparu de la recherche globale (`name[0].value`, forme d'export
+  abandonnée) et que l'armure affichait un `defense` qui n'existe que sur une forme
+  dérivée. Au dernier passage : **32 champs** dans ce cas. Avant de conclure au code mort,
+  vérifier la donnée : une base de développement périmée produit le même symptôme (les
+  déclarations d'états des capacités n'étaient absentes que parce que les fixtures
+  n'avaient jamais été rechargées).
+
 - **Tests** :
   - *Unitaires* — Vitest sur les règles pures COF2 (`src/domain/rules/cofRules.test.ts`), lancés via
     `npm run test:run` (config `src/**/*.test.ts`).

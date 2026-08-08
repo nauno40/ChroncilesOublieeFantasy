@@ -16,7 +16,7 @@ const Field: React.FC<{ label: string; value?: string | number | null }> = ({ la
     if (value === undefined || value === null || value === '' || value === '-') return null;
     return (
         <div className="min-w-0">
-            <span className="text-stone-500 text-xs">{label} </span>
+            <span className="text-stone-400 text-xs">{label} </span>
             <span className="text-stone-300 font-mono text-sm break-words">{value}</span>
         </div>
     );

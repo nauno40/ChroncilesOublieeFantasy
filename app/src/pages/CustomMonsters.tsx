@@ -279,7 +279,7 @@ export const CustomMonsters: React.FC<CustomMonstersProps> = ({ embedded = false
                             <button
                                 key={t}
                                 onClick={() => setTab(t)}
-                                className={`px-4 py-2 rounded-xl text-sm font-bold transition-all ${tab === t ? 'bg-primary-500/20 text-primary-300 border border-primary-500/40' : 'bg-stone-900/40 text-stone-500 border border-white/5 hover:text-stone-300'}`}
+                                className={`px-4 py-2 rounded-xl text-sm font-bold transition-all ${tab === t ? 'bg-primary-500/20 text-primary-300 border border-primary-500/40' : 'bg-stone-900/40 text-stone-400 border border-white/5 hover:text-stone-300'}`}
                             >
                                 {t === 'mine' ? LEXIQUE.sourceMiennes : LEXIQUE.sourceCommunaute}
                             </button>
@@ -443,7 +443,7 @@ export const CustomMonsters: React.FC<CustomMonstersProps> = ({ embedded = false
                             </button>
                         </div>
                         <div className="space-y-2">
-                            {form.attacks.length === 0 && <p className="text-sm text-stone-500 italic">Aucune attaque.</p>}
+                            {form.attacks.length === 0 && <p className="text-sm text-stone-400 italic">Aucune attaque.</p>}
                             {form.attacks.map((atk, i) => (
                                 <div key={i} className="grid grid-cols-12 gap-2 items-start">
                                     <input
@@ -494,7 +494,7 @@ export const CustomMonsters: React.FC<CustomMonstersProps> = ({ embedded = false
                             </button>
                         </div>
                         <div className="space-y-2">
-                            {form.capabilities.length === 0 && <p className="text-sm text-stone-500 italic">Aucune capacité.</p>}
+                            {form.capabilities.length === 0 && <p className="text-sm text-stone-400 italic">Aucune capacité.</p>}
                             {form.capabilities.map((cap, i) => (
                                 <div key={i} className="grid grid-cols-12 gap-2 items-start">
                                     <input
@@ -603,18 +603,18 @@ export const CustomMonsters: React.FC<CustomMonstersProps> = ({ embedded = false
                                         <h3 className="text-lg font-display font-bold text-stone-100 truncate">{c.name}</h3>
                                         {c.visibility === 'public'
                                             ? <Globe size={13} className="text-green-500/70 shrink-0" aria-label="Public" />
-                                            : <Lock size={13} className="text-stone-600 shrink-0" aria-label="Privé" />}
+                                            : <Lock size={13} className="text-stone-400 shrink-0" aria-label="Privé" />}
                                     </div>
                                     <p className="text-sm text-stone-400 mt-1">
                                         NC {c.nc} · PV {c.hp} · DEF {c.def} · INIT {c.init}
                                         {c.category ? ` · ${c.category}` : ''}
                                     </p>
                                     {c.description && (
-                                        <p className="text-sm text-stone-500 mt-2 line-clamp-2">{c.description}</p>
+                                        <p className="text-sm text-stone-400 mt-2 line-clamp-2">{c.description}</p>
                                     )}
                                     {!mine && (
                                         <div className="mt-3 space-y-2">
-                                            <p className="text-[11px] text-stone-600 flex items-center gap-1">
+                                            <p className="text-[11px] text-stone-400 flex items-center gap-1">
                                                 <UserIcon size={11} /> {c.authorPseudo || 'Anonyme'}
                                             </p>
                                             <button

@@ -124,7 +124,7 @@ export const DiceRoller: React.FC<DiceRollerProps> = ({ isOpen, mode = 'popup' }
                 <div className="p-2 flex justify-end border-b border-white/5 bg-black/10">
                     <button
                         onClick={clearHistory}
-                        className="text-[11px] uppercase font-bold text-stone-500 hover:text-stone-300 flex items-center gap-1 transition-colors"
+                        className="text-[11px] uppercase font-bold text-stone-400 hover:text-stone-300 flex items-center gap-1 transition-colors"
                         title="Effacer l'historique"
                     >
                         <Eraser size={12} /> Effacer
@@ -136,7 +136,7 @@ export const DiceRoller: React.FC<DiceRollerProps> = ({ isOpen, mode = 'popup' }
             {/* History Area */}
             <div ref={historyListRef} className="flex-1 overflow-y-auto p-4 space-y-3 min-h-[100px] scrollbar-thin scrollbar-thumb-primary-900 scrollbar-track-transparent">
                 {history.length === 0 ? (
-                    <div className="h-full flex flex-col items-center justify-center text-stone-600 space-y-2 opacity-50 py-4">
+                    <div className="h-full flex flex-col items-center justify-center text-stone-400 space-y-2 opacity-50 py-4">
                         <Dices size={32} />
                         <p className="text-xs">Lancez les dés...</p>
                     </div>
@@ -144,8 +144,8 @@ export const DiceRoller: React.FC<DiceRollerProps> = ({ isOpen, mode = 'popup' }
                     history.map(roll => (
                         <div key={roll.id} className="glass-panel p-2 rounded-lg border-white/5 bg-black/20 flex justify-between items-center animate-in slide-in-from-right-2 fade-in duration-300">
                             <div>
-                                <span className="text-xs font-bold text-stone-500 uppercase tracking-wider block">{roll.description}</span>
-                                {roll.details && <div className="text-[11px] text-stone-600 font-mono">{roll.details}</div>}
+                                <span className="text-xs font-bold text-stone-400 uppercase tracking-wider block">{roll.description}</span>
+                                {roll.details && <div className="text-[11px] text-stone-400 font-mono">{roll.details}</div>}
                             </div>
                             <div className={`text-xl font-bold font-display ${roll.isCritSuccess ? 'text-green-400 drop-shadow-[0_0_5px_rgba(74,222,128,0.5)]' :
                                 roll.isCritFail ? 'text-red-400 drop-shadow-[0_0_5px_rgba(248,113,113,0.5)]' :
@@ -191,7 +191,7 @@ export const DiceRoller: React.FC<DiceRollerProps> = ({ isOpen, mode = 'popup' }
                     <button
                         type="submit"
                         disabled={!customFormula}
-                        className="absolute right-1 top-1 bottom-1 px-2 text-stone-500 hover:text-primary-400 disabled:opacity-30 disabled:hover:text-stone-500 transition-colors"
+                        className="absolute right-1 top-1 bottom-1 px-2 text-stone-400 hover:text-primary-400 disabled:opacity-30 disabled:hover:text-stone-400 transition-colors"
                     >
                         <ChevronRight size={14} />
                     </button>

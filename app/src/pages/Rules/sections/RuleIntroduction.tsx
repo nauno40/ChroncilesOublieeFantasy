@@ -115,7 +115,7 @@ export const RuleIntroduction: React.FC = () => {
                                         <li><em>(Ex: 3+5+2 = 10, +4 = 14).</em></li>
                                     </ul>
                                 </div>
-                                <p className="text-[11px] text-stone-500 mt-2 italic text-center">Note : Le "d3" est un d6 divisé par 2 (arrondi sup).</p>
+                                <p className="text-[11px] text-stone-400 mt-2 italic text-center">Note : Le "d3" est un d6 divisé par 2 (arrondi sup).</p>
                             </div>
 
                             <div className="space-y-3">

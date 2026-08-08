@@ -82,10 +82,10 @@ export const RuleChapter5: React.FC<RuleChapter5Props> = ({ scrollToSection }) =
                         <p className="text-sm text-stone-300 mb-3">Le MJ lance <strong>1d20</strong> à intervalles réguliers (selon densité de population/danger).</p>
                         <div className="bg-stone-900/50 p-3 rounded border border-white/10 text-sm">
                             <ul className="space-y-1 text-stone-300">
-                                <li className="flex justify-between"><span>Zones peuplées / Routes</span> <span className="text-stone-500 font-mono">15-20</span></li>
-                                <li className="flex justify-between"><span>Terres sauvages</span> <span className="text-stone-500 font-mono">17-20</span></li>
-                                <li className="flex justify-between"><span>Zones dangereuses</span> <span className="text-stone-500 font-mono">19-20</span></li>
-                                <li className="flex justify-between"><span>Donjon / Ruines</span> <span className="text-stone-500 font-mono">16-20 (toutes les heures)</span></li>
+                                <li className="flex justify-between"><span>Zones peuplées / Routes</span> <span className="text-stone-400 font-mono">15-20</span></li>
+                                <li className="flex justify-between"><span>Terres sauvages</span> <span className="text-stone-400 font-mono">17-20</span></li>
+                                <li className="flex justify-between"><span>Zones dangereuses</span> <span className="text-stone-400 font-mono">19-20</span></li>
+                                <li className="flex justify-between"><span>Donjon / Ruines</span> <span className="text-stone-400 font-mono">16-20 (toutes les heures)</span></li>
                             </ul>
                         </div>
                     </div>
@@ -94,10 +94,10 @@ export const RuleChapter5: React.FC<RuleChapter5Props> = ({ scrollToSection }) =
                         <p className="text-sm text-stone-300 mb-3">Détermine à quelle distance les groupes se repèrent (Test de PER opposé).</p>
                         <div className="bg-stone-900/50 p-3 rounded border border-white/10 text-sm">
                             <ul className="space-y-1 text-stone-300">
-                                <li className="flex justify-between"><span>Plaine / Désert</span> <span className="text-stone-500 font-mono">4d6 x 10 m</span></li>
-                                <li className="flex justify-between"><span>Forêt clairsemée / Collines</span> <span className="text-stone-500 font-mono">2d6 x 10 m</span></li>
-                                <li className="flex justify-between"><span>Forêt dense / Jungle</span> <span className="text-stone-500 font-mono">2d6 m</span></li>
-                                <li className="flex justify-between"><span>Intérieur /  Brouillard</span> <span className="text-stone-500 font-mono">1d6 x 3 m</span></li>
+                                <li className="flex justify-between"><span>Plaine / Désert</span> <span className="text-stone-400 font-mono">4d6 x 10 m</span></li>
+                                <li className="flex justify-between"><span>Forêt clairsemée / Collines</span> <span className="text-stone-400 font-mono">2d6 x 10 m</span></li>
+                                <li className="flex justify-between"><span>Forêt dense / Jungle</span> <span className="text-stone-400 font-mono">2d6 m</span></li>
+                                <li className="flex justify-between"><span>Intérieur /  Brouillard</span> <span className="text-stone-400 font-mono">1d6 x 3 m</span></li>
                             </ul>
                         </div>
                     </div>

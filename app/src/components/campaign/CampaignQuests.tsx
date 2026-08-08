@@ -49,7 +49,7 @@ export const CampaignQuests: React.FC<Props> = ({ campaign, onCampaignSaved }) =
         <button
             onClick={() => handleToggleShare(quest.id)}
             title={quest.shared ? 'Partagé aux joueurs — cliquer pour masquer' : 'Partager aux joueurs'}
-            className={clsx('transition-all', quest.shared ? 'text-primary-400 hover:text-primary-300' : 'text-stone-600 hover:text-primary-400 opacity-0 group-hover:opacity-100')}
+            className={clsx('transition-all', quest.shared ? 'text-primary-400 hover:text-primary-300' : 'text-stone-400 hover:text-primary-400 opacity-0 group-hover:opacity-100')}
         >
             {quest.shared ? <Eye size={size} /> : <EyeOff size={size} />}
         </button>
@@ -106,13 +106,13 @@ export const CampaignQuests: React.FC<Props> = ({ campaign, onCampaignSaved }) =
                         <div className="flex gap-2">
                             <button
                                 onClick={() => setNewQuest({ ...newQuest, type: 'main' })}
-                                className={clsx("px-2 py-1 rounded text-xs font-bold uppercase", newQuest.type === 'main' ? "bg-amber-500 text-stone-950" : "bg-stone-800 text-stone-500")}
+                                className={clsx("px-2 py-1 rounded text-xs font-bold uppercase", newQuest.type === 'main' ? "bg-amber-500 text-stone-950" : "bg-stone-800 text-stone-400")}
                             >
                                 Principale
                             </button>
                             <button
                                 onClick={() => setNewQuest({ ...newQuest, type: 'secondary' })}
-                                className={clsx("px-2 py-1 rounded text-xs font-bold uppercase", newQuest.type === 'secondary' ? "bg-stone-600 text-stone-200" : "bg-stone-800 text-stone-500")}
+                                className={clsx("px-2 py-1 rounded text-xs font-bold uppercase", newQuest.type === 'secondary' ? "bg-stone-600 text-stone-200" : "bg-stone-800 text-stone-400")}
                             >
                                 Secondaire
                             </button>
@@ -130,11 +130,11 @@ export const CampaignQuests: React.FC<Props> = ({ campaign, onCampaignSaved }) =
                     </h3>
                     <div className="space-y-2">
                         {(campaign.quests || []).filter((q: Quest) => q.type === 'main').length === 0 && (
-                            <p className="text-stone-600 text-sm text-center italic">Aucun objectif principal.</p>
+                            <p className="text-stone-400 text-sm text-center italic">Aucun objectif principal.</p>
                         )}
                         {(campaign.quests || []).filter((q: Quest) => q.type === 'main').map((quest: Quest) => (
                             <div key={quest.id} className={clsx("flex items-start gap-3 p-3 rounded-lg border transition-all", quest.status === 'completed' ? "bg-stone-900/30 border-transparent opacity-60" : "bg-stone-900/80 border-amber-500/20")}>
-                                <button onClick={() => handleToggleQuest(quest.id)} className="mt-0.5 text-stone-500 hover:text-amber-500 transition-colors">
+                                <button onClick={() => handleToggleQuest(quest.id)} className="mt-0.5 text-stone-400 hover:text-amber-500 transition-colors">
                                     {quest.status === 'completed' ? <CheckSquare size={18} /> : <Square size={18} />}
                                 </button>
                                 {editingQuestId === quest.id ? (
@@ -147,16 +147,16 @@ export const CampaignQuests: React.FC<Props> = ({ campaign, onCampaignSaved }) =
                                             className="flex-1 bg-stone-950 border border-amber-500/40 rounded px-2 py-1 text-stone-200 outline-none focus:border-amber-500"
                                         />
                                         <button onClick={handleSaveQuestEdit} title="Enregistrer" className="text-green-500 hover:text-green-400"><Check size={16} /></button>
-                                        <button onClick={() => setEditingQuestId(null)} title="Annuler" className="text-stone-500 hover:text-white"><X size={16} /></button>
+                                        <button onClick={() => setEditingQuestId(null)} title="Annuler" className="text-stone-400 hover:text-white"><X size={16} /></button>
                                     </>
                                 ) : (
                                     <>
                                         <div className="flex-1">
-                                            <p className={clsx("text-stone-200 leading-snug", quest.status === 'completed' && "line-through text-stone-500")}>{quest.title}</p>
+                                            <p className={clsx("text-stone-200 leading-snug", quest.status === 'completed' && "line-through text-stone-400")}>{quest.title}</p>
                                         </div>
                                         {shareButton(quest, 13)}
-                                        <button onClick={() => startEditQuest(quest)} title="Modifier" className="text-stone-600 hover:text-amber-500 opacity-0 group-hover:opacity-100 transition-opacity"><Edit size={13} /></button>
-                                        <button onClick={() => handleDeleteQuest(quest.id)} title="Supprimer" className="text-stone-600 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"><X size={14} /></button>
+                                        <button onClick={() => startEditQuest(quest)} title="Modifier" className="text-stone-400 hover:text-amber-500 opacity-0 group-hover:opacity-100 transition-opacity"><Edit size={13} /></button>
+                                        <button onClick={() => handleDeleteQuest(quest.id)} title="Supprimer" className="text-stone-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"><X size={14} /></button>
                                     </>
                                 )}
                             </div>
@@ -166,13 +166,13 @@ export const CampaignQuests: React.FC<Props> = ({ campaign, onCampaignSaved }) =
 
                 {/* Quêtes secondaires */}
                 <div>
-                    <h3 className="text-xs font-bold text-stone-500 uppercase tracking-widest mb-3 flex items-center gap-2">
+                    <h3 className="text-xs font-bold text-stone-400 uppercase tracking-widest mb-3 flex items-center gap-2">
                         <div className="h-px bg-stone-700 flex-1"></div> Secondaire <div className="h-px bg-stone-700 flex-1"></div>
                     </h3>
                     <div className="space-y-2">
                         {(campaign.quests || []).filter((q: Quest) => q.type === 'secondary').map((quest: Quest) => (
                             <div key={quest.id} className={clsx("flex items-start gap-3 p-2 rounded-lg border transition-all", quest.status === 'completed' ? "bg-stone-900/30 border-transparent opacity-60" : "bg-stone-900/50 border-white/5")}>
-                                <button onClick={() => handleToggleQuest(quest.id)} className="mt-0.5 text-stone-600 hover:text-stone-400 transition-colors">
+                                <button onClick={() => handleToggleQuest(quest.id)} className="mt-0.5 text-stone-400 hover:text-stone-400 transition-colors">
                                     {quest.status === 'completed' ? <CheckSquare size={16} /> : <Square size={16} />}
                                 </button>
                                 {editingQuestId === quest.id ? (
@@ -185,16 +185,16 @@ export const CampaignQuests: React.FC<Props> = ({ campaign, onCampaignSaved }) =
                                             className="flex-1 bg-stone-950 border border-stone-600 rounded px-2 py-1 text-sm text-stone-300 outline-none focus:border-stone-400"
                                         />
                                         <button onClick={handleSaveQuestEdit} title="Enregistrer" className="text-green-500 hover:text-green-400"><Check size={14} /></button>
-                                        <button onClick={() => setEditingQuestId(null)} title="Annuler" className="text-stone-500 hover:text-white"><X size={14} /></button>
+                                        <button onClick={() => setEditingQuestId(null)} title="Annuler" className="text-stone-400 hover:text-white"><X size={14} /></button>
                                     </>
                                 ) : (
                                     <>
                                         <div className="flex-1">
-                                            <p className={clsx("text-sm text-stone-300 leading-snug", quest.status === 'completed' && "line-through text-stone-600")}>{quest.title}</p>
+                                            <p className={clsx("text-sm text-stone-300 leading-snug", quest.status === 'completed' && "line-through text-stone-400")}>{quest.title}</p>
                                         </div>
                                         {shareButton(quest, 12)}
-                                        <button onClick={() => startEditQuest(quest)} title="Modifier" className="text-stone-600 hover:text-stone-300 opacity-0 group-hover:opacity-100 transition-opacity"><Edit size={12} /></button>
-                                        <button onClick={() => handleDeleteQuest(quest.id)} title="Supprimer" className="text-stone-600 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"><X size={14} /></button>
+                                        <button onClick={() => startEditQuest(quest)} title="Modifier" className="text-stone-400 hover:text-stone-300 opacity-0 group-hover:opacity-100 transition-opacity"><Edit size={12} /></button>
+                                        <button onClick={() => handleDeleteQuest(quest.id)} title="Supprimer" className="text-stone-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"><X size={14} /></button>
                                     </>
                                 )}
                             </div>

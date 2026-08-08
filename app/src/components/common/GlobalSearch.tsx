@@ -251,7 +251,7 @@ export const GlobalSearch: React.FC<GlobalSearchProps> = ({ isOpen, onClose }) =
                             if (e.key === 'Escape') onClose();
                         }}
                     />
-                    <div className="hidden md:flex items-center gap-2 text-xs text-stone-500 border border-white/10 rounded px-2 py-1">
+                    <div className="hidden md:flex items-center gap-2 text-xs text-stone-400 border border-white/10 rounded px-2 py-1">
                         <span className="font-bold">ESC</span> pour fermer
                     </div>
                     <button onClick={onClose} className="md:hidden text-stone-400">
@@ -262,7 +262,7 @@ export const GlobalSearch: React.FC<GlobalSearchProps> = ({ isOpen, onClose }) =
                 {/* Results List */}
                 <div className="overflow-y-auto custom-scrollbar p-2 flex-1">
                     {results.length === 0 ? (
-                        <div className="text-center py-12 text-stone-500">
+                        <div className="text-center py-12 text-stone-400">
                             {query ? (
                                 <>
                                     <Ghost className="mx-auto mb-3 opacity-20" size={48} />
@@ -302,13 +302,13 @@ export const GlobalSearch: React.FC<GlobalSearchProps> = ({ isOpen, onClose }) =
                                                     }`}>
                                                     {result.label}
                                                 </span>
-                                                <span className={`text-[11px] uppercase tracking-wider px-1.5 py-0.5 rounded ${isSelected ? 'bg-primary-500/20 text-primary-200' : 'bg-stone-800 text-stone-500'
+                                                <span className={`text-[11px] uppercase tracking-wider px-1.5 py-0.5 rounded ${isSelected ? 'bg-primary-500/20 text-primary-200' : 'bg-stone-800 text-stone-400'
                                                     }`}>
                                                     {TYPE_CONFIG[result.type].label}
                                                 </span>
                                             </div>
                                             {result.subLabel && (
-                                                <p className={`text-sm truncate ${isSelected ? 'text-primary-200/70' : 'text-stone-500'
+                                                <p className={`text-sm truncate ${isSelected ? 'text-primary-200/70' : 'text-stone-400'
                                                     }`}>
                                                     {result.subLabel}
                                                 </p>
@@ -326,7 +326,7 @@ export const GlobalSearch: React.FC<GlobalSearchProps> = ({ isOpen, onClose }) =
                 </div>
 
                 {/* Footer */}
-                <div className="p-3 bg-stone-950/50 border-t border-white/5 text-[11px] text-stone-500 flex justify-between items-center">
+                <div className="p-3 bg-stone-950/50 border-t border-white/5 text-[11px] text-stone-400 flex justify-between items-center">
                     <span>
                         <strong>{results.length}</strong> résultats trouvés
                     </span>

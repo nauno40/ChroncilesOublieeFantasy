@@ -92,9 +92,9 @@ export const Home: React.FC = () => {
                                     <div className="w-11 h-11 rounded-full bg-primary-900/30 border border-primary-500/20 flex items-center justify-center text-primary-400 shrink-0"><Users size={20} /></div>
                                     <div className="min-w-0 flex-1">
                                         <div className="font-display font-bold text-stone-100 group-hover:text-primary-300 truncate">{ch.name}</div>
-                                        <div className="text-xs text-stone-500">Niveau {ch.level}</div>
+                                        <div className="text-xs text-stone-400">Niveau {ch.level}</div>
                                     </div>
-                                    <ChevronRight size={18} className="text-stone-600 group-hover:text-primary-400 shrink-0" />
+                                    <ChevronRight size={18} className="text-stone-400 group-hover:text-primary-400 shrink-0" />
                                 </button>
                             ))}
                         </div>
@@ -115,7 +115,7 @@ export const Home: React.FC = () => {
                                         <div className="font-display font-bold text-stone-100 group-hover:text-primary-300 truncate">{e.name}</div>
                                         <div className="mt-1"><AuthorTag pseudo={e.authorPseudo} /></div>
                                     </div>
-                                    <ChevronRight size={18} className="text-stone-600 group-hover:text-primary-400 shrink-0" />
+                                    <ChevronRight size={18} className="text-stone-400 group-hover:text-primary-400 shrink-0" />
                                 </button>
                             ))}
                         </div>
@@ -141,7 +141,7 @@ const StatsCard: React.FC<{ label: string; value: number; icon: React.ElementTyp
         </div>
         <div className="min-w-0">
             <span className="block text-2xl font-display font-bold text-stone-200 group-hover:text-primary-400 transition-colors">{value}</span>
-            <span className="text-xs font-bold uppercase tracking-wider text-stone-500 group-hover:text-primary-500/70 transition-colors">{label}</span>
+            <span className="text-xs font-bold uppercase tracking-wider text-stone-400 group-hover:text-primary-500/70 transition-colors">{label}</span>
         </div>
     </button>
 );
@@ -157,7 +157,7 @@ const Section: React.FC<{ title: string; to: string; toLabel: string; children: 
 );
 
 const EmptyMini: React.FC<{ text: string; to?: string; cta?: string }> = ({ text, to, cta }) => (
-    <div className="text-center py-8 text-stone-500 text-sm">
+    <div className="text-center py-8 text-stone-400 text-sm">
         <p>{text}</p>
         {to && cta && <Link to={to} className="text-primary-400 hover:text-primary-300 underline mt-2 inline-block">{cta}</Link>}
     </div>

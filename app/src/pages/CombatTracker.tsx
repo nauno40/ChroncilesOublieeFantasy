@@ -269,29 +269,29 @@ export const CombatTracker: React.FC = () => {
                 son propre indicateur quand le libellé ne vit que dans le placeholder. */}
             <div className="glass-panel p-4 rounded-xl flex flex-wrap gap-3 shadow-lg items-end">
                 <label className="flex-1 min-w-[160px] flex flex-col gap-1">
-                    <span className="text-[11px] uppercase font-bold text-stone-500 tracking-wider">Combattant</span>
+                    <span className="text-[11px] uppercase font-bold text-stone-400 tracking-wider">Combattant</span>
                     <input type="text" value={name} onChange={e => setName(e.target.value)}
                         placeholder="Nom du combattant"
                         className="w-full bg-black/40 border border-white/10 text-stone-100 rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-primary-500 placeholder-stone-600"
                         onKeyDown={e => e.key === 'Enter' && addManual()} />
                 </label>
                 <label className="flex flex-col gap-1">
-                    <span className="text-[11px] uppercase font-bold text-stone-500 tracking-wider">Init</span>
+                    <span className="text-[11px] uppercase font-bold text-stone-400 tracking-wider">Init</span>
                     <input type="number" value={init} onChange={e => setInit(e.target.value)}
                         className="w-20 bg-black/40 border border-white/10 text-stone-100 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary-500 placeholder-stone-600" />
                 </label>
                 <label className="flex flex-col gap-1">
-                    <span className="text-[11px] uppercase font-bold text-stone-500 tracking-wider">PV</span>
+                    <span className="text-[11px] uppercase font-bold text-stone-400 tracking-wider">PV</span>
                     <input type="number" value={hp} onChange={e => setHp(e.target.value)}
                         className="w-20 bg-black/40 border border-white/10 text-stone-100 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary-500 placeholder-stone-600" />
                 </label>
                 <label className="flex flex-col gap-1">
-                    <span className="text-[11px] uppercase font-bold text-stone-500 tracking-wider">DEF</span>
+                    <span className="text-[11px] uppercase font-bold text-stone-400 tracking-wider">DEF</span>
                     <input type="number" value={def} onChange={e => setDef(e.target.value)}
                         className="w-20 bg-black/40 border border-white/10 text-stone-100 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary-500 placeholder-stone-600" />
                 </label>
                 <label className="flex flex-col gap-1" title="Perception — départage à initiative égale">
-                    <span className="text-[11px] uppercase font-bold text-stone-500 tracking-wider">PER</span>
+                    <span className="text-[11px] uppercase font-bold text-stone-400 tracking-wider">PER</span>
                     <input type="number" value={per} onChange={e => setPer(e.target.value)}
                         className="w-20 bg-black/40 border border-white/10 text-stone-100 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary-500 placeholder-stone-600" />
                 </label>
@@ -358,7 +358,7 @@ export const CombatTracker: React.FC = () => {
                                 </button>
                             ))}
                             <button type="button" onClick={() => setPoseEnCours(null)}
-                                className="text-[11px] px-2 py-1 rounded text-stone-500 hover:text-white">
+                                className="text-[11px] px-2 py-1 rounded text-stone-400 hover:text-white">
                                 Annuler
                             </button>
                         </div>
@@ -377,13 +377,13 @@ export const CombatTracker: React.FC = () => {
                         )}
 
                         <div className="w-14 text-center">
-                            <span className="text-[11px] text-stone-500 uppercase block font-bold mb-0.5">INIT</span>
+                            <span className="text-[11px] text-stone-400 uppercase block font-bold mb-0.5">INIT</span>
                             <div className="text-2xl font-display font-bold text-stone-300 border-2 border-white/10 rounded-lg py-1 bg-black/20">{c.initiative}</div>
                         </div>
 
                         <div className="flex-1 min-w-[120px]">
                             <div className={`font-bold text-lg font-display ${c.type === 'player' ? 'text-blue-300' : 'text-red-300'}`}>{c.name}</div>
-                            <div className="text-xs text-stone-500 flex items-center gap-2 mt-1">
+                            <div className="text-xs text-stone-400 flex items-center gap-2 mt-1">
                                 <span className="flex items-center gap-1 bg-black/30 px-2 py-0.5 rounded border border-white/5">
                                     <Shield size={12} className="text-stone-400" /> <span className="text-stone-300 font-mono font-bold">DEF {c.def}</span>
                                 </span>
@@ -424,9 +424,9 @@ export const CombatTracker: React.FC = () => {
                         {/* PV : ±1 rapides + saisie libre dégâts/soins */}
                         <div className="flex items-center gap-3 bg-black/20 p-2 rounded-lg border border-white/5">
                             <div className="flex flex-col items-center w-16">
-                                <span className="text-[11px] text-stone-500 uppercase font-bold mb-0.5">PV</span>
+                                <span className="text-[11px] text-stone-400 uppercase font-bold mb-0.5">PV</span>
                                 <div className={`font-mono text-xl font-bold ${c.hp.current < c.hp.max / 2 ? 'text-red-500' : 'text-green-500'}`}>
-                                    {c.hp.current}<span className="text-xs text-stone-600 font-normal ml-0.5">/{c.hp.max}</span>
+                                    {c.hp.current}<span className="text-xs text-stone-400 font-normal ml-0.5">/{c.hp.max}</span>
                                 </div>
                             </div>
                             <div className="flex flex-col gap-1">
@@ -445,7 +445,7 @@ export const CombatTracker: React.FC = () => {
                             </div>
                         </div>
 
-                        <button onClick={() => handleRemove(c.id)} className="text-stone-600 hover:text-red-500 p-2 rounded-full hover:bg-stone-900/50 transition-colors">
+                        <button onClick={() => handleRemove(c.id)} className="text-stone-400 hover:text-red-500 p-2 rounded-full hover:bg-stone-900/50 transition-colors">
                             <Trash2 size={18} />
                         </button>
                     </div>
@@ -455,7 +455,7 @@ export const CombatTracker: React.FC = () => {
                     <div className="text-center py-16 px-4 rounded-2xl border-2 border-dashed border-stone-800/50 bg-stone-900/20 backdrop-blur-sm">
                         <Sword size={48} className="mx-auto mb-4 text-stone-700 opacity-50" />
                         <p className="text-stone-400 font-display text-lg">Le champ de bataille est vide.</p>
-                        <p className="text-stone-600 text-sm mt-1">Ajoutez des combattants pour commencer.</p>
+                        <p className="text-stone-400 text-sm mt-1">Ajoutez des combattants pour commencer.</p>
                     </div>
                 )}
             </div>

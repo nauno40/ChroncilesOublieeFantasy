@@ -102,12 +102,12 @@ export const CharacterList: React.FC = () => {
                                 <span className="bg-stone-950/50 text-stone-400 text-xs px-2 py-1 rounded font-mono">Niv {char.level}</span>
                             </div>
                             <h3 className="text-xl font-display font-bold text-stone-100 group-hover:text-primary-400 transition-colors mb-1">{char.name}</h3>
-                            <p className="text-stone-500 text-sm mb-4 min-h-[1.25rem]">
+                            <p className="text-stone-400 text-sm mb-4 min-h-[1.25rem]">
                                 {refReady
                                     ? `${resolveName(char.race, raceMap, 'Inconnu')} - ${resolveName(char.profile, profileMap, 'Aventurier')}`
                                     : <span className="text-stone-700">…</span>}
                             </p>
-                            <div className="text-xs text-stone-600">
+                            <div className="text-xs text-stone-400">
                                 Modifié le {char.updatedAt ? new Date(char.updatedAt).toLocaleDateString() : 'Jamais'}
                             </div>
                         </ContentCard>

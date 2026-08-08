@@ -267,7 +267,7 @@ export const VoiesTree: React.FC<Props> = ({
                                 return (
                                     <div key={vIdx} className={`glass-panel p-5 rounded-2xl border-primary-500/10 bg-stone-900/10 transition-all group/voie overflow-visible ${isCreation ? '' : 'hover:border-primary-500/20'}`}>
                                         <div className="mb-5 space-y-2">
-                                            <h3 className="text-stone-600/70 font-bold uppercase text-[11px] tracking-[0.2em] ml-1">Voie de Profil {vIdx + 1}</h3>
+                                            <h3 className="text-stone-400/70 font-bold uppercase text-[11px] tracking-[0.2em] ml-1">Voie de Profil {vIdx + 1}</h3>
                                             <div className="flex gap-2 items-center">
                                                 {isCreation ? (
                                                     <div className="w-full bg-stone-950/30 border border-stone-800 rounded-lg px-4 py-2 text-lg font-display font-bold text-white shadow-inner">
@@ -360,7 +360,7 @@ export const VoiesTree: React.FC<Props> = ({
                                                     <h3 className="text-amber-600/70 font-bold uppercase text-[11px] tracking-[0.2em] ml-1">Voie de Prestige</h3>
                                                     <button
                                                         onClick={() => removePrestige(vIdx)}
-                                                        className="text-stone-600 hover:text-red-500 transition-colors p-1"
+                                                        className="text-stone-400 hover:text-red-500 transition-colors p-1"
                                                         title="Supprimer cette voie"
                                                     >
                                                         <Trash2 size={12} />
@@ -426,12 +426,12 @@ export const VoiesTree: React.FC<Props> = ({
                                 Ajouter une Voie de Prestige
                             </button>
                             {atVoieCap && (
-                                <span className="text-[11px] uppercase tracking-wider text-stone-600">Maximum {MAX_VOIES} voies (hors peuple)</span>
+                                <span className="text-[11px] uppercase tracking-wider text-stone-400">Maximum {MAX_VOIES} voies (hors peuple)</span>
                             )}
                             {hasPrestige ? (
                                 <span className="text-[11px] uppercase tracking-wider text-amber-700/70">Une seule voie de prestige (COF2)</span>
                             ) : (
-                                <span className="text-[11px] tracking-wider text-stone-600 italic normal-case">Prérequis : niveau 5+, généralement rang 2 dans 3 voies du même profil (le rang 4 d'une voie pour une voie de spécialiste).</span>
+                                <span className="text-[11px] tracking-wider text-stone-400 italic normal-case">Prérequis : niveau 5+, généralement rang 2 dans 3 voies du même profil (le rang 4 d'une voie pour une voie de spécialiste).</span>
                             )}
                         </div>
                     </div>

@@ -403,7 +403,7 @@ export const HomebrewForm: React.FC = () => {
 
                         <div>
                             <label className={labelCls} htmlFor="homebrew-description">
-                                Description {hasStructuredSchema(category) && <span className="text-stone-600 normal-case font-normal">(résumé court)</span>}
+                                Description {hasStructuredSchema(category) && <span className="text-stone-400 normal-case font-normal">(résumé court)</span>}
                             </label>
                             <textarea
                                 id="homebrew-description"
@@ -445,7 +445,7 @@ export const HomebrewForm: React.FC = () => {
 
                         {parentIri ? (
                             <p className="flex items-center gap-2 text-sm text-stone-400">
-                                <Globe size={14} className="text-stone-500 shrink-0" />
+                                <Globe size={14} className="text-stone-400 shrink-0" />
                                 Cette capacité est {visibility === 'public' ? 'publique' : 'privée'} comme la voie qui la contient : sa visibilité se règle sur celle de la voie.
                             </p>
                         ) : (
@@ -473,7 +473,7 @@ export const HomebrewForm: React.FC = () => {
                     <div className="hidden lg:block lg:sticky lg:top-24">
                         {/* Nommer l'aperçu : sans intitulé, un contenu encore vide se lit comme
                             un panneau cassé plutôt que comme la fiche à venir. */}
-                        <p className="text-[11px] uppercase font-bold text-stone-500 tracking-[0.2em] mb-2">
+                        <p className="text-[11px] uppercase font-bold text-stone-400 tracking-[0.2em] mb-2">
                             Aperçu de la fiche
                         </p>
                         <HomebrewFormPreview

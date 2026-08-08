@@ -98,13 +98,13 @@ export const CapabilityBlocks: React.FC<{
                                 {blocEnErreur && <AlertCircle size={14} className="shrink-0 text-red-400" aria-label="Erreur dans cette capacité" />}
                             </span>
                             <span className="flex items-center gap-1 shrink-0">
-                                <button type="button" onClick={sansToggle(() => deplacer(i, -1))} disabled={i === 0} className="p-1 text-stone-500 hover:text-white disabled:opacity-30 disabled:hover:text-stone-500" aria-label="Monter la capacité">
+                                <button type="button" onClick={sansToggle(() => deplacer(i, -1))} disabled={i === 0} className="p-1 text-stone-400 hover:text-white disabled:opacity-30 disabled:hover:text-stone-400" aria-label="Monter la capacité">
                                     <ArrowUp size={14} />
                                 </button>
-                                <button type="button" onClick={sansToggle(() => deplacer(i, 1))} disabled={i === drafts.length - 1} className="p-1 text-stone-500 hover:text-white disabled:opacity-30 disabled:hover:text-stone-500" aria-label="Descendre la capacité">
+                                <button type="button" onClick={sansToggle(() => deplacer(i, 1))} disabled={i === drafts.length - 1} className="p-1 text-stone-400 hover:text-white disabled:opacity-30 disabled:hover:text-stone-400" aria-label="Descendre la capacité">
                                     <ArrowDown size={14} />
                                 </button>
-                                <button type="button" onClick={sansToggle(() => supprimer(i))} className="p-1 text-stone-500 hover:text-red-400" aria-label="Supprimer la capacité">
+                                <button type="button" onClick={sansToggle(() => supprimer(i))} className="p-1 text-stone-400 hover:text-red-400" aria-label="Supprimer la capacité">
                                     <Trash2 size={14} />
                                 </button>
                             </span>

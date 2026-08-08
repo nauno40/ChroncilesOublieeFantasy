@@ -92,14 +92,14 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = ({
                 {/* Header */}
                 <div className="window-drag-handle cursor-move flex items-center justify-between p-3 border-b border-white/10 bg-black/40 select-none">
                     <div className="flex items-center gap-2 text-stone-300">
-                        <GripVertical size={16} className="text-stone-500" />
+                        <GripVertical size={16} className="text-stone-400" />
                         <span className="font-display font-bold text-sm tracking-wide">{title}</span>
                     </div>
                     <div className="flex items-center gap-2">
                         {headerContent}
                         <button
                             onClick={onClose} // Prevent drag on click
-                            className="p-1 hover:bg-white/10 rounded text-stone-500 hover:text-white transition-colors"
+                            className="p-1 hover:bg-white/10 rounded text-stone-400 hover:text-white transition-colors"
                             onMouseDown={(e) => e.stopPropagation()}
                         >
                             <X size={16} />

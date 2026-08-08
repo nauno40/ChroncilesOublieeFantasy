@@ -114,7 +114,7 @@ export const CapaciteSheet: React.FC<CapaciteSheetProps> = ({ vm, backTo, backLa
 
                             {vm.effect && vm.effect.length > 0 && (
                                 <div className="mt-4">
-                                    <h4 className="text-sm font-bold text-stone-500 uppercase tracking-widest mb-2">Effet</h4>
+                                    <h4 className="text-sm font-bold text-stone-400 uppercase tracking-widest mb-2">Effet</h4>
                                     <ul className="list-disc list-inside text-stone-300 space-y-1 leading-relaxed">
                                         {vm.effect.map((line, i) => <li key={i}>{line}</li>)}
                                     </ul>
@@ -123,7 +123,7 @@ export const CapaciteSheet: React.FC<CapaciteSheetProps> = ({ vm, backTo, backLa
 
                             {vm.detailLines && vm.detailLines.length > 0 && (
                                 <div className="mt-4">
-                                    <h4 className="text-sm font-bold text-stone-500 uppercase tracking-widest mb-2">Détails</h4>
+                                    <h4 className="text-sm font-bold text-stone-400 uppercase tracking-widest mb-2">Détails</h4>
                                     <ul className="list-disc list-inside text-stone-300 space-y-1 leading-relaxed">
                                         {vm.detailLines.map((line, i) => <li key={i}>{line}</li>)}
                                     </ul>

@@ -47,7 +47,7 @@ export const AttributesPanel: React.FC<Props> = ({
                                     onClick={() => setSelectedProfileType(type)}
                                     className={`flex-1 py-1.5 rounded text-[11px] font-bold uppercase border transition-all ${selectedProfileType === type
                                         ? 'bg-primary-500/20 border-primary-500 text-primary-300'
-                                        : 'bg-stone-950 border-stone-800 text-stone-500 hover:border-primary-500/30'}`}
+                                        : 'bg-stone-950 border-stone-800 text-stone-400 hover:border-primary-500/30'}`}
                                 >
                                     {type === 'specialist' ? 'Spécialiste' : type}
                                 </button>
@@ -91,7 +91,7 @@ export const AttributesPanel: React.FC<Props> = ({
 
                         return (
                             <div className="flex flex-col gap-3 mt-4 pt-3 border-t border-white/10">
-                                <span className="text-[11px] font-bold uppercase tracking-widest text-stone-500">Bonus Raciaux</span>
+                                <span className="text-[11px] font-bold uppercase tracking-widest text-stone-400">Bonus Raciaux</span>
                                 {activeModifiers.map((mod: RaceModifier) => {
                                     // Find original index for unique key
                                     const originalIndex = selectedRace.modifiers.indexOf(mod);
@@ -116,7 +116,7 @@ export const AttributesPanel: React.FC<Props> = ({
                                                             onClick={() => setRacialBonusChoices(prev => ({ ...prev, [choiceKey]: opt }))}
                                                             className={`flex-1 py-1 rounded border text-[11px] uppercase font-bold transition-all ${racialBonusChoices[choiceKey] === opt
                                                                 ? (isBonus ? 'bg-green-500/20 border-green-500 text-green-300' : 'bg-red-500/20 border-red-500 text-red-300')
-                                                                : 'bg-stone-950 border-stone-800 text-stone-500 hover:border-stone-600'}`}
+                                                                : 'bg-stone-950 border-stone-800 text-stone-400 hover:border-stone-600'}`}
                                                         >
                                                             {opt}
                                                         </button>
@@ -155,7 +155,7 @@ export const AttributesPanel: React.FC<Props> = ({
                                                         <span className="text-[11px] text-stone-400 uppercase font-bold">Faiblesse à combler ({i + 1}/{count})</span>
                                                         <span className="text-[11px] font-bold text-green-400">Bonus (+1)</span>
                                                     </div>
-                                                    <div className="text-[11px] text-stone-500 italic mb-1">
+                                                    <div className="text-[11px] text-stone-400 italic mb-1">
                                                         Restriction : {availableOptions.join(', ')}
                                                     </div>
                                                     <select
@@ -193,7 +193,7 @@ export const AttributesPanel: React.FC<Props> = ({
                 return (
                     <div key={stat} className="flex items-center justify-between group">
                         <div className="flex items-center gap-3">
-                            <span className="w-8 h-8 rounded-lg bg-stone-900 flex items-center justify-center font-bold text-stone-500 border border-stone-800 text-xs shadow-inner">
+                            <span className="w-8 h-8 rounded-lg bg-stone-900 flex items-center justify-center font-bold text-stone-400 border border-stone-800 text-xs shadow-inner">
                                 {stat}
                             </span>
                             {character.level === 0 ? (
@@ -231,7 +231,7 @@ export const AttributesPanel: React.FC<Props> = ({
                             {character.level === 0 && (
                                 <div className="flex items-center gap-2">
                                     <span className="text-zinc-500 text-xs uppercase tracking-wider font-semibold">Valeur</span>
-                                    <span className={`w-10 text-right font-display font-bold text-lg ${finalVal > 0 ? 'text-primary-400' : 'text-stone-500'}`}>
+                                    <span className={`w-10 text-right font-display font-bold text-lg ${finalVal > 0 ? 'text-primary-400' : 'text-stone-400'}`}>
                                         {withSign(finalVal)}
                                     </span>
                                 </div>

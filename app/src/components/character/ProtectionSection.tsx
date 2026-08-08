@@ -59,7 +59,7 @@ export const ProtectionSection: React.FC<Props> = ({ character, setCharacter, al
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                    <label className="text-[11px] uppercase font-bold text-stone-500 tracking-wider block mb-1">Armure</label>
+                    <label className="text-[11px] uppercase font-bold text-stone-400 tracking-wider block mb-1">Armure</label>
                     <select
                         className="w-full bg-stone-950/30 border border-stone-800 rounded-lg px-3 py-2 text-stone-300 outline-none focus:border-primary-500/50"
                         aria-label="Armure portée" value={character.playState?.protection?.armor?.name || ''}
@@ -94,7 +94,7 @@ export const ProtectionSection: React.FC<Props> = ({ character, setCharacter, al
                     </select>
                 </div>
                 <div>
-                    <label className="text-[11px] uppercase font-bold text-stone-500 tracking-wider block mb-1">Bouclier</label>
+                    <label className="text-[11px] uppercase font-bold text-stone-400 tracking-wider block mb-1">Bouclier</label>
                     <select
                         className="w-full bg-stone-950/30 border border-stone-800 rounded-lg px-3 py-2 text-stone-300 outline-none focus:border-primary-500/50"
                         aria-label="Bouclier" value={character.playState?.protection?.shield?.name || ''}

@@ -49,14 +49,14 @@ export const Traps: React.FC = () => {
                                 <td className="px-4 py-3 text-center font-mono text-stone-300 whitespace-nowrap">{t.detectDifficulty || '—'}</td>
                                 <td className="px-4 py-3 text-center font-mono text-stone-300 whitespace-nowrap">{t.disarmDifficulty || '—'}</td>
                                 <td className="px-4 py-3 text-stone-300">{t.effect || '—'}</td>
-                                <td className="px-4 py-3 text-stone-500 text-xs">{t.complement || ''}</td>
+                                <td className="px-4 py-3 text-stone-400 text-xs">{t.complement || ''}</td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
             </div>
 
-            <p className="text-[11px] text-stone-600 mt-3 italic">
+            <p className="text-[11px] text-stone-400 mt-3 italic">
                 « Détecter » / « Désamorcer » indiquent la difficulté des tests correspondants. Un « DM/2 sur test AGI » signifie que la victime subit la moitié des dommages si elle réussit un test d'AGI à la difficulté indiquée.
             </p>
         </PageContainer>

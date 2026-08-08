@@ -36,18 +36,18 @@ export const EquipmentChoiceModal: React.FC<EquipmentChoiceModalProps> = ({ isOp
                                     {choice.item || (choice.set ? choice.set.map(s => s.item).join(' + ') : 'Unknown Item')}
                                 </span>
                                 {choice.stats && (
-                                    <span className="text-xs px-2 py-1 rounded bg-stone-900 border border-stone-800 text-stone-500 font-mono">
+                                    <span className="text-xs px-2 py-1 rounded bg-stone-900 border border-stone-800 text-stone-400 font-mono">
                                         {choice.stats}
                                     </span>
                                 )}
                                 {choice.set && (
-                                    <span className="text-xs px-2 py-1 rounded bg-stone-900 border border-stone-800 text-stone-500 font-mono">
+                                    <span className="text-xs px-2 py-1 rounded bg-stone-900 border border-stone-800 text-stone-400 font-mono">
                                         {choice.set.map(s => s.stats).join(' + ')}
                                     </span>
                                 )}
                             </div>
                             {choice.examples && (
-                                <p className="text-xs text-stone-500 mt-1 italic">
+                                <p className="text-xs text-stone-400 mt-1 italic">
                                     Ex: {choice.examples}
                                 </p>
                             )}

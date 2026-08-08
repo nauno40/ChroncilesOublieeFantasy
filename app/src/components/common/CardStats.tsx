@@ -24,7 +24,7 @@ export const CardStats: React.FC<{ stats: StatCarte[] }> = ({ stats }) => {
         >
             {stats.map(s => (
                 <div key={s.label} className="py-2 px-1 min-w-0">
-                    <div className="text-[11px] uppercase tracking-wider text-stone-500 truncate">{s.label}</div>
+                    <div className="text-[11px] uppercase tracking-wider text-stone-400 truncate">{s.label}</div>
                     <div className="font-mono font-bold text-stone-200 truncate">{s.value}</div>
                 </div>
             ))}

@@ -12,14 +12,14 @@ export const RulesSidebar: React.FC<RulesSidebarProps> = ({ scrollToSection }) =
 
                 {/* Intro */}
                 <div>
-                    <div className="px-2 mb-2 pb-1 border-b border-white/5 text-xs font-bold text-stone-500 uppercase tracking-wider">Introduction</div>
+                    <div className="px-2 mb-2 pb-1 border-b border-white/5 text-xs font-bold text-stone-400 uppercase tracking-wider">Introduction</div>
                     <ul className="space-y-1">
                         <li><a href="#introduction" onClick={(e) => scrollToSection(e, 'introduction')} className="block px-2 py-1 rounded text-stone-400 hover:text-primary-300 hover:bg-white/5 transition-colors">Univers & Intro</a></li>
                     </ul>
                 </div>
                 {/* Règles */}
                 <div>
-                    <div className="px-2 mb-2 pb-1 border-b border-white/5 text-xs font-bold text-stone-500 uppercase tracking-wider">Règles</div>
+                    <div className="px-2 mb-2 pb-1 border-b border-white/5 text-xs font-bold text-stone-400 uppercase tracking-wider">Règles</div>
                     <ul className="space-y-1">
                         <li><a href="#bases" onClick={(e) => scrollToSection(e, 'bases')} className="block px-2 py-1 rounded text-stone-400 hover:text-primary-300 hover:bg-white/5 transition-colors">1. Les Bases</a></li>
                         <li><a href="#combat" onClick={(e) => scrollToSection(e, 'combat')} className="block px-2 py-1 rounded text-stone-400 hover:text-primary-300 hover:bg-white/5 transition-colors">2. Le Combat</a></li>
@@ -30,7 +30,7 @@ export const RulesSidebar: React.FC<RulesSidebarProps> = ({ scrollToSection }) =
                 </div>
                 {/* Monde & MJ */}
                 <div>
-                    <div className="px-2 mb-2 pb-1 border-b border-white/5 text-xs font-bold text-stone-500 uppercase tracking-wider">Avancé</div>
+                    <div className="px-2 mb-2 pb-1 border-b border-white/5 text-xs font-bold text-stone-400 uppercase tracking-wider">Avancé</div>
                     <ul className="space-y-1">
                         <li><a href="#objets-magiques" onClick={(e) => scrollToSection(e, 'objets-magiques')} className="block px-2 py-1 rounded text-stone-400 hover:text-primary-300 hover:bg-white/5 transition-colors">6. Objets Magiques</a></li>
                         <li><a href="#opposition" onClick={(e) => scrollToSection(e, 'opposition')} className="block px-2 py-1 rounded text-stone-400 hover:text-primary-300 hover:bg-white/5 transition-colors">7. Opposition</a></li>

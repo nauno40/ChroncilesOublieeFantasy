@@ -200,7 +200,7 @@ export const HomebrewDetail: React.FC = () => {
 
                     <div className="flex items-center gap-3 mb-3">
                         <span className="text-[11px] uppercase font-bold tracking-widest text-primary-400/90 border border-primary-500/40 rounded px-2 py-0.5">{categoryLabel(entry.category)}</span>
-                        <span className="text-[11px] text-stone-500 flex items-center gap-1.5">
+                        <span className="text-[11px] text-stone-400 flex items-center gap-1.5">
                             <UserIcon size={12} /> {entry.authorPseudo || 'Anonyme'}
                             {entry.visibility === 'public'
                                 ? <><Globe size={12} className="text-green-500/70 ml-1" /> Public</>
@@ -217,7 +217,7 @@ export const HomebrewDetail: React.FC = () => {
                         <div className="lg:col-span-4 space-y-6">
                             {caracs && (
                                 <div className="bg-stone-900/80 backdrop-blur-sm rounded-2xl p-6 border border-white/5 shadow-xl">
-                                    <h3 className="text-stone-500 text-xs font-bold uppercase tracking-widest mb-4">{caracField!.label}</h3>
+                                    <h3 className="text-stone-400 text-xs font-bold uppercase tracking-widest mb-4">{caracField!.label}</h3>
                                     <div className="flex flex-wrap gap-2">
                                         {CARAC_KEYS.filter(k => (caracs[k] ?? 0) !== 0).map(k => (
                                             <span key={k} className="px-3 py-1.5 rounded-lg bg-primary-600/20 border border-primary-500/30 text-primary-100 font-mono text-sm">
@@ -229,7 +229,7 @@ export const HomebrewDetail: React.FC = () => {
                             )}
                             {sidebarFields.length > 0 && (
                                 <div className="bg-stone-900/80 backdrop-blur-sm rounded-2xl p-6 border border-white/5 shadow-xl">
-                                    <h3 className="text-stone-500 text-xs font-bold uppercase tracking-widest mb-4">Caractéristiques</h3>
+                                    <h3 className="text-stone-400 text-xs font-bold uppercase tracking-widest mb-4">Caractéristiques</h3>
                                     <div className="space-y-3">
                                         {sidebarFields.map(f => (
                                             <div key={f.key} className="flex justify-between items-baseline gap-3 border-b border-white/5 pb-2 last:border-0">
@@ -254,7 +254,7 @@ export const HomebrewDetail: React.FC = () => {
                                     <button
                                         key={id}
                                         onClick={() => setActiveTab(id)}
-                                        className={`pb-3 text-lg font-display font-bold tracking-wide transition-all relative ${activeTab === id ? 'text-white' : 'text-stone-500 hover:text-stone-300'}`}
+                                        className={`pb-3 text-lg font-display font-bold tracking-wide transition-all relative ${activeTab === id ? 'text-white' : 'text-stone-400 hover:text-stone-300'}`}
                                     >
                                         {label}
                                         {activeTab === id && <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary-500 to-primary-400 shadow-[0_0_10px_rgba(234,179,8,0.5)]"></div>}
@@ -265,7 +265,7 @@ export const HomebrewDetail: React.FC = () => {
 
                         <div className="space-y-6">
                             {shownFields.length === 0 && !entry.description && (
-                                <p className="text-stone-600 italic">Aucun détail supplémentaire.</p>
+                                <p className="text-stone-400 italic">Aucun détail supplémentaire.</p>
                             )}
                             {shownFields.map(renderField)}
                         </div>

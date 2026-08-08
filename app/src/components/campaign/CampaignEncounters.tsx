@@ -162,7 +162,7 @@ export const CampaignEncounters: React.FC<Props> = ({
                 <div className="flex items-center gap-2 mb-3">
                     <Sword size={16} className="text-red-400" />
                     <h3 className="text-sm font-bold uppercase tracking-wider text-stone-400">Rencontres</h3>
-                    <span className="text-xs text-stone-600">{encounters.length}</span>
+                    <span className="text-xs text-stone-400">{encounters.length}</span>
                 </div>
                 {encounters.length > 0 && (
                     <ul className="space-y-2 mb-3">
@@ -188,7 +188,7 @@ export const CampaignEncounters: React.FC<Props> = ({
                                                     </span>
                                                 ))}
                                             </div>
-                                            <div className="text-[11px] text-stone-600 mt-1">{total} créature{total > 1 ? 's' : ''}</div>
+                                            <div className="text-[11px] text-stone-400 mt-1">{total} créature{total > 1 ? 's' : ''}</div>
                                         </div>
                                         <div className="flex items-center gap-1 shrink-0">
                                             <button onClick={() => handleLaunchEncounter(enc)} className="p-1.5 text-red-300 hover:text-red-200 hover:bg-red-900/30 rounded-lg transition-colors" title="Lancer dans le Suivi de combat">
@@ -197,7 +197,7 @@ export const CampaignEncounters: React.FC<Props> = ({
                                             <button onClick={() => openEditEncounter(enc)} className="p-1.5 text-stone-400 hover:text-primary-400 transition-colors" title="Modifier">
                                                 <Edit size={16} />
                                             </button>
-                                            <button onClick={() => handleDeleteEncounter(enc.id)} className="p-1.5 text-stone-500 hover:text-red-400 transition-colors" title="Supprimer">
+                                            <button onClick={() => handleDeleteEncounter(enc.id)} className="p-1.5 text-stone-400 hover:text-red-400 transition-colors" title="Supprimer">
                                                 <Trash2 size={16} />
                                             </button>
                                         </div>
@@ -209,7 +209,7 @@ export const CampaignEncounters: React.FC<Props> = ({
                 )}
                 <button
                     onClick={openCreateEncounter}
-                    className="w-full py-2 rounded-lg border border-dashed border-stone-700 text-stone-500 hover:border-red-500 hover:text-red-400 transition-all text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2"
+                    className="w-full py-2 rounded-lg border border-dashed border-stone-700 text-stone-400 hover:border-red-500 hover:text-red-400 transition-all text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2"
                 >
                     <Plus size={16} /> Créer une rencontre
                 </button>
@@ -293,7 +293,7 @@ export const CampaignEncounters: React.FC<Props> = ({
                                 </button>
                             </div>
 
-                            <div className="flex items-center gap-3 text-xs uppercase tracking-wider text-stone-500">
+                            <div className="flex items-center gap-3 text-xs uppercase tracking-wider text-stone-400">
                                 <div className="h-px flex-1 bg-white/10" /> ou composer à la main <div className="h-px flex-1 bg-white/10" />
                             </div>
 
@@ -330,7 +330,7 @@ export const CampaignEncounters: React.FC<Props> = ({
 
                             {/* Roster */}
                             {encounterRoster.length === 0 ? (
-                                <p className="text-stone-500 text-sm italic">Ajoute des créatures au roster.</p>
+                                <p className="text-stone-400 text-sm italic">Ajoute des créatures au roster.</p>
                             ) : (
                                 <ul className="space-y-2">
                                     {encounterRoster.map((entry, i) => (
@@ -338,7 +338,7 @@ export const CampaignEncounters: React.FC<Props> = ({
                                             <span className="text-stone-200">
                                                 {entry.quantity > 1 && <span className="text-red-300 font-bold">{entry.quantity}× </span>}
                                                 {entry.name}
-                                                <span className="text-stone-500 text-sm"> · PV {entry.hp} · DEF {entry.def} · INIT {entry.initiative}</span>
+                                                <span className="text-stone-400 text-sm"> · PV {entry.hp} · DEF {entry.def} · INIT {entry.initiative}</span>
                                             </span>
                                             <button onClick={() => removeRosterEntry(i)} className="shrink-0 text-stone-400 hover:text-red-400" aria-label="Retirer">
                                                 <X size={16} />

@@ -80,11 +80,11 @@ export const CapabilityNode: React.FC<Props> = ({ rank, isActive, nextActive, ca
                     </div>
 
                     <div className="flex flex-col leading-tight pt-0.5">
-                        <span className={`font-bold text-[11px] uppercase tracking-[0.1em] ${isActive ? t.rank : 'text-stone-500'}`}>
+                        <span className={`font-bold text-[11px] uppercase tracking-[0.1em] ${isActive ? t.rank : 'text-stone-400'}`}>
                             Rang {rank}
                             {badge}
                             {isLocked && lockedLabel && (
-                                <span className="ml-2 text-stone-500 normal-case tracking-normal">🔒 {lockedLabel}</span>
+                                <span className="ml-2 text-stone-400 normal-case tracking-normal">🔒 {lockedLabel}</span>
                             )}
                         </span>
                         {cap && (

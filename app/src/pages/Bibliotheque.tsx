@@ -20,7 +20,7 @@ export const Bibliotheque: React.FC = () => {
                     <button
                         key={t}
                         onClick={() => setTab(t)}
-                        className={`px-4 py-2 rounded-xl text-sm font-bold transition-all ${tab === t ? 'bg-primary-500/20 text-primary-300 border border-primary-500/40' : 'bg-stone-900/40 text-stone-500 border border-white/5 hover:text-stone-300'}`}
+                        className={`px-4 py-2 rounded-xl text-sm font-bold transition-all ${tab === t ? 'bg-primary-500/20 text-primary-300 border border-primary-500/40' : 'bg-stone-900/40 text-stone-400 border border-white/5 hover:text-stone-300'}`}
                     >
                         {t === 'mine' ? LEXIQUE.sourceMiennes : LEXIQUE.sourceCommunaute}
                     </button>

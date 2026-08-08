@@ -82,17 +82,17 @@ export const LandingPage: React.FC = () => {
                         <div className="flex items-center gap-8 pt-8 border-t border-white/5">
                             <div>
                                 <div className="text-2xl font-bold font-display">1000+</div>
-                                <div className="text-xs text-stone-500 font-bold uppercase tracking-widest">Créatures</div>
+                                <div className="text-xs text-stone-400 font-bold uppercase tracking-widest">Créatures</div>
                             </div>
                             <div className="w-px h-10 bg-white/10"></div>
                             <div>
                                 <div className="text-2xl font-bold font-display">14</div>
-                                <div className="text-xs text-stone-500 font-bold uppercase tracking-widest">Profils</div>
+                                <div className="text-xs text-stone-400 font-bold uppercase tracking-widest">Profils</div>
                             </div>
                             <div className="w-px h-10 bg-white/10"></div>
                             <div>
                                 <div className="text-2xl font-bold font-display">∞</div>
-                                <div className="text-xs text-stone-500 font-bold uppercase tracking-widest">Créations</div>
+                                <div className="text-xs text-stone-400 font-bold uppercase tracking-widest">Créations</div>
                             </div>
                         </div>
                     </div>
@@ -114,7 +114,7 @@ export const LandingPage: React.FC = () => {
                                 <div className="relative p-6 space-y-4">
                                     <div className="flex items-center justify-between">
                                         <div>
-                                            <div className="text-[11px] uppercase tracking-widest text-stone-500 font-bold">Suivi de combat</div>
+                                            <div className="text-[11px] uppercase tracking-widest text-stone-400 font-bold">Suivi de combat</div>
                                             <div className="text-lg font-display font-bold text-stone-100">Les Ombres de Val-Gelé</div>
                                         </div>
                                         <div className="text-xs font-mono text-primary-400/80 bg-primary-950/40 px-3 py-1.5 rounded-full border border-primary-500/20">Round 3</div>
@@ -149,7 +149,7 @@ export const LandingPage: React.FC = () => {
                                 <div className="p-4 bg-stone-900/80 backdrop-blur rounded-xl border border-white/10 max-w-[200px]">
                                     <div className="flex items-center gap-2 mb-2">
                                         <div className="size-2 rounded-full bg-primary-500 animate-ping"></div>
-                                        <span className="text-[11px] uppercase font-bold text-stone-500">Combat Actif</span>
+                                        <span className="text-[11px] uppercase font-bold text-stone-400">Combat Actif</span>
                                     </div>
                                     <div className="text-sm font-bold truncate">Dragon Rouge Ancien</div>
                                     <div className="mt-2 h-1 bg-white/5 rounded-full overflow-hidden">
@@ -218,7 +218,7 @@ export const LandingPage: React.FC = () => {
                         <span className="font-display font-bold">ChroniquesOubliées</span>
                     </div>
 
-                    <div className="text-xs text-stone-600">
+                    <div className="text-xs text-stone-400">
                         &copy; 2026 Chroniques Oubliées. Basé sur les règles ORC de Black Book Editions.
                     </div>
                 </div>

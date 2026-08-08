@@ -45,22 +45,22 @@ export const RuleChapter2: React.FC = () => {
                     <div className="p-4 bg-stone-900/50 rounded border-l-4 border-l-blue-500 border-y border-r border-white/10">
                         <h4 className="font-bold text-blue-300 mb-1">Mouvement (M)</h4>
                         <p className="text-sm text-stone-300 mb-2">Déplacement (20m), se relever, dégainer.</p>
-                        <p className="text-xs text-stone-500 italic">Max 2 par tour (si pas d'attaque).</p>
+                        <p className="text-xs text-stone-400 italic">Max 2 par tour (si pas d'attaque).</p>
                     </div>
                     <div className="p-4 bg-stone-900/50 rounded border-l-4 border-l-red-500 border-y border-r border-white/10">
                         <h4 className="font-bold text-red-300 mb-1">Attaque (A)</h4>
                         <p className="text-sm text-stone-300 mb-2">Attaque contact/distance ou sort standard.</p>
-                        <p className="text-xs text-stone-500 italic">Une seule par tour.</p>
+                        <p className="text-xs text-stone-400 italic">Une seule par tour.</p>
                     </div>
                     <div className="p-4 bg-stone-900/50 rounded border-l-4 border-l-amber-500 border-y border-r border-white/10">
                         <h4 className="font-bold text-amber-300 mb-1">Limitée (L)</h4>
                         <p className="text-sm text-stone-300 mb-2">Action complexe (Sort puissant, Charge).</p>
-                        <p className="text-xs text-stone-500 italic">Remplace Mvt ET Attaque. (Mvt minime autorisé).</p>
+                        <p className="text-xs text-stone-400 italic">Remplace Mvt ET Attaque. (Mvt minime autorisé).</p>
                     </div>
                     <div className="p-4 bg-stone-900/50 rounded border-l-4 border-l-green-500 border-y border-r border-white/10">
                         <h4 className="font-bold text-green-300 mb-1">Gratuite (G)</h4>
                         <p className="text-sm text-stone-300 mb-2">Parler, lâcher objet.</p>
-                        <p className="text-xs text-stone-500 italic">Illimitée (raisonnable).</p>
+                        <p className="text-xs text-stone-400 italic">Illimitée (raisonnable).</p>
                     </div>
                 </div>
 
@@ -174,7 +174,7 @@ export const RuleChapter2: React.FC = () => {
                     </div>
                     <div>
                         <h4 className="font-bold text-lg text-primary-200 mb-3">Manœuvres (Action L, Test Opposé d'Attaque)</h4>
-                        <p className="text-xs text-stone-500 italic mb-2">Pas de DM. Effet tactique.</p>
+                        <p className="text-xs text-stone-400 italic mb-2">Pas de DM. Effet tactique.</p>
                         <ul className="space-y-2 text-sm text-stone-300">
                             <li className="flex justify-between items-center border-b border-white/5 pb-1"><span><strong>Renverser (-5) :</strong></span> <span className="text-stone-400">Cible à terre.</span></li>
                             <li className="flex justify-between items-center border-b border-white/5 pb-1"><span><strong>Désarmer (-5) :</strong></span> <span className="text-stone-400">Arme tombe. Tour perdu pour ramasser.</span></li>
@@ -208,12 +208,12 @@ export const RuleChapter2: React.FC = () => {
                                     <li>Cumulable si sources différentes.</li>
                                     <li><em>RD spécifique :</em> "Sauf feu", "Sauf magie", "Contre contondant".</li>
                                 </ul>
-                                <p className="text-xs text-stone-500 italic mt-1 font-bold">Règle : Une attaque réussie inflige toujours au moins 1 DM.</p>
+                                <p className="text-xs text-stone-400 italic mt-1 font-bold">Règle : Une attaque réussie inflige toujours au moins 1 DM.</p>
                             </div>
                             <div className="bg-stone-900/50 p-3 rounded border border-white/10">
                                 <strong className="block text-primary-200 mb-1">Résistance</strong>
                                 <p>Division par 2 des DM (Ex: Squelettes vs Tranchant).</p>
-                                <p className="text-xs text-stone-500 italic mt-1">Ordre : D'abord RD (soustraction), puis Résistance (division).</p>
+                                <p className="text-xs text-stone-400 italic mt-1">Ordre : D'abord RD (soustraction), puis Résistance (division).</p>
                             </div>
                         </div>
                         <div className="bg-stone-900/50 p-3 rounded border border-white/10">

@@ -47,7 +47,7 @@ export const VoieSheet: React.FC<VoieSheetProps> = ({ vm, backTo, backLabel, hea
                                 </span>
                             )}
                             {vm.maxRank !== undefined && (
-                                <span className="text-[11px] text-stone-500 uppercase tracking-widest">
+                                <span className="text-[11px] text-stone-400 uppercase tracking-widest">
                                     Rang max. {vm.maxRank}
                                 </span>
                             )}

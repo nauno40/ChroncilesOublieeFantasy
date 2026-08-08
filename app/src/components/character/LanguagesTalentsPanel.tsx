@@ -38,8 +38,8 @@ export const LanguagesTalentsPanel: React.FC<Props> = ({ character, setCharacter
     const column = (title: string, key: ListKey, list: string[], placeholder: string) => (
         <div className="space-y-2">
             <div className="flex items-center justify-between">
-                <label className="text-[11px] uppercase font-black text-stone-500 tracking-[0.2em]">{title}</label>
-                <button onClick={() => addItem(key, list)} className="text-stone-500 hover:text-primary-400 text-sm" title={`Ajouter ${title.toLowerCase()}`}>+</button>
+                <label className="text-[11px] uppercase font-black text-stone-400 tracking-[0.2em]">{title}</label>
+                <button onClick={() => addItem(key, list)} className="text-stone-400 hover:text-primary-400 text-sm" title={`Ajouter ${title.toLowerCase()}`}>+</button>
             </div>
             {list.map((item, idx) => (
                 <div key={idx} className="flex items-center gap-1.5">
@@ -51,7 +51,7 @@ export const LanguagesTalentsPanel: React.FC<Props> = ({ character, setCharacter
                         value={item}
                         onChange={e => updateItem(key, list, idx, e.target.value)}
                     />
-                    <button onClick={() => removeItem(key, list, idx)} className="text-stone-600 hover:text-red-400 text-xs" title="Retirer">✕</button>
+                    <button onClick={() => removeItem(key, list, idx)} className="text-stone-400 hover:text-red-400 text-xs" title="Retirer">✕</button>
                 </div>
             ))}
         </div>
@@ -71,7 +71,7 @@ export const LanguagesTalentsPanel: React.FC<Props> = ({ character, setCharacter
                 </div>
             </div>
             <div className="space-y-1">
-                <label className="text-[11px] uppercase font-black text-stone-500 tracking-[0.2em]">Connues de base</label>
+                <label className="text-[11px] uppercase font-black text-stone-400 tracking-[0.2em]">Connues de base</label>
                 <div className="flex flex-wrap gap-1.5">
                     {base.map(lang => (
                         <span key={lang} className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-stone-800/60 border border-stone-700 text-stone-300" title="Langue de peuple — gratuite">

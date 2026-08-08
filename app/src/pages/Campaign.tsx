@@ -233,7 +233,7 @@ export const Campaign: React.FC = () => {
                             onClick={() => navigate(`/campaign/${campaign.id}`)}
                             footer={
                                 <div className="flex items-center justify-between gap-3 px-5 py-3">
-                                    <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-stone-500 min-w-0">
+                                    <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-stone-400 min-w-0">
                                         <span className="flex items-center gap-1.5 text-primary-400/80">
                                             <Users size={13} /> {campaign.characters?.length || 0} joueur{(campaign.characters?.length || 0) > 1 ? 's' : ''}
                                         </span>
@@ -244,7 +244,7 @@ export const Campaign: React.FC = () => {
                                     </div>
                                     <button
                                         onClick={(e) => handleDelete(campaign.id, e)}
-                                        className="text-stone-600 hover:text-red-400 p-1.5 -mr-1 rounded-lg hover:bg-red-500/10 transition-colors shrink-0"
+                                        className="text-stone-400 hover:text-red-400 p-1.5 -mr-1 rounded-lg hover:bg-red-500/10 transition-colors shrink-0"
                                         title="Supprimer la campagne"
                                     >
                                         <Trash2 size={16} />
@@ -258,7 +258,7 @@ export const Campaign: React.FC = () => {
                                 </div>
                             </div>
                             <h3 className="text-xl font-display font-bold text-stone-100 group-hover:text-primary-400 transition-colors mb-1">{campaign.name}</h3>
-                            <p className="text-stone-500 text-sm line-clamp-2 leading-relaxed min-h-[2.5rem]">
+                            <p className="text-stone-400 text-sm line-clamp-2 leading-relaxed min-h-[2.5rem]">
                                 {campaign.description || <span className="italic opacity-60">Pas de description…</span>}
                             </p>
                         </ContentCard>
@@ -300,13 +300,13 @@ export const Campaign: React.FC = () => {
                                     <div className="flex flex-wrap justify-between items-start gap-3 mb-4">
                                         <div>
                                             <h3 className="text-2xl font-display font-bold text-stone-200">{shared.name}</h3>
-                                            <p className="text-stone-500 text-sm">MJ : <span className="text-primary-400 font-bold">{shared.gameMaster}</span></p>
+                                            <p className="text-stone-400 text-sm">MJ : <span className="text-primary-400 font-bold">{shared.gameMaster}</span></p>
                                         </div>
                                     </div>
 
                                     {/* Rattacher une fiche */}
                                     <div className="flex flex-wrap items-center gap-2 mb-6 bg-stone-900/50 p-3 rounded-xl border border-white/5">
-                                        <UserPlus size={16} className="text-stone-500 shrink-0" />
+                                        <UserPlus size={16} className="text-stone-400 shrink-0" />
                                         <select
                                             aria-label="Fiche à rattacher à cette campagne"
                                             value={selectedCharacterId}
@@ -327,9 +327,9 @@ export const Campaign: React.FC = () => {
                                         </button>
                                     </div>
 
-                                    <h4 className="text-xs font-bold text-stone-500 uppercase tracking-widest mb-3">Séances</h4>
+                                    <h4 className="text-xs font-bold text-stone-400 uppercase tracking-widest mb-3">Séances</h4>
                                     {shared.sessions.length === 0 ? (
-                                        <p className="text-stone-600 text-sm italic">Aucune séance enregistrée pour le moment.</p>
+                                        <p className="text-stone-400 text-sm italic">Aucune séance enregistrée pour le moment.</p>
                                     ) : (
                                         <div className="space-y-3">
                                             {shared.sessions.map(session => (
@@ -337,7 +337,7 @@ export const Campaign: React.FC = () => {
                                                     <div className="flex flex-wrap items-center gap-3 mb-1">
                                                         <span className="font-bold text-stone-200">{session.title}</span>
                                                         {session.date && (
-                                                            <span className="flex items-center gap-1 text-xs text-stone-500">
+                                                            <span className="flex items-center gap-1 text-xs text-stone-400">
                                                                 <Calendar size={12} /> {new Date(session.date).toLocaleDateString()}
                                                             </span>
                                                         )}
@@ -352,13 +352,13 @@ export const Campaign: React.FC = () => {
 
                                     {shared.quests.length > 0 && (
                                         <div className="mt-6">
-                                            <h4 className="text-xs font-bold text-stone-500 uppercase tracking-widest mb-3">Quêtes partagées</h4>
+                                            <h4 className="text-xs font-bold text-stone-400 uppercase tracking-widest mb-3">Quêtes partagées</h4>
                                             {(['main', 'secondary'] as const).map(type => {
                                                 const qs = shared.quests.filter(q => (q.type ?? 'main') === type);
                                                 if (qs.length === 0) return null;
                                                 return (
                                                     <div key={type} className="mb-3">
-                                                        <div className="text-[11px] uppercase tracking-wider text-stone-600 mb-1.5">{type === 'main' ? 'Principale' : 'Secondaire'}</div>
+                                                        <div className="text-[11px] uppercase tracking-wider text-stone-400 mb-1.5">{type === 'main' ? 'Principale' : 'Secondaire'}</div>
                                                         <div className="space-y-2">
                                                             {qs.map(q => (
                                                                 <div key={q.id} className="bg-stone-900/50 p-3 rounded-xl border border-white/5">
@@ -375,7 +375,7 @@ export const Campaign: React.FC = () => {
 
                                     {shared.clues.length > 0 && (
                                         <div className="mt-6">
-                                            <h4 className="text-xs font-bold text-stone-500 uppercase tracking-widest mb-3">Indices partagés</h4>
+                                            <h4 className="text-xs font-bold text-stone-400 uppercase tracking-widest mb-3">Indices partagés</h4>
                                             <div className="space-y-2">
                                                 {shared.clues.map(c => (
                                                     <div key={c.id} className="bg-stone-900/50 p-3 rounded-xl border border-white/5 text-stone-300 text-sm whitespace-pre-line">{c.content}</div>

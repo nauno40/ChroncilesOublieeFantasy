@@ -95,7 +95,7 @@ export const Soundboard: React.FC<SoundboardProps> = ({ isOpen }) => {
             </div>
 
             {!isEditing && (
-                <p className="px-3 pt-2 text-[11px] text-stone-500 italic leading-snug">
+                <p className="px-3 pt-2 text-[11px] text-stone-400 italic leading-snug">
                     Chaque bouton ouvre une recherche musicale d'ambiance (YouTube) dans un nouvel onglet.
                 </p>
             )}
@@ -116,7 +116,7 @@ export const Soundboard: React.FC<SoundboardProps> = ({ isOpen }) => {
                     <div className="bg-stone-900/80 p-3 rounded-xl border border-primary-500/50 space-y-3 animate-in fade-in">
                         <h4 className="text-xs font-bold text-primary-400 uppercase">Éditer le bouton</h4>
                         <div>
-                            <label className="text-[11px] text-stone-500 uppercase font-bold block mb-1">Label</label>
+                            <label className="text-[11px] text-stone-400 uppercase font-bold block mb-1">Label</label>
                             <input
                                 type="text"
                                 className="w-full bg-stone-950 border border-white/10 rounded px-2 py-1 text-sm text-stone-200 outline-none focus:border-primary-500"
@@ -125,7 +125,7 @@ export const Soundboard: React.FC<SoundboardProps> = ({ isOpen }) => {
                             />
                         </div>
                         <div>
-                            <label className="text-[11px] text-stone-500 uppercase font-bold block mb-1">URL</label>
+                            <label className="text-[11px] text-stone-400 uppercase font-bold block mb-1">URL</label>
                             <input
                                 type="text"
                                 className="w-full bg-stone-950 border border-white/10 rounded px-2 py-1 text-sm text-stone-200 outline-none focus:border-primary-500"
@@ -134,7 +134,7 @@ export const Soundboard: React.FC<SoundboardProps> = ({ isOpen }) => {
                             />
                         </div>
                         <div>
-                            <label className="text-[11px] text-stone-500 uppercase font-bold block mb-1">Style</label>
+                            <label className="text-[11px] text-stone-400 uppercase font-bold block mb-1">Style</label>
                             <div className="flex gap-2 flex-wrap">
                                 {[
                                     'bg-stone-800 border-stone-700 text-stone-300 hover:border-primary-500 hover:text-primary-400',
@@ -151,7 +151,7 @@ export const Soundboard: React.FC<SoundboardProps> = ({ isOpen }) => {
                             </div>
                         </div>
                         <div className="flex justify-end gap-2 pt-2">
-                            <button onClick={() => setEditTrack(null)} className="px-2 py-1 text-xs font-bold text-stone-500 hover:text-white">Annuler</button>
+                            <button onClick={() => setEditTrack(null)} className="px-2 py-1 text-xs font-bold text-stone-400 hover:text-white">Annuler</button>
                             <button onClick={handleSaveTrack} className="px-3 py-1 bg-primary-600 rounded text-xs font-bold text-stone-950 hover:bg-primary-500 flex items-center gap-1"><Save size={12} /> OK</button>
                         </div>
                     </div>

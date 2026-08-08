@@ -43,7 +43,7 @@ export const PhysicalBlock: React.FC<Props> = ({ character, setCharacter, races 
             <div className="grid grid-cols-3 gap-3">
                 {FIELDS.map(f => (
                     <div key={f.key} className="space-y-1">
-                        <label className="text-[11px] uppercase font-bold text-stone-500 tracking-wider">{f.label}</label>
+                        <label className="text-[11px] uppercase font-bold text-stone-400 tracking-wider">{f.label}</label>
                         <input
                             type="text"
                             className="w-full bg-stone-950/40 border border-stone-800 rounded px-2 py-1 text-xs text-stone-200 outline-none focus:border-primary-500/40"
@@ -51,7 +51,7 @@ export const PhysicalBlock: React.FC<Props> = ({ character, setCharacter, races 
                             value={physical[f.key] || ''}
                             onChange={e => set(f.key, e.target.value)}
                         />
-                        {hints[f.key] && <p className="text-[11px] text-stone-600 italic leading-tight">{hints[f.key]}</p>}
+                        {hints[f.key] && <p className="text-[11px] text-stone-400 italic leading-tight">{hints[f.key]}</p>}
                     </div>
                 ))}
             </div>

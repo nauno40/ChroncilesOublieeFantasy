@@ -62,20 +62,20 @@ export const HpByLevelEditor: React.FC<Props> = ({ character, setCharacter, main
                     const isDefault = fams.length === 1 && fams[0] === mainFamily;
                     return (
                         <div key={L} className="flex items-center gap-2 text-xs">
-                            <span className="w-12 text-stone-500 font-mono">Niv {L}</span>
+                            <span className="w-12 text-stone-400 font-mono">Niv {L}</span>
                             {fams.map((f, idx) => (
                                 <select key={idx}
                                     aria-label={`Famille de la capacité ${idx + 1} du niveau ${L}`}
-                                    className={`bg-stone-950/40 border border-stone-800 rounded px-1.5 py-0.5 text-xs ${isDefault ? 'text-stone-500' : 'text-stone-200'}`}
+                                    className={`bg-stone-950/40 border border-stone-800 rounded px-1.5 py-0.5 text-xs ${isDefault ? 'text-stone-400' : 'text-stone-200'}`}
                                     value={f}
                                     onChange={e => setFamily(L, idx, e.target.value)}>
                                     {FAMILIES.map(fam => <option key={fam} value={fam}>{FAMILY_LABELS[fam]}</option>)}
                                 </select>
                             ))}
                             {fams.length === 1 ? (
-                                <button onClick={() => addSecond(L)} className="text-stone-500 hover:text-primary-400" title="Deuxième famille (niveau mixte)">+</button>
+                                <button onClick={() => addSecond(L)} className="text-stone-400 hover:text-primary-400" title="Deuxième famille (niveau mixte)">+</button>
                             ) : (
-                                <button onClick={() => removeSecond(L)} className="text-stone-500 hover:text-red-400" title="Retirer la deuxième famille">−</button>
+                                <button onClick={() => removeSecond(L)} className="text-stone-400 hover:text-red-400" title="Retirer la deuxième famille">−</button>
                             )}
                             <span className="ml-auto text-stone-400 font-mono">{Number.isInteger(pv) ? pv : `${pv}`} PV{Number.isInteger(pv) ? '' : ' (½)'}</span>
                         </div>

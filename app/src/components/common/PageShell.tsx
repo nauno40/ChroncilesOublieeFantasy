@@ -41,7 +41,7 @@ export const PageShell: React.FC<PageShellProps> = ({ title, subtitle, icon: Ico
 
         {search && (
             <div className="relative">
-                <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-stone-500" />
+                <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-stone-400" />
                 <input
                     value={search.value}
                     onChange={e => search.onChange(e.target.value)}

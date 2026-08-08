@@ -181,7 +181,7 @@ export const Layout: React.FC = () => {
                             <div className="text-[11px] font-mono text-primary-400/60 border border-primary-500/20 px-2 py-0.5 rounded-full inline-block bg-primary-950/30">MJ TOOLKIT</div>
                             <button
                                 onClick={toggleSearch}
-                                className="flex items-center gap-2 text-xs text-stone-500 hover:text-primary-400 transition-colors px-2 py-1 rounded hover:bg-white/5 border border-transparent hover:border-white/5"
+                                className="flex items-center gap-2 text-xs text-stone-400 hover:text-primary-400 transition-colors px-2 py-1 rounded hover:bg-white/5 border border-transparent hover:border-white/5"
                                 title="Rechercher (Cmd+K)"
                             >
                                 <Search size={14} />
@@ -212,17 +212,17 @@ export const Layout: React.FC = () => {
                             </div>
                             <div className="flex-1 min-w-0">
                                 <div className="text-sm font-bold truncate text-stone-100">{user?.email?.split('@')[0]}</div>
-                                <div className="text-[11px] text-stone-500 truncate">{user?.email}</div>
+                                <div className="text-[11px] text-stone-400 truncate">{user?.email}</div>
                             </div>
                             <button
                                 onClick={logout}
-                                className="p-2 rounded-lg text-stone-500 hover:text-red-400 hover:bg-red-500/10 transition-all"
+                                className="p-2 rounded-lg text-stone-400 hover:text-red-400 hover:bg-red-500/10 transition-all"
                                 title="Déconnexion"
                             >
                                 <LogOut size={18} />
                             </button>
                         </div>
-                        <div className="text-[11px] text-stone-600 font-display text-center pt-3 italic">v1.0.0 Alpha</div>
+                        <div className="text-[11px] text-stone-400 font-display text-center pt-3 italic">v1.0.0 Alpha</div>
                     </div>
                 </div>
             </aside>
@@ -256,7 +256,7 @@ export const Layout: React.FC = () => {
                                 onTouchStart={() => preloadRoute(targetPath)}
                                 className={clsx(
                                     "flex flex-col items-center justify-center flex-1 min-w-0 h-full transition-all duration-300 relative group",
-                                    isActive ? "text-primary-400" : "text-stone-500 hover:text-stone-300"
+                                    isActive ? "text-primary-400" : "text-stone-400 hover:text-stone-300"
                                 )}
                             >
                                 {isActive && (
@@ -270,7 +270,7 @@ export const Layout: React.FC = () => {
                                         isActive && "scale-110 drop-shadow-[0_0_8px_rgba(245,158,11,0.5)]"
                                     )}
                                 />
-                                <span className={clsx("text-[11px] mt-0.5 font-semibold z-10 transition-colors max-w-full truncate leading-none", isActive ? "text-primary-300" : "text-stone-600")}>
+                                <span className={clsx("text-[11px] mt-0.5 font-semibold z-10 transition-colors max-w-full truncate leading-none", isActive ? "text-primary-300" : "text-stone-400")}>
                                     {item.shortLabel ?? item.label}
                                 </span>
                             </Link>

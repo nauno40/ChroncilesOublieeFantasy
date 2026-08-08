@@ -20,7 +20,7 @@ const SaveIndicator: React.FC<{ status: SaveStatus }> = ({ status }) => {
     if (status === 'saving') return <span className="flex items-center gap-1 text-[11px] text-stone-400"><Loader2 size={12} className="animate-spin" /> Enregistrement…</span>;
     if (status === 'saved') return <span className="flex items-center gap-1 text-[11px] text-green-500"><Check size={12} /> Enregistré</span>;
     if (status === 'error') return <span className="flex items-center gap-1 text-[11px] text-red-400"><AlertTriangle size={12} /> Erreur</span>;
-    return <span className="text-[11px] text-stone-600">À jour</span>;
+    return <span className="text-[11px] text-stone-400">À jour</span>;
 };
 
 // Tracker « courant / max » avec gros boutons tactiles (−/+).
@@ -31,7 +31,7 @@ const Tracker: React.FC<{ label: string; current: number; max: number; onChange:
             <button onClick={() => onChange(current - 1)} className="w-11 h-11 rounded-xl bg-stone-800 active:bg-red-900/60 text-red-400 text-2xl font-bold flex items-center justify-center border border-white/5 active:scale-95 transition-all">−</button>
             <div className="min-w-[3.5rem]">
                 <span className="text-3xl font-display font-bold text-white tabular-nums">{current}</span>
-                <span className="text-stone-500 text-sm"> / {max}</span>
+                <span className="text-stone-400 text-sm"> / {max}</span>
             </div>
             <button onClick={() => onChange(current + 1)} className="w-11 h-11 rounded-xl bg-stone-800 active:bg-green-900/60 text-green-400 text-2xl font-bold flex items-center justify-center border border-white/5 active:scale-95 transition-all">+</button>
         </div>
@@ -40,7 +40,7 @@ const Tracker: React.FC<{ label: string; current: number; max: number; onChange:
 
 const Chip: React.FC<{ label: string; value: React.ReactNode }> = ({ label, value }) => (
     <div className="bg-stone-900/40 border border-white/5 rounded-xl px-3 py-2 text-center min-w-[4.5rem]">
-        <div className="text-[11px] uppercase tracking-wider text-stone-500">{label}</div>
+        <div className="text-[11px] uppercase tracking-wider text-stone-400">{label}</div>
         <div className="text-lg font-bold text-stone-200 leading-tight">{value}</div>
     </div>
 );
@@ -56,14 +56,14 @@ const Collapsible: React.FC<{ title: string; children: React.ReactNode; defaultO
 );
 
 const TabButton: React.FC<{ active: boolean; onClick: () => void; icon: React.ReactNode; label: string }> = ({ active, onClick, icon, label }) => (
-    <button onClick={onClick} className={`flex-1 flex flex-col items-center justify-center gap-0.5 py-2 transition-colors ${active ? 'text-primary-400' : 'text-stone-500'}`}>
+    <button onClick={onClick} className={`flex-1 flex flex-col items-center justify-center gap-0.5 py-2 transition-colors ${active ? 'text-primary-400' : 'text-stone-400'}`}>
         {icon}
         <span className="text-[11px] font-bold uppercase tracking-wider">{label}</span>
     </button>
 );
 
 const Stub: React.FC<{ label: string }> = ({ label }) => (
-    <div className="flex flex-col items-center justify-center h-full text-center text-stone-600 gap-2 py-20">
+    <div className="flex flex-col items-center justify-center h-full text-center text-stone-400 gap-2 py-20">
         <span className="text-sm">{label}</span>
         <span className="text-[11px]">Bientôt.</span>
     </div>
@@ -135,7 +135,7 @@ export const PlayMode: React.FC = () => {
                 <Link to={`/characters/${id}`} className="w-9 h-9 rounded-xl bg-stone-900 flex items-center justify-center text-stone-400 active:scale-95"><ChevronLeft size={20} /></Link>
                 <div className="min-w-0 flex-1">
                     <h1 className="text-lg font-display font-bold text-white truncate leading-tight">{character.name || 'Personnage'}</h1>
-                    <p className="text-[11px] text-stone-500 truncate">{[raceName, profileName].filter(Boolean).join(' · ')} — Niv {level}</p>
+                    <p className="text-[11px] text-stone-400 truncate">{[raceName, profileName].filter(Boolean).join(' · ')} — Niv {level}</p>
                 </div>
                 <SaveIndicator status={saveStatus} />
             </header>
@@ -173,7 +173,7 @@ export const PlayMode: React.FC = () => {
                                     {activeStates.map((s, i) => (
                                         <button key={i} onClick={() => toggleState(i)} className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl border text-sm transition-all active:scale-[0.99] ${s.active ? 'bg-primary-500/15 border-primary-500/50 text-primary-200' : 'bg-stone-900/50 border-white/5 text-stone-400'}`}>
                                             <span>{s.name} <span className="text-[11px] opacity-70">({s.target} {sign(s.value)})</span></span>
-                                            <span className={`text-[11px] font-bold uppercase ${s.active ? 'text-primary-300' : 'text-stone-600'}`}>{s.active ? 'Actif' : 'Inactif'}</span>
+                                            <span className={`text-[11px] font-bold uppercase ${s.active ? 'text-primary-300' : 'text-stone-400'}`}>{s.active ? 'Actif' : 'Inactif'}</span>
                                         </button>
                                     ))}
                                 </div>
@@ -186,7 +186,7 @@ export const PlayMode: React.FC = () => {
                                 <div className="space-y-2">
                                     {usages.map((u, i) => (
                                         <div key={i} className="flex items-center justify-between gap-2 px-3 py-2 rounded-xl bg-stone-900/50 border border-white/5">
-                                            <span className="text-sm text-stone-300">{u.name} <span className="text-[11px] text-stone-500">/ {u.per}</span></span>
+                                            <span className="text-sm text-stone-300">{u.name} <span className="text-[11px] text-stone-400">/ {u.per}</span></span>
                                             <div className="flex items-center gap-2">
                                                 <button onClick={() => spendUsage(i, 1)} className="w-9 h-9 rounded-lg bg-stone-800 text-red-400 text-lg font-bold active:scale-95">−</button>
                                                 <span className="tabular-nums text-sm w-12 text-center">{u.max - u.used} / {u.max}</span>
@@ -206,13 +206,13 @@ export const PlayMode: React.FC = () => {
                                     const caps = (v?.capabilities ?? []).filter(c => isCapabilityGrantedByEntry(c.rank, entry));
                                     return (
                                         <div key={i}>
-                                            <div className="text-xs font-bold text-stone-300 border-b border-white/5 mb-1">{v?.name || 'Voie'} <span className="text-[11px] font-normal text-stone-500">(rang {entry.rank})</span></div>
+                                            <div className="text-xs font-bold text-stone-300 border-b border-white/5 mb-1">{v?.name || 'Voie'} <span className="text-[11px] font-normal text-stone-400">(rang {entry.rank})</span></div>
                                             <div className="space-y-1.5">
                                                 {caps.map((c, j) => {
                                                     const dice = c.rank != null ? getResolvedDice(entry.voie, c.rank) : undefined;
                                                     return (
                                                         <div key={j} className="text-[13px]">
-                                                            <div><span className="font-bold text-stone-200">R{c.rank} — {c.name}</span>{c.isSpell && <span className="ml-1 text-[11px] font-bold uppercase text-indigo-400 border border-indigo-500/40 rounded px-1">Sort · {c.rank} PM</span>}{dice && <span className="ml-1 text-[11px] text-stone-500">[{dice}]</span>}</div>
+                                                            <div><span className="font-bold text-stone-200">R{c.rank} — {c.name}</span>{c.isSpell && <span className="ml-1 text-[11px] font-bold uppercase text-indigo-400 border border-indigo-500/40 rounded px-1">Sort · {c.rank} PM</span>}{dice && <span className="ml-1 text-[11px] text-stone-400">[{dice}]</span>}</div>
                                                             {c.description && <p className="text-[12px] text-stone-400 leading-snug">{c.description}</p>}
                                                         </div>
                                                     );
@@ -232,13 +232,13 @@ export const PlayMode: React.FC = () => {
                                     {weapons.map((w, i) => <li key={i}>{w.name}{w.atkMod ? ` · ${sign(w.atkMod)}` : ''}{w.dmg ? ` · ${w.dmg} DM` : ''}{w.special ? ` (${w.special})` : ''}</li>)}
                                 </ul>
                             )}
-                            <p className="text-xs text-stone-500">Bourse : {ps?.money ? [ps.money.po && `${ps.money.po} po`, `${ps.money.pa ?? 0} pa`, ps.money.pc && `${ps.money.pc} pc`].filter(Boolean).join(' · ') : '—'}</p>
+                            <p className="text-xs text-stone-400">Bourse : {ps?.money ? [ps.money.po && `${ps.money.po} po`, `${ps.money.pa ?? 0} pa`, ps.money.pc && `${ps.money.pc} pc`].filter(Boolean).join(' · ') : '—'}</p>
                         </Collapsible>
                     </>
                 )}
                 {tab === 'notes' && (
                     <div className="space-y-2">
-                        <p className="text-[11px] text-stone-500">Notes du personnage — enregistrées automatiquement, visibles aussi sur la fiche.</p>
+                        <p className="text-[11px] text-stone-400">Notes du personnage — enregistrées automatiquement, visibles aussi sur la fiche.</p>
                         <textarea
                             className="w-full min-h-[60vh] bg-stone-900/50 border border-white/10 rounded-2xl p-4 text-stone-200 leading-relaxed outline-none focus:border-primary-500/30 resize-none"
                             placeholder="Notes de séance : PNJ rencontrés, pistes, butin, rappels…"
@@ -250,8 +250,8 @@ export const PlayMode: React.FC = () => {
                 {tab === 'campagne' && (
                     sharedCampaigns === null ? <Stub label="Chargement de la campagne…" />
                     : !myCampaign ? (
-                        <div className="flex flex-col items-center justify-center text-center text-stone-500 gap-3 py-16 px-6">
-                            <ScrollText size={28} className="text-stone-600" />
+                        <div className="flex flex-col items-center justify-center text-center text-stone-400 gap-3 py-16 px-6">
+                            <ScrollText size={28} className="text-stone-400" />
                             <p className="text-sm">Tu n'as pas encore rejoint de campagne.</p>
                             <Link to="/campaign" className="text-xs text-primary-400 underline">Rejoindre une campagne</Link>
                         </div>
@@ -259,19 +259,19 @@ export const PlayMode: React.FC = () => {
                         <div className="space-y-4">
                             <div>
                                 <h2 className="text-lg font-display font-bold text-white">{myCampaign.name}</h2>
-                                <p className="text-[11px] text-stone-500">MJ : {myCampaign.gameMaster || '—'}</p>
+                                <p className="text-[11px] text-stone-400">MJ : {myCampaign.gameMaster || '—'}</p>
                             </div>
                             <div>
                                 <h3 className="text-[11px] uppercase tracking-widest text-primary-500/70 font-bold mb-2">Historique des séances</h3>
                                 {myCampaign.sessions.length === 0 ? (
-                                    <p className="text-xs text-stone-600 italic">Aucun résumé partagé pour l'instant.</p>
+                                    <p className="text-xs text-stone-400 italic">Aucun résumé partagé pour l'instant.</p>
                                 ) : (
                                     <div className="space-y-3">
                                         {myCampaign.sessions.map(s => (
                                             <div key={s.id} className="bg-stone-900/40 border border-white/5 rounded-2xl p-4">
                                                 <div className="flex items-baseline justify-between gap-2">
                                                     <span className="font-display font-bold text-stone-200 text-sm">{s.title}</span>
-                                                    {s.date && <span className="text-[11px] text-stone-500 flex-none">{s.date}</span>}
+                                                    {s.date && <span className="text-[11px] text-stone-400 flex-none">{s.date}</span>}
                                                 </div>
                                                 {s.summary && <p className="text-[13px] text-stone-400 leading-relaxed mt-1 whitespace-pre-line">{s.summary}</p>}
                                             </div>
@@ -287,7 +287,7 @@ export const PlayMode: React.FC = () => {
                                         if (qs.length === 0) return null;
                                         return (
                                             <div key={type} className="mb-2">
-                                                <div className="text-[11px] uppercase tracking-wider text-stone-500 mb-1">{type === 'main' ? 'Principale' : 'Secondaire'}</div>
+                                                <div className="text-[11px] uppercase tracking-wider text-stone-400 mb-1">{type === 'main' ? 'Principale' : 'Secondaire'}</div>
                                                 <div className="space-y-2">
                                                     {qs.map(q => (
                                                         <div key={q.id} className="bg-stone-900/40 border border-white/5 rounded-2xl p-3">
@@ -311,7 +311,7 @@ export const PlayMode: React.FC = () => {
                                     </div>
                                 </div>
                             )}
-                            <p className="text-[11px] text-stone-600 italic">Vue joueur : seuls le nom, le MJ, les résumés de séances et les éléments partagés par le MJ sont visibles.</p>
+                            <p className="text-[11px] text-stone-400 italic">Vue joueur : seuls le nom, le MJ, les résumés de séances et les éléments partagés par le MJ sont visibles.</p>
                         </div>
                     )
                 )}

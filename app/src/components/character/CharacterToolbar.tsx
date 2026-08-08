@@ -18,6 +18,7 @@ export const CharacterToolbar: React.FC<Props> = ({ name, isNew, saving, onBack,
             <div className="flex items-center gap-5">
                 <button
                     onClick={onBack}
+                    aria-label="Retour à la liste des personnages"
                     className="w-10 h-10 rounded-xl glass-panel flex items-center justify-center text-stone-400 hover:text-primary-400 hover:border-primary-500/30 transition-all group border border-white/5"
                 >
                     <ChevronLeft size={20} className="group-hover:-translate-x-0.5 transition-transform" />

@@ -190,6 +190,7 @@ export const VoiesTree: React.FC<Props> = ({
                                     ) : (
                                         racialVoieOptions.length > 1 ? (
                                             <select
+                                                aria-label="Voie de peuple"
                                                 className="w-full bg-stone-950/30 border border-stone-800 rounded-lg px-4 py-2 text-lg font-display font-bold text-white outline-none focus:border-primary-500/50 focus:bg-stone-900/50 transition-all cursor-pointer appearance-none shadow-inner"
                                                 value={selectedVoies[2]}
                                                 onChange={e => {
@@ -276,6 +277,7 @@ export const VoiesTree: React.FC<Props> = ({
                                                 ) : (
                                                     // En jeu : voie choisie parmi tous les profils (profils hybrides, COF2 chap. 9).
                                                     <select
+                                                        aria-label={`Voie de profil ${vIdx + 1}`}
                                                         value={iri}
                                                         onChange={(e) => {
                                                             const newIri = e.target.value;

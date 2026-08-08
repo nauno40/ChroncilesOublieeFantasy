@@ -46,6 +46,7 @@ export const PhysicalBlock: React.FC<Props> = ({ character, setCharacter, races 
                         <label className="text-[11px] uppercase font-bold text-stone-400 tracking-wider">{f.label}</label>
                         <input
                             type="text"
+                            aria-label={f.label}
                             className="w-full bg-stone-950/40 border border-stone-800 rounded px-2 py-1 text-xs text-stone-200 outline-none focus:border-primary-500/40"
                             placeholder={f.placeholder}
                             value={physical[f.key] || ''}

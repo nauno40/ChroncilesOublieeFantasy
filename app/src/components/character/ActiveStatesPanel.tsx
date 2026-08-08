@@ -56,6 +56,7 @@ export const ActiveStatesPanel: React.FC<Props> = ({ character, setCharacter }) 
                 <h3 className="text-stone-400 font-display font-bold uppercase text-[11px] tracking-[0.2em]">États activables</h3>
                 <div className="flex items-center gap-1.5">
                     <select
+                        aria-label="Ajouter un état préjudiciable officiel"
                         className="bg-stone-950/40 border border-stone-800 rounded px-2 py-1 text-[11px] text-stone-300 outline-none focus:border-primary-500/40"
                         value=""
                         onChange={e => { addFromCompendium(e.target.value); e.currentTarget.value = ''; }}

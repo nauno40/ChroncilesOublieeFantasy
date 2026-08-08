@@ -2,7 +2,13 @@ import React from 'react';
 import { HelpCircle as HelpIcon } from 'lucide-react';
 
 interface DynamicDetailsRendererProps {
-    details: any;
+    /**
+     * JSON libre de la capacité ou de la voie : ce composant existe précisément parce que
+     * sa forme n'est pas connue à l'avance (cf. conventions de clés `statistiques_*`,
+     * `mecaniques_*`, `choix_*`). `unknown` dit cette ignorance sans l'excuser — chaque
+     * branche restreint ensuite ce qu'elle lit.
+     */
+    details: Record<string, unknown> | null | undefined;
     className?: string;
 }
 
@@ -11,7 +17,7 @@ export const DynamicDetailsRenderer: React.FC<DynamicDetailsRendererProps> = ({ 
 
     return (
         <div className={`space-y-4 ${className}`}>
-            {Object.entries(details).map(([key, value]: [string, any]) => {
+            {Object.entries(details).map(([key, value]) => {
                 // Handle "statistiques_*" (e.g., Wolf, Mount, Familiar)
                 if (key.startsWith('statistiques_')) {
                     const title = key.replace('statistiques_', '').replace(/_/g, ' ');
@@ -21,7 +27,7 @@ export const DynamicDetailsRenderer: React.FC<DynamicDetailsRendererProps> = ({ 
                                 Statistiques : {title}
                             </strong>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2">
-                                {Object.entries(value).map(([statKey, statValue]: [string, any]) => (
+                                {Object.entries(value as Record<string, unknown>).map(([statKey, statValue]) => (
                                     <div key={statKey} className="flex flex-col border-b border-white/5 pb-1">
                                         <span className="text-stone-400 text-[11px] uppercase font-bold">{statKey.replace(/_/g, ' ')}</span>
                                         <span className="text-stone-300 font-medium">{String(statValue)}</span>
@@ -65,7 +71,7 @@ export const DynamicDetailsRenderer: React.FC<DynamicDetailsRendererProps> = ({ 
                                 </ul>
                             ) : (
                                 <div className="space-y-2">
-                                    {Object.entries(value).map(([mechKey, mechValue]: [string, any]) => (
+                                    {Object.entries(value as Record<string, unknown>).map(([mechKey, mechValue]) => (
                                         <div key={mechKey} className="flex gap-2">
                                             <span className="text-primary-500 font-bold min-w-[80px] text-xs uppercase">{mechKey}:</span>
                                             <span className="text-stone-400 text-xs">{String(mechValue)}</span>
@@ -87,7 +93,7 @@ export const DynamicDetailsRenderer: React.FC<DynamicDetailsRendererProps> = ({ 
                             </strong>
                             {Array.isArray(value) ? (
                                 <ul className="list-disc list-inside space-y-1 pl-2">
-                                    {value.map((v: any, i: number) => <li key={i} className="text-stone-300">{String(v)}</li>)}
+                                    {(value as unknown[]).map((v, i) => <li key={i} className="text-stone-300">{String(v)}</li>)}
                                 </ul>
                             ) : (
                                 <span className="text-stone-300 italic">{String(value)}</span>

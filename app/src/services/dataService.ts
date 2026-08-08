@@ -2,6 +2,11 @@ import type { Weapon, Armor, Food, Lodging, Mount, Creature, Race, Profile, Voie
 // Renaming Capacity to Capability for API consistency if needed, or stick to Capacity
 import { ApiService } from './api';
 
+/** Forme commune des entrées de la collection `equipment` — armes, armures et matériel
+ *  partagent l'identifiant, le nom et le type ; le reste diffère selon la catégorie. */
+type EquipmentLike = { id: number | string; name: string; type?: string } & Record<string, unknown>;
+
+
 /**
  * Cache mémoire (durée de session) des collections du compendium — données de
  * référence *statiques* (ne changent que via l'admin / les fixtures, jamais
@@ -56,7 +61,9 @@ export const DataService = {
     getMounts: () => cachedGetAll<Mount>('mounts?pagination=false&itemsPerPage=500'),
     getCreatures: () => cachedGetAll<Creature>('creatures?pagination=false&itemsPerPage=500'),
     getCreatureById: (id: string | number) => ApiService.getOne<Creature>('creatures', id),
-    getFamilies: () => cachedGetAll<any>('creature_families?pagination=false&itemsPerPage=500'), // Creature Families
+    // Familles de créature : l'API n'expose qu'un identifiant et un nom, et c'est tout ce
+    // que les appelants lisent.
+    getFamilies: () => cachedGetAll<{ id: number | string; name: string }>('creature_families?pagination=false&itemsPerPage=500'),
     getProfileFamilies: () => cachedGetAll<Family>('families?pagination=false&itemsPerPage=500'), // Profile Families
     getRaces: () => cachedGetAll<Race>('races?pagination=false&itemsPerPage=500'),
     getRaceById: (id: string | number) => ApiService.getOne<Race>('races', id),
@@ -86,14 +93,16 @@ export const DataService = {
     },
 
     // Consolidated equipment map
-    getAllEquipmentMap: async (): Promise<Map<string, any>> => {
-        const map = new Map<string, any>();
-        const equipment = await cachedGetAll<any>('equipment?pagination=false&itemsPerPage=500');
+    // La collection `equipment` mélange armes, armures et matériel : on la lit sous sa
+    // forme commune, en ajoutant l'onglet de destination calculé ici.
+    getAllEquipmentMap: async (): Promise<Map<string, EquipmentLike & { tab: string }>> => {
+        const map = new Map<string, EquipmentLike & { tab: string }>();
+        const equipment = await cachedGetAll<EquipmentLike>('equipment?pagination=false&itemsPerPage=500');
         equipment.forEach(item => {
             let tab = 'weapons';
             const lowerType = (item.type || '').toLowerCase();
 
-            if (['Mount', 'Food', 'Lodging'].includes(item.type)) {
+            if (['Mount', 'Food', 'Lodging'].includes(item.type ?? '')) {
                 tab = 'provisions'; // Or whatever tab they belong to, or ignore if this map is only for combat gear
             } else if (lowerType.includes('armure') || lowerType.includes('bouclier')) {
                 tab = 'armors';

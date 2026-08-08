@@ -18,6 +18,7 @@ export { Tooltip } from './Tooltip';
 export { DynamicDetailsRenderer } from './DynamicDetailsRenderer';
 export { PageShell } from './PageShell';
 export { ContentCard } from './ContentCard';
+export { CardStats } from './CardStats';
 export { AuthorTag } from './AuthorTag';
 export { SourceTabs } from './SourceTabs';
 export { SearchToolbar } from './SearchToolbar';

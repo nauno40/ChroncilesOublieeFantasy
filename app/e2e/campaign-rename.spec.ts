@@ -1,4 +1,11 @@
-import { test, expect, register, uniqueEmail, getToken, API_URL } from './fixtures';
+import { test, expect, register, uniqueEmail, getToken, API_URL, nettoyerDonnees } from './fixtures';
+
+// Chaque test s'exécute sous un compte jetable : on supprime ce qu'il a créé plutôt que
+// de le laisser s'accumuler dans la base de développement.
+test.afterEach(async ({ page }) => {
+    await nettoyerDonnees(page, await getToken(page));
+});
+
 
 // Régression : le nom et la description d'une campagne sont modifiables depuis
 // la fiche de campagne (ils n'étaient qu'affichés auparavant) et la modification

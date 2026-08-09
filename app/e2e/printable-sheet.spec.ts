@@ -1,5 +1,12 @@
 import { type Page } from '@playwright/test';
-import { test, expect, register, uniqueEmail, getToken, API_URL } from './fixtures';
+import { test, expect, register, uniqueEmail, getToken, API_URL, nettoyerDonnees } from './fixtures';
+
+// Chaque test s'exécute sous un compte jetable : on supprime ce qu'il a créé plutôt que
+// de le laisser s'accumuler dans la base de développement.
+test.afterEach(async ({ page }) => {
+    await nettoyerDonnees(page, await getToken(page));
+});
+
 
 // Fiche imprimable (`/characters/:id/print`) : lecture seule, dérivée du même hook que
 // l'écran. Ce que ces tests gardent, c'est qu'elle reste COMPLÈTE et que le coût des

@@ -47,14 +47,26 @@ export const useCharacterData = () => {
                     (idOf(i) >= 38 && idOf(i) <= 46)
                 ));
 
-                const voiesData = (await DataService.getVoies()) as unknown as RefVoie[];
-                setAllVoies(voiesData);
-                setPrestigePaths(voiesData.filter((v) => v.category === 'Prestige' || v.type === 'Prestige' || v.description?.includes('Prestige')));
             } catch (e) {
-                console.error('Failed to fetch equipment or voies', e);
+                console.error("Échec du chargement de l'équipement", e);
             }
         };
         load();
+    }, []);
+
+    // Les voies se chargent SÉPARÉMENT de l'équipement. Elles partageaient le même bloc
+    // `try`, après la normalisation des armes et armures : une exception dans ce traitement
+    // laissait `allVoies` vide pour toujours, sans autre trace qu'un message de console. La
+    // fiche affichait alors cinq emplacements de voie dont trois vides — le nom d'une voie
+    // se résolvant depuis cette liste.
+    useEffect(() => {
+        DataService.getVoies()
+            .then((data) => {
+                const voiesData = data as unknown as RefVoie[];
+                setAllVoies(voiesData);
+                setPrestigePaths(voiesData.filter((v) => v.category === 'Prestige' || v.type === 'Prestige' || v.description?.includes('Prestige')));
+            })
+            .catch((e) => console.error('Échec du chargement des voies', e));
     }, []);
 
     useEffect(() => {

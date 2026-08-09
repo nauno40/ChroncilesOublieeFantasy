@@ -2,7 +2,9 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import type { Campaign } from '../types/campaign';
 
 // `saveCampaign` envoie un PATCH ; on n'observe que ce qu'il met dans la charge utile.
-const patch = vi.fn(async (..._args: unknown[]) => ({ id: 12, name: 'Campagne' }));
+const patch = vi.fn<(...args: unknown[]) => Promise<{ id: number; name: string }>>(
+    async () => ({ id: 12, name: 'Campagne' }),
+);
 vi.mock('./api', () => ({ ApiService: { patch: (...a: unknown[]) => patch(...a), post: vi.fn() } }));
 
 const { saveCampaign } = await import('./campaignService');

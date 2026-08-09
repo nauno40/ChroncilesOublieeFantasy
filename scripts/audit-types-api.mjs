@@ -37,7 +37,21 @@ const source = readFileSync(join(RACINE, 'app/src/types/normalized.ts'), 'utf8')
 const champsDeclares = (nom) => {
     const m = source.match(new RegExp(`export interface ${nom} \\{([\\s\\S]*?)\\n\\}`));
     if (!m) return new Set();
-    return new Set([...m[1].matchAll(/^\s*(\w+)\??\s*:/gm)].map(x => x[1]));
+    // Seuls les champs de PREMIER NIVEAU comptent : une propriété imbriquée (`stats.AGI`,
+    // `masteries.weapons`) n'est pas un champ que l'API doit servir à la racine. Les
+    // compter a produit huit faux « morts » sur Creature et failli faire supprimer les
+    // sous-champs de masteries, que le compendium affiche.
+    const champs = new Set();
+    let profondeur = 0;
+    for (const ligne of m[1].split('\n')) {
+        const nu = ligne.trim();
+        if (profondeur === 0) {
+            const f = nu.match(/^(\w+)\??\s*:/);
+            if (f) champs.add(f[1]);
+        }
+        profondeur += (ligne.match(/\{/g) ?? []).length - (ligne.match(/\}/g) ?? []).length;
+    }
+    return champs;
 };
 
 const champsServis = async (chemin) => {

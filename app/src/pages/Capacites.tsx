@@ -213,11 +213,6 @@ export const Capacites: React.FC = () => {
                                             Limité
                                         </Badge>
                                     )}
-                                    {capacite.active && (
-                                        <Badge variant="warning">
-                                            Actif
-                                        </Badge>
-                                    )}
                                     {capacite.rank && (
                                         <Badge variant="primary">
                                             Rang {capacite.rank}

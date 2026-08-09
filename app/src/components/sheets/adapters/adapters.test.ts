@@ -45,12 +45,6 @@ describe('adaptateurs officiels', () => {
         expect(vm).toMatchObject({ name: 'Boule de feu', rank: 3, isSpell: true, limited: true, voieName: 'Voie du Feu' });
     });
 
-    it('porte le drapeau `active` (capacité active vs passive) sur une capacité standalone', () => {
-        const active = { id: 1, name: 'Frappe', description: '', active: true } as unknown as Capacity;
-        const passive = { id: 2, name: 'Endurance', description: '', active: false } as unknown as Capacity;
-        expect(capacityToVM(active).active).toBe(true);
-        expect(capacityToVM(passive).active).toBeUndefined();
-    });
 
     it('porte les JSON libres (Capacity.details) et le lien vers la voie (voieId, identifiant entier comme le renvoie l\'API) sur une capacité standalone', () => {
         const cap = { id: 35651, name: 'Pas de brume', description: 'Se téléporte', details: { note: 'Une fois par combat' } } as unknown as Capacity;
@@ -111,16 +105,6 @@ describe('adaptateurs officiels', () => {
         expect(voieToVM(withoutDetails).details).toBeUndefined();
     });
 
-    it('porte le drapeau `active` sur les capacités listées par une voie', () => {
-        const voie = { id: 7131, name: 'Voie de l\'Énergie Vitale', type: 'profil' } as unknown as Voie;
-        const caps = [
-            { id: 35651, name: 'Frappe vitale', rank: 1, active: true } as unknown as Capacity,
-            { id: 35652, name: 'Résistance', rank: 2, active: false } as unknown as Capacity,
-        ];
-        const vm = voieToVM(voie, caps);
-        expect(vm.capabilities?.find(c => c.name === 'Frappe vitale')?.active).toBe(true);
-        expect(vm.capabilities?.find(c => c.name === 'Résistance')?.active).toBeUndefined();
-    });
 
     it('rattache à chaque voie ses propres capacités, triées par rang (IRI ou voieId brut)', () => {
         const race = { id: 506, name: 'Elfe' } as unknown as Race;

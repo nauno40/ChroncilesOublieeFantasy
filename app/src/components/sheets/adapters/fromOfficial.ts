@@ -13,7 +13,6 @@ const capRef = (c: Capacity): SheetCapabilityRef => ({
     description: str(c.description),
     isSpell: c.isSpell || undefined,
     limited: c.limited || undefined,
-    active: c.active || undefined,
     actionType: str(c.actionType),
     details: details(c.details),
     // Déclarations officielles (colonnes `Capability.states` / `summons`) : sans ce
@@ -228,7 +227,6 @@ export const capacityToVM = (c: Capacity, voieName?: string, voieId?: string | n
     actionType: str(c.actionType),
     isSpell: c.isSpell || undefined,
     limited: c.limited || undefined,
-    active: c.active || undefined,
     details: details(c.details),
     states: c.states?.length ? c.states : undefined,
     summons: c.summons?.length ? c.summons : undefined,

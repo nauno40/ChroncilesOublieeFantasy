@@ -139,8 +139,6 @@ export interface SheetCapabilityRef {
     isSpell?: boolean;
     /** Usage limité : l'officiel affiche un badge « L ». */
     limited?: boolean;
-    /** Capacité active (par opposition à passive) : l'officiel affiche un badge « Actif ». */
-    active?: boolean;
     /** Type d'action (« Attaque », « Limitée »…). Obligatoire à la saisie communautaire ;
      *  sans ce champ il restait invisible au sein d'une voie, alors que la fiche propre de
      *  la capacité l'affichait. */
@@ -182,8 +180,6 @@ export interface CapaciteSheetVM {
     actionType?: string;
     isSpell?: boolean;
     limited?: boolean;
-    /** Capacité active (par opposition à passive) : `CapaciteDetail.tsx` affiche un badge « Actif ». */
-    active?: boolean;
     /** Lignes d'effet communautaires (schéma homebrew `effect`, type 'lines') — forme
      * différente du champ `effect` de l'entité officielle (données de moteur de règles,
      * jamais affichées). Rendu tel quel si présent, sans tester la provenance. */

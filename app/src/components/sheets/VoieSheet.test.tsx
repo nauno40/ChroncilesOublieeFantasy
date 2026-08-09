@@ -37,7 +37,6 @@ const vm: VoieSheetVM = {
             description: 'VoieMarkerCapDescription',
             isSpell: true,
             limited: true,
-            active: true,
             details: { marqueur: 'VoieMarkerCapDetailsValue' },
         },
     ],
@@ -66,6 +65,5 @@ describe('VoieSheet', () => {
         // Badges booléens : libellés fixes, vérifiés par présence exacte de l'élément.
         expect(within(container).getByText('Sort')).toBeTruthy();
         expect(within(container).getByText('Limité')).toBeTruthy();
-        expect(within(container).getByText('Actif')).toBeTruthy();
     });
 });

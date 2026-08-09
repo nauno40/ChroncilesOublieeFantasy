@@ -10,6 +10,7 @@ export { TabGroup } from './TabGroup';
 export { EmptyState } from './EmptyState';
 export { DiceRoller } from './DiceRoller';
 export { ItemTable } from './ItemTable';
+export { CompendiumTable } from './CompendiumTable';
 export { GlobalNotes } from './GlobalNotes';
 export { Soundboard } from './Soundboard';
 export { DraggableWindow } from './DraggableWindow';

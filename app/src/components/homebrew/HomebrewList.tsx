@@ -3,7 +3,7 @@ import { Globe, Lock, Edit, Trash2, Copy } from 'lucide-react';
 import { AuthorTag, CompendiumTable } from '../common';
 import { categoryLabel, type HomebrewEntry } from '../../services/homebrewService';
 import { imagePlaceholder, onImageError } from '../common/imagePlaceholder';
-import { COLONNES_TABLE, LABEL_NOM } from '../../domain/tablesCompendium';
+import { COLONNES_TABLE, LABEL_NOM, modDegats, type TypeTabulaire } from '../../domain/tablesCompendium';
 
 /**
  * Rendu de la liste communautaire, fidèle au format officiel de chaque catégorie :
@@ -27,21 +27,31 @@ interface Col {
 // Colonnes par catégorie tabulaire, calquées sur les tables officielles
 // (Equipment.tsx, Poisons.tsx, Traps.tsx). Le nom est toujours la 1re colonne.
 const TABLE_COLUMNS: Record<string, Col[]> = {
-    equipement: [
-        { key: 'type', label: 'Type' },
-        { key: 'damage', label: 'Dégâts', num: true },
-        { key: 'acBonus', label: 'DEF', num: true, plus: true },
-        { key: 'price', label: 'Prix', num: true },
-    ],
     'objet-magique': [
         { key: 'type', label: 'Type' },
         { key: 'rarity', label: 'Rareté' },
         { key: 'properties', label: 'Propriétés', wrap: true },
         { key: 'price', label: 'Prix', num: true },
     ],
-    // Poisons et pièges ne sont plus décrits ici : leurs colonnes sont celles de
-    // `COLONNES_TABLE`, partagées avec la page officielle (cf. `CompendiumTable`).
-    // L'équipement et les objets magiques restent à migrer.
+    // Poisons, pièges et équipement ne sont plus décrits ici : leurs colonnes sont
+    // celles de `COLONNES_TABLE`, partagées avec la page officielle. Restent les objets
+    // magiques, dont la page officielle n'est pas une liste mais un outil de génération
+    // — l'iso y demande d'abord une décision de fond, pas un partage de composant.
+};
+
+/**
+ * Lecture d'une colonne partagée sur une entrée communautaire.
+ *
+ * Le schéma communautaire ne nomme pas tout comme les entités officielles : une seule
+ * liste `properties` y tient le rôle des trois champs de commentaire des tables
+ * officielles (`requirements` d'une arme, `comments` d'une armure, `notes` d'un
+ * matériel). Et `mod` n'est stocké nulle part — il se calcule, des deux côtés.
+ */
+const valeurCommunautaire = (entry: HomebrewEntry, key: string): unknown => {
+    const data = entry.data ?? {};
+    if (key === 'mod') return modDegats(String(data.type ?? ''));
+    if (key === 'requirements' || key === 'comments' || key === 'notes') return data.properties;
+    return data[key];
 };
 
 /** Renvoie la catégorie tabulaire unique de la page, ou null (grille de cartes). */
@@ -115,24 +125,33 @@ interface HomebrewListProps {
     onEdit: (e: HomebrewEntry) => void;
     onDelete: (e: HomebrewEntry) => void;
     onDuplicate: (e: HomebrewEntry) => void;
+    /** Sous-type d'équipement affiché (pastilles Armes / Armures / Matériel de la page
+     *  officielle) : il pilote le jeu de colonnes, comme les onglets côté officiel. */
+    sousType?: 'arme' | 'armure' | 'materiel';
 }
 
-export const HomebrewList: React.FC<HomebrewListProps> = ({ entries, category, myId, duplicatingId, onOpen, onEdit, onDelete, onDuplicate }) => {
+export const HomebrewList: React.FC<HomebrewListProps> = ({ entries, category, myId, duplicatingId, onOpen, onEdit, onDelete, onDuplicate, sousType }) => {
     const tableCat = tableCategoryOf(category);
     const locked = typeof category === 'string';
 
     // --- Types dont la table est partagée avec la page officielle ---
     // La donnée communautaire vit sous `entry.data`, l'officielle à la racine de l'entité :
     // seul l'accesseur diffère, la table et ses colonnes sont les mêmes objets.
-    if (category === 'poison' || category === 'piege') {
+    const typeTabulaire: TypeTabulaire | null = category === 'poison' || category === 'piege'
+        ? category
+        : category === 'equipement'
+            ? (sousType ?? 'arme')
+            : null;
+
+    if (typeTabulaire) {
         return (
             <CompendiumTable
-                colonnes={COLONNES_TABLE[category]}
-                labelNom={LABEL_NOM[category]}
+                colonnes={COLONNES_TABLE[typeTabulaire]}
+                labelNom={LABEL_NOM[typeTabulaire]}
                 lignes={entries}
                 cle={e => e.id}
                 nom={e => e.name}
-                valeur={(e, key) => (e.data ?? {})[key]}
+                valeur={(e, key) => valeurCommunautaire(e, key)}
                 sousNom={e => (e.visibility === 'public'
                     ? <Globe size={12} className="text-green-500/70 shrink-0" aria-label="Public" />
                     : <Lock size={12} className="text-stone-400 shrink-0" aria-label="Privé" />)}

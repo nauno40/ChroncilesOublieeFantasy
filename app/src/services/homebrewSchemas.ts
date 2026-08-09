@@ -57,6 +57,10 @@ const equipmentFields: HomebrewFieldDef[] = [
     { key: 'damage', label: 'Dégâts (si arme)', type: 'text', placeholder: 'ex. 1d8', required: false },
     { key: 'range', label: 'Portée (si arme)', type: 'text', required: false },
     { key: 'critical', label: 'Critique (si arme)', type: 'text', required: false },
+    // La table officielle des armes porte une colonne « Rechargement » (arbalètes,
+    // arquebuses) que le schéma communautaire ne savait pas exprimer : une arme maison
+    // ne pouvait pas dire ce que dit son équivalent officiel.
+    { key: 'reload', label: 'Rechargement (si arme)', type: 'text', placeholder: 'ex. 1 action', required: false },
     { key: 'acBonus', label: 'Bonus DEF (si armure)', type: 'number', required: false },
     { key: 'acMaxAgi', label: 'AGI max (si armure)', type: 'number', required: false },
     { key: 'acPenalty', label: 'Malus (si armure)', type: 'number', required: false },

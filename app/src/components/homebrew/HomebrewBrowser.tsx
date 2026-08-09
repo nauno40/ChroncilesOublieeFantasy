@@ -1,13 +1,28 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Plus } from 'lucide-react';
-import { Loader, SearchBar } from '../common';
+import { Loader, SearchToolbar } from '../common';
 import { useAuth } from '../../context/AuthContext';
 import { HomebrewService, HOMEBREW_CATEGORIES, categoryLabel, childrenOf, messageSuppression, type HomebrewEntry } from '../../services/homebrewService';
 import { duplicateEntry, resumeDuplication } from '../../services/homebrewChildren';
 import { HomebrewList } from './HomebrewList';
+import { sousTypeEquipement } from '../../domain/tablesCompendium';
 
 type Tab = 'mine' | 'community';
+
+/** Filtre par catégorie de la Bibliothèque (mode « toutes catégories »). Il vivait dans
+ *  sa propre rangée de pastilles sous la barre : même intention, même barre. */
+const CHIPS_CATEGORIES = [
+    { id: '', label: 'Toutes' },
+    ...HOMEBREW_CATEGORIES.map(c => ({ id: c.value, label: c.label })),
+];
+
+/** Mêmes sous-types que la page officielle de l'équipement, mêmes intitulés. */
+const CHIPS_EQUIPEMENT = [
+    { id: 'arme', label: 'Armes' },
+    { id: 'armure', label: 'Armures' },
+    { id: 'materiel', label: 'Matériel' },
+];
 
 interface HomebrewBrowserProps {
     tab: Tab;
@@ -47,6 +62,11 @@ export const HomebrewBrowser: React.FC<HomebrewBrowserProps> = ({ tab, onTabChan
     const [entries, setEntries] = useState<HomebrewEntry[] | null>(null);
     const [categoryFilter, setCategoryFilter] = useState<string>('');
     const [search, setSearch] = useState('');
+    // Sous-type d'équipement affiché : la page officielle range armes, armures et matériel
+    // sous trois pastilles, avec trois jeux de colonnes. La liste communautaire les reprend
+    // — sans quoi une arme et une potion se retrouvaient dans la même table.
+    const [sousType, setSousType] = useState<'arme' | 'armure' | 'materiel'>('arme');
+    const estEquipement = locked && cats![0] === 'equipement';
     const [duplicatingId, setDuplicatingId] = useState<number | null>(null);
 
     const reload = () => HomebrewService.getAll().then(setEntries).catch(() => setEntries([]));
@@ -59,8 +79,9 @@ export const HomebrewBrowser: React.FC<HomebrewBrowserProps> = ({ tab, onTabChan
             : all.filter(e => e.visibility === 'public' && e.authorId !== myId);
         return base
             .filter(e => cats ? cats.includes(e.category) : (!categoryFilter || e.category === categoryFilter))
-            .filter(e => !search || (e.name + ' ' + (e.description ?? '')).toLowerCase().includes(search.toLowerCase()));
-    }, [entries, tab, myId, cats, categoryFilter, search]);
+            .filter(e => !search || (e.name + ' ' + (e.description ?? '')).toLowerCase().includes(search.toLowerCase()))
+            .filter(e => !estEquipement || sousTypeEquipement(e.data ?? {}) === sousType);
+    }, [entries, tab, myId, cats, categoryFilter, search, estEquipement, sousType]);
 
     // La création/édition se fait désormais sur une page dédiée (HomebrewForm) — plus
     // adaptée au mobile qu'une modale — avec retour vers la page courante après coup.
@@ -103,32 +124,22 @@ export const HomebrewBrowser: React.FC<HomebrewBrowserProps> = ({ tab, onTabChan
 
     return (
         <div className="space-y-4">
-            {/* Barre : recherche + créer */}
-            <div className="flex flex-wrap items-center gap-3">
-                <SearchBar
-                    value={search}
-                    onChange={setSearch}
-                    placeholder="Rechercher…"
-                    className="flex-1 min-w-[200px]"
-                />
-                {tab === 'mine' && (
+            {/* Même barre que les pages officielles : recherche, pastilles de sous-type,
+                action principale et compte de résultats font corps. */}
+            <SearchToolbar
+                value={search}
+                onChange={setSearch}
+                placeholder="Rechercher…"
+                chips={estEquipement ? CHIPS_EQUIPEMENT : !cats ? CHIPS_CATEGORIES : undefined}
+                chipActif={estEquipement ? sousType : categoryFilter}
+                onChipChange={id => (estEquipement
+                    ? setSousType(id as 'arme' | 'armure' | 'materiel')
+                    : setCategoryFilter(id))}
+                count={{ n: visible.length, singulier: 'résultat' }}
+                action={tab === 'mine' && (
                     <button onClick={openNew} className="flex items-center gap-2 bg-primary-600 hover:bg-primary-500 text-stone-950 font-bold text-sm px-4 py-3 rounded-xl transition-all whitespace-nowrap"><Plus size={16} /> {createLabel}</button>
                 )}
-            </div>
-
-            <p className="text-stone-400 text-sm">
-                {visible.length} résultat{visible.length > 1 ? 's' : ''}
-            </p>
-
-            {/* Filtre catégorie (uniquement en mode « toutes catégories ») */}
-            {!cats && (
-                <div role="tablist" className="flex flex-wrap gap-1.5">
-                    <button role="tab" aria-selected={!categoryFilter} onClick={() => setCategoryFilter('')} className={`text-[11px] font-bold uppercase px-2.5 py-1 rounded-full border transition-all ${!categoryFilter ? 'bg-primary-500/20 text-primary-300 border-primary-500/40' : 'bg-stone-900/40 text-stone-400 border-white/5'}`}>Toutes</button>
-                    {HOMEBREW_CATEGORIES.map(c => (
-                        <button key={c.value} role="tab" aria-selected={categoryFilter === c.value} onClick={() => setCategoryFilter(c.value)} className={`text-[11px] font-bold uppercase px-2.5 py-1 rounded-full border transition-all ${categoryFilter === c.value ? 'bg-primary-500/20 text-primary-300 border-primary-500/40' : 'bg-stone-900/40 text-stone-400 border-white/5 hover:text-stone-300'}`}>{c.label}</button>
-                    ))}
-                </div>
-            )}
+            />
 
             {visible.length === 0 ? (
                 <div className="text-center py-16 text-stone-400">
@@ -147,6 +158,7 @@ export const HomebrewBrowser: React.FC<HomebrewBrowserProps> = ({ tab, onTabChan
                     onEdit={openEdit}
                     onDelete={handleDelete}
                     onDuplicate={handleDuplicate}
+                    sousType={estEquipement ? sousType : undefined}
                 />
             )}
         </div>

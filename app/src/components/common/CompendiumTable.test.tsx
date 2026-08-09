@@ -21,15 +21,26 @@ const piegesOfficiels = [{
     effect: '2d6 DM', complement: 'DM/2 sur test AGI',
 }];
 
+// `Equipment` sépare armes et armures côté client depuis la même collection : le type
+// « Corps » range en armures (cf. la page). Le matériel vient d'une collection à part.
+const equipementOfficiel = [
+    { id: 1, name: 'Épée longue', type: 'Contact', damage: '1d8', critical: '20', range: '', reload: '', requirements: 'Deux mains', price: '15 po' },
+    { id: 2, name: 'Cotte de mailles', type: 'Corps', acBonus: 5, comments: 'Lourde', price: '150 po' },
+];
+const materielOfficiel = [{ id: 3, name: 'Corde (15 m)', notes: 'Chanvre', price: '1 po' }];
+
 vi.mock('../../services/dataService', () => ({
     DataService: {
         getPoisons: () => Promise.resolve(poisonsOfficiels),
         getTraps: () => Promise.resolve(piegesOfficiels),
+        getWeapons: () => Promise.resolve(equipementOfficiel),
+        getMaterials: () => Promise.resolve(materielOfficiel),
     },
 }));
 
 const { Poisons } = await import('../../pages/Poisons');
 const { Traps } = await import('../../pages/Traps');
+const { Equipment } = await import('../../pages/Equipment');
 const { HomebrewList } = await import('../homebrew/HomebrewList');
 
 afterEach(cleanup);
@@ -44,7 +55,7 @@ const entreeCommunautaire = (category: string, data: Record<string, unknown>) =>
     createdAt: '2026-08-10T00:00:00+00:00', updatedAt: '2026-08-10T00:00:00+00:00',
 });
 
-const listeCommunautaire = (category: string, data: Record<string, unknown>) => render(
+const listeCommunautaire = (category: string, data: Record<string, unknown>, sousType?: 'arme' | 'armure' | 'materiel') => render(
     <MemoryRouter>
         <HomebrewList
             entries={[entreeCommunautaire(category, data)]}
@@ -54,9 +65,22 @@ const listeCommunautaire = (category: string, data: Record<string, unknown>) => 
             onEdit={() => {}}
             onDelete={() => {}}
             onDuplicate={() => {}}
+            sousType={sousType}
         />
     </MemoryRouter>,
 );
+
+/** Rend la page officielle de l'équipement sur l'une de ses trois pastilles. */
+const equipementOfficielRendu = async (pastille: 'Armes' | 'Armures' | 'Matériel') => {
+    const vue = render(<MemoryRouter><Equipment /></MemoryRouter>);
+    await screen.findAllByRole('tab', { name: pastille });
+    if (pastille !== 'Armes') {
+        (await screen.findAllByRole('tab', { name: pastille }))[0].click();
+        // Le clic déclenche un rendu React : laisser la file de micro-tâches se vider.
+        await new Promise(r => setTimeout(r, 0));
+    }
+    return vue;
+};
 
 describe('table du compendium : officiel et communautaire', () => {
     it('un poison communautaire porte les colonnes de la table officielle', async () => {
@@ -83,6 +107,33 @@ describe('table du compendium : officiel et communautaire', () => {
             detectDifficulty: 'DIF 18', disarmDifficulty: 'DIF 20', effect: '3d6 DM', complement: 'Rechargeable',
         });
         expect(entetes(communautaire.container).slice(0, attendues.length)).toEqual(attendues);
+    });
+
+    it.each([
+        ['Armes' as const, 'arme' as const, { type: 'Contact', damage: '2d6', critical: '19-20', range: '5 m', reload: '1 action', properties: ['Deux mains'], price: '30 po' }],
+        ['Armures' as const, 'armure' as const, { type: 'Corps', acBonus: 4, properties: ['Bruyante'], price: '90 po' }],
+        ['Matériel' as const, 'materiel' as const, { properties: ['Solide'], price: '2 po' }],
+    ])('un équipement communautaire (%s) porte les colonnes de la table officielle', async (pastille, sousType, data) => {
+        const officiel = await equipementOfficielRendu(pastille);
+        const attendues = entetes(officiel.container);
+        expect(attendues.length).toBeGreaterThan(2); // garde-fou : une table vide ne prouverait rien
+        cleanup();
+
+        const communautaire = listeCommunautaire('equipement', data, sousType);
+        expect(entetes(communautaire.container).slice(0, attendues.length)).toEqual(attendues);
+    });
+
+    it('affiche les champs d’arme que la liste communautaire perdait', () => {
+        // Critique, portée, rechargement et « spécial » étaient saisis dans le formulaire
+        // et n'atteignaient aucune colonne : l'auteur ne les revoyait jamais dans sa liste.
+        const { container } = listeCommunautaire('equipement', {
+            type: 'Distance', damage: '1d6', critical: '19-20', range: '20 m',
+            reload: '1 action', properties: ['Munitions rares'], price: '30 po',
+        }, 'arme');
+        const table = container.querySelector('table') as HTMLElement;
+        for (const valeur of ['19-20', '20 m', '1 action', 'Munitions rares']) {
+            expect(within(table).getByText(valeur)).toBeTruthy();
+        }
     });
 
     it('affiche toutes les valeurs saisies d’une entrée communautaire', () => {

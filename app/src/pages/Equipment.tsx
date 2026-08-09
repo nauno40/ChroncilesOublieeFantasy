@@ -1,61 +1,11 @@
 import React, { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { PageContainer, SearchToolbar, EmptyState, Loader } from '../components/common';
+import { PageContainer, SearchToolbar, EmptyState, Loader, CompendiumTable } from '../components/common';
 import { useSearch } from '../hooks';
 import { DataService } from '../services/dataService';
+import { COLONNES_TABLE, LABEL_NOM, modDegats, sousTypeEquipement } from '../domain/tablesCompendium';
 
 import type { Weapon, Armor, Material } from '../types/normalized';
-
-// Modificateur de dégâts : les armes de contact ajoutent la FOR (COF2).
-const getDamageMod = (type: string) =>
-    type && type.toLowerCase().includes('contact') ? '+ FOR' : '-';
-
-// --- Cartes mobiles (la table large est réservée au desktop) ---
-
-const Field: React.FC<{ label: string; value?: string | number | null }> = ({ label, value }) => {
-    if (value === undefined || value === null || value === '' || value === '-') return null;
-    return (
-        <div className="min-w-0">
-            <span className="text-stone-400 text-xs">{label} </span>
-            <span className="text-stone-300 font-mono text-sm break-words">{value}</span>
-        </div>
-    );
-};
-
-const MobileCard: React.FC<{ name: string; price?: string | number; children?: React.ReactNode; footer?: string | null }> = ({ name, price, children, footer }) => (
-    <div className="glass-panel rounded-xl p-4">
-        <div className="flex items-baseline justify-between gap-3">
-            <h3 className="font-display font-bold text-stone-100 leading-tight">{name}</h3>
-            {price !== undefined && price !== '' && <span className="text-yellow-500/90 font-mono text-sm whitespace-nowrap">{price}</span>}
-        </div>
-        {children && <div className="grid grid-cols-2 gap-x-4 gap-y-1 mt-3">{children}</div>}
-        {footer && <p className="text-xs text-amber-400/80 italic mt-2">{footer}</p>}
-    </div>
-);
-
-const WeaponCard: React.FC<{ w: Weapon }> = ({ w }) => {
-    const mod = getDamageMod(w.type);
-    return (
-        <MobileCard name={w.name} price={w.price} footer={w.requirements}>
-            <Field label="Type" value={w.type} />
-            <Field label="Dégâts" value={`${w.damage ?? ''}${mod !== '-' ? ' ' + mod : ''}`.trim()} />
-            <Field label="Critique" value={w.critical} />
-            <Field label="Portée" value={w.range} />
-            <Field label="Rechargement" value={w.reload} />
-        </MobileCard>
-    );
-};
-
-const ArmorCard: React.FC<{ a: Armor }> = ({ a }) => (
-    <MobileCard name={a.name} price={a.price} footer={a.comments}>
-        <Field label="Type" value={a.type} />
-        <Field label="Défense" value={a.acBonus ? `+${a.acBonus}` : undefined} />
-    </MobileCard>
-);
-
-const MaterialCard: React.FC<{ m: Material }> = ({ m }) => (
-    <MobileCard name={m.name} price={m.price} footer={m.notes} />
-);
 
 export const Equipment: React.FC = () => {
     const [searchParams] = useSearchParams();
@@ -74,13 +24,11 @@ export const Equipment: React.FC = () => {
             DataService.getMaterials()
         ])
             .then(([allEquipment, m]) => {
-                // Client-side filtering because API ignores type parameter
-                const actualWeapons = allEquipment.filter((item: any) =>
-                    !['Bouclier', 'Corps'].includes(item.type)
-                );
-                const actualArmors = allEquipment.filter((item: any) =>
-                    ['Bouclier', 'Corps'].includes(item.type)
-                );
+                // L'API ignore le paramètre `type` : le tri se fait ici. La règle est celle
+                // de `sousTypeEquipement`, partagée avec la liste communautaire — sans quoi
+                // une même arme pourrait être rangée en armure d'un côté seulement.
+                const actualWeapons = allEquipment.filter(item => sousTypeEquipement(item) === 'arme');
+                const actualArmors = allEquipment.filter(item => sousTypeEquipement(item) === 'armure');
 
                 setWeapons(actualWeapons);
                 setArmors(actualArmors as unknown as Armor[]);
@@ -140,90 +88,33 @@ export const Equipment: React.FC = () => {
                         <>
                             {activeTab === 'weapons' && (
                                 <div className="space-y-4">
-
                                     {weaponSearch.filteredItems.length === 0 ? (
                                         <EmptyState message="Aucune arme trouvée" />
                                     ) : (
-                                      <>
-                                        {/* Mobile : cartes empilées */}
-                                        <div className="md:hidden space-y-3">
-                                            {weaponSearch.filteredItems.map((weapon, i) => <WeaponCard key={i} w={weapon} />)}
-                                        </div>
-                                        {/* Desktop : table complète */}
-                                        <div className="hidden md:block glass-panel rounded-xl overflow-x-auto">
-                                            <table className="w-full text-left border-collapse">
-                                                <thead>
-                                                    <tr className="border-b border-white/10 bg-black/20">
-                                                        <th className="p-4 text-primary-300 font-display font-bold whitespace-nowrap">Nom</th>
-                                                        <th className="p-4 text-primary-300 font-display font-bold whitespace-nowrap">Type</th>
-                                                        <th className="p-4 text-primary-300 font-display font-bold whitespace-nowrap">Dégâts</th>
-                                                        <th className="p-4 text-primary-300 font-display font-bold whitespace-nowrap">Mod.</th>
-                                                        <th className="p-4 text-primary-300 font-display font-bold whitespace-nowrap">Critique</th>
-                                                        <th className="p-4 text-primary-300 font-display font-bold whitespace-nowrap">Portée</th>
-                                                        <th className="p-4 text-primary-300 font-display font-bold whitespace-nowrap">Rechargement</th>
-                                                        <th className="p-4 text-primary-300 font-display font-bold whitespace-nowrap">Spécial</th>
-                                                        <th className="p-4 text-primary-300 font-display font-bold whitespace-nowrap text-right">Prix</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody className="divide-y divide-white/5">
-                                                    {weaponSearch.filteredItems.map((weapon, i) => (
-                                                        <tr key={i} className="hover:bg-primary-500/5 transition-colors">
-                                                            <td className="p-4 text-stone-200 font-bold">{weapon.name}</td>
-                                                            <td className="p-4 text-stone-400 text-sm whitespace-nowrap">{weapon.type}</td>
-                                                            <td className="p-4 text-stone-300 font-mono text-sm">{weapon.damage}</td>
-                                                            <td className="p-4 text-stone-400 font-mono text-sm">{getDamageMod(weapon.type)}</td>
-                                                            <td className="p-4 text-stone-400 font-mono text-sm">{weapon.critical || '-'}</td>
-                                                            <td className="p-4 text-stone-400 font-mono text-sm whitespace-nowrap">{weapon.range || '-'}</td>
-                                                            <td className="p-4 text-stone-400 text-sm whitespace-nowrap">{weapon.reload || '-'}</td>
-                                                            <td className="p-4 text-amber-400/80 text-xs italic">{weapon.requirements}</td>
-                                                            <td className="p-4 text-yellow-500/90 font-mono text-sm text-right whitespace-nowrap">{weapon.price}</td>
-                                                        </tr>
-                                                    ))}
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                      </>
+                                        <CompendiumTable
+                                            colonnes={COLONNES_TABLE.arme}
+                                            labelNom={LABEL_NOM.arme}
+                                            lignes={weaponSearch.filteredItems}
+                                            cle={item => item.id ?? item.name}
+                                            nom={item => item.name}
+                                            valeur={(item, key) => (key === 'mod' ? modDegats(item.type) : (item as unknown as Record<string, unknown>)[key])}
+                                        />
                                     )}
                                 </div>
                             )}
 
                             {activeTab === 'armors' && (
                                 <div className="space-y-4">
-
                                     {armorSearch.filteredItems.length === 0 ? (
                                         <EmptyState message="Aucune armure trouvée" />
                                     ) : (
-                                      <>
-                                        <div className="md:hidden space-y-3">
-                                            {armorSearch.filteredItems.map((armor, i) => <ArmorCard key={i} a={armor} />)}
-                                        </div>
-                                        <div className="hidden md:block glass-panel rounded-xl overflow-x-auto">
-                                            <table className="w-full text-left border-collapse">
-                                                <thead>
-                                                    <tr className="border-b border-white/10 bg-black/20">
-                                                        <th className="p-4 text-primary-300 font-display font-bold whitespace-nowrap">Nom</th>
-                                                        <th className="p-4 text-primary-300 font-display font-bold whitespace-nowrap">Type</th>
-                                                        <th className="p-4 text-primary-300 font-display font-bold whitespace-nowrap">Défense</th>
-                                                        <th className="p-4 text-primary-300 font-display font-bold whitespace-nowrap">Notes</th>
-                                                        <th className="p-4 text-primary-300 font-display font-bold whitespace-nowrap text-right">Prix</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody className="divide-y divide-white/5">
-                                                    {armorSearch.filteredItems.map((armor, i) => (
-                                                        <tr key={i} className="hover:bg-primary-500/5 transition-colors">
-                                                            <td className="p-4 text-stone-200 font-bold">{armor.name}</td>
-                                                            <td className="p-4 text-stone-400 text-sm whitespace-nowrap">{armor.type}</td>
-                                                            <td className="p-4 text-primary-400 font-mono font-bold whitespace-nowrap">
-                                                                {armor.acBonus ? `+${armor.acBonus}` : '-'}
-                                                            </td>
-                                                            <td className="p-4 text-stone-400 text-sm italic">{armor.comments}</td>
-                                                            <td className="p-4 text-yellow-500/90 font-mono text-sm text-right whitespace-nowrap">{armor.price}</td>
-                                                        </tr>
-                                                    ))}
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                      </>
+                                        <CompendiumTable
+                                            colonnes={COLONNES_TABLE.armure}
+                                            labelNom={LABEL_NOM.armure}
+                                            lignes={armorSearch.filteredItems}
+                                            cle={item => item.id ?? item.name}
+                                            nom={item => item.name}
+                                        />
                                     )}
                                 </div>
                             )}
@@ -233,31 +124,13 @@ export const Equipment: React.FC = () => {
                                     {materialSearch.filteredItems.length === 0 ? (
                                         <EmptyState message="Aucun matériel trouvé" />
                                     ) : (
-                                      <>
-                                        <div className="md:hidden space-y-3">
-                                            {materialSearch.filteredItems.map((item, i) => <MaterialCard key={i} m={item} />)}
-                                        </div>
-                                        <div className="hidden md:block glass-panel rounded-xl overflow-x-auto">
-                                            <table className="w-full text-left border-collapse">
-                                                <thead>
-                                                    <tr className="border-b border-white/10 bg-black/20">
-                                                        <th className="p-4 text-primary-300 font-display font-bold whitespace-nowrap">Nom</th>
-                                                        <th className="p-4 text-primary-300 font-display font-bold whitespace-nowrap">Notes</th>
-                                                        <th className="p-4 text-primary-300 font-display font-bold whitespace-nowrap text-right">Prix</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody className="divide-y divide-white/5">
-                                                    {materialSearch.filteredItems.map((item, i) => (
-                                                        <tr key={i} className="hover:bg-primary-500/5 transition-colors">
-                                                            <td className="p-4 text-stone-200 font-bold">{item.name}</td>
-                                                            <td className="p-4 text-stone-400 text-sm italic">{item.notes || '-'}</td>
-                                                            <td className="p-4 text-yellow-500/90 font-mono text-sm text-right whitespace-nowrap">{item.price}</td>
-                                                        </tr>
-                                                    ))}
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                      </>
+                                        <CompendiumTable
+                                            colonnes={COLONNES_TABLE.materiel}
+                                            labelNom={LABEL_NOM.materiel}
+                                            lignes={materialSearch.filteredItems}
+                                            cle={item => item.id ?? item.name}
+                                            nom={item => item.name}
+                                        />
                                     )}
                                 </div>
                             )}

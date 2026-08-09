@@ -37,7 +37,7 @@ export const CampaignSessions: React.FC<Props> = ({ campaign, onCampaignSaved })
     const handleDelete = async (sessionId: string) => {
         if (!confirm('Êtes-vous sûr de vouloir supprimer cette session ?')) return;
         const updated = (campaign.sessions || []).filter((s: Session) => s.id !== sessionId);
-        onCampaignSaved(await saveCampaign({ ...campaign, sessions: updated }));
+        onCampaignSaved(await saveCampaign({ ...campaign, sessions: updated }, ['sessions']));
     };
 
     const handleSave = async () => {
@@ -55,7 +55,7 @@ export const CampaignSessions: React.FC<Props> = ({ campaign, onCampaignSaved })
                 summary: newSession.summary || '',
             }, ...updated];
         }
-        onCampaignSaved(await saveCampaign({ ...campaign, sessions: updated }));
+        onCampaignSaved(await saveCampaign({ ...campaign, sessions: updated }, ['sessions']));
         setShowForm(false);
         setEditingId(null);
         setNewSession(emptySession());

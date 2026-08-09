@@ -23,7 +23,7 @@ export const CampaignNotes: React.FC<Props> = ({ campaign }) => {
         setIsSaving(true);
         if (timeoutRef.current) clearTimeout(timeoutRef.current);
         timeoutRef.current = setTimeout(async () => {
-            await saveCampaign({ ...campaign, notes: value });
+            await saveCampaign({ ...campaign, notes: value }, []);
             setIsSaving(false);
         }, 1000);
     };

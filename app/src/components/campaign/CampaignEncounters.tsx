@@ -137,7 +137,7 @@ export const CampaignEncounters: React.FC<Props> = ({
         const updated = editingEncounterId
             ? encounters.map(e => (e.id === editingEncounterId ? encounter : e))
             : [...encounters, encounter];
-        const saved = await saveCampaign({ ...campaign, encounters: updated });
+        const saved = await saveCampaign({ ...campaign, encounters: updated }, ['encounters']);
         onCampaignSaved(saved);
         setShowEncounterModal(false);
     };
@@ -145,7 +145,7 @@ export const CampaignEncounters: React.FC<Props> = ({
     const handleDeleteEncounter = async (encounterId: string) => {
         if (!confirm('Supprimer cette rencontre ?')) return;
         const updated = encounters.filter(e => e.id !== encounterId);
-        const saved = await saveCampaign({ ...campaign, encounters: updated });
+        const saved = await saveCampaign({ ...campaign, encounters: updated }, ['encounters']);
         onCampaignSaved(saved);
     };
 

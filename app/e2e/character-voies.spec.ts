@@ -50,9 +50,13 @@ test('rouvrir un perso niveau ≥ 1 recharge les 5 voies de profil', async ({ pa
     });
 
     await page.goto(`/characters/${id}`);
-    await page.waitForLoadState('networkidle');
 
-    await expect(page.locator('h3', { hasText: /Voie de Profil/i })).toHaveCount(5);
+    // La fiche ne rend ses voies qu'après avoir chargé tout le compendium (races, profils,
+    // voies, 650 capacités). `networkidle` ne dit rien de ce moment-là, et le compte par
+    // défaut d'`expect` (5 s) suffisait à peine seul : sous la charge de la suite complète,
+    // ce test échouait ici alors qu'il passait systématiquement isolé. On attend le signal
+    // réel, avec le même délai que l'assertion suivante.
+    await expect(page.locator('h3', { hasText: /Voie de Profil/i })).toHaveCount(5, { timeout: 20_000 });
     await expect.poll(() => profileVoieNames(page), { timeout: 15_000 }).toEqual(expect.arrayContaining(GUERRIER));
 });
 

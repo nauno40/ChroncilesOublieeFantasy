@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import type { Profile } from '../types/normalized';
-import { PageContainer, SearchToolbar, ContentCard, CardStats, FilterPanel, Loader, onImageError } from '../components/common';
+import { PageContainer, SearchToolbar, ContentCard, CardMedia, CardStats, FilterPanel, Loader } from '../components/common';
 import { useSearch } from '../hooks';
 import { DataService } from '../services/dataService';
 
@@ -120,14 +120,7 @@ export const Classes: React.FC = () => {
                     <ContentCard
                         key={profile.id}
                         to={`/classes/${profile.id}`}
-                        media={
-                            <img
-                                src={profile.imageUrl || `/assets/profils/${profile.name}.jpg`}
-                                alt={profile.name}
-                                onError={onImageError(profile.name)}
-                                className="w-full h-48 object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                            />
-                        }
+                        media={<CardMedia src={profile.imageUrl || `/assets/profils/${profile.name}.jpg`} alt={profile.name} />}
                         footer={<CardStats stats={statsDeLaClasse(profile)} />}
                     >
                         <h3 className="text-xl font-display font-bold text-primary-300 group-hover:text-primary-200 transition-colors">

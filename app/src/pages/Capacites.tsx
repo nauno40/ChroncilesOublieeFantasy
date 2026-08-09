@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import type { Capacity, Profile, Voie } from '../types/normalized';
-import { PageContainer, SearchToolbar, Card, Badge, FilterPanel, Loader } from '../components/common';
+import { PageContainer, SearchToolbar, ContentCard, Badge, FilterPanel, Loader } from '../components/common';
 import { DataService } from '../services/dataService';
 
 export const Capacites: React.FC = () => {
@@ -194,7 +194,7 @@ export const Capacites: React.FC = () => {
                     }
 
                     return (
-                        <Card
+                        <ContentCard
                             key={capacite.id}
                             to={`/capacites/${capacite.id}`}
                         >
@@ -239,7 +239,7 @@ export const Capacites: React.FC = () => {
                                     </Badge>
                                 )}
                             </div>
-                        </Card>
+                        </ContentCard>
                     );
                 })}
             </div>

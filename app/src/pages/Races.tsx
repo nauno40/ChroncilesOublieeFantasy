@@ -1,7 +1,7 @@
 import React from 'react';
 import { DataService } from '../services/dataService';
 import type { Race } from '../types/normalized';
-import { PageContainer, SearchToolbar, ContentCard, CardStats, Loader, onImageError } from '../components/common';
+import { PageContainer, SearchToolbar, ContentCard, CardMedia, CardStats, Loader } from '../components/common';
 import { useSearch } from '../hooks';
 
 /**
@@ -49,14 +49,7 @@ export const Races: React.FC = () => {
                     <ContentCard
                         key={race.id}
                         to={`/races/${race.id}`}
-                        media={
-                            <img
-                                src={race.image || `/assets/races/${race.name.toLowerCase()}.png.webp`}
-                                alt={race.name}
-                                onError={onImageError(race.name)}
-                                className="w-full h-48 object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                            />
-                        }
+                        media={<CardMedia src={race.image || `/assets/races/${race.name.toLowerCase()}.png.webp`} alt={race.name} />}
                         footer={<CardStats stats={statsDuPeuple(race)} />}
                     >
                         <h3 className="text-xl font-display font-bold text-primary-300 group-hover:text-primary-200 transition-colors">

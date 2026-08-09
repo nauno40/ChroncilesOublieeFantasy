@@ -1,10 +1,21 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import type { Voie, Profile } from '../types/normalized';
-import { PageContainer, PageHeader, Card, Badge, Loader } from '../components/common';
+import { PageContainer, SearchToolbar, ContentCard, Badge, Loader } from '../components/common';
 import { useSearch } from '../hooks';
 import { DataService } from '../services/dataService';
-import { User, Users, Skull, Crown, Filter, Sparkles, Scroll, Search, X } from 'lucide-react';
-import clsx from 'clsx';
+import { User, Users, Skull, Crown, Filter, Scroll, Search, X } from 'lucide-react';
+import { LEXIQUE } from '../domain/lexique';
+
+/** Types de voie proposés en pastilles. L'identifiant reste la valeur des données ;
+ *  l'intitulé suit le lexique — COF2 dit « peuple », pas « race ». */
+const TYPES_VOIE = [
+    { id: 'all', label: 'Toutes' },
+    { id: 'Personnage', label: 'Personnage' },
+    { id: 'Race', label: LEXIQUE.peuple },
+    { id: 'Créature', label: 'Créature' },
+    { id: 'Prestige', label: 'Prestige' },
+];
+
 
 export const Voies: React.FC = () => {
     const [voies, setVoies] = useState<Voie[]>([]);
@@ -71,47 +82,18 @@ export const Voies: React.FC = () => {
 
     return (
         <PageContainer>
-            <PageHeader
-                subtitle="Explorez les chemins de puissance et de maîtrise"
-                searchValue={searchTerm}
-                onSearchChange={setSearchTerm}
-                searchPlaceholder="Rechercher une voie..."
-            />
-
-            {/* Filter Bar - Consistent with other pages but keeping the improved interactivity */}
-            <div className="glass-panel p-4 rounded-xl mb-6 border-white/5">
-                <div className="flex flex-col lg:flex-row gap-6 justify-between items-start lg:items-center">
-                    {/* Type Tabs */}
-                    <div className="flex flex-wrap gap-2">
-                        {[
-                            { id: 'all', label: 'Toutes', icon: Sparkles },
-                            { id: 'Personnage', label: 'Personnage', icon: User },
-                            { id: 'Race', label: 'Race', icon: Users },
-                            { id: 'Créature', label: 'Créature', icon: Skull },
-                            { id: 'Prestige', label: 'Prestige', icon: Crown },
-                        ].map((type) => {
-                            const Icon = type.icon;
-                            const isActive = selectedType === type.id;
-                            return (
-                                <button
-                                    key={type.id}
-                                    onClick={() => setSelectedType(type.id)}
-                                    className={clsx(
-                                        'flex items-center gap-2 px-3 py-1.5 rounded-lg font-display font-medium text-sm transition-all duration-200',
-                                        isActive
-                                            ? 'bg-primary-500/20 text-primary-300 border border-primary-500/30'
-                                            : 'text-stone-400 hover:text-stone-200 hover:bg-stone-900/50 border border-transparent'
-                                    )}
-                                >
-                                    <Icon size={14} />
-                                    {type.label}
-                                </button>
-                            );
-                        })}
-                    </div>
-
-                    {/* Class/Profile Filter */}
-                    <div className="flex items-center gap-2 w-full lg:w-auto">
+            {/* Même barre que les autres pages de liste : le type de voie devient une
+                pastille, le filtre par classe passe en filtre avancé sous la barre. */}
+            <SearchToolbar
+                value={searchTerm}
+                onChange={setSearchTerm}
+                placeholder="Rechercher une voie…"
+                count={{ n: filteredItems.length, singulier: 'voie' }}
+                chips={TYPES_VOIE}
+                chipActif={selectedType}
+                onChipChange={setSelectedType}
+                filters={(
+                    <div className="flex items-center gap-2">
                         <div className="relative group w-full lg:w-64">
                             <Filter className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 group-hover:text-primary-400 transition-colors" size={14} />
                             <select
@@ -126,30 +108,30 @@ export const Voies: React.FC = () => {
                                 ))}
                             </select>
                         </div>
-
                         {(selectedType !== 'all' || selectedProfile !== 'all') && (
                             <button
                                 onClick={() => { setSelectedType('all'); setSelectedProfile('all'); }}
+                                aria-label="Réinitialiser les filtres"
                                 className="p-1.5 text-stone-400 hover:text-red-400 hover:bg-red-400/10 rounded-lg transition-colors"
                             >
                                 <X size={18} />
                             </button>
                         )}
                     </div>
-                </div>
-            </div>
+                )}
+            />
 
-            {/* Results Grid - Using Standard Card Component to match site style */}
+            {/* Grille de résultats : même coquille de carte que le reste du compendium. */}
             <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                 {filteredItems.map((voie) => {
                     const profileName = voie.profileId ? profiles.find(p => String(p.id) === voie.profileId)?.name : null;
                     const TypeIcon = getTypeIcon(voie.type);
 
                     return (
-                        <Card
+                        <ContentCard
                             key={voie.id}
                             to={`/voies/${voie.id}`}
-                            className="flex flex-col h-full"
+                            className="h-full"
                         >
                             <div className="flex justify-between items-start mb-3">
                                 <div className="text-stone-400">
@@ -179,7 +161,7 @@ export const Voies: React.FC = () => {
                                 ))}
                                 <span className="ml-auto text-xs text-primary-400">Consulter</span>
                             </div>
-                        </Card>
+                        </ContentCard>
                     );
                 })}
             </div>

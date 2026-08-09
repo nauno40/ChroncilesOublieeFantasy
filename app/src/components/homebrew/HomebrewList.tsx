@@ -1,8 +1,9 @@
 import React from 'react';
 import { Globe, Lock, Edit, Trash2, Copy } from 'lucide-react';
-import { AuthorTag } from '../common';
+import { AuthorTag, CompendiumTable } from '../common';
 import { categoryLabel, type HomebrewEntry } from '../../services/homebrewService';
 import { imagePlaceholder, onImageError } from '../common/imagePlaceholder';
+import { COLONNES_TABLE, LABEL_NOM } from '../../domain/tablesCompendium';
 
 /**
  * Rendu de la liste communautaire, fidèle au format officiel de chaque catégorie :
@@ -38,19 +39,9 @@ const TABLE_COLUMNS: Record<string, Col[]> = {
         { key: 'properties', label: 'Propriétés', wrap: true },
         { key: 'price', label: 'Prix', num: true },
     ],
-    poison: [
-        { key: 'effectFail', label: 'Effet — Échec', wrap: true },
-        { key: 'effectSuccess', label: 'Effet — Réussite', wrap: true },
-        { key: 'duration', label: 'Durée' },
-        { key: 'delay', label: 'Délai' },
-        { key: 'note', label: 'Note', wrap: true },
-    ],
-    piege: [
-        { key: 'detectDifficulty', label: 'Détection' },
-        { key: 'disarmDifficulty', label: 'Désamorçage' },
-        { key: 'effect', label: 'Effet', wrap: true },
-        { key: 'complement', label: 'Complément', wrap: true },
-    ],
+    // Poisons et pièges ne sont plus décrits ici : leurs colonnes sont celles de
+    // `COLONNES_TABLE`, partagées avec la page officielle (cf. `CompendiumTable`).
+    // L'équipement et les objets magiques restent à migrer.
 };
 
 /** Renvoie la catégorie tabulaire unique de la page, ou null (grille de cartes). */
@@ -129,6 +120,42 @@ interface HomebrewListProps {
 export const HomebrewList: React.FC<HomebrewListProps> = ({ entries, category, myId, duplicatingId, onOpen, onEdit, onDelete, onDuplicate }) => {
     const tableCat = tableCategoryOf(category);
     const locked = typeof category === 'string';
+
+    // --- Types dont la table est partagée avec la page officielle ---
+    // La donnée communautaire vit sous `entry.data`, l'officielle à la racine de l'entité :
+    // seul l'accesseur diffère, la table et ses colonnes sont les mêmes objets.
+    if (category === 'poison' || category === 'piege') {
+        return (
+            <CompendiumTable
+                colonnes={COLONNES_TABLE[category]}
+                labelNom={LABEL_NOM[category]}
+                lignes={entries}
+                cle={e => e.id}
+                nom={e => e.name}
+                valeur={(e, key) => (e.data ?? {})[key]}
+                sousNom={e => (e.visibility === 'public'
+                    ? <Globe size={12} className="text-green-500/70 shrink-0" aria-label="Public" />
+                    : <Lock size={12} className="text-stone-400 shrink-0" aria-label="Privé" />)}
+                detail={e => e.description
+                    ? <div className="text-stone-400 text-xs mt-0.5 font-normal line-clamp-1 max-w-[26ch]">{e.description}</div>
+                    : null}
+                onLigneClick={onOpen}
+                colonneFin={{
+                    label: myId !== undefined ? 'Auteur / Actions' : 'Auteur',
+                    rendu: e => (
+                        <RowActions
+                            entry={e}
+                            mine={e.authorId === myId}
+                            duplicating={duplicatingId === e.id}
+                            onEdit={() => onEdit(e)}
+                            onDelete={() => onDelete(e)}
+                            onDuplicate={() => onDuplicate(e)}
+                        />
+                    ),
+                }}
+            />
+        );
+    }
 
     // --- Rendu tableau (catégories tabulaires : mêmes colonnes que l'officiel) ---
     if (tableCat) {

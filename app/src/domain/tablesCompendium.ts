@@ -22,9 +22,20 @@ export interface ColonneCompendium {
     mono?: boolean;
     /** Colonne d'appoint (note, complément) : plus petite et plus discrète. */
     discret?: boolean;
+    /** Bonus chiffré : affiché préfixé d'un « + » (DEF d'armure). */
+    plus?: boolean;
+    /** Accent sémantique de la colonne, repris des tables officielles de l'équipement. */
+    ton?: 'prix' | 'special' | 'def';
 }
 
-export const COLONNES_TABLE: Record<'poison' | 'piege', ColonneCompendium[]> = {
+/** Modificateur de dégâts : les armes de contact ajoutent la FOR (COF2). Dérivé du type,
+ *  ce n'est pas un champ stocké — les deux sources le calculent, donc ici, une seule fois. */
+export const modDegats = (type: string | undefined): string =>
+    type && type.toLowerCase().includes('contact') ? '+ FOR' : '—';
+
+export type TypeTabulaire = 'poison' | 'piege' | 'arme' | 'armure' | 'materiel';
+
+export const COLONNES_TABLE: Record<TypeTabulaire, ColonneCompendium[]> = {
     poison: [
         { key: 'effectFail', label: 'Effet — Échec (test de CON)', wrap: true },
         { key: 'effectSuccess', label: 'Effet — Réussite', wrap: true },
@@ -38,10 +49,56 @@ export const COLONNES_TABLE: Record<'poison' | 'piege', ColonneCompendium[]> = {
         { key: 'effect', label: 'Effet', wrap: true },
         { key: 'complement', label: 'Complément', wrap: true, discret: true },
     ],
+    // Les trois sous-types de la page Équipement. Une entrée communautaire n'a pas les
+    // mêmes noms de champ pour tout : `properties` (une liste) y tient le rôle de
+    // `requirements` / `comments` / `notes` officiels. C'est l'accesseur de la liste
+    // communautaire qui fait la traduction — les colonnes, elles, restent les mêmes.
+    arme: [
+        { key: 'type', label: 'Type' },
+        { key: 'damage', label: 'Dégâts', mono: true },
+        { key: 'mod', label: 'Mod.', mono: true },
+        { key: 'critical', label: 'Critique', mono: true },
+        { key: 'range', label: 'Portée', mono: true },
+        { key: 'reload', label: 'Rechargement' },
+        { key: 'requirements', label: 'Spécial', wrap: true, ton: 'special' },
+        { key: 'price', label: 'Prix', align: 'right', mono: true, ton: 'prix' },
+    ],
+    armure: [
+        { key: 'type', label: 'Type' },
+        { key: 'acBonus', label: 'Défense', mono: true, plus: true, ton: 'def' },
+        { key: 'comments', label: 'Notes', wrap: true },
+        { key: 'price', label: 'Prix', align: 'right', mono: true, ton: 'prix' },
+    ],
+    materiel: [
+        { key: 'notes', label: 'Notes', wrap: true },
+        { key: 'price', label: 'Prix', align: 'right', mono: true, ton: 'prix' },
+    ],
 };
 
 /** Intitulé de la première colonne (le nom) — « Poison », « Piège »… */
-export const LABEL_NOM: Record<'poison' | 'piege', string> = {
+export const LABEL_NOM: Record<TypeTabulaire, string> = {
     poison: 'Poison',
     piege: 'Piège',
+    arme: 'Nom',
+    armure: 'Nom',
+    materiel: 'Nom',
+};
+
+/**
+ * Sous-type d'une entrée d'équipement, officielle ou communautaire.
+ *
+ * La page officielle range en armures ce dont le `type` est « Bouclier » ou « Corps » ;
+ * une entrée communautaire saisit son type en texte libre, mais renseigne `acBonus` pour
+ * une protection et `damage` pour une arme. Les deux règles cohabitent ici pour que les
+ * mêmes pastilles Armes / Armures / Matériel s'appliquent aux deux sources.
+ */
+export const sousTypeEquipement = (item: { type?: unknown; damage?: unknown; acBonus?: unknown }): 'arme' | 'armure' | 'materiel' => {
+    const type = String(item.type ?? '').toLowerCase();
+    if (['bouclier', 'corps'].includes(type) || /armure|bouclier|protection/.test(type)) return 'armure';
+    // Un bonus de DEF nul ne fait pas une armure : c'est la valeur que laisse un champ
+    // numérique jamais renseigné, pas une protection.
+    if (Number(item.acBonus) > 0) return 'armure';
+    if (item.damage !== undefined && item.damage !== null && item.damage !== '') return 'arme';
+    if (/arme|épée|dague|arc|hache|masse|lance/.test(type)) return 'arme';
+    return 'materiel';
 };

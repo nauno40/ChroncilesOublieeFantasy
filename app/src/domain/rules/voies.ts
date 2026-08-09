@@ -1,3 +1,20 @@
+import type { CharacterVoieRef } from '../../types/character';
+
+/** Deux listes de voies de personnage portent-elles le même contenu ?
+ *
+ * Sert de garde d'idempotence à l'effet d'échafaudage des voies : celui-ci dépend de
+ * `character.characterVoies` (pour se rejouer quand un chargement tardif écrase l'état),
+ * ce qui bouclerait à l'infini s'il posait une liste neuve à chaque passage. La
+ * comparaison porte sur les champs qui font l'identité d'une entrée — IRI, rang, source
+ * et choix — et non sur la référence.
+ */
+export const memeVoies = (a: CharacterVoieRef[] | undefined, b: CharacterVoieRef[]): boolean => {
+  const gauche = a ?? [];
+  if (gauche.length !== b.length) return false;
+  const cle = (v: CharacterVoieRef) => `${v.voie}|${v.rank}|${v.source}|${JSON.stringify(v.choices ?? null)}`;
+  return gauche.every((v, i) => cle(v) === cle(b[i]));
+};
+
 // Index des voies du compendium par IRI (`@id`), pour résoudre les entrées de voie
 // d'un personnage (`characterVoies[].voie` est un IRI). Sources agrégées, dans l'ordre :
 // voies de peuple (`race.availableVoies`), voies de profil (`profile.voies`), puis la

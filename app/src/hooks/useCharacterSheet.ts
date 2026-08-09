@@ -32,6 +32,7 @@ import {
   STAT_SERIES,
   PROFILE_FAMILIES,
   buildVoieIndex,
+  memeVoies,
   findRace,
   type CompendiumVoie,
 } from '../domain/rules';
@@ -317,6 +318,14 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
     //  - chargement / réouverture : on ne rajoute que les voies de profil manquantes,
     //    ce qui préserve les rangs acquis, les voies hybrides et de prestige ;
     //  - à la création, la voie de peuple (IRI de selectedVoies[2]) est posée au rang 1 (gratuit).
+    //
+    // `character.characterVoies` fait partie des dépendances : sans elle, un `setCharacter`
+    // tardif qui REMPLACE tout le personnage (la réponse du GET de la fiche, rejouée par
+    // StrictMode ou simplement lente) écrasait l'échafaudage déjà posé, et l'effet ne se
+    // redéclenchait pas — `character.profile` étant un IRI, sa valeur ne changeait pas.
+    // Symptôme observé : 2 voies sauvegardées, 5 échafaudées, puis retour définitif à 2.
+    // Pour que cette dépendance ne boucle pas, l'effet renvoie `prev` INCHANGÉ quand la
+    // liste calculée est identique à l'existante (comparaison de contenu, cf. `memeVoies`).
     useEffect(() => {
         const profileId = typeof character.profile === 'string' ? character.profile : (character.profile?.['@id'] || null);
         const profileChanged = !!profileId && lastProfileIdRef.current !== null && lastProfileIdRef.current !== profileId;
@@ -364,9 +373,10 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
             }
 
             const nextCv: CharacterVoieRef[] = [...(peuple ? [peuple] : []), ...profil, ...prestige, ...trait];
+            if (memeVoies(prev.characterVoies, nextCv)) return prev;
             return { ...prev, characterVoies: nextCv };
         });
-    }, [selectedVoies, character.level, character.profile, profiles, allVoies]);
+    }, [selectedVoies, character.level, character.profile, character.characterVoies, profiles, allVoies]);
 
     // Helper to add equipment (écrit dans le playState)
     const addEquipmentItem = (itemObj: EquipmentLikeItem, ps: PlayState) => {

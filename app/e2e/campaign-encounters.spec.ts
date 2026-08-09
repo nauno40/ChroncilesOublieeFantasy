@@ -75,6 +75,23 @@ test.describe('Campagne — Rencontres', () => {
         await expect(page).toHaveURL(/\/tools\/tracker/);
         await expect(page.getByText(`${monstre} 1`)).toBeVisible({ timeout: 15_000 });
         await expect(page.getByText(`${monstre} 2`)).toBeVisible();
+
+        // Le test range derrière lui : les rencontres s'accumulaient d'une exécution à
+        // l'autre sur la campagne de démonstration, et la collection embarquée dans la
+        // charge utile de campagne étant paginée, une rencontre nouvellement créée finissait
+        // par ne plus y figurer — le test échouait alors sur une limite qu'il avait
+        // lui-même provoquée.
+        const jeton = (await getToken(page))!;
+        const liste = await (await page.request.get(`${API_URL}/encounters?pagination=false`, {
+            headers: { Authorization: `Bearer ${jeton}`, Accept: 'application/ld+json' },
+        })).json();
+        for (const e of (liste.member || liste['hydra:member']) as Array<{ '@id': string; name: string }>) {
+            if (e.name === name) {
+                await page.request.delete(`http://localhost:8000${e['@id']}`.replace('http://localhost:8000/api', `${API_URL}`), {
+                    headers: { Authorization: `Bearer ${jeton}` },
+                });
+            }
+        }
     });
 
     test('le générateur compose un roster selon l’environnement et la difficulté', async ({ page }) => {

@@ -128,8 +128,20 @@ export const getCampaign = async (id: string): Promise<Campaign | null> => {
     }
 };
 
-export const saveCampaign = async (campaign: Campaign): Promise<Campaign> => {
-    const backendData = mapFrontendToBackend(campaign);
+/**
+ * Enregistre une campagne.
+ *
+ * `collections` déclare ce que l'appelant modifie vraiment. C'est une **protection contre
+ * une perte de données**, pas une optimisation : quêtes, indices, séances et rencontres
+ * sont en `orphanRemoval` côté serveur, si bien qu'envoyer un tableau périmé supprime ce
+ * qu'il ne contient pas. Vérifié : un client qui ajoutait un indice à partir d'une lecture
+ * antérieure effaçait la rencontre qu'un autre venait de créer.
+ *
+ * Omettre l'argument conserve l'ancien comportement (tout est envoyé) — à ne faire que
+ * lorsqu'on tient réellement l'état complet et à jour.
+ */
+export const saveCampaign = async (campaign: Campaign, collections?: CollectionCampagne[]): Promise<Campaign> => {
+    const backendData = mapFrontendToBackend(campaign, collections);
     try {
         if (campaign.id && !campaign.id.includes('-')) { // Simple check if it's a backend ID (int) vs temp UUID
             // PATCH (mise à jour partielle) et non PUT : un PUT réinitialise les champs
@@ -242,7 +254,15 @@ const mapBackendToFrontend = (b: RawCampaign): Campaign => {
     };
 };
 
-const mapFrontendToBackend = (f: Campaign): BackendCampaignPayload => {
+/** Sous-collections d'une campagne, toutes en `orphanRemoval` côté serveur. */
+export type CollectionCampagne = 'quests' | 'clues' | 'sessions' | 'encounters';
+
+/**
+ * @param collections Sous-collections que l'appelant modifie réellement. Les autres ne
+ * sont PAS envoyées — voir `saveCampaign` pour ce que leur envoi coûtait.
+ */
+const mapFrontendToBackend = (f: Campaign, collections?: CollectionCampagne[]): BackendCampaignPayload => {
+    const envoie = (c: CollectionCampagne) => collections === undefined || collections.includes(c);
     const b: BackendCampaignPayload = {
         name: f.name,
         description: f.description,
@@ -255,7 +275,7 @@ const mapFrontendToBackend = (f: Campaign): BackendCampaignPayload => {
         return s !== '' && !s.includes('-');
     };
 
-    if (f.quests) {
+    if (f.quests && envoie('quests')) {
         b.quests = f.quests.map((q) => {
             const item: BackendQuestPayload = {
                 title: q.title,
@@ -271,7 +291,7 @@ const mapFrontendToBackend = (f: Campaign): BackendCampaignPayload => {
         });
     }
 
-    if (f.clues) {
+    if (f.clues && envoie('clues')) {
         b.clues = f.clues.map((c) => {
             const item: BackendCluePayload = {
                 content: c.content,
@@ -286,7 +306,7 @@ const mapFrontendToBackend = (f: Campaign): BackendCampaignPayload => {
         });
     }
 
-    if (f.sessions) {
+    if (f.sessions && envoie('sessions')) {
         b.sessions = f.sessions.map((s) => {
             const item: BackendSessionPayload = {
                 title: s.title,
@@ -302,7 +322,7 @@ const mapFrontendToBackend = (f: Campaign): BackendCampaignPayload => {
         });
     }
 
-    if (f.encounters) {
+    if (f.encounters && envoie('encounters')) {
         b.encounters = f.encounters.map((e: Encounter) => {
             const item: BackendEncounterPayload = {
                 name: e.name,

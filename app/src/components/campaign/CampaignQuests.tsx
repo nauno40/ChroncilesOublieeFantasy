@@ -23,7 +23,7 @@ export const CampaignQuests: React.FC<Props> = ({ campaign, onCampaignSaved }) =
     const handleAddQuest = async () => {
         if (!newQuest.title) return;
         const quest: Quest = { id: '', title: newQuest.title, type: newQuest.type, status: 'active' };
-        const saved = await saveCampaign({ ...campaign, quests: [...(campaign.quests || []), quest] });
+        const saved = await saveCampaign({ ...campaign, quests: [...(campaign.quests || []), quest] }, ['quests']);
         onCampaignSaved(saved);
         setNewQuest({ title: '', type: 'main' });
         setShowQuestForm(false);
@@ -33,7 +33,7 @@ export const CampaignQuests: React.FC<Props> = ({ campaign, onCampaignSaved }) =
         const updatedQuests = (campaign.quests || []).map((q: Quest) =>
             q.id === questId ? { ...q, status: (q.status === 'completed' ? 'active' : 'completed') } as Quest : q
         );
-        onCampaignSaved(await saveCampaign({ ...campaign, quests: updatedQuests }));
+        onCampaignSaved(await saveCampaign({ ...campaign, quests: updatedQuests }, ['quests']));
     };
 
     // Bascule le partage explicite d'une quête aux joueurs (vue SharedCampaign).
@@ -41,7 +41,7 @@ export const CampaignQuests: React.FC<Props> = ({ campaign, onCampaignSaved }) =
         const updatedQuests = (campaign.quests || []).map((q: Quest) =>
             q.id === questId ? { ...q, shared: !q.shared } : q
         );
-        onCampaignSaved(await saveCampaign({ ...campaign, quests: updatedQuests }));
+        onCampaignSaved(await saveCampaign({ ...campaign, quests: updatedQuests }, ['quests']));
     };
 
     // Bouton d'partage réutilisé pour les deux niveaux de quête.
@@ -57,7 +57,7 @@ export const CampaignQuests: React.FC<Props> = ({ campaign, onCampaignSaved }) =
 
     const handleDeleteQuest = async (questId: string) => {
         const updatedQuests = (campaign.quests || []).filter((q: Quest) => q.id !== questId);
-        onCampaignSaved(await saveCampaign({ ...campaign, quests: updatedQuests }));
+        onCampaignSaved(await saveCampaign({ ...campaign, quests: updatedQuests }, ['quests']));
     };
 
     const startEditQuest = (quest: Quest) => {
@@ -70,7 +70,7 @@ export const CampaignQuests: React.FC<Props> = ({ campaign, onCampaignSaved }) =
         const updatedQuests = (campaign.quests || []).map((q: Quest) =>
             q.id === editingQuestId ? { ...q, title: editQuestTitle.trim() } : q
         );
-        onCampaignSaved(await saveCampaign({ ...campaign, quests: updatedQuests }));
+        onCampaignSaved(await saveCampaign({ ...campaign, quests: updatedQuests }, ['quests']));
         setEditingQuestId(null);
     };
 

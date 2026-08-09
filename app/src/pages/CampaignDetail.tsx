@@ -207,7 +207,9 @@ export const CampaignDetail: React.FC = () => {
         if (!campaign || !draftName.trim()) return;
         setSavingHeader(true);
         try {
-            const saved = await saveCampaign({ ...campaign, name: draftName.trim(), description: draftDesc.trim() });
+            // Le renommage ne touche aucune sous-collection : ne rien envoyer d'autre
+            // évite d'écraser des quêtes ou des rencontres ajoutées entre-temps ailleurs.
+            const saved = await saveCampaign({ ...campaign, name: draftName.trim(), description: draftDesc.trim() }, []);
             setCampaign(saved);
             setEditingHeader(false);
         } finally {

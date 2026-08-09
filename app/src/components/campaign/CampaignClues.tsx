@@ -29,7 +29,7 @@ export const CampaignClues: React.FC<Props> = ({ campaign, onCampaignSaved }) =>
     const handleAddClue = async () => {
         if (!newClue) return;
         const clue: Clue = { id: '', content: newClue, status: 'unsolved', found_at: new Date().toISOString().split('T')[0] };
-        const saved = await saveCampaign({ ...campaign, clues: [...(campaign.clues || []), clue] });
+        const saved = await saveCampaign({ ...campaign, clues: [...(campaign.clues || []), clue] }, ['clues']);
         onCampaignSaved(saved);
         setNewClue('');
         setShowClueForm(false);
@@ -39,7 +39,7 @@ export const CampaignClues: React.FC<Props> = ({ campaign, onCampaignSaved }) =>
         const updatedClues = (campaign.clues || []).map((c: Clue) =>
             c.id === clueId ? { ...c, status: (c.status === 'solved' ? 'unsolved' : 'solved') } as Clue : c
         );
-        onCampaignSaved(await saveCampaign({ ...campaign, clues: updatedClues }));
+        onCampaignSaved(await saveCampaign({ ...campaign, clues: updatedClues }, ['clues']));
     };
 
     // Bascule le partage explicite d'un indice aux joueurs (vue SharedCampaign).
@@ -47,12 +47,12 @@ export const CampaignClues: React.FC<Props> = ({ campaign, onCampaignSaved }) =>
         const updatedClues = (campaign.clues || []).map((c: Clue) =>
             c.id === clueId ? { ...c, shared: !c.shared } : c
         );
-        onCampaignSaved(await saveCampaign({ ...campaign, clues: updatedClues }));
+        onCampaignSaved(await saveCampaign({ ...campaign, clues: updatedClues }, ['clues']));
     };
 
     const handleDeleteClue = async (clueId: string) => {
         const updatedClues = (campaign.clues || []).filter((c: Clue) => c.id !== clueId);
-        onCampaignSaved(await saveCampaign({ ...campaign, clues: updatedClues }));
+        onCampaignSaved(await saveCampaign({ ...campaign, clues: updatedClues }, ['clues']));
     };
 
     const startEditClue = (clue: Clue) => {
@@ -65,7 +65,7 @@ export const CampaignClues: React.FC<Props> = ({ campaign, onCampaignSaved }) =>
         const updatedClues = (campaign.clues || []).map((c: Clue) =>
             c.id === editingClueId ? { ...c, content: editClueText.trim() } : c
         );
-        onCampaignSaved(await saveCampaign({ ...campaign, clues: updatedClues }));
+        onCampaignSaved(await saveCampaign({ ...campaign, clues: updatedClues }, ['clues']));
         setEditingClueId(null);
     };
 

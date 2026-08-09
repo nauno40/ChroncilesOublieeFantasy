@@ -57,4 +57,25 @@ export async function expectLoggedIn(page: Page, email?: string): Promise<void> 
     }
 }
 
+/**
+ * Supprime les campagnes et personnages du compte courant.
+ *
+ * Chaque test qui crée du contenu le laissait derrière lui : trente-sept campagnes et
+ * des dizaines de personnages s'étaient accumulés dans la base de développement. Au-delà
+ * du désordre, cela a fini par faire échouer des tests — une campagne encombrée de
+ * rencontres résiduelles ne montrait plus les nouvelles.
+ */
+export async function nettoyerDonnees(page: Page, token: string | null): Promise<void> {
+    if (!token) return;
+    const entetes = { Authorization: `Bearer ${token}`, Accept: 'application/ld+json' };
+    for (const collection of ['campaigns', 'characters']) {
+        const reponse = await page.request.get(`${API_URL}/${collection}?pagination=false`, { headers: entetes });
+        if (!reponse.ok()) continue;
+        const corps = await reponse.json();
+        for (const item of (corps.member ?? corps['hydra:member'] ?? []) as Array<{ '@id': string }>) {
+            await page.request.delete(`${API_URL.replace(/\/api$/, '')}${item['@id']}`, { headers: entetes });
+        }
+    }
+}
+
 export { test, expect };

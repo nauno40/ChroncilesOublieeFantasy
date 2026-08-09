@@ -1,5 +1,12 @@
 import { type Page } from '@playwright/test';
-import { test, expect, register, uniqueEmail, getToken, API_URL } from './fixtures';
+import { test, expect, register, uniqueEmail, getToken, API_URL, nettoyerDonnees } from './fixtures';
+
+// Chaque test s'exécute sous un compte jetable : on supprime ce qu'il a créé plutôt que
+// de le laisser s'accumuler dans la base de développement.
+test.afterEach(async ({ page }) => {
+    await nettoyerDonnees(page, await getToken(page));
+});
+
 
 // Résout l'IRI d'un profil par nom depuis le compendium.
 async function profileIriResolver(page: Page) {

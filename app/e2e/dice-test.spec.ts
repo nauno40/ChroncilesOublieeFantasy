@@ -19,3 +19,20 @@ test('le lanceur jette un test COF2 avec dé malus et difficulté', async ({ pag
     await expect(jet).toContainText(/\(\d+ \/ \d+\)/);
     await expect(jet).toContainText(/Réussi|Échoué/);
 });
+
+// Le test d'attaque ne suit pas les mêmes règles que le test de caractéristique : c'est la
+// DEF de la cible qui sert de difficulté, et un 1 n'y est pas un échec automatique.
+test('le lanceur jette un test d’attaque contre la DEF de la cible', async ({ page }) => {
+    await register(page, uniqueEmail('atk'));
+    await page.goto('/tools/dice');
+
+    await page.click('[role=radio]:has-text("Attaque")');
+    await page.fill('input[aria-label="Valeur d\'attaque"]', '5');
+    await page.fill('input[aria-label="DEF de la cible"]', '16');
+    await page.click('button:has-text("Tester")');
+
+    const jet = page.locator('.glass-panel.p-2').first();
+    await expect(jet).toContainText('Attaque d20+5');
+    await expect(jet).toContainText('DEF 16');
+    await expect(jet).toContainText(/Réussi|Échoué/);
+});

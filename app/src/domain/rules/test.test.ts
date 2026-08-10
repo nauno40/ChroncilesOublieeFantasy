@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { lancerTest, qualificatifDifficulte, DIFFICULTES } from './test';
+import { lancerTest, lancerAttaque, seuilCritique, qualificatifDifficulte, DIFFICULTES } from './test';
 
 /** Source d'aléa déterministe : rend les faces demandées, dans l'ordre. */
 const des = (...faces: number[]) => {
@@ -76,5 +76,51 @@ describe('table des difficultés', () => {
         expect(qualificatifDifficulte(15)).toBe('Difficile');
         expect(qualificatifDifficulte(30)).toBe('Abominable');
         expect(qualificatifDifficulte(12)).toBeUndefined();
+    });
+});
+
+describe('lancerAttaque', () => {
+    it('reproduit l’exemple du livre : d20 12 + attaque +5 contre DEF 16', () => {
+        // « Lhagva, niveau 2 (+2) avec +3 en FOR, dispose d'un bonus d'attaque de +5.
+        //   Elle obtient 12 […] total de 17. Comme l'ogre n'a qu'une DEF de 16, l'attaque
+        //   est réussie. »
+        const r = lancerAttaque({ valeurAttaque: 5, defCible: 16, rng: des(12) });
+        expect(r.total).toBe(17);
+        expect(r.reussi).toBe(true);
+        expect(r.dmDoubles).toBe(false);
+    });
+
+    it('n’applique PAS d’échec critique automatique : un 1 qui atteint la DEF touche', () => {
+        // « Un résultat de 1 au d20 en combat n'est pas obligatoirement un échec critique. »
+        // C'est la différence majeure avec le test de caractéristique.
+        const r = lancerAttaque({ valeurAttaque: 15, defCible: 14, rng: des(1) });
+        expect(r.total).toBe(16);
+        expect(r.reussi).toBe(true);
+    });
+
+    it('double les DM sur un critique, et touche même sous la DEF', () => {
+        const r = lancerAttaque({ valeurAttaque: 0, defCible: 30, rng: des(20) });
+        expect(r.critique).toBe(true);
+        expect(r.dmDoubles).toBe(true);
+        expect(r.reussi).toBe(true);
+    });
+
+    it('abaisse le seuil de critique avec « critique amélioré », jamais sous 16', () => {
+        expect(seuilCritique(0)).toBe(20);
+        expect(seuilCritique(2)).toBe(18);
+        // Une rapière plus deux capacités descendraient à 15 : le livre plafonne à 16.
+        expect(seuilCritique(9)).toBe(16);
+
+        const rapiere = lancerAttaque({ critiqueAmeliore: 2, defCible: 30, rng: des(18) });
+        expect(rapiere.critique).toBe(true);
+        expect(rapiere.seuilCritique).toBe(18);
+    });
+
+    it('subit le dé malus des états et de la longue portée', () => {
+        // Immobilisé : « dé malus aux tests d'attaque ».
+        const r = lancerAttaque({ valeurAttaque: 5, deMalus: 1, defCible: 15, rng: des(18, 6) });
+        expect(r.des).toHaveLength(2);
+        expect(r.conserve).toBe(6);
+        expect(r.reussi).toBe(false);
     });
 });

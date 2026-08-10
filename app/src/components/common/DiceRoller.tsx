@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Dices, Eraser, ChevronRight } from 'lucide-react';
 import { LEXIQUE } from '../../domain/lexique';
-import { lancerTest, DIFFICULTES, qualificatifDifficulte } from '../../domain/rules/test';
+import { lancerTest, lancerAttaque, DIFFICULTES, qualificatifDifficulte } from '../../domain/rules/test';
 
 interface RollResult {
     id: string;
@@ -85,6 +85,32 @@ const performTest = (carac: number, difficulte: number | undefined, avantage: 'b
     };
 };
 
+/**
+ * Test d'attaque COF2 : d20 + valeur d'attaque contre la DEF de la cible. Distinct du test
+ * de caractéristique — pas d'échec critique automatique, et un critique double les DM.
+ */
+const performAttaque = (valeurAttaque: number, defCible: number | undefined, avantage: 'bonus' | 'malus' | 'aucun'): RollResult => {
+    const r = lancerAttaque({
+        valeurAttaque,
+        defCible,
+        deBonus: avantage === 'bonus' ? 1 : 0,
+        deMalus: avantage === 'malus' ? 1 : 0,
+    });
+    const signe = valeurAttaque > 0 ? `+${valeurAttaque}` : valeurAttaque < 0 ? String(valeurAttaque) : '';
+    const mention = avantage === 'bonus' ? ' dé bonus' : avantage === 'malus' ? ' dé malus' : '';
+    return {
+        id: crypto.randomUUID(),
+        description: `Attaque d20${signe}${mention}${defCible !== undefined ? ` · DEF ${defCible}` : ''}${r.dmDoubles ? ' · DM DOUBLÉS' : ''}`,
+        result: r.total,
+        details: `(${r.des.join(' / ')})${signe}`,
+        timestamp: Date.now(),
+        isCritSuccess: r.critique,
+        // Pas d'échec critique en combat : un 1 n'est pas automatiquement raté.
+        isCritFail: false,
+        reussi: r.reussi,
+    };
+};
+
 export const DiceRoller: React.FC<DiceRollerProps> = ({ isOpen, mode = 'popup' }) => {
     const [history, setHistory] = useState<RollResult[]>([]);
     const [customFormula, setCustomFormula] = useState('');
@@ -94,6 +120,9 @@ export const DiceRoller: React.FC<DiceRollerProps> = ({ isOpen, mode = 'popup' }
     const [carac, setCarac] = useState(0);
     const [difficulte, setDifficulte] = useState<number | ''>('');
     const [avantage, setAvantage] = useState<'bonus' | 'malus' | 'aucun'>('aucun');
+    // Le test de caractéristique et le test d'attaque ne suivent pas les mêmes règles :
+    // le second n'a pas d'échec critique automatique et double les DM sur un critique.
+    const [genre, setGenre] = useState<'carac' | 'attaque'>('carac');
     const historyListRef = useRef<HTMLDivElement>(null);
 
     // Défilement automatique vers le dernier jet. On défile le conteneur lui-même :
@@ -133,7 +162,12 @@ export const DiceRoller: React.FC<DiceRollerProps> = ({ isOpen, mode = 'popup' }
         }
     };
 
-    const rollTest = () => setHistory(h => [performTest(carac, difficulte === '' ? undefined : difficulte, avantage), ...h].slice(0, 50));
+    const rollTest = () => setHistory(h => [
+        genre === 'attaque'
+            ? performAttaque(carac, difficulte === '' ? undefined : difficulte, avantage)
+            : performTest(carac, difficulte === '' ? undefined : difficulte, avantage),
+        ...h,
+    ].slice(0, 50));
 
     const clearHistory = () => setHistory([]);
 
@@ -210,25 +244,51 @@ export const DiceRoller: React.FC<DiceRollerProps> = ({ isOpen, mode = 'popup' }
                     préjudiciables déclarent un dé malus depuis le compendium ; il n'y avait
                     jusqu'ici aucun endroit pour le jeter. */}
                 <div className="space-y-2 pb-3 border-b border-white/10">
+                    <div role="radiogroup" aria-label="Type de test" className="flex gap-1">
+                        {([['carac', 'Caractéristique'], ['attaque', 'Attaque']] as const).map(([id, label]) => (
+                            <button
+                                key={id}
+                                role="radio"
+                                aria-checked={genre === id}
+                                onClick={() => setGenre(id)}
+                                className={`flex-1 py-1 rounded text-[10px] font-bold uppercase tracking-wider transition-all border ${genre === id
+                                    ? 'bg-primary-500/20 text-primary-300 border-primary-500/40'
+                                    : 'bg-white/5 text-stone-400 border-white/5 hover:text-stone-300'}`}
+                            >
+                                {label}
+                            </button>
+                        ))}
+                    </div>
                     <div className="flex items-center gap-1.5">
-                        <label className="text-[10px] uppercase tracking-wider text-stone-400 shrink-0">Carac.</label>
+                        <label className="text-[10px] uppercase tracking-wider text-stone-400 shrink-0">{genre === 'attaque' ? 'Att.' : 'Carac.'}</label>
                         <input
                             type="number"
-                            aria-label="Valeur de caractéristique"
+                            aria-label={genre === 'attaque' ? "Valeur d'attaque" : 'Valeur de caractéristique'}
                             value={carac}
                             onChange={e => setCarac(parseInt(e.target.value) || 0)}
                             className="w-14 bg-black/40 border border-white/10 rounded px-2 py-1 text-stone-200 text-xs font-mono focus:outline-none focus:border-primary-500/50"
                         />
-                        <label className="text-[10px] uppercase tracking-wider text-stone-400 shrink-0 ml-1">DIF</label>
-                        <select
-                            aria-label="Difficulté"
-                            value={difficulte}
-                            onChange={e => setDifficulte(e.target.value === '' ? '' : parseInt(e.target.value))}
-                            className="flex-1 min-w-0 bg-black/40 border border-white/10 rounded px-2 py-1 text-stone-200 text-xs focus:outline-none focus:border-primary-500/50"
-                        >
-                            <option value="">— libre —</option>
-                            {DIFFICULTES.map(d => <option key={d.valeur} value={d.valeur}>{d.label} ({d.valeur})</option>)}
-                        </select>
+                        <label className="text-[10px] uppercase tracking-wider text-stone-400 shrink-0 ml-1">{genre === 'attaque' ? 'DEF' : 'DIF'}</label>
+                        {genre === 'attaque' ? (
+                            <input
+                                type="number"
+                                aria-label="DEF de la cible"
+                                value={difficulte}
+                                onChange={e => setDifficulte(e.target.value === '' ? '' : parseInt(e.target.value))}
+                                placeholder="—"
+                                className="flex-1 min-w-0 bg-black/40 border border-white/10 rounded px-2 py-1 text-stone-200 text-xs font-mono focus:outline-none focus:border-primary-500/50"
+                            />
+                        ) : (
+                            <select
+                                aria-label="Difficulté"
+                                value={difficulte}
+                                onChange={e => setDifficulte(e.target.value === '' ? '' : parseInt(e.target.value))}
+                                className="flex-1 min-w-0 bg-black/40 border border-white/10 rounded px-2 py-1 text-stone-200 text-xs focus:outline-none focus:border-primary-500/50"
+                            >
+                                <option value="">— libre —</option>
+                                {DIFFICULTES.map(d => <option key={d.valeur} value={d.valeur}>{d.label} ({d.valeur})</option>)}
+                            </select>
+                        )}
                     </div>
                     <div className="flex items-center gap-1.5">
                         <div role="radiogroup" aria-label="Dé bonus ou malus" className="flex gap-1 flex-1">

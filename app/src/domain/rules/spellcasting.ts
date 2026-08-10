@@ -115,3 +115,56 @@ export const armorImpacts = (
     });
     return impacts;
 };
+
+// --- Concentration accrue et brûlure de mana (COF2, chapitre « Magie et sorts ») ---
+
+/**
+ * Le sort se lance-t-il par une action d'attaque ?
+ *
+ * Lecture du libellé servi par le compendium, qui note la lettre entre parenthèses :
+ * « Action (A)* », « Action Limitée (L)* », « Action (A) ou (L)* »… Un sort qui PEUT être
+ * lancé en action d'attaque est éligible, même s'il offre aussi une autre option.
+ *
+ * Les 82 sorts officiels sans type d'action déclaré renvoient `false` : faute
+ * d'information, on ne devine pas une éligibilité qui vaut 2 PM.
+ */
+export const estActionAttaque = (actionType: string | undefined | null): boolean =>
+    /\(A\)/.test(actionType ?? '');
+
+/**
+ * Coût d'un sort avec l'option de concentration accrue.
+ *
+ * « Lorsqu'il utilise un sort qui nécessite une action d'attaque (A) pour être lancé, le
+ * personnage peut se concentrer plus longtemps pour réduire le coût du sort de 2 PM : le
+ * sort devient une action limitée (L). » Les sorts en (L), (M) ou (G) n'y ont pas droit.
+ *
+ * Le livre ne dit pas ce qu'il advient d'un sort de rang 1 dont le coût tomberait sous
+ * zéro : le coût est borné à 0, lecture minimale et sans invention.
+ */
+export const coutAvecConcentration = (rank: number | undefined, actionType: string | undefined | null): number => {
+    const base = spellManaCost(rank);
+    return estActionAttaque(actionType) ? Math.max(0, base - 2) : base;
+};
+
+export interface BrulureDeMana {
+    /** Les dés de récupération jetés, un par point de mana. */
+    des: number[];
+    /** PV perdus au total. Aucune RD ne s'y applique. */
+    pvPerdus: number;
+}
+
+/**
+ * Brûlure de mana : sacrifier des PV pour lancer un sort sans points de mana.
+ *
+ * « Pour chaque PM dépensé, il subit des DM égaux à son dé de récupération (DR) […] Aucune
+ * RD ne s'applique à cette perte de PV. » Le dé dépend du profil principal, pas de l'école
+ * de magie : un guerrier-magicien brûle des d10.
+ */
+export const brulureDeMana = (pm: number, facesDeRecuperation: number, rng: () => number = Math.random): BrulureDeMana => {
+    const des: number[] = [];
+    for (let i = 0; i < Math.max(0, pm); i++) des.push(Math.floor(rng() * facesDeRecuperation) + 1);
+    return { des, pvPerdus: des.reduce((total, d) => total + d, 0) };
+};
+
+/** « Il est impossible d'utiliser la brûlure de mana pour lancer un sort de soins. » */
+export const brulurePossible = (estSortDeSoins: boolean): boolean => !estSortDeSoins;

@@ -44,6 +44,7 @@ const HomebrewDetail = lazy(() => import('./pages/HomebrewDetail').then(m => ({ 
 const HomebrewForm = lazy(() => import('./pages/HomebrewForm').then(m => ({ default: m.HomebrewForm })));
 const SoundboardPage = lazy(() => import('./pages/SoundboardPage').then(m => ({ default: m.SoundboardPage })));
 const MagicItems = lazy(() => import('./pages/MagicItems').then(m => ({ default: m.MagicItems })));
+const MagicItemsCatalogue = lazy(() => import('./pages/MagicItemsCatalogue').then(m => ({ default: m.MagicItemsCatalogue })));
 const CharacterList = lazy(() => import('./pages/CharacterList').then(m => ({ default: m.CharacterList })));
 const CharacterSheet = lazy(() => import('./pages/CharacterSheet').then(m => ({ default: m.CharacterSheet })));
 const PrintableCharacterSheet = lazy(() => import('./pages/PrintableCharacterSheet').then(m => ({ default: m.PrintableCharacterSheet })));
@@ -91,7 +92,12 @@ function App() {
                 <Route path="mounts" element={<Mounts />} />
                 <Route path="provisions" element={<Provisions />} />
                 <Route path="tools/dice" element={<Dice />} />
-                <Route path="tools/magic-items" element={<CompendiumType category="objet-magique" official={<MagicItems />} />} />
+                {/* Le générateur est un OUTIL du MJ (évaluateur + tables de tirage) ; le
+                    catalogue des objets est une page de type du compendium. Les deux
+                    vivaient sous la même route, ce qui mettait un outil dans l'onglet
+                    « Officiel » face à des objets dans l'onglet communautaire. */}
+                <Route path="tools/magic-items" element={<MagicItems />} />
+                <Route path="magic-items" element={<CompendiumType category="objet-magique" official={<MagicItemsCatalogue />} />} />
                 <Route path="states" element={<CompendiumType category="etat" official={<States />} />} />
                 <Route path="poisons" element={<CompendiumType category="poison" official={<Poisons />} />} />
                 <Route path="traps" element={<CompendiumType category="piege" official={<Traps />} />} />

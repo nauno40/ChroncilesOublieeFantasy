@@ -79,8 +79,8 @@ export const Tools: React.FC = () => {
                         <div className="bg-primary-900/30 w-16 h-16 rounded-xl flex items-center justify-center mb-6 border border-primary-500/20 group-hover:bg-primary-500/20 transition-colors">
                             <Sparkles size={32} className="text-primary-400 group-hover:text-primary-300" />
                         </div>
-                        <h3 className="text-2xl font-display font-bold text-stone-200 mb-2 group-hover:text-primary-400 transition-colors">{LEXIQUE.objetsMagiques}</h3>
-                        <p className="text-stone-400 text-sm leading-relaxed max-w-sm">Évaluez la valeur d'un objet enchanté et tirez au sort potions, armes et objets de pouvoir sur les tables du livre.</p>
+                        <h3 className="text-2xl font-display font-bold text-stone-200 mb-2 group-hover:text-primary-400 transition-colors">Générateur d’objets magiques</h3>
+                        <p className="text-stone-400 text-sm leading-relaxed max-w-sm">Évaluez la valeur d'un objet enchanté et tirez au sort potions, armes et objets de pouvoir sur les tables du livre. Le catalogue des objets, lui, vit dans le compendium.</p>
                     </div>
                 </Link>
             </div>

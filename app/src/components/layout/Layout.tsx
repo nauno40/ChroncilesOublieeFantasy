@@ -61,7 +61,7 @@ export const Layout: React.FC = () => {
                 { path: '/capacites', icon: Zap, label: LEXIQUE.capacites },
                 { path: '/creatures', icon: Ghost, label: LEXIQUE.creatures },
                 { path: '/equipment', icon: Package, label: LEXIQUE.equipement },
-                { path: '/tools/magic-items', icon: Wand2, label: LEXIQUE.objetsMagiques },
+                { path: '/magic-items', icon: Wand2, label: LEXIQUE.objetsMagiques },
                 { path: '/mounts', icon: Truck, label: 'Montures' },
                 { path: '/provisions', icon: UtensilsCrossed, label: 'Provisions' },
                 { path: '/states', icon: AlertCircle, label: LEXIQUE.etats },

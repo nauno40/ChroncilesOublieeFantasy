@@ -6,6 +6,15 @@ export interface MagicTable {
   roll?: string;
   // Table de référence (lookup) : affichée en liste, sans bouton de tirage.
   reference?: boolean;
+  /**
+   * Ce que cette table CATALOGUE, quand ses entrées nomment des choses que le compendium
+   * doit lister et non des étapes de tirage.
+   *  - `objet` : des objets nommés par les règles (potions, capes et anneaux) ;
+   *  - `propriete` : ce qui rend un objet magique (arme affûtée, armure d'ombre).
+   * Déclaré table par table plutôt que deviné : « Types d'armes magiques » et « Origine –
+   * Peuple » énumèrent elles aussi des noms, sans être des objets pour autant.
+   */
+  catalogue?: 'objet' | 'propriete';
   entries: [number, number, string][];
 }
 
@@ -93,6 +102,7 @@ export const MAGIC_ITEM_TABLES: MagicTable[] = [
   {
     "name": "Potions de soins",
     "category": "Potions",
+    catalogue: "objet",
     "die": 6,
     "entries": [
       [
@@ -115,6 +125,7 @@ export const MAGIC_ITEM_TABLES: MagicTable[] = [
   {
     "name": "Potions communes",
     "category": "Potions",
+    catalogue: "objet",
     "die": 10,
     "entries": [
       [
@@ -172,6 +183,7 @@ export const MAGIC_ITEM_TABLES: MagicTable[] = [
   {
     "name": "Potions rares",
     "category": "Potions",
+    catalogue: "objet",
     "die": 20,
     "entries": [
       [
@@ -408,6 +420,7 @@ export const MAGIC_ITEM_TABLES: MagicTable[] = [
   {
     "name": "Armes magiques – Propriétés des armes de contact",
     "category": "Armes magiques",
+    catalogue: "propriete",
     "die": 12,
     "entries": [
       [
@@ -537,6 +550,7 @@ export const MAGIC_ITEM_TABLES: MagicTable[] = [
   {
     "name": "Armures magiques",
     "category": "Objets de défense",
+    catalogue: "objet",
     "die": 20,
     "entries": [
       [
@@ -594,6 +608,7 @@ export const MAGIC_ITEM_TABLES: MagicTable[] = [
   {
     "name": "Propriétés des armures magiques",
     "category": "Objets de défense",
+    catalogue: "propriete",
     "die": 12,
     "entries": [
       [

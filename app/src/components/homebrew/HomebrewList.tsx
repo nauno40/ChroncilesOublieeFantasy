@@ -12,32 +12,6 @@ import { COLONNES_TABLE, LABEL_NOM, modDegats, type TypeTabulaire } from '../../
  * Ainsi une création communautaire a la même tête que son équivalent officiel.
  */
 
-interface Col {
-    key: string;
-    label: string;
-    /** Aligne à droite + police mono (valeurs chiffrées : prix, dégâts…). */
-    num?: boolean;
-    /** Préfixe « + » pour un bonus numérique (ex. DEF d'armure). */
-    plus?: boolean;
-    /** Colonne de texte long : autorise le retour à la ligne et tronque. */
-    wrap?: boolean;
-}
-
-// Colonnes par catégorie tabulaire, calquées sur les tables officielles
-// (Equipment.tsx, Poisons.tsx, Traps.tsx). Le nom est toujours la 1re colonne.
-const TABLE_COLUMNS: Record<string, Col[]> = {
-    'objet-magique': [
-        { key: 'type', label: 'Type' },
-        { key: 'rarity', label: 'Rareté' },
-        { key: 'properties', label: 'Propriétés', wrap: true },
-        { key: 'price', label: 'Prix', num: true },
-    ],
-    // Poisons, pièges et équipement ne sont plus décrits ici : leurs colonnes sont
-    // celles de `COLONNES_TABLE`, partagées avec la page officielle. Restent les objets
-    // magiques, dont la page officielle n'est pas une liste mais un outil de génération
-    // — l'iso y demande d'abord une décision de fond, pas un partage de composant.
-};
-
 /**
  * Lecture d'une colonne partagée sur une entrée communautaire.
  *
@@ -53,12 +27,6 @@ const valeurCommunautaire = (entry: HomebrewEntry, key: string): unknown => {
     return data[key];
 };
 
-/** Renvoie la catégorie tabulaire unique de la page, ou null (grille de cartes). */
-const tableCategoryOf = (category?: string | string[]): string | null => {
-    if (typeof category !== 'string') return null;
-    return TABLE_COLUMNS[category] ? category : null;
-};
-
 // Catégories dont les cartes officielles portent une image d'en-tête (Races, Classes).
 // Le contenu communautaire y reçoit une image générique (initiale) pour la même tête.
 const IMAGE_CATEGORIES = new Set(['race', 'classe']);
@@ -66,15 +34,6 @@ const IMAGE_CATEGORIES = new Set(['race', 'classe']);
 // Catégories dont les pages officielles utilisent une grille dense (4 colonnes) et un
 // titre plus petit : Voies et Capacités & Sorts.
 const DENSE_CATEGORIES = new Set(['voie', 'capacite', 'sort']);
-
-/** Formate une valeur `data` (JSON libre) pour une cellule/champ. */
-const fmt = (v: unknown, col: Col): string => {
-    if (v === undefined || v === null || v === '') return '—';
-    if (Array.isArray(v)) return v.filter(Boolean).join(' · ') || '—';
-    if (typeof v === 'boolean') return v ? 'Oui' : 'Non';
-    if (col.plus && typeof v === 'number') return `+${v}`;
-    return String(v);
-};
 
 interface RowActionsProps {
     entry: HomebrewEntry;
@@ -137,13 +96,12 @@ interface HomebrewListProps {
 }
 
 export const HomebrewList: React.FC<HomebrewListProps> = ({ entries, category, myId, duplicatingId, onOpen, onEdit, onDelete, onDuplicate, sousType }) => {
-    const tableCat = tableCategoryOf(category);
     const locked = typeof category === 'string';
 
     // --- Types dont la table est partagée avec la page officielle ---
     // La donnée communautaire vit sous `entry.data`, l'officielle à la racine de l'entité :
     // seul l'accesseur diffère, la table et ses colonnes sont les mêmes objets.
-    const typeTabulaire: TypeTabulaire | null = category === 'poison' || category === 'piege'
+    const typeTabulaire: TypeTabulaire | null = category === 'poison' || category === 'piege' || category === 'objet-magique'
         ? category
         : category === 'equipement'
             ? (sousType ?? 'arme')
@@ -179,104 +137,6 @@ export const HomebrewList: React.FC<HomebrewListProps> = ({ entries, category, m
                     ),
                 }}
             />
-        );
-    }
-
-    // --- Rendu tableau (catégories tabulaires : mêmes colonnes que l'officiel) ---
-    if (tableCat) {
-        const cols = TABLE_COLUMNS[tableCat];
-        const minW = 440 + cols.length * 130;
-        // Deux habillages de table selon la page officielle imitée : Equipment.tsx utilise
-        // des en-têtes larges (p-4, font-display, primary-300) dans un panneau rounded-xl ;
-        // Poisons.tsx / Traps.tsx des en-têtes fins en petites capitales, panneau rounded-2xl.
-        const big = tableCat === 'equipement' || tableCat === 'objet-magique';
-        const wrapCls = big
-            ? 'hidden md:block glass-panel rounded-xl overflow-x-auto'
-            : 'hidden md:block glass-panel rounded-2xl border border-white/5 overflow-x-auto';
-        const headRowCls = big
-            ? 'border-b border-white/10 bg-black/20'
-            : 'text-[11px] uppercase tracking-wider text-primary-500/70 border-b border-white/10';
-        const thCls = big ? 'p-4 text-primary-300 font-display font-bold whitespace-nowrap' : 'px-4 py-3 font-bold';
-        const tdCls = big ? 'p-4' : 'px-4 py-3';
-        return (
-            <>
-                {/* Desktop : table complète, calquée sur le compendium officiel */}
-                <div className={wrapCls}>
-                    <table className={`w-full text-left border-collapse ${big ? '' : 'text-sm'}`} style={{ minWidth: minW }}>
-                        <thead>
-                            <tr className={headRowCls}>
-                                <th className={thCls}>Nom</th>
-                                {cols.map(c => (
-                                    <th key={c.key} className={`${thCls} ${c.num ? 'text-right' : ''}`}>{c.label}</th>
-                                ))}
-                                <th className={`${thCls} text-right sticky right-0 bg-stone-950/95 backdrop-blur-sm`}>{myId !== undefined ? 'Auteur / Actions' : 'Auteur'}</th>
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-white/5">
-                            {entries.map(entry => {
-                                const mine = entry.authorId === myId;
-                                const data = entry.data ?? {};
-                                return (
-                                    <tr key={entry.id} onClick={() => onOpen(entry)} className="hover:bg-primary-500/5 transition-colors cursor-pointer">
-                                        <td className={`${tdCls} align-top`}>
-                                            <div className="flex items-center gap-2">
-                                                <span className="text-stone-200 font-bold">{entry.name}</span>
-                                                {entry.visibility === 'public'
-                                                    ? <Globe size={12} className="text-green-500/70 shrink-0" aria-label="Public" />
-                                                    : <Lock size={12} className="text-stone-400 shrink-0" aria-label="Privé" />}
-                                            </div>
-                                            {entry.description && <div className="text-stone-400 text-xs mt-0.5 line-clamp-1 max-w-[26ch]">{entry.description}</div>}
-                                        </td>
-                                        {cols.map(c => (
-                                            <td key={c.key} className={`${tdCls} align-top ${c.num ? 'text-right font-mono text-stone-300' : 'text-stone-400'} ${c.wrap ? 'text-xs min-w-[16ch] max-w-[28ch]' : 'whitespace-nowrap text-sm'}`}>
-                                                {c.wrap
-                                                    ? <span className="line-clamp-2 leading-snug">{fmt(data[c.key], c)}</span>
-                                                    : fmt(data[c.key], c)}
-                                            </td>
-                                        ))}
-                                        <td className={`${tdCls} align-top text-right sticky right-0 bg-stone-950/95 backdrop-blur-sm`}>
-                                            <RowActions entry={entry} mine={mine} duplicating={duplicatingId === entry.id} onEdit={() => onEdit(entry)} onDelete={() => onDelete(entry)} onDuplicate={() => onDuplicate(entry)} />
-                                        </td>
-                                    </tr>
-                                );
-                            })}
-                        </tbody>
-                    </table>
-                </div>
-
-                {/* Mobile : cartes empilées (comme les tables officielles sur petit écran) */}
-                <div className="md:hidden space-y-3">
-                    {entries.map(entry => {
-                        const mine = entry.authorId === myId;
-                        const data = entry.data ?? {};
-                        return (
-                            <div key={entry.id} onClick={() => onOpen(entry)} className="glass-panel rounded-xl p-4 cursor-pointer active:scale-[0.99] transition-transform">
-                                <div className="flex items-start justify-between gap-3">
-                                    <h3 className="font-display font-bold text-stone-100 leading-tight flex items-center gap-2">
-                                        {entry.name}
-                                        {entry.visibility === 'public'
-                                            ? <Globe size={12} className="text-green-500/70 shrink-0" />
-                                            : <Lock size={12} className="text-stone-400 shrink-0" />}
-                                    </h3>
-                                    <RowActions entry={entry} mine={mine} duplicating={duplicatingId === entry.id} onEdit={() => onEdit(entry)} onDelete={() => onDelete(entry)} onDuplicate={() => onDuplicate(entry)} />
-                                </div>
-                                <div className="grid grid-cols-2 gap-x-4 gap-y-1 mt-3">
-                                    {cols.map(c => {
-                                        const val = fmt(data[c.key], c);
-                                        if (val === '—') return null;
-                                        return (
-                                            <div key={c.key} className="min-w-0">
-                                                <span className="text-stone-400 text-xs">{c.label} </span>
-                                                <span className="text-stone-300 text-sm break-words">{val}</span>
-                                            </div>
-                                        );
-                                    })}
-                                </div>
-                            </div>
-                        );
-                    })}
-                </div>
-            </>
         );
     }
 

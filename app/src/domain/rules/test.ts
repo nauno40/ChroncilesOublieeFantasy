@@ -96,3 +96,75 @@ export const lancerTest = (options: OptionsTest = {}): ResultatTest => {
 /** Qualificatif d'une difficulté chiffrée, quand elle figure dans la table du livre. */
 export const qualificatifDifficulte = (valeur: number): string | undefined =>
     DIFFICULTES.find(d => d.valeur === valeur)?.label;
+
+/**
+ * Seuil de réussite critique en attaque (COF2, chapitre « Combat »).
+ *
+ * « Certains objets ou capacités augmentent de 1 point (ou plus) les chances d'obtenir un
+ * critique […] Quoi qu'il en soit, la valeur minimale requise pour obtenir une réussite
+ * critique ne peut jamais être inférieure à 16. »
+ */
+export const seuilCritique = (ameliorations = 0): number =>
+    Math.max(16, 20 - Math.max(0, ameliorations));
+
+export interface OptionsAttaque {
+    /** Valeur d'attaque du personnage : niveau (plafonné à 10) + carac. Cf. `attackValue`. */
+    valeurAttaque?: number;
+    /** Modificateurs de situation (couvert ‑2/‑5, pénombre ‑5, capacités…). */
+    modificateur?: number;
+    /** DEF de la cible. Absente, le jet est rendu sans verdict. */
+    defCible?: number;
+    /** Points de « critique amélioré » (rapière, capacités) : abaissent le seuil, jamais sous 16. */
+    critiqueAmeliore?: number;
+    deBonus?: number;
+    deMalus?: number;
+    rng?: () => number;
+}
+
+export interface ResultatAttaque extends Omit<ResultatTest, 'echecCritique'> {
+    /** Seuil de critique effectivement appliqué (20 par défaut). */
+    seuilCritique: number;
+    /** Vrai quand les DM doivent être doublés — critique au contact ou à distance. */
+    dmDoubles: boolean;
+}
+
+/**
+ * Résout un test d'attaque : d20 + valeur d'attaque contre la DEF de la cible.
+ *
+ * Deux différences avec le test de caractéristique, toutes deux explicites dans le livre et
+ * faciles à manquer :
+ *  - **il n'y a pas d'échec critique automatique en combat.** « Un résultat de 1 au d20 en
+ *    combat n'est pas obligatoirement un échec critique (de notre point de vue, cela serait
+ *    trop fréquent) » : un 1 qui atteint tout de même la DEF touche. Le MJ garde la main
+ *    pour improviser une complication ;
+ *  - **le seuil de critique est abaissable** (« critique amélioré »), sans jamais descendre
+ *    sous 16.
+ *
+ * La réussite critique reste une réussite automatique, et double les DM (bonus inclus ; les
+ * dés obtenus en bonus, eux, ne se multiplient pas — cela relève du jet de DM, pas d'ici).
+ */
+export const lancerAttaque = (options: OptionsAttaque = {}): ResultatAttaque => {
+    const { valeurAttaque = 0, modificateur = 0, defCible, critiqueAmeliore = 0, rng } = options;
+
+    const base = lancerTest({
+        carac: valeurAttaque,
+        modificateur,
+        deBonus: options.deBonus,
+        deMalus: options.deMalus,
+        rng,
+    });
+
+    const seuil = seuilCritique(critiqueAmeliore);
+    const critique = base.conserve >= seuil;
+
+    return {
+        des: base.des,
+        conserve: base.conserve,
+        avantage: base.avantage,
+        total: base.total,
+        critique,
+        seuilCritique: seuil,
+        dmDoubles: critique,
+        reussi: defCible === undefined ? undefined : critique || base.total >= defCible,
+    };
+};

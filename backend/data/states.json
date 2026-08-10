@@ -2,7 +2,7 @@
   {
     "id": "affaibli",
     "name": "Affaibli",
-    "description": "d12 pour tous les tests au lieu du d20",
+    "description": "Dé malus à tous les tests",
     "image": "achilles-heel.svg",
     "effects": {
       "malusDie": "all"

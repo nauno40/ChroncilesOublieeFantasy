@@ -16,3 +16,4 @@ export * from './choices';
 export * from './spellcasting';
 export * from './harmfulStates';
 export * from './encombrement';
+export * from './test';

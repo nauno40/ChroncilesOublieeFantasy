@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import {
+    catalogueObjetsMagiques,
     magicItemValue,
     potionScrollValue,
     wandValue,
@@ -60,5 +61,52 @@ describe('données de tables', () => {
                 expect(hits.length, `${t.name} : jet ${r}`).toBe(1);
             }
         }
+    });
+});
+
+describe('catalogueObjetsMagiques', () => {
+    const catalogue = catalogueObjetsMagiques();
+
+    it('ne retient que les tables qui se déclarent comme catalogue', () => {
+        // Le point du choix « déclaration plutôt que détection » : « Origine – Peuple » et
+        // « Types d'armes magiques » énumèrent des noms sans énumérer des objets. Les voir
+        // arriver dans le catalogue serait le symptôme d'une détection remise en place.
+        const noms = catalogue.map(o => o.nom);
+        for (const intrus of ['Humains', 'Nains', 'Dragons', 'Locale', 'Bâton', 'Dague']) {
+            expect(noms, `« ${intrus} » n'est pas un objet magique`).not.toContain(intrus);
+        }
+    });
+
+    it('retient les objets et les propriétés nommés par les règles', () => {
+        const noms = catalogue.map(o => o.nom);
+        expect(noms).toContain('Anneau ou cape de protection');   // table « Armures magiques »
+        expect(noms.some(n => n.startsWith('Récupération mineure'))).toBe(true); // potions de soins
+        expect(noms).toContain('Affûtée');                        // propriété d'arme
+    });
+
+    it('déduit la rareté du nom de la table, seul endroit où les règles la donnent', () => {
+        const rare = catalogue.find(o => o.source === 'Potions rares');
+        const commun = catalogue.find(o => o.source === 'Potions communes');
+        expect(rare?.rarete).toBe('Rare');
+        expect(commun?.rarete).toBe('Commun');
+        // Les autres tables ne disent rien de la rareté : ne rien afficher plutôt qu'inventer.
+        expect(catalogue.find(o => o.source === 'Armures magiques')?.rarete).toBeUndefined();
+    });
+
+    it('distingue un objet d’une propriété', () => {
+        expect(catalogue.find(o => o.nom === 'Anneau ou cape de protection')?.nature).toBe('objet');
+        expect(catalogue.find(o => o.nom === 'Affûtée')?.nature).toBe('propriete');
+    });
+
+    it('ne répète pas un nom présent dans deux tables, et écarte les instructions de tirage', () => {
+        const noms = catalogue.map(o => o.nom);
+        expect(new Set(noms).size).toBe(noms.length);
+        expect(noms.some(n => /^relancer/i.test(n))).toBe(false);
+    });
+
+    it('laisse les tables du générateur intactes', () => {
+        // Le générateur reste la page des outils du MJ : le catalogue ne doit rien lui retirer.
+        expect(MAGIC_ITEM_TABLES.length).toBeGreaterThan(15);
+        expect(MAGIC_ITEM_TABLES.some(t => t.name === 'Origine – Provenance')).toBe(true);
     });
 });

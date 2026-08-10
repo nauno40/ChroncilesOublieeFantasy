@@ -33,7 +33,7 @@ export interface ColonneCompendium {
 export const modDegats = (type: string | undefined): string =>
     type && type.toLowerCase().includes('contact') ? '+ FOR' : '—';
 
-export type TypeTabulaire = 'poison' | 'piege' | 'arme' | 'armure' | 'materiel';
+export type TypeTabulaire = 'poison' | 'piege' | 'arme' | 'armure' | 'materiel' | 'objet-magique';
 
 export const COLONNES_TABLE: Record<TypeTabulaire, ColonneCompendium[]> = {
     poison: [
@@ -73,6 +73,16 @@ export const COLONNES_TABLE: Record<TypeTabulaire, ColonneCompendium[]> = {
         { key: 'notes', label: 'Notes', wrap: true },
         { key: 'price', label: 'Prix', align: 'right', mono: true, ton: 'prix' },
     ],
+    // Objets magiques. Les règles nomment leurs objets à l'intérieur des tables de tirage
+    // et ne leur donnent ni propriétés ni prix : ces deux colonnes restent vides côté
+    // officiel, et le prix se calcule avec l'évaluateur du générateur, resté dans les
+    // outils du MJ.
+    'objet-magique': [
+        { key: 'type', label: 'Type' },
+        { key: 'rarity', label: 'Rareté' },
+        { key: 'properties', label: 'Propriétés', wrap: true },
+        { key: 'price', label: 'Prix', align: 'right', mono: true, ton: 'prix' },
+    ],
 };
 
 /** Intitulé de la première colonne (le nom) — « Poison », « Piège »… */
@@ -82,6 +92,7 @@ export const LABEL_NOM: Record<TypeTabulaire, string> = {
     arme: 'Nom',
     armure: 'Nom',
     materiel: 'Nom',
+    'objet-magique': 'Objet',
 };
 
 /**

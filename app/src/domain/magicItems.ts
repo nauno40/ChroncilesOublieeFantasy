@@ -48,6 +48,55 @@ export const rollOnTable = (table: MagicTable, rng: () => number = Math.random):
 };
 
 // Regroupe les tables par catégorie, dans l'ordre d'apparition.
+/** Une entrée du catalogue officiel des objets magiques. */
+export interface ObjetMagiqueOfficiel {
+    nom: string;
+    /** Catégorie de la table (Potions, Objets de défense…). */
+    type: string;
+    /** `objet` (une chose qu'on trouve) ou `propriete` (ce qui rend une chose magique). */
+    nature: 'objet' | 'propriete';
+    /** Rareté, quand la table la nomme (« Potions rares » ⇒ Rare). */
+    rarete?: string;
+    /** Table d'origine, pour retrouver la règle. */
+    source: string;
+}
+
+/** Rareté déduite du NOM de la table, seul endroit où les règles la donnent. */
+const rareteDeLaTable = (nom: string): string | undefined =>
+    /rares?$/i.test(nom) ? 'Rare' : /communes?$/i.test(nom) ? 'Commun' : undefined;
+
+/**
+ * Catalogue officiel des objets magiques, dérivé des tables du chapitre « Objets magiques ».
+ *
+ * Les règles ne donnent pas de liste d'objets : elles les nomment à l'intérieur de leurs
+ * tables de tirage. La page du compendium montrait donc le générateur là où l'onglet
+ * communautaire montrait des objets — deux natures de contenu sous le même titre. Ce
+ * catalogue rend ces objets consultables sans passer par un jet de dé ; le générateur, lui,
+ * reste entier du côté des outils du MJ.
+ *
+ * Seules les tables qui le DÉCLARENT (`catalogue`) sont retenues : « Types d'armes
+ * magiques » ou « Origine – Peuple » énumèrent des noms sans énumérer des objets.
+ */
+export const catalogueObjetsMagiques = (): ObjetMagiqueOfficiel[] => {
+    const parNom = new Map<string, ObjetMagiqueOfficiel>();
+    for (const table of MAGIC_ITEM_TABLES) {
+        if (!table.catalogue) continue;
+        for (const [, , libelle] of table.entries) {
+            const nom = libelle.trim();
+            // « Relancer » et consorts sont des instructions de tirage, pas des objets.
+            if (!nom || /^relancer/i.test(nom) || parNom.has(nom)) continue;
+            parNom.set(nom, {
+                nom,
+                type: table.category,
+                nature: table.catalogue,
+                rarete: rareteDeLaTable(table.name),
+                source: table.name,
+            });
+        }
+    }
+    return [...parNom.values()].sort((a, b) => a.nom.localeCompare(b.nom, 'fr'));
+};
+
 export const tablesByCategory = (): Record<string, MagicTable[]> => {
     const groups: Record<string, MagicTable[]> = {};
     for (const t of MAGIC_ITEM_TABLES) {

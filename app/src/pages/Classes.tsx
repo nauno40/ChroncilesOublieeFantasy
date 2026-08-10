@@ -1,7 +1,8 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import type { Profile } from '../types/normalized';
-import { PageContainer, SearchToolbar, ContentCard, CardMedia, CardStats, FilterPanel, Loader } from '../components/common';
+import { PageContainer, SearchToolbar, ContentCard, CardMedia, CardStats, FilterPanel, SelectFiltre, GrilleFiltres, Loader } from '../components/common';
 import { useSearch } from '../hooks';
+import { invitRecherche, compteurDuType } from '../domain/compendium';
 import { DataService } from '../services/dataService';
 
 /**
@@ -68,8 +69,8 @@ export const Classes: React.FC = () => {
             <SearchToolbar
                 value={searchTerm}
                 onChange={setSearchTerm}
-                placeholder="Rechercher une classe…"
-                count={{ n: filteredItems.length, singulier: 'classe' }}
+                placeholder={invitRecherche('classe')}
+                count={{ n: filteredItems.length, ...compteurDuType('classe')! }}
             />
 
             <FilterPanel
@@ -79,40 +80,16 @@ export const Classes: React.FC = () => {
                     setSelectedMagic('all');
                 }}
             >
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label className="block text-sm font-medium text-stone-300 mb-2">
-                            Dé de vie
-                        </label>
-                        <select aria-label="Dé de vie"
-                            value={selectedHitDie}
-                            onChange={(e) => setSelectedHitDie(e.target.value)}
-                            className="w-full px-3 py-2 bg-stone-900/50 border border-stone-700 rounded-lg text-stone-200 focus:border-primary-500 focus:outline-none transition-colors"
-                        >
-                            <option value="all">Tous les dés</option>
-                            <option value="1D4">d4</option>
-                            <option value="1D6">d6</option>
-                            <option value="1D8">d8</option>
-                            <option value="1D10">d10</option>
-                            <option value="1D12">d12</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label className="block text-sm font-medium text-stone-300 mb-2">
-                            Magie
-                        </label>
-                        <select aria-label="Magie"
-                            value={selectedMagic}
-                            onChange={(e) => setSelectedMagic(e.target.value)}
-                            className="w-full px-3 py-2 bg-stone-900/50 border border-stone-700 rounded-lg text-stone-200 focus:border-primary-500 focus:outline-none transition-colors"
-                        >
-                            <option value="all">Toutes</option>
-                            <option value="yes">Avec magie</option>
-                            <option value="no">Sans magie</option>
-                        </select>
-                    </div>
-                </div>
+                <GrilleFiltres>
+                    <SelectFiltre
+                        label="Dé de vie" toutLabel="Tous les dés" value={selectedHitDie} onChange={setSelectedHitDie}
+                        options={['1D4', '1D6', '1D8', '1D10', '1D12'].map(d => ({ value: d, label: d.replace('1D', 'd') }))}
+                    />
+                    <SelectFiltre
+                        label="Magie" toutLabel="Toutes les classes" value={selectedMagic} onChange={setSelectedMagic}
+                        options={[{ value: 'yes', label: 'Lanceurs de sorts' }, { value: 'no', label: 'Sans magie' }]}
+                    />
+                </GrilleFiltres>
             </FilterPanel>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">

@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import type { HarmfulState } from '../types/normalized';
 import { PageContainer, SearchToolbar, Loader, ContentCard } from '../components/common';
 import { useSearch } from '../hooks';
+import { invitRecherche, compteurDuType } from '../domain/compendium';
 import { DataService } from '../services/dataService';
 
 export const States: React.FC = () => {
@@ -30,8 +31,8 @@ export const States: React.FC = () => {
             <SearchToolbar
                 value={searchTerm}
                 onChange={setSearchTerm}
-                placeholder="Rechercher un état…"
-                count={{ n: filteredItems.length, singulier: 'état' }}
+                placeholder={invitRecherche('etat')}
+                count={{ n: filteredItems.length, ...compteurDuType('etat')! }}
             />
 
             <div className="flex flex-wrap gap-3">

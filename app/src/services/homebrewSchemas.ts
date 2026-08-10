@@ -132,7 +132,7 @@ export const HOMEBREW_SCHEMAS: Record<string, HomebrewFieldDef[]> = {
     ],
     // → Voie
     voie: [
-        { key: 'category', label: 'Catégorie', type: 'text', placeholder: 'ex. profil, peuple, prestige…', required: true },
+        { key: 'category', label: 'Catégorie', type: 'text', placeholder: 'ex. personnage, peuple, créature, prestige', required: true },
         { key: 'maxRank', label: 'Rang maximum', type: 'number', required: true },
         // Les capacités d'une voie ne se saisissent plus ici : elles ont leurs propres
         // blocs, et sont enregistrées comme des entrées à part entière. Ce champ garde

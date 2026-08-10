@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import type { Trap } from '../types/normalized';
 import { PageContainer, SearchToolbar, Loader, CompendiumTable } from '../components/common';
 import { useSearch } from '../hooks';
+import { invitRecherche, compteurDuType } from '../domain/compendium';
 import { DataService } from '../services/dataService';
 import { COLONNES_TABLE, LABEL_NOM } from '../domain/tablesCompendium';
 
@@ -28,8 +29,8 @@ export const Traps: React.FC = () => {
             <SearchToolbar
                 value={searchTerm}
                 onChange={setSearchTerm}
-                placeholder="Rechercher un piège…"
-                count={{ n: filteredItems.length, singulier: 'piège' }}
+                placeholder={invitRecherche('piege')}
+                count={{ n: filteredItems.length, ...compteurDuType('piege')! }}
             />
 
             <CompendiumTable

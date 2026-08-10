@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Skull, Plus, Trash2, Pencil, Save, X, Swords, Sparkles, Globe, Lock, Copy } from 'lucide-react';
-import { PageContainer, PageHeader, EmptyState, AuthorTag, SearchToolbar } from '../components/common';
+import { PageContainer, PageHeader, EmptyState, AuthorTag, SearchToolbar, FilterPanel, SelectFiltre, GrilleFiltres } from '../components/common';
 import { CreatureCard } from '../components/creature/CreatureCard';
 import { carteDepuisMonstreMaison } from '../domain/creature';
 import { getMonsters, createMonster, updateMonster, deleteMonster } from '../services/monsterService';
@@ -145,6 +145,11 @@ export const CustomMonsters: React.FC<CustomMonstersProps> = ({ embedded = false
     const [saving, setSaving] = useState(false);
     const [duplicatingId, setDuplicatingId] = useState<number | null>(null);
     const [recherche, setRecherche] = useState('');
+    // Mêmes axes de filtrage que le bestiaire officiel, sur les champs que la créature
+    // maison porte déjà. La liste n'en offrait aucun.
+    const [filtreCategorie, setFiltreCategorie] = useState('all');
+    const [filtreMilieu, setFiltreMilieu] = useState('all');
+    const [filtreTaille, setFiltreTaille] = useState('all');
     const location = useLocation();
     const [error, setError] = useState<string | null>(null);
 
@@ -189,10 +194,15 @@ export const CustomMonsters: React.FC<CustomMonstersProps> = ({ embedded = false
             ? monsters.filter((c) => c.authorId === myId)
             : monsters.filter((c) => c.visibility === 'public' && c.authorId !== myId);
         const terme = recherche.trim().toLowerCase();
-        return terme
+        const parTexte = terme
             ? base.filter((c) => (c.name + ' ' + (c.description ?? '') + ' ' + (c.category ?? '')).toLowerCase().includes(terme))
             : base;
-    }, [monsters, tab, myId, recherche]);
+        const correspond = (valeur: string | undefined, choix: string) => choix === 'all' || (valeur ?? '') === choix;
+        return parTexte.filter((c) =>
+            correspond(c.category, filtreCategorie)
+            && correspond(c.environment, filtreMilieu)
+            && correspond(c.size, filtreTaille));
+    }, [monsters, tab, myId, recherche, filtreCategorie, filtreMilieu, filtreTaille]);
 
     const startCreate = () => {
         setError(null);
@@ -304,6 +314,24 @@ export const CustomMonsters: React.FC<CustomMonstersProps> = ({ embedded = false
                     onChange={setRecherche}
                     placeholder="Rechercher une créature…"
                     count={{ n: visible.length, singulier: 'créature' }}
+                    filters={(
+                        <FilterPanel
+                            hasActiveFilters={[filtreCategorie, filtreMilieu, filtreTaille].some(v => v !== 'all')}
+                            onClearFilters={() => { setFiltreCategorie('all'); setFiltreMilieu('all'); setFiltreTaille('all'); }}
+                        >
+                            <GrilleFiltres>
+                                <SelectFiltre label="Catégorie" toutLabel="Toutes catégories" value={filtreCategorie}
+                                    onChange={setFiltreCategorie}
+                                    options={distinctSorted(monsters.map(c => c.category)).map(v => ({ value: v, label: v }))} />
+                                <SelectFiltre label="Milieu" toutLabel="Tous milieux" value={filtreMilieu}
+                                    onChange={setFiltreMilieu}
+                                    options={distinctSorted(monsters.map(c => c.environment)).map(v => ({ value: v, label: v }))} />
+                                <SelectFiltre label="Taille" toutLabel="Toutes tailles" value={filtreTaille}
+                                    onChange={setFiltreTaille}
+                                    options={distinctSorted(monsters.map(c => c.size)).map(v => ({ value: v, label: v }))} />
+                            </GrilleFiltres>
+                        </FilterPanel>
+                    )}
                     chips={embedded ? undefined : ONGLETS}
                     chipActif={embedded ? undefined : tab}
                     onChipChange={(id) => setTab(id as 'mine' | 'community')}

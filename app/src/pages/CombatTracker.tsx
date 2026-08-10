@@ -3,6 +3,7 @@ import { Sword, RefreshCw, Trash2, Shield } from 'lucide-react';
 import type { Combatant } from '../types/campaign';
 import type { TrackerState } from '../domain/combatTracker';
 import { sortByInitiative, nextTurn, removeById, applyHp } from '../domain/combatTracker';
+import { effetsCumules, defEffective } from '../domain/rules/etatsCombat';
 import { DataService } from '../services/dataService';
 import { ApiService } from '../services/api';
 import { getMonsters } from '../services/monsterService';
@@ -383,11 +384,39 @@ export const CombatTracker: React.FC = () => {
 
                         <div className="flex-1 min-w-[120px]">
                             <div className={`font-bold text-lg font-display ${c.type === 'player' ? 'text-blue-300' : 'text-red-300'}`}>{c.name}</div>
-                            <div className="text-xs text-stone-400 flex items-center gap-2 mt-1">
-                                <span className="flex items-center gap-1 bg-black/30 px-2 py-0.5 rounded border border-white/5">
-                                    <Shield size={12} className="text-stone-400" /> <span className="text-stone-300 font-mono font-bold">DEF {c.def}</span>
-                                </span>
-                            </div>
+                            {(() => {
+                                // Les états étaient listés mais jamais cumulés : la DEF affichée
+                                // restait celle de la fiche, à charge du MJ de faire la somme.
+                                const effets = effetsCumules(c.states, harmfulStates);
+                                const def = defEffective(c.def, effets);
+                                const mentions = [
+                                    effets.attaque !== 0 ? `ATT ${effets.attaque}` : '',
+                                    effets.deMalusTests ? 'dé malus à tous les tests' : '',
+                                    effets.deMalusAttaque ? 'dé malus en attaque' : '',
+                                    effets.sansAction ? 'aucune action' : '',
+                                    effets.sansDeplacement ? 'pas de déplacement' : '',
+                                    effets.deplacementMax !== undefined ? `déplacement ${effets.deplacementMax} m` : '',
+                                ].filter(Boolean);
+                                return (
+                                    <>
+                                        <div className="text-xs text-stone-400 flex flex-wrap items-center gap-2 mt-1">
+                                            <span className="flex items-center gap-1 bg-black/30 px-2 py-0.5 rounded border border-white/5">
+                                                <Shield size={12} className="text-stone-400" />
+                                                <span className={`font-mono font-bold ${effets.def !== 0 ? 'text-amber-300' : 'text-stone-300'}`}>DEF {def}</span>
+                                                {effets.def !== 0 && <span className="text-stone-400 text-[11px]">({c.def} {effets.def})</span>}
+                                            </span>
+                                            {effets.sansAction && (
+                                                <span className="text-[11px] uppercase tracking-wide bg-red-950/50 text-red-200 px-2 py-0.5 rounded border border-red-500/30">
+                                                    Ne peut pas agir
+                                                </span>
+                                            )}
+                                        </div>
+                                        {mentions.length > 0 && (
+                                            <p className="text-[11px] text-amber-200/70 mt-1 leading-snug">{mentions.join(' · ')}</p>
+                                        )}
+                                    </>
+                                );
+                            })()}
                             <div className="flex flex-wrap items-center gap-1 mt-1">
                                 {c.states.map(stateName => (
                                     <button key={stateName} onClick={() => removeState(c.id, stateName)}

@@ -1,4 +1,4 @@
-import { test, expect, register, uniqueEmail } from './fixtures';
+import { test, expect, register, uniqueEmail, getToken, API_URL } from './fixtures';
 
 test.describe('Fiche personnage', () => {
     test.beforeEach(async ({ page }) => {
@@ -32,4 +32,36 @@ test.describe('Fiche personnage', () => {
         await raceSelect.selectOption({ index: 1 });
         expect(await raceSelect.inputValue()).not.toBe('');
     });
+});
+
+// Le badge « N PM » d'un sort ne s'est JAMAIS affiché : le résolveur de capacité perdait
+// `isSpell`, et la condition du badge était donc toujours fausse. Un magicien à 25 sorts
+// n'en voyait aucun.
+test('la fiche affiche le coût en PM des sorts, et le coût réduit par concentration', async ({ page }) => {
+    await register(page, uniqueEmail('pm'));
+    const token = (await getToken(page))!;
+    const profs = await (await page.request.get(`${API_URL}/profiles?pagination=false`, {
+        headers: { Accept: 'application/ld+json' },
+    })).json();
+    const membres: Array<{ name: string; '@id': string; voies?: Array<{ '@id': string }> }> =
+        profs.member || profs['hydra:member'];
+    const mage = membres.find(p => p.name === 'Magicien')!;
+
+    const res = await page.request.post(`${API_URL}/characters`, {
+        headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/ld+json', Accept: 'application/ld+json' },
+        data: {
+            name: 'Ionas', level: 9, profile: mage['@id'],
+            caracs: { FOR: -1, AGI: 1, CON: 1, INT: 3, PER: 1, CHA: 0, VOL: 2 },
+            characterVoies: mage.voies!.slice(0, 5).map(v => ({ voie: v['@id'], rank: 5, source: 'profil' })),
+        },
+    });
+    const id = (await res.json())['@id'].split('/').pop();
+
+    await page.goto(`/characters/${id}`);
+    await expect(page.getByText(/^\d+ PM/).first()).toBeVisible({ timeout: 20_000 });
+
+    // Concentration accrue : un sort de rang 3 en action d'attaque coûte 1 PM de moins.
+    await expect(page.getByText(/PM · \d+ concentré/).first()).toBeVisible();
+    // Jamais « 0 concentré » : le livre ne dit pas qu'un sort de rang 1 devient gratuit.
+    await expect(page.getByText(/· 0 concentré/)).toHaveCount(0);
 });

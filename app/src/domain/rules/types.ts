@@ -10,6 +10,9 @@ export type Stats = {
 // sont désormais référencées par IRI (`CharacterVoieRef`) et résolues dans le compendium.
 export interface CompendiumCapability {
   name?: string; rank?: number; description?: string; isSpell?: boolean;
+  /** Type d'action servi par le compendium (« Action (A)* », « Action Limitée (L)* »…).
+   *  Il décide de l'éligibilité d'un sort à la concentration accrue. */
+  actionType?: string | null;
   effect?: CapabilityEffect;
   // JSON libre de la capacité (options de choix `options_*`/`choix_*`, notes…) — cf. `choices.ts`.
   details?: Record<string, unknown>;

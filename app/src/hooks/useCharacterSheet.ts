@@ -437,7 +437,17 @@ export const useCharacterSheet = ({ races, profiles, allVoies, id, isNew, naviga
         if (!voieIri) return null;
         const voie = resolveVoieByIri(voieIri);
         const cap = voie?.capabilities?.find((c) => c.rank === rank);
-        return cap ? { name: cap.name || '', description: cap.description || '' } : null;
+        // `isSpell` et `actionType` étaient perdus ici : le badge « N PM » de la fiche,
+        // conditionné à `isSpell`, ne s'est donc jamais affiché — un magicien à 25 sorts
+        // n'en voyait aucun. Le type d'action sert au coût réduit par concentration.
+        return cap
+            ? {
+                name: cap.name || '',
+                description: cap.description || '',
+                isSpell: cap.isSpell,
+                actionType: cap.actionType,
+            }
+            : null;
     };
 
     /** Nom d'affichage d'une voie (résolu par IRI dans le compendium). */

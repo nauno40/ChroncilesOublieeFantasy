@@ -1,4 +1,5 @@
-import type { Creature } from '../types';
+import type { Creature, CustomCreature } from '../types';
+import type { CarteCreature } from '../components/creature/CreatureCard';
 
 // Helper functions to safely access creature properties
 // Note: Detailed fields like category, archetype, environment, size were previously loaded from a JSON file.
@@ -44,3 +45,34 @@ export const getCreatureImage = (creature: Creature): string => {
 
     return creature.picture || '/assets/creatures/default.jpg';
 };
+
+/**
+ * Vue « carte » d'une créature officielle, telle que la liste du bestiaire la présente.
+ * Elle vit ici, à côté de son équivalent communautaire, pour que les deux sources
+ * remplissent visiblement les mêmes cases — c'est là que se voit un champ oublié.
+ */
+export const carteDepuisCreature = (creature: Creature): CarteCreature => ({
+    nom: getCreatureName(creature),
+    image: getCreatureImage(creature),
+    nc: creature.nc,
+    pv: creature.hp,
+    def: creature.def,
+    force: creature.stats?.FOR,
+    init: creature.init,
+    categorie: getCreatureCategory(creature) || undefined,
+});
+
+/** Même vue, pour une créature maison ou communautaire. */
+export const carteDepuisMonstreMaison = (c: CustomCreature): CarteCreature => ({
+    nom: c.name,
+    // Un monstre maison n'a pas d'illustration locale : `CardMedia` pose alors le
+    // placeholder à l'initiale, comme pour toute création communautaire.
+    image: c.picture || undefined,
+    nc: c.nc,
+    pv: c.hp,
+    def: c.def,
+    force: c.stats?.FOR,
+    init: c.init,
+    categorie: c.category || undefined,
+    description: c.description || undefined,
+});

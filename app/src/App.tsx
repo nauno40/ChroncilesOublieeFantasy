@@ -45,6 +45,7 @@ const HomebrewForm = lazy(() => import('./pages/HomebrewForm').then(m => ({ defa
 const SoundboardPage = lazy(() => import('./pages/SoundboardPage').then(m => ({ default: m.SoundboardPage })));
 const MagicItems = lazy(() => import('./pages/MagicItems').then(m => ({ default: m.MagicItems })));
 const MagicItemsCatalogue = lazy(() => import('./pages/MagicItemsCatalogue').then(m => ({ default: m.MagicItemsCatalogue })));
+const CustomCreatureDetail = lazy(() => import('./pages/CustomCreatureDetail').then(m => ({ default: m.CustomCreatureDetail })));
 const CharacterList = lazy(() => import('./pages/CharacterList').then(m => ({ default: m.CharacterList })));
 const CharacterSheet = lazy(() => import('./pages/CharacterSheet').then(m => ({ default: m.CharacterSheet })));
 const PrintableCharacterSheet = lazy(() => import('./pages/PrintableCharacterSheet').then(m => ({ default: m.PrintableCharacterSheet })));
@@ -98,6 +99,9 @@ function App() {
                     « Officiel » face à des objets dans l'onglet communautaire. */}
                 <Route path="tools/magic-items" element={<MagicItems />} />
                 <Route path="magic-items" element={<CompendiumType category="objet-magique" official={<MagicItemsCatalogue />} />} />
+                {/* Une créature maison se consulte, comme une officielle : même feuille,
+                    seule la barre de propriétaire diffère. */}
+                <Route path="creatures/maison/:id" element={<CustomCreatureDetail />} />
                 <Route path="states" element={<CompendiumType category="etat" official={<States />} />} />
                 <Route path="poisons" element={<CompendiumType category="poison" official={<Poisons />} />} />
                 <Route path="traps" element={<CompendiumType category="piege" official={<Traps />} />} />

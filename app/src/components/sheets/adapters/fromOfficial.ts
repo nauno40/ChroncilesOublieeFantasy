@@ -1,5 +1,6 @@
-import type { Race, Profile, Voie, Capacity, Family } from '../../../types/normalized';
-import type { RaceSheetVM, ProfileSheetVM, VoieSheetVM, CapaciteSheetVM, SheetVoieRef, SheetCapabilityRef, SheetLabelled, SheetFamily } from '../types';
+import type { Race, Profile, Voie, Capacity, Family, Creature, CustomCreatureAttack, CustomCreatureCapability } from '../../../types/normalized';
+import type { RaceSheetVM, ProfileSheetVM, VoieSheetVM, CapaciteSheetVM, CreatureSheetVM, SheetVoieRef, SheetCapabilityRef, SheetCreatureAttack, SheetLabelled, SheetFamily } from '../types';
+import { getCreatureImage } from '../../../domain/creature';
 import { str, num, idStr } from './shared';
 
 /** Vide/NULL → undefined : la majorité des capacités n'ont pas de `details`. */
@@ -232,4 +233,74 @@ export const capacityToVM = (c: Capacity, voieName?: string, voieId?: string | n
     summons: c.summons?.length ? c.summons : undefined,
     voieName: str(voieName),
     voieId: idStr(voieId),
+});
+
+/** Nom affichable d'une capacité de créature : les 393 capacités officielles nomment
+ *  toutes via `label`, une créature maison via `name`. */
+const nomCapacite = (cap: { name?: string; label?: string }): string => cap.label || cap.name || '';
+
+/** Capacités d'une créature, officielles ou maison — même forme des deux côtés. */
+export const creatureCapsToVM = (caps?: CustomCreatureCapability[]): SheetCapabilityRef[] | undefined => {
+    const out = (caps ?? [])
+        .filter(Boolean)
+        .map((c): SheetCapabilityRef => ({
+            name: nomCapacite(c),
+            rank: num(c.rank),
+            description: str(c.description),
+            states: c.states?.length ? c.states : undefined,
+            summons: c.summons?.length ? c.summons : undefined,
+        }))
+        .filter(c => c.name !== '');
+    return out.length ? out : undefined;
+};
+
+/** Attaques d'une créature. Les fixtures officielles écrivent tantôt `test`/`dm`,
+ *  tantôt `atk`/`dmg` — l'ancienne page lisait déjà les deux paires. */
+export const creatureAttacksToVM = (attacks?: CustomCreatureAttack[]): SheetCreatureAttack[] | undefined => {
+    const out = (attacks ?? [])
+        .filter(a => a && a.name)
+        .map((a): SheetCreatureAttack => {
+            const brut = a as unknown as Record<string, unknown>;
+            return {
+                name: a.name,
+                test: str(a.atk ?? brut.test),
+                dm: str(a.dm ?? brut.dmg),
+                special: str(a.special),
+            };
+        });
+    return out.length ? out : undefined;
+};
+
+/** Sept caractéristiques COF2, sans les métadonnées éventuelles. */
+const caracsCreature = (stats: Record<string, unknown> | undefined): Record<string, number> | undefined => {
+    if (!stats) return undefined;
+    const out: Record<string, number> = {};
+    for (const cle of ['AGI', 'CON', 'FOR', 'PER', 'CHA', 'INT', 'VOL']) {
+        const n = num(stats[cle]);
+        if (n !== undefined) out[cle] = n;
+    }
+    return Object.keys(out).length ? out : undefined;
+};
+
+/** Créature du bestiaire officiel → feuille. `familyDescription` vient des familles
+ *  chargées à part : l'entité ne porte que le nom de sa famille. */
+export const creatureToVM = (creature: Creature, familyDescription?: string): CreatureSheetVM => ({
+    name: creature.name,
+    image: getCreatureImage(creature),
+    nc: creature.nc,
+    hp: creature.hp,
+    def: creature.def,
+    init: creature.init,
+    stats: caracsCreature(creature.stats as unknown as Record<string, unknown>),
+    familyName: str(creature.family?.name),
+    familyDescription: str(familyDescription),
+    category: str(creature.category),
+    environment: str(creature.environment),
+    archetype: str(creature.archetype),
+    size: str(creature.size),
+    attacks: creatureAttacksToVM(creature.attacks),
+    capabilities: creatureCapsToVM(creature.capabilities),
+    // Les fixtures officielles stockent ces deux textes en HTML.
+    specialAbilitiesHtml: str(creature.specialAbilities?.text),
+    descriptionHtml: str(creature.description),
 });

@@ -203,3 +203,49 @@ export interface CapaciteSheetVM {
      *  compendium. Prioritaire sur `voieId` lorsqu'il est présent. */
     voieHref?: string;
 }
+
+/** Une attaque de créature, telle que le bestiaire l'imprime : nom, test, dégâts, effet. */
+export interface SheetCreatureAttack {
+    name: string;
+    /** Valeur d'attaque. L'officiel la nomme `test`, le formulaire maison `atk`. */
+    test?: string;
+    /** Dégâts. L'officiel dit `dm`, le formulaire maison `dmg` selon les versions. */
+    dm?: string;
+    special?: string;
+}
+
+/**
+ * View-model d'une fiche de créature — bestiaire officiel comme créature maison.
+ *
+ * `specialAbilitiesHtml` porte du HTML : les fixtures officielles stockent leurs
+ * capacités spéciales en texte riche. Le champ est donc explicitement nommé pour qu'un
+ * appelant ne s'y trompe pas, et une créature maison le laisse vide (son texte, saisi
+ * au clavier, passe par `specialAbilitiesText`).
+ */
+export interface CreatureSheetVM {
+    name: string;
+    image?: string;
+    /** Niveau de créature (NC). Vaut « 1/2 » pour les plus faibles, d'où le type ouvert. */
+    nc?: number | string;
+    hp?: number;
+    def?: number;
+    init?: number;
+    /** Les sept caractéristiques COF2, dans l'ordre du profil de créature du livre. */
+    stats?: Record<string, number>;
+    familyName?: string;
+    familyDescription?: string;
+    category?: string;
+    environment?: string;
+    archetype?: string;
+    size?: string;
+    attacks?: SheetCreatureAttack[];
+    capabilities?: SheetCapabilityRef[];
+    /** Capacités spéciales officielles, en texte riche. */
+    specialAbilitiesHtml?: string;
+    /** Capacités spéciales d'une créature maison, saisies au clavier. */
+    specialAbilitiesText?: string;
+    /** Description officielle, en texte riche. */
+    descriptionHtml?: string;
+    /** Description d'une créature maison. */
+    descriptionText?: string;
+}

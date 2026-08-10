@@ -19,3 +19,4 @@ export * from './encombrement';
 export * from './test';
 export * from './tirADistance';
 export * from './optionsTactiques';
+export * from './dommages';

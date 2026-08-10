@@ -4,6 +4,7 @@ import { LEXIQUE } from '../../domain/lexique';
 import { lancerTest, lancerAttaque, DIFFICULTES, qualificatifDifficulte } from '../../domain/rules/test';
 import { CONDITIONS_TIR, malusTir } from '../../domain/rules/tirADistance';
 import { OPTIONS_TACTIQUES, MANOEUVRES, optionTactique, NOTE_TAILLE } from '../../domain/rules/optionsTactiques';
+import { dommagesSubis } from '../../domain/rules/dommages';
 
 interface RollResult {
     id: string;
@@ -132,6 +133,34 @@ const performAttaque = (valeurAttaque: number, defCible: number | undefined, ava
     };
 };
 
+/**
+ * Jet de dommages : les dés de l'arme, puis tout ce que la cible leur oppose. Le lanceur
+ * jetait les dés sans jamais appliquer la RD, la résistance ni le minimum d'un point.
+ */
+const performDommages = (formule: string, rd: number, resistance: boolean, temporaire: boolean, forCible: number, critique: boolean): RollResult | null => {
+    const match = formule.trim().match(/^(\d+)?d(\d+)(?:\s*([+-])\s*(\d+))?$/i);
+    if (!match) return null;
+
+    const nombre = match[1] ? parseInt(match[1]) : 1;
+    const faces = parseInt(match[2]);
+    const modificateur = (match[3] === '-' ? -1 : 1) * (match[4] ? parseInt(match[4]) : 0);
+
+    const des: number[] = [];
+    for (let i = 0; i < nombre; i++) des.push(Math.floor(Math.random() * faces) + 1);
+    const brut = des.reduce((t, d) => t + d, 0) + modificateur;
+
+    const { infliges, detail } = dommagesSubis({ brut, rd, resistance, temporaire, forCible, critique });
+    const signe = modificateur !== 0 ? (modificateur > 0 ? `+${modificateur}` : String(modificateur)) : '';
+
+    return {
+        id: crypto.randomUUID(),
+        description: `DM ${nombre}d${faces}${signe}${critique ? ' · critique' : ''}${temporaire ? ' · temporaires' : ''}`,
+        result: infliges,
+        details: `(${des.join('+')})${signe} · ${detail.slice(1).join(' · ') || 'aucune réduction'}`,
+        timestamp: Date.now(),
+    };
+};
+
 export const DiceRoller: React.FC<DiceRollerProps> = ({ isOpen, mode = 'popup' }) => {
     const [history, setHistory] = useState<RollResult[]>([]);
     const [customFormula, setCustomFormula] = useState('');
@@ -151,6 +180,13 @@ export const DiceRoller: React.FC<DiceRollerProps> = ({ isOpen, mode = 'popup' }
     // Une seule option tactique ou manœuvre à la fois : le livre ne prévoit pas de les
     // combiner, et une attaque assurée doublée d'une attaque violente n'aurait pas de sens.
     const [option, setOption] = useState('');
+    // Jet de dommages : la formule de l'arme et ce que la cible leur oppose.
+    const [formuleDm, setFormuleDm] = useState('');
+    const [rd, setRd] = useState(0);
+    const [resistance, setResistance] = useState(false);
+    const [dmTemporaires, setDmTemporaires] = useState(false);
+    const [forCible, setForCible] = useState(0);
+    const [dmCritique, setDmCritique] = useState(false);
     const historyListRef = useRef<HTMLDivElement>(null);
 
     // Défilement automatique vers le dernier jet. On défile le conteneur lui-même :
@@ -196,6 +232,11 @@ export const DiceRoller: React.FC<DiceRollerProps> = ({ isOpen, mode = 'popup' }
             : performTest(carac, difficulte === '' ? undefined : difficulte, avantage),
         ...h,
     ].slice(0, 50));
+
+    const rollDommages = () => {
+        const jet = performDommages(formuleDm, rd, resistance, dmTemporaires, forCible, dmCritique);
+        if (jet) setHistory(h => [jet, ...h].slice(0, 50));
+    };
 
     const clearHistory = () => setHistory([]);
 
@@ -410,6 +451,62 @@ export const DiceRoller: React.FC<DiceRollerProps> = ({ isOpen, mode = 'popup' }
                         >
                             Tester
                         </button>
+                    </div>
+                </div>
+
+                {/* Dommages : la RD, la résistance et le minimum d'un point ne s'appliquaient
+                    nulle part, alors que la RD est calculée sur la fiche depuis longtemps. */}
+                <div className="space-y-2 pb-3 border-b border-white/10">
+                    <div className="flex items-center gap-1.5">
+                        <input
+                            type="text"
+                            aria-label="Formule de dommages"
+                            value={formuleDm}
+                            onChange={e => setFormuleDm(e.target.value)}
+                            placeholder="DM — ex. 1d8+3"
+                            className="flex-1 min-w-0 bg-black/40 border border-white/10 rounded px-2 py-1 text-stone-200 text-xs font-mono placeholder-stone-600 focus:outline-none focus:border-primary-500/50"
+                        />
+                        <label className="text-[10px] uppercase tracking-wider text-stone-400 shrink-0">RD</label>
+                        <input
+                            type="number"
+                            aria-label="Réduction des dommages de la cible"
+                            value={rd}
+                            onChange={e => setRd(parseInt(e.target.value) || 0)}
+                            className="w-12 bg-black/40 border border-white/10 rounded px-2 py-1 text-stone-200 text-xs font-mono focus:outline-none focus:border-primary-500/50"
+                        />
+                        <button
+                            onClick={rollDommages}
+                            disabled={!formuleDm}
+                            className="px-3 py-1 rounded bg-red-900/60 hover:bg-red-800/70 disabled:opacity-40 text-red-100 font-bold text-[11px] uppercase tracking-wider transition-all"
+                        >
+                            DM
+                        </button>
+                    </div>
+                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[10px] text-stone-400">
+                        <label className="flex items-center gap-1 cursor-pointer hover:text-stone-300">
+                            <input type="checkbox" checked={dmCritique} onChange={e => setDmCritique(e.target.checked)} className="accent-primary-500" />
+                            Critique (×2)
+                        </label>
+                        <label className="flex items-center gap-1 cursor-pointer hover:text-stone-300">
+                            <input type="checkbox" checked={resistance} onChange={e => setResistance(e.target.checked)} className="accent-primary-500" />
+                            Résistance (÷2)
+                        </label>
+                        <label className="flex items-center gap-1 cursor-pointer hover:text-stone-300">
+                            <input type="checkbox" checked={dmTemporaires} onChange={e => setDmTemporaires(e.target.checked)} className="accent-primary-500" />
+                            Temporaires
+                        </label>
+                        {dmTemporaires && (
+                            <label className="flex items-center gap-1">
+                                FOR de la cible
+                                <input
+                                    type="number"
+                                    aria-label="FOR de la cible"
+                                    value={forCible}
+                                    onChange={e => setForCible(parseInt(e.target.value) || 0)}
+                                    className="w-10 bg-black/40 border border-white/10 rounded px-1 py-0.5 text-stone-200 font-mono focus:outline-none focus:border-primary-500/50"
+                                />
+                            </label>
+                        )}
                     </div>
                 </div>
 

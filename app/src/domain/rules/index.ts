@@ -23,3 +23,4 @@ export * from './dommages';
 export * from './etatsCombat';
 export * from './dangers';
 export * from './voyage';
+export * from './poisons';

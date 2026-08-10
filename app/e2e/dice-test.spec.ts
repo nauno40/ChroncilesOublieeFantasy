@@ -157,3 +157,30 @@ test('la page Voyage & dangers calcule les distances de déplacement', async ({ 
     await page.locator('label:has-text("Terrain difficile") input').check();
     await expect(page.getByText('3 km par période · 6 km par jour')).toBeVisible();
 });
+
+// Poisons : les tables étaient au compendium, mais ni la difficulté d'enduire une arme ni
+// celle de résister n'apparaissaient nulle part — et la note de la page les résumait mal.
+test('les jets de poison distinguent la dose gaspillée de l’auto-empoisonnement', async ({ page }) => {
+    await register(page, uniqueEmail('poi'));
+    await page.goto('/tools/dangers');
+
+    await page.locator('input[aria-label="INT du porteur"]').fill('3');
+    await page.click('button:has-text("Test d’INT")');
+    await expect(page.getByText(/Enduire : \(\d+\) \+ 3 =/)).toBeVisible({ timeout: 20_000 });
+
+    // La virulence se règle : le livre dit que la difficulté « peut être modifiée ».
+    await page.locator('input[aria-label="Difficulté du poison"]').fill('15');
+    await page.click('button:has-text("Test de CON")');
+    await expect(page.getByText(/contre 15 — (résisté|subi)/)).toBeVisible();
+});
+
+// La page du compendium annonçait « un test de CON réussi réduit ou annule l'effet » sans
+// donner la moindre difficulté.
+test('la page Poisons rappelle les deux difficultés du livre', async ({ page }) => {
+    await register(page, uniqueEmail('poinote'));
+    await page.goto('/poisons');
+
+    await expect(page.getByText(/test de CON difficulté 10/)).toBeVisible({ timeout: 20_000 });
+    await expect(page.getByText(/test d’INT difficulté 10/)).toBeVisible();
+    await expect(page.getByText(/échec critique empoisonne le porteur/)).toBeVisible();
+});

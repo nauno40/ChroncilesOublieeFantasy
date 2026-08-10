@@ -7,6 +7,7 @@ import {
     DM_FEU_PAR_ROUND, DM_TEMPERATURE,
     distanceParPeriode, distanceSurTerrain, difficulteMarcheForcee,
     DUREE_PERIODE_H, PERIODES_PAR_JOUR, type Monture,
+    enduireArme, resisterAuPoison, DIF_RESISTER_POISON, NOTE_PREMIERE_ATTAQUE,
 } from '../domain/rules';
 
 /**
@@ -53,10 +54,28 @@ export const Dangers: React.FC = () => {
     const [horsPiste, setHorsPiste] = useState(false);
     const [terrainDifficile, setTerrainDifficile] = useState(false);
     const [periodeSup, setPeriodeSup] = useState(1);
+    const [intPoison, setIntPoison] = useState(1);
+    const [conPoison, setConPoison] = useState(1);
+    const [virulence, setVirulence] = useState(DIF_RESISTER_POISON);
+    const [jetPoison, setJetPoison] = useState<string | null>(null);
 
     const chute = dommagesChute(hauteur, niveau, amorti);
     const parPeriode = distanceParPeriode({ con, defArmure, armureDansLeSac: dansLeSac, monture });
     const surTerrain = distanceSurTerrain(parPeriode, { horsPiste, terrainDifficile });
+    // Les jets appellent Math.random : ils vivent dans des gestionnaires, jamais dans le
+    // corps du composant.
+    const jeterEnduire = () => {
+        const r = enduireArme(intPoison);
+        const verdict = r.issue === 'applique' ? 'arme enduite'
+            : r.issue === 'auto-empoisonnement' ? 'ÉCHEC CRITIQUE — le porteur s’empoisonne'
+                : 'dose gaspillée';
+        setJetPoison(`Enduire : (${r.de}) + ${intPoison} = ${r.total} — ${verdict}`);
+    };
+    const jeterResistance = () => {
+        const r = resisterAuPoison(conPoison, virulence);
+        setJetPoison(`Résistance : (${r.conserve}) + ${conPoison} = ${r.total} contre ${virulence} — ${r.reussi ? 'résisté' : 'subi'}`);
+    };
+
     const chaleur = difficulteChaleur(temperature);
     const froid = difficulteFroid(temperature, vetements);
 
@@ -175,6 +194,42 @@ export const Dangers: React.FC = () => {
                     </p>
                 </Bloc>
             </div>
+
+            <div className="grid md:grid-cols-2 gap-4 mt-4">
+                <Bloc titre="Poison — enduire une arme" note={NOTE_PREMIERE_ATTAQUE}>
+                    <Champ label="INT du porteur">
+                        <input type="number" aria-label="INT du porteur" value={intPoison}
+                            onChange={e => setIntPoison(parseInt(e.target.value) || 0)} className={classeSaisie} />
+                    </Champ>
+                    <button onClick={jeterEnduire}
+                        className="px-3 py-1.5 rounded bg-primary-600 hover:bg-primary-500 text-stone-950 font-bold text-[11px] uppercase tracking-wider transition-colors w-fit">
+                        Test d’INT
+                    </button>
+                </Bloc>
+
+                <Bloc titre="Poison — résister" note="La colonne « Effet — Réussite » du compendium dit ce que la victime subit malgré un test réussi.">
+                    <Champ label="CON de la victime">
+                        <input type="number" aria-label="CON de la victime" value={conPoison}
+                            onChange={e => setConPoison(parseInt(e.target.value) || 0)} className={classeSaisie} />
+                    </Champ>
+                    <Champ label="Virulence">
+                        <input type="number" aria-label="Difficulté du poison" value={virulence} min={0}
+                            onChange={e => setVirulence(parseInt(e.target.value) || 0)} className={classeSaisie} />
+                    </Champ>
+                    <button onClick={jeterResistance}
+                        className="px-3 py-1.5 rounded bg-primary-600 hover:bg-primary-500 text-stone-950 font-bold text-[11px] uppercase tracking-wider transition-colors w-fit">
+                        Test de CON
+                    </button>
+                </Bloc>
+            </div>
+
+            {jetPoison && (
+                <p className="glass-panel px-4 py-2 rounded-xl border-primary-500/30 bg-primary-950/10 text-sm text-stone-200 font-mono mt-4">
+                    {jetPoison}
+                    <button onClick={() => setJetPoison(null)} aria-label="Effacer le jet"
+                        className="ml-3 text-stone-400 hover:text-stone-200 text-xs">✕</button>
+                </p>
+            )}
         </PageContainer>
     );
 };

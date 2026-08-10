@@ -40,6 +40,7 @@ import {
   shortRestHeal,
   applyShortRest,
   applyLongRest,
+  soinRecuperationComplete,
   capabilityChoiceKey,
   capabilityChoiceHelp,
   racialGrantInfo,
@@ -802,13 +803,56 @@ describe('applyLongRest', () => {
     protection: { armor: { name: '', def: 0 }, shield: { name: '', def: 0 } }, weapons: [],
     usages: [{ name: 'B', max: 1, used: 1, per: 'jour' as const }],
   };
-  it('PV/PM au max, DR régénérés, usages jour/combat/round reset, PC intacts', () => {
+  // Ce test encodait la règle du repos long de d20 : PV et DR au maximum. COF2 dit tout
+  // autre chose — « un personnage gagne 1 DR, sans pouvoir dépasser son maximum ».
+  it('rend UN dé de récupération, pas tous', () => {
     const r = applyLongRest(ps, { maxHp: 14, maxMana: 5 });
+    expect(r.recovery.used).toBe(2);      // 3 dépensés → 2
+  });
+
+  it('ne restaure aucun PV tant que le DR regagné n’est pas dépensé', () => {
+    const r = applyLongRest(ps, { maxHp: 14, maxMana: 5 });
+    expect(r.hp.current).toBe(3);
+  });
+
+  it('restaure les PV et redépense le DR quand on choisit de l’utiliser', () => {
+    const r = applyLongRest(ps, { maxHp: 14, maxMana: 5, soin: 8 });
+    expect(r.hp.current).toBe(11);
+    expect(r.recovery.used).toBe(3);      // regagné puis aussitôt dépensé
+  });
+
+  it('plafonne les PV restaurés au maximum du personnage', () => {
+    const r = applyLongRest({ ...ps, hp: { current: 12 } }, { maxHp: 14, maxMana: 5, soin: 8 });
     expect(r.hp.current).toBe(14);
+  });
+
+  it('rend en revanche TOUS les points de mana, et réinitialise les usages', () => {
+    // « Le personnage regagne l'ensemble des PM dépensés » (chapitre Magie et sorts).
+    const r = applyLongRest(ps, { maxHp: 14, maxMana: 5 });
     expect(r.mana.current).toBe(5);
-    expect(r.recovery.used).toBe(0);
     expect(r.usages![0].used).toBe(0);
-    expect(r.luck.current).toBe(1);       // PC inchangés
+    expect(r.luck.current).toBe(1);       // PC inchangés : ils ne reviennent qu'au niveau
+  });
+
+  it('ne descend pas sous zéro dé dépensé', () => {
+    expect(applyLongRest({ ...ps, recovery: { used: 0 } }, { maxHp: 14, maxMana: 5 }).recovery.used).toBe(0);
+  });
+});
+
+describe('soinRecuperationComplete', () => {
+  it('rend la valeur MAXIMALE du dé, sans le jeter', () => {
+    // « Le nombre de PV récupérés est automatiquement égal à la valeur maximale du dé. »
+    expect(soinRecuperationComplete(10, true)).toBe(10);
+    expect(soinRecuperationComplete(6, true)).toBe(6);
+  });
+
+  it('fait jeter le dé au personnage qui n’a AUCUN dé de récupération', () => {
+    // Cas particulier du PJ à ‑2 en CON : « il ne bénéficie pas du résultat maximal ».
+    expect(soinRecuperationComplete(8, false, () => 0.5)).toBe(5);
+  });
+
+  it('ne rend rien sans dé du tout', () => {
+    expect(soinRecuperationComplete(0, true)).toBe(0);
   });
 });
 

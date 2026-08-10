@@ -1,6 +1,5 @@
 // Common components barrel export
 export { SearchBar } from './SearchBar';
-export { Card } from './Card';
 export { Badge } from './Badge';
 export { PageContainer } from './PageContainer';
 export { PageHeader } from './PageHeader';
@@ -18,7 +17,7 @@ export { GlobalSearch } from './GlobalSearch';
 export { Tooltip } from './Tooltip';
 export { DynamicDetailsRenderer } from './DynamicDetailsRenderer';
 export { PageShell } from './PageShell';
-export { ContentCard } from './ContentCard';
+export { ContentCard, CardMedia } from './ContentCard';
 export { CardStats } from './CardStats';
 export { AuthorTag } from './AuthorTag';
 export { SourceTabs } from './SourceTabs';

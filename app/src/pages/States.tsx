@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import type { HarmfulState } from '../types/normalized';
-import { PageContainer, SearchToolbar, Loader } from '../components/common';
+import { PageContainer, SearchToolbar, Loader, ContentCard } from '../components/common';
 import { useSearch } from '../hooks';
 import { DataService } from '../services/dataService';
 
@@ -36,11 +36,11 @@ export const States: React.FC = () => {
 
             <div className="flex flex-wrap gap-3">
                 {filteredItems.map((state, index) => (
-                    <div
+                    <ContentCard
                         key={index}
-                        className="glass-panel rounded-xl p-4 border border-white/5 hover:border-primary-500/30 transition-all group flex items-center gap-3 min-w-[200px]"
-                    >
-                        {state.image && (
+                        mediaPosition="left"
+                        className="min-w-[200px] max-w-[320px] flex-1"
+                        media={state.image && (
                             <div className="w-12 h-12 flex-shrink-0 bg-stone-900/50 rounded-lg p-2 border border-white/5">
                                 <img
                                     src={`/assets/states/${state.image}`}
@@ -49,16 +49,14 @@ export const States: React.FC = () => {
                                 />
                             </div>
                         )}
-
-                        <div className="flex-1 min-w-0">
-                            <h3 className="text-base font-display font-bold text-primary-300 mb-1 group-hover:text-primary-200 transition-colors">
-                                {state.name}
-                            </h3>
-                            <p className="text-xs text-stone-400 line-clamp-2">
-                                {state.description}
-                            </p>
-                        </div>
-                    </div>
+                    >
+                        <h3 className="text-base font-display font-bold text-primary-300 mb-1 group-hover:text-primary-200 transition-colors">
+                            {state.name}
+                        </h3>
+                        <p className="text-xs text-stone-400 line-clamp-2">
+                            {state.description}
+                        </p>
+                    </ContentCard>
                 ))}
             </div>
         </PageContainer>

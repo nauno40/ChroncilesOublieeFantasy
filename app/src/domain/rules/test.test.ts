@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { lancerTest, lancerAttaque, seuilCritique, qualificatifDifficulte, DIFFICULTES } from './test';
+import { lancerTest, lancerAttaque, seuilCritique, bonusRendementDecroissant, qualificatifDifficulte, DIFFICULTES } from './test';
 
 /** Source d'aléa déterministe : rend les faces demandées, dans l'ordre. */
 const des = (...faces: number[]) => {
@@ -122,5 +122,25 @@ describe('lancerAttaque', () => {
         expect(r.des).toHaveLength(2);
         expect(r.conserve).toBe(6);
         expect(r.reussi).toBe(false);
+    });
+});
+
+describe('rendement décroissant', () => {
+    it('n’accorde rien à la première tentative, puis +5 par répétition', () => {
+        expect(bonusRendementDecroissant(0)).toBe(0);
+        expect(bonusRendementDecroissant(1)).toBe(5);
+        expect(bonusRendementDecroissant(3)).toBe(15);
+    });
+
+    it('ignore les valeurs absurdes', () => {
+        expect(bonusRendementDecroissant(-2)).toBe(0);
+        expect(bonusRendementDecroissant(1.7)).toBe(5);
+    });
+
+    it('s’ajoute au test de résistance de la cible', () => {
+        // La cible qui subit une troisième injonction résiste avec +10.
+        const r = lancerTest({ carac: 1, modificateur: bonusRendementDecroissant(2), difficulte: 15, rng: des(4) });
+        expect(r.total).toBe(15);
+        expect(r.reussi).toBe(true);
     });
 });

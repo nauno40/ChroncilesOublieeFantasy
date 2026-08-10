@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Dices, Eraser, ChevronRight } from 'lucide-react';
 import { LEXIQUE } from '../../domain/lexique';
-import { lancerTest, lancerAttaque, DIFFICULTES, qualificatifDifficulte } from '../../domain/rules/test';
+import { lancerTest, lancerAttaque, DIFFICULTES, qualificatifDifficulte, bonusRendementDecroissant, NOTE_RENDEMENT_DECROISSANT } from '../../domain/rules/test';
 import { CONDITIONS_TIR, malusTir } from '../../domain/rules/tirADistance';
 import { OPTIONS_TACTIQUES, MANOEUVRES, optionTactique, NOTE_TAILLE } from '../../domain/rules/optionsTactiques';
 import { dommagesSubis } from '../../domain/rules/dommages';
@@ -66,9 +66,11 @@ const performRoll = (sides: number, count: number, modifier: number): RollResult
  * Test COF2 : d20 + carac + modificateur, avec dé bonus / dé malus et difficulté.
  * Impure comme `performRoll`, donc définie hors du composant.
  */
-const performTest = (carac: number, difficulte: number | undefined, avantage: 'bonus' | 'malus' | 'aucun'): RollResult => {
+const performTest = (carac: number, difficulte: number | undefined, avantage: 'bonus' | 'malus' | 'aucun', repetitions: number): RollResult => {
+    const rendement = bonusRendementDecroissant(repetitions);
     const r = lancerTest({
         carac,
+        modificateur: rendement,
         difficulte,
         deBonus: avantage === 'bonus' ? 1 : 0,
         deMalus: avantage === 'malus' ? 1 : 0,
@@ -78,9 +80,9 @@ const performTest = (carac: number, difficulte: number | undefined, avantage: 'b
     const qualificatif = difficulte !== undefined ? qualificatifDifficulte(difficulte) : undefined;
     return {
         id: crypto.randomUUID(),
-        description: `Test d20${signe}${mention}${difficulte !== undefined ? ` · DIF ${difficulte}${qualificatif ? ` (${qualificatif.toLowerCase()})` : ''}` : ''}`,
+        description: `Test d20${signe}${mention}${rendement > 0 ? ` · rendement +${rendement}` : ''}${difficulte !== undefined ? ` · DIF ${difficulte}${qualificatif ? ` (${qualificatif.toLowerCase()})` : ''}` : ''}`,
         result: r.total,
-        details: `(${r.des.join(' / ')})${signe}`,
+        details: `(${r.des.join(' / ')})${signe}${rendement > 0 ? ` +${rendement}` : ''}`,
         timestamp: Date.now(),
         isCritSuccess: r.critique,
         isCritFail: r.echecCritique,
@@ -173,6 +175,9 @@ export const DiceRoller: React.FC<DiceRollerProps> = ({ isOpen, mode = 'popup' }
     // Le test de caractéristique et le test d'attaque ne suivent pas les mêmes règles :
     // le second n'a pas d'échec critique automatique et double les DM sur un critique.
     const [genre, setGenre] = useState<'carac' | 'attaque'>('carac');
+    // Rendement décroissant : la cible résiste mieux à ce qu'on lui répète. Réservé au test
+    // de caractéristique — le livre l'exclut des attaques contre la DEF.
+    const [repetitions, setRepetitions] = useState(0);
     // Conditions de tir cochées : ce sont les modificateurs les plus souvent oubliés, et
     // ils dépendent de la situation, pas de la feuille — d'où leur place ici.
     const [conditions, setConditions] = useState<string[]>([]);
@@ -229,7 +234,7 @@ export const DiceRoller: React.FC<DiceRollerProps> = ({ isOpen, mode = 'popup' }
     const rollTest = () => setHistory(h => [
         genre === 'attaque'
             ? performAttaque(carac, difficulte === '' ? undefined : difficulte, avantage, conditions, option)
-            : performTest(carac, difficulte === '' ? undefined : difficulte, avantage),
+            : performTest(carac, difficulte === '' ? undefined : difficulte, avantage, repetitions),
         ...h,
     ].slice(0, 50));
 
@@ -427,6 +432,23 @@ export const DiceRoller: React.FC<DiceRollerProps> = ({ isOpen, mode = 'popup' }
                                 </div>
                             )}
                         </div>
+                    )}
+
+                    {genre === 'carac' && (
+                        <label className="flex items-center gap-1.5" title={NOTE_RENDEMENT_DECROISSANT}>
+                            <span className="text-[10px] uppercase tracking-wider text-stone-400 shrink-0">Répétitions</span>
+                            <input
+                                type="number"
+                                aria-label="Répétitions de la même capacité"
+                                value={repetitions}
+                                min={0}
+                                onChange={e => setRepetitions(parseInt(e.target.value) || 0)}
+                                className="w-12 bg-black/40 border border-white/10 rounded px-2 py-1 text-stone-200 text-xs font-mono focus:outline-none focus:border-primary-500/50"
+                            />
+                            <span className="text-[10px] text-stone-400">
+                                {repetitions > 0 ? `+${bonusRendementDecroissant(repetitions)} pour résister` : 'rendement décroissant'}
+                            </span>
+                        </label>
                     )}
 
                     <div className="flex items-center gap-1.5">

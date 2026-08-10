@@ -168,3 +168,23 @@ export const lancerAttaque = (options: OptionsAttaque = {}): ResultatAttaque => 
         reussi: defCible === undefined ? undefined : critique || base.total >= defCible,
     };
 };
+
+/**
+ * Rendement décroissant (COF2, chapitres « Combat » et « Magie et sorts »).
+ *
+ * « Le MJ peut assigner un bonus cumulatif de +5 au test effectué par la cible pour résister
+ * à la même capacité durant un combat » — la cible s'adapte à ce qu'on lui répète.
+ *
+ * `repetitions` est le nombre de fois que la capacité a DÉJÀ été subie pendant ce combat :
+ * la première tentative n'accorde donc rien, la deuxième +5, la troisième +10.
+ *
+ * **Ce bonus ne s'applique qu'aux tests de RÉSISTANCE** — test opposé d'attaque magique ou
+ * test de caractéristique contre un état. « L'effet de rendement décroissant ne concerne pas
+ * les tests d'attaque magique contre la DEF d'un adversaire et les DM infligés » : une
+ * flèche de feu répétée ne devient jamais moins efficace.
+ */
+export const bonusRendementDecroissant = (repetitions: number): number =>
+    5 * Math.max(0, Math.floor(repetitions));
+
+export const NOTE_RENDEMENT_DECROISSANT =
+    'Ne s’applique qu’aux tests de résistance : ni aux attaques magiques contre la DEF, ni aux DM.';

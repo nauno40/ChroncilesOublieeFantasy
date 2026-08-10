@@ -78,3 +78,35 @@ test('les dégâts appliqués dans le suivi passent par la RD de la cible', asyn
     await page.click('button:has-text("Soin")');
     await expect(ligne).toContainText('36');
 });
+
+// Tout existait séparément — la règle d'attaque (#194), la DEF effective (#198), la RD
+// (#199) — sans qu'aucun geste ne les relie. L'attaquant est le combattant dont c'est le
+// tour ; la difficulté est la DEF EFFECTIVE de la cible, états compris.
+test('attaquer une cible depuis sa ligne utilise sa DEF effective', async ({ page }) => {
+    await register(page, uniqueEmail('atq'));
+    await page.goto('/tools/tracker');
+
+    const ajoute = async (nom: string, init: string, pv: string, def: string) => {
+        await page.fill('input[placeholder="Nom du combattant"]', nom);
+        const n = page.locator('.glass-panel input[type=number]');
+        await n.nth(0).fill(init);
+        await n.nth(1).fill(pv);
+        await n.nth(2).fill(def);
+        await page.click('button:has-text("Ajouter")');
+    };
+    await ajoute('Lhagva', '14', '25', '16');
+    await ajoute('Ogre', '10', '30', '14');
+
+    await page.fill('input[aria-label="Valeur d\'attaque de Lhagva"]', '5');
+    // L'ogre aveuglé perd 5 de DEF : la difficulté doit être 9, pas 14.
+    await page.locator('select:has(option:text-is("+ État"))').last().selectOption('Aveuglé');
+
+    // Le tour passe à Lhagva, qui a la meilleure initiative.
+    await page.click('button:has-text("Tour Suivant")');
+    await page.locator('button:has-text("Attaquer")').last().click();
+
+    const jet = page.locator('p.font-mono').first();
+    await expect(jet).toContainText('Lhagva attaque Ogre');
+    await expect(jet).toContainText('contre DEF 9');
+    await expect(jet).toContainText(/TOUCHÉ|raté/);
+});

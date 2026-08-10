@@ -87,6 +87,8 @@ export interface Combatant {
      * tranché en faveur de la déclaration pour les états et les invocations.
      */
     rd?: number;
+    /** Valeur d'attaque (COF2 : niveau plafonné à 10 + carac). Saisie, comme la RD. */
+    atk?: number;
     source?: 'manual' | 'bestiary' | 'character';
     referenceId?: string; // ID source (bestiaire/perso)
 }

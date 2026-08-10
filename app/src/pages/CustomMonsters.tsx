@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Skull, Plus, Trash2, Pencil, Save, X, Swords, Sparkles, Globe, Lock, Copy } from 'lucide-react';
 import { PageContainer, PageHeader, EmptyState, AuthorTag, SearchToolbar } from '../components/common';
 import { CreatureCard } from '../components/creature/CreatureCard';
@@ -144,6 +145,7 @@ export const CustomMonsters: React.FC<CustomMonstersProps> = ({ embedded = false
     const [saving, setSaving] = useState(false);
     const [duplicatingId, setDuplicatingId] = useState<number | null>(null);
     const [recherche, setRecherche] = useState('');
+    const location = useLocation();
     const [error, setError] = useState<string | null>(null);
 
     const load = () => {
@@ -206,6 +208,16 @@ export const CustomMonsters: React.FC<CustomMonstersProps> = ({ embedded = false
         setForm(null);
         setError(null);
     };
+
+    // « Modifier » depuis la fiche d'une créature maison : le formulaire vit ici, la fiche
+    // désigne donc la créature à ouvrir. Sans ce relais, le bouton ramenait à une liste où
+    // il fallait retrouver la créature à la main.
+    const aEditer = (location.state as { editerId?: number } | null)?.editerId;
+    useEffect(() => {
+        if (!aEditer || form) return;
+        const cible = monsters.find((c) => c.id === aEditer);
+        if (cible) startEdit(cible);
+    }, [aEditer, monsters, form]);
 
     const patch = (changes: Partial<MonsterForm>) => setForm((f) => (f ? { ...f, ...changes } : f));
 
@@ -609,6 +621,7 @@ export const CustomMonsters: React.FC<CustomMonstersProps> = ({ embedded = false
                             <CreatureCard
                                 key={c.id}
                                 carte={carteDepuisMonstreMaison(c)}
+                                to={`/creatures/maison/${c.id}`}
                                 entete={c.visibility === 'public'
                                     ? <Globe size={13} className="text-green-500/70 shrink-0" aria-label="Public" />
                                     : <Lock size={13} className="text-stone-400 shrink-0" aria-label="Privé" />}

@@ -66,6 +66,10 @@ export const COLONNES_TABLE: Record<TypeTabulaire, ColonneCompendium[]> = {
     armure: [
         { key: 'type', label: 'Type' },
         { key: 'acBonus', label: 'Défense', mono: true, plus: true, ton: 'def' },
+        // La table du livre porte « AGI max » (chapitre Équipement) : l'armure plafonne
+        // l'AGI de son porteur. La donnée était servie par l'API et saisie dans le
+        // formulaire communautaire, sans jamais atteindre aucune des deux listes.
+        { key: 'acMaxAgi', label: 'AGI max', mono: true, plus: true },
         { key: 'comments', label: 'Notes', wrap: true },
         { key: 'price', label: 'Prix', align: 'right', mono: true, ton: 'prix' },
     ],

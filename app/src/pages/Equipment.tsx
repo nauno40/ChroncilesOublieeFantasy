@@ -20,7 +20,10 @@ export const Equipment: React.FC = () => {
 
     React.useEffect(() => {
         Promise.all([
-            DataService.getWeapons(), // API returns all equipment here
+            // `getEquipment` et non `getWeapons` : cette dernière écarte déjà les boucliers,
+            // si bien que le Petit et le Grand bouclier — présents dans la table du livre et
+            // servis par l'API — n'apparaissaient dans AUCUN onglet de cette page.
+            DataService.getEquipment<Weapon>(),
             DataService.getMaterials()
         ])
             .then(([allEquipment, m]) => {

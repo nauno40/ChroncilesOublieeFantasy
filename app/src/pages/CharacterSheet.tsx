@@ -12,6 +12,7 @@ import { PhysicalBlock } from '../components/character/PhysicalBlock';
 import { RoleplaySection } from '../components/character/RoleplaySection';
 import { LanguagesTalentsPanel } from '../components/character/LanguagesTalentsPanel';
 import { ArmorImpactPanel } from '../components/character/ArmorImpactPanel';
+import { malusEncombrement } from '../domain/rules';
 import { ProtectionSection } from '../components/character/ProtectionSection';
 import { WeaponsSection } from '../components/character/WeaponsSection';
 import { MasteriesBlock } from '../components/character/MasteriesBlock';
@@ -164,7 +165,18 @@ export const CharacterSheet: React.FC = () => {
                             allArmors={allArmors}
                             armorCap={armorCap}
                         />
-                        <ArmorImpactPanel impacts={armorImpacts} armorName={character.playState?.protection?.armor?.name || undefined} />
+                        <ArmorImpactPanel
+                            impacts={armorImpacts}
+                            armorName={character.playState?.protection?.armor?.name || undefined}
+                            malusEncombrement={malusEncombrement(character.playState?.protection)}
+                            agiPlafonnee={(() => {
+                                // N'annoncer le plafond que s'il bride RÉELLEMENT le personnage :
+                                // une armure légère sur une AGI faible ne change rien.
+                                const plafond = character.playState?.protection?.armor?.agiMax;
+                                const agi = finalStats.AGI;
+                                return plafond != null && agi > plafond ? { agi, plafond } : undefined;
+                            })()}
+                        />
                         <WeaponsSection character={character} setCharacter={setCharacter} allWeapons={allWeapons} />
                         <MasteriesBlock character={character} profiles={profiles} />
                         <InventorySection character={character} setCharacter={setCharacter} />

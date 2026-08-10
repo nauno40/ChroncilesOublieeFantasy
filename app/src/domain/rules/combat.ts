@@ -2,6 +2,7 @@ import type { CharacterVoieRef, CaracKey } from '../../types/character';
 import type { Protection, CompendiumRace, CompendiumProfile, CompendiumVoie, Stats, ResolvedEffect } from './types';
 import { resolveCapabilityEffect, aggregateResolvedBonuses } from './effects';
 import { isCapabilityGrantedByEntry } from './progression';
+import { agiEffective } from './encombrement';
 import { buildVoieIndex } from './voies';
 
 export const computeCombatStats = (args: {
@@ -18,8 +19,7 @@ export const computeCombatStats = (args: {
   const { voies, protection, races, profiles, allVoies, perMod, agiMod, caracs, level } = args;
   const baseInit = 10 + perMod;
   // Encombrement (COF2) : une armure plafonne l'AGI effective à son `agiMax` (ex. plaque → AGI max +2).
-  const armorAgiMax = protection?.armor?.agiMax;
-  const effAgi = (armorAgiMax != null) ? Math.min(agiMod, armorAgiMax) : agiMod;
+  const effAgi = agiEffective(agiMod, protection?.armor?.agiMax);
   const baseDef = 10 + effAgi + (protection?.armor?.def || 0) + (protection?.shield?.def || 0);
 
   // Résolution des voies du perso par IRI (peuple + profil + prestige), comme computeDamageReduction.

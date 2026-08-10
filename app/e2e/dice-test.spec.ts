@@ -86,3 +86,27 @@ test('les options tactiques modifient l’attaque, les manœuvres sont des tests
     await expect(manoeuvre).not.toContainText('DEF 16');
     await expect(manoeuvre).not.toContainText(/Réussi|Échoué/);
 });
+
+// La RD était calculée sur la fiche depuis longtemps, mais ne s'appliquait à aucun jet :
+// ni résistance, ni minimum d'un point, ni DM temporaires n'existaient nulle part.
+test('le jet de dommages applique la RD avant la résistance, et le minimum d’un point', async ({ page }) => {
+    await register(page, uniqueEmail('dm'));
+    await page.goto('/tools/dice');
+
+    // Une RD écrasante : l'attaque qui touche inflige tout de même 1 DM.
+    await page.fill('input[aria-label="Formule de dommages"]', '1d8+3');
+    await page.fill('input[aria-label="Réduction des dommages de la cible"]', '40');
+    await page.click('button:has-text("DM")');
+
+    const jet = page.locator('.glass-panel.p-2').first();
+    await expect(jet).toContainText('minimum 1 DM');
+    await expect(jet).toContainText('RD 40');
+
+    // L'ordre imposé par le livre est visible dans le détail : la RD, puis la division.
+    await page.fill('input[aria-label="Réduction des dommages de la cible"]', '2');
+    await page.click('label:has-text("Résistance") input');
+    await page.click('button:has-text("DM")');
+
+    const avecResistance = page.locator('.glass-panel.p-2').first();
+    await expect(avecResistance).toContainText(/RD 2 → \d+ · résistance ÷2/);
+});

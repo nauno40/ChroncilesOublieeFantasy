@@ -5,6 +5,8 @@ import {
     dommagesChute, DIF_AMORTIR_CHUTE, difficulteSaut, NOTE_ELAN,
     difficulteSuffocation, difficulteChaleur, difficulteFroid,
     DM_FEU_PAR_ROUND, DM_TEMPERATURE,
+    distanceParPeriode, distanceSurTerrain, difficulteMarcheForcee,
+    DUREE_PERIODE_H, PERIODES_PAR_JOUR, type Monture,
 } from '../domain/rules';
 
 /**
@@ -44,16 +46,25 @@ export const Dangers: React.FC = () => {
     const [round, setRound] = useState(1);
     const [temperature, setTemperature] = useState(-15);
     const [vetements, setVetements] = useState(0);
+    const [con, setCon] = useState(2);
+    const [defArmure, setDefArmure] = useState(0);
+    const [dansLeSac, setDansLeSac] = useState(false);
+    const [monture, setMonture] = useState<Monture>('aucune');
+    const [horsPiste, setHorsPiste] = useState(false);
+    const [terrainDifficile, setTerrainDifficile] = useState(false);
+    const [periodeSup, setPeriodeSup] = useState(1);
 
     const chute = dommagesChute(hauteur, niveau, amorti);
+    const parPeriode = distanceParPeriode({ con, defArmure, armureDansLeSac: dansLeSac, monture });
+    const surTerrain = distanceSurTerrain(parPeriode, { horsPiste, terrainDifficile });
     const chaleur = difficulteChaleur(temperature);
     const froid = difficulteFroid(temperature, vetements);
 
     return (
         <PageContainer>
             <PageShell
-                title="Dangers & obstacles"
-                subtitle="Chute, saut, feu, chaleur et froid : ce que la situation coûte, calculé."
+                title="Voyage & dangers"
+                subtitle="Distances, chute, saut, feu, chaleur et froid : ce que la situation coûte, calculé."
                 icon={Mountain}
             />
 
@@ -111,6 +122,57 @@ export const Dangers: React.FC = () => {
                             : froid !== null ? `Froid — test de CON difficulté ${froid}`
                                 : 'Aucun test : température supportable'}
                     </Resultat>
+                </Bloc>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-4 mt-4">
+                <Bloc titre="Voyage" note={`Une période de déplacement dure ${DUREE_PERIODE_H} h ; une journée normale en compte ${PERIODES_PAR_JOUR}. La pénalité d’armure est sa DEF ; une monture de bât la porte à votre place.`}>
+                    <Champ label="CON">
+                        <input type="number" aria-label="Valeur de CON" value={con}
+                            onChange={e => setCon(parseInt(e.target.value) || 0)} className={classeSaisie} />
+                    </Champ>
+                    <Champ label="DEF d’armure">
+                        <input type="number" aria-label="DEF de l’armure portée" value={defArmure} min={0}
+                            onChange={e => setDefArmure(parseInt(e.target.value) || 0)} className={classeSaisie} />
+                    </Champ>
+                    <Champ label="Monture">
+                        <select aria-label="Monture" value={monture} onChange={e => setMonture(e.target.value as Monture)}
+                            className={`${classeSaisie} w-40`}>
+                            <option value="aucune">À pied</option>
+                            <option value="bat">Animal de bât</option>
+                            <option value="poney">Poney</option>
+                            <option value="cheval">Cheval</option>
+                        </select>
+                    </Champ>
+                    <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-stone-300">
+                        <label className="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" checked={dansLeSac} onChange={e => setDansLeSac(e.target.checked)} className="accent-primary-500" />
+                            Armure dans le sac
+                        </label>
+                        <label className="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" checked={horsPiste} onChange={e => setHorsPiste(e.target.checked)} className="accent-primary-500" />
+                            Hors piste
+                        </label>
+                        <label className="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" checked={terrainDifficile} onChange={e => setTerrainDifficile(e.target.checked)} className="accent-primary-500" />
+                            Terrain difficile
+                        </label>
+                    </div>
+                    <Resultat>
+                        {surTerrain} km par période · {surTerrain * PERIODES_PAR_JOUR} km par jour
+                        {surTerrain !== parPeriode && <span className="text-stone-400 text-xs font-normal"> (sans terrain : {parPeriode} km)</span>}
+                    </Resultat>
+                </Bloc>
+
+                <Bloc titre="Marche forcée" note="À pied, chaque période supplémentaire coûte 1 DR ; sans DR, le personnage est affaibli, et s’il l’est déjà, il s’écroule.">
+                    <Champ label="Période sup.">
+                        <input type="number" aria-label="Période supplémentaire" value={periodeSup} min={1}
+                            onChange={e => setPeriodeSup(parseInt(e.target.value) || 1)} className={classeSaisie} />
+                    </Champ>
+                    <Resultat>À cheval : deux tests d’Équitation difficulté {difficulteMarcheForcee(periodeSup)}</Resultat>
+                    <p className="text-[11px] text-stone-400 leading-snug">
+                        Un test de CON pour éviter de perdre 1 DR, un test de CHA pour faire avancer la monture.
+                    </p>
                 </Bloc>
             </div>
         </PageContainer>

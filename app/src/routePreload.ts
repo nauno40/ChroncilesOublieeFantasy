@@ -30,6 +30,7 @@ const routeImports: Record<string, () => Promise<unknown>> = {
     '/tools/dice': () => import('./pages/Dice'),
     '/tools/soundboard': () => import('./pages/SoundboardPage'),
     '/tools/magic-items': () => import('./pages/MagicItems'),
+    '/tools/dangers': () => import('./pages/Dangers'),
     '/magic-items': () => import('./pages/MagicItemsCatalogue'),
     '/states': () => import('./pages/States'),
     '/poisons': () => import('./pages/Poisons'),

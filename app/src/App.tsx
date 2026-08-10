@@ -35,6 +35,7 @@ const Equipment = lazy(() => import('./pages/Equipment').then(m => ({ default: m
 const Mounts = lazy(() => import('./pages/Mounts').then(m => ({ default: m.Mounts })));
 const Provisions = lazy(() => import('./pages/Provisions').then(m => ({ default: m.Provisions })));
 const Dice = lazy(() => import('./pages/Dice').then(m => ({ default: m.Dice })));
+const Dangers = lazy(() => import('./pages/Dangers').then(m => ({ default: m.Dangers })));
 const States = lazy(() => import('./pages/States').then(m => ({ default: m.States })));
 const Poisons = lazy(() => import('./pages/Poisons').then(m => ({ default: m.Poisons })));
 const Traps = lazy(() => import('./pages/Traps').then(m => ({ default: m.Traps })));
@@ -93,6 +94,7 @@ function App() {
                 <Route path="mounts" element={<Mounts />} />
                 <Route path="provisions" element={<Provisions />} />
                 <Route path="tools/dice" element={<Dice />} />
+                <Route path="tools/dangers" element={<Dangers />} />
                 {/* Le générateur est un OUTIL du MJ (évaluateur + tables de tirage) ; le
                     catalogue des objets est une page de type du compendium. Les deux
                     vivaient sous la même route, ce qui mettait un outil dans l'onglet

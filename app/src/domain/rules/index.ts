@@ -21,3 +21,4 @@ export * from './tirADistance';
 export * from './optionsTactiques';
 export * from './dommages';
 export * from './etatsCombat';
+export * from './dangers';

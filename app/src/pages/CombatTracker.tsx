@@ -72,7 +72,11 @@ export const CombatTracker: React.FC = () => {
     const [poseEnCours, setPoseEnCours] = useState<string | null>(null);
     // Dernier jet d'attaque, affiché en bandeau : le suivi n'avait aucun endroit où rendre
     // compte d'un jet, alors qu'il connaît déjà l'attaquant (le tour actif) et la cible.
-    const [dernierJet, setDernierJet] = useState<string | null>(null);
+    // Le dernier jet d'attaque garde de quoi enchaîner sur les dommages : sa cible, s'il a
+    // touché, et s'il était critique — le critique double les DM, et cette information se
+    // perdait dès que le bandeau était lu.
+    const [dernierJet, setDernierJet] = useState<{ texte: string; cibleId: string; touche: boolean; critique: boolean } | null>(null);
+    const [formuleDm, setFormuleDm] = useState('');
 
     useEffect(() => {
         DataService.getCreatures().then(setCreatures).catch(() => setCreatures([]));
@@ -250,11 +254,44 @@ export const CombatTracker: React.FC = () => {
         });
 
         const des = jet.des.length > 1 ? `(${jet.des.join(' / ')} → ${jet.conserve})` : `(${jet.conserve})`;
-        setDernierJet(
-            `${attaquant.name} attaque ${cible.name} : ${des} + ${(attaquant.atk ?? 0) + effetsAttaquant.attaque}`
-            + ` = ${jet.total} contre DEF ${def} — ${jet.reussi ? 'TOUCHÉ' : 'raté'}`
-            + `${jet.dmDoubles ? ' · critique, DM doublés' : ''}`,
-        );
+        setDernierJet({
+            texte: `${attaquant.name} attaque ${cible.name} : ${des} + ${(attaquant.atk ?? 0) + effetsAttaquant.attaque}`
+                + ` = ${jet.total} contre DEF ${def} — ${jet.reussi ? 'TOUCHÉ' : 'raté'}`
+                + `${jet.dmDoubles ? ' · critique, DM doublés' : ''}`,
+            cibleId: cible.id,
+            touche: jet.reussi === true,
+            critique: jet.dmDoubles,
+        });
+    };
+
+    /**
+     * Enchaîne les dommages sur la cible du dernier jet : la formule est jetée, la RD de la
+     * cible retranchée, le critique double les DM et le minimum d'un point s'applique. Les
+     * PV sont retirés dans la foulée — c'est ce qui fermait le round à la main jusqu'ici.
+     */
+    const infligerDm = () => {
+        if (!dernierJet?.touche) return;
+        const cible = state.combatants.find(c => c.id === dernierJet.cibleId);
+        const match = formuleDm.trim().match(/^(\d+)?d(\d+)(?:\s*([+-])\s*(\d+))?$/i);
+        if (!cible || !match) return;
+
+        const nombre = match[1] ? parseInt(match[1]) : 1;
+        const faces = parseInt(match[2]);
+        const modificateur = (match[3] === '-' ? -1 : 1) * (match[4] ? parseInt(match[4]) : 0);
+        const des: number[] = [];
+        for (let i = 0; i < nombre; i++) des.push(Math.floor(Math.random() * faces) + 1);
+        const brut = des.reduce((t, d) => t + d, 0) + modificateur;
+
+        const { infliges, detail } = dommagesSubis({ brut, rd: cible.rd ?? 0, critique: dernierJet.critique });
+        changeHp(cible.id, -infliges);
+        setDernierJet(j => (j ? {
+            ...j,
+            // Les étapes de réduction portent déjà le résultat : ne le répéter qu'en
+            // l'absence d'étape, sinon la ligne se terminait par « → 7 → 7 PV ».
+            texte: `${j.texte} · DM (${des.join('+')})${modificateur ? (modificateur > 0 ? `+${modificateur}` : modificateur) : ''} = ${brut}`
+                + (detail.length > 1 ? ` · ${detail.slice(1).join(' · ')} PV` : ` → ${infliges} PV`),
+            touche: false,
+        } : j));
     };
 
     const changeAtk = (id: string, valeur: number) =>
@@ -319,8 +356,28 @@ export const CombatTracker: React.FC = () => {
             </header>
 
             {dernierJet && (
-                <div className="glass-panel px-4 py-2 rounded-xl border-primary-500/30 bg-primary-950/10 flex items-center justify-between gap-3">
-                    <p className="text-sm text-stone-200 font-mono">{dernierJet}</p>
+                <div className="glass-panel px-4 py-2 rounded-xl border-primary-500/30 bg-primary-950/10 flex flex-wrap items-center justify-between gap-3">
+                    <p className="text-sm text-stone-200 font-mono flex-1 min-w-[240px]">{dernierJet.texte}</p>
+                    {dernierJet.touche && (
+                        <div className="flex items-center gap-2 shrink-0">
+                            <input
+                                type="text"
+                                aria-label="Formule de dommages"
+                                value={formuleDm}
+                                onChange={e => setFormuleDm(e.target.value)}
+                                placeholder="1d8+3"
+                                onKeyDown={e => e.key === 'Enter' && infligerDm()}
+                                className="w-24 bg-black/40 border border-white/10 rounded px-2 py-1 text-stone-200 text-xs font-mono placeholder-stone-600 focus:outline-none focus:border-primary-500/50"
+                            />
+                            <button
+                                onClick={infligerDm}
+                                disabled={!formuleDm}
+                                className="px-3 py-1 rounded bg-red-900/50 hover:bg-red-800/70 disabled:opacity-40 text-red-100 font-bold text-[11px] uppercase tracking-wider transition-colors"
+                            >
+                                Infliger
+                            </button>
+                        </div>
+                    )}
                     <button onClick={() => setDernierJet(null)} aria-label="Effacer le dernier jet"
                         className="text-stone-400 hover:text-stone-200 text-xs shrink-0">✕</button>
                 </div>

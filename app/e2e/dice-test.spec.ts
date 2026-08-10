@@ -58,3 +58,31 @@ test('les conditions de tir s’appliquent au test d’attaque', async ({ page }
     // La longue portée impose un dé malus : deux d20 sont lancés.
     await expect(jet).toContainText(/\(\d+ \/ \d+\)/);
 });
+
+// Les options tactiques n'étaient ni listées ni jouables. Deux natures à distinguer :
+// une option ordinaire se compare à la DEF, une manœuvre se joue en test OPPOSÉ.
+test('les options tactiques modifient l’attaque, les manœuvres sont des tests opposés', async ({ page }) => {
+    await register(page, uniqueEmail('tac'));
+    await page.goto('/tools/dice');
+
+    await page.click('[role=radio]:has-text("Attaque")');
+    await page.fill('input[aria-label="Valeur d\'attaque"]', '5');
+    await page.fill('input[aria-label="DEF de la cible"]', '16');
+
+    await page.selectOption('select[aria-label="Option tactique"]', 'assuree');
+    await page.click('button:has-text("Tester")');
+    const assuree = page.locator('.glass-panel.p-2').first();
+    await expect(assuree).toContainText('Attaque assurée');
+    await expect(assuree).toContainText('option +5');
+    await expect(assuree).toContainText('DM divisés par 2');
+    await expect(assuree).toContainText('DEF 16');
+
+    await page.selectOption('select[aria-label="Option tactique"]', 'etourdir');
+    await page.click('button:has-text("Tester")');
+    const manoeuvre = page.locator('.glass-panel.p-2').first();
+    await expect(manoeuvre).toContainText('test opposé');
+    await expect(manoeuvre).toContainText('option -10');
+    // Pas de DEF ni de verdict : c'est le jet de la cible qui tranchera.
+    await expect(manoeuvre).not.toContainText('DEF 16');
+    await expect(manoeuvre).not.toContainText(/Réussi|Échoué/);
+});

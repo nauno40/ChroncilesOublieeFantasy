@@ -18,3 +18,4 @@ export * from './harmfulStates';
 export * from './encombrement';
 export * from './test';
 export * from './tirADistance';
+export * from './optionsTactiques';

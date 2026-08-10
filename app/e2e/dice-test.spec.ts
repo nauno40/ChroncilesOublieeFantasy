@@ -184,3 +184,23 @@ test('la page Poisons rappelle les deux difficultés du livre', async ({ page })
     await expect(page.getByText(/test d’INT difficulté 10/)).toBeVisible();
     await expect(page.getByText(/échec critique empoisonne le porteur/)).toBeVisible();
 });
+
+// Rendement décroissant : « un bonus cumulatif de +5 au test effectué par la cible pour
+// résister à la même capacité durant un combat ». Il ne concerne PAS les attaques contre
+// la DEF — le champ ne doit donc pas exister en mode Attaque.
+test('le rendement décroissant s’ajoute au test de résistance, et à lui seul', async ({ page }) => {
+    await register(page, uniqueEmail('rend'));
+    await page.goto('/tools/dice');
+
+    await page.fill('input[aria-label="Valeur de caractéristique"]', '1');
+    await page.selectOption('select[aria-label="Difficulté"]', '15');
+    await page.fill('input[aria-label="Répétitions de la même capacité"]', '2');
+    await expect(page.getByText('+10 pour résister')).toBeVisible();
+
+    await page.click('button:has-text("Tester")');
+    await expect(page.locator('.glass-panel.p-2').first()).toContainText('rendement +10');
+
+    // Le livre l'exclut des tests d'attaque : le champ disparaît avec le mode.
+    await page.click('[role=radio]:has-text("Attaque")');
+    await expect(page.locator('input[aria-label="Répétitions de la même capacité"]')).toHaveCount(0);
+});

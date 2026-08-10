@@ -79,3 +79,43 @@ test('un objet magique équipé augmente la Défense affichée', async ({ page }
     // L'objet est équipé par défaut ; la Défense doit augmenter de 2.
     await expect.poll(async () => parseInt((await defValue().innerText()).trim()), { timeout: 10_000 }).toBe(before + 2);
 });
+
+// Récupération complète (COF2) : « un personnage gagne 1 DR, sans pouvoir dépasser son
+// maximum […] s'il choisit de l'utiliser, le nombre de PV récupérés est automatiquement
+// égal à la valeur maximale du dé ». Le panneau rendait auparavant TOUS les PV et TOUS les
+// DR — la règle du repos long de d20.
+test('la récupération complète rend un seul dé de récupération', async ({ page }) => {
+    await register(page, uniqueEmail('repos'));
+    const token = (await getToken(page))!;
+    const profs = await (await page.request.get(`${API_URL}/profiles?pagination=false`, {
+        headers: { Accept: 'application/ld+json' },
+    })).json();
+    const membres: Array<{ name: string; '@id': string }> = profs.member || profs['hydra:member'];
+    const guerrier = membres.find(p => p.name === 'Guerrier')!['@id'];
+
+    const res = await page.request.post(`${API_URL}/characters`, {
+        headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/ld+json', Accept: 'application/ld+json' },
+        data: {
+            name: 'Blessé', level: 4, profile: guerrier,
+            caracs: { FOR: 3, AGI: 1, CON: 2, INT: 0, PER: 1, CHA: -1, VOL: 1 },
+            // 4 DR au total (2 + CON), 3 dépensés : il en reste 1.
+            playState: {
+                hp: { current: 5 }, mana: { current: 0 }, luck: { current: 1 }, recovery: { used: 3 },
+                money: { pa: 0 }, equipment: [], rp: { ideal: '', flaw: '' }, languages: [],
+                protection: { armor: { name: '', def: 0 }, shield: { name: '', def: 0 } }, weapons: [],
+            },
+        },
+    });
+    const id = (await res.json())['@id'].split('/').pop();
+
+    await page.goto(`/characters/${id}`);
+    await expect(page.getByText('DR : 1 / 4')).toBeVisible({ timeout: 20_000 });
+
+    await page.click('button:has-text("Récup. complète")');
+    // UN dé regagné, pas quatre.
+    await expect(page.getByText('DR : 2 / 4')).toBeVisible();
+
+    // En le dépensant, les PV reviennent de la valeur MAXIMALE du dé — d10 pour un guerrier.
+    await page.click('button:has-text("… et soigner")');
+    await expect(page.getByText(/\+10 PV/)).toBeVisible();
+});

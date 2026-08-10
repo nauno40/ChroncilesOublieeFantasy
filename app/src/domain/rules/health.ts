@@ -85,17 +85,58 @@ export const applyShortRest = (
   usages: resetUsages(ps.usages, ['combat', 'round']),
 });
 
-// Applique un repos long : PV & PM au max, DR régénérés, usages jour/combat/round reset. Pur.
+/**
+ * Récupération complète (COF2, chapitre « Combat », § Récupération complète).
+ *
+ * « À la fin d'une récupération complète, un personnage gagne **1 DR**, sans pouvoir
+ * dépasser son maximum. S'il le souhaite, il peut immédiatement choisir d'utiliser ce DR
+ * pour restaurer des PV. Dans ce cas, le nombre de PV récupérés est automatiquement égal à
+ * la valeur maximale du dé. »
+ *
+ * Cette fonction rendait auparavant TOUS les PV et TOUS les DR — la règle du repos long de
+ * d20, pas celle de COF2. Un personnage à 3 PV sur 14 repartait au complet chaque matin, ce
+ * qui efface l'usure d'une expédition, précisément ce que les DR servent à mesurer.
+ *
+ * Les PM font exception et sont bien rendus en entier : « une fois par jour, le personnage
+ * regagne l'ensemble des PM dépensés lorsqu'il termine une récupération complète »
+ * (chapitre « Magie et sorts »).
+ *
+ * `soin` est ce que l'appelant a décidé de restaurer en dépensant le DR regagné — zéro s'il
+ * le garde. Le calcul de sa valeur appartient à `soinRecuperationComplete`, parce qu'il
+ * dépend d'un jet dans un cas et pas dans l'autre.
+ */
 export const applyLongRest = (
   ps: PlayState,
-  opts: { maxHp: number; maxMana: number },
-): PlayState => ({
-  ...ps,
-  hp: { ...ps.hp, current: opts.maxHp },
-  mana: { ...ps.mana, current: opts.maxMana },
-  recovery: { ...ps.recovery, used: 0 },
-  usages: resetUsages(ps.usages, ['jour', 'combat', 'round']),
-});
+  opts: { maxHp: number; maxMana: number; soin?: number },
+): PlayState => {
+  const drRegagne = Math.max(0, (ps.recovery.used || 0) - 1);
+  const soin = Math.max(0, opts.soin ?? 0);
+  // Dépenser le DR tout juste regagné : il repart aussitôt.
+  const used = soin > 0 ? Math.min((ps.recovery.used || 0), drRegagne + 1) : drRegagne;
+  return {
+    ...ps,
+    hp: { ...ps.hp, current: Math.min(opts.maxHp, ps.hp.current + soin) },
+    mana: { ...ps.mana, current: opts.maxMana },
+    recovery: { ...ps.recovery, used },
+    usages: resetUsages(ps.usages, ['jour', 'combat', 'round']),
+  };
+};
+
+/**
+ * PV restaurés en dépensant le DR regagné par une récupération complète.
+ *
+ * « Le nombre de PV récupérés est automatiquement égal à la valeur maximale du dé » — sauf
+ * pour le personnage qui n'a AUCUN dé de récupération (CON ‑2) : « il ne bénéficie alors pas
+ * du résultat maximal et doit lancer le DR ». C'est le seul cas où le dé se jette ici.
+ */
+export const soinRecuperationComplete = (
+  facesDR: number,
+  aDesDesDeRecuperation: boolean,
+  rng: () => number = Math.random,
+): number => {
+  if (facesDR <= 0) return 0;
+  return aDesDesDeRecuperation ? facesDR : Math.floor(rng() * facesDR) + 1;
+};
 
 // Le profil relève-t-il de la famille des mages ? (classification COF2 ; pilote le rang 2
 // gratuit du mage, le remplacement de la voie de peuple, etc.). Reprend la logique

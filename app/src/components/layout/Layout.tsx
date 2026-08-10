@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
-import { Sword, Swords, Users, Home, BookOpen, GraduationCap, Sparkles, Zap, Package, Truck, UtensilsCrossed, AlertCircle, ScrollText, Skull, Footprints, Tent, Map, BookMarked, Ghost } from 'lucide-react';
+import { Mountain, Sword, Swords, Users, Home, BookOpen, GraduationCap, Sparkles, Zap, Package, Truck, UtensilsCrossed, AlertCircle, ScrollText, Skull, Footprints, Tent, Map, BookMarked, Ghost } from 'lucide-react';
 import clsx from 'clsx';
 import type { NavItem } from './NavItem';
 import { NavItemComponent } from './NavItem';
@@ -78,6 +78,7 @@ export const Layout: React.FC = () => {
             subItems: [
                 { path: '/tools/tracker', icon: Sword, label: LEXIQUE.suiviCombat },
                 { path: '/tools/dice', icon: Dices, label: LEXIQUE.des },
+                { path: '/tools/dangers', icon: Mountain, label: 'Dangers' },
                 { path: '/tools/soundboard', icon: Music, label: LEXIQUE.ambiances },
             ]
         },

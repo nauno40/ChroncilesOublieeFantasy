@@ -110,3 +110,27 @@ test('le jet de dommages applique la RD avant la résistance, et le minimum d’
     const avecResistance = page.locator('.glass-panel.p-2').first();
     await expect(avecResistance).toContainText(/RD 2 → \d+ · résistance ÷2/);
 });
+
+// Dangers & obstacles : ces calculs (chute, saut, feu, températures) étaient dans le livre
+// et nulle part dans l'application — le MJ les refaisait de tête en pleine partie.
+test('la page Dangers calcule la chute, la chaleur et le froid', async ({ page }) => {
+    await register(page, uniqueEmail('dang'));
+    await page.goto('/tools/dangers');
+
+    // 12 m par défaut : quatre tranches de 3 m, au dé évolutif d'un niveau 1.
+    await expect(page.getByText('4d4', { exact: true })).toBeVisible({ timeout: 20_000 });
+
+    // Un test d'AGI réussi ignore les TROIS PREMIERS mètres : 9 m, soit trois dés.
+    await page.locator('input[type=checkbox]').first().check();
+    await expect(page.getByText('3d4', { exact: true })).toBeVisible();
+
+    // Le dé suit le niveau du personnage : d6 à partir du niveau 6.
+    await page.fill('input[aria-label="Niveau du personnage"]', '6');
+    await expect(page.getByText('3d6', { exact: true })).toBeVisible();
+
+    // Froid : l'exemple du livre — difficulté 15 pour ‑15 °C.
+    await expect(page.getByText('Froid — test de CON difficulté 15')).toBeVisible();
+    // Chaleur : « la difficulté est égale à la température ‑ 30 ».
+    await page.fill('input[aria-label="Température"]', '45');
+    await expect(page.getByText('Chaleur — test de CON difficulté 15')).toBeVisible();
+});

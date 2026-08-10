@@ -5,6 +5,7 @@ import type { TrackerState } from '../domain/combatTracker';
 import { sortByInitiative, nextTurn, removeById, applyHp } from '../domain/combatTracker';
 import { effetsCumules, defEffective } from '../domain/rules/etatsCombat';
 import { dommagesSubis } from '../domain/rules/dommages';
+import { lancerAttaque } from '../domain/rules/test';
 import { DataService } from '../services/dataService';
 import { ApiService } from '../services/api';
 import { getMonsters } from '../services/monsterService';
@@ -69,6 +70,9 @@ export const CombatTracker: React.FC = () => {
     const [voies, setVoies] = useState<Voie[]>([]);
     // Pose d'état en cours : la capacité a désigné l'état, le MJ choisit encore la cible.
     const [poseEnCours, setPoseEnCours] = useState<string | null>(null);
+    // Dernier jet d'attaque, affiché en bandeau : le suivi n'avait aucun endroit où rendre
+    // compte d'un jet, alors qu'il connaît déjà l'attaquant (le tour actif) et la cible.
+    const [dernierJet, setDernierJet] = useState<string | null>(null);
 
     useEffect(() => {
         DataService.getCreatures().then(setCreatures).catch(() => setCreatures([]));
@@ -226,6 +230,39 @@ export const CombatTracker: React.FC = () => {
         }));
     };
 
+    /**
+     * Attaque : l'attaquant est le combattant dont c'est le tour, la difficulté est la DEF
+     * EFFECTIVE de la cible (états compris), et le dé malus vient des états de l'attaquant
+     * — Immobilisé impose un dé malus aux tests d'attaque, Affaibli à tous les tests.
+     */
+    const attaquer = (cible: Combatant) => {
+        const attaquant = state.combatants.find(c => c.id === state.activeId);
+        if (!attaquant) return;
+
+        const effetsAttaquant = effetsCumules(attaquant.states, harmfulStates);
+        const effetsCible = effetsCumules(cible.states, harmfulStates);
+        const def = defEffective(cible.def, effetsCible);
+
+        const jet = lancerAttaque({
+            valeurAttaque: (attaquant.atk ?? 0) + effetsAttaquant.attaque,
+            defCible: def,
+            deMalus: effetsAttaquant.deMalusTests || effetsAttaquant.deMalusAttaque ? 1 : 0,
+        });
+
+        const des = jet.des.length > 1 ? `(${jet.des.join(' / ')} → ${jet.conserve})` : `(${jet.conserve})`;
+        setDernierJet(
+            `${attaquant.name} attaque ${cible.name} : ${des} + ${(attaquant.atk ?? 0) + effetsAttaquant.attaque}`
+            + ` = ${jet.total} contre DEF ${def} — ${jet.reussi ? 'TOUCHÉ' : 'raté'}`
+            + `${jet.dmDoubles ? ' · critique, DM doublés' : ''}`,
+        );
+    };
+
+    const changeAtk = (id: string, valeur: number) =>
+        setState(s => ({
+            ...s,
+            combatants: s.combatants.map(c => (c.id === id ? { ...c, atk: valeur || undefined } : c)),
+        }));
+
     const changeRd = (id: string, valeur: number) =>
         setState(s => ({
             ...s,
@@ -280,6 +317,14 @@ export const CombatTracker: React.FC = () => {
                     </button>
                 </div>
             </header>
+
+            {dernierJet && (
+                <div className="glass-panel px-4 py-2 rounded-xl border-primary-500/30 bg-primary-950/10 flex items-center justify-between gap-3">
+                    <p className="text-sm text-stone-200 font-mono">{dernierJet}</p>
+                    <button onClick={() => setDernierJet(null)} aria-label="Effacer le dernier jet"
+                        className="text-stone-400 hover:text-stone-200 text-xs shrink-0">✕</button>
+                </div>
+            )}
 
             {/* Ajout manuel — un intitulé au-dessus de chaque champ : un nombre saisi efface
                 son propre indicateur quand le libellé ne vit que dans le placeholder. */}
@@ -427,6 +472,17 @@ export const CombatTracker: React.FC = () => {
                                                 <span className={`font-mono font-bold ${effets.def !== 0 ? 'text-amber-300' : 'text-stone-300'}`}>DEF {def}</span>
                                                 {effets.def !== 0 && <span className="text-stone-400 text-[11px]">({c.def} {effets.def})</span>}
                                             </span>
+                                            <label className="flex items-center gap-1 bg-black/30 px-2 py-0.5 rounded border border-white/5" title="Valeur d'attaque — niveau (max 10) + caractéristique">
+                                                <span className="text-stone-400 text-[11px] uppercase font-bold">ATT</span>
+                                                <input
+                                                    type="number"
+                                                    aria-label={`Valeur d'attaque de ${c.name}`}
+                                                    value={c.atk ?? ''}
+                                                    onChange={e => changeAtk(c.id, parseInt(e.target.value) || 0)}
+                                                    placeholder="0"
+                                                    className="w-10 bg-transparent text-stone-300 font-mono font-bold text-center focus:outline-none focus:text-primary-300 placeholder-stone-600"
+                                                />
+                                            </label>
                                             <label className="flex items-center gap-1 bg-black/30 px-2 py-0.5 rounded border border-white/5" title="Réduction des dommages — à saisir : le bestiaire ne la donne qu'en toutes lettres">
                                                 <span className="text-stone-400 text-[11px] uppercase font-bold">RD</span>
                                                 <input
@@ -482,6 +538,17 @@ export const CombatTracker: React.FC = () => {
                                 );
                             })()}
                         </div>
+
+                        {/* Attaquer : l'attaquant est le combattant dont c'est le tour. */}
+                        {state.activeId && state.activeId !== c.id && (
+                            <button
+                                onClick={() => attaquer(c)}
+                                title={`Attaquer ${c.name} avec le combattant actif`}
+                                className="self-center px-3 py-1.5 rounded-lg bg-red-900/40 hover:bg-red-800/60 text-red-200 text-[11px] font-bold uppercase tracking-wider border border-red-500/30 transition-colors whitespace-nowrap"
+                            >
+                                Attaquer
+                            </button>
+                        )}
 
                         {/* PV : ±1 rapides + saisie libre dégâts/soins */}
                         <div className="flex items-center gap-3 bg-black/20 p-2 rounded-lg border border-white/5">

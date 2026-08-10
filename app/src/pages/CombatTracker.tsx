@@ -4,6 +4,7 @@ import type { Combatant } from '../types/campaign';
 import type { TrackerState } from '../domain/combatTracker';
 import { sortByInitiative, nextTurn, removeById, applyHp } from '../domain/combatTracker';
 import { effetsCumules, defEffective } from '../domain/rules/etatsCombat';
+import { dommagesSubis } from '../domain/rules/dommages';
 import { DataService } from '../services/dataService';
 import { ApiService } from '../services/api';
 import { getMonsters } from '../services/monsterService';
@@ -50,6 +51,7 @@ export const CombatTracker: React.FC = () => {
     const [hp, setHp] = useState('');
     const [def, setDef] = useState('');
     const [per, setPer] = useState('');
+    const [rdSaisie, setRdSaisie] = useState('');
     const [type, setType] = useState<'player' | 'monster'>('monster');
 
     // Import bestiaire / PJ
@@ -140,9 +142,10 @@ export const CombatTracker: React.FC = () => {
             per: parseInt(per) || 0,
             tiebreak: rollTiebreak(),
             states: [],
+            rd: parseInt(rdSaisie) || undefined,
             source: 'manual',
         });
-        setName(''); setInit(''); setHp(''); setDef(''); setPer('');
+        setName(''); setInit(''); setHp(''); setDef(''); setPer(''); setRdSaisie('');
     };
 
     const addFromBestiary = () => {
@@ -223,6 +226,12 @@ export const CombatTracker: React.FC = () => {
         }));
     };
 
+    const changeRd = (id: string, valeur: number) =>
+        setState(s => ({
+            ...s,
+            combatants: s.combatants.map(c => (c.id === id ? { ...c, rd: valeur || undefined } : c)),
+        }));
+
     const removeState = (id: string, stateName: string) =>
         setState(s => ({
             ...s,
@@ -233,7 +242,13 @@ export const CombatTracker: React.FC = () => {
     const applyInput = (id: string, sign: 1 | -1) => {
         const amount = parseInt(hpInputs[id] || '');
         if (!amount) return;
-        changeHp(id, sign * Math.abs(amount));
+        const cible = state.combatants.find(c => c.id === id);
+        // Des dégâts passent par la règle : la RD de la cible est retranchée, et une attaque
+        // qui touche inflige toujours au moins 1 DM. Un soin n'a rien à voir avec tout ça.
+        const valeur = sign === -1
+            ? dommagesSubis({ brut: Math.abs(amount), rd: cible?.rd ?? 0 }).infliges
+            : Math.abs(amount);
+        changeHp(id, sign * valeur);
         setHpInputs(prev => ({ ...prev, [id]: '' }));
     };
 
@@ -290,6 +305,13 @@ export const CombatTracker: React.FC = () => {
                     <span className="text-[11px] uppercase font-bold text-stone-400 tracking-wider">DEF</span>
                     <input type="number" value={def} onChange={e => setDef(e.target.value)}
                         className="w-20 bg-black/40 border border-white/10 text-stone-100 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary-500 placeholder-stone-600" />
+                </label>
+                <label className="flex flex-col gap-1">
+                    {/* Saisie, jamais devinée : le bestiaire ne porte sa RD qu'en toutes
+                        lettres dans ses capacités. */}
+                    <span className="text-[11px] uppercase font-bold text-stone-400 tracking-wider">RD</span>
+                    <input type="number" value={rdSaisie} onChange={e => setRdSaisie(e.target.value)}
+                        className="w-16 bg-black/40 border border-white/10 text-stone-100 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary-500 placeholder-stone-600" />
                 </label>
                 <label className="flex flex-col gap-1" title="Perception — départage à initiative égale">
                     <span className="text-[11px] uppercase font-bold text-stone-400 tracking-wider">PER</span>
@@ -405,6 +427,17 @@ export const CombatTracker: React.FC = () => {
                                                 <span className={`font-mono font-bold ${effets.def !== 0 ? 'text-amber-300' : 'text-stone-300'}`}>DEF {def}</span>
                                                 {effets.def !== 0 && <span className="text-stone-400 text-[11px]">({c.def} {effets.def})</span>}
                                             </span>
+                                            <label className="flex items-center gap-1 bg-black/30 px-2 py-0.5 rounded border border-white/5" title="Réduction des dommages — à saisir : le bestiaire ne la donne qu'en toutes lettres">
+                                                <span className="text-stone-400 text-[11px] uppercase font-bold">RD</span>
+                                                <input
+                                                    type="number"
+                                                    aria-label={`Réduction des dommages de ${c.name}`}
+                                                    value={c.rd ?? ''}
+                                                    onChange={e => changeRd(c.id, parseInt(e.target.value) || 0)}
+                                                    placeholder="0"
+                                                    className="w-10 bg-transparent text-stone-300 font-mono font-bold text-center focus:outline-none focus:text-primary-300 placeholder-stone-600"
+                                                />
+                                            </label>
                                             {effets.sansAction && (
                                                 <span className="text-[11px] uppercase tracking-wide bg-red-950/50 text-red-200 px-2 py-0.5 rounded border border-red-500/30">
                                                     Ne peut pas agir
@@ -454,7 +487,12 @@ export const CombatTracker: React.FC = () => {
                         <div className="flex items-center gap-3 bg-black/20 p-2 rounded-lg border border-white/5">
                             <div className="flex flex-col items-center w-16">
                                 <span className="text-[11px] text-stone-400 uppercase font-bold mb-0.5">PV</span>
-                                <div className={`font-mono text-xl font-bold ${c.hp.current < c.hp.max / 2 ? 'text-red-500' : 'text-green-500'}`}>
+                                {/* Étiquette accessible : le compteur n'annonçait qu'une paire
+                                    de nombres, sans dire de qui ni de quoi il s'agissait. */}
+                                <div
+                                    aria-label={`Points de vie de ${c.name}`}
+                                    className={`font-mono text-xl font-bold ${c.hp.current < c.hp.max / 2 ? 'text-red-500' : 'text-green-500'}`}
+                                >
                                     {c.hp.current}<span className="text-xs text-stone-400 font-normal ml-0.5">/{c.hp.max}</span>
                                 </div>
                             </div>

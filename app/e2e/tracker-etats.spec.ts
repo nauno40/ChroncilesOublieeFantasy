@@ -42,3 +42,39 @@ test('le suivi de combat annonce qu’un combattant ne peut pas agir', async ({ 
     await page.selectOption('select:has(option:text-is("+ État"))', 'Étourdi');
     await expect(page.getByText('Ne peut pas agir')).toBeVisible();
 });
+
+// La RD est calculée sur la fiche depuis longtemps et jetable au lanceur depuis #197, mais
+// le champ « Dég. » du suivi retranchait les PV bruts, sans réduction ni minimum.
+test('les dégâts appliqués dans le suivi passent par la RD de la cible', async ({ page }) => {
+    await register(page, uniqueEmail('rd'));
+    await page.goto('/tools/tracker');
+
+    await page.fill('input[placeholder="Nom du combattant"]', 'Troll');
+    const champs = page.locator('.glass-panel input[type=number]');
+    await champs.nth(0).fill('10');  // Init
+    await champs.nth(1).fill('40');  // PV
+    await champs.nth(2).fill('14');  // DEF
+    await champs.nth(3).fill('2');   // RD
+    await page.click('button:has-text("Ajouter")');
+
+    const saisie = page.locator('input[type=number]').last();
+    // Le compteur de PV porte une étiquette accessible : viser la ligne entière attrapait
+    // aussi le sélecteur de créatures, qui contient un « Troll des tourbières ».
+    const ligne = page.getByLabel('Points de vie de Troll');
+    await expect(ligne).toContainText('40');
+
+    // 10 DM bruts contre RD 2 : 8 PV perdus.
+    await saisie.fill('10');
+    await page.click('button:has-text("Dég.")');
+    await expect(ligne).toContainText('32');
+
+    // 1 DM brut contre RD 2 : le minimum d'un point s'applique quand même.
+    await saisie.fill('1');
+    await page.click('button:has-text("Dég.")');
+    await expect(ligne).toContainText('31');
+
+    // Un soin ne passe pas par la RD : +5 PV pleins.
+    await saisie.fill('5');
+    await page.click('button:has-text("Soin")');
+    await expect(ligne).toContainText('36');
+});

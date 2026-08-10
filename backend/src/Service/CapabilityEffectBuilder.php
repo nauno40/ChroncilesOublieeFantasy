@@ -48,9 +48,36 @@ final class CapabilityEffectBuilder
     ];
 
     /** DEF max d'armure ouverte par une capacité (spec : plafond relevé). */
+    /**
+     * Capacités qui RELÈVENT le plafond d'armure de leur profil, avec la DEF de l'armure
+     * qu'elles autorisent. Seule « Autorité naturelle » y figurait ; les trois autres cas
+     * du livre manquaient, si bien qu'un barbare de rang 2 en chemise de mailles voyait
+     * ses capacités de barbare annoncées inutilisables alors que Tour de force les lui
+     * rend précisément accessibles.
+     *
+     * Les apostrophes sont typographiques : ce sont celles des données servies.
+     */
     private const ARMOR_CAP_BY_CAPABILITY = [
-        'Autorité naturelle' => 7, // Chevalier rang 3 : formation à la plaque complète
+        // Chevalier rang 3 : formation à la plaque complète.
+        'Autorité naturelle' => 7,
+        // Barbare rang 2 : « le barbare peut désormais porter une chemise de mailles et
+        // utiliser toutes les capacités des voies de barbare auparavant autorisées avec
+        // une armure de cuir renforcé ».
+        'Tour de force' => 4,
+        // Barbare rang 5 : la cotte de mailles, même formulation.
+        'Briseur d’os' => 5,
     ];
+
+    /**
+     * Volontairement ABSENT de la table ci-dessus : « Vêtements sacrés » (prêtre, rang 1).
+     *
+     * Le livre écrit « éventuellement, si le prêtre prie une divinité guerrière, il PEUT
+     * CHOISIR d'obtenir la maîtrise de la cotte de mailles ». C'est une option ouverte au
+     * joueur, pas un acquis du rang : la poser pour tous les prêtres autoriserait la cotte
+     * de mailles à ceux qui ne l'ont pas prise. Elle relève des capacités à choix
+     * (`choiceOptions`), qui demandent un choix enregistré sur le personnage — à traiter
+     * quand ce choix existera, plutôt que de trancher à la place du livre.
+     */
 
     /** Options structurées des capacités à choix (spec #6a : bonus aux tests de carac). */
     private const CHOICE_OPTIONS_BY_CAPABILITY = [

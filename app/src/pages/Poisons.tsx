@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import type { Poison } from '../types/normalized';
 import { PageContainer, SearchToolbar, Loader, CompendiumTable } from '../components/common';
 import { useSearch } from '../hooks';
+import { invitRecherche, compteurDuType } from '../domain/compendium';
 import { DataService } from '../services/dataService';
 import { COLONNES_TABLE, LABEL_NOM } from '../domain/tablesCompendium';
 import { DIF_ENDUIRE_ARME, DIF_RESISTER_POISON, DELAI_DEGRADATION, NOTE_PREMIERE_ATTAQUE } from '../domain/rules';
@@ -29,8 +30,8 @@ export const Poisons: React.FC = () => {
             <SearchToolbar
                 value={searchTerm}
                 onChange={setSearchTerm}
-                placeholder="Rechercher un poison…"
-                count={{ n: filteredItems.length, singulier: 'poison' }}
+                placeholder={invitRecherche('poison')}
+                count={{ n: filteredItems.length, ...compteurDuType('poison')! }}
             />
 
             <CompendiumTable

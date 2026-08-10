@@ -1,12 +1,14 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Plus } from 'lucide-react';
-import { Loader, SearchToolbar } from '../common';
+import { Loader, SearchToolbar, SelectFiltre, GrilleFiltres, FilterPanel } from '../common';
 import { useAuth } from '../../context/AuthContext';
 import { HomebrewService, HOMEBREW_CATEGORIES, categoryLabel, childrenOf, messageSuppression, type HomebrewEntry } from '../../services/homebrewService';
 import { duplicateEntry, resumeDuplication } from '../../services/homebrewChildren';
 import { HomebrewList } from './HomebrewList';
+import { FILTRES_COMMUNAUTAIRES, PASTILLES_COMMUNAUTAIRES, appliquerFiltres } from '../../domain/filtresCompendium';
 import { sousTypeEquipement } from '../../domain/tablesCompendium';
+import { invitRecherche, compteurDuType } from '../../domain/compendium';
 
 type Tab = 'mine' | 'community';
 
@@ -67,6 +69,15 @@ export const HomebrewBrowser: React.FC<HomebrewBrowserProps> = ({ tab, onTabChan
     // — sans quoi une arme et une potion se retrouvaient dans la même table.
     const [sousType, setSousType] = useState<'arme' | 'armure' | 'materiel'>('arme');
     const estEquipement = locked && cats![0] === 'equipement';
+    // Filtres du type courant : les mêmes axes que la page officielle, quand la donnée
+    // communautaire les porte.
+    const typePage = cats?.[0];
+    // Mémoïsé : recréé à chaque rendu, ce tableau annulait la mémoïsation de `visible`.
+    const filtres = useMemo(() => (typePage ? FILTRES_COMMUNAUTAIRES[typePage] ?? [] : []), [typePage]);
+    const [choixFiltres, setChoixFiltres] = useState<Record<string, string>>({});
+    // Pastilles de sous-type, quand la page officielle en porte (les voies).
+    const pastilles = typePage ? PASTILLES_COMMUNAUTAIRES[typePage] : undefined;
+    const [pastilleActive, setPastilleActive] = useState('all');
     const [duplicatingId, setDuplicatingId] = useState<number | null>(null);
 
     const reload = () => HomebrewService.getAll().then(setEntries).catch(() => setEntries([]));
@@ -77,11 +88,15 @@ export const HomebrewBrowser: React.FC<HomebrewBrowserProps> = ({ tab, onTabChan
         const base = tab === 'mine'
             ? all.filter(e => e.authorId === myId)
             : all.filter(e => e.visibility === 'public' && e.authorId !== myId);
-        return base
+        const retenues = base
             .filter(e => cats ? cats.includes(e.category) : (!categoryFilter || e.category === categoryFilter))
             .filter(e => !search || (e.name + ' ' + (e.description ?? '')).toLowerCase().includes(search.toLowerCase()))
             .filter(e => !estEquipement || sousTypeEquipement(e.data ?? {}) === sousType);
-    }, [entries, tab, myId, cats, categoryFilter, search, estEquipement, sousType]);
+        const parPastille = pastilles && pastilleActive !== 'all'
+            ? retenues.filter(e => pastilles.lit((e.data ?? {})[pastilles.key]) === pastilleActive)
+            : retenues;
+        return appliquerFiltres(parPastille, filtres, choixFiltres);
+    }, [entries, tab, myId, cats, categoryFilter, search, estEquipement, sousType, filtres, choixFiltres, pastilles, pastilleActive]);
 
     // La création/édition se fait désormais sur une page dédiée (HomebrewForm) — plus
     // adaptée au mobile qu'une modale — avec retour vers la page courante après coup.
@@ -129,13 +144,37 @@ export const HomebrewBrowser: React.FC<HomebrewBrowserProps> = ({ tab, onTabChan
             <SearchToolbar
                 value={search}
                 onChange={setSearch}
-                placeholder="Rechercher…"
-                chips={estEquipement ? CHIPS_EQUIPEMENT : !cats ? CHIPS_CATEGORIES : undefined}
-                chipActif={estEquipement ? sousType : categoryFilter}
+                placeholder={estEquipement ? invitRecherche(sousType) : typePage ? invitRecherche(typePage) : 'Rechercher…'}
+                chips={estEquipement ? CHIPS_EQUIPEMENT : pastilles ? pastilles.options : !cats ? CHIPS_CATEGORIES : undefined}
+                chipActif={estEquipement ? sousType : pastilles ? pastilleActive : categoryFilter}
                 onChipChange={id => (estEquipement
                     ? setSousType(id as 'arme' | 'armure' | 'materiel')
-                    : setCategoryFilter(id))}
-                count={{ n: visible.length, singulier: 'résultat' }}
+                    : pastilles ? setPastilleActive(id)
+                        : setCategoryFilter(id))}
+                count={{
+                    n: visible.length,
+                    ...((estEquipement ? compteurDuType(sousType) : typePage ? compteurDuType(typePage) : undefined)
+                        ?? { singulier: 'résultat' }),
+                }}
+                filters={filtres.length > 0 && (
+                    <FilterPanel
+                        hasActiveFilters={Object.values(choixFiltres).some(v => v && v !== 'all')}
+                        onClearFilters={() => setChoixFiltres({})}
+                    >
+                        <GrilleFiltres>
+                            {filtres.map(f => (
+                                <SelectFiltre
+                                    key={f.key}
+                                    label={f.label}
+                                    toutLabel={f.toutLabel}
+                                    options={f.options}
+                                    value={choixFiltres[f.key] ?? 'all'}
+                                    onChange={v => setChoixFiltres(c => ({ ...c, [f.key]: v }))}
+                                />
+                            ))}
+                        </GrilleFiltres>
+                    </FilterPanel>
+                )}
                 action={tab === 'mine' && (
                     <button onClick={openNew} className="flex items-center gap-2 bg-primary-600 hover:bg-primary-500 text-stone-950 font-bold text-sm px-4 py-3 rounded-xl transition-all whitespace-nowrap"><Plus size={16} /> {createLabel}</button>
                 )}

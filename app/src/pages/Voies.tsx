@@ -2,6 +2,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import type { Voie, Profile } from '../types/normalized';
 import { PageContainer, SearchToolbar, ContentCard, Badge, Loader } from '../components/common';
 import { useSearch } from '../hooks';
+import { invitRecherche, compteurDuType } from '../domain/compendium';
 import { DataService } from '../services/dataService';
 import { User, Users, Skull, Crown, Filter, Scroll, Search, X } from 'lucide-react';
 import { LEXIQUE } from '../domain/lexique';
@@ -87,8 +88,8 @@ export const Voies: React.FC = () => {
             <SearchToolbar
                 value={searchTerm}
                 onChange={setSearchTerm}
-                placeholder="Rechercher une voie…"
-                count={{ n: filteredItems.length, singulier: 'voie' }}
+                placeholder={invitRecherche('voie')}
+                count={{ n: filteredItems.length, ...compteurDuType('voie')! }}
                 chips={TYPES_VOIE}
                 chipActif={selectedType}
                 onChipChange={setSelectedType}

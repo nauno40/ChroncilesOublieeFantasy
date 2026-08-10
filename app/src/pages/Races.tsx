@@ -3,6 +3,7 @@ import { DataService } from '../services/dataService';
 import type { Race } from '../types/normalized';
 import { PageContainer, SearchToolbar, ContentCard, CardMedia, CardStats, Loader } from '../components/common';
 import { useSearch } from '../hooks';
+import { invitRecherche, compteurDuType } from '../domain/compendium';
 
 /**
  * Ce qu'une carte de peuple montre en pied : ses modificateurs fixes, puis sa vitesse.
@@ -40,8 +41,8 @@ export const Races: React.FC = () => {
             <SearchToolbar
                 value={searchTerm}
                 onChange={setSearchTerm}
-                placeholder="Rechercher un peuple…"
-                count={{ n: filteredItems.length, singulier: 'peuple' }}
+                placeholder={invitRecherche('race')}
+                count={{ n: filteredItems.length, ...compteurDuType('race')! }}
             />
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">

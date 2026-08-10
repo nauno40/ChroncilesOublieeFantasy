@@ -1,7 +1,8 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import type { Capacity, Profile, Voie } from '../types/normalized';
-import { PageContainer, SearchToolbar, ContentCard, Badge, FilterPanel, Loader } from '../components/common';
+import { PageContainer, SearchToolbar, ContentCard, Badge, FilterPanel, SelectFiltre, GrilleFiltres, Loader } from '../components/common';
 import { DataService } from '../services/dataService';
+import { invitRecherche, compteurDuType } from '../domain/compendium';
 
 export const Capacites: React.FC = () => {
     const [capacites, setCapacites] = useState<Capacity[]>([]);
@@ -107,8 +108,8 @@ export const Capacites: React.FC = () => {
             <SearchToolbar
                 value={searchTerm}
                 onChange={setSearchTerm}
-                placeholder="Rechercher une capacité…"
-                count={{ n: filteredItems.length, singulier: 'capacité' }}
+                placeholder={invitRecherche('capacite')}
+                count={{ n: filteredItems.length, ...compteurDuType('capacite')! }}
             />
 
             <FilterPanel
@@ -119,57 +120,20 @@ export const Capacites: React.FC = () => {
                     setSelectedType('all');
                 }}
             >
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div>
-                        <label className="block text-sm font-medium text-stone-300 mb-2">
-                            Type
-                        </label>
-                        <select aria-label="Type"
-                            value={selectedType}
-                            onChange={(e) => setSelectedType(e.target.value)}
-                            className="w-full px-3 py-2 bg-stone-900/50 border border-stone-700 rounded-lg text-stone-200 focus:border-primary-500 focus:outline-none transition-colors"
-                        >
-                            <option value="all">Toutes les capacités</option>
-                            <option value="spell">Sorts uniquement</option>
-                            <option value="non-spell">Hors sorts</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label className="block text-sm font-medium text-stone-300 mb-2">
-                            Rang
-                        </label>
-                        <select aria-label="Rang"
-                            value={selectedRank}
-                            onChange={(e) => setSelectedRank(e.target.value)}
-                            className="w-full px-3 py-2 bg-stone-900/50 border border-stone-700 rounded-lg text-stone-200 focus:border-primary-500 focus:outline-none transition-colors"
-                        >
-                            <option value="all">Tous les rangs</option>
-                            <option value="1">Rang 1</option>
-                            <option value="2">Rang 2</option>
-                            <option value="3">Rang 3</option>
-                            <option value="4">Rang 4</option>
-                            <option value="5">Rang 5</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label className="block text-sm font-medium text-stone-300 mb-2">
-                            Classe
-                        </label>
-                        <select aria-label="Classe"
-                            value={selectedProfile}
-                            onChange={(e) => {
-                                setSelectedProfile(e.target.value);
-                            }}
-                            className="w-full px-3 py-2 bg-stone-900/50 border border-stone-700 rounded-lg text-stone-200 focus:border-primary-500 focus:outline-none transition-colors"
-                        >
-                            <option value="all">Toutes les classes</option>
-                            {availableProfiles.map(p => (
-                                <option key={p.id} value={String(p.id)}>{p.name}</option>
-                            ))}
-                        </select>
-                    </div>
-                </div>
+                <GrilleFiltres>
+                    <SelectFiltre
+                        label="Type" toutLabel="Toutes les capacités" value={selectedType} onChange={setSelectedType}
+                        options={[{ value: 'spell', label: 'Sorts uniquement' }, { value: 'non-spell', label: 'Hors sorts' }]}
+                    />
+                    <SelectFiltre
+                        label="Rang" toutLabel="Tous les rangs" value={selectedRank} onChange={setSelectedRank}
+                        options={[1, 2, 3, 4, 5].map(r => ({ value: String(r), label: `Rang ${r}` }))}
+                    />
+                    <SelectFiltre
+                        label="Classe" toutLabel="Toutes les classes" value={selectedProfile} onChange={setSelectedProfile}
+                        options={availableProfiles.map(pr => ({ value: String(pr.id), label: pr.name }))}
+                    />
+                </GrilleFiltres>
             </FilterPanel>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">

@@ -25,6 +25,7 @@ export const LEXIQUE = {
     /** Le sur-ensemble réel de la page : armes, armures ET matériel. */
     equipement: 'Équipement',
     creatures: 'Créatures',
+    creature: 'Créature',
     /** Créatures créées par le meneur. « Monstre » n'existe nulle part ailleurs. */
     mesCreatures: 'Mes créatures',
     objetsMagiques: 'Objets magiques',

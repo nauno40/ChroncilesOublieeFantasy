@@ -1,5 +1,8 @@
 import { describe, it, expect } from 'vitest';
-import { armorImpacts, manaSurcharge, profileAllowedDef, spellManaCost } from './spellcasting';
+import {
+    armorImpacts, manaSurcharge, profileAllowedDef, spellManaCost,
+    estActionAttaque, coutAvecConcentration, brulureDeMana, brulurePossible,
+} from './spellcasting';
 import type { CompendiumProfile } from './types';
 import type { CharacterVoieRef } from '../../types/character';
 
@@ -121,5 +124,66 @@ describe('armorImpacts', () => {
         const impacts = armorImpacts([entree('/api/voies/1', 1)], profils, 2);
         expect(impacts[0].blocked).toEqual([]);
         expect(impacts[0].spells.map(s => s.name)).toEqual(['Projectile de mana']);
+    });
+});
+
+describe('concentration accrue', () => {
+    it('lit le type d’action sur le libellé du compendium', () => {
+        expect(estActionAttaque('Action (A)*')).toBe(true);
+        expect(estActionAttaque('Action (A) - Sort*')).toBe(true);
+        // Un sort qui PEUT être lancé en action d'attaque y a droit.
+        expect(estActionAttaque('Action (A) ou (L)*')).toBe(true);
+        expect(estActionAttaque('Action Limitée (L)*')).toBe(false);
+        expect(estActionAttaque('Action de Mouvement (M) ou Limitée (L)*')).toBe(false);
+        expect(estActionAttaque('Rituel (10 min)*')).toBe(false);
+        // 82 sorts officiels ne déclarent aucun type : ne pas deviner une remise de 2 PM.
+        expect(estActionAttaque(undefined)).toBe(false);
+    });
+
+    it('retire 2 PM à un sort lancé en action d’attaque', () => {
+        expect(coutAvecConcentration(3, 'Action (A)*')).toBe(1);
+        expect(coutAvecConcentration(5, 'Action (A)*')).toBe(3);
+    });
+
+    it('laisse leur coût aux sorts en (L), (M) et (G)', () => {
+        // « Ils ont donc un coût égal à leur rang qui ne peut pas être réduit. »
+        expect(coutAvecConcentration(3, 'Action Limitée (L)*')).toBe(3);
+        expect(coutAvecConcentration(2, 'Action de Mouvement (M)*')).toBe(2);
+        expect(coutAvecConcentration(1, 'Action Gratuite (G)*')).toBe(1);
+    });
+
+    it('ne descend jamais sous zéro', () => {
+        expect(coutAvecConcentration(1, 'Action (A)*')).toBe(0);
+        expect(coutAvecConcentration(2, 'Action (A)*')).toBe(0);
+    });
+});
+
+describe('brûlure de mana', () => {
+    /** Dés déterministes : rend les faces demandées, dans l'ordre. */
+    const des = (faces: number, ...resultats: number[]) => {
+        let i = 0;
+        return () => (resultats[i++] - 1) / faces + 0.001;
+    };
+
+    it('reproduit l’exemple du livre : 2 PM au d6 donnent 2 et 5, soit 7 PV', () => {
+        const r = brulureDeMana(2, 6, des(6, 2, 5));
+        expect(r.des).toEqual([2, 5]);
+        expect(r.pvPerdus).toBe(7);
+    });
+
+    it('reproduit le second exemple : un guerrier-magicien brûle des d10', () => {
+        // « Un guerrier-magicien (profil principal guerrier, le DR est donc le d10) […]
+        //   obtient 3 et 9 pour un total de 12 PV perdus. »
+        expect(brulureDeMana(2, 10, des(10, 3, 9)).pvPerdus).toBe(12);
+    });
+
+    it('jette un dé par point de mana', () => {
+        expect(brulureDeMana(4, 8, des(8, 1, 1, 1, 1)).des).toHaveLength(4);
+        expect(brulureDeMana(0, 6).des).toEqual([]);
+    });
+
+    it('interdit la brûlure pour un sort de soins', () => {
+        expect(brulurePossible(true)).toBe(false);
+        expect(brulurePossible(false)).toBe(true);
     });
 });

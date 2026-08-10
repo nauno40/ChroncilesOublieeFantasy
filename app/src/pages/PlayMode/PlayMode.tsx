@@ -8,6 +8,7 @@ import { useCharacterSheet } from '../../hooks/useCharacterSheet';
 import { useAutosavePlayState, type SaveStatus } from '../../hooks/useAutosavePlayState';
 import {
     attackValue, attackCarac, buildVoieIndex, isCapabilityGrantedByEntry, findRace, findProfile,
+    brulureDeMana,
 } from '../../domain/rules';
 import type { Character } from '../../types/character';
 
@@ -77,13 +78,18 @@ export const PlayMode: React.FC = () => {
     const { races, profiles, allVoies } = useCharacterData();
     const {
         character, setCharacter, loading, combatStats, mods, maxHp, damageReduction,
-        luckPoints, manaPoints, recoveryDieString, evolutiveDie, bonuses, getResolvedDice,
+        luckPoints, manaPoints, recoveryDieString, recoveryInfo, evolutiveDie, bonuses, getResolvedDice,
     } = useCharacterSheet({ races, profiles, allVoies, id, isNew: false, navigate });
 
     const saveStatus = useAutosavePlayState(id, character.playState, !loading);
 
     // Campagnes rejointes par le joueur (vue partagée : nom + MJ + résumés de séances).
     const [sharedCampaigns, setSharedCampaigns] = useState<SharedCampaign[] | null>(null);
+    // Brûlure de mana (COF2) : sacrifier des PV pour lancer un sort sans points de mana.
+    // Déclaré ICI, avec les autres états : posé plus bas, il tombait après le retour
+    // anticipé « if (loading) » et changeait le nombre de hooks entre deux rendus.
+    const [brulure, setBrulure] = useState<string | null>(null);
+
     useEffect(() => {
         SharingService.getSharedCampaigns().then(setSharedCampaigns).catch(() => setSharedCampaigns([]));
     }, []);
@@ -103,6 +109,18 @@ export const PlayMode: React.FC = () => {
     const setHp = (v: number) => setPs({ hp: { ...ps!.hp, current: Math.max(0, Math.min(maxHp, v)) } });
     const manaCurrent = Math.min(manaPoints, ps?.mana?.current ?? manaPoints);
     const setMana = (v: number) => setPs({ mana: { ...ps!.mana, current: Math.max(0, Math.min(manaPoints, v)) } });
+    const brulerMana = () => {
+        const demande = window.prompt('Brûler combien de points de mana ?', '1');
+        const pm = parseInt(demande ?? '');
+        if (!pm || pm < 1) return;
+        if (!recoveryInfo.sides) return;
+        const { des, pvPerdus } = brulureDeMana(pm, recoveryInfo.sides);
+        // Aucune RD ne s'applique à cette perte : les PV tombent tels quels.
+        setHp(hpCurrent - pvPerdus);
+        setMana(manaCurrent + pm);
+        setBrulure(`${pm} PM · ${des.join(' + ')} = ${pvPerdus} PV sacrifiés (d${recoveryInfo.sides})`);
+    };
+
     const luckCurrent = Math.min(luckPoints, ps?.luck?.current ?? luckPoints);
     const setLuck = (v: number) => setPs({ luck: { ...ps!.luck, current: Math.max(0, Math.min(luckPoints, v)) } });
 
@@ -146,9 +164,27 @@ export const PlayMode: React.FC = () => {
                         {/* Trackers */}
                         <div className="flex flex-wrap gap-2">
                             <Tracker label="Points de Vie" current={hpCurrent} max={maxHp} onChange={setHp} color="text-green-500" />
-                            {isMage && <Tracker label="Mana" current={manaCurrent} max={manaPoints} onChange={setMana} color="text-blue-400" />}
+                            {isMage && (
+                                <div className="flex flex-col gap-1">
+                                    <Tracker label="Mana" current={manaCurrent} max={manaPoints} onChange={setMana} color="text-blue-400" />
+                                    <button
+                                        onClick={brulerMana}
+                                        title="Sacrifier des PV pour regagner des PM — impossible pour un sort de soins"
+                                        className="text-[10px] uppercase tracking-wider font-bold text-red-300/80 hover:text-red-200 border border-red-500/30 rounded px-2 py-0.5 transition-colors"
+                                    >
+                                        Brûler du mana
+                                    </button>
+                                </div>
+                            )}
                             <Tracker label="Chance" current={luckCurrent} max={luckPoints} onChange={setLuck} color="text-amber-400" />
                         </div>
+
+                        {brulure && (
+                            <p className="text-[11px] text-red-300/90 font-mono">
+                                Brûlure : {brulure}
+                                <button onClick={() => setBrulure(null)} className="ml-2 text-stone-400 hover:text-stone-200">✕</button>
+                            </p>
+                        )}
 
                         {/* Stats de combat (lecture) */}
                         <div className="flex flex-wrap gap-2">

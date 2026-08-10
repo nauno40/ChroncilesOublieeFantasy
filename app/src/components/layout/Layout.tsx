@@ -78,7 +78,7 @@ export const Layout: React.FC = () => {
             subItems: [
                 { path: '/tools/tracker', icon: Sword, label: LEXIQUE.suiviCombat },
                 { path: '/tools/dice', icon: Dices, label: LEXIQUE.des },
-                { path: '/tools/dangers', icon: Mountain, label: 'Dangers' },
+                { path: '/tools/dangers', icon: Mountain, label: 'Voyage & dangers' },
                 { path: '/tools/soundboard', icon: Music, label: LEXIQUE.ambiances },
             ]
         },

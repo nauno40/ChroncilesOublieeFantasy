@@ -22,3 +22,4 @@ export * from './optionsTactiques';
 export * from './dommages';
 export * from './etatsCombat';
 export * from './dangers';
+export * from './voyage';

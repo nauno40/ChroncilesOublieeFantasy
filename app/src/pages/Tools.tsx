@@ -79,8 +79,8 @@ export const Tools: React.FC = () => {
                         <div className="bg-primary-900/30 w-16 h-16 rounded-xl flex items-center justify-center mb-6 border border-primary-500/20 group-hover:bg-primary-500/20 transition-colors">
                             <Mountain size={32} className="text-primary-400 group-hover:text-primary-300" />
                         </div>
-                        <h3 className="text-2xl font-display font-bold text-stone-200 mb-2 group-hover:text-primary-400 transition-colors">Dangers &amp; obstacles</h3>
-                        <p className="text-stone-400 text-sm leading-relaxed max-w-sm">Chute, saut en longueur, feu, chaleur et froid : les difficultés et les dommages, calculés d'après la situation.</p>
+                        <h3 className="text-2xl font-display font-bold text-stone-200 mb-2 group-hover:text-primary-400 transition-colors">Voyage &amp; dangers</h3>
+                        <p className="text-stone-400 text-sm leading-relaxed max-w-sm">Distances de voyage, marche forcée, chute, saut, feu, chaleur et froid : les difficultés et les dommages, calculés d'après la situation.</p>
                     </div>
                 </Link>
 

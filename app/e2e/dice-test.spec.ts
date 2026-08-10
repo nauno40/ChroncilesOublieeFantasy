@@ -134,3 +134,26 @@ test('la page Dangers calcule la chute, la chaleur et le froid', async ({ page }
     await page.fill('input[aria-label="Température"]', '45');
     await expect(page.getByText('Chaleur — test de CON difficulté 15')).toBeVisible();
 });
+
+// Voyage : « [12 + CON ‑ pénalité d'armure] km par période », le terrain divisant la
+// distance. Ces calculs n'existaient nulle part.
+test('la page Voyage & dangers calcule les distances de déplacement', async ({ page }) => {
+    await register(page, uniqueEmail('voy'));
+    await page.goto('/tools/dangers');
+
+    // CON +2, sans armure : 14 km par période, deux périodes par jour.
+    await expect(page.getByText('14 km par période · 28 km par jour')).toBeVisible({ timeout: 20_000 });
+
+    // Cotte de mailles (DEF 5) : la pénalité d'armure est sa DEF.
+    await page.fill('input[aria-label="DEF de l’armure portée"]', '5');
+    await expect(page.getByText('9 km par période · 18 km par jour')).toBeVisible();
+
+    // « Si l'armure est dans le sac, sa pénalité est réduite de moitié » : 5 → 2.
+    await page.locator('label:has-text("Armure dans le sac") input').check();
+    await expect(page.getByText('12 km par période · 24 km par jour')).toBeVisible();
+
+    // Hors piste ET terrain difficile : divisé par quatre.
+    await page.locator('label:has-text("Hors piste") input').check();
+    await page.locator('label:has-text("Terrain difficile") input').check();
+    await expect(page.getByText('3 km par période · 6 km par jour')).toBeVisible();
+});

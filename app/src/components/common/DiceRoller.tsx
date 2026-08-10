@@ -3,6 +3,7 @@ import { Dices, Eraser, ChevronRight } from 'lucide-react';
 import { LEXIQUE } from '../../domain/lexique';
 import { lancerTest, lancerAttaque, DIFFICULTES, qualificatifDifficulte } from '../../domain/rules/test';
 import { CONDITIONS_TIR, malusTir } from '../../domain/rules/tirADistance';
+import { OPTIONS_TACTIQUES, MANOEUVRES, optionTactique, NOTE_TAILLE } from '../../domain/rules/optionsTactiques';
 
 interface RollResult {
     id: string;
@@ -90,12 +91,16 @@ const performTest = (carac: number, difficulte: number | undefined, avantage: 'b
  * Test d'attaque COF2 : d20 + valeur d'attaque contre la DEF de la cible. Distinct du test
  * de caractéristique — pas d'échec critique automatique, et un critique double les DM.
  */
-const performAttaque = (valeurAttaque: number, defCible: number | undefined, avantage: 'bonus' | 'malus' | 'aucun', conditions: string[]): RollResult => {
+const performAttaque = (valeurAttaque: number, defCible: number | undefined, avantage: 'bonus' | 'malus' | 'aucun', conditions: string[], optionId: string): RollResult => {
     const tir = malusTir(conditions);
+    const option = optionTactique(optionId);
+    // Une manœuvre se joue en test opposé : la DEF de la cible ne s'applique pas, et il n'y
+    // a donc pas de verdict à rendre — c'est le jet de la cible qui tranchera.
+    const defRetenue = option?.testOppose ? undefined : defCible;
     const r = lancerAttaque({
         valeurAttaque,
-        defCible,
-        modificateur: tir.modificateur,
+        defCible: defRetenue,
+        modificateur: tir.modificateur + (option?.attaque ?? 0),
         deBonus: avantage === 'bonus' ? 1 : 0,
         // Le dé malus des conditions de tir rejoint celui de la situation : ils ne se
         // cumulent pas, `lancerTest` n'en retient qu'un.
@@ -107,13 +112,20 @@ const performAttaque = (valeurAttaque: number, defCible: number | undefined, ava
     const signe = valeurAttaque > 0 ? `+${valeurAttaque}` : valeurAttaque < 0 ? String(valeurAttaque) : '';
     const mention = avantage === 'bonus' && !tir.deMalus ? ' dé bonus'
         : (avantage === 'malus' || tir.deMalus) && avantage !== 'bonus' ? ' dé malus' : '';
+    const mentionOption = option ? ` · ${option.label}` : '';
     return {
         id: crypto.randomUUID(),
-        description: `Attaque d20${signe}${mention}${defCible !== undefined ? ` · DEF ${defCible}` : ''}${r.dmDoubles ? ' · DM DOUBLÉS' : ''}`,
+        description: `Attaque d20${signe}${mention}${mentionOption}${option?.testOppose ? ' · test opposé' : defCible !== undefined ? ` · DEF ${defCible}` : ''}${r.dmDoubles && !option?.testOppose ? ' · DM DOUBLÉS' : ''}`,
         result: r.total,
-        details: `(${r.des.join(' / ')})${signe}${tir.modificateur !== 0 ? ` · tir ${tir.modificateur}` : ''}`,
+        details: [
+            `(${r.des.join(' / ')})${signe}`,
+            tir.modificateur !== 0 ? `tir ${tir.modificateur}` : '',
+            option?.attaque ? `option ${option.attaque > 0 ? '+' : ''}${option.attaque}` : '',
+            option?.attaqueCarac ? `+${option.attaqueCarac} à ajouter` : '',
+            option?.effet ?? '',
+        ].filter(Boolean).join(' · '),
         timestamp: Date.now(),
-        isCritSuccess: r.critique,
+        isCritSuccess: r.critique && !option?.testOppose,
         // Pas d'échec critique en combat : un 1 n'est pas automatiquement raté.
         isCritFail: false,
         reussi: r.reussi,
@@ -136,6 +148,9 @@ export const DiceRoller: React.FC<DiceRollerProps> = ({ isOpen, mode = 'popup' }
     // ils dépendent de la situation, pas de la feuille — d'où leur place ici.
     const [conditions, setConditions] = useState<string[]>([]);
     const [conditionsOuvertes, setConditionsOuvertes] = useState(false);
+    // Une seule option tactique ou manœuvre à la fois : le livre ne prévoit pas de les
+    // combiner, et une attaque assurée doublée d'une attaque violente n'aurait pas de sens.
+    const [option, setOption] = useState('');
     const historyListRef = useRef<HTMLDivElement>(null);
 
     // Défilement automatique vers le dernier jet. On défile le conteneur lui-même :
@@ -177,7 +192,7 @@ export const DiceRoller: React.FC<DiceRollerProps> = ({ isOpen, mode = 'popup' }
 
     const rollTest = () => setHistory(h => [
         genre === 'attaque'
-            ? performAttaque(carac, difficulte === '' ? undefined : difficulte, avantage, conditions)
+            ? performAttaque(carac, difficulte === '' ? undefined : difficulte, avantage, conditions, option)
             : performTest(carac, difficulte === '' ? undefined : difficulte, avantage),
         ...h,
     ].slice(0, 50));
@@ -303,6 +318,39 @@ export const DiceRoller: React.FC<DiceRollerProps> = ({ isOpen, mode = 'popup' }
                             </select>
                         )}
                     </div>
+                    {genre === 'attaque' && (
+                        <div className="space-y-1">
+                            <select
+                                aria-label="Option tactique"
+                                value={option}
+                                onChange={e => setOption(e.target.value)}
+                                className="w-full bg-black/40 border border-white/10 rounded px-2 py-1 text-stone-200 text-xs focus:outline-none focus:border-primary-500/50"
+                            >
+                                <option value="">— Attaque simple —</option>
+                                <optgroup label="Options tactiques">
+                                    {OPTIONS_TACTIQUES.map(o => (
+                                        <option key={o.id} value={o.id}>
+                                            {o.label} ({o.action}){o.attaque ? ` ${o.attaque > 0 ? '+' : ''}${o.attaque}` : ''}
+                                        </option>
+                                    ))}
+                                </optgroup>
+                                <optgroup label="Manœuvres (test opposé)">
+                                    {MANOEUVRES.map(o => (
+                                        <option key={o.id} value={o.id}>
+                                            {o.label}{o.attaque ? ` ${o.attaque}` : o.attaqueCarac ? ` +${o.attaqueCarac}` : ''}
+                                        </option>
+                                    ))}
+                                </optgroup>
+                            </select>
+                            {option && (
+                                <p className="text-[10px] text-stone-400 leading-snug px-0.5">
+                                    {optionTactique(option)?.effet}
+                                    {optionTactique(option)?.modifieParTaille && <span className="block text-stone-500">{NOTE_TAILLE}</span>}
+                                </p>
+                            )}
+                        </div>
+                    )}
+
                     {genre === 'attaque' && (
                         <div className="rounded border border-white/5 bg-black/20">
                             <button

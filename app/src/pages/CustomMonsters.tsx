@@ -1,11 +1,19 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Skull, Plus, Trash2, Pencil, Save, X, Swords, Sparkles, Globe, Lock, User as UserIcon, Copy } from 'lucide-react';
-import { PageContainer, PageHeader, EmptyState } from '../components/common';
+import { Skull, Plus, Trash2, Pencil, Save, X, Swords, Sparkles, Globe, Lock, Copy } from 'lucide-react';
+import { PageContainer, PageHeader, EmptyState, AuthorTag, SearchToolbar } from '../components/common';
+import { CreatureCard } from '../components/creature/CreatureCard';
+import { carteDepuisMonstreMaison } from '../domain/creature';
 import { getMonsters, createMonster, updateMonster, deleteMonster } from '../services/monsterService';
 import { DataService } from '../services/dataService';
 import { useAuth } from '../context/AuthContext';
 import type { CustomCreature, CustomCreatureAttack, CustomCreatureCapability, Creature } from '../types';
 import { LEXIQUE } from '../domain/lexique';
+
+/** Sources, quand la page est ouverte seule (hors compendium unifié). */
+const ONGLETS = [
+    { id: 'mine', label: LEXIQUE.sourceMiennes },
+    { id: 'community', label: LEXIQUE.sourceCommunaute },
+];
 
 const inputClass =
     'w-full bg-black/40 border border-white/10 text-stone-100 rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-primary-500';
@@ -135,6 +143,7 @@ export const CustomMonsters: React.FC<CustomMonstersProps> = ({ embedded = false
     const [form, setForm] = useState<MonsterForm | null>(null);
     const [saving, setSaving] = useState(false);
     const [duplicatingId, setDuplicatingId] = useState<number | null>(null);
+    const [recherche, setRecherche] = useState('');
     const [error, setError] = useState<string | null>(null);
 
     const load = () => {
@@ -171,11 +180,17 @@ export const CustomMonsters: React.FC<CustomMonstersProps> = ({ embedded = false
     }, [srdCreatures, monsters]);
 
     // Onglet « Mes créations » = mes créatures ; « Communauté » = les publiques d'autrui.
-    const visible = useMemo(() => (
-        tab === 'mine'
+    // La recherche par nom existait côté bestiaire officiel et nulle part ici : une fois
+    // passé quelques créatures, la liste ne se parcourait plus qu'à l'œil.
+    const visible = useMemo(() => {
+        const base = tab === 'mine'
             ? monsters.filter((c) => c.authorId === myId)
-            : monsters.filter((c) => c.visibility === 'public' && c.authorId !== myId)
-    ), [monsters, tab, myId]);
+            : monsters.filter((c) => c.visibility === 'public' && c.authorId !== myId);
+        const terme = recherche.trim().toLowerCase();
+        return terme
+            ? base.filter((c) => (c.name + ' ' + (c.description ?? '') + ' ' + (c.category ?? '')).toLowerCase().includes(terme))
+            : base;
+    }, [monsters, tab, myId, recherche]);
 
     const startCreate = () => {
         setError(null);
@@ -272,29 +287,23 @@ export const CustomMonsters: React.FC<CustomMonstersProps> = ({ embedded = false
             )}
 
             {!form && (
-                <div className={`flex flex-wrap items-center gap-3 ${embedded ? 'justify-end' : 'justify-between'}`}>
-                    {!embedded && (
-                    <div className="flex gap-2">
-                        {(['mine', 'community'] as const).map((t) => (
-                            <button
-                                key={t}
-                                onClick={() => setTab(t)}
-                                className={`px-4 py-2 rounded-xl text-sm font-bold transition-all ${tab === t ? 'bg-primary-500/20 text-primary-300 border border-primary-500/40' : 'bg-stone-900/40 text-stone-400 border border-white/5 hover:text-stone-300'}`}
-                            >
-                                {t === 'mine' ? LEXIQUE.sourceMiennes : LEXIQUE.sourceCommunaute}
-                            </button>
-                        ))}
-                    </div>
-                    )}
-                    {tab === 'mine' && (
+                <SearchToolbar
+                    value={recherche}
+                    onChange={setRecherche}
+                    placeholder="Rechercher une créature…"
+                    count={{ n: visible.length, singulier: 'créature' }}
+                    chips={embedded ? undefined : ONGLETS}
+                    chipActif={embedded ? undefined : tab}
+                    onChipChange={(id) => setTab(id as 'mine' | 'community')}
+                    action={tab === 'mine' && (
                         <button
                             onClick={startCreate}
-                            className="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-500 text-white font-medium rounded-lg px-4 py-2 transition-colors"
+                            className="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-500 text-stone-950 font-bold text-sm rounded-xl px-4 py-3 transition-colors whitespace-nowrap"
                         >
-                            <Plus size={18} /> Nouveau monstre
+                            <Plus size={16} /> Nouveau monstre
                         </button>
                     )}
-                </div>
+                />
             )}
 
             {error && !form && (
@@ -593,59 +602,34 @@ export const CustomMonsters: React.FC<CustomMonstersProps> = ({ embedded = false
             )}
 
             {!form && visible.length > 0 && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {visible.map((c) => {
                         const mine = c.authorId === myId;
                         return (
-                            <div key={c.id} className="glass-panel p-5 rounded-xl flex items-start justify-between gap-4">
-                                <div className="min-w-0">
-                                    <div className="flex items-center gap-2">
-                                        <h3 className="text-lg font-display font-bold text-stone-100 truncate">{c.name}</h3>
-                                        {c.visibility === 'public'
-                                            ? <Globe size={13} className="text-green-500/70 shrink-0" aria-label="Public" />
-                                            : <Lock size={13} className="text-stone-400 shrink-0" aria-label="Privé" />}
+                            <CreatureCard
+                                key={c.id}
+                                carte={carteDepuisMonstreMaison(c)}
+                                entete={c.visibility === 'public'
+                                    ? <Globe size={13} className="text-green-500/70 shrink-0" aria-label="Public" />
+                                    : <Lock size={13} className="text-stone-400 shrink-0" aria-label="Privé" />}
+                                footer={mine ? (
+                                    <div className="flex border-t border-white/5">
+                                        <button onClick={() => startEdit(c)} className="flex-1 py-2 text-[11px] font-bold uppercase text-stone-400 hover:text-primary-400 hover:bg-white/[0.03] flex items-center justify-center gap-1.5 transition-all"><Pencil size={12} /> Modifier</button>
+                                        <button onClick={() => handleDelete(c)} className="flex-1 py-2 text-[11px] font-bold uppercase text-stone-400 hover:text-red-400 hover:bg-white/[0.03] flex items-center justify-center gap-1.5 transition-all border-l border-white/5"><Trash2 size={12} /> Supprimer</button>
                                     </div>
-                                    <p className="text-sm text-stone-400 mt-1">
-                                        NC {c.nc} · PV {c.hp} · DEF {c.def} · INIT {c.init}
-                                        {c.category ? ` · ${c.category}` : ''}
-                                    </p>
-                                    {c.description && (
-                                        <p className="text-sm text-stone-400 mt-2 line-clamp-2">{c.description}</p>
-                                    )}
-                                    {!mine && (
-                                        <div className="mt-3 space-y-2">
-                                            <p className="text-[11px] text-stone-400 flex items-center gap-1">
-                                                <UserIcon size={11} /> {c.authorPseudo || 'Anonyme'}
-                                            </p>
-                                            <button
-                                                onClick={() => handleDuplicate(c)}
-                                                disabled={duplicatingId === c.id}
-                                                className="inline-flex items-center gap-1.5 text-xs font-bold text-primary-400 hover:text-primary-300 border border-primary-500/30 hover:border-primary-500/50 rounded-lg px-3 py-1.5 transition-all disabled:opacity-50"
-                                            >
-                                                <Copy size={13} /> {duplicatingId === c.id ? 'Copie…' : 'Dupliquer chez moi'}
-                                            </button>
-                                        </div>
-                                    )}
-                                </div>
-                                {mine && (
-                                    <div className="flex flex-col gap-2 shrink-0">
+                                ) : (
+                                    <div className="flex items-center justify-between gap-2 border-t border-white/5 px-3 py-2">
+                                        <AuthorTag pseudo={c.authorPseudo} size="sm" />
                                         <button
-                                            onClick={() => startEdit(c)}
-                                            className="text-stone-400 hover:text-primary-400"
-                                            aria-label="Modifier"
+                                            onClick={() => handleDuplicate(c)}
+                                            disabled={duplicatingId === c.id}
+                                            className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase text-stone-400 hover:text-primary-400 transition-colors disabled:opacity-50"
                                         >
-                                            <Pencil size={18} />
-                                        </button>
-                                        <button
-                                            onClick={() => handleDelete(c)}
-                                            className="text-stone-400 hover:text-red-400"
-                                            aria-label="Supprimer"
-                                        >
-                                            <Trash2 size={18} />
+                                            <Copy size={12} /> {duplicatingId === c.id ? 'Copie…' : 'Dupliquer chez moi'}
                                         </button>
                                     </div>
                                 )}
-                            </div>
+                            />
                         );
                     })}
                 </div>

@@ -80,6 +80,13 @@ export interface Combatant {
     per: number; // Perception (indicatif ; l'Init l'inclut déjà)
     tiebreak: number; // 1d20 stocké — départage final stable
     states: string[];
+    /**
+     * Réduction des dommages (COF2). SAISIE, jamais devinée : 29 créatures du bestiaire la
+     * mentionnent, mais en texte libre dans leurs capacités (« RD 2 avec des armes ») —
+     * l'extraire par expression régulière donnerait des faux positifs, et ce projet a déjà
+     * tranché en faveur de la déclaration pour les états et les invocations.
+     */
+    rd?: number;
     source?: 'manual' | 'bestiary' | 'character';
     referenceId?: string; // ID source (bestiaire/perso)
 }

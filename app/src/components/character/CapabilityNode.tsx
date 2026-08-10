@@ -1,11 +1,14 @@
 import React from 'react';
 import { Tooltip } from '../common';
+import { spellManaCost, coutAvecConcentration } from '../../domain/rules';
 
 interface Cap {
     name: string;
     description: string;
     /** Sort (capacité magique) : son coût en PM = son rang (COF2, Magie et sorts). */
     isSpell?: boolean;
+    /** Type d'action du sort : une action d'attaque (A) ouvre la concentration accrue. */
+    actionType?: string | null;
 }
 
 interface Props {
@@ -93,9 +96,32 @@ export const CapabilityNode: React.FC<Props> = ({ rank, isActive, nextActive, ca
                                 {resolvedDice && (
                                     <span className={`ml-2 text-[11px] font-bold normal-case px-1.5 py-0.5 rounded ${t.rank} bg-black/30`}>{resolvedDice}</span>
                                 )}
-                                {cap.isSpell && (
-                                    <span className="ml-2 text-[11px] font-bold normal-case px-1.5 py-0.5 rounded bg-blue-950/40 border border-blue-700/40 text-blue-400" title="Coût du sort = son rang">{rank} PM</span>
-                                )}
+                                {cap.isSpell && (() => {
+                                    // Concentration accrue (COF2) : un sort lancé en action
+                                    // d'attaque peut coûter 2 PM de moins en devenant une
+                                    // action limitée. Le coût réduit s'affiche à côté du
+                                    // nominal plutôt que de le remplacer — les deux sont
+                                    // jouables, c'est le joueur qui choisit.
+                                    const base = spellManaCost(rank);
+                                    const concentre = coutAvecConcentration(rank, cap.actionType);
+                                    return (
+                                        <span
+                                            className="ml-2 text-[11px] font-bold normal-case px-1.5 py-0.5 rounded bg-blue-950/40 border border-blue-700/40 text-blue-400"
+                                            title={concentre > 0 && concentre < base
+                                                ? `Coût du sort = son rang. Concentration accrue : ${concentre} PM en action limitée.`
+                                                : 'Coût du sort = son rang'}
+                                        >
+                                            {base} PM
+                                            {/* La mention n'apparaît que si le coût réduit reste
+                                                positif : pour un rang 1 ou 2, la remise de 2 PM
+                                                donnerait « 0 concentré », ce qui promettrait un
+                                                sort gratuit — le livre ne tranche pas ce cas. */}
+                                            {concentre > 0 && concentre < base && (
+                                                <span className="text-blue-300/70"> · {concentre} concentré</span>
+                                            )}
+                                        </span>
+                                    );
+                                })()}
                             </span>
                         )}
                     </div>

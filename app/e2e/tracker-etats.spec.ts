@@ -110,3 +110,34 @@ test('attaquer une cible depuis sa ligne utilise sa DEF effective', async ({ pag
     await expect(jet).toContainText('contre DEF 9');
     await expect(jet).toContainText(/TOUCHÉ|raté/);
 });
+
+// Fermer le round : le jet d'attaque enchaîne sur les dommages, qui appliquent la RD de la
+// cible et retirent les PV. Le critique doit doubler les DM — d'où la mémoire du jet.
+test('infliger les dommages depuis le jet d’attaque retire les PV, RD comprise', async ({ page }) => {
+    await register(page, uniqueEmail('round'));
+    await page.goto('/tools/tracker');
+
+    const ajoute = async (nom: string, init: string, pv: string, def: string, rd?: string) => {
+        await page.fill('input[placeholder="Nom du combattant"]', nom);
+        const n = page.locator('.glass-panel input[type=number]');
+        await n.nth(0).fill(init);
+        await n.nth(1).fill(pv);
+        await n.nth(2).fill(def);
+        if (rd) await n.nth(3).fill(rd);
+        await page.click('button:has-text("Ajouter")');
+    };
+    await ajoute('Lhagva', '14', '25', '16');
+    // DEF 2 : l'attaque touche à coup sûr, le test porte sur l'enchaînement.
+    await ajoute('Troll', '10', '40', '2', '2');
+
+    await page.fill('input[aria-label="Valeur d\'attaque de Lhagva"]', '5');
+    await page.click('button:has-text("Tour Suivant")');
+    await page.locator('button:has-text("Attaquer")').last().click();
+
+    // 2d1+10 : une formule déterministe, donc 12 bruts, moins la RD 2 ⇒ 10 PV.
+    await page.fill('input[aria-label="Formule de dommages"]', '2d1+10');
+    await page.click('button:has-text("Infliger")');
+
+    await expect(page.locator('p.font-mono').first()).toContainText('RD 2 → 10 PV');
+    await expect(page.getByLabel('Points de vie de Troll')).toContainText('30');
+});

@@ -4,6 +4,7 @@ import { PageContainer, SearchToolbar, Loader, CompendiumTable } from '../compon
 import { useSearch } from '../hooks';
 import { DataService } from '../services/dataService';
 import { COLONNES_TABLE, LABEL_NOM } from '../domain/tablesCompendium';
+import { DIF_ENDUIRE_ARME, DIF_RESISTER_POISON, DELAI_DEGRADATION, NOTE_PREMIERE_ATTAQUE } from '../domain/rules';
 
 export const Poisons: React.FC = () => {
     const [poisons, setPoisons] = useState<Poison[]>([]);
@@ -41,7 +42,13 @@ export const Poisons: React.FC = () => {
             />
 
             <p className="text-[11px] text-stone-400 mt-3 italic">
-                À la création d'un poison, le MJ choisit un type et une voie d'administration (ingestion, contact, blessure…). Un test de CON réussi réduit ou annule l'effet selon le type.
+                {/* La note disait « un test de CON réussi réduit ou annule l'effet » sans
+                    donner la difficulté ni la règle de l'arme enduite, pourtant la seule
+                    que le livre détaille. */}
+                Une victime mise en contact fait un test de CON difficulté {DIF_RESISTER_POISON}, que le MJ relève selon la
+                virulence ; la colonne « Effet — Réussite » dit ce qu'elle subit malgré tout. Enduire une arme demande
+                un test d’INT difficulté {DIF_ENDUIRE_ARME} : un échec gaspille la dose, un échec critique empoisonne le porteur.{' '}
+                {NOTE_PREMIERE_ATTAQUE} Sur une créature morte, les composants se dégradent en {DELAI_DEGRADATION}.
             </p>
         </PageContainer>
     );

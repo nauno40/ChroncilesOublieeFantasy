@@ -36,3 +36,25 @@ test('le lanceur jette un test d’attaque contre la DEF de la cible', async ({ 
     await expect(jet).toContainText('DEF 16');
     await expect(jet).toContainText(/Réussi|Échoué/);
 });
+
+// Les malus de tir dépendent de la situation, pas de la feuille : ils n'étaient rappelés
+// nulle part. On vérifie qu'une condition chiffrée et une condition à dé malus se combinent.
+test('les conditions de tir s’appliquent au test d’attaque', async ({ page }) => {
+    await register(page, uniqueEmail('tir'));
+    await page.goto('/tools/dice');
+
+    await page.click('[role=radio]:has-text("Attaque")');
+    await page.fill('input[aria-label="Valeur d\'attaque"]', '5');
+    await page.fill('input[aria-label="DEF de la cible"]', '16');
+    await page.click('button:has-text("Conditions de tir")');
+    await page.click('label:has-text("Cible à couvert — fortement") input');
+    await page.click('label:has-text("Longue portée") input');
+    await page.click('button:has-text("Tester")');
+
+    const jet = page.locator('.glass-panel.p-2').first();
+    // La valeur d'attaque et le malus de situation restent lisibles séparément.
+    await expect(jet).toContainText('Attaque d20+5');
+    await expect(jet).toContainText('tir -5');
+    // La longue portée impose un dé malus : deux d20 sont lancés.
+    await expect(jet).toContainText(/\(\d+ \/ \d+\)/);
+});

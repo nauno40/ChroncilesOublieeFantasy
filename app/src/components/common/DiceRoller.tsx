@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Dices, Eraser, ChevronRight } from 'lucide-react';
 import { LEXIQUE } from '../../domain/lexique';
 import { lancerTest, lancerAttaque, DIFFICULTES, qualificatifDifficulte } from '../../domain/rules/test';
+import { CONDITIONS_TIR, malusTir } from '../../domain/rules/tirADistance';
 
 interface RollResult {
     id: string;
@@ -89,20 +90,28 @@ const performTest = (carac: number, difficulte: number | undefined, avantage: 'b
  * Test d'attaque COF2 : d20 + valeur d'attaque contre la DEF de la cible. Distinct du test
  * de caractéristique — pas d'échec critique automatique, et un critique double les DM.
  */
-const performAttaque = (valeurAttaque: number, defCible: number | undefined, avantage: 'bonus' | 'malus' | 'aucun'): RollResult => {
+const performAttaque = (valeurAttaque: number, defCible: number | undefined, avantage: 'bonus' | 'malus' | 'aucun', conditions: string[]): RollResult => {
+    const tir = malusTir(conditions);
     const r = lancerAttaque({
         valeurAttaque,
         defCible,
+        modificateur: tir.modificateur,
         deBonus: avantage === 'bonus' ? 1 : 0,
-        deMalus: avantage === 'malus' ? 1 : 0,
+        // Le dé malus des conditions de tir rejoint celui de la situation : ils ne se
+        // cumulent pas, `lancerTest` n'en retient qu'un.
+        deMalus: avantage === 'malus' || tir.deMalus ? 1 : 0,
     });
+    // La valeur d'attaque et le malus de situation restent SÉPARÉS à l'affichage : agrégés,
+    // une attaque +5 sous un couvert -5 s'annonçait « Attaque d20 », sans plus rien montrer
+    // de ce qui la compose.
     const signe = valeurAttaque > 0 ? `+${valeurAttaque}` : valeurAttaque < 0 ? String(valeurAttaque) : '';
-    const mention = avantage === 'bonus' ? ' dé bonus' : avantage === 'malus' ? ' dé malus' : '';
+    const mention = avantage === 'bonus' && !tir.deMalus ? ' dé bonus'
+        : (avantage === 'malus' || tir.deMalus) && avantage !== 'bonus' ? ' dé malus' : '';
     return {
         id: crypto.randomUUID(),
         description: `Attaque d20${signe}${mention}${defCible !== undefined ? ` · DEF ${defCible}` : ''}${r.dmDoubles ? ' · DM DOUBLÉS' : ''}`,
         result: r.total,
-        details: `(${r.des.join(' / ')})${signe}`,
+        details: `(${r.des.join(' / ')})${signe}${tir.modificateur !== 0 ? ` · tir ${tir.modificateur}` : ''}`,
         timestamp: Date.now(),
         isCritSuccess: r.critique,
         // Pas d'échec critique en combat : un 1 n'est pas automatiquement raté.
@@ -123,6 +132,10 @@ export const DiceRoller: React.FC<DiceRollerProps> = ({ isOpen, mode = 'popup' }
     // Le test de caractéristique et le test d'attaque ne suivent pas les mêmes règles :
     // le second n'a pas d'échec critique automatique et double les DM sur un critique.
     const [genre, setGenre] = useState<'carac' | 'attaque'>('carac');
+    // Conditions de tir cochées : ce sont les modificateurs les plus souvent oubliés, et
+    // ils dépendent de la situation, pas de la feuille — d'où leur place ici.
+    const [conditions, setConditions] = useState<string[]>([]);
+    const [conditionsOuvertes, setConditionsOuvertes] = useState(false);
     const historyListRef = useRef<HTMLDivElement>(null);
 
     // Défilement automatique vers le dernier jet. On défile le conteneur lui-même :
@@ -164,7 +177,7 @@ export const DiceRoller: React.FC<DiceRollerProps> = ({ isOpen, mode = 'popup' }
 
     const rollTest = () => setHistory(h => [
         genre === 'attaque'
-            ? performAttaque(carac, difficulte === '' ? undefined : difficulte, avantage)
+            ? performAttaque(carac, difficulte === '' ? undefined : difficulte, avantage, conditions)
             : performTest(carac, difficulte === '' ? undefined : difficulte, avantage),
         ...h,
     ].slice(0, 50));
@@ -290,6 +303,43 @@ export const DiceRoller: React.FC<DiceRollerProps> = ({ isOpen, mode = 'popup' }
                             </select>
                         )}
                     </div>
+                    {genre === 'attaque' && (
+                        <div className="rounded border border-white/5 bg-black/20">
+                            <button
+                                onClick={() => setConditionsOuvertes(o => !o)}
+                                aria-expanded={conditionsOuvertes}
+                                className="w-full flex items-center justify-between px-2 py-1 text-[10px] uppercase tracking-wider text-stone-400 hover:text-stone-300 transition-colors"
+                            >
+                                <span>Conditions de tir</span>
+                                <span className="font-mono text-primary-300">
+                                    {conditions.length > 0 ? `${conditions.length} cochée${conditions.length > 1 ? 's' : ''}` : '—'}
+                                </span>
+                            </button>
+                            {conditionsOuvertes && (
+                                <div className="px-2 pb-2 space-y-0.5 max-h-40 overflow-y-auto">
+                                    {CONDITIONS_TIR.map(c => (
+                                        <label key={c.id} className="flex items-start gap-2 text-[11px] text-stone-300 cursor-pointer hover:text-stone-100">
+                                            <input
+                                                type="checkbox"
+                                                checked={conditions.includes(c.id)}
+                                                onChange={e => setConditions(liste => e.target.checked
+                                                    ? [...liste, c.id]
+                                                    : liste.filter(x => x !== c.id))}
+                                                className="mt-0.5 accent-primary-500"
+                                            />
+                                            <span className="flex-1 min-w-0">
+                                                {c.label}
+                                                <span className="text-stone-400">
+                                                    {c.modificateur !== undefined ? ` ${c.modificateur}` : c.deMalus ? ' · dé malus' : ' · spécial'}
+                                                </span>
+                                            </span>
+                                        </label>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                    )}
+
                     <div className="flex items-center gap-1.5">
                         <div role="radiogroup" aria-label="Dé bonus ou malus" className="flex gap-1 flex-1">
                             {([['malus', 'Dé malus'], ['aucun', 'Normal'], ['bonus', 'Dé bonus']] as const).map(([id, label]) => (

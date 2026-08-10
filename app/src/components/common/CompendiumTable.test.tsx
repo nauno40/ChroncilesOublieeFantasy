@@ -33,7 +33,9 @@ vi.mock('../../services/dataService', () => ({
     DataService: {
         getPoisons: () => Promise.resolve(poisonsOfficiels),
         getTraps: () => Promise.resolve(piegesOfficiels),
-        getWeapons: () => Promise.resolve(equipementOfficiel),
+        // `Equipment` lit la collection brute : `getWeapons` écarte les boucliers, ce qui
+        // avait fait disparaître le Petit et le Grand bouclier de la page (cf. #192).
+        getEquipment: () => Promise.resolve(equipementOfficiel),
         getMaterials: () => Promise.resolve(materielOfficiel),
     },
 }));

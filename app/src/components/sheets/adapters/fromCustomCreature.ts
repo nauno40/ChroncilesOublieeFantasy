@@ -27,6 +27,7 @@ export const customCreatureToVM = (c: CustomCreature): CreatureSheetVM => ({
     def: num(c.def),
     init: num(c.init),
     stats: c.stats as unknown as Record<string, number> | undefined,
+    statsSuperior: c.statsSuperior,
     category: str(c.category),
     environment: str(c.environment),
     archetype: str(c.archetype),

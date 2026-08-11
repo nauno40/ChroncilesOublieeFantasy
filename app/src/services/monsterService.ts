@@ -7,7 +7,7 @@ const RESOURCE = 'custom_creatures';
 // (@id, @type…) pour ne pas les renvoyer au backend (owner est posé côté serveur).
 const WRITABLE_FIELDS: (keyof CustomCreature)[] = [
     'name', 'description', 'nc', 'hp', 'def', 'init',
-    'stats', 'specialAbilities', 'attacks', 'capabilities',
+    'stats', 'statsSuperior', 'specialAbilities', 'attacks', 'capabilities',
     'picture', 'category', 'environment', 'archetype', 'size',
     'visibility',
 ];

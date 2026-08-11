@@ -51,6 +51,22 @@ trait CreatureProfileTrait
     #[Groups(['creature:read', 'creature:write', 'custom_creature:read', 'custom_creature:write'])]
     private ?array $stats = null;
 
+    /**
+     * Caractéristiques supérieures : « lorsqu'un astérisque suit la valeur d'une
+     * caractéristique sur le profil d'une créature, cela signifie qu'elle bénéficie d'un dé
+     * bonus à tous les tests de cette caractéristique. Attention, ce dé bonus ne s'applique
+     * pas aux tests d'attaque » (Opposition, § Les caractéristiques).
+     *
+     * L'astérisque du livre n'avait aucun champ où se poser : 101 d'entre eux ont été perdus
+     * à l'import, et le MJ lançait un seul dé là où la créature en méritait deux.
+     *
+     * Liste de noms de caractéristiques (« AGI », « PER »…), jamais une valeur : la valeur
+     * vit dans `stats`, et la dédoubler ferait deux vérités pour un même chiffre.
+     */
+    #[ORM\Column(nullable: true)]
+    #[Groups(['creature:read', 'creature:write', 'custom_creature:read', 'custom_creature:write'])]
+    private ?array $statsSuperior = null;
+
     #[ORM\Column(nullable: true)]
     #[Groups(['creature:read', 'creature:write', 'custom_creature:read', 'custom_creature:write'])]
     private ?array $specialAbilities = null;
@@ -94,6 +110,9 @@ trait CreatureProfileTrait
 
     public function getHp(): ?int { return $this->hp; }
     public function setHp(int $hp): static { $this->hp = $hp; return $this; }
+
+    public function getStatsSuperior(): ?array { return $this->statsSuperior; }
+    public function setStatsSuperior(?array $statsSuperior): static { $this->statsSuperior = $statsSuperior; return $this; }
 
     public function getDef(): ?int { return $this->def; }
     public function setDef(int $def): static { $this->def = $def; return $this; }

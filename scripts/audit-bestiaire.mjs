@@ -16,9 +16,10 @@
  * corrections passent par une migration de données (recharger les fixtures purgerait le
  * contenu des utilisateurs) et par les fixtures elles-mêmes.
  *
- * Portée : les 62 créatures dont le nom est identique des deux côtés. Le fichier servi en
- * compte 219 ; les 157 autres viennent d'ailleurs que du livre et ne sont pas vérifiables
- * ici. Leur silence n'est pas un satisfecit.
+ * Portée : les créatures appariées au livre, par identité de nom ou par un ALIAS explicite
+ * dont la Défense, les PV et l'Initiative concordent (l'outil vérifie cette concordance et
+ * proteste si elle se rompt). Le fichier servi compte 219 créatures ; celles qui ne viennent
+ * pas du livre ne sont pas vérifiables ici, et leur silence n'est pas un satisfecit.
  *
  *   node scripts/audit-bestiaire.mjs            # écarts seulement
  *   node scripts/audit-bestiaire.mjs --tout     # + ce qui concorde et ce qui n'est pas apparié
@@ -64,8 +65,8 @@ const champ = (lignes, nom) => {
  * « AGI +3* | CON +3 | … » → { AGI: { valeur: 3, superieure: true }, … }
  *
  * L'astérisque marque une caractéristique supérieure : « un dé bonus à tous les tests de
- * cette caractéristique ». Le format servi n'a pas de place pour l'exprimer — l'outil le
- * signale sans prétendre le corriger.
+ * cette caractéristique ». Elle est servie sous `statsSuperior`, et l'outil la compare comme
+ * il compare les valeurs.
  */
 const caracsDuLivre = ligne => {
     const out = {};
@@ -85,6 +86,28 @@ const nombre = s => {
     return m ? Number(m[1]) : undefined;
 };
 
+/**
+ * Profils du livre dont la créature servie porte un autre nom.
+ *
+ * Chaque paire est justifiée par l'égalité de la Défense, des PV et de l'Initiative — que
+ * l'outil revérifie à chaque exécution : un alias qui cesserait de concorder est signalé
+ * plutôt que silencieusement suivi. Une ressemblance de nom ne suffirait pas, et une
+ * concordance de signature non plus : « Cheval de guerre » a exactement la signature du
+ * « Cheval de selle » servi et n'est donc PAS apparié, faute de certitude.
+ */
+const ALIAS = {
+    'Grand mâle': 'Bison, Grand mâle',
+    'Mâle alpha': 'Loup, mâle alpha',
+    'Hydre à cinq têtes': 'Hydre à 5 têtes',
+    'Orc noir': 'Orque noir',
+    'Berserker orc': 'Berserker orque',
+    'Shaman orc': 'Shaman orque',
+    'Sergent orc': 'Sergent orque',
+    'Chef orc': 'Chef orque',
+    'Squelette géant': 'Squelette de géant',
+    'Zombie humain': 'Zombi humain',
+};
+
 const tout = process.argv.includes('--tout');
 
 const livre = blocsDuLivre(readFileSync(
@@ -98,11 +121,21 @@ const nonApparies = [];
 for (const [titre, lignes] of livre) {
     const caracs = caracsDuLivre(champ(lignes, 'Caractéristiques'));
     if (Object.keys(caracs).length === 0) continue;          // titre de section, pas un profil
-    const servie = parCle.get(cle(titre));
+    const servie = parCle.get(cle(ALIAS[titre] ?? titre));
     if (!servie) { nonApparies.push(titre); continue; }
     compares++;
 
     const ecarts = [];
+    // Un alias ne vaut que par la concordance qui l'a justifié : si elle se rompt, c'est
+    // qu'on n'apparie plus la même créature, et poursuivre la comparaison écrirait des
+    // corrections sur le mauvais profil.
+    if (ALIAS[titre]) {
+        const sigLivre = ['Défense', 'Points de vigueur', 'Initiative'].map(n => nombre(champ(lignes, n)));
+        const sigServi = [servie.def, servie.hp, servie.init];
+        if (String(sigLivre) !== String(sigServi)) {
+            ecarts.push(`ALIAS « ${titre} » → « ${ALIAS[titre]} » : DEF/PV/Init ${sigLivre} contre ${sigServi} — appariement à revoir`);
+        }
+    }
     for (const [nomLivre, colonne] of [['NC', 'nc'], ['Défense', 'def'], ['Points de vigueur', 'hp'], ['Initiative', 'init']]) {
         const attendu = nombre(champ(lignes, nomLivre));
         if (attendu !== undefined && servie[colonne] !== attendu) {
@@ -116,7 +149,13 @@ for (const [titre, lignes] of livre) {
         }
     }
     const sup = Object.entries(caracs).filter(([, c]) => c.superieure).map(([k]) => k);
-    if (sup.length) superieures += sup.length;
+    superieures += sup.length;
+    const servieSup = servie.statsSuperior ?? [];
+    // Comparaison d'ensembles : l'ordre n'a pas de sens pour une liste de caractéristiques.
+    const manquantes = sup.filter(k => !servieSup.includes(k));
+    const enTrop = servieSup.filter(k => !sup.includes(k));
+    if (manquantes.length) ecarts.push(`caractéristiques supérieures manquantes : ${manquantes.join(', ')}`);
+    if (enTrop.length) ecarts.push(`caractéristiques supérieures en trop : ${enTrop.join(', ')}`);
 
     if (ecarts.length) {
         divergentes++;
@@ -129,7 +168,7 @@ for (const [titre, lignes] of livre) {
 }
 
 console.log(`\n${compares} créatures comparées, ${divergentes} divergentes sur ${valeurs} valeurs.`);
-console.log(`${superieures} caractéristiques supérieures dans le livre, aucune exprimable dans le format servi.`);
+console.log(`${superieures} caractéristiques supérieures dans le livre, sur les profils appariés.`);
 if (nonApparies.length) {
     console.log(`${nonApparies.length} profils du livre sans créature de même nom (variantes, noms différents) — non vérifiés.`);
     if (tout) for (const t of nonApparies) console.log(`  ${t}`);

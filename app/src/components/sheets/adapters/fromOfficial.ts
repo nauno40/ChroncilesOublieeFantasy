@@ -292,6 +292,7 @@ export const creatureToVM = (creature: Creature, familyDescription?: string): Cr
     def: creature.def,
     init: creature.init,
     stats: caracsCreature(creature.stats as unknown as Record<string, unknown>),
+    statsSuperior: creature.statsSuperior,
     familyName: str(creature.family?.name),
     familyDescription: str(familyDescription),
     category: str(creature.category),

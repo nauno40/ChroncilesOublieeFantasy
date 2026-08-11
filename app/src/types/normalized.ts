@@ -318,6 +318,12 @@ export interface Creature {
     hp: number;
     def: number;
     init: number;
+    /**
+     * Caractéristiques bénéficiant d'un dé bonus à tous leurs tests — l'astérisque du livre
+     * (« AGI +3* »). Des NOMS de caractéristiques, jamais des valeurs : celles-ci vivent
+     * dans `stats`, et les dédoubler ferait deux vérités pour un même chiffre.
+     */
+    statsSuperior?: string[];
     stats: {
         // Caractéristiques COF2 (7) — ordre du profil de créature du livre.
         AGI: number;
@@ -397,6 +403,7 @@ export interface CustomCreature {
     hp: number;
     def: number;
     init: number;
+    statsSuperior?: string[];
     stats?: {
         // Caractéristiques COF2 (7) — ordre du profil de créature du livre.
         AGI: number;

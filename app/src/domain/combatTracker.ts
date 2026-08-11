@@ -34,16 +34,20 @@ export const enregistrerTentative = (state: TrackerState, cibleId: string, capac
 };
 
 /**
- * Bonus dont la cible dispose pour résister à cette capacité, d'après ce qu'elle a déjà
- * subi. La première tentative n'accorde rien : c'est la répétition qui pèse.
+ * Bonus dont la cible dispose pour la PROCHAINE tentative de cette capacité, d'après ce
+ * qu'elle a déjà subi.
+ *
+ * Le compte est celui des tentatives DÉJÀ subies : aucune n'accorde rien, une accorde +5,
+ * deux accordent +10. Le décalage est facile à introduire — retrancher un de plus donnerait
+ * un bonus toujours en retard d'un rang, et la deuxième tentative se jouerait sans rien.
  */
 export const bonusResistance = (state: TrackerState, cibleId: string, capacite: string): number =>
-    bonusRendementDecroissant(Math.max(0, (state.tentatives?.[cibleId]?.[capacite] ?? 1) - 1));
+    bonusRendementDecroissant(state.tentatives?.[cibleId]?.[capacite] ?? 0);
 
-/** Ce que la cible a déjà subi, pour l'afficher : capacité et bonus acquis. */
+/** Ce que la cible a acquis, pour l'afficher : capacité et bonus de la prochaine résistance. */
 export const resistancesAcquises = (state: TrackerState, cibleId: string): { capacite: string; bonus: number }[] =>
     Object.entries(state.tentatives?.[cibleId] ?? {})
-        .map(([capacite, nombre]) => ({ capacite, bonus: bonusRendementDecroissant(nombre - 1) }))
+        .map(([capacite, subies]) => ({ capacite, bonus: bonusRendementDecroissant(subies) }))
         .filter(r => r.bonus > 0)
         .sort((a, b) => b.bonus - a.bonus);
 

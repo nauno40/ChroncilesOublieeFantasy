@@ -77,3 +77,32 @@ describe('pastilles communautaires', () => {
         expect(lit(undefined)).toBe('');
     });
 });
+
+describe('filtre « Dé de vie » des classes communautaires', () => {
+    const filtres = FILTRES_COMMUNAUTAIRES.classe;
+    const classes = [
+        { data: { family: 'Combattants' } },
+        { data: { family: 'Famille des Mages' } },
+        { data: { family: 'aventuriers' } },
+        { data: { family: 'Artificiers' } },   // famille maison : aucun dé connu
+        { data: {} },
+    ];
+
+    it('range chaque classe sous le dé de sa famille, comme la page officielle', () => {
+        expect(appliquerFiltres(classes, filtres, { family: 'd10' })).toHaveLength(1);
+        expect(appliquerFiltres(classes, filtres, { family: 'd6' })).toHaveLength(1);
+        expect(appliquerFiltres(classes, filtres, { family: 'd8' })).toHaveLength(1);
+    });
+
+    it('ne propose que les trois dés de COF2', () => {
+        // Le dé dépend de la famille : d6, d8, d10. Proposer d4 ou d12 — les dés de d20 —
+        // donnerait des choix qui ne rendent jamais rien.
+        expect(filtres.find(f => f.key === 'family')?.options.map(o => o.value)).toEqual(['d6', 'd8', 'd10']);
+    });
+
+    it('laisse la famille maison hors des trois dés plutôt que dans l’un d’eux', () => {
+        for (const de of ['d6', 'd8', 'd10']) {
+            expect(appliquerFiltres([classes[3]], filtres, { family: de })).toHaveLength(0);
+        }
+    });
+});

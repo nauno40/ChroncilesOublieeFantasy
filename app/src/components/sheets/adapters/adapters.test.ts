@@ -350,7 +350,14 @@ describe('adaptateurs homebrew', () => {
         // Le schéma communautaire ne capture qu'un nom de famille : le sous-titre doit
         // néanmoins être calculé (même logique que l'officiel), sinon ce nom saisi par
         // l'auteur est silencieusement invisible sur sa propre fiche.
-        expect(vm.family).toEqual({ name: 'Combattants totémiques', subtitle: 'Famille des Combattants totémiques' });
+        expect(vm.family).toEqual({
+            name: 'Combattants totémiques', subtitle: 'Famille des Combattants totémiques',
+            // « Combattants totémiques » reste la famille des combattants : PV de base 5,
+            // DR d10, aucun PC de bonus. Le livre déduit ces trois valeurs de la famille,
+            // et la fiche officielle les montre — la communautaire aussi, maintenant.
+            baseHp: 5, recoveryDie: 'd10', luckPoints: undefined,
+        });
+        expect(vm.hitDie).toBe('d10');
         // weaponsAuth/armorAuth : mêmes intitulés que l'officiel (masteries.weapons/armors),
         // fondus en une seule entrée par champ, dans la même carte que les maîtrises libres.
         expect(vm.masteries).toEqual([
@@ -359,6 +366,21 @@ describe('adaptateurs homebrew', () => {
             { label: '', value: 'Boucliers interdits' },
         ]);
         expect(vm.lore).toEqual([{ label: '', value: 'Les clans du nord vénèrent leurs totems.' }]);
+    });
+
+    it('déduit de la famille les valeurs que la fiche officielle affiche', () => {
+        const classe = (family: string) => homebrewToProfileVM({ ...emptyEntry('classe'), data: { family } } as HomebrewEntry);
+        // Seuls les aventuriers gagnent un PC de plus (§8).
+        expect(classe('Aventuriers').family).toMatchObject({ baseHp: 4, recoveryDie: 'd8', luckPoints: 1 });
+        expect(classe('Famille des Mages').family).toMatchObject({ baseHp: 3, recoveryDie: 'd6' });
+        expect(classe('mystiques').family).toMatchObject({ baseHp: 4, recoveryDie: 'd8' });
+        expect(classe('Combattants').family?.luckPoints).toBeUndefined();
+    });
+
+    it('n’invente rien pour une famille maison — la fiche montre le nom, pas des chiffres empruntés', () => {
+        const vm = homebrewToProfileVM({ ...emptyEntry('classe'), data: { family: 'Artificiers' } } as HomebrewEntry);
+        expect(vm.family).toEqual({ name: 'Artificiers', subtitle: 'Famille des Artificiers' });
+        expect(vm.hitDie).toBeUndefined();
     });
 
     it('projette les stats de départ (caracs) communautaires dans `stats` — même porteur que le panneau officiel', () => {

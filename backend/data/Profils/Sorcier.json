@@ -6,7 +6,7 @@
         "stats": {
             "hpPerLevel": 3,
             "profileType": "Lanceur de sorts / Invocateur / Debuff",
-            "hitDie": "1D4",
+            "hitDie": "1D6",
             "magicStat": "INT"
         },
         "lore": {

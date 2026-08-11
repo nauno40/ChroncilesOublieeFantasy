@@ -23,6 +23,42 @@ export const FAMILY_BASE_HP: Record<string, number> = {
   aventuriers: 4, combattants: 5, mages: 3, mystiques: 4,
 };
 
+/**
+ * Les quatre familles de profils, avec ce que le livre en déduit.
+ *
+ * Chapitre « Création du personnage » : les PV valent `(2 × PV de base) + CON` (§6), le
+ * type du dé de récupération « dépend de la famille » (§7), et « les PJ de la famille des
+ * aventuriers gagnent 1 PC de plus » (§8). Les mystiques reçoivent `[3 + CON]` DR au lieu
+ * de `[2 + CON]`, d'où un `drBase` par famille et non une constante.
+ *
+ * Ces valeurs existaient déjà pour l'officiel, mais dans les FIXTURES (`profile_families.json`,
+ * entité `Family`). Une classe communautaire ne nomme sa famille qu'en texte libre : sans
+ * cette table, sa fiche n'affichait ni dé de vie, ni PV de base, ni DR, ni PC — quatre lignes
+ * que la fiche officielle montre. La règle est la même pour les deux ; seule la provenance
+ * du nom change.
+ */
+export const FAMILLES: Record<string, { baseHp: number; recoveryDie: string; drBase: number; luckPoints: number }> = {
+  aventuriers: { baseHp: 4, recoveryDie: 'd8', drBase: 2, luckPoints: 1 },
+  combattants: { baseHp: 5, recoveryDie: 'd10', drBase: 2, luckPoints: 0 },
+  mages: { baseHp: 3, recoveryDie: 'd6', drBase: 2, luckPoints: 0 },
+  mystiques: { baseHp: 4, recoveryDie: 'd8', drBase: 3, luckPoints: 0 },
+};
+
+/**
+ * Reconnaît une famille dans un nom saisi à la main : « Combattants », « combattant »,
+ * « Famille des Mages » désignent tous la même. On cherche le radical au singulier, ce qui
+ * couvre le pluriel et la forme longue sans lister les variantes ; les accents sont retirés
+ * parce qu'on ne peut pas exiger d'un auteur qu'il en mette. Un nom inventé — une cinquième
+ * famille maison — ne correspond à rien, et la fiche n'affiche alors pas de valeurs
+ * dérivées : mieux vaut ne rien montrer que montrer les chiffres d'une autre famille.
+ */
+export const familleDepuisNom = (nom: string | undefined): keyof typeof FAMILLES | undefined => {
+  if (!nom) return undefined;
+  const nu = nom.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  return (Object.keys(FAMILLES) as (keyof typeof FAMILLES)[])
+    .find(f => nu.includes(f.slice(0, -1)));
+};
+
 // PV max cumulés par niveau (COF2, Progression) : baseHp × (niveau + 1) + CON × niveau.
 // (Au niveau 1 : 2×baseHp + CON — la base est comptée une fois « en plus ».)
 export const computeMaxHp = (baseHp: number, conMod: number, level = 1): number =>

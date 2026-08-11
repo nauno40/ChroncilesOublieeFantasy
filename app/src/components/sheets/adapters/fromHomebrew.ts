@@ -2,6 +2,7 @@ import { parRangCroissant, type HomebrewEntry } from '../../../services/homebrew
 import type { CapabilitySummon } from '../../../types/normalized';
 import type { RaceSheetVM, ProfileSheetVM, VoieSheetVM, CapaciteSheetVM, SheetModifier, SheetLabelled } from '../types';
 import { familySubtitle } from './fromOfficial';
+import { FAMILLES, familleDepuisNom } from '../../../domain/rules/health';
 import { str, num } from './shared';
 
 /**
@@ -101,6 +102,11 @@ const labelledLines = (label: string, v: unknown): SheetLabelled | undefined => 
 export const homebrewToProfileVM = (e: HomebrewEntry): ProfileSheetVM => {
     const data = d(e);
     const familyName = str(data.family);
+    // Les PV de base, le dé de récupération et les PC découlent de la famille (COF2,
+    // « Création du personnage » §6-§8). L'officiel les tient de l'entité `Family` ; ici la
+    // famille n'est qu'un nom, mais la règle ne change pas — on la reconnaît et on applique
+    // la même table. Une famille inventée n'en fournit aucune plutôt que celles d'une autre.
+    const famille = FAMILLES[familleDepuisNom(familyName) ?? ''];
     const masteries = [
         labelledLines('Armes', data.weaponsAuth),
         labelledLines('Armures', data.armorAuth),
@@ -113,7 +119,16 @@ export const homebrewToProfileVM = (e: HomebrewEntry): ProfileSheetVM => {
         // Le schéma communautaire ne capture qu'un nom de famille (ni description, ni
         // bonus) : le sous-titre reste calculé pour ne pas rendre ce nom invisible
         // (cf. fromOfficial.ts:familySubtitle, même garde-fou anti-répétition).
-        family: familyName ? { name: familyName, subtitle: familySubtitle(familyName) } : undefined,
+        family: familyName ? {
+            name: familyName,
+            subtitle: familySubtitle(familyName),
+            baseHp: famille?.baseHp,
+            recoveryDie: famille?.recoveryDie,
+            // Zéro PC de bonus est l'absence de bonus : seule la famille des aventuriers en
+            // accorde un, et la fiche officielle masque déjà la ligne à zéro.
+            luckPoints: famille?.luckPoints ? famille.luckPoints : undefined,
+        } : undefined,
+        hitDie: famille?.recoveryDie,
         magicStat: str(data.magicStat),
         armorMaxDef: num(data.armorMaxDef),
         stats: caracsForStats(data.stats),

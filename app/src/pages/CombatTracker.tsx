@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { Sword, RefreshCw, Trash2, Shield } from 'lucide-react';
 import type { Combatant } from '../types/campaign';
 import type { TrackerState } from '../domain/combatTracker';
-import { sortByInitiative, nextTurn, removeById, applyHp } from '../domain/combatTracker';
+import { sortByInitiative, nextTurn, removeById, applyHp, enregistrerTentative, resistancesAcquises } from '../domain/combatTracker';
 import { effetsCumules, defEffective } from '../domain/rules/etatsCombat';
 import { dommagesSubis } from '../domain/rules/dommages';
 import { lancerAttaque } from '../domain/rules/test';
@@ -69,7 +69,8 @@ export const CombatTracker: React.FC = () => {
     const [capacites, setCapacites] = useState<Capacity[]>([]);
     const [voies, setVoies] = useState<Voie[]>([]);
     // Pose d'état en cours : la capacité a désigné l'état, le MJ choisit encore la cible.
-    const [poseEnCours, setPoseEnCours] = useState<string | null>(null);
+    // État en cours de pose, avec la capacité qui le pose.
+    const [poseEnCours, setPoseEnCours] = useState<{ etat: string; capacite: string } | null>(null);
     // Dernier jet d'attaque, affiché en bandeau : le suivi n'avait aucun endroit où rendre
     // compte d'un jet, alors qu'il connaît déjà l'attaquant (le tour actif) et la cible.
     // Le dernier jet d'attaque garde de quoi enchaîner sur les dommages : sa cible, s'il a
@@ -328,7 +329,8 @@ export const CombatTracker: React.FC = () => {
 
     const resetCombat = () => {
         if (state.combatants.length && !window.confirm('Vider le combat en cours ?')) return;
-        setState({ round: 1, activeId: null, combatants: [] });
+        // Le rendement décroissant vaut « durant un combat » : vider le combat l'oublie.
+        setState({ round: 1, activeId: null, combatants: [], tentatives: {} });
         setHpInputs({});
     };
 
@@ -469,14 +471,20 @@ export const CombatTracker: React.FC = () => {
                 {poseEnCours && (
                     <div className="mb-3 p-3 rounded-xl bg-purple-950/30 border border-purple-500/30">
                         <div className="text-xs text-purple-200 mb-2">
-                            Appliquer « {poseEnCours} » à quel combattant ?
+                            Appliquer « {poseEnCours.etat} » à quel combattant ?
                         </div>
                         <div className="flex flex-wrap gap-2">
                             {state.combatants.map(cible => (
                                 <button
                                     key={cible.id}
                                     type="button"
-                                    onClick={() => { addState(cible.id, poseEnCours); setPoseEnCours(null); }}
+                                    onClick={() => {
+                                        addState(cible.id, poseEnCours.etat);
+                                        // La cible s'accoutume à ce qu'on lui répète : le
+                                        // compte sert au bonus de résistance (COF2).
+                                        setState(s => enregistrerTentative(s, cible.id, poseEnCours.capacite));
+                                        setPoseEnCours(null);
+                                    }}
                                     className="text-[11px] px-2 py-1 rounded bg-black/40 border border-white/10 text-stone-200 hover:border-purple-400/50"
                                 >
                                     Sur : {cible.name}
@@ -560,6 +568,13 @@ export const CombatTracker: React.FC = () => {
                                         {mentions.length > 0 && (
                                             <p className="text-[11px] text-amber-200/70 mt-1 leading-snug">{mentions.join(' · ')}</p>
                                         )}
+                                        {/* Rendement décroissant : ce que la cible a déjà
+                                            subi lui donne +5 par répétition pour résister. */}
+                                        {resistancesAcquises(state, c.id).map(r => (
+                                            <p key={r.capacite} className="text-[11px] text-purple-200/80 leading-snug">
+                                                +{r.bonus} pour résister à « {r.capacite} »
+                                            </p>
+                                        ))}
                                     </>
                                 );
                             })()}
@@ -589,7 +604,7 @@ export const CombatTracker: React.FC = () => {
                                         capacites={capacitesAcquises}
                                         etatsConnus={harmfulStates}
                                         sources={sources}
-                                        onPoserEtat={setPoseEnCours}
+                                        onPoserEtat={(etat, capacite) => setPoseEnCours({ etat, capacite })}
                                         onInvoquer={ajouterInvocation}
                                     />
                                 );

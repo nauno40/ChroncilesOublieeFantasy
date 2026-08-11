@@ -1,10 +1,51 @@
 import type { Combatant } from '../types/campaign';
+import { bonusRendementDecroissant } from './rules/test';
 
 export interface TrackerState {
     round: number;
     activeId: string | null;
     combatants: Combatant[];
+    /**
+     * Combien de fois chaque capacité a déjà été subie, par combattant — la mémoire du
+     * rendement décroissant (COF2) : « un bonus cumulatif de +5 au test effectué par la
+     * cible pour résister à la même capacité durant un combat ».
+     *
+     * Indexé par identifiant de combattant puis par nom de capacité. Absent d'un état
+     * enregistré avant cette version : les fonctions le traitent comme vide.
+     */
+    tentatives?: Record<string, Record<string, number>>;
 }
+
+/**
+ * Enregistre qu'une capacité vient d'être employée sur une cible. C'est ce compte, et non
+ * l'état posé, que le livre suit : deux capacités différentes qui infligent le même état
+ * ne se renforcent pas l'une l'autre.
+ */
+export const enregistrerTentative = (state: TrackerState, cibleId: string, capacite: string): TrackerState => {
+    if (!capacite) return state;
+    const parCible = state.tentatives?.[cibleId] ?? {};
+    return {
+        ...state,
+        tentatives: {
+            ...(state.tentatives ?? {}),
+            [cibleId]: { ...parCible, [capacite]: (parCible[capacite] ?? 0) + 1 },
+        },
+    };
+};
+
+/**
+ * Bonus dont la cible dispose pour résister à cette capacité, d'après ce qu'elle a déjà
+ * subi. La première tentative n'accorde rien : c'est la répétition qui pèse.
+ */
+export const bonusResistance = (state: TrackerState, cibleId: string, capacite: string): number =>
+    bonusRendementDecroissant(Math.max(0, (state.tentatives?.[cibleId]?.[capacite] ?? 1) - 1));
+
+/** Ce que la cible a déjà subi, pour l'afficher : capacité et bonus acquis. */
+export const resistancesAcquises = (state: TrackerState, cibleId: string): { capacite: string; bonus: number }[] =>
+    Object.entries(state.tentatives?.[cibleId] ?? {})
+        .map(([capacite, nombre]) => ({ capacite, bonus: bonusRendementDecroissant(nombre - 1) }))
+        .filter(r => r.bonus > 0)
+        .sort((a, b) => b.bonus - a.bonus);
 
 const isPlayer = (c: Combatant): boolean => c.type === 'player';
 const levelOf = (c: Combatant): number => c.level ?? 0;

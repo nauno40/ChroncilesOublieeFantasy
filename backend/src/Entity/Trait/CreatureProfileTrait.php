@@ -25,9 +25,15 @@ trait CreatureProfileTrait
     #[Groups(['creature:read', 'creature:write', 'custom_creature:read', 'custom_creature:write'])]
     private ?string $description = null;
 
-    #[ORM\Column]
+    /**
+     * Niveau de créature. COF2 emploie ½ pour les adversaires les plus faibles (bandit,
+     * milicien, gobelin élite, rat géant) — « ½ vaut 0 » dans le calcul de l'attaque
+     * magique. Une colonne entière ne peut pas l'accueillir : ces créatures étaient servies
+     * NC 1, soit deux fois leur puissance annoncée dans le budget d'une rencontre.
+     */
+    #[ORM\Column(type: 'float')]
     #[Groups(['creature:read', 'creature:write', 'custom_creature:read', 'custom_creature:write'])]
-    private ?int $nc = null;
+    private ?float $nc = null;
 
     #[ORM\Column]
     #[Groups(['creature:read', 'creature:write', 'custom_creature:read', 'custom_creature:write'])]
@@ -83,8 +89,8 @@ trait CreatureProfileTrait
     public function getDescription(): ?string { return $this->description; }
     public function setDescription(?string $description): static { $this->description = $description; return $this; }
 
-    public function getNc(): ?int { return $this->nc; }
-    public function setNc(int $nc): static { $this->nc = $nc; return $this; }
+    public function getNc(): ?float { return $this->nc; }
+    public function setNc(float $nc): static { $this->nc = $nc; return $this; }
 
     public function getHp(): ?int { return $this->hp; }
     public function setHp(int $hp): static { $this->hp = $hp; return $this; }

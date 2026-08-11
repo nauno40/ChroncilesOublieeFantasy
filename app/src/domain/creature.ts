@@ -9,6 +9,19 @@ export const getCreatureName = (creature: Creature): string => {
     return creature.name || 'Unknown';
 };
 
+/**
+ * Écrit un NC comme le livre l'écrit : « ½ », pas « 0.5 ».
+ *
+ * COF2 emploie le demi-niveau pour ses adversaires les plus faibles (bandit de base,
+ * milicien, gobelin élite, rat géant) et le note ½ partout, jusque dans la règle de
+ * l'attaque magique — « ½ vaut 0 ». Le chiffre décimal est la forme de stockage, pas
+ * celle qu'on lit à la table.
+ */
+export const formatNC = (nc: number | undefined | null): string => {
+    if (nc === undefined || nc === null) return '—';
+    return nc === 0.5 ? '½' : String(nc);
+};
+
 export const getCreatureLevel = (creature: Creature): number => {
     return creature.nc || 0;
 };

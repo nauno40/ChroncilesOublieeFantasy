@@ -5,6 +5,7 @@ import type { CreatureSheetVM } from './types';
 import { CapabilityRefs } from '../creature/CapabilityRefs';
 import type { ReferencesDeclaration } from '../homebrew/HomebrewFields';
 import { typeCreature } from '../../domain/rules/typesCreature';
+import { formatNC } from '../../domain/creature';
 
 /**
  * Feuille d'une créature — bestiaire officiel comme créature maison.
@@ -73,7 +74,7 @@ export const CreatureSheet: React.FC<CreatureSheetProps> = ({ vm, backTo, backLa
                     <div className="flex flex-wrap gap-3 items-center">
                         {vm.nc !== undefined && (
                             <span className="bg-primary-950/80 px-4 py-1.5 rounded-lg border border-primary-500/40 text-primary-300 font-bold tracking-wider shadow-lg shadow-black/20 text-sm">
-                                NC {vm.nc}
+                                NC {formatNC(vm.nc)}
                             </span>
                         )}
                         {vm.familyName && (
@@ -155,7 +156,14 @@ export const CreatureSheet: React.FC<CreatureSheetProps> = ({ vm, backTo, backLa
                         {vm.stats && (
                             <div className="grid grid-cols-4 sm:grid-cols-7 gap-3 mb-8">
                                 {CARACS.map(carac => (
-                                    <div key={carac} className="bg-stone-900/60 rounded-xl p-3 border border-white/5 text-center hover:border-primary-500/30 transition-colors">
+                                    // L'intitulé et la valeur sont deux blocs voisins : lus séparément, ils
+                                    // ne disent pas à quelle caractéristique le chiffre appartient. Le label
+                                    // les réunit — pour un lecteur d'écran comme pour un test.
+                                    <div
+                                        key={carac}
+                                        aria-label={`${carac} ${vm.stats?.[carac] ?? 0}`}
+                                        className="bg-stone-900/60 rounded-xl p-3 border border-white/5 text-center hover:border-primary-500/30 transition-colors"
+                                    >
                                         <div className="text-stone-400 text-[11px] font-bold uppercase tracking-wider mb-1">{carac}</div>
                                         <div className="font-display font-bold text-xl text-stone-200">{vm.stats?.[carac] ?? 0}</div>
                                     </div>

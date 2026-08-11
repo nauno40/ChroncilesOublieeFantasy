@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
+import { formatNC } from '../../domain/creature';
 import { useNavigate } from 'react-router-dom';
 import { Search, Command, X, ChevronRight, type LucideIcon, Ghost, Sparkles, BookOpen, User, Users, AlertCircle, Backpack } from 'lucide-react';
 import { createPortal } from 'react-dom';
@@ -116,7 +117,7 @@ export const GlobalSearch: React.FC<GlobalSearchProps> = ({ isOpen, onClose }) =
                     return {
                         id: `creature-${id}`,
                         label: c.name,
-                        subLabel: c.nc != null ? `NC ${c.nc}${categorie ? ` • ${categorie}` : ''}` : categorie,
+                        subLabel: c.nc != null ? `NC ${formatNC(c.nc as number)}${categorie ? ` • ${categorie}` : ''}` : categorie,
                         url: `/bestiary/${id}`,
                     };
                 });

@@ -83,9 +83,25 @@ test('les caractéristiques négatives du livre sont bien servies', async ({ pag
     await page.locator('a[href^="/bestiary/"]').first().click();
     await page.waitForURL(/\/bestiary\/\d+/);
 
-    const carac = (nom: string) => page.locator('div', { hasText: new RegExp(`^${nom}$`) })
-        .last().locator('xpath=..');
-    await expect(carac('INT')).toContainText('-4');
-    await expect(carac('CHA')).toContainText('-4');
-    await expect(carac('PER')).toContainText('-1');
+    // Par le label plutôt que par le voisinage : l'intitulé et la valeur sont deux blocs
+    // distincts, et les relier par la structure du DOM rendait ce test intermittent.
+    await expect(page.getByLabel('INT -4')).toBeVisible();
+    await expect(page.getByLabel('CHA -4')).toBeVisible();
+    await expect(page.getByLabel('PER -1')).toBeVisible();
+});
+
+// COF2 note ½ le NC de ses adversaires les plus faibles ; la colonne étant entière, ils
+// étaient servis NC 1 — le double de leur puissance dans le budget d'une rencontre.
+test('un NC ½ est servi et écrit comme le livre l’écrit', async ({ page }) => {
+    await register(page, uniqueEmail('nc'));
+    await page.goto('/bestiary');
+    await page.getByPlaceholder(/Rechercher/).fill('Bandit de base');
+
+    // Sur la carte de la liste comme sur la fiche : « NC ½ », jamais « NC 0.5 ».
+    await expect(page.getByText('NC ½').first()).toBeVisible();
+    await expect(page.getByText('NC 0.5')).toHaveCount(0);
+
+    await page.locator('a[href^="/bestiary/"]').first().click();
+    await page.waitForURL(/\/bestiary\/\d+/);
+    await expect(page.getByText('NC ½')).toBeVisible();
 });

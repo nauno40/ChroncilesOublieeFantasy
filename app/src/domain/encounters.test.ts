@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest';
+import { formatNC } from './creature';
 import {
     encounterBudget,
     generateEncounter,
@@ -77,5 +78,43 @@ describe('generateEncounter', () => {
             }
             expect(labels, `difficulté ${diff}`).toEqual(new Set([expected[diff]]));
         }
+    });
+});
+
+describe('NC ½ dans le générateur', () => {
+    // Les quatre créatures de NC ½ du livre étaient servies NC 1 : elles entraient dans le
+    // tirage. Leur rendre leur demi-niveau sans toucher au seuil `>= 1` les en aurait
+    // sorties sans que personne ne le demande.
+    const bandit = {
+        referenceId: 'b', name: 'Bandit de base', source: 'srd' as const,
+        nc: 0.5, hp: 9, def: 12, init: 10, per: 0, environment: 'Forêt',
+    };
+    const figurant = { ...bandit, referenceId: 'f', name: 'Marchand', nc: 0 };
+
+    it('retient une créature de NC ½', () => {
+        const roster = generateEncounter({
+            pool: [bandit], environment: 'Forêt', difficulty: 'normale', partySize: 4, avgLevel: 1,
+        });
+        expect(roster.map(c => c.name)).toEqual(['Bandit de base']);
+    });
+
+    it('laisse les NC 0 dehors — ce sont des figurants, pas des adversaires', () => {
+        const roster = generateEncounter({
+            pool: [figurant], environment: 'Forêt', difficulty: 'normale', partySize: 4, avgLevel: 1,
+        });
+        expect(roster).toEqual([]);
+    });
+});
+
+describe('formatNC', () => {
+    it('écrit le demi-niveau comme le livre l’écrit', () => {
+        expect(formatNC(0.5)).toBe('½');
+        expect(formatNC(0)).toBe('0');
+        expect(formatNC(3)).toBe('3');
+    });
+
+    it('rend un tiret plutôt que « undefined » quand le NC manque', () => {
+        expect(formatNC(undefined)).toBe('—');
+        expect(formatNC(null)).toBe('—');
     });
 });

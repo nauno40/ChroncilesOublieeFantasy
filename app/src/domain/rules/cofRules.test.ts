@@ -7,6 +7,9 @@ import {
   computeMaxHp,
   computeHybridMaxHp,
   computeRecoveryDie,
+  FAMILLES,
+  familleDepuisNom,
+  PROFILE_FAMILIES,
   computeLuckPoints,
   computeFinalStats,
   computeSpentPoints,
@@ -1056,4 +1059,40 @@ describe('octroi rang 2 : dérivation résout exactement le rang choisi', () => 
     });
     expect(r.def).toBe(19); // 10 + 9 (rang 2 seul), PAS 10 + 5 + 9
   });
+});
+
+describe('familles de profils', () => {
+    // Les valeurs du livre, chapitre « Création du personnage » §6 à §8.
+    it('porte les PV de base, le DR et les PC de chaque famille', () => {
+        expect(FAMILLES.aventuriers).toEqual({ baseHp: 4, recoveryDie: 'd8', drBase: 2, luckPoints: 1 });
+        expect(FAMILLES.combattants).toEqual({ baseHp: 5, recoveryDie: 'd10', drBase: 2, luckPoints: 0 });
+        expect(FAMILLES.mages).toEqual({ baseHp: 3, recoveryDie: 'd6', drBase: 2, luckPoints: 0 });
+        // Les mystiques reçoivent [3 + CON] DR, un de plus que les autres.
+        expect(FAMILLES.mystiques).toEqual({ baseHp: 4, recoveryDie: 'd8', drBase: 3, luckPoints: 0 });
+    });
+
+    it('reconnaît la famille écrite à la main, au pluriel ou en forme longue', () => {
+        expect(familleDepuisNom('Combattants')).toBe('combattants');
+        expect(familleDepuisNom('combattant')).toBe('combattants');
+        expect(familleDepuisNom('Famille des Mages')).toBe('mages');
+        expect(familleDepuisNom('MYSTIQUES')).toBe('mystiques');
+    });
+
+    it('ne reconnaît pas une famille inventée — mieux vaut rien que les chiffres d’une autre', () => {
+        expect(familleDepuisNom('Artificiers')).toBeUndefined();
+        expect(familleDepuisNom('')).toBeUndefined();
+        expect(familleDepuisNom(undefined)).toBeUndefined();
+    });
+
+    it('accorde le même dé à tous les profils d’une famille', () => {
+        // C'est l'invariant que quatre profils violaient (Barbare 1D12, Ensorceleur /
+        // Magicien / Sorcier 1D4) : le dé dépend de la famille, jamais du profil.
+        const parFamille: Record<string, Set<string>> = {};
+        for (const { id, die } of Object.values(PROFILE_FAMILIES)) {
+            (parFamille[id] ??= new Set()).add(die);
+        }
+        for (const [famille, des] of Object.entries(parFamille)) {
+            expect([famille, [...des]]).toEqual([famille, [FAMILLES[famille].recoveryDie]]);
+        }
+    });
 });

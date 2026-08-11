@@ -1,5 +1,6 @@
 import type { OptionFiltre } from '../components/common/SelectFiltre';
 import { LEXIQUE } from './lexique';
+import { FAMILLES, familleDepuisNom } from './rules/health';
 
 /**
  * Filtres d'une liste communautaire, par catégorie.
@@ -41,6 +42,14 @@ export const FILTRES_COMMUNAUTAIRES: Record<string, FiltreCompendium[]> = {
         { key: 'rank', label: 'Rang', toutLabel: 'Tous les rangs', options: RANGS, lit: v => String(v ?? '') },
     ],
     classe: [
+        // Même axe que la page officielle. Le schéma communautaire ne demande pas de dé —
+        // il n'a pas à le demander : le livre le déduit de la famille, et la fiche
+        // communautaire l'affiche déjà par ce chemin.
+        {
+            key: 'family', label: 'Dé de vie', toutLabel: 'Tous les dés',
+            lit: v => FAMILLES[familleDepuisNom(typeof v === 'string' ? v : undefined) ?? '']?.recoveryDie ?? '',
+            options: ['d6', 'd8', 'd10'].map(d => ({ value: d, label: d })),
+        },
         {
             key: 'magicStat', label: 'Magie', toutLabel: 'Toutes les classes',
             lit: v => (v ? 'oui' : 'non'),

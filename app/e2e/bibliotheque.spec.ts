@@ -85,3 +85,61 @@ test('le retour d’une fiche ouverte depuis la Bibliothèque y ramène', async 
     await retour.click();
     await expect(page).toHaveURL(/\/bibliotheque/);
 });
+
+// Les PV de base, le dé de récupération et les PC découlent de la famille (COF2, Création
+// §6-§8). La fiche officielle les affiche depuis toujours — elle les tient de l'entité
+// `Family` — tandis que la communautaire, qui ne nomme sa famille qu'en texte libre, ne
+// montrait aucune des quatre lignes. La règle est la même des deux côtés.
+test('une classe communautaire affiche les lignes vitales de sa famille, comme l’officielle', async ({ page }) => {
+    await register(page, uniqueEmail('classe'));
+    const token = (await getToken(page))!;
+
+    const iri = await createEntry(page, token, {
+        category: 'classe',
+        name: 'Berserker totémique',
+        description: 'Guerrier lié à un esprit animal.',
+        visibility: 'private',
+        data: { family: 'Combattants', armorMaxDef: 3 },
+    });
+
+    await page.goto(`/homebrew/${iri.split('/').pop()}`);
+    await expect(page.getByRole('heading', { name: 'Berserker totémique' })).toBeVisible();
+
+    // Combattants : dé d10 et 5 PV de base. Chaque valeur est lue en face de son intitulé —
+    // « d10 » figure deux fois (dé de vie et récupération), et un `getByText` nu passerait
+    // même si les deux lignes portaient la même valeur par accident.
+    const ligne = (label: string) => page.locator('h3:has-text("Statistiques Vitales")')
+        .locator('xpath=../div/div').filter({ hasText: label });
+    await expect(ligne('Dé de Vie')).toContainText('d10');
+    await expect(ligne('PV / Niveau')).toContainText('5');
+    await expect(ligne('Récupération')).toContainText('d10');
+    // Aucune ligne de PC ici : seuls les aventuriers en gagnent un. Le contrôle ne vaut que
+    // parce que la même page la MONTRE pour un aventurier — sans quoi une ligne jamais
+    // rendue passerait pour une règle respectée.
+    await expect(page.getByText('Points de Chance')).toHaveCount(0);
+
+    const aventurier = await createEntry(page, token, {
+        category: 'classe', name: 'Éclaireur de test', visibility: 'private',
+        data: { family: 'Aventuriers' },
+    });
+    await page.goto(`/homebrew/${aventurier.split('/').pop()}`);
+    await expect(ligne('Points de Chance')).toContainText('1');
+    await expect(ligne('Dé de Vie')).toContainText('d8');
+});
+
+test('une famille maison n’emprunte pas les chiffres d’une autre', async ({ page }) => {
+    await register(page, uniqueEmail('classe'));
+    const token = (await getToken(page))!;
+
+    const iri = await createEntry(page, token, {
+        category: 'classe',
+        name: 'Artificier de test',
+        visibility: 'private',
+        data: { family: 'Artificiers', armorMaxDef: 3 },
+    });
+
+    await page.goto(`/homebrew/${iri.split('/').pop()}`);
+    await expect(page.getByText('Famille des Artificiers')).toBeVisible();
+    // Le nom reste visible ; aucun dé n'est inventé pour l'accompagner.
+    await expect(page.getByText('Dé de Vie')).toHaveCount(0);
+});

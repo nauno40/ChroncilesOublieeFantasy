@@ -6,7 +6,7 @@
         "stats": {
             "hpPerLevel": 5,
             "profileType": "Combattant au contact / Tank (PV)",
-            "hitDie": "1D12"
+            "hitDie": "1D10"
         },
         "lore": {
             "terres_d_osgild": "On trouve quelques clans de rudes montagnards qui vivent dans les monts Vierges à l’ouest de Clairval et de la forêt de Myrviel. Ils sont en guerre incessante contre les humanoïdes du désert de Krön.",

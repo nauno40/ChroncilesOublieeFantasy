@@ -11,6 +11,13 @@ import { DataService } from '../services/dataService';
  * dormaient dans la donnée pendant qu'on n'affichait qu'un badge « Magie ».
  * `armorMaxDef` vaut -1 pour « aucune armure » (cf. AppFixtures).
  */
+/**
+ * Les seuls dés que COF2 emploie : le dé dépend de la FAMILLE (Aventuriers d8, Combattants
+ * d10, Mages d6, Mystiques d8), pas du profil. Le filtre proposait aussi d4 et d12 — les
+ * dés du magicien et du barbare de d20 — qui ne rendaient jamais rien.
+ */
+const DES_DE_VIE = ['1D6', '1D8', '1D10'];
+
 const statsDeLaClasse = (profile: Profile) => {
     const stats: { label: string; value: React.ReactNode }[] = [];
     const de = profile.stats?.hitDie;
@@ -83,7 +90,7 @@ export const Classes: React.FC = () => {
                 <GrilleFiltres>
                     <SelectFiltre
                         label="Dé de vie" toutLabel="Tous les dés" value={selectedHitDie} onChange={setSelectedHitDie}
-                        options={['1D4', '1D6', '1D8', '1D10', '1D12'].map(d => ({ value: d, label: d.replace('1D', 'd') }))}
+                        options={DES_DE_VIE.map(d => ({ value: d, label: d.replace('1D', 'd') }))}
                     />
                     <SelectFiltre
                         label="Magie" toutLabel="Toutes les classes" value={selectedMagic} onChange={setSelectedMagic}

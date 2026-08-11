@@ -4,6 +4,7 @@ import { ArrowLeft, Shield, Sword, Heart, Crown, Zap } from 'lucide-react';
 import type { CreatureSheetVM } from './types';
 import { CapabilityRefs } from '../creature/CapabilityRefs';
 import type { ReferencesDeclaration } from '../homebrew/HomebrewFields';
+import { typeCreature } from '../../domain/rules/typesCreature';
 
 /**
  * Feuille d'une créature — bestiaire officiel comme créature maison.
@@ -38,6 +39,7 @@ const Info: React.FC<{ label: string; value?: string }> = ({ label, value }) => 
 
 export const CreatureSheet: React.FC<CreatureSheetProps> = ({ vm, backTo, backLabel, header, references }) => {
     const aDesInfos = vm.category || vm.environment || vm.archetype || vm.size;
+    const type = typeCreature(vm.category);
     const aDesCapacites = (vm.capabilities?.length ?? 0) > 0 || vm.specialAbilitiesHtml || vm.specialAbilitiesText;
     const aUneDescription = vm.descriptionHtml || vm.descriptionText || vm.familyDescription;
 
@@ -108,6 +110,21 @@ export const CreatureSheet: React.FC<CreatureSheetProps> = ({ vm, backTo, backLa
                                 </h3>
                                 <div className="space-y-4">
                                     <Info label="Catégorie" value={vm.category} />
+                                    {/* Le type n'est pas qu'une étiquette : le livre y attache des immunités
+                                        précises, que le MJ devait retrouver dans le livre au moment où un
+                                        joueur tente justement d'empoisonner un mort-vivant. */}
+                                    {type && type.implications.length > 0 && (
+                                        <ul className="-mt-2 space-y-1 text-xs text-stone-400 list-disc list-inside marker:text-stone-600">
+                                            {type.implications.map(i => <li key={i}>{i}</li>)}
+                                            {type.siSansIntelligence?.map(i => (
+                                                // Le livre conditionne ces immunités : une créature végétative
+                                                // intelligente « n'a pas d'autre immunité particulière ». Rien
+                                                // dans le profil ne dit à partir de quelle INT elle l'est —
+                                                // la condition reste donc énoncée, pas tranchée.
+                                                <li key={i}><span className="italic text-stone-500">Si elle est dépourvue d’intelligence :</span> {i}</li>
+                                            ))}
+                                        </ul>
+                                    )}
                                     <Info label="Milieu" value={vm.environment} />
                                     <Info label="Archétype" value={vm.archetype} />
                                     <Info label="Taille" value={vm.size} />

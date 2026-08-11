@@ -47,4 +47,29 @@ test.describe('Monstres custom (MJ)', () => {
         await categorie.fill('Aberration maison');
         await expect(categorie).toHaveValue('Aberration maison');
     });
+
+    // La fiche est partagée avec le compendium : un monstre maison typé « non vivante »
+    // doit énoncer les mêmes immunités qu'un squelette officiel, et un type inventé n'en
+    // recevoir aucune.
+    test('un monstre maison hérite des immunités de son type, et rien de plus', async ({ page }) => {
+        const nom = `Liche ${Date.now()}`;
+        await page.goto('/tools/monsters');
+        await page.getByRole('button', { name: /nouveau monstre/i }).first().click();
+        await page.getByPlaceholder(/gobelin/i).first().fill(nom);
+        await page.locator('input[list="cm-categories"]').fill('Non-vivante');
+        await page.getByRole('button', { name: /^enregistrer/i }).click();
+        await expect(page.getByRole('heading', { name: nom })).toBeVisible({ timeout: 15_000 });
+
+        await page.getByRole('heading', { name: nom }).click();
+        await expect(page.getByText(/attaques qui demandent un test de CON/i)).toBeVisible();
+
+        // Un type maison n'emprunte les immunités d'aucun autre.
+        await page.goto('/tools/monsters');
+        await page.getByRole('button', { name: /nouveau monstre/i }).first().click();
+        await page.getByPlaceholder(/gobelin/i).first().fill(`${nom} bis`);
+        await page.locator('input[list="cm-categories"]').fill('Aberration maison');
+        await page.getByRole('button', { name: /^enregistrer/i }).click();
+        await page.getByRole('heading', { name: `${nom} bis` }).click();
+        await expect(page.getByText(/attaques qui demandent un test de CON/i)).toHaveCount(0);
+    });
 });

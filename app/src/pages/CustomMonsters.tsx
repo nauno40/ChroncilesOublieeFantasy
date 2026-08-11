@@ -376,6 +376,7 @@ export const CustomMonsters: React.FC<CustomMonstersProps> = ({ embedded = false
                         <div>
                             <label className={labelClass}>Nom *</label>
                             <input
+                                aria-label="Nom"
                                 className={inputClass}
                                 value={form.name}
                                 onChange={(e) => patch({ name: e.target.value })}
@@ -385,6 +386,7 @@ export const CustomMonsters: React.FC<CustomMonstersProps> = ({ embedded = false
                         <div>
                             <label className={labelClass}>Image (URL, optionnel)</label>
                             <input
+                                aria-label="Image (URL, optionnel)"
                                 className={inputClass}
                                 value={form.picture}
                                 onChange={(e) => patch({ picture: e.target.value })}
@@ -396,6 +398,7 @@ export const CustomMonsters: React.FC<CustomMonstersProps> = ({ embedded = false
                     <div>
                         <label className={labelClass}>Description</label>
                         <textarea
+                                aria-label="Description"
                             className={inputClass}
                             rows={3}
                             value={form.description}
@@ -408,6 +411,7 @@ export const CustomMonsters: React.FC<CustomMonstersProps> = ({ embedded = false
                         <div>
                             <label className={labelClass}>NC</label>
                             <input
+                                aria-label="NC"
                                 type="number"
                                 className={inputClass}
                                 value={form.nc}
@@ -417,6 +421,7 @@ export const CustomMonsters: React.FC<CustomMonstersProps> = ({ embedded = false
                         <div>
                             <label className={labelClass}>PV</label>
                             <input
+                                aria-label="PV"
                                 type="number"
                                 className={inputClass}
                                 value={form.hp}
@@ -426,6 +431,7 @@ export const CustomMonsters: React.FC<CustomMonstersProps> = ({ embedded = false
                         <div>
                             <label className={labelClass}>DEF</label>
                             <input
+                                aria-label="DEF"
                                 type="number"
                                 className={inputClass}
                                 value={form.def}
@@ -435,6 +441,7 @@ export const CustomMonsters: React.FC<CustomMonstersProps> = ({ embedded = false
                         <div>
                             <label className={labelClass}>INIT</label>
                             <input
+                                aria-label="INIT"
                                 type="number"
                                 className={inputClass}
                                 value={form.init}
@@ -452,6 +459,7 @@ export const CustomMonsters: React.FC<CustomMonstersProps> = ({ embedded = false
                                     <span className="block text-xs text-stone-400 mb-1 text-center">{key}</span>
                                     <input
                                         type="number"
+                                        aria-label={key}
                                         className={`${inputClass} text-center px-2`}
                                         value={form.stats[key]}
                                         onChange={(e) => setStat(key, parseInt(e.target.value) || 0)}
@@ -465,19 +473,23 @@ export const CustomMonsters: React.FC<CustomMonstersProps> = ({ embedded = false
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                         <div>
                             <label className={labelClass}>Catégorie</label>
-                            <input list={LIST.category} className={inputClass} value={form.category} onChange={(e) => patch({ category: e.target.value })} />
+                            <input
+                                aria-label="Catégorie" list={LIST.category} className={inputClass} value={form.category} onChange={(e) => patch({ category: e.target.value })} />
                         </div>
                         <div>
                             <label className={labelClass}>Environnement</label>
-                            <input list={LIST.environment} className={inputClass} value={form.environment} onChange={(e) => patch({ environment: e.target.value })} />
+                            <input
+                                aria-label="Environnement" list={LIST.environment} className={inputClass} value={form.environment} onChange={(e) => patch({ environment: e.target.value })} />
                         </div>
                         <div>
                             <label className={labelClass}>Archétype</label>
-                            <input list={LIST.archetype} className={inputClass} value={form.archetype} onChange={(e) => patch({ archetype: e.target.value })} />
+                            <input
+                                aria-label="Archétype" list={LIST.archetype} className={inputClass} value={form.archetype} onChange={(e) => patch({ archetype: e.target.value })} />
                         </div>
                         <div>
                             <label className={labelClass}>Taille</label>
-                            <input list={LIST.size} className={inputClass} value={form.size} onChange={(e) => patch({ size: e.target.value })} />
+                            <input
+                                aria-label="Taille" list={LIST.size} className={inputClass} value={form.size} onChange={(e) => patch({ size: e.target.value })} />
                         </div>
                     </div>
 
@@ -586,6 +598,7 @@ export const CustomMonsters: React.FC<CustomMonstersProps> = ({ embedded = false
                     <div>
                         <label className={labelClass}>Capacités spéciales (texte libre)</label>
                         <textarea
+                                aria-label="Capacités spéciales (texte libre)"
                             className={inputClass}
                             rows={3}
                             value={form.specialAbilitiesText}

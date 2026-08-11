@@ -557,6 +557,7 @@ export const DiceRoller: React.FC<DiceRollerProps> = ({ isOpen, mode = 'popup' }
                         type="text"
                         value={customFormula}
                         onChange={(e) => setCustomFormula(e.target.value)}
+                        aria-label="Jet libre (ex. 2d6+4)"
                         placeholder="Ex: 2d6+4"
                         className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-1.5 text-stone-300 placeholder-stone-600 focus:outline-none focus:border-primary-500/50 text-xs font-mono"
                     />

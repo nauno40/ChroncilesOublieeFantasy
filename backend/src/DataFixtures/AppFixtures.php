@@ -762,6 +762,12 @@ class AppFixtures extends Fixture
             if (isset($item['stats'])) {
                 $e->setStats($item['stats']);
             }
+
+            // Caractéristiques supérieures (l'astérisque du livre : un dé bonus à tous les
+            // tests de cette caractéristique, sauf les tests d'attaque).
+            if (!empty($item['statsSuperior'])) {
+                $e->setStatsSuperior($item['statsSuperior']);
+            }
             
             // Special Abilities
             if (!empty($item['specialAbilities'])) {

@@ -33,7 +33,9 @@ test('le formulaire de créature maison étiquette tous ses champs', async ({ pa
     await page.goto('/tools/monsters');
     await page.click('button:has-text("Nouveau monstre")');
     await expect(page.getByLabel('Nom')).toBeVisible();
-    // Les sept caractéristiques portent leur sigle.
-    await expect(page.getByLabel('FOR')).toBeVisible();
+    // Les sept caractéristiques portent leur sigle — et, à côté, la case « supérieure »
+    // porte le sien. D'où `exact` : sans lui, « FOR » désigne les deux à la fois.
+    await expect(page.getByLabel('FOR', { exact: true })).toBeVisible();
+    await expect(page.getByLabel('FOR supérieure')).toBeVisible();
     expect(await champsSansEtiquette(page)).toEqual([]);
 });

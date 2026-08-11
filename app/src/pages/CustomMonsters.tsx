@@ -50,6 +50,7 @@ interface MonsterForm {
     def: number;
     init: number;
     stats: Stats;
+    statsSuperior: StatKey[];
     attacks: CustomCreatureAttack[];
     capabilities: CustomCreatureCapability[];
     specialAbilitiesText: string;
@@ -72,6 +73,7 @@ const emptyForm = (): MonsterForm => ({
     def: 12,
     init: 10,
     stats: emptyStats(),
+    statsSuperior: [],
     attacks: [],
     capabilities: [],
     specialAbilitiesText: '',
@@ -92,6 +94,7 @@ const toForm = (c: CustomCreature): MonsterForm => ({
     def: c.def ?? 12,
     init: c.init ?? 10,
     stats: { ...emptyStats(), ...(c.stats ?? {}) },
+    statsSuperior: (c.statsSuperior ?? []) as StatKey[],
     attacks: c.attacks ? c.attacks.map((a) => ({ ...a })) : [],
     capabilities: c.capabilities ? c.capabilities.map((cap) => ({ ...cap })) : [],
     specialAbilitiesText: c.specialAbilities?.text ?? '',
@@ -111,6 +114,7 @@ const toPayload = (form: MonsterForm): Partial<CustomCreature> => ({
     def: form.def,
     init: form.init,
     stats: form.stats,
+    statsSuperior: form.statsSuperior.length ? form.statsSuperior : undefined,
     specialAbilities: { text: form.specialAbilitiesText.trim() },
     // On ne conserve que les lignes nommées.
     attacks: form.attacks.filter((a) => a.name.trim() !== ''),
@@ -233,6 +237,16 @@ export const CustomMonsters: React.FC<CustomMonstersProps> = ({ embedded = false
 
     const setStat = (key: StatKey, value: number) =>
         setForm((f) => (f ? { ...f, stats: { ...f.stats, [key]: value } } : f));
+
+    // L'astérisque du livre : un dé bonus à tous les tests de cette caractéristique. Les
+    // créatures officielles en portent ; une créature maison doit pouvoir en porter aussi.
+    const toggleSuperior = (key: StatKey) =>
+        setForm((f) => (f ? {
+            ...f,
+            statsSuperior: f.statsSuperior.includes(key)
+                ? f.statsSuperior.filter((k) => k !== key)
+                : [...f.statsSuperior, key],
+        } : f));
 
     // Éditeurs de lignes répétables (attaques / capacités)
     const addAttack = () => setForm((f) => (f ? { ...f, attacks: [...f.attacks, { name: '' }] } : f));
@@ -469,9 +483,23 @@ export const CustomMonsters: React.FC<CustomMonstersProps> = ({ embedded = false
                                         value={form.stats[key]}
                                         onChange={(e) => setStat(key, parseInt(e.target.value) || 0)}
                                     />
+                                    <label className="mt-1 flex items-center justify-center gap-1 text-[11px] text-stone-400 cursor-pointer">
+                                        <input
+                                            type="checkbox"
+                                            aria-label={`${key} supérieure`}
+                                            checked={form.statsSuperior.includes(key)}
+                                            onChange={() => toggleSuperior(key)}
+                                        />
+                                        <span className="text-primary-400">*</span>
+                                    </label>
                                 </div>
                             ))}
                         </div>
+                        <p className="mt-2 text-xs text-stone-400">
+                            <span className="text-primary-400">*</span> caractéristique supérieure —
+                            un dé bonus à tous les tests de cette caractéristique,
+                            <span className="text-stone-300"> sauf les tests d’attaque</span>.
+                        </p>
                     </div>
 
                     {/* Classification — champs libres avec suggestions (datalist). */}

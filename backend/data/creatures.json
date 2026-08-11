@@ -507,7 +507,10 @@
       }
     ],
     "capabilities": [],
-    "familyId": "3"
+    "familyId": "3",
+    "statsSuperior": [
+      "AGI"
+    ]
   },
   {
     "id": 10,
@@ -549,7 +552,11 @@
       }
     ],
     "capabilities": [],
-    "familyId": "3"
+    "familyId": "3",
+    "statsSuperior": [
+      "AGI",
+      "PER"
+    ]
   },
   {
     "id": 11,
@@ -591,7 +598,11 @@
       }
     ],
     "capabilities": [],
-    "familyId": "3"
+    "familyId": "3",
+    "statsSuperior": [
+      "AGI",
+      "PER"
+    ]
   },
   {
     "id": 12,
@@ -668,7 +679,10 @@
       }
     ],
     "capabilities": [],
-    "familyId": null
+    "familyId": null,
+    "statsSuperior": [
+      "FOR"
+    ]
   },
   {
     "id": 14,
@@ -840,7 +854,10 @@
         ]
       }
     ],
-    "familyId": "4"
+    "familyId": "4",
+    "statsSuperior": [
+      "CON"
+    ]
   },
   {
     "id": 17,
@@ -888,7 +905,10 @@
         ]
       }
     ],
-    "familyId": "4"
+    "familyId": "4",
+    "statsSuperior": [
+      "CON"
+    ]
   },
   {
     "id": 18,
@@ -1171,7 +1191,10 @@
       }
     ],
     "capabilities": [],
-    "familyId": "6"
+    "familyId": "6",
+    "statsSuperior": [
+      "CON"
+    ]
   },
   {
     "id": 23,
@@ -1399,7 +1422,11 @@
         "paths": "Voie des créatures volantes"
       }
     ],
-    "familyId": null
+    "familyId": null,
+    "statsSuperior": [
+      "AGI",
+      "PER"
+    ]
   },
   {
     "id": 28,
@@ -1483,7 +1510,12 @@
         ]
       }
     ],
-    "familyId": "8"
+    "familyId": "8",
+    "statsSuperior": [
+      "AGI",
+      "FOR",
+      "PER"
+    ]
   },
   {
     "id": 30,
@@ -3357,7 +3389,10 @@
         ]
       }
     ],
-    "familyId": "12"
+    "familyId": "12",
+    "statsSuperior": [
+      "CON"
+    ]
   },
   {
     "id": 57,
@@ -4131,7 +4166,11 @@
         ]
       }
     ],
-    "familyId": "13"
+    "familyId": "13",
+    "statsSuperior": [
+      "CON",
+      "FOR"
+    ]
   },
   {
     "id": 70,
@@ -5181,7 +5220,11 @@
       }
     ],
     "capabilities": [],
-    "familyId": "20"
+    "familyId": "20",
+    "statsSuperior": [
+      "AGI",
+      "PER"
+    ]
   },
   {
     "id": 88,
@@ -5216,7 +5259,11 @@
       }
     ],
     "capabilities": [],
-    "familyId": "20"
+    "familyId": "20",
+    "statsSuperior": [
+      "AGI",
+      "PER"
+    ]
   },
   {
     "id": 89,
@@ -5251,7 +5298,11 @@
       }
     ],
     "capabilities": [],
-    "familyId": "20"
+    "familyId": "20",
+    "statsSuperior": [
+      "AGI",
+      "PER"
+    ]
   },
   {
     "id": 90,
@@ -5352,7 +5403,10 @@
         "paths": "Voie du cogneur"
       }
     ],
-    "familyId": "21"
+    "familyId": "21",
+    "statsSuperior": [
+      "CON"
+    ]
   },
   {
     "id": 92,
@@ -5523,7 +5577,12 @@
         ]
       }
     ],
-    "familyId": "22"
+    "familyId": "22",
+    "statsSuperior": [
+      "AGI",
+      "CON",
+      "FOR"
+    ]
   },
   {
     "id": 95,
@@ -5681,7 +5740,10 @@
         "paths": "Voie des créatures volantes"
       }
     ],
-    "familyId": null
+    "familyId": null,
+    "statsSuperior": [
+      "PER"
+    ]
   },
   {
     "id": 98,
@@ -5982,7 +6044,10 @@
       }
     ],
     "capabilities": [],
-    "familyId": "25"
+    "familyId": "25",
+    "statsSuperior": [
+      "FOR"
+    ]
   },
   {
     "id": 105,
@@ -6286,7 +6351,10 @@
         "paths": "Voie de la magie de combat"
       }
     ],
-    "familyId": "27"
+    "familyId": "27",
+    "statsSuperior": [
+      "CHA"
+    ]
   },
   {
     "id": 113,
@@ -6331,7 +6399,10 @@
         "paths": "Voie du champion"
       }
     ],
-    "familyId": "27"
+    "familyId": "27",
+    "statsSuperior": [
+      "CHA"
+    ]
   },
   {
     "id": 114,
@@ -6481,7 +6552,11 @@
       }
     ],
     "capabilities": [],
-    "familyId": null
+    "familyId": null,
+    "statsSuperior": [
+      "AGI",
+      "PER"
+    ]
   },
   {
     "id": 116,
@@ -6543,7 +6618,11 @@
         ]
       }
     ],
-    "familyId": "28"
+    "familyId": "28",
+    "statsSuperior": [
+      "AGI",
+      "PER"
+    ]
   },
   {
     "id": 117,
@@ -6774,7 +6853,11 @@
         "paths": "Voie de la meute"
       }
     ],
-    "familyId": "30"
+    "familyId": "30",
+    "statsSuperior": [
+      "CON",
+      "PER"
+    ]
   },
   {
     "id": 121,
@@ -6823,7 +6906,12 @@
         ]
       }
     ],
-    "familyId": "30"
+    "familyId": "30",
+    "statsSuperior": [
+      "AGI",
+      "CON",
+      "PER"
+    ]
   },
   {
     "id": 122,
@@ -6872,7 +6960,12 @@
         ]
       }
     ],
-    "familyId": "30"
+    "familyId": "30",
+    "statsSuperior": [
+      "AGI",
+      "CON",
+      "PER"
+    ]
   },
   {
     "id": 123,
@@ -7464,7 +7557,11 @@
         "paths": "Voie des créatures magiques"
       }
     ],
-    "familyId": null
+    "familyId": null,
+    "statsSuperior": [
+      "CON",
+      "FOR"
+    ]
   },
   {
     "id": 134,
@@ -8488,7 +8585,10 @@
         "paths": "Voie du cogneur"
       }
     ],
-    "familyId": "36"
+    "familyId": "36",
+    "statsSuperior": [
+      "FOR"
+    ]
   },
   {
     "id": 147,
@@ -8682,7 +8782,10 @@
       }
     ],
     "capabilities": [],
-    "familyId": "37"
+    "familyId": "37",
+    "statsSuperior": [
+      "FOR"
+    ]
   },
   {
     "id": 150,
@@ -8717,7 +8820,10 @@
       }
     ],
     "capabilities": [],
-    "familyId": "37"
+    "familyId": "37",
+    "statsSuperior": [
+      "FOR"
+    ]
   },
   {
     "id": 151,
@@ -8777,7 +8883,7 @@
       "CON": 3,
       "FOR": 1,
       "PER": 3,
-      "CHA": -2,
+      "CHA": -1,
       "INT": 0,
       "VOL": 3
     },
@@ -8886,7 +8992,11 @@
         "paths": "Voie du chef d’armée"
       }
     ],
-    "familyId": "37"
+    "familyId": "37",
+    "statsSuperior": [
+      "FOR",
+      "CHA"
+    ]
   },
   {
     "id": 154,
@@ -8921,7 +9031,11 @@
       }
     ],
     "capabilities": [],
-    "familyId": "38"
+    "familyId": "38",
+    "statsSuperior": [
+      "AGI",
+      "FOR"
+    ]
   },
   {
     "id": 155,
@@ -8969,7 +9083,10 @@
         ]
       }
     ],
-    "familyId": "38"
+    "familyId": "38",
+    "statsSuperior": [
+      "CON"
+    ]
   },
   {
     "id": 156,
@@ -9086,7 +9203,11 @@
         "paths": "Voie du cogneur"
       }
     ],
-    "familyId": "38"
+    "familyId": "38",
+    "statsSuperior": [
+      "CON",
+      "FOR"
+    ]
   },
   {
     "id": 158,
@@ -9192,7 +9313,11 @@
         ]
       }
     ],
-    "familyId": null
+    "familyId": null,
+    "statsSuperior": [
+      "AGI",
+      "PER"
+    ]
   },
   {
     "id": 160,
@@ -9484,7 +9609,10 @@
       }
     ],
     "capabilities": [],
-    "familyId": "40"
+    "familyId": "40",
+    "statsSuperior": [
+      "PER"
+    ]
   },
   {
     "id": 165,
@@ -9532,7 +9660,11 @@
         ]
       }
     ],
-    "familyId": null
+    "familyId": null,
+    "statsSuperior": [
+      "CON",
+      "FOR"
+    ]
   },
   {
     "id": 166,
@@ -9589,7 +9721,11 @@
         "paths": "Voie du cogneur"
       }
     ],
-    "familyId": "41"
+    "familyId": "41",
+    "statsSuperior": [
+      "CON",
+      "FOR"
+    ]
   },
   {
     "id": 167,
@@ -9707,7 +9843,11 @@
         ]
       }
     ],
-    "familyId": "42"
+    "familyId": "42",
+    "statsSuperior": [
+      "FOR",
+      "PER"
+    ]
   },
   {
     "id": 169,
@@ -9756,7 +9896,11 @@
         ]
       }
     ],
-    "familyId": "42"
+    "familyId": "42",
+    "statsSuperior": [
+      "AGI",
+      "CON"
+    ]
   },
   {
     "id": 170,
@@ -10177,7 +10321,12 @@
         "paths": "Voie des créatures magiques"
       }
     ],
-    "familyId": "44"
+    "familyId": "44",
+    "statsSuperior": [
+      "AGI",
+      "CON",
+      "PER"
+    ]
   },
   {
     "id": 178,
@@ -10349,7 +10498,12 @@
         "paths": "Voie de la sombre magie"
       }
     ],
-    "familyId": "44"
+    "familyId": "44",
+    "statsSuperior": [
+      "AGI",
+      "CON",
+      "PER"
+    ]
   },
   {
     "id": 179,
@@ -10394,7 +10548,11 @@
         "paths": "Voie des créatures magiques"
       }
     ],
-    "familyId": "44"
+    "familyId": "44",
+    "statsSuperior": [
+      "AGI",
+      "CON"
+    ]
   },
   {
     "id": 180,
@@ -10812,7 +10970,10 @@
         "paths": "Voie du chef d’armée"
       }
     ],
-    "familyId": "46"
+    "familyId": "46",
+    "statsSuperior": [
+      "CON"
+    ]
   },
   {
     "id": 190,
@@ -10884,7 +11045,10 @@
         "paths": "Voie du meneur d'homme"
       }
     ],
-    "familyId": "46"
+    "familyId": "46",
+    "statsSuperior": [
+      "PER"
+    ]
   },
   {
     "id": 191,
@@ -11494,7 +11658,11 @@
       }
     ],
     "capabilities": [],
-    "familyId": null
+    "familyId": null,
+    "statsSuperior": [
+      "AGI",
+      "PER"
+    ]
   },
   {
     "id": 203,
@@ -11578,7 +11746,11 @@
       }
     ],
     "capabilities": [],
-    "familyId": null
+    "familyId": null,
+    "statsSuperior": [
+      "CON",
+      "PER"
+    ]
   },
   {
     "id": 205,
@@ -11690,7 +11862,12 @@
       }
     ],
     "capabilities": [],
-    "familyId": null
+    "familyId": null,
+    "statsSuperior": [
+      "AGI",
+      "CON",
+      "FOR"
+    ]
   },
   {
     "id": 208,
@@ -11732,7 +11909,12 @@
       }
     ],
     "capabilities": [],
-    "familyId": null
+    "familyId": null,
+    "statsSuperior": [
+      "AGI",
+      "CON",
+      "PER"
+    ]
   },
   {
     "id": 209,
@@ -11774,7 +11956,11 @@
       }
     ],
     "capabilities": [],
-    "familyId": null
+    "familyId": null,
+    "statsSuperior": [
+      "AGI",
+      "PER"
+    ]
   },
   {
     "id": 210,
@@ -11816,7 +12002,10 @@
       }
     ],
     "capabilities": [],
-    "familyId": null
+    "familyId": null,
+    "statsSuperior": [
+      "FOR"
+    ]
   },
   {
     "id": 211,
@@ -11851,7 +12040,11 @@
       }
     ],
     "capabilities": [],
-    "familyId": null
+    "familyId": null,
+    "statsSuperior": [
+      "AGI",
+      "PER"
+    ]
   },
   {
     "id": 212,
@@ -11928,7 +12121,11 @@
       }
     ],
     "capabilities": [],
-    "familyId": null
+    "familyId": null,
+    "statsSuperior": [
+      "AGI",
+      "PER"
+    ]
   },
   {
     "id": 214,
@@ -12012,7 +12209,10 @@
       }
     ],
     "capabilities": [],
-    "familyId": null
+    "familyId": null,
+    "statsSuperior": [
+      "FOR"
+    ]
   },
   {
     "id": 216,
@@ -12047,7 +12247,12 @@
       }
     ],
     "capabilities": [],
-    "familyId": null
+    "familyId": null,
+    "statsSuperior": [
+      "CON",
+      "FOR",
+      "INT"
+    ]
   },
   {
     "id": 217,
@@ -12062,8 +12267,8 @@
       "CON": 3,
       "FOR": 4,
       "PER": 0,
-      "CHA": 0,
-      "INT": 0,
+      "CHA": -1,
+      "INT": -1,
       "VOL": 1
     },
     "category": "Vivante",
@@ -12082,7 +12287,10 @@
       }
     ],
     "capabilities": [],
-    "familyId": null
+    "familyId": null,
+    "statsSuperior": [
+      "FOR"
+    ]
   },
   {
     "id": 218,
@@ -12117,7 +12325,10 @@
       }
     ],
     "capabilities": [],
-    "familyId": null
+    "familyId": null,
+    "statsSuperior": [
+      "CON"
+    ]
   },
   {
     "id": 219,
@@ -12152,6 +12363,10 @@
       }
     ],
     "capabilities": [],
-    "familyId": null
+    "familyId": null,
+    "statsSuperior": [
+      "AGI",
+      "PER"
+    ]
   }
 ]

@@ -232,6 +232,11 @@ export interface CreatureSheetVM {
     init?: number;
     /** Les sept caractéristiques COF2, dans l'ordre du profil de créature du livre. */
     stats?: Record<string, number>;
+    /**
+     * Celles qui sont SUPÉRIEURES : « un dé bonus à tous les tests de cette caractéristique.
+     * Attention, ce dé bonus ne s'applique pas aux tests d'attaque » (Opposition).
+     */
+    statsSuperior?: string[];
     familyName?: string;
     familyDescription?: string;
     category?: string;

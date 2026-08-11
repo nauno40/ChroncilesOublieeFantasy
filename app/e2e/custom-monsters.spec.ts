@@ -72,4 +72,23 @@ test.describe('Monstres custom (MJ)', () => {
         await page.getByRole('heading', { name: `${nom} bis` }).click();
         await expect(page.getByText(/attaques qui demandent un test de CON/i)).toHaveCount(0);
     });
+
+    // Les créatures officielles portent l'astérisque du livre ; une créature maison doit
+    // pouvoir en porter aussi, et sa fiche l'afficher par le même chemin.
+    test('un monstre maison peut déclarer une caractéristique supérieure', async ({ page }) => {
+        const nom = `Panthère ${Date.now()}`;
+        await page.goto('/tools/monsters');
+        await page.getByRole('button', { name: /nouveau monstre/i }).first().click();
+        await page.getByPlaceholder(/gobelin/i).first().fill(nom);
+        await page.getByLabel('AGI', { exact: true }).fill('4');
+        await page.getByLabel('AGI supérieure').check();
+        await page.getByRole('button', { name: /^enregistrer/i }).click();
+        await expect(page.getByRole('heading', { name: nom })).toBeVisible({ timeout: 15_000 });
+
+        await page.getByRole('heading', { name: nom }).click();
+        await expect(page.getByLabel('AGI 4 (supérieure : dé bonus)')).toBeVisible();
+        await expect(page.getByText(/sauf les tests d’attaque/)).toBeVisible();
+        // Les autres restent ordinaires : cocher une case n'en marque qu'une.
+        await expect(page.getByLabel('FOR 0', { exact: true })).toBeVisible();
+    });
 });

@@ -41,6 +41,7 @@ const Info: React.FC<{ label: string; value?: string }> = ({ label, value }) => 
 export const CreatureSheet: React.FC<CreatureSheetProps> = ({ vm, backTo, backLabel, header, references }) => {
     const aDesInfos = vm.category || vm.environment || vm.archetype || vm.size;
     const type = typeCreature(vm.category);
+    const superieures = new Set(vm.statsSuperior ?? []);
     const aDesCapacites = (vm.capabilities?.length ?? 0) > 0 || vm.specialAbilitiesHtml || vm.specialAbilitiesText;
     const aUneDescription = vm.descriptionHtml || vm.descriptionText || vm.familyDescription;
 
@@ -154,20 +155,37 @@ export const CreatureSheet: React.FC<CreatureSheetProps> = ({ vm, backTo, backLa
 
                     <div className="lg:col-span-8">
                         {vm.stats && (
-                            <div className="grid grid-cols-4 sm:grid-cols-7 gap-3 mb-8">
+                            <div className="mb-8">
+                            <div className="grid grid-cols-4 sm:grid-cols-7 gap-3">
                                 {CARACS.map(carac => (
                                     // L'intitulé et la valeur sont deux blocs voisins : lus séparément, ils
                                     // ne disent pas à quelle caractéristique le chiffre appartient. Le label
                                     // les réunit — pour un lecteur d'écran comme pour un test.
                                     <div
                                         key={carac}
-                                        aria-label={`${carac} ${vm.stats?.[carac] ?? 0}`}
-                                        className="bg-stone-900/60 rounded-xl p-3 border border-white/5 text-center hover:border-primary-500/30 transition-colors"
+                                        aria-label={`${carac} ${vm.stats?.[carac] ?? 0}${superieures.has(carac) ? ' (supérieure : dé bonus)' : ''}`}
+                                        className={`rounded-xl p-3 border text-center transition-colors ${superieures.has(carac)
+                                            ? 'bg-primary-950/40 border-primary-500/40 hover:border-primary-400/60'
+                                            : 'bg-stone-900/60 border-white/5 hover:border-primary-500/30'}`}
                                     >
                                         <div className="text-stone-400 text-[11px] font-bold uppercase tracking-wider mb-1">{carac}</div>
-                                        <div className="font-display font-bold text-xl text-stone-200">{vm.stats?.[carac] ?? 0}</div>
+                                        <div className="font-display font-bold text-xl text-stone-200">
+                                            {vm.stats?.[carac] ?? 0}
+                                            {/* L'astérisque du livre, à la place exacte où le livre le met. */}
+                                            {superieures.has(carac) && <span className="text-primary-400">*</span>}
+                                        </div>
                                     </div>
                                 ))}
+                            </div>
+                            {/* La légende n'est pas décorative : sans elle, l'astérisque est un
+                                signe muet, et le MJ ne sait ni ce qu'il accorde ni où il s'arrête. */}
+                            {superieures.size > 0 && (
+                                <p className="mt-2 text-xs text-stone-400">
+                                    <span className="text-primary-400">*</span> caractéristique supérieure —
+                                    un dé bonus à tous les tests de cette caractéristique,
+                                    <span className="text-stone-300"> sauf les tests d’attaque</span>.
+                                </p>
+                            )}
                             </div>
                         )}
 

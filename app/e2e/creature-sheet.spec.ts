@@ -105,3 +105,31 @@ test('un NC ½ est servi et écrit comme le livre l’écrit', async ({ page }) 
     await page.waitForURL(/\/bestiary\/\d+/);
     await expect(page.getByText('NC ½')).toBeVisible();
 });
+
+// L'astérisque du livre — « un dé bonus à tous les tests de cette caractéristique » — n'avait
+// aucun champ où se poser : 101 d'entre eux étaient perdus, et le MJ lançait un seul dé.
+test('une caractéristique supérieure porte son astérisque et sa portée', async ({ page }) => {
+    await register(page, uniqueEmail('sup'));
+    await page.goto('/bestiary');
+    await page.getByPlaceholder(/Rechercher/).fill('Basilic');
+    await page.locator('a[href^="/bestiary/"]').first().click();
+    await page.waitForURL(/\/bestiary\/\d+/);
+
+    // Basilic : FOR +3* dans le livre, seule caractéristique à porter l'astérisque.
+    await expect(page.getByLabel('FOR 3 (supérieure : dé bonus)')).toBeVisible();
+    await expect(page.getByLabel('CON 3', { exact: true })).toBeVisible();
+
+    // La légende dit ce que l'astérisque accorde ET où il s'arrête : sans elle, c'est un
+    // signe muet.
+    await expect(page.getByText(/dé bonus à tous les tests de cette caractéristique/)).toBeVisible();
+    await expect(page.getByText(/sauf les tests d’attaque/)).toBeVisible();
+});
+
+test('une créature sans caractéristique supérieure n’affiche pas la légende', async ({ page }) => {
+    await register(page, uniqueEmail('sup'));
+    await page.goto('/bestiary');
+    await page.getByPlaceholder(/Rechercher/).fill('Squelette de base');
+    await page.locator('a[href^="/bestiary/"]').first().click();
+    await page.waitForURL(/\/bestiary\/\d+/);
+    await expect(page.getByText(/caractéristique supérieure/)).toHaveCount(0);
+});

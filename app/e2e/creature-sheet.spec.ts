@@ -46,3 +46,30 @@ test('la carte d’une créature maison mène à sa fiche', async ({ page }) => 
     await expect(page).toHaveURL(/\/creatures\/maison\/\d+$/);
     await expect(page.getByRole('heading', { name: 'Bête de test' })).toBeVisible();
 });
+
+// Le type d'une créature n'est pas qu'une étiquette : le livre y attache des immunités
+// précises (Opposition, § « Type de créature »). La fiche affichait « Non-vivante » et
+// s'arrêtait là.
+test('la fiche d’une créature non vivante énonce ses immunités', async ({ page }) => {
+    await register(page, uniqueEmail('type'));
+    await page.goto('/bestiary');
+    await page.getByPlaceholder(/Rechercher/).fill('Squelette');
+    await page.locator('a[href^="/bestiary/"]').first().click();
+    await page.waitForURL(/\/bestiary\/\d+/);
+
+    await expect(page.getByText('Non-vivante').first()).toBeVisible();
+    await expect(page.getByText(/immunisée aux maladies et aux poisons/i)).toBeVisible();
+    await expect(page.getByText(/attaques qui demandent un test de CON/i)).toBeVisible();
+    // L'immunité mentale reste sous condition : le livre la réserve aux créatures
+    // dépourvues d'intelligence, et le profil ne dit pas à partir de quelle INT elles le sont.
+    await expect(page.getByText(/Si elle est dépourvue d’intelligence/)).toBeVisible();
+});
+
+test('une créature vivante n’hérite d’aucune immunité', async ({ page }) => {
+    await register(page, uniqueEmail('type'));
+    await page.goto('/bestiary');
+    await page.getByPlaceholder(/Rechercher/).fill('Loup');
+    await page.locator('a[href^="/bestiary/"]').first().click();
+    await page.waitForURL(/\/bestiary\/\d+/);
+    await expect(page.getByText(/immunisée aux maladies/i)).toHaveCount(0);
+});

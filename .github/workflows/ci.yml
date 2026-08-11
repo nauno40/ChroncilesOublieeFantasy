@@ -85,16 +85,31 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      # `docker compose` monte ./backend sur /app et MASQUE donc le vendor/ de l'image.
+      # Sans installation préalable côté hôte, le conteneur n'a aucune dépendance : son
+      # entrypoint boucle indéfiniment sur `bin/console`, et l'API ne répond jamais.
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: ctype, iconv, pdo_pgsql
+          coverage: none
+      - name: Installer les dépendances PHP (montées dans le conteneur)
+        working-directory: backend
+        run: composer install --no-interaction --no-progress
       - name: Démarrer le stack
         run: docker compose up -d --build
       # nginx répond avant que la base soit prête : on attend l'API, pas les conteneurs.
       - name: Attendre l'API
         run: |
-          for i in $(seq 1 60); do
-            if curl -sf http://localhost:8000/api > /dev/null; then exit 0; fi
+          for i in $(seq 1 90); do
+            if [ "$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8000/api)" = "200" ]; then
+              exit 0
+            fi
             sleep 5
           done
-          docker compose logs --tail=50
+          echo "L'API n'a pas répondu 200 en 450 s."
+          docker compose ps
+          docker compose logs --tail=80 backend nginx database
           exit 1
       # L'entrypoint de dev joue déjà les migrations ; les fixtures, non — et les tests
       # visent des créatures nommées (Troll, Chef ogre) qui viennent de là.
@@ -105,10 +120,13 @@ jobs:
       - name: Attendre le serveur Vite
         run: |
           for i in $(seq 1 60); do
-            if curl -sf http://localhost:5173 > /dev/null; then exit 0; fi
+            if [ "$(curl -s -o /dev/null -w '%{http_code}' http://localhost:5173)" = "200" ]; then
+              exit 0
+            fi
             sleep 5
           done
-          docker compose logs --tail=50 frontend
+          echo "Le serveur Vite n'a pas répondu 200 en 300 s."
+          docker compose logs --tail=80 frontend
           exit 1
       - run: bash scripts/e2e.sh
       - name: Journaux en cas d'échec

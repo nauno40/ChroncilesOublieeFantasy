@@ -124,14 +124,15 @@ describe('applyHp', () => {
 describe('rendement décroissant au suivi de combat', () => {
     const base: TrackerState = { round: 1, activeId: null, combatants: [] };
 
-    it('n’accorde rien à la première tentative', () => {
-        const s = enregistrerTentative(base, 'cible', 'Injonction');
-        expect(bonusResistance(s, 'cible', 'Injonction')).toBe(0);
+    it('n’accorde rien tant que la capacité n’a pas été subie', () => {
+        expect(bonusResistance(base, 'cible', 'Injonction')).toBe(0);
     });
 
-    it('accorde +5 par répétition de la MÊME capacité', () => {
+    it('accorde +5 dès la PREMIÈRE tentative subie, puis +5 par répétition', () => {
+        // Le compte porte sur ce que la cible a déjà encaissé : après une injonction, la
+        // suivante se joue avec +5. Retrancher un de plus laisserait la deuxième tentative
+        // sans rien — un rang de retard invisible à la lecture du code.
         let s = enregistrerTentative(base, 'cible', 'Injonction');
-        s = enregistrerTentative(s, 'cible', 'Injonction');
         expect(bonusResistance(s, 'cible', 'Injonction')).toBe(5);
         s = enregistrerTentative(s, 'cible', 'Injonction');
         expect(bonusResistance(s, 'cible', 'Injonction')).toBe(10);
@@ -142,22 +143,25 @@ describe('rendement décroissant au suivi de combat', () => {
         // Bousculade renversent toutes deux sans se renforcer l'une l'autre.
         let s = enregistrerTentative(base, 'cible', 'Renverser');
         s = enregistrerTentative(s, 'cible', 'Bousculade');
-        expect(bonusResistance(s, 'cible', 'Renverser')).toBe(0);
-        expect(bonusResistance(s, 'cible', 'Bousculade')).toBe(0);
+        expect(bonusResistance(s, 'cible', 'Renverser')).toBe(5);
+        expect(bonusResistance(s, 'cible', 'Bousculade')).toBe(5);
+        expect(bonusResistance(s, 'cible', 'Étourdir')).toBe(0);
     });
 
     it('compte par cible : deux victimes ne partagent pas leur accoutumance', () => {
-        let s = enregistrerTentative(base, 'a', 'Injonction');
-        s = enregistrerTentative(s, 'a', 'Injonction');
+        const s = enregistrerTentative(base, 'a', 'Injonction');
         expect(bonusResistance(s, 'a', 'Injonction')).toBe(5);
         expect(bonusResistance(s, 'b', 'Injonction')).toBe(0);
     });
 
-    it('rend la liste de ce qu’une cible a appris à encaisser', () => {
+    it('rend la liste de ce qu’une cible a appris à encaisser, la plus forte d’abord', () => {
         let s = enregistrerTentative(base, 'cible', 'Injonction');
         s = enregistrerTentative(s, 'cible', 'Injonction');
-        s = enregistrerTentative(s, 'cible', 'Étourdir');   // une seule fois : aucun bonus
-        expect(resistancesAcquises(s, 'cible')).toEqual([{ capacite: 'Injonction', bonus: 5 }]);
+        s = enregistrerTentative(s, 'cible', 'Étourdir');
+        expect(resistancesAcquises(s, 'cible')).toEqual([
+            { capacite: 'Injonction', bonus: 10 },
+            { capacite: 'Étourdir', bonus: 5 },
+        ]);
     });
 
     it('ignore une capacité sans nom', () => {

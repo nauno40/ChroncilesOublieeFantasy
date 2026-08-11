@@ -2,7 +2,8 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { Sword, RefreshCw, Trash2, Shield } from 'lucide-react';
 import type { Combatant } from '../types/campaign';
 import type { TrackerState } from '../domain/combatTracker';
-import { sortByInitiative, nextTurn, removeById, applyHp, enregistrerTentative, resistancesAcquises } from '../domain/combatTracker';
+import { sortByInitiative, nextTurn, removeById, applyHp, enregistrerTentative, resistancesAcquises, bonusResistance } from '../domain/combatTracker';
+import { PanneauResistance } from '../components/creature/PanneauResistance';
 import { effetsCumules, defEffective } from '../domain/rules/etatsCombat';
 import { dommagesSubis } from '../domain/rules/dommages';
 import { lancerAttaque } from '../domain/rules/test';
@@ -469,33 +470,15 @@ export const CombatTracker: React.FC = () => {
             {/* Liste */}
             <div className="space-y-3">
                 {poseEnCours && (
-                    <div className="mb-3 p-3 rounded-xl bg-purple-950/30 border border-purple-500/30">
-                        <div className="text-xs text-purple-200 mb-2">
-                            Appliquer « {poseEnCours.etat} » à quel combattant ?
-                        </div>
-                        <div className="flex flex-wrap gap-2">
-                            {state.combatants.map(cible => (
-                                <button
-                                    key={cible.id}
-                                    type="button"
-                                    onClick={() => {
-                                        addState(cible.id, poseEnCours.etat);
-                                        // La cible s'accoutume à ce qu'on lui répète : le
-                                        // compte sert au bonus de résistance (COF2).
-                                        setState(s => enregistrerTentative(s, cible.id, poseEnCours.capacite));
-                                        setPoseEnCours(null);
-                                    }}
-                                    className="text-[11px] px-2 py-1 rounded bg-black/40 border border-white/10 text-stone-200 hover:border-purple-400/50"
-                                >
-                                    Sur : {cible.name}
-                                </button>
-                            ))}
-                            <button type="button" onClick={() => setPoseEnCours(null)}
-                                className="text-[11px] px-2 py-1 rounded text-stone-400 hover:text-white">
-                                Annuler
-                            </button>
-                        </div>
-                    </div>
+                    <PanneauResistance
+                        etat={poseEnCours.etat}
+                        capacite={poseEnCours.capacite}
+                        combattants={state.combatants}
+                        bonusPour={id => bonusResistance(state, id, poseEnCours.capacite)}
+                        onPoser={id => addState(id, poseEnCours.etat)}
+                        onTentative={id => setState(s => enregistrerTentative(s, id, poseEnCours.capacite))}
+                        onAnnuler={() => setPoseEnCours(null)}
+                    />
                 )}
 
                 {ordered.map(c => (

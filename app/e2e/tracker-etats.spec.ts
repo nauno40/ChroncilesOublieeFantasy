@@ -161,18 +161,54 @@ test('le suivi de combat compte les répétitions d’une capacité sur une cibl
     await page.click('button:has-text("Ajouter")');
 
     await page.getByText(/Capacités \(\d+\)/).click();
+    // Le panneau demande la cible, puis applique l'état sans jet : c'est le geste le plus
+    // direct, le jet de résistance ayant son propre test.
     const poser = async () => {
         await page.locator('button').filter({ hasText: 'Renversé' }).first().click();
-        await page.locator('button').filter({ hasText: 'Sur : Cible' }).first().click();
+        await page.locator('button').filter({ hasText: /^Cible/ }).first().click();
+        await page.click('button:has-text("Appliquer sans jet")');
     };
 
-    // La première tentative n'accorde rien : c'est la répétition qui pèse.
-    await poser();
+    // Rien tant que la capacité n'a pas été subie.
     await expect(page.getByText(/pour résister à/)).toHaveCount(0);
 
+    // Une fois subie, la prochaine tentative se joue avec +5 ; deux fois, +10.
     await poser();
     await expect(page.getByText('+5 pour résister à « Fauchage »')).toBeVisible();
 
     await poser();
     await expect(page.getByText('+10 pour résister à « Fauchage »')).toBeVisible();
+});
+
+// Le jet de résistance se faisait au lanceur, où le MJ reportait à la main le bonus acquis.
+// Il se joue désormais là où l'état s'applique, bonus compris.
+test('le jet de résistance applique le bonus acquis et décide de l’état', async ({ page }) => {
+    await register(page, uniqueEmail('res'));
+    await page.goto('/tools/tracker');
+
+    await page.selectOption('select:has(option:text-is("— Créature —"))', { label: 'Troll' });
+    await page.click('button:has-text("Monstre")');
+    await page.fill('input[placeholder="Nom du combattant"]', 'Cible');
+    const champs = page.locator('.glass-panel input[type=number]');
+    await champs.nth(0).fill('8');
+    await champs.nth(1).fill('20');
+    await champs.nth(2).fill('14');
+    await page.click('button:has-text("Ajouter")');
+    await page.getByText(/Capacités \(\d+\)/).click();
+
+    // Première tentative : la cible n'a rien subi, aucun bonus n'est proposé.
+    await page.locator('button').filter({ hasText: 'Renversé' }).first().click();
+    await page.locator('button').filter({ hasText: /^Cible/ }).first().click();
+    await expect(page.getByText(/acquis contre/)).toHaveCount(0);
+    await page.click('button:has-text("Appliquer sans jet")');
+
+    // Seconde : le panneau annonce le +5 avant même le jet, et le jet le compte.
+    await page.locator('button').filter({ hasText: 'Renversé' }).first().click();
+    await page.locator('button').filter({ hasText: /^Cible/ }).first().click();
+    await expect(page.getByText('+5 acquis contre « Fauchage »')).toBeVisible();
+
+    await page.fill('input[aria-label="Caractéristique de résistance de Cible"]', '2');
+    await page.click('button:has-text("Jet de résistance")');
+    await expect(page.getByText(/\+5 rendement/)).toBeVisible();
+    await expect(page.getByText(/résiste|subit/).first()).toBeVisible();
 });

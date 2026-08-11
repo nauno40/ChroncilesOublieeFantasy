@@ -6,7 +6,7 @@ import { CreatureCard } from '../components/creature/CreatureCard';
 import { carteDepuisMonstreMaison } from '../domain/creature';
 import { getMonsters, createMonster, updateMonster, deleteMonster } from '../services/monsterService';
 import { DataService } from '../services/dataService';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../hooks/useAuth';
 import type { CustomCreature, CustomCreatureAttack, CustomCreatureCapability, Creature } from '../types';
 import { LEXIQUE } from '../domain/lexique';
 

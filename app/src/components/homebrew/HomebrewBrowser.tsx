@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Plus } from 'lucide-react';
 import { Loader, SearchToolbar, SelectFiltre, GrilleFiltres, FilterPanel } from '../common';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth } from '../../hooks/useAuth';
 import { HomebrewService, HOMEBREW_CATEGORIES, categoryLabel, childrenOf, messageSuppression, type HomebrewEntry } from '../../services/homebrewService';
 import { duplicateEntry, resumeDuplication } from '../../services/homebrewChildren';
 import { HomebrewList } from './HomebrewList';

@@ -4,7 +4,7 @@ import { ArrowLeft } from 'lucide-react';
 import type { CustomCreature } from '../types';
 import { getMonster, getMonsters, deleteMonster, createMonster } from '../services/monsterService';
 import { DataService } from '../services/dataService';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../hooks/useAuth';
 import { CreatureSheet, OwnerBar } from '../components/sheets';
 import { customCreatureToVM } from '../components/sheets/adapters/fromCustomCreature';
 import { Loader } from '../components/common';
@@ -76,8 +76,13 @@ export const CustomCreatureDetail: React.FC = () => {
         try {
             // Une copie part toujours privée : elle est à son nouveau propriétaire, pas
             // republiée en son nom sans qu'il l'ait décidé.
-            const { id: _id, authorId: _auteur, authorPseudo: _pseudo, ...reste } = creature;
-            const copie = await createMonster({ ...reste, name: `${creature.name} (copie)`, visibility: 'private' });
+            // `createMonster` ne retient que les champs modifiables (cf. `monsterService`) :
+            // identifiant et auteur sont posés côté serveur, inutile de les retirer ici.
+            const copie = await createMonster({
+                ...creature,
+                name: `${creature.name} (copie)`,
+                visibility: 'private',
+            });
             navigate(`/creatures/maison/${copie.id}`);
         } finally {
             setDuplication(false);

@@ -3,6 +3,7 @@ import type { Voie, Profile } from '../types/normalized';
 import { PageContainer, SearchToolbar, ContentCard, Badge, Loader } from '../components/common';
 import { useSearch } from '../hooks';
 import { invitRecherche, compteurDuType } from '../domain/compendium';
+import { idDepuisRef } from '../domain/iri';
 import { DataService } from '../services/dataService';
 import { User, Users, Skull, Crown, Filter, Scroll, Search, X } from 'lucide-react';
 import { LEXIQUE } from '../domain/lexique';
@@ -29,10 +30,21 @@ export const Voies: React.FC = () => {
             DataService.getProfiles()
         ])
             .then(([v, p]) => {
-                const normalizedVoies = v.map((item: any) => ({
+                // La classe d'une voie se lit sur le PROFIL, jamais sur la voie : l'API ne
+                // sert ni `profile` ni `profileId` sur une voie. Le code lisait ces deux
+                // champs inexistants, si bien que le sélecteur « Filtrer par classe » ne
+                // proposait aucune classe — un filtre visible et sans effet.
+                const classeParVoie = new Map<string, string>();
+                for (const profil of p) {
+                    for (const voie of profil.voies ?? []) {
+                        const idVoie = idDepuisRef(voie);
+                        if (idVoie) classeParVoie.set(idVoie, String(profil.id));
+                    }
+                }
+                const normalizedVoies = v.map((item) => ({
                     ...item,
-                    type: item.type || item.category || (item.profile ? 'Personnage' : 'Autre'),
-                    profileId: item.profileId || (item.profile ? String(item.profile).split('/').pop() : null),
+                    type: item.type || item.category || 'Autre',
+                    profileId: classeParVoie.get(String(item.id)) ?? null,
                     id: String(item.id)
                 }));
                 setVoies(normalizedVoies);

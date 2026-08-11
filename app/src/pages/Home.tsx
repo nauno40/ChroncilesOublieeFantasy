@@ -4,7 +4,7 @@ import { Swords, Scroll, ChevronRight, Users, Play, Loader2, Sparkles, UserPlus,
 import { getCampaigns } from '../services/campaignService';
 import { ApiService } from '../services/api';
 import { HomebrewService, categoryLabel, type HomebrewEntry } from '../services/homebrewService';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../hooks/useAuth';
 import { AuthorTag } from '../components/common';
 import type { Character } from '../types/character';
 

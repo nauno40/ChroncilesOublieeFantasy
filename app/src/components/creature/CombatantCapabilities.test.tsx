@@ -44,14 +44,16 @@ describe('CombatantCapabilities', () => {
         expect(screen.getByText('La victime est Renversée.')).toBeTruthy();
     });
 
-    it('remonte le nom CANONIQUE de l’état, pas la forme déclarée', () => {
+    it('remonte le nom CANONIQUE de l’état, et la capacité qui le pose', () => {
         // La capacité déclare « Renversée » ; le suivi de combat doit recevoir « Renversé »,
         // sans quoi le combattant porterait un état absent du compendium.
+        // Le nom de la capacité l'accompagne : le rendement décroissant compte les
+        // répétitions d'une CAPACITÉ, pas celles d'un état.
         const onPoserEtat = vi.fn();
         monter({ onPoserEtat });
         fireEvent.click(screen.getByText('Capacités (2)'));
         fireEvent.click(screen.getByText('Renversé'));
-        expect(onPoserEtat).toHaveBeenCalledWith('Renversé');
+        expect(onPoserEtat).toHaveBeenCalledWith('Renversé', 'Fauchage');
     });
 
     it('remonte la créature invoquée, sa quantité et sa référence d’origine', () => {

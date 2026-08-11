@@ -17,7 +17,9 @@ export const CombatantCapabilities: React.FC<{
     capacites: CustomCreatureCapability[];
     etatsConnus: HarmfulState[];
     sources: SourcesInvocation;
-    onPoserEtat: (etat: string) => void;
+    /** Remonte l'état À POSER et la capacité qui le pose : le rendement décroissant
+     *  compte les répétitions d'une capacité, pas celles d'un état. */
+    onPoserEtat: (etat: string, capacite: string) => void;
     onInvoquer: (creature: Creature | CustomCreature, quantite: number, refOrigine: string) => void;
 }> = ({ capacites, etatsConnus, sources, onPoserEtat, onInvoquer }) => {
     const [ouvert, setOuvert] = useState(false);
@@ -60,7 +62,7 @@ export const CombatantCapabilities: React.FC<{
                                 capacite={cap}
                                 etatsConnus={etatsConnus}
                                 sources={sources}
-                                onEtat={onPoserEtat}
+                                onEtat={(etat) => onPoserEtat(etat, cap.label ?? cap.name ?? '')}
                             />
 
                             {/* Seule une créature s'ajoute au combat : un objet n'est pas un

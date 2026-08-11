@@ -141,3 +141,38 @@ test('infliger les dommages depuis le jet d’attaque retire les PV, RD comprise
     await expect(page.locator('p.font-mono').first()).toContainText('RD 2 → 10 PV');
     await expect(page.getByLabel('Points de vie de Troll')).toContainText('30');
 });
+
+// Rendement décroissant (COF2) : « un bonus cumulatif de +5 au test effectué par la cible
+// pour résister à la même capacité durant un combat ». Il fallait le tenir de tête, ou le
+// saisir à la main dans le lanceur.
+test('le suivi de combat compte les répétitions d’une capacité sur une cible', async ({ page }) => {
+    await register(page, uniqueEmail('rend'));
+    await page.goto('/tools/tracker');
+
+    // Le Troll est la seule créature du bestiaire dont une capacité déclare un état.
+    await page.selectOption('select:has(option:text-is("— Créature —"))', { label: 'Troll' });
+    await page.click('button:has-text("Monstre")');
+
+    await page.fill('input[placeholder="Nom du combattant"]', 'Cible');
+    const champs = page.locator('.glass-panel input[type=number]');
+    await champs.nth(0).fill('8');
+    await champs.nth(1).fill('20');
+    await champs.nth(2).fill('14');
+    await page.click('button:has-text("Ajouter")');
+
+    await page.getByText(/Capacités \(\d+\)/).click();
+    const poser = async () => {
+        await page.locator('button').filter({ hasText: 'Renversé' }).first().click();
+        await page.locator('button').filter({ hasText: 'Sur : Cible' }).first().click();
+    };
+
+    // La première tentative n'accorde rien : c'est la répétition qui pèse.
+    await poser();
+    await expect(page.getByText(/pour résister à/)).toHaveCount(0);
+
+    await poser();
+    await expect(page.getByText('+5 pour résister à « Fauchage »')).toBeVisible();
+
+    await poser();
+    await expect(page.getByText('+10 pour résister à « Fauchage »')).toBeVisible();
+});

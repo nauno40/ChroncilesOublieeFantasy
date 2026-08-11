@@ -1,7 +1,10 @@
 import { describe, it, expect } from 'vitest';
 import type { Combatant } from '../types/campaign';
 import type { TrackerState } from './combatTracker';
-import { sortByInitiative, nextTurn, removeById, applyHp } from './combatTracker';
+import {
+    sortByInitiative, nextTurn, removeById, applyHp,
+    enregistrerTentative, bonusResistance, resistancesAcquises,
+} from './combatTracker';
 
 const mk = (id: string, initiative: number, hp = 10): Combatant => ({
     id, name: id, type: 'monster', initiative,
@@ -115,5 +118,54 @@ describe('applyHp', () => {
         const dmg = applyHp([mk('a', 10, 10)], 'a', -4); // 6/10
         const r = applyHp(dmg, 'a', 8); // clamp 10
         expect(r[0].hp.current).toBe(10);
+    });
+});
+
+describe('rendement décroissant au suivi de combat', () => {
+    const base: TrackerState = { round: 1, activeId: null, combatants: [] };
+
+    it('n’accorde rien à la première tentative', () => {
+        const s = enregistrerTentative(base, 'cible', 'Injonction');
+        expect(bonusResistance(s, 'cible', 'Injonction')).toBe(0);
+    });
+
+    it('accorde +5 par répétition de la MÊME capacité', () => {
+        let s = enregistrerTentative(base, 'cible', 'Injonction');
+        s = enregistrerTentative(s, 'cible', 'Injonction');
+        expect(bonusResistance(s, 'cible', 'Injonction')).toBe(5);
+        s = enregistrerTentative(s, 'cible', 'Injonction');
+        expect(bonusResistance(s, 'cible', 'Injonction')).toBe(10);
+    });
+
+    it('ne mélange pas deux capacités qui infligent le même état', () => {
+        // Le livre compte les répétitions d'une CAPACITÉ, pas d'un état : Renverser et
+        // Bousculade renversent toutes deux sans se renforcer l'une l'autre.
+        let s = enregistrerTentative(base, 'cible', 'Renverser');
+        s = enregistrerTentative(s, 'cible', 'Bousculade');
+        expect(bonusResistance(s, 'cible', 'Renverser')).toBe(0);
+        expect(bonusResistance(s, 'cible', 'Bousculade')).toBe(0);
+    });
+
+    it('compte par cible : deux victimes ne partagent pas leur accoutumance', () => {
+        let s = enregistrerTentative(base, 'a', 'Injonction');
+        s = enregistrerTentative(s, 'a', 'Injonction');
+        expect(bonusResistance(s, 'a', 'Injonction')).toBe(5);
+        expect(bonusResistance(s, 'b', 'Injonction')).toBe(0);
+    });
+
+    it('rend la liste de ce qu’une cible a appris à encaisser', () => {
+        let s = enregistrerTentative(base, 'cible', 'Injonction');
+        s = enregistrerTentative(s, 'cible', 'Injonction');
+        s = enregistrerTentative(s, 'cible', 'Étourdir');   // une seule fois : aucun bonus
+        expect(resistancesAcquises(s, 'cible')).toEqual([{ capacite: 'Injonction', bonus: 5 }]);
+    });
+
+    it('ignore une capacité sans nom', () => {
+        expect(enregistrerTentative(base, 'cible', '')).toBe(base);
+    });
+
+    it('traite un état enregistré avant cette version comme vierge', () => {
+        expect(bonusResistance(base, 'cible', 'Injonction')).toBe(0);
+        expect(resistancesAcquises(base, 'cible')).toEqual([]);
     });
 });

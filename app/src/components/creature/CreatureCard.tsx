@@ -1,4 +1,5 @@
 import React from 'react';
+import { formatNC } from '../../domain/creature';
 import { ContentCard, CardMedia, CardStats } from '../common';
 
 /**
@@ -60,7 +61,7 @@ export const CreatureCard: React.FC<CreatureCardProps> = ({ carte, to, entete, f
             <div className="min-w-0">
                 <h3 className="font-display font-bold text-lg text-stone-200 group-hover:text-primary-400 transition-colors truncate">{carte.nom}</h3>
                 <div className="text-xs text-stone-400 flex flex-wrap gap-2 mt-1 items-center">
-                    <span className="bg-stone-950/50 px-2 py-0.5 rounded text-primary-400 font-bold border border-primary-900/30">NC {ou(carte.nc)}</span>
+                    <span className="bg-stone-950/50 px-2 py-0.5 rounded text-primary-400 font-bold border border-primary-900/30">NC {formatNC(carte.nc)}</span>
                     {carte.categorie && <span className="opacity-80">{carte.categorie}</span>}
                     {entete}
                 </div>

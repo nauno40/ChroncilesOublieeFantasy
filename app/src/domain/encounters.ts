@@ -88,6 +88,9 @@ export const encounterBudget = (
 
 const normalizeEnv = (s?: string): string => (s || '').trim().toLowerCase();
 
+/** Plus petit NC qu'une créature doit atteindre pour entrer dans une rencontre générée. */
+const NC_MINIMUM = 0.5;
+
 // Compose un roster depuis les créatures d'un environnement, en remplissant le
 // budget de NC. Renvoie [] si aucune créature ne correspond.
 export const generateEncounter = (params: {
@@ -100,7 +103,11 @@ export const generateEncounter = (params: {
     const { pool, environment, difficulty, partySize, avgLevel } = params;
     const budget = encounterBudget(partySize, avgLevel, difficulty);
     const candidates = pool.filter(
-        c => normalizeEnv(c.environment) === normalizeEnv(environment) && c.nc >= 1 && c.nc <= budget,
+        // `>= NC_MINIMUM` et non `>= 1` : les quatre créatures de NC ½ du livre étaient
+        // servies NC 1 et entraient donc dans le tirage. Les rendre à leur demi-niveau sans
+        // toucher au seuil les en aurait sorties sans que personne ne le demande. Les NC 0
+        // restent exclus — ce sont des figurants, pas des adversaires.
+        c => normalizeEnv(c.environment) === normalizeEnv(environment) && c.nc >= NC_MINIMUM && c.nc <= budget,
     );
     if (candidates.length === 0) return [];
 

@@ -410,12 +410,17 @@ export const CustomMonsters: React.FC<CustomMonstersProps> = ({ embedded = false
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                         <div>
                             <label className={labelClass}>NC</label>
+                            {/* Pas d'entier : COF2 emploie le demi-niveau pour ses adversaires
+                                les plus faibles, et une créature maison doit pouvoir en porter
+                                un comme celles du livre. `parseInt` tronquait 0,5 à 0. */}
                             <input
                                 aria-label="NC"
                                 type="number"
+                                step="0.5"
+                                min="0"
                                 className={inputClass}
                                 value={form.nc}
-                                onChange={(e) => patch({ nc: parseInt(e.target.value) || 0 })}
+                                onChange={(e) => patch({ nc: parseFloat(e.target.value) || 0 })}
                             />
                         </div>
                         <div>

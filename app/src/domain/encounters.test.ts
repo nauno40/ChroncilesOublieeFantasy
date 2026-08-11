@@ -86,7 +86,7 @@ describe('NC ½ dans le générateur', () => {
     // tirage. Leur rendre leur demi-niveau sans toucher au seuil `>= 1` les en aurait
     // sorties sans que personne ne le demande.
     const bandit = {
-        referenceId: 'b', name: 'Bandit de base', source: 'srd' as const,
+        referenceId: 'b', name: 'Bandit de base', source: 'bestiary' as const,
         nc: 0.5, hp: 9, def: 12, init: 10, per: 0, environment: 'Forêt',
     };
     const figurant = { ...bandit, referenceId: 'f', name: 'Marchand', nc: 0 };

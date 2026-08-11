@@ -89,6 +89,20 @@ export interface Combatant {
     rd?: number;
     /** Valeur d'attaque (COF2 : niveau plafonné à 10 + carac). Saisie, comme la RD. */
     atk?: number;
+    /**
+     * Les sept caractéristiques, reprises du profil au moment de l'ajout.
+     *
+     * Le MJ à qui l'on demande « un test de FOR du troll » devait ouvrir la fiche, lire la
+     * valeur, puis revenir au lanceur de dés. Elles sont copiées et non résolues à chaque
+     * rendu : la rencontre en cours ne doit pas changer parce que le compendium a changé.
+     */
+    caracs?: Record<string, number>;
+    /**
+     * Celles qui sont supérieures — un dé bonus à tous leurs tests, sauf les tests d'attaque
+     * (COF2, Opposition). Sans cette liste, le jet lancé depuis le suivi serait faux d'un dé
+     * pour 57 créatures du bestiaire.
+     */
+    caracsSuperieures?: string[];
     source?: 'manual' | 'bestiary' | 'character';
     referenceId?: string; // ID source (bestiaire/perso)
 }

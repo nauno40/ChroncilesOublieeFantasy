@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BookOpen, Swords, Shield, Scroll, Play, ChevronRight, Sparkles, Zap, Users, Share2 } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../hooks/useAuth';
 
 export const LandingPage: React.FC = () => {
     const navigate = useNavigate();

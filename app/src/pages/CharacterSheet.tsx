@@ -64,11 +64,11 @@ export const CharacterSheet: React.FC = () => {
 
     // Voies groupées par profil (IRI + nom), pour permettre le choix de voies hors profil
     // principal (profils hybrides, COF2 chap. 9). La progression suit chaque voie choisie.
-    const voieOptionsByProfile = (profiles as any[])
+    const voieOptionsByProfile = profiles
         .map(p => ({
-            profile: p.name as string,
-            voies: ((p.voies || []) as any[])
-                .map(v => ({ iri: (v['@id'] || '') as string, name: (v.name || '') as string }))
+            profile: p.name ?? '',
+            voies: (p.voies ?? [])
+                .map(v => ({ iri: v['@id'] ?? '', name: v.name ?? '' }))
                 .filter(v => v.iri && v.name),
         }))
         .filter(g => g.profile && g.voies.length > 0)

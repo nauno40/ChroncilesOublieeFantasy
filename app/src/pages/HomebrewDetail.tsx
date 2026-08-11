@@ -11,7 +11,7 @@ import { duplicateEntry, resumeDuplication } from '../services/homebrewChildren'
 import { DataService } from '../services/dataService';
 import { getMonsters } from '../services/monsterService';
 import type { ReferencesDeclaration } from '../components/homebrew/HomebrewFields';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../hooks/useAuth';
 
 // Champs « compacts » (colonne latérale) vs « longs » (colonne principale).
 const isSidebar = (f: HomebrewFieldDef) => f.type === 'number' || f.type === 'select' || f.type === 'text' || f.type === 'bool';

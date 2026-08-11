@@ -33,3 +33,20 @@ test.describe('Compendium (données depuis la BDD)', () => {
         expect(apiErrors, `Erreurs API rencontrées : ${apiErrors.join(', ')}`).toEqual([]);
     });
 });
+
+// Le sélecteur « Filtrer par classe » de la page Voies ne proposait AUCUNE classe : il
+// lisait `voie.profileId`, que l'API ne sert pas. La relation existe dans l'autre sens,
+// sur les voies de chaque profil.
+test('le filtre par classe des voies propose les classes et filtre vraiment', async ({ page }) => {
+    await register(page, uniqueEmail('classe'));
+    await page.goto('/voies');
+
+    await expect(page.getByText(/\d+ voies/)).toBeVisible({ timeout: 20_000 });
+    const selecteur = page.getByLabel('Filtrer par classe');
+    // Quatorze classes plus l'option « toutes » : le sélecteur n'en avait qu'une.
+    await expect(selecteur.locator('option')).toHaveCount(15);
+
+    await selecteur.selectOption({ label: 'Arquebusier' });
+    // Un profil COF2 a cinq voies : le compte doit chuter, pas rester à 130.
+    await expect(page.getByText('5 voies')).toBeVisible();
+});

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Mail, Lock, User, AlertCircle, Loader2, Users } from 'lucide-react';
 import { AuthService } from '../services/AuthService';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../hooks/useAuth';
 import { AuthShell } from '../components/auth/AuthShell';
 
 export const RegisterPage: React.FC = () => {

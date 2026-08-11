@@ -3,6 +3,7 @@ import type { Capacity, Profile, Voie } from '../types/normalized';
 import { PageContainer, SearchToolbar, ContentCard, Badge, FilterPanel, SelectFiltre, GrilleFiltres, Loader } from '../components/common';
 import { DataService } from '../services/dataService';
 import { invitRecherche, compteurDuType } from '../domain/compendium';
+import { idDepuisRef } from '../domain/iri';
 
 export const Capacites: React.FC = () => {
     const [capacites, setCapacites] = useState<Capacity[]>([]);
@@ -17,35 +18,24 @@ export const Capacites: React.FC = () => {
             DataService.getVoies()
         ])
             .then(([c, p, v]) => {
-                // Helper to extract ID from various formats (IRI string, object with id, etc.)
-                const getResourceId = (resource: any): string | null => {
-                    if (!resource) return null;
-                    if (typeof resource === 'object') {
-                        return String(resource.id || resource['@id'] || '');
-                    }
-                    if (typeof resource === 'string') {
-                        // Handle IRI like "/api/profiles/123" or just "123"
-                        return resource.includes('/') ? resource.split('/').pop() || null : resource;
-                    }
-                    return String(resource);
-                };
-
                 // Normalize capabilities data
-                const normalizedCapacites = c.map((item: any) => {
-                    const voieId = item.voieId || getResourceId(item.voie);
-                    const associatedVoie = v.find((voie: any) => String(voie.id) === voieId);
-
-                    // Priority: Explicit profile -> Profile via Voie
-                    let profileId = item.profileId || getResourceId(item.profile);
-                    if (!profileId && associatedVoie) {
-                        profileId = associatedVoie.profileId || getResourceId((associatedVoie as any).profile) || null;
+                // La classe d'une capacité se lit sur le PROFIL, jamais sur la capacité ni
+                // sur sa voie : l'API ne sert `profile` sur aucune des deux. Le code lisait
+                // ces champs inexistants et ne pouvait donc produire que `null`.
+                const classeParVoie = new Map<string, string>();
+                for (const profil of p) {
+                    for (const voie of profil.voies ?? []) {
+                        const idVoie = idDepuisRef(voie);
+                        if (idVoie) classeParVoie.set(idVoie, String(profil.id));
                     }
-
+                }
+                const normalizedCapacites = c.map((item) => {
+                    const voieId = item.voieId || idDepuisRef(item.voie);
                     return {
                         ...item,
-                        profileId: profileId,
-                        voieId: voieId,
-                        id: String(item.id)
+                        profileId: voieId ? classeParVoie.get(String(voieId)) ?? null : null,
+                        voieId,
+                        id: String(item.id),
                     };
                 });
                 setCapacites(normalizedCapacites);

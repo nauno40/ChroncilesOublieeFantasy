@@ -47,7 +47,9 @@ export const VoieDetail: React.FC = () => {
                 // Normalize voie data if needed (similar to list view)
                 const normalizedVoie = {
                     ...voieData,
-                    profileId: voieData.profileId || ((voieData as any).profile ? String((voieData as any).profile).split('/').pop() : null) || null,
+                    // `profile` n'est jamais servi sur une voie : la page le retrouve plus
+                    // bas en cherchant la voie dans les `voies` de chaque profil.
+                    profileId: voieData.profileId ?? null,
                     id: String(voieData.id)
                 };
 

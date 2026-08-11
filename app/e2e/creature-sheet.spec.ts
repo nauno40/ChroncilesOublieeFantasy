@@ -73,3 +73,19 @@ test('une créature vivante n’hérite d’aucune immunité', async ({ page }) 
     await page.waitForURL(/\/bestiary\/\d+/);
     await expect(page.getByText(/immunisée aux maladies/i)).toHaveCount(0);
 });
+
+// L'import du bestiaire avait perdu les caractéristiques négatives du livre : le squelette
+// était servi avec PER 0 et INT 0 au lieu de ‑1 et ‑4. Le MJ lançait quatre points trop haut.
+test('les caractéristiques négatives du livre sont bien servies', async ({ page }) => {
+    await register(page, uniqueEmail('caracs'));
+    await page.goto('/bestiary');
+    await page.getByPlaceholder(/Rechercher/).fill('Squelette de base');
+    await page.locator('a[href^="/bestiary/"]').first().click();
+    await page.waitForURL(/\/bestiary\/\d+/);
+
+    const carac = (nom: string) => page.locator('div', { hasText: new RegExp(`^${nom}$`) })
+        .last().locator('xpath=..');
+    await expect(carac('INT')).toContainText('-4');
+    await expect(carac('CHA')).toContainText('-4');
+    await expect(carac('PER')).toContainText('-1');
+});

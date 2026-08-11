@@ -17,9 +17,12 @@ export const getCreatureName = (creature: Creature): string => {
  * l'attaque magique — « ½ vaut 0 ». Le chiffre décimal est la forme de stockage, pas
  * celle qu'on lit à la table.
  */
-export const formatNC = (nc: number | undefined | null): string => {
-    if (nc === undefined || nc === null) return '—';
-    return nc === 0.5 ? '½' : String(nc);
+export const formatNC = (nc: number | string | undefined | null): string => {
+    if (nc === undefined || nc === null || nc === '') return '—';
+    // Le type est ouvert parce que les porteurs le sont : la fiche et la carte acceptent
+    // déjà un NC textuel, et un monstre maison peut en porter un. Seul le 0,5 servi par
+    // l'API se réécrit ; le reste s'affiche tel quel.
+    return Number(nc) === 0.5 ? '½' : String(nc);
 };
 
 export const getCreatureLevel = (creature: Creature): number => {

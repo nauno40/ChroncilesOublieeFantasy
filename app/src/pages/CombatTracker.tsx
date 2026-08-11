@@ -120,6 +120,8 @@ export const CombatTracker: React.FC = () => {
             def: creature.def,
             level: creature.nc ?? 0,
             per: creature.stats?.PER ?? 0,
+            caracs: creature.stats as unknown as Record<string, number> | undefined,
+            caracsSuperieures: creature.statsSuperior,
             tiebreak: rollTiebreak(),
             states: [],
             source: 'bestiary' as const,
@@ -175,6 +177,8 @@ export const CombatTracker: React.FC = () => {
             def: creature.def,
             level: creature.nc ?? 0, // NC de la créature — départage d'initiative COF2
             per: creature.stats?.PER ?? 0,
+            caracs: creature.stats as unknown as Record<string, number> | undefined,
+            caracsSuperieures: creature.statsSuperior,
             tiebreak: rollTiebreak(),
             states: [],
             source: 'bestiary' as const,
@@ -206,6 +210,11 @@ export const CombatTracker: React.FC = () => {
             def,
             level: character.level ?? 0, // niveau du PJ — départage d'initiative COF2
             per,
+            // Un PJ teste ses caractéristiques comme une créature. Aucune n'est déclarée
+            // supérieure : les dés bonus d'un PJ viennent de ses capacités et de la
+            // situation, que le suivi ne connaît pas — le panneau laisse donc le MJ
+            // l'ajouter à la main plutôt que de le deviner.
+            caracs,
             tiebreak: rollTiebreak(),
             states: [],
             source: 'character',

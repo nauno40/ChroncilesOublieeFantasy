@@ -212,3 +212,41 @@ test('le jet de résistance applique le bonus acquis et décide de l’état', a
     await expect(page.getByText(/\+5 rendement/)).toBeVisible();
     await expect(page.getByText(/résiste|subit/).first()).toBeVisible();
 });
+
+// Le jet de résistance demandait la VALEUR de la caractéristique au clavier, alors que le
+// combattant porte son profil. Et pour 57 créatures du bestiaire, une caractéristique
+// supérieure ajoute un dé bonus que le MJ devait penser à lancer lui-même.
+test('le jet de résistance lit la caractéristique de la cible et son dé bonus', async ({ page }) => {
+    await register(page, uniqueEmail('carac'));
+    await page.goto('/tools/tracker');
+
+    // Le Troll pose l'état (seule créature dont une capacité en déclare un) ; le Chef ogre
+    // est la cible, avec FOR +6 SUPÉRIEURE et CON +6 ordinaire dans le livre.
+    await page.selectOption('select:has(option:text-is("— Créature —"))', { label: 'Troll' });
+    await page.click('button:has-text("Monstre")');
+    await page.selectOption('select:has(option:text-is("— Créature —"))', { label: 'Chef ogre' });
+    await page.click('button:has-text("Monstre")');
+
+    // Les deux combattants ont des capacités : on déplie les deux panneaux plutôt que de
+    // parier sur l'ordre d'affichage, qui suit l'initiative.
+    const panneaux = page.getByText(/Capacités \(\d+\)/);
+    for (let i = 0; i < await panneaux.count(); i++) await panneaux.nth(i).click();
+
+    await page.locator('button').filter({ hasText: 'Renversé' }).first().click();
+    await page.locator('button').filter({ hasText: /^Chef ogre/ }).first().click();
+
+    // Le sélecteur annonce la valeur — plus rien à saisir — et marque d'une étoile celle
+    // qui est supérieure.
+    const choix = page.getByLabel('Caractéristique de résistance de Chef ogre');
+    await expect(choix.locator('option', { hasText: 'FOR +6 *' })).toHaveCount(1);
+    await expect(choix.locator('option', { hasText: /^CON \+6$/ })).toHaveCount(1);
+
+    // Une caractéristique ordinaire ne réclame aucun dé bonus.
+    await choix.selectOption('CON');
+    await expect(page.getByText(/supérieure — dé bonus/)).toHaveCount(0);
+
+    await choix.selectOption('FOR');
+    await expect(page.getByText('FOR supérieure — dé bonus')).toBeVisible();
+    await page.click('button:has-text("Jet de résistance")');
+    await expect(page.getByText(/FOR \(\d+\)\+6 \[dé bonus\]/)).toBeVisible();
+});

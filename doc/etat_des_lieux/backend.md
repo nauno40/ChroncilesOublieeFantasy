@@ -41,8 +41,8 @@ src/
 │   └── AppFixtures.php      # 645 lignes, charge toutes les données
 ├── Doctrine/
 │   └── CurrentUserExtension.php  # Filtre les requêtes par utilisateur
-├── Entity/                  # 21 entités (voir section 3)
-├── Repository/              # 18 repositories Doctrine
+├── Entity/                  # 28 entités (voir section 3)
+├── Repository/              # 24 repositories Doctrine
 ├── State/
 │   ├── CampaignStateProcessor.php   # Assigne le owner à la création
 │   ├── CharacterStateProcessor.php  # Assigne le owner à la création
@@ -50,7 +50,7 @@ src/
 └── Kernel.php
 ```
 
-## 3. Modèles de Données (21 Entités)
+## 3. Modèles de Données (28 Entités)
 
 ### 3.1 Système de Jeu (Core)
 
@@ -127,7 +127,7 @@ src/
 - **Données** : 14 profils de classe, 8 races, centaines de créatures et capacités
 - **Admin user** : créé avec un mot de passe réellement hashé via `UserPasswordHasherInterface` (`admin@example.com` / `admin`)
 
-## 8. Migrations (11 fichiers, appliquées)
+## 8. Migrations (27 fichiers, appliquées)
 
 Schéma initial + ajustements (mars 2026 : `campaign_id` sur Character, Clue/Quest/Session),
 puis les migrations du partage MJ ⇄ joueurs (CampaignMembership, CustomCreature, Encounter)
@@ -136,10 +136,33 @@ entité `CharacterVoie`, colonnes `Character.caracs`/`playState` (fin de `Charac
 champs morts de `Profile` retirés (`hitDie`/`skillPoints`), `Profile.armorMaxDef`/`weaponsAuth`,
 armures numériques, dé évolutif dans `Capability.effect`.
 
+### Migrations de données (et pourquoi pas les fixtures)
+
+Plusieurs migrations récentes ne touchent pas au schéma mais **corrigent la donnée servie** :
+plafond d'armure de capacités de barbare, description d'un état, caractéristiques négatives du
+bestiaire, NC ½, caractéristiques supérieures, type d'action des capacités.
+
+La raison est constante : `doctrine:fixtures:load` **purge les tables** et emporterait le
+contenu des utilisateurs. Une correction de données passe donc par une migration *et* par les
+fixtures — la migration répare l'existant, les fixtures empêchent la régression au prochain
+chargement.
+
+Corollaire découvert en mettant en place l'intégration continue : **une donnée qui n'existe que
+dans la base d'un poste, sans passer par les fixtures, est une donnée perdue.** `AppFixtures`
+lisait le type d'action des capacités pour en déduire `limited`/`isSpell` puis le jetait ;
+la colonne `action_type` restait nulle après tout rechargement, et la concentration accrue ne
+s'appliquait à aucun sort officiel. Rejouer les fixtures est le seul moyen de s'en apercevoir.
+
 ## 9. Points d'attention
 
 - **Sécurité des entités** : User, Campaign, Character **et** Quest/Clue/Session sont protégés (par propriétaire / rôle) ; le compendium reste public **en lecture** mais ses écritures sont réservées à ROLE_ADMIN
-- **Tests** : **119 tests / 1169 assertions**. Suite fonctionnelle dans `tests/Api/` (**21 fichiers**, basée sur `ApiTestCase` ; `ApiSecurityTestCase` réinitialise le schéma Postgres à chaque test — pas de fixtures) — règles de sécurité (User/Campaign/Character/Quest, écritures compendium admin-only, sous-ressources non listables sans auth, CustomCreature/Encounter owner-scopés), inscription+login JWT et hachage du mot de passe, timestamp `updatedAt`, et le **contrat de sérialisation du compendium** (`CompendiumContractTest` : `Capability.effect` structuré exposé via `voie:read`, `Profile.armorMaxDef`, round-trip `CharacterVoie.source = 'trait'`). À côté, deux suites **pures** (ni DB ni fixtures, quelques millisecondes) : `tests/Service/` (`CapabilityEffectBuilder`, `InviteCodeGenerator`) et `tests/DataFixtures/ProfileDataTest.php`, qui vérifie les **données source** de `data/Profils/` — chaque profil a une limite d'armure (une clé mal orthographiée dans `AppFixtures::ARMOR_MAX_DEF_BY_PROFILE` la laisserait à null en silence, et le front retomberait sur une valeur permissive), la table suit le livre, chaque profil a 5 voies de rangs 1 à 5, et seuls les 7 profils lanceurs portent des sorts. Lancement : `php bin/phpunit` (DB de test à créer une fois via `php bin/console doctrine:database:create --env=test` ; la suite fonctionnelle est lente, ~2 min 45 → lancer fichier par fichier en dev, les suites pures sont instantanées).
+- **Tests** : **126 tests / 1242 assertions**. Suite fonctionnelle dans `tests/Api/` (**21 fichiers**, basée sur `ApiTestCase` ; `ApiSecurityTestCase` réinitialise le schéma Postgres à chaque test — pas de fixtures) — règles de sécurité (User/Campaign/Character/Quest, écritures compendium admin-only, sous-ressources non listables sans auth, CustomCreature/Encounter owner-scopés), inscription+login JWT et hachage du mot de passe, timestamp `updatedAt`, et le **contrat de sérialisation du compendium** (`CompendiumContractTest` : `Capability.effect` structuré exposé via `voie:read`, `Profile.armorMaxDef`, round-trip `CharacterVoie.source = 'trait'`). À côté, deux suites **pures** (ni DB ni fixtures, quelques millisecondes) : `tests/Service/` (`CapabilityEffectBuilder`, `InviteCodeGenerator`) et `tests/DataFixtures/ProfileDataTest.php`, qui vérifie les **données source** de `data/Profils/` — chaque profil a une limite d'armure (une clé mal orthographiée dans `AppFixtures::ARMOR_MAX_DEF_BY_PROFILE` la laisserait à null en silence, et le front retomberait sur une valeur permissive), la table suit le livre, chaque profil a 5 voies de rangs 1 à 5, et seuls les 7 profils lanceurs portent des sorts. Lancement : `php bin/phpunit` (DB de test à créer une fois via `php bin/console doctrine:database:create --env=test` ; la suite fonctionnelle est lente, ~2 min 55 → lancer fichier par fichier en dev, les suites pures sont instantanées).
+
+> **Lire le code de retour, pas le texte.** `phpunit.dist.xml` pose `failOnDeprecation` : une
+> seule dépréciation fait sortir **1** alors que la sortie affiche « OK, but there were issues! ».
+> Une suite « verte » à l'œil peut donc être rouge pour l'intégration continue — c'est
+> exactement ce qui s'est produit, une dépréciation d'API Platform 4.1 ayant survécu plusieurs
+> semaines derrière ce message.
 - **Messenger** : Transport Doctrine configuré (async + failed), routage pour SendEmailMessage, ChatMessage, SmsMessage
 - **Pas de Services/EventSubscriber/Voter** dédiés pour le moment
 

@@ -27,8 +27,8 @@ src/
 ├── components/
 │   ├── auth/
 │   │   └── ProtectedRoute.tsx    # Garde de route (redirection si non-auth)
-│   ├── character/                # 24 composants de la fiche personnage (cf. §9)
-│   ├── common/                   # 16 composants partagés
+│   ├── character/                # 25 composants de la fiche personnage (cf. §9)
+│   ├── common/                   # 26 composants partagés
 │   ├── layout/
 │   │   ├── Layout.tsx            # Layout principal (sidebar + mobile nav)
 │   │   └── NavItem.tsx           # Élément de navigation (sous-menus)
@@ -42,7 +42,7 @@ src/
 ├── hooks/
 │   ├── useSearch.ts              # Hook de filtrage générique
 │   └── useToggle.ts              # Hook toggle booléen
-├── pages/                        # 27 pages (voir section 3)
+├── pages/                        # 41 pages (voir section 3)
 ├── services/
 │   ├── api.ts                    # Service API REST (CRUD générique)
 │   ├── AuthService.ts            # Auth JWT (login/register/logout)
@@ -57,7 +57,7 @@ src/
 └── main.tsx                      # Point d'entrée React
 ```
 
-## 3. Routes et Pages (27 pages)
+## 3. Routes et Pages (41 pages)
 
 ### Pages publiques (sans authentification)
 
@@ -106,7 +106,7 @@ src/
 | `/campaign` | `Campaign` | Liste des campagnes (CRUD) |
 | `/campaign/:id` | `CampaignDetail` | Détail campagne (quêtes, indices, sessions, notes) |
 
-## 4. Composants Communs (17)
+## 4. Composants Communs (26)
 
 | Composant | Fonctionnalité |
 |---|---|
@@ -169,7 +169,7 @@ orchestrateur léger + règles pures + hooks + composants présentationnels. La 
 **Aucune valeur dérivée n'est stockée** — tout est recalculé à l'affichage.
 
 - **Règles COF2 pures** — `src/domain/rules/` (moteur COF2 découpé en modules + barrel) : ~50 fonctions sans React, couvertes par
-  `cofRules.test.ts` (Vitest, ~150 tests). Outre les basiques (modificateurs, PV/PV hybrides,
+  `cofRules.test.ts` (Vitest, 147 tests). Outre les basiques (modificateurs, PV/PV hybrides,
   dé de récupération, chance, mana, init/déf, attaque, langues), elles incluent l'**interpréteur
   d'effets** — `resolveCapabilityEffect` + `aggregateResolvedBonuses` (résout `effect.bonuses`
   au niveau/rang : `fixed`/`rank`/`carac`/`threshold`, non-cumul §6.2) — et les dérivations
@@ -181,7 +181,7 @@ orchestrateur léger + règles pures + hooks + composants présentationnels. La 
 - **Hooks** — `src/hooks/useCharacterData.ts` (chargement compendium) et
   `src/hooks/useCharacterSheet.ts` (état de formulaire, **toutes les valeurs dérivées** via
   `cofRules`, effets de synchronisation dont la préservation/purge de l'octroi `trait`).
-- **Composants présentationnels** — `src/components/character/` (24 composants). Structure
+- **Composants présentationnels** — `src/components/character/` (25 composants). Structure
   colonne gauche (`AttributesPanel`, `MainStatsPanel`, `HpByLevelEditor`) + sections repliables
   (`Section`) à droite : **Identité** (`IdentityBlock`, `PhysicalBlock`), **Rôleplay & langues**
   (`RoleplaySection`, `LanguagesTalentsPanel`), **Équipement** (`ProtectionSection`,
@@ -218,8 +218,11 @@ Fonctionnalités clés :
   n'avaient jamais été rechargées).
 
 - **Tests** :
-  - *Unitaires* — Vitest sur les règles pures COF2 (`src/domain/rules/cofRules.test.ts`), lancés via
-    `npm run test:run` (config `src/**/*.test.ts`).
+  - *Unitaires* — Vitest : **576 tests, 42 fichiers**, lancés par `npm run test:run` (config
+    `src/**/*.test.ts`). Le gros porte sur `src/domain/` — les 25 modules de `rules/` (test COF2 et
+    dés bonus/malus, combat, dommages et RD, encombrement, tir à distance, options tactiques,
+    magie et brûlure de mana, poisons, dangers, voyage, types de créature…) plus `combatTracker`,
+    `encounters`, `magicItems`, `compendium`, `lexique` et les adaptateurs de feuilles.
   - *E2E* — suite Playwright dans `app/e2e/` : `auth.spec.ts` (inscription/connexion/déconnexion),
     `stale-token.spec.ts` (régression du fix 401 : un JWT périmé est purgé + redirige vers `/login`),
     `compendium.spec.ts` (races/classes/bestiaire chargés depuis la BDD, sans erreur API),
@@ -229,11 +232,24 @@ Fonctionnalités clés :
     `bibliotheque.spec.ts` (voie communautaire et ses capacités imbriquées, déclaration d'état cliquable,
     retour contextuel), `printable-sheet.spec.ts` (sections de la fiche imprimable, coût des sorts sous
     l'armure) et `global-search.spec.ts` (les huit familles de contenu restent indexées — le bestiaire
-    en était sorti sans bruit pendant des mois). Helpers partagés dans `e2e/fixtures.ts`, config `playwright.config.ts` (`baseURL` via
-    `PW_BASE_URL`).
-  - *Deux règles apprises à leurs dépens* : ne jamais écrire en dur un nom de donnée de démonstration
-    (les fixtures changent — un test doit lire les siennes depuis l'API), et ne jamais viser `.first()`
-    dans une liste où le test vient d'ajouter un élément (il désignait une entrée préexistante).
+    en était sorti sans bruit pendant des mois), `tracker-etats.spec.ts` et `dice-test.spec.ts`
+    (états cumulés, dommages avec RD, rendement décroissant, jet de résistance et dé bonus),
+    `creature-sheet.spec.ts`, `iso-listes.spec.ts`, `play-mode.spec.ts`, `accessibilite.spec.ts`.
+    **20 fichiers, 76 tests.** Helpers partagés dans `e2e/fixtures.ts`, config
+    `playwright.config.ts` (`baseURL` via `PW_BASE_URL`).
+  - *Règles apprises à leurs dépens* : ne jamais écrire en dur un nom de donnée de démonstration
+    (les fixtures changent — un test doit lire les siennes depuis l'API) ; ne jamais viser `.first()`
+    dans une liste où le test vient d'ajouter un élément (il désignait une entrée préexistante) ;
+    et **ne jamais viser un élément par sa position dans le DOM**. « Le premier `<select>` de la
+    page est celui de la race » était vrai sur un poste et faux sur un runner, où un autre
+    sélecteur se glissait devant selon l'ordre d'arrivée des données. Viser par libellé
+    (`getByLabel`) — ce qui suppose que les champs en aient un, d'où `accessibilite.spec.ts`.
+  - *Rendre un échec lisible* : les journaux et artefacts d'un runner ne sont pas consultables
+    sans droits d'administration. Une assertion E2E doit donc **emporter son diagnostic** dans son
+    message (ce que l'élément portait, pas seulement « attendu : pas vide »), et le job publie les
+    échecs en annotations `::error::`, seul canal lisible sans jeton.
+  - *Toujours vérifier par `npm run build`*, jamais par `vite build` seul : Vite transpile **sans
+    type-vérifier**, et trois erreurs de typage ont ainsi atteint `master`.
   - *Lancer les E2E* — `bash scripts/e2e.sh` depuis la racine (stack `docker compose up -d` requis + base
     seedée). Le conteneur `frontend` étant Alpine (musl) ne peut pas exécuter les navigateurs ; le script
     utilise l'image officielle `mcr.microsoft.com/playwright:vX-jammy` en `network_mode: host` pour que le

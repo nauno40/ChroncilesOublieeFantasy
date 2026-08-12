@@ -1,12 +1,19 @@
 # Fonctionnalités et Roadmap
 
-Suite à l'analyse approfondie du code source frontend et backend (juin 2026), voici l'état actuel des fonctionnalités de l'application Chroniques Oubliées Fantasy.
+Suite à l'analyse approfondie du code source frontend et backend (mise à jour août 2026), voici l'état actuel des fonctionnalités de l'application Chroniques Oubliées Fantasy.
 
 > **Cadrage produit** : le site est une **aide de table pour le MJ** — on n'y joue pas en direct. Pas de temps réel, pas de partie multijoueur en ligne. Les seuls échanges avec les joueurs sont **asynchrones** : le MJ diffuse les résumés de campagne, et les joueurs créent leurs personnages pour les partager au MJ.
 
 ## 1. Ce qui est implémenté et qui fonctionne ✅
 
 ### Encyclopédie / Compendium (Connecté à l'API)
+- **Compendium unifié** : chaque type de contenu (race, classe, voie, capacité, équipement,
+  objet magique, état, poison, piège, créature) a une page unique à trois onglets — Officiel,
+  Communauté, Mes créations — avec **le même vocabulaire, les mêmes filtres, les mêmes cartes et
+  la même feuille** des deux côtés. Le contenu communautaire n'est pas un second-rôle : il passe
+  par les composants partagés (`components/sheets/`, `ContentCard`, `CompendiumTable`,
+  `SearchToolbar`) via des adaptateurs (`adapters/fromOfficial.ts`, `fromHomebrew.ts`,
+  `fromCustomCreature.ts`).
 - **Bestiaire** : Visualisation complète des monstres avec filtrage avancé (famille, catégorie, environnement, taille, NC) et détails de fiche
 - **Profils/Classes & Races** : Listes explicatives complètes avec dés de vie, bonus, voies associées, lore
 - **Voies & Capacités** : Catalogue détaillé avec filtres (rang, profil, voie), rendu dynamique des détails
@@ -14,7 +21,7 @@ Suite à l'analyse approfondie du code source frontend et backend (juin 2026), v
 - **Règles** : Module complet avec 10 sections (Introduction, Bases, Combat, Magie, Environnement, Aventure, Objets Magiques, Opposition, Devenir MJ, Conversion COF1→COF2)
 
 ### Fiche de Personnage
-- Outil extrêmement complet — `CharacterSheet.tsx` orchestrateur léger (~230 lignes) + moteur de règles pur `cofRules.ts` + hooks + 24 composants
+- Outil extrêmement complet — `CharacterSheet.tsx` orchestrateur léger + moteur de règles pur `domain/rules/` + hooks + 25 composants
 - **Modèle refondu pour la fidélité aux règles COF2** : `caracs` (valeurs = modificateurs) + `playState` (état de jeu opaque) + `characterVoies` (voies par IRI/rang/source) ; **aucune valeur dérivée stockée**
 - **Dérivation pilotée par les données** : bonus Init/DEF/RD, plafond d'armure, bonus aux tests, etc. lus depuis `Capability.effect` (`bonuses`/`armorCap`/`choiceOptions`/`evolutiveDie`) via l'interpréteur `resolveCapabilityEffect` — fin du `CAPABILITY_MODIFIERS` codé en dur
 - PV cumulés par niveau (hybrides fidèles), mana, chance, récupération, attaque/défense/initiative — tout dérivé
@@ -24,6 +31,12 @@ Suite à l'analyse approfondie du code source frontend et backend (juin 2026), v
 
 ### Outils de Table (Virtual Table)
 - **Suivi de Combat** (CombatTracker) : ordre d'initiative COF2 avec départage à égalité (PJ > PNJ, puis PER, puis 1d20 stocké), tours et rounds, PV avec dégâts/soins en saisie libre (+ ±1), import du bestiaire (quantité + auto-numérotation « Gobelin 1/2 ») et des PJ (INIT/DEF/PV réels), états préjudiciables en badges, persistance localStorage (`co_combat_tracker`). Logique pure testée (`combatTracker.test.ts`). Outil **volontairement mono-écran** (aide MJ) : pas de diffusion temps réel vers les joueurs — c'est un choix de design, pas une limitation
+  - **Le combat se joue depuis le suivi** : attaquer une cible depuis sa ligne (DEF effective,
+    états cumulés), infliger les dommages du jet (RD déduite, minimum d'un point), poser un état
+    déclaré par une capacité, invoquer une créature déclarée. Le **jet de résistance** se joue là
+    où l'état s'applique : le panneau lit la caractéristique de la cible dans son profil, lance
+    le **dé bonus** si elle est supérieure, et compte les répétitions d'une même capacité pour
+    appliquer le **rendement décroissant**.
 - **Lanceur de dés** (DiceRoller) : formules XdY+Z, historique, détection critique, popup flottant
 - **Panneau de Sons** (Soundboard) : pistes personnalisables (YouTube/URL), persistance localStorage
 - **Fenêtres flottantes** (DraggableWindow) : redimensionnables, déplaçables, position persistée
@@ -44,14 +57,34 @@ Suite à l'analyse approfondie du code source frontend et backend (juin 2026), v
 ### Backend / API
 - API REST complète pour toutes les entités (API Platform + Swagger/ReDoc)
 - CRUD administrateur via EasyAdmin (10 contrôleurs)
-- Modèles de données pour le système de jeu (21 entités)
-- Fixtures complètes (14 profils, 8 races, centaines de créatures et capacités)
+- Modèles de données pour le système de jeu (28 entités)
+- Fixtures complètes (14 profils, 8 races, 219 créatures, 650 capacités)
+
+### Fidélité aux règles (chantier continu)
+Les règles vivent dans `app/src/domain/rules/` (25 modules purs), et le livre — transcrit dans
+`doc/getRulesFullToMD/` — fait foi. Couvert : le test COF2 (dé bonus/malus, difficultés,
+critique), l'attaque et les options tactiques, les dommages (RD, résistance, minimum d'un point),
+l'encombrement, le tir à distance, la magie (coût, brûlure de mana, concentration accrue, surcoût
+sous l'armure), les poisons, les dangers, le voyage, le rendement décroissant, les types de
+créature et leurs immunités.
+
+**Le bestiaire servi a été confronté au livre profil par profil** (`scripts/audit-bestiaire.mjs`,
+rejoué par la CI). Trois écarts corrigés : 46 caractéristiques **négatives** perdues à l'import
+sur 30 créatures, les NC **½** servis comme des NC 1, et **101 caractéristiques supérieures**
+(l'astérisque du livre = un dé bonus) qu'aucun champ ne pouvait exprimer. Les 147 créatures
+absentes du livre ne sont pas touchées : elles ne sont pas vérifiables, et les corriger au jugé
+serait inventer.
 
 ## 2. Ce qui fonctionne partiellement ou avec des limitations ⚠️
 
 ### Tests
-- **Backend** : suite fonctionnelle PHPUnit dans `backend/tests/Api/` — **40 tests** couvrant les règles de sécurité (User / Campaign / Character / Quest), le durcissement des autorisations (écritures compendium réservées à ROLE_ADMIN, sous-ressources campagne non listables sans auth), l'inscription + login JWT avec hachage du mot de passe, et le timestamp `updatedAt`. Le reste du backend n'est pas encore couvert.
-- **Frontend** : suite E2E Playwright (`app/e2e/`) couvrant les parcours critiques — authentification (inscription/connexion/déconnexion), régression du fix 401 (JWT périmé auto-purgé), compendium chargé depuis la BDD (races/classes/bestiaire), rendu de la fiche personnage. Lancée via `bash scripts/e2e.sh` (image Playwright officielle en `network_mode: host`, cf. `frontend.md` §10). Tests unitaires purs via Vitest (`cofRules.test.ts` pour les règles COF2, `combatTracker.test.ts` pour l'ordre d'initiative et le départage du Suivi de Combat).
+- **Backend** : **126 tests / 1242 assertions** (PHPUnit) — sécurité par propriétaire, durcissement
+  des autorisations, JWT, contrat de sérialisation du compendium, et deux suites pures sur les
+  services et les données source des profils.
+- **Frontend** : **576 tests unitaires** (Vitest, 42 fichiers) et **76 tests E2E** (Playwright,
+  20 fichiers), lancés par `bash scripts/e2e.sh` contre le stack docker compose.
+- **Intégration continue** (`.github/workflows/ci.yml`) : quatre jobs sur chaque PR — front,
+  back, fidélité du bestiaire, e2e. Elle rejoue les commandes que le projet définit déjà.
 
 ## 3. Roadmap suggérée 🚀
 
@@ -80,12 +113,22 @@ Suite à l'analyse approfondie du code source frontend et backend (juin 2026), v
 - [x] **Rencontres préparées** : entité `Encounter` (enfant de `Campaign`, owner-scopée comme `Quest`) — le MJ compose un roster nommé de créatures (bestiaire SRD **et** monstres custom, avec quantité) depuis la fiche de campagne, puis le **lance en un clic dans le Suivi de Combat** (développement auto-numéroté du roster dans `co_combat_tracker`, redirection `/tools/tracker`). Le bouton « Ajouter un PJ » de la campagne propose aussi désormais *créer une fiche pré-liée* ou *rattacher un perso existant*. Couvert par PHPUnit (`EncounterSecurityTest`) et E2E (`e2e/campaign-encounters.spec.ts`, `e2e/campaign-characters.spec.ts`)
 - [x] **Tests automatisés** : première suite E2E Playwright (`app/e2e/`) + tests unitaires règles (Vitest) et sécurité (PHPUnit). À étendre.
 
+### Intégration continue (livrée)
+- [x] **Quatre jobs sur chaque PR** : front (`lint`/`test:run`/`build`), back (PHPUnit sur un
+  PostgreSQL de service), fidélité (`audit-bestiaire.mjs`), e2e (stack complet + Playwright).
+  Elle a immédiatement révélé trois dépendances invisibles qui rendaient toute vérification
+  locale non concluante : le `vendor/` de l'image masqué par le montage `./backend:/app`, la base
+  `app_test` créée à la main sur un poste et nulle part ailleurs, et `failOnDeprecation` qui fait
+  sortir 1 derrière un message « OK, but there were issues! ». Elle a aussi mis au jour un défaut
+  produit : `AppFixtures` jetait le type d'action des capacités, donc la concentration accrue ne
+  s'appliquait à **aucun** sort officiel.
+
 ### Améliorations techniques
 - [x] **Refactoring CharacterSheet** : fait (PR #1) — fichier divisé (2109 → ~176 lignes) en composants (`CharacterToolbar`, `AttributesPanel`, `MainStatsPanel`, `IdentityBlock`, `VoiesTree`, `CapabilityNode`, sections Roleplay/Protection/Weapons/Inventory) + hook `useCharacterSheet`
 - [x] **Clefs JWT** : présentes dans `config/jwt/` (regénérables via `lexik:jwt:generate-keypair`)
 - [x] **Sécurisation fine de l'API** : User, Campaign et Character restreints par utilisateur / rôle
 - [x] **Tests automatisés des règles de sécurité** : suite PHPUnit dans `backend/tests/Api/`
-- [x] **Étendre la couverture de tests** : suite E2E portée à **27 tests verts** (14 fichiers) — ajout de `bibliotheque.spec.ts` (voie communautaire et ses capacités imbriquées, déclaration d'état cliquable, retour contextuel) et `printable-sheet.spec.ts` (sections de la fiche imprimable, coût des sorts sous l'armure). Backend : suppression en cascade d'une voie communautaire couverte (`HomebrewEntryTest`).
+- [x] **Étendre la couverture de tests** : suite E2E portée à **76 tests verts** (20 fichiers) — ajout de `bibliotheque.spec.ts` (voie communautaire et ses capacités imbriquées, déclaration d'état cliquable, retour contextuel) et `printable-sheet.spec.ts` (sections de la fiche imprimable, coût des sorts sous l'armure). Backend : suppression en cascade d'une voie communautaire couverte (`HomebrewEntryTest`).
   **Suite remise en marche au passage** : 5 tests échouaient en silence — sélecteur `a[href^="/campaign/"]` mort depuis le passage aux cartes cliquables (refonte UI/UX), nom de monstre de démonstration disparu des fixtures, et `.first()` qui lançait une rencontre préexistante au lieu de celle créée par le test. L'URL d'API est désormais surchargeable (`PW_API_URL`) au lieu d'être écrite en dur dans chaque spec.
 - [x] **Couvrir le backend hors sécurité en PHPUnit** : suite portée à **119 tests / 1169 assertions**. Ajouts : contrat des **données de profil** (`tests/DataFixtures/ProfileDataTest.php` — chaque profil a une limite d'armure, la table suit le livre, 5 voies × 5 rangs, et seuls les 7 profils lanceurs portent des sorts) et `InviteCodeGenerator` (longueur, alphabet sans caractères ambigus). La table `ARMOR_MAX_DEF_BY_PROFILE` est sortie du corps de `AppFixtures` en constante publique pour être vérifiable : une clé mal orthographiée y laissait `armorMaxDef` à null en silence.
 

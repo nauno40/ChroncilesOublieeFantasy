@@ -76,8 +76,13 @@ jobs:
       # Les clés JWT sont vides dans le dépôt (cf. CLAUDE.md) : sans elles, aucune
       # authentification, et toute la suite de sécurité échoue avant d'avoir rien testé.
       - run: bin/console lexik:jwt:generate-keypair --skip-if-exists
-      # La base de classe remet le schéma à zéro avant chaque test ; il suffit qu'elle existe.
-      - run: bin/console doctrine:migrations:migrate --no-interaction
+      # En environnement de test, Doctrine suffixe le nom de la base (`dbname_suffix:
+      # '_test…'`, recette Symfony) : les tests visent `app_test`, pas `app`. Elle existe
+      # sur un poste de développement pour l'avoir créée un jour ; sur un runner, non — et
+      # PHPUnit sortait en erreur (code 2) avant d'exécuter le moindre test.
+      - run: bin/console doctrine:database:create --env=test --if-not-exists
+      # Pas de migrations ici : `ApiSecurityTestCase` remet le schéma à zéro avant chaque
+      # test et le reconstruit depuis les métadonnées. Seule l'existence de la base compte.
       - run: bin/phpunit tests/Api
 
   e2e:
@@ -129,7 +134,46 @@ jobs:
           docker compose logs --tail=80 frontend
           exit 1
       - run: bash scripts/e2e.sh
-      - name: Journaux en cas d'échec
+      # Un job E2E rouge sans détail oblige à télécharger l'artefact pour savoir QUOI a
+      # échoué. Le résumé remonte donc dans la PR elle-même.
+      - name: Résumé des échecs
+        if: failure()
+        run: |
+          python3 - <<'PY' > resume.md
+          import json, pathlib
+          f = pathlib.Path('app/playwright-report/resultats.json')
+          if not f.exists():
+              print('La suite n\'a produit aucun rapport : elle a échoué avant de démarrer.')
+              raise SystemExit
+          d = json.loads(f.read_text())
+          echecs = []
+          def parcourir(suites):
+              for s in suites:
+                  for spec in s.get('specs', []):
+                      for t in spec.get('tests', []):
+                          if t.get('status') not in ('expected', 'skipped'):
+                              msg = ''
+                              for r in t.get('results', []):
+                                  err = (r.get('error') or {}).get('message', '')
+                                  if err:
+                                      msg = err.strip().splitlines()[0]
+                                      break
+                              echecs.append((spec.get('title', '?'), msg))
+                  parcourir(s.get('suites', []))
+          parcourir(d.get('suites', []))
+          print(f'### E2E : {len(echecs)} test(s) en échec\n')
+          for titre, msg in echecs:
+              print(f'- **{titre}**')
+              if msg:
+                  print(f'  - `{msg[:300]}`')
+          PY
+          cat resume.md
+          if [ -n "${{ github.event.number }}" ]; then
+            gh pr comment ${{ github.event.number }} --body-file resume.md
+          fi
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - name: Journaux des conteneurs en cas d'échec
         if: failure()
         run: docker compose logs --tail=200
       - uses: actions/upload-artifact@v4

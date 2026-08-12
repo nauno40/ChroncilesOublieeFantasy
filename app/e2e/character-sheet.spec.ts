@@ -19,8 +19,10 @@ test.describe('Fiche personnage', () => {
     test('les races du compendium alimentent le sélecteur de race', async ({ page }) => {
         await page.goto('/characters/new');
 
-        // IdentityBlock est rendu avant ProtectionSection → le 1er <select> est la race.
-        const raceSelect = page.locator('select').first();
+        // Par le libellé, jamais par la position. « le 1er <select> est la race » était vrai
+        // sur ma machine et faux sur un runner : la CI a montré `valeurDeLOption1: "AGI"` —
+        // un autre sélecteur s'était glissé devant selon l'ordre d'arrivée des données.
+        const raceSelect = page.getByLabel('Peuple');
         await expect(raceSelect).toBeVisible({ timeout: 15_000 });
 
         // Placeholder + une option par race seedée (>= 8).
@@ -31,11 +33,8 @@ test.describe('Fiche personnage', () => {
         // Sélectionner une race renseigne une IRI non vide (flux données → fiche).
         await raceSelect.selectOption({ index: 1 });
 
-        // Ce test est le seul que l'intégration continue ait vu tomber, et l'attente n'a pas
-        // suffi : la valeur ne s'établit jamais là-bas. Comme les journaux et les artefacts
-        // d'un runner ne sont pas lisibles sans droits d'administration, l'assertion emporte
-        // son propre diagnostic — le message d'échec dit combien d'options existaient et ce
-        // que portait celle qu'on a choisie, au lieu du seul « attendu : pas "" ».
+        // L'assertion garde son diagnostic : c'est lui qui a désigné le vrai coupable, et
+        // les journaux d'un runner ne sont pas lisibles sans droits d'administration.
         const etat = async () => JSON.stringify({
             options: await raceSelect.locator('option').count(),
             valeurChoisie: await raceSelect.inputValue(),

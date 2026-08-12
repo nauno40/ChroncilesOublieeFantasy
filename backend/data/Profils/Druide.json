@@ -116,6 +116,12 @@
                 {
                     "rank": 2,
                     "name": "Panthère",
+                    "summons": [
+                        {
+                            "type": "creature",
+                            "ref": "Panthère"
+                        }
+                    ],
                     "type": "Passif",
                     "description": "Le druide apprivoise une panthère (ou un puma) qui lui obéit au doigt et à l’œil.",
                     "details": {

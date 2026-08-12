@@ -146,6 +146,12 @@
                 {
                     "rank": 3,
                     "name": "Animation des morts",
+                    "summons": [
+                        {
+                            "type": "creature",
+                            "ref": "Zombi humain"
+                        }
+                    ],
                     "type": "Action Limitée (L)*",
                     "description": "Le sorcier anime le cadavre d’un humanoïde de taille moyenne, décédé depuis moins d’INT jours. Le zombie comprend les ordres « Attaquer », « Suivre », « Garder » et « Pas bouger ». Le sorcier peut contrôler un seul zombie, plus un zombie chaque fois qu’il atteint le rang 5 dans une voie de sorcier. Un zombie réduit à 0 PV tombe en poussière.",
                     "details": {

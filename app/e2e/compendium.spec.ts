@@ -1,4 +1,4 @@
-import { test, expect, register, uniqueEmail } from './fixtures';
+import { test, expect, register, uniqueEmail, API_URL } from './fixtures';
 
 test.describe('Compendium (données depuis la BDD)', () => {
     test.beforeEach(async ({ page }) => {
@@ -49,4 +49,30 @@ test('le filtre par classe des voies propose les classes et filtre vraiment', as
     await selecteur.selectOption({ label: 'Arquebusier' });
     // Un profil COF2 a cinq voies : le compte doit chuter, pas rester à 130.
     await expect(page.getByText('5 voies')).toBeVisible();
+});
+
+// La colonne `summons` existait sans qu'aucune des 650 capacités officielles ne la porte :
+// le suivi de combat ne savait ajouter une créature invoquée que pour du contenu maison.
+// Deux capacités du livre désignent une créature du bestiaire ; les autres portent le profil
+// de l'invoquée dans leur propre texte, ou laissent le choix au joueur.
+test('une capacité qui invoque une créature du bestiaire y renvoie', async ({ page }) => {
+    await register(page, uniqueEmail('invoc'));
+
+    // La collection est lue en entier puis filtrée ici : `?name=` ne filtre pas — aucun
+    // SearchFilter n'est déclaré sur `Capability`, et l'API rend alors la première page
+    // entière. Le test croyait ouvrir la bonne capacité et en ouvrait une autre.
+    const capacites = await (await page.request.get(`${API_URL}/capabilities?pagination=false`, {
+        headers: { Accept: 'application/ld+json' },
+    })).json();
+    const membres: Array<{ name: string; '@id': string }> = capacites.member || capacites['hydra:member'];
+    const id = membres.find(c => c.name === 'Animation des morts')!['@id'].split('/').pop();
+
+    await page.goto(`/capacites/${id}`);
+    await expect(page.getByRole('heading', { name: 'Animation des morts' })).toBeVisible();
+
+    // Le lien mène à la fiche de la créature, pas à un simple nom en toutes lettres.
+    const lien = page.locator('a[href^="/bestiary/"]', { hasText: 'Zombi humain' });
+    await expect(lien).toHaveCount(1);
+    await lien.click();
+    await expect(page.getByRole('heading', { name: 'Zombi humain' })).toBeVisible();
 });

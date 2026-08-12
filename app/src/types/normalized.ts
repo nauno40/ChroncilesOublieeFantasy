@@ -368,6 +368,21 @@ export interface CustomCreatureAttack {
  * rechargement des fixtures — `custom-<id>` pour un monstre maison, `homebrew-<id>` pour
  * une entrée communautaire.
  */
+/**
+ * Créature ou objet qu'une capacité met en jeu. DÉCLARÉ, jamais détecté.
+ *
+ * Deux capacités officielles seulement en portent — « Animation des morts » (Zombi humain) et
+ * « Panthère ». Ce n'est pas un oubli de saisie : **à COF2, une invocation porte son profil
+ * dans le texte du sort**, pas dans le bestiaire. L'élémentaire du magicien, le démon du
+ * sorcier et le serviteur invisible ont leurs caractéristiques dans leur propre description,
+ * souvent dérivées du niveau du lanceur — les rattacher à une entrée du bestiaire poserait sur
+ * la table un profil qui n'est pas le leur. D'autres laissent explicitement le CHOIX au joueur
+ * (« monture géante de son choix — mammouth, dinosaure, aigle géant, etc. »), et désigner une
+ * créature reviendrait à choisir à sa place.
+ *
+ * Le contenu maison et communautaire, lui, en déclare librement : c'est là que la clé sert le
+ * plus.
+ */
 export interface CapabilitySummon {
     type: 'creature' | 'item';
     ref: string;

@@ -106,6 +106,17 @@ serait inventer.
 - **Tranché** : COF2 ne définit **aucune** pénalité mécanique pour une arme non maîtrisée → « weaponsAuth » reste descriptif (affiché, non dérivé).
 - [x] **Armure et capacités (chap. 9)** : une capacité garde la restriction d'armure du profil dont elle est issue, même chez un hybride. La fiche propose désormais **toutes** les armures (porter n'est pas interdit — c'est l'usage des capacités qui tombe), signale celles hors limite, et un panneau « Sous l'armure » liste par profil les capacités bridées et le **surcoût de PM** des sorts (`domain/rules/spellcasting.ts`). Sorts de prêtre exemptés ; forgesort/druide/barde ne paient que la différence.
 
+### Ce qui restera ouvert par construction
+- **147 créatures servies absentes du livre** : non vérifiables par `audit-bestiaire.mjs`. Leur
+  silence n'est pas un satisfecit, mais les corriger au jugé serait inventer.
+- **Invocations officielles** : seules deux capacités du livre désignent une créature du
+  bestiaire (« Animation des morts » → Zombi humain, « Panthère »). Les autres portent le profil
+  de l'invoquée **dans le texte du sort** (élémentaire, démon, serviteur invisible — souvent
+  dérivé du niveau du lanceur), laissent le **choix** au joueur (monture géante « de son
+  choix », monture fantastique, grand félin, petit compagnon), ou ne sont pas des créatures
+  (Ténèbres, Mur de pierre, Armée des morts = dégâts de zone). Vérifié aussi côté bestiaire :
+  **aucune** capacité de créature n'invoque une autre créature du bestiaire.
+
 ### Phase 3 : Nouvelles Features
 - [x] **Export PDF / fiche imprimable** : route dédiée `/characters/:id/print` (`PrintableCharacterSheet`, hors `Layout` — pas de sidebar sur le papier), rendue par le **PDF natif du navigateur** (`window.print()` + `@media print` dans `index.css`) — aucune dépendance de génération PDF. La fiche réutilise `useCharacterSheet` : les valeurs imprimées sont celles de l'écran **par construction**. Contenu : caractéristiques, combat (attaques + armes), ressources avec cases à cocher, voies & capacités avec descriptions intégrales et **coût réel des sorts sous l'armure portée**, équipement, aide de table (états, usages, compagnons), roleplay, lignes de notes vierges. *Pas d'import : rien à importer d'un PDF que la fiche ne sache déjà saisir.*
 - [~] **Mapping / Grille de combat** — **écarté (hors vision)** : une grille tactique avec pions ferait basculer l'app vers un VTT / un jeu en soi. L'app est une **aide de jeu** (fiche + trackers + compendium), pas le jeu. Le Suivi de Combat (init/PV/états) reste l'aide de combat, sans plateau.

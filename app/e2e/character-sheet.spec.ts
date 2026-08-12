@@ -30,12 +30,19 @@ test.describe('Fiche personnage', () => {
 
         // Sélectionner une race renseigne une IRI non vide (flux données → fiche).
         await raceSelect.selectOption({ index: 1 });
-        // Le sélecteur est CONTRÔLÉ : la valeur ne tient que lorsque l'état du parent est
-        // remonté, ce qui peut prendre un tour de rendu. Une lecture unique passait ici et
-        // échouait sur une machine lente — le seul test que l'intégration continue a vu
-        // tomber. Attendre distingue une valeur qui met du temps à s'établir d'une valeur
-        // qui ne s'établit jamais : si le sélecteur se vidait pour de bon, ceci échouerait.
-        await expect.poll(() => raceSelect.inputValue(), { timeout: 10_000 }).not.toBe('');
+
+        // Ce test est le seul que l'intégration continue ait vu tomber, et l'attente n'a pas
+        // suffi : la valeur ne s'établit jamais là-bas. Comme les journaux et les artefacts
+        // d'un runner ne sont pas lisibles sans droits d'administration, l'assertion emporte
+        // son propre diagnostic — le message d'échec dit combien d'options existaient et ce
+        // que portait celle qu'on a choisie, au lieu du seul « attendu : pas "" ».
+        const etat = async () => JSON.stringify({
+            options: await raceSelect.locator('option').count(),
+            valeurChoisie: await raceSelect.inputValue(),
+            valeurDeLOption1: await raceSelect.locator('option').nth(1).getAttribute('value'),
+            texteDeLOption1: (await raceSelect.locator('option').nth(1).textContent())?.trim(),
+        });
+        await expect.poll(etat, { timeout: 10_000 }).not.toContain('"valeurChoisie":""');
     });
 });
 

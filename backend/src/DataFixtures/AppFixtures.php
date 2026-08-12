@@ -309,7 +309,11 @@ class AppFixtures extends Fixture
                             
                             $type = $capData['type'] ?? '';
                             $c->setLimited(str_contains(strtolower($type), 'limité'));
-                            $c->setIsSpell(str_contains(strtolower($type), 'sort') || str_contains($type, '*')); 
+                            $c->setIsSpell(str_contains(strtolower($type), 'sort') || str_contains($type, '*'));
+                            // Le type était LU pour en déduire `limited` et `isSpell`, puis jeté.
+                            // Sans lui, rien ne sait quel sort se lance en action d'attaque, et la
+                            // concentration accrue ne s'applique à aucun.
+                            $c->setActionType($type !== '' ? $type : null); 
                             
                             if (!empty($capData['details'])) {
                                 $c->setDetails($capData['details']);
@@ -525,6 +529,8 @@ class AppFixtures extends Fixture
                             $type = $capData['type'] ?? '';
                             $cap->setLimited(str_contains(strtolower($type), 'limité'));
                             $cap->setIsSpell(str_contains(strtolower($type), 'sort') || str_contains($type, '*'));
+                            // Même oubli qu'au site des profils : le type était lu puis jeté.
+                            $cap->setActionType($type !== '' ? $type : null);
                             $cap->setVoie($voie);
                             if (!empty($capData['details'])) {
                                 $cap->setDetails($capData['details']);

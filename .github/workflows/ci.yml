@@ -1,0 +1,177 @@
+# Portes de vérification du projet, jouées sur chaque poussée et chaque PR.
+#
+# Elles n'existaient pas : tout se vérifiait à la main, et c'est ainsi que trois erreurs de
+# typage ont atteint master (#218) — la porte utilisée était `vite build`, qui transpile sans
+# type-vérifier, là où le projet définit `build = tsc -b && vite build`. Le job « front »
+# passe donc par `npm run build`, jamais par `vite` seul.
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  front:
+    name: Front — lint, tests, build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run test:run
+      # `npm run build` = `tsc -b && vite build` : c'est le `tsc` qui compte ici.
+      - run: npm run build
+
+  fidelite:
+    name: Fidélité — bestiaire ↔ livre
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      # L'outil sort non nul dès qu'une créature servie diverge du chapitre Opposition.
+      # Aucun conteneur de test ne voit `doc/`, d'où ce job séparé.
+      - run: node scripts/audit-bestiaire.mjs
+
+  back:
+    name: Back — suite API
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    services:
+      database:
+        image: postgres:15-alpine
+        env:
+          POSTGRES_DB: app
+          POSTGRES_USER: app
+          POSTGRES_PASSWORD: '!ChangeMe!'
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U app"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      DATABASE_URL: 'postgresql://app:!ChangeMe!@127.0.0.1:5432/app?serverVersion=15&charset=utf8'
+      JWT_PASSPHRASE: ci
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: ctype, iconv, pdo_pgsql
+          coverage: none
+      - run: composer install --no-interaction --no-progress
+      # Les clés JWT sont vides dans le dépôt (cf. CLAUDE.md) : sans elles, aucune
+      # authentification, et toute la suite de sécurité échoue avant d'avoir rien testé.
+      - run: bin/console lexik:jwt:generate-keypair --skip-if-exists
+      # En environnement de test, Doctrine suffixe le nom de la base (`dbname_suffix:
+      # '_test…'`, recette Symfony) : les tests visent `app_test`, pas `app`. Elle existe
+      # sur un poste de développement pour l'avoir créée un jour ; sur un runner, non — et
+      # PHPUnit sortait en erreur (code 2) avant d'exécuter le moindre test.
+      - run: bin/console doctrine:database:create --env=test --if-not-exists
+      # Pas de migrations ici : `ApiSecurityTestCase` remet le schéma à zéro avant chaque
+      # test et le reconstruit depuis les métadonnées. Seule l'existence de la base compte.
+      - run: bin/phpunit tests/Api
+
+  e2e:
+    name: E2E — stack complet
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # `docker compose` monte ./backend sur /app et MASQUE donc le vendor/ de l'image.
+      # Sans installation préalable côté hôte, le conteneur n'a aucune dépendance : son
+      # entrypoint boucle indéfiniment sur `bin/console`, et l'API ne répond jamais.
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: ctype, iconv, pdo_pgsql
+          coverage: none
+      - name: Installer les dépendances PHP (montées dans le conteneur)
+        working-directory: backend
+        run: composer install --no-interaction --no-progress
+      - name: Démarrer le stack
+        run: docker compose up -d --build
+      # nginx répond avant que la base soit prête : on attend l'API, pas les conteneurs.
+      - name: Attendre l'API
+        run: |
+          for i in $(seq 1 90); do
+            if [ "$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8000/api)" = "200" ]; then
+              exit 0
+            fi
+            sleep 5
+          done
+          echo "L'API n'a pas répondu 200 en 450 s."
+          docker compose ps
+          docker compose logs --tail=80 backend nginx database
+          exit 1
+      # L'entrypoint de dev joue déjà les migrations ; les fixtures, non — et les tests
+      # visent des créatures nommées (Troll, Chef ogre) qui viennent de là.
+      - name: Seeder le compendium
+        run: |
+          docker compose exec -T backend bin/console lexik:jwt:generate-keypair --skip-if-exists
+          docker compose exec -T backend bin/console doctrine:fixtures:load --no-interaction
+      - name: Attendre le serveur Vite
+        run: |
+          for i in $(seq 1 60); do
+            if [ "$(curl -s -o /dev/null -w '%{http_code}' http://localhost:5173)" = "200" ]; then
+              exit 0
+            fi
+            sleep 5
+          done
+          echo "Le serveur Vite n'a pas répondu 200 en 300 s."
+          docker compose logs --tail=80 frontend
+          exit 1
+      - run: bash scripts/e2e.sh
+      # Un job E2E rouge sans détail oblige à télécharger l'artefact pour savoir QUOI a
+      # échoué. `::error::` crée une annotation, visible sur la PR et lisible par l'API
+      # sans jeton — contrairement aux journaux et aux artefacts. Le pas ne doit jamais
+      # masquer l'échec qu'il décrit, d'où le `|| true`.
+      - name: Annoter les tests en échec
+        if: failure()
+        run: |
+          python3 - <<'PY' || true
+          import json, pathlib
+          f = pathlib.Path('app/playwright-report/resultats.json')
+          if not f.exists():
+              print('::error title=E2E::Aucun rapport produit : la suite a échoué avant de démarrer.')
+              raise SystemExit
+          d = json.loads(f.read_text())
+          echecs = []
+          def parcourir(suites):
+              for s in suites:
+                  for spec in s.get('specs', []):
+                      for t in spec.get('tests', []):
+                          if t.get('status') not in ('expected', 'skipped'):
+                              msg = ''
+                              for r in t.get('results', []):
+                                  err = (r.get('error') or {}).get('message', '')
+                                  if err:
+                                      msg = ' '.join(err.split())[:400]
+                                      break
+                              echecs.append((spec.get('title', '?'), msg))
+                  parcourir(s.get('suites', []))
+          parcourir(d.get('suites', []))
+          for titre, msg in echecs:
+              print(f'::error title=E2E::{titre} — {msg}')
+          print(f'::error title=E2E::{len(echecs)} test(s) en échec.')
+          PY
+      - name: Journaux des conteneurs en cas d'échec
+        if: failure()
+        run: docker compose logs --tail=200
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: app/playwright-report

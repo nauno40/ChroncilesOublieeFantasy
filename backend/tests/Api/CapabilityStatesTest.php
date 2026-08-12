@@ -8,6 +8,10 @@ use App\Entity\Voie;
 /**
  * Une capacité peut déclarer les états qu'elle inflige. La colonne doit traverser la
  * sérialisation : sans cela, le suivi de combat ne verrait jamais la déclaration.
+ *
+ * Les requêtes passent par le client de la classe de base. En rappeler `createClient()`
+ * rebootait le noyau déjà démarré, ce qu'API Platform 4.1 déprécie — et `phpunit.dist.xml`
+ * pose `failOnDeprecation`, donc la suite entière sortait en échec.
  */
 final class CapabilityStatesTest extends ApiSecurityTestCase
 {
@@ -43,7 +47,7 @@ final class CapabilityStatesTest extends ApiSecurityTestCase
         // Sans ce clear, la réponse pourrait provenir de l'identity map plutôt que de la base.
         $this->em->clear();
 
-        static::createClient()->request('GET', "/api/capabilities/{$id}");
+        $this->client->request('GET', "/api/capabilities/{$id}");
 
         $this->assertResponseIsSuccessful();
         $this->assertJsonContains(['states' => ['Étourdi']]);
@@ -57,7 +61,7 @@ final class CapabilityStatesTest extends ApiSecurityTestCase
         $id = $capacite->getId();
         $this->em->clear();
 
-        $reponse = static::createClient()->request('GET', "/api/capabilities/{$id}");
+        $reponse = $this->client->request('GET', "/api/capabilities/{$id}");
 
         $this->assertResponseIsSuccessful();
         $this->assertArrayNotHasKey('states', $reponse->toArray());
@@ -69,7 +73,7 @@ final class CapabilityStatesTest extends ApiSecurityTestCase
         $id = $capacite->getId();
         $this->em->clear();
 
-        static::createClient()->request('GET', "/api/capabilities/{$id}");
+        $this->client->request('GET', "/api/capabilities/{$id}");
 
         $this->assertResponseIsSuccessful();
         $this->assertJsonContains(['summons' => [['type' => 'creature', 'ref' => 'Loup', 'quantity' => 2]]]);

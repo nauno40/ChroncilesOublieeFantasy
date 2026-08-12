@@ -13,7 +13,14 @@ export default defineConfig({
     workers: 1,
     forbidOnly: !!process.env.CI,
     retries: process.env.CI ? 1 : 0,
-    reporter: [['list'], ['html', { open: 'never' }]],
+    // Le rapport JSON n'est pas pour un humain : il permet à l'intégration continue de
+    // dire QUELS tests ont échoué sans qu'on ait à ouvrir le rapport HTML, qui n'est
+    // consultable qu'en téléchargeant l'artefact.
+    reporter: [
+        ['list'],
+        ['html', { open: 'never' }],
+        ['json', { outputFile: 'playwright-report/resultats.json' }],
+    ],
     timeout: 30_000,
     // A cold backend is slow on the first request (observed during manual verif).
     expect: { timeout: 10_000 },

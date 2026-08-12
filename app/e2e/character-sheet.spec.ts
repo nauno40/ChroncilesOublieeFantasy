@@ -30,7 +30,12 @@ test.describe('Fiche personnage', () => {
 
         // Sélectionner une race renseigne une IRI non vide (flux données → fiche).
         await raceSelect.selectOption({ index: 1 });
-        expect(await raceSelect.inputValue()).not.toBe('');
+        // Le sélecteur est CONTRÔLÉ : la valeur ne tient que lorsque l'état du parent est
+        // remonté, ce qui peut prendre un tour de rendu. Une lecture unique passait ici et
+        // échouait sur une machine lente — le seul test que l'intégration continue a vu
+        // tomber. Attendre distingue une valeur qui met du temps à s'établir d'une valeur
+        // qui ne s'établit jamais : si le sélecteur se vidait pour de bon, ceci échouerait.
+        await expect.poll(() => raceSelect.inputValue(), { timeout: 10_000 }).not.toBe('');
     });
 });
 

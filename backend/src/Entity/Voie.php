@@ -79,6 +79,16 @@ class Voie
         return $this;
     }
 
+    /**
+     * Les listes déroulantes d'EasyAdmin convertissent l'entité liée en chaîne. Sans cette
+     * méthode, le formulaire d'une capacité (qui pointe vers sa voie) levait
+     * « Object of class App\Entity\Voie could not be converted to string » (500).
+     */
+    public function __toString(): string
+    {
+        return $this->name ?? '';
+    }
+
     public function getDescription(): ?string
     {
         return $this->description;

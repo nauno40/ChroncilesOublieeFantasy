@@ -57,6 +57,15 @@ class CreatureFamily
         return $this;
     }
 
+    /**
+     * Nom affiché dans la liste déroulante « famille » du formulaire d'une créature ;
+     * sans conversion en chaîne, EasyAdmin lève une erreur au rendu du formulaire.
+     */
+    public function __toString(): string
+    {
+        return $this->name ?? '';
+    }
+
     public function getDescription(): ?string
     {
         return $this->description;

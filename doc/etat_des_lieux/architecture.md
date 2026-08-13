@@ -78,7 +78,7 @@ Le projet repose sur **Docker Compose** pour l'orchestration des conteneurs. Le 
 │   │   ├── Entity/               # 28 entités Doctrine (+ Trait/CreatureProfileTrait partagé
 │   │   │                         #   par Creature et CustomCreature)
 │   │   ├── Repository/           # 24 repositories
-│   │   ├── Controller/Admin/     # 10 CRUD controllers EasyAdmin
+│   │   ├── Controller/Admin/     # 9 CRUD controllers EasyAdmin + DashboardController
 │   │   ├── DataFixtures/         # AppFixtures.php (~1360 lignes)
 │   │   ├── State/                # 8 state processors (mot de passe, propriétaire, invitations…)
 │   │   ├── Service/              # CapabilityEffectBuilder, InviteCodeGenerator…

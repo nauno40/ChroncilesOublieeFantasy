@@ -20,7 +20,8 @@ class RaceCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id'),
-            TextField::new('title'),
+            // L'entité porte `name`, jamais `title`.
+            TextField::new('name'),
             TextEditorField::new('description'),
         ];
     }

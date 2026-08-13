@@ -25,7 +25,9 @@ class VoieCrudController extends AbstractCrudController
             TextEditorField::new('description'),
             TextField::new('category'),
             AssociationField::new('profile'),
-            AssociationField::new('race'),
+            // `Voie::$races` est une collection ManyToMany ; `race` n'existe pas et faisait
+            // répondre 500 à la page entière.
+            AssociationField::new('races'),
             IntegerField::new('maxRank'),
         ];
     }

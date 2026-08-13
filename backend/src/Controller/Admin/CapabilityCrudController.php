@@ -30,7 +30,13 @@ class CapabilityCrudController extends AbstractCrudController
             BooleanField::new('isSpell'),
             TextField::new('actionType'),
             BooleanField::new('limited'),
-            ArrayField::new('effect'),
+            // `effect` n'est PAS affiché, et ce n'est pas une omission : c'est un JSON
+            // imbriqué (`bonuses`, `armorCap`, `choiceOptions`, `evolutiveDie`) que
+            // `CapabilityEffectBuilder` DÉRIVE de la description au chargement des
+            // fixtures — une donnée écrite par la machine, pas saisie par un humain.
+            // `ArrayField` le rendait en « Array to string conversion » (500), et un champ
+            // texte est refusé par EasyAdmin avant tout formatage. Le modifier à la main
+            // serait de toute façon écrasé au prochain chargement.
         ];
     }
 }

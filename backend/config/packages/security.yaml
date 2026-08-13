@@ -26,6 +26,18 @@ security:
         main:
             lazy: true
             provider: app_user_provider
+            # Le back-office EasyAdmin est la SEULE partie rendue par le serveur. Ce pare-feu
+            # n'avait aucun authentificateur : personne ne pouvait s'y connecter, donc
+            # personne n'était connecté, donc `/admin` s'ouvrait à tout le monde.
+            # L'authentification HTTP suffit ici et n'ajoute ni page ni gabarit : le SPA a
+            # déjà son propre parcours de connexion (JWT sur `^/api`).
+            http_basic:
+                realm: 'Back-office'
+            # EasyAdmin pose un lien de déconnexion dans son gabarit et exige donc que le
+            # pare-feu en déclare un — sans quoi la page entière lève une exception au rendu.
+            logout:
+                path: /admin/logout
+                target: /admin
     access_control:
         - { path: ^/api/login, roles: PUBLIC_ACCESS }
         # Compendium (game reference data) stays publicly readable, but writes are
@@ -33,3 +45,7 @@ security:
         # NOT listed here — they enforce ownership via per-operation security.
         - { path: '^/api/(races|profiles|voies|capabilities|creatures|creature_families|creature_voies|equipment|materials|foods|lodgings|mounts|states|poisons|traps|families)(/|$)', methods: [POST, PUT, PATCH, DELETE], roles: ROLE_ADMIN }
         - { path: ^/api,       roles: PUBLIC_ACCESS } # Compendium reads stay public; campaign domain is guarded per-operation.
+        # Le back-office n'était couvert par AUCUNE règle : `/admin` répondait 200 à un
+        # visiteur anonyme, y compris `/admin/user` qui liste les adresses e-mail de tous
+        # les comptes, et offrait la modification et la suppression de tout le compendium.
+        - { path: ^/admin,     roles: ROLE_ADMIN }

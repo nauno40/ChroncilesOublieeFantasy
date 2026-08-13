@@ -56,7 +56,7 @@ Suite à l'analyse approfondie du code source frontend et backend (mise à jour 
 
 ### Backend / API
 - API REST complète pour toutes les entités (API Platform + Swagger/ReDoc)
-- CRUD administrateur via EasyAdmin (10 contrôleurs)
+- CRUD administrateur via EasyAdmin (9 contrôleurs + tableau de bord), **réservé à ROLE_ADMIN** depuis août 2026 — il répondait jusque-là 200 à un visiteur anonyme, et ses formulaires d'édition et de création répondaient 500 (voir `backend.md` §6)
 - Modèles de données pour le système de jeu (28 entités)
 - Fixtures complètes (14 profils, 8 races, 219 créatures, 650 capacités)
 
@@ -78,7 +78,7 @@ serait inventer.
 ## 2. Ce qui fonctionne partiellement ou avec des limitations ⚠️
 
 ### Tests
-- **Backend** : **126 tests / 1242 assertions** (PHPUnit) — sécurité par propriétaire, durcissement
+- **Backend** : **131 tests / 1254 assertions** (PHPUnit) — sécurité par propriétaire, durcissement
   des autorisations, JWT, contrat de sérialisation du compendium, et deux suites pures sur les
   services et les données source des profils.
 - **Frontend** : **576 tests unitaires** (Vitest, 42 fichiers) et **76 tests E2E** (Playwright,

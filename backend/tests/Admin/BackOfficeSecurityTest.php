@@ -2,6 +2,7 @@
 
 namespace App\Tests\Admin;
 
+use App\Entity\Campaign;
 use App\Tests\Api\ApiSecurityTestCase;
 
 /**
@@ -161,13 +162,16 @@ final class BackOfficeSecurityTest extends ApiSecurityTestCase
     ];
 
     /**
-     * Aucune section du jeu d'essai n'est retenue par une clé étrangère : chaque association
-     * qui pointe vers une des 10 entités B/C porte `orphanRemoval: true` côté propriétaire
-     * (voir le commentaire de DELETABLE_SECTIONS), donc Doctrine efface les lignes dépendantes
-     * avant la ligne visée, dans l'ordre ci-dessus. Réserve : `Campaign::$characters` n'a que
-     * `cascade: ['persist']`, sans `orphanRemoval` — si `BackOfficeFixture` en venait à
-     * attacher `character` à `campaign` (ce qu'elle ne fait pas aujourd'hui), la suppression
-     * de `campaign` échouerait alors sur la contrainte `character.campaign_id`.
+     * Vide : aucune des 10 sections, prise isolément dans l'état où `BackOfficeFixture` les
+     * laisse, n'est retenue par une clé étrangère (chaque association qui pointe vers l'une
+     * d'elles porte `orphanRemoval: true` côté propriétaire — voir le commentaire de
+     * DELETABLE_SECTIONS). Ce n'est pas la même chose que « aucune suppression n'est jamais
+     * refusée » : `Campaign::$characters` n'a que `cascade: ['persist']`, sans
+     * `orphanRemoval`, et un personnage réellement rattaché à sa campagne — l'état normal du
+     * produit — bloque bel et bien la suppression de la campagne. Ce cas n'est pas mesurable
+     * par le mécanisme à deux listes (le balayage de DELETABLE_SECTIONS supprime `character`
+     * avant `campaign`, ce qui masquerait le refus) ; il est couvert séparément par
+     * `testCampaignDeletionIsRefusedWhenACharacterIsAttached()`.
      */
     private const DELETION_REFUSED_SECTIONS = [];
 
@@ -194,25 +198,37 @@ final class BackOfficeSecurityTest extends ApiSecurityTestCase
     }
 
     /**
-     * Documente le constat inverse : si une section venait un jour à rejoindre
-     * DELETION_REFUSED_SECTIONS, ce test garantit que sa suppression échoue bien (pas de
-     * faux négatif silencieux) et rappelle quoi faire si elle se met à aboutir.
+     * Le cas courant du produit, qu'aucune des 10 sections du balayage n'exerce : un
+     * personnage de joueur réellement rattaché à sa campagne. `Character::$campaign` est un
+     * `ManyToOne` nullable, mais la migration qui a posé la colonne
+     * (`Version20260301194224.php`) crée la clé étrangère sans clause `ON DELETE` — Postgres
+     * applique donc `RESTRICT` par défaut. `BackOfficeFixture::seed()` ne rattache jamais son
+     * `character` à sa `campaign` ; on le fait ici, pour cette seule section, hors du
+     * balayage : l'ordre de `DELETABLE_SECTIONS` supprime déjà `character` avant `campaign`,
+     * ce qui aurait effacé la ligne bloquante avant le test.
+     *
+     * EasyAdmin attrape la `ForeignKeyConstraintViolationException` de Doctrine et la
+     * retraduit en `EntityRemoveException`, une `HttpException` avec un code 409 — la requête
+     * ne remonte donc pas comme exception non interceptée jusqu'à PHPUnit, elle répond 409.
      */
-    public function testSomeDeletionsAreRefusedByForeignKeys(): void
+    public function testCampaignDeletionIsRefusedWhenACharacterIsAttached(): void
     {
-        if ([] === self::DELETION_REFUSED_SECTIONS) {
-            self::markTestSkipped('Aucune section n\'est retenue par une clé étrangère.');
-        }
-
         $admin = $this->createUser('admin@example.com', ['ROLE_ADMIN']);
         $entities = BackOfficeFixture::seed($this->em, $admin);
 
-        foreach (self::DELETION_REFUSED_SECTIONS as $section) {
-            $entity = $entities[self::FIXTURE_KEYS[$section] ?? $section];
-            $status = $this->deleteAsAdmin($section, $entity->getId());
+        $entities['character']->setCampaign($entities['campaign']);
+        $this->em->flush();
 
-            self::assertNotSame(302, $status, sprintf('La suppression « %s » est censée être refusée ; si elle aboutit désormais, déplacer la section dans DELETABLE_SECTIONS.', $section));
-        }
+        $campaignId = $entities['campaign']->getId();
+
+        self::assertSame(
+            409,
+            $this->deleteAsAdmin('campaign', $campaignId),
+            'La suppression doit être refusée par la contrainte de clé étrangère « character.campaign_id ».'
+        );
+
+        $this->em->clear();
+        self::assertNotNull($this->em->find(Campaign::class, $campaignId), 'La campagne doit rester en base après le refus.');
     }
 
     /**

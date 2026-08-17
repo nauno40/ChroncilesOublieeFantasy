@@ -183,6 +183,7 @@ s'appliquait à aucun sort officiel. Rejouer les fixtures est le seul moyen de s
 > Une suite « verte » à l'œil peut donc être rouge pour l'intégration continue — c'est
 > exactement ce qui s'est produit, une dépréciation d'API Platform 4.1 ayant survécu plusieurs
 > semaines derrière ce message.
+- **Intégration continue** : la suite complète (143 tests, ~12 min) s'exécute sur chaque PR et poussée vers master — aucune régression n'atteint l'historique.
 - **Messenger** : Transport Doctrine configuré (async + failed), routage pour SendEmailMessage, ChatMessage, SmsMessage
 - **Pas de Services/EventSubscriber/Voter** dédiés pour le moment
 

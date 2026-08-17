@@ -48,7 +48,14 @@ final class BackOfficeSecurityTest extends ApiSecurityTestCase
     /** Sections dont l'administrateur peut créer et modifier une ligne. */
     private const WRITABLE_SECTIONS = [
         'user', 'race', 'family', 'profile', 'voie', 'capability',
-        'creature-family', 'creature', 'equipment',
+        'creature-family', 'creature', 'creature-voie', 'equipment',
+        'material', 'food', 'lodging', 'mount', 'harmful-state', 'poison', 'trap',
+    ];
+
+    /** Sections dont la clé dans le jeu d'essai diffère du segment d'URL. */
+    private const FIXTURE_KEYS = [
+        'harmful-state' => 'state',
+        'homebrew-entry' => 'homebrew',
     ];
 
     /**
@@ -68,8 +75,9 @@ final class BackOfficeSecurityTest extends ApiSecurityTestCase
             $this->requestAsAdmin('/admin/'.$section.'/new');
             $this->assertResponseIsSuccessful(sprintf('Le formulaire de création « %s » doit répondre.', $section));
 
-            if (isset($entities[$section])) {
-                $this->requestAsAdmin(sprintf('/admin/%s/%d/edit', $section, $entities[$section]->getId()));
+            $fixtureKey = self::FIXTURE_KEYS[$section] ?? $section;
+            if (isset($entities[$fixtureKey])) {
+                $this->requestAsAdmin(sprintf('/admin/%s/%d/edit', $section, $entities[$fixtureKey]->getId()));
                 $this->assertResponseIsSuccessful(sprintf('Le formulaire de modification « %s » doit répondre.', $section));
             }
         }

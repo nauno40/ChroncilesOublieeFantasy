@@ -53,5 +53,22 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud('Créatures', 'fas fa-paw', \App\Entity\Creature::class),
             MenuItem::linkToCrud('Voies de créature', 'fas fa-route', \App\Entity\CreatureVoie::class),
         ]);
+
+        yield MenuItem::subMenu('Contenu communautaire', 'fas fa-users-rays')->setSubItems([
+            MenuItem::linkToCrud('Créations partagées', 'fas fa-scroll', \App\Entity\HomebrewEntry::class),
+            MenuItem::linkToCrud('Monstres maison', 'fas fa-ghost', \App\Entity\CustomCreature::class),
+        ]);
+
+        // Données appartenant aux utilisateurs : consultation et suppression seulement.
+        yield MenuItem::subMenu('Données des utilisateurs', 'fas fa-lock')->setSubItems([
+            MenuItem::linkToCrud('Campagnes', 'fas fa-map', \App\Entity\Campaign::class),
+            MenuItem::linkToCrud('Adhésions', 'fas fa-user-plus', \App\Entity\CampaignMembership::class),
+            MenuItem::linkToCrud('Quêtes', 'fas fa-flag', \App\Entity\Quest::class),
+            MenuItem::linkToCrud('Indices', 'fas fa-magnifying-glass', \App\Entity\Clue::class),
+            MenuItem::linkToCrud('Séances', 'fas fa-calendar-day', \App\Entity\Session::class),
+            MenuItem::linkToCrud('Rencontres', 'fas fa-skull', \App\Entity\Encounter::class),
+            MenuItem::linkToCrud('Personnages', 'fas fa-user-shield', \App\Entity\Character::class),
+            MenuItem::linkToCrud('Voies de personnage', 'fas fa-diagram-project', \App\Entity\CharacterVoie::class),
+        ]);
     }
 }

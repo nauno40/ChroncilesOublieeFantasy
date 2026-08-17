@@ -56,7 +56,50 @@ final class BackOfficeSecurityTest extends ApiSecurityTestCase
     private const FIXTURE_KEYS = [
         'harmful-state' => 'state',
         'homebrew-entry' => 'homebrew',
+        'campaign-membership' => 'membership',
     ];
+
+    /** Sections que l'administrateur peut consulter et supprimer, jamais créer ni modifier. */
+    private const READ_DELETE_SECTIONS = [
+        'campaign', 'campaign-membership', 'quest', 'clue', 'session', 'encounter',
+        'character', 'character-voie', 'homebrew-entry', 'custom-creature',
+    ];
+
+    public function testAdminReadsEveryUserDataSection(): void
+    {
+        $admin = $this->createUser('admin@example.com', ['ROLE_ADMIN']);
+        $entities = BackOfficeFixture::seed($this->em, $admin);
+
+        foreach (self::READ_DELETE_SECTIONS as $section) {
+            $this->requestAsAdmin('/admin/'.$section);
+            $this->assertResponseIsSuccessful(sprintf('L\'index « %s » doit répondre.', $section));
+
+            $entity = $entities[self::FIXTURE_KEYS[$section] ?? $section];
+            $this->requestAsAdmin(sprintf('/admin/%s/%d', $section, $entity->getId()));
+            $this->assertResponseIsSuccessful(sprintf('Le détail « %s » doit répondre.', $section));
+        }
+    }
+
+    /**
+     * Ces données appartiennent à un utilisateur et sont écrites par le front, qui applique
+     * des règles (propriétaire, appartenance, dérivations) qu'un formulaire ignore. Le refus
+     * doit venir d'EasyAdmin lui-même, pas d'un bouton caché : la route doit être fermée.
+     */
+    public function testWriteRoutesAreClosedOnUserDataSections(): void
+    {
+        $admin = $this->createUser('admin@example.com', ['ROLE_ADMIN']);
+        $entities = BackOfficeFixture::seed($this->em, $admin);
+
+        foreach (self::READ_DELETE_SECTIONS as $section) {
+            $entity = $entities[self::FIXTURE_KEYS[$section] ?? $section];
+
+            $this->requestAsAdmin('/admin/'.$section.'/new');
+            $this->assertResponseStatusCodeSame(403, sprintf('La création « %s » doit être refusée.', $section));
+
+            $this->requestAsAdmin(sprintf('/admin/%s/%d/edit', $section, $entity->getId()));
+            $this->assertResponseStatusCodeSame(403, sprintf('La modification « %s » doit être refusée.', $section));
+        }
+    }
 
     /**
      * Chaque formulaire rend une liste déroulante par association, dont EasyAdmin construit

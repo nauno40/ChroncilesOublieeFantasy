@@ -111,6 +111,11 @@ final class BackOfficeSecurityTest extends ApiSecurityTestCase
     {
         $admin = $this->createUser('admin@example.com', ['ROLE_ADMIN']);
         $entities = BackOfficeFixture::seed($this->em, $admin);
+        // BackOfficeFixture::seed() ne renvoie jamais l'administrateur : c'est ce test qui le
+        // crée, hors du jeu d'essai (dont les 26 clés sont figées par BackOfficeFixtureTest).
+        // On l'ajoute ici sous la clé « user » pour que la boucle ci-dessous couvre aussi le
+        // formulaire de modification de la section la plus sensible : mots de passe et rôles.
+        $entities['user'] = $admin;
 
         foreach (self::WRITABLE_SECTIONS as $section) {
             $this->requestAsAdmin('/admin/'.$section);
@@ -119,11 +124,12 @@ final class BackOfficeSecurityTest extends ApiSecurityTestCase
             $this->requestAsAdmin('/admin/'.$section.'/new');
             $this->assertResponseIsSuccessful(sprintf('Le formulaire de création « %s » doit répondre.', $section));
 
+            // Les 17 sections en écriture ont désormais toutes une entité correspondante :
+            // un indexage direct échoue bruyamment si une clé venait à manquer, plutôt que de
+            // sauter silencieusement la vérification comme le faisait l'ancien isset().
             $fixtureKey = self::FIXTURE_KEYS[$section] ?? $section;
-            if (isset($entities[$fixtureKey])) {
-                $this->requestAsAdmin(sprintf('/admin/%s/%d/edit', $section, $entities[$fixtureKey]->getId()));
-                $this->assertResponseIsSuccessful(sprintf('Le formulaire de modification « %s » doit répondre.', $section));
-            }
+            $this->requestAsAdmin(sprintf('/admin/%s/%d/edit', $section, $entities[$fixtureKey]->getId()));
+            $this->assertResponseIsSuccessful(sprintf('Le formulaire de modification « %s » doit répondre.', $section));
         }
     }
 

@@ -82,4 +82,13 @@ class Creature
 
         return $this;
     }
+
+    /**
+     * Nom affiché dans la liste déroulante « créature » du formulaire d'une CreatureVoie ;
+     * sans conversion en chaîne, EasyAdmin lève une erreur au rendu du formulaire.
+     */
+    public function __toString(): string
+    {
+        return $this->getName() ?? '';
+    }
 }

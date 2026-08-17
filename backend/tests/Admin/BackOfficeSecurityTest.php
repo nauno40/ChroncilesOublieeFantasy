@@ -2,11 +2,6 @@
 
 namespace App\Tests\Admin;
 
-use App\Entity\CreatureFamily;
-use App\Entity\Family;
-use App\Entity\Profile;
-use App\Entity\Race;
-use App\Entity\Voie;
 use App\Tests\Api\ApiSecurityTestCase;
 
 /**
@@ -50,52 +45,62 @@ final class BackOfficeSecurityTest extends ApiSecurityTestCase
         $this->assertResponseIsSuccessful();
     }
 
-    /**
-     * Every CRUD form renders a drop-down for each association, and EasyAdmin builds its
-     * labels by casting the linked entity to a string. Without `__toString()` these pages
-     * answered 500 — one per entity that another one points to.
-     */
-    public function testAdminOpensTheCreationFormOfEveryCrudSection(): void
-    {
-        $this->createUser('admin@example.com', ['ROLE_ADMIN']);
-        // The drop-downs must have something to render: on an empty database no entity is
-        // ever cast to a string, and the very failure this test guards against disappears.
-        $this->seedOneRowPerAssociationTarget();
+    /** Sections dont l'administrateur peut créer et modifier une ligne. */
+    private const WRITABLE_SECTIONS = [
+        'user', 'race', 'family', 'profile', 'voie', 'capability',
+        'creature-family', 'creature', 'equipment',
+    ];
 
-        foreach (['race', 'voie', 'capability', 'creature', 'creature-family', 'profile', 'family', 'equipment'] as $section) {
-            $this->client->request('GET', '/admin/'.$section.'/new', [
-                'auth_basic' => ['admin@example.com', 'password'],
-            ]);
-            $this->assertResponseIsSuccessful(sprintf('The "%s" creation form must render.', $section));
+    /**
+     * Chaque formulaire rend une liste déroulante par association, dont EasyAdmin construit
+     * les libellés en convertissant l'entité liée en chaîne. Sans `__toString()`, la page
+     * répond 500 — alors que l'index et le détail, eux, répondent 200.
+     */
+    public function testAdminOpensEveryWritableForm(): void
+    {
+        $admin = $this->createUser('admin@example.com', ['ROLE_ADMIN']);
+        $entities = BackOfficeFixture::seed($this->em, $admin);
+
+        foreach (self::WRITABLE_SECTIONS as $section) {
+            $this->requestAsAdmin('/admin/'.$section);
+            $this->assertResponseIsSuccessful(sprintf('L\'index « %s » doit répondre.', $section));
+
+            $this->requestAsAdmin('/admin/'.$section.'/new');
+            $this->assertResponseIsSuccessful(sprintf('Le formulaire de création « %s » doit répondre.', $section));
+
+            if (isset($entities[$section])) {
+                $this->requestAsAdmin(sprintf('/admin/%s/%d/edit', $section, $entities[$section]->getId()));
+                $this->assertResponseIsSuccessful(sprintf('Le formulaire de modification « %s » doit répondre.', $section));
+            }
         }
     }
 
-    private function seedOneRowPerAssociationTarget(): void
+    /**
+     * `Capability.effect` est dérivé par `CapabilityEffectBuilder` au chargement des
+     * fixtures. On veut le lire dans le back-office, pas le saisir : une saisie serait
+     * écrasée au chargement suivant.
+     */
+    public function testDerivedJsonIsShownButNotEditable(): void
     {
-        $family = (new Family())
-            ->setName('Combattant')
-            ->setDescription('Famille de test.')
-            ->setBaseHp(6)
-            ->setRecoveryDie('d6')
-            ->setLuckPoints(3);
+        $admin = $this->createUser('admin@example.com', ['ROLE_ADMIN']);
+        $entities = BackOfficeFixture::seed($this->em, $admin);
 
-        $profile = (new Profile())->setName('Guerrier');
-        $profile->setFamily($family);
+        $html = $this->requestAsAdmin(sprintf('/admin/capability/%d/edit', $entities['capability']->getId()));
 
-        $race = (new Race())->setName('Humain')->setDescription('Race de test.');
+        self::assertStringContainsString('Capability[effect]', $html, 'Le champ dérivé doit être affiché.');
+        self::assertMatchesRegularExpression(
+            '/name="Capability\[effect\]"[^>]*disabled/',
+            $html,
+            'Le champ dérivé doit être en lecture seule.'
+        );
+    }
 
-        $voie = (new Voie())
-            ->setName('Voie du test')
-            ->setDescription('Voie de test.')
-            ->setCategory('profil')
-            ->setMaxRank(5);
-        $voie->setProfile($profile);
+    private function requestAsAdmin(string $path): string
+    {
+        $this->client->request('GET', $path, [
+            'auth_basic' => ['admin@example.com', 'password'],
+        ]);
 
-        $creatureFamily = (new CreatureFamily())->setName('Bêtes');
-
-        foreach ([$family, $profile, $race, $voie, $creatureFamily] as $entity) {
-            $this->em->persist($entity);
-        }
-        $this->em->flush();
+        return $this->client->getKernelBrowser()->getResponse()->getContent();
     }
 }

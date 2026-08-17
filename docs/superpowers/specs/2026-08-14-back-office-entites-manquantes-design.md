@@ -85,9 +85,13 @@ Le regroupement dit aussi la sensibilité : les données d'utilisateurs sont vis
 
 ## Suppression : ce qui n'est pas garanti
 
-Supprimer depuis le back-office suit les cascades Doctrine, qui n'ont pas été écrites pour cet usage. Là où il n'y a pas de cascade, Postgres refusera par clé étrangère et la page rendra une erreur brute.
+Supprimer depuis le back-office suit les cascades Doctrine, qui n'ont pas été écrites pour cet usage. Là où il n'y a pas de cascade, Postgres refuserait par clé étrangère et la page rendrait une erreur brute.
 
-L'implémentation **vérifie la suppression de chacune des 10 sections B et C** et documente celles qui refusent. Les cascades du domaine campagne ne seront pas modifiées : changer le produit pour arranger son outil d'administration serait le mauvais sens.
+**Mesuré** (`tests/Admin/BackOfficeSecurityTest.php::testAdminDeletesUserData`) : les 10 sections B et C se suppriment toutes, **à condition de supprimer les feuilles avant les racines** — `campaign` porte `orphanRemoval: true` sur ses quêtes, indices, séances, rencontres et adhésions, et `character` porte la même chose sur ses voies de personnage ; Doctrine efface donc ces lignes en cascade dès que la racine est supprimée. Un ordre racine-avant-feuille fait échouer le balayage (la ligne dépendante, déjà effacée, répond 404), sans que ce soit un refus par clé étrangère. `DELETION_REFUSED_SECTIONS` est en conséquence **vide**.
+
+Réserve, non couverte par la mesure : `Campaign::$characters` ne porte que `cascade: ['persist']`, sans `orphanRemoval`. Le jeu d'essai (`BackOfficeFixture`) ne rattache jamais son personnage à sa campagne, donc ce chemin n'est pas exercé. Si un personnage réel est rattaché à une campagne, supprimer cette campagne depuis le back-office échouerait sur la contrainte de clé étrangère `character.campaign_id` — un cas à mesurer si `BackOfficeFixture` change un jour, pas à corriger en ajoutant une cascade pour l'admin.
+
+Les cascades du domaine campagne ne seront pas modifiées : changer le produit pour arranger son outil d'administration serait le mauvais sens.
 
 ## Tests
 

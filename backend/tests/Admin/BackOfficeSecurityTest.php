@@ -146,6 +146,97 @@ final class BackOfficeSecurityTest extends ApiSecurityTestCase
         );
     }
 
+    /**
+     * Sections dont une ligne se supprime depuis le back-office, mesuré empiriquement.
+     * Ordre significatif, feuilles avant racines : `Campaign::$quests/$clues/$sessions/
+     * $encounters/$memberships` portent `orphanRemoval: true`, donc Doctrine les efface déjà
+     * en cascade quand `campaign` est supprimée en premier — un ordre racine-avant-feuille
+     * fait échouer le balayage sur un 404 (ligne déjà effacée), pas sur une clé étrangère.
+     * Même mécanisme pour `Character::$characterVoies` (cascade: ['remove'], orphanRemoval)
+     * vis-à-vis de `character-voie`.
+     */
+    private const DELETABLE_SECTIONS = [
+        'character-voie', 'quest', 'clue', 'session', 'encounter', 'campaign-membership',
+        'character', 'campaign', 'homebrew-entry', 'custom-creature',
+    ];
+
+    /**
+     * Aucune section du jeu d'essai n'est retenue par une clé étrangère : chaque association
+     * qui pointe vers une des 10 entités B/C porte `orphanRemoval: true` côté propriétaire
+     * (voir le commentaire de DELETABLE_SECTIONS), donc Doctrine efface les lignes dépendantes
+     * avant la ligne visée, dans l'ordre ci-dessus. Réserve : `Campaign::$characters` n'a que
+     * `cascade: ['persist']`, sans `orphanRemoval` — si `BackOfficeFixture` en venait à
+     * attacher `character` à `campaign` (ce qu'elle ne fait pas aujourd'hui), la suppression
+     * de `campaign` échouerait alors sur la contrainte `character.campaign_id`.
+     */
+    private const DELETION_REFUSED_SECTIONS = [];
+
+    /**
+     * Une suppression par section. Les cascades du domaine campagne n'ont pas été écrites
+     * pour le back-office : certaines lignes sont retenues par une clé étrangère. Le test
+     * fige ce qui est vrai aujourd'hui — il n'invente pas de cascade pour se satisfaire.
+     */
+    public function testAdminDeletesUserData(): void
+    {
+        $admin = $this->createUser('admin@example.com', ['ROLE_ADMIN']);
+        $entities = BackOfficeFixture::seed($this->em, $admin);
+
+        foreach (self::DELETABLE_SECTIONS as $section) {
+            $entity = $entities[self::FIXTURE_KEYS[$section] ?? $section];
+            $id = $entity->getId();
+            $class = $entity::class;
+
+            self::assertSame(302, $this->deleteAsAdmin($section, $id), sprintf('La suppression « %s » doit aboutir.', $section));
+
+            $this->em->clear();
+            self::assertNull($this->em->find($class, $id), sprintf('La ligne « %s » doit avoir disparu.', $section));
+        }
+    }
+
+    /**
+     * Documente le constat inverse : si une section venait un jour à rejoindre
+     * DELETION_REFUSED_SECTIONS, ce test garantit que sa suppression échoue bien (pas de
+     * faux négatif silencieux) et rappelle quoi faire si elle se met à aboutir.
+     */
+    public function testSomeDeletionsAreRefusedByForeignKeys(): void
+    {
+        if ([] === self::DELETION_REFUSED_SECTIONS) {
+            self::markTestSkipped('Aucune section n\'est retenue par une clé étrangère.');
+        }
+
+        $admin = $this->createUser('admin@example.com', ['ROLE_ADMIN']);
+        $entities = BackOfficeFixture::seed($this->em, $admin);
+
+        foreach (self::DELETION_REFUSED_SECTIONS as $section) {
+            $entity = $entities[self::FIXTURE_KEYS[$section] ?? $section];
+            $status = $this->deleteAsAdmin($section, $entity->getId());
+
+            self::assertNotSame(302, $status, sprintf('La suppression « %s » est censée être refusée ; si elle aboutit désormais, déplacer la section dans DELETABLE_SECTIONS.', $section));
+        }
+    }
+
+    /**
+     * EasyAdmin protège la suppression par un jeton de session. Le navigateur de test garde
+     * les cookies entre deux requêtes : il suffit de lire le jeton sur la page de détail.
+     */
+    private function deleteAsAdmin(string $section, int $id): int
+    {
+        $html = $this->requestAsAdmin(sprintf('/admin/%s/%d', $section, $id));
+        self::assertMatchesRegularExpression('/name="token" value="([^"]+)"/', $html, 'La page de détail doit porter un jeton de suppression.');
+        preg_match('/name="token" value="([^"]+)"/', $html, $matches);
+
+        $browser = $this->client->getKernelBrowser();
+        $browser->request(
+            'POST',
+            sprintf('/admin/%s/%d/delete', $section, $id),
+            ['token' => $matches[1]],
+            [],
+            ['PHP_AUTH_USER' => 'admin@example.com', 'PHP_AUTH_PW' => 'password'],
+        );
+
+        return $browser->getResponse()->getStatusCode();
+    }
+
     private function requestAsAdmin(string $path): string
     {
         $this->client->request('GET', $path, [

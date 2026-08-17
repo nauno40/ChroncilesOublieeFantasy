@@ -44,7 +44,7 @@ jobs:
       - run: node scripts/audit-bestiaire.mjs
 
   back:
-    name: Back — suite API
+    name: Back — suite PHPUnit
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -83,7 +83,7 @@ jobs:
       - run: bin/console doctrine:database:create --env=test --if-not-exists
       # Pas de migrations ici : `ApiSecurityTestCase` remet le schéma à zéro avant chaque
       # test et le reconstruit depuis les métadonnées. Seule l'existence de la base compte.
-      - run: bin/phpunit tests/Api
+      - run: bin/phpunit
 
   e2e:
     name: E2E — stack complet

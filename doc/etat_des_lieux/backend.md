@@ -26,17 +26,11 @@ Le backend, situé dans `./backend`, a pour rôle de stocker, structurer et dist
 src/
 ├── Command/
 │   └── CreateTestUserCommand.php  # `app:create-test-user` (idempotent, dev)
-├── Controller/Admin/        # CRUD EasyAdmin (10 contrôleurs)
+├── Controller/Admin/        # CRUD EasyAdmin (27 contrôleurs + DashboardController, voir §6)
 │   ├── DashboardController.php
-│   ├── UserCrudController.php
-│   ├── RaceCrudController.php
-│   ├── FamilyCrudController.php
-│   ├── ProfileCrudController.php
-│   ├── VoieCrudController.php
-│   ├── CapabilityCrudController.php
-│   ├── CreatureFamilyCrudController.php
-│   ├── CreatureCrudController.php
-│   └── EquipmentCrudController.php
+│   ├── AbstractWritableCrudController.php     # famille A : CRUD complet (17 sections)
+│   ├── AbstractReadDeleteCrudController.php   # familles B/C : consultation + suppression (10 sections)
+│   └── <Entité>CrudController.php × 27        # un squelette par entité, sauf PasswordResetToken
 ├── DataFixtures/
 │   └── AppFixtures.php      # 645 lignes, charge toutes les données
 ├── Doctrine/
@@ -117,12 +111,23 @@ src/
 ## 6. EasyAdmin (Back Office)
 
 - **Route** : `/admin` — **réservée à ROLE_ADMIN** (voir §5). Ce n'était pas le cas jusqu'en août 2026 : le pare-feu `main` ne déclarait aucun authentificateur, donc personne n'était jamais connecté, donc aucune vérification ne s'appliquait — `/admin/user` (les adresses e-mail de tous les comptes) et l'édition ou la suppression de tout le compendium répondaient 200 à un visiteur anonyme
-- **9 CRUD controllers** (+ `DashboardController`) couvrant : User, Race, Family, Profile, Voie, Capability, CreatureFamily, Creature, Equipment
-- **Menu** : Dashboard → section Users → section Game Data
+- **27 contrôleurs CRUD** (+ `DashboardController`), soit les 28 entités moins `PasswordResetToken` — exclu délibérément : un jeton de réinitialisation est un secret à durée de vie courte, l'afficher dans une interface est un risque, pas une fonctionnalité. Jusqu'en août 2026, 9 entités seulement avaient un contrôleur (User, Race, Family, Profile, Voie, Capability, CreatureFamily, Creature, Equipment) ; les 19 autres n'avaient aucune interface — corriger le prix d'une monture, relire l'effet d'un poison ou retirer une création communautaire abusive exigeait une requête SQL à la main
+- **Deux comportements, portés par deux classes de base nommées d'après le comportement et non le domaine** — le jour où une entité de référence deviendrait consultable seulement, elle change de base sans changer de sens :
+  - `AbstractWritableCrudController` — **CRUD complet, 17 sections** : les 9 historiques plus Food, Lodging, Material, Mount, HarmfulState, Poison, Trap, CreatureVoie. Données de référence, seedées par les fixtures et déjà lisibles publiquement par l'API ; les corriger dans le back-office est la vocation même de l'outil.
+  - `AbstractReadDeleteCrudController` (étend `AbstractWritableCrudController`) — **consultation et suppression seulement, 10 sections** : Campaign, CampaignMembership, Quest, Clue, Session, Encounter, Character, CharacterVoie (domaine campagne) + HomebrewEntry, CustomCreature (contenu communautaire). `configureActions()` retire `Action::NEW`/`Action::EDIT`, et EasyAdmin ferme alors **les routes elles-mêmes**, pas seulement les boutons — mesuré : `GET /admin/<section>/new` et `.../edit` répondent **403**, pas un formulaire caché. Ces données appartiennent à un utilisateur et sont écrites par le front, qui applique des règles (propriétaire, appartenance à la campagne, dérivations de la fiche) qu'un formulaire EasyAdmin ignore — écrire `Character.caracs` à la main produirait une fiche que le front refuserait d'ouvrir.
+- **Choix assumé, à dire ici et pas seulement dans la spec** : ouvrir la section « Données des utilisateurs » donne à **tout** `ROLE_ADMIN` la lecture des notes privées d'un MJ, des indices de ses quêtes et des fiches de tous les joueurs. C'est assumé — l'administrateur est aujourd'hui l'exploitant du service, qui a de toute façon accès à la base. À reconsidérer le jour où `ROLE_ADMIN` serait accordé à un modérateur qui n'est pas l'exploitant.
+- **Les champs sont déduits des métadonnées Doctrine, plus énumérés à la main** (`AbstractWritableCrudController::configureFields()`, en parcourant `ClassMetadata`) : une liste écrite dans le contrôleur redit le schéma, vieillit en silence, et laisse invisible toute colonne ajoutée ensuite — c'est ainsi que `RaceCrudController` a longtemps cité `title`, un champ que l'entité n'a jamais eu, en réponse à un 500. Concrètement :
+  - les champs scalaires par défaut d'EasyAdmin (`FieldProvider::getDefaultFields()`) ;
+  - les associations à cardinalité simple partout, celles à cardinalité multiple en page de détail seulement (sur un formulaire, une collection chargerait toute la table liée pour remplir une liste déroulante) ;
+  - les colonnes `float` en `NumberField` à une décimale — COF2 emploie le demi-niveau (NC ½) pour ses adversaires les plus faibles, qu'un champ entier tronquerait à la saisie ;
+  - les colonnes `json` via `App\Admin\Field\JsonField` — un `CodeEditorField` en langage `js` (`json` ne figure pas dans les langages autorisés par EasyAdmin) plus un transformateur `array` ↔ chaîne (`JsonToStringTransformer`). Le repérage par `getTypeOfField()` attrape les deux écritures qui coexistent dans le projet (`#[ORM\Column(type: Types::JSON)]` et le `?array` dont Doctrine déduit le type) sans qu'il faille les lister.
+
+  Effet de bord voulu : plusieurs colonnes jusque-là invisibles apparaissent, et `Capability.effect` redevient visible **en lecture seule** — c'est un JSON dérivé par `CapabilityEffectBuilder` au chargement des fixtures, une saisie serait écrasée au chargement suivant. `AbstractWritableCrudController::derivedJsonFields()` (surchargé par `CapabilityCrudController`) marque ces champs `disabled` sans les cacher.
+- **Menu à cinq sections françaises repliées** : Comptes (User) · Compendium (Race, Family, Profile, Voie, Capability, Equipment, Material, Food, Lodging, Mount, HarmfulState, Poison, Trap) · Bestiaire (CreatureFamily, Creature, CreatureVoie) · Contenu communautaire (HomebrewEntry, CustomCreature) · Données des utilisateurs (Campaign, CampaignMembership, Quest, Clue, Session, Encounter, Character, CharacterVoie). Fini « Users » / « Game Data » — le menu était le dernier endroit du produit qui parlait encore anglais
 - **Dashboard** : redirection par défaut vers CreatureCrudController
-- **`__toString()` obligatoire sur toute entité citée par un `AssociationField`** : EasyAdmin construit les libellés d'une liste déroulante en convertissant l'entité liée en chaîne. `Voie`, `Profile`, `Race`, `Family` et `CreatureFamily` en portent un ; sans lui, les pages d'édition **et** de création répondent 500 (`Object of class … could not be converted to string`)
+- **`__toString()` obligatoire sur toute entité citée par un `AssociationField`** : EasyAdmin construit les libellés d'une liste déroulante en convertissant l'entité liée en chaîne. `Voie`, `Profile`, `Race`, `Family` et `CreatureFamily` en portent un ; sans lui, les pages d'édition **et** de création répondent 500 (`Object of class … could not be converted to string`). `Creature` en porte un désormais aussi — cité par `CreatureVoie`, dont le formulaire est une jointure créature ↔ voie à deux listes déroulantes
 - **Écritures vérifiées de bout en bout** (création, modification, suppression d'une race). Deux protections différentes s'appliquent et se remarquent dès qu'on sort du navigateur : les formulaires utilisent le CSRF **sans état** (jeton posé par JavaScript, ou requête acceptée si `Origin`/`Sec-Fetch-Site` prouvent la même origine — sinon **422**), tandis que le bouton « Supprimer » porte un jeton **de session** (sans cookie renvoyé, la réponse est une redirection 302 **sans effet**, pas une erreur)
-- **Champs à ne pas exposer** : `Capability.effect` est un JSON imbriqué *dérivé* par `CapabilityEffectBuilder` au chargement des fixtures — le modifier à la main serait écrasé au chargement suivant, et `ArrayField` le rendait en 500. `RaceCrudController` n'a délibérément pas de `configureFields()` : la configuration automatique expose les vingt champs de la fiche de race
+- **Suppressions, mesurées et non supposées** (`tests/Admin/BackOfficeSecurityTest.php::testAdminDeletesUserData`) : les 10 sections en consultation/suppression se suppriment toutes, **à condition de supprimer les feuilles avant les racines** — `Campaign` porte `orphanRemoval: true` sur ses quêtes, indices, séances, rencontres et adhésions, et `Character` la même chose sur ses voies de personnage ; Doctrine efface donc ces lignes en cascade dès que la racine disparaît. Mais purger une campagne à laquelle un **personnage** est réellement rattaché — l'état normal du produit, pas un cas de laboratoire — est **refusé (409)** : `character.campaign_id` (migration `Version20260301194224`) est posé sans clause `ON DELETE`, donc `RESTRICT` chez Postgres, et côté ORM `Campaign::$characters` ne porte qu'un `cascade: ['persist']`, sans `orphanRemoval`. EasyAdmin attrape la `ForeignKeyConstraintViolationException` de Doctrine et la retraduit en `EntityRemoveException` (409), pas une erreur 500 brute. **Aucune cascade n'a été modifiée pour arranger l'outil d'administration** — changer le produit pour son back-office aurait été le mauvais sens.
 
 ## 7. DataFixtures
 
@@ -160,13 +165,25 @@ s'appliquait à aucun sort officiel. Rejouer les fixtures est le seul moyen de s
 ## 9. Points d'attention
 
 - **Sécurité des entités** : User, Campaign, Character **et** Quest/Clue/Session sont protégés (par propriétaire / rôle) ; le compendium reste public **en lecture** mais ses écritures sont réservées à ROLE_ADMIN
-- **Tests** : **131 tests / 1254 assertions**. Suite fonctionnelle dans `tests/Api/` (**21 fichiers**, basée sur `ApiTestCase` ; `ApiSecurityTestCase` réinitialise le schéma Postgres à chaque test — pas de fixtures) — règles de sécurité (User/Campaign/Character/Quest, écritures compendium admin-only, sous-ressources non listables sans auth, CustomCreature/Encounter owner-scopés), inscription+login JWT et hachage du mot de passe, timestamp `updatedAt`, et le **contrat de sérialisation du compendium** (`CompendiumContractTest` : `Capability.effect` structuré exposé via `voie:read`, `Profile.armorMaxDef`, round-trip `CharacterVoie.source = 'trait'`). À côté, deux suites **pures** (ni DB ni fixtures, quelques millisecondes) : `tests/Service/` (`CapabilityEffectBuilder`, `InviteCodeGenerator`) et `tests/DataFixtures/ProfileDataTest.php`, qui vérifie les **données source** de `data/Profils/` — chaque profil a une limite d'armure (une clé mal orthographiée dans `AppFixtures::ARMOR_MAX_DEF_BY_PROFILE` la laisserait à null en silence, et le front retomberait sur une valeur permissive), la table suit le livre, chaque profil a 5 voies de rangs 1 à 5, et seuls les 7 profils lanceurs portent des sorts. Enfin `tests/Admin/BackOfficeSecurityTest.php` garde le back-office : 401 anonyme, 403 joueur connecté, 200 administrateur, et le rendu des huit formulaires de création. Ce dernier test **sème une ligne par entité citée en association** — sur une base vide, aucune entité n'est convertie en chaîne et la panne qu'il surveille disparaîtrait du test. Lancement : `php bin/phpunit` (DB de test à créer une fois via `php bin/console doctrine:database:create --env=test` ; la suite fonctionnelle est lente, ~2 min 55 → lancer fichier par fichier en dev, les suites pures sont instantanées).
+- **Tests** : **143 tests / 1408 assertions**, mesurés répertoire par répertoire (la suite complète dépasse dix minutes et la base `app_test` est partagée — deux exécutions concurrentes font échouer les deux) :
+
+  | Répertoire | Tests | Assertions |
+  |---|---|---|
+  | `tests/Api/` | 106 | 186 |
+  | `tests/Admin/` | 11 | 156 |
+  | `tests/DataFixtures/` | 10 | 187 |
+  | `tests/Service/` | 10 | 869 |
+  | `tests/Form/` | 6 | 10 |
+  | **Total** | **143** | **1408** |
+
+  Suite fonctionnelle dans `tests/Api/` (**21 fichiers**, basée sur `ApiTestCase` ; `ApiSecurityTestCase` réinitialise le schéma Postgres à chaque test — pas de fixtures) — règles de sécurité (User/Campaign/Character/Quest, écritures compendium admin-only, sous-ressources non listables sans auth, CustomCreature/Encounter owner-scopés), inscription+login JWT et hachage du mot de passe, timestamp `updatedAt`, et le **contrat de sérialisation du compendium** (`CompendiumContractTest` : `Capability.effect` structuré exposé via `voie:read`, `Profile.armorMaxDef`, round-trip `CharacterVoie.source = 'trait'`). À côté, des suites **pures** (ni DB ni fixtures, quelques millisecondes) : `tests/Service/` (`CapabilityEffectBuilder`, `InviteCodeGenerator`), `tests/Form/` (`JsonToStringTransformerTest` — le transformateur array ↔ chaîne du `JsonField` du back-office) et `tests/DataFixtures/` (`ProfileDataTest` vérifie les **données source** de `data/Profils/` — chaque profil a une limite d'armure, une clé mal orthographiée dans `AppFixtures::ARMOR_MAX_DEF_BY_PROFILE` la laisserait à null en silence et le front retomberait sur une valeur permissive —, la table suit le livre, chaque profil a 5 voies de rangs 1 à 5, seuls les 7 profils lanceurs portent des sorts ; `StateDataTest` fait de même pour les états préjudiciables). Enfin `tests/Admin/` garde le back-office : `BackOfficeSecurityTest` — 401 anonyme, 403 joueur connecté, 200 administrateur, rendu des 17 formulaires de création/modification de la famille A, index + détail rendus et `new`/`edit` refusés (403) sur les 10 sections B/C, une suppression par section (feuilles avant racines) et le refus mesuré (409) d'une campagne dont un personnage dépend — et `BackOfficeFixtureTest`, qui vérifie que `BackOfficeFixture::seed()` peuple bien ses 26 entités. Le jeu d'essai **sème une ligne par entité citée en association** — sur une base vide, aucune entité n'est convertie en chaîne et les pannes que ces tests surveillent disparaîtraient. Lancement : `php bin/phpunit` (DB de test à créer une fois via `php bin/console doctrine:database:create --env=test` ; la suite fonctionnelle est lente → lancer répertoire par répertoire en dev, les suites pures sont quasi instantanées).
 
 > **Lire le code de retour, pas le texte.** `phpunit.dist.xml` pose `failOnDeprecation` : une
 > seule dépréciation fait sortir **1** alors que la sortie affiche « OK, but there were issues! ».
 > Une suite « verte » à l'œil peut donc être rouge pour l'intégration continue — c'est
 > exactement ce qui s'est produit, une dépréciation d'API Platform 4.1 ayant survécu plusieurs
 > semaines derrière ce message.
+- **Intégration continue** : la suite complète (143 tests, ~12 min) s'exécute sur chaque PR et poussée vers master — aucune régression n'atteint l'historique.
 - **Messenger** : Transport Doctrine configuré (async + failed), routage pour SendEmailMessage, ChatMessage, SmsMessage
 - **Pas de Services/EventSubscriber/Voter** dédiés pour le moment
 

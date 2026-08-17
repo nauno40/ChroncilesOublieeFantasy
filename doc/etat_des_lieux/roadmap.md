@@ -56,7 +56,7 @@ Suite à l'analyse approfondie du code source frontend et backend (mise à jour 
 
 ### Backend / API
 - API REST complète pour toutes les entités (API Platform + Swagger/ReDoc)
-- CRUD administrateur via EasyAdmin (9 contrôleurs + tableau de bord), **réservé à ROLE_ADMIN** depuis août 2026 — il répondait jusque-là 200 à un visiteur anonyme, et ses formulaires d'édition et de création répondaient 500 (voir `backend.md` §6)
+- CRUD administrateur via EasyAdmin (**27 contrôleurs** + tableau de bord — 28 entités moins `PasswordResetToken`, exclu comme secret à durée de vie courte), **réservé à ROLE_ADMIN** depuis août 2026 — il répondait jusque-là 200 à un visiteur anonyme, et ses formulaires d'édition et de création répondaient 500 (voir `backend.md` §6). 17 sections en écriture complète (compendium, référence), 10 en consultation/suppression seulement (domaine campagne + contenu communautaire) — ces dernières donnent à tout `ROLE_ADMIN` la lecture des notes privées d'un MJ et des fiches de tous les joueurs, un choix assumé (l'administrateur est aujourd'hui l'exploitant du service, qui a de toute façon accès à la base)
 - Modèles de données pour le système de jeu (28 entités)
 - Fixtures complètes (14 profils, 8 races, 219 créatures, 650 capacités)
 
@@ -78,9 +78,13 @@ serait inventer.
 ## 2. Ce qui fonctionne partiellement ou avec des limitations ⚠️
 
 ### Tests
-- **Backend** : **131 tests / 1254 assertions** (PHPUnit) — sécurité par propriétaire, durcissement
-  des autorisations, JWT, contrat de sérialisation du compendium, et deux suites pures sur les
-  services et les données source des profils.
+- **Backend** : **143 tests / 1408 assertions** (PHPUnit, mesurés répertoire par répertoire :
+  `tests/Api` 106/186, `tests/Admin` 11/156, `tests/DataFixtures` 10/187, `tests/Service` 10/869,
+  `tests/Form` 6/10) — sécurité par propriétaire, durcissement des autorisations, JWT, contrat de
+  sérialisation du compendium, garde-fou du back-office EasyAdmin (accès, rendu des 27 sections,
+  fermeture des écritures sur les 10 sections en consultation seule, suppression en cascade et
+  refus mesuré à 409), et des suites pures sur les services, le transformateur JSON du back-office
+  et les données source des profils/états.
 - **Frontend** : **576 tests unitaires** (Vitest, 42 fichiers) et **76 tests E2E** (Playwright,
   20 fichiers), lancés par `bash scripts/e2e.sh` contre le stack docker compose.
 - **Intégration continue** (`.github/workflows/ci.yml`) : quatre jobs sur chaque PR — front,

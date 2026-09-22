@@ -19,17 +19,19 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * Contenu « homebrew » créé par un MJ (bibliothèque) : une fiche catégorisée (sort, race,
  * classe, voie, objet magique, créature, poison…) avec nom + description. Owner-scopée
- * (chacun gère la sienne) ; les entrées `visibility = public` sont lisibles par tous
- * (bibliothèque communautaire). Le scope de lecture « mienne OU publique » est appliqué par
- * CurrentUserExtension ; l'owner est posé par HomebrewEntryStateProcessor.
+ * (chacun gère la sienne) ; les entrées `visibility = public` sont lisibles par **tous**,
+ * y compris sans compte (jalon B du site communautaire — bibliothèque publique, URL
+ * partageables). Le scope de lecture « mienne OU publique » (ou « publique seulement »
+ * pour un visiteur anonyme) est appliqué par CurrentUserExtension ; l'owner est posé par
+ * HomebrewEntryStateProcessor. Écritures toujours réservées à ROLE_USER + propriétaire.
  */
 #[ORM\Entity(repositoryClass: HomebrewEntryRepository::class)]
 #[ApiResource(
     shortName: 'HomebrewEntry',
     operations: [
-        new GetCollection(security: "is_granted('ROLE_USER')"),
+        new GetCollection(),
         new Post(security: "is_granted('ROLE_USER')", processor: HomebrewEntryStateProcessor::class),
-        new Get(security: "is_granted('ROLE_USER') and (object.getOwner() == user or object.getVisibility() == 'public')"),
+        new Get(security: "object.getVisibility() == 'public' or (is_granted('ROLE_USER') and object.getOwner() == user)"),
         new Put(security: "is_granted('ROLE_USER') and object.getOwner() == user", processor: HomebrewEntryStateProcessor::class),
         new Patch(security: "is_granted('ROLE_USER') and object.getOwner() == user", processor: HomebrewEntryStateProcessor::class),
         new Delete(security: "is_granted('ROLE_USER') and object.getOwner() == user"),

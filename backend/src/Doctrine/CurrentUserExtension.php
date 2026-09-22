@@ -37,15 +37,35 @@ final readonly class CurrentUserExtension implements QueryCollectionExtensionInt
 
     private function addWhere(QueryBuilder $queryBuilder, string $resourceClass): void
     {
+        // Bibliothèque communautaire et monstres maison : lisibles sans compte depuis que
+        // leurs opérations Get/GetCollection sont ouvertes à PUBLIC_ACCESS (jalon B du site
+        // communautaire — cf. communaute.md). Traité à part du reste de cette méthode, qui
+        // retourne systématiquement sans rien filtrer quand `$user` est nul : laisser ce
+        // même court-circuit s'appliquer ici aurait renvoyé TOUTES les entrées, privées
+        // comprises, à n'importe quel visiteur anonyme.
+        if (HomebrewEntry::class === $resourceClass || CustomCreature::class === $resourceClass) {
+            $rootAlias = $queryBuilder->getRootAliases()[0];
+            $user = $this->security->getUser();
+
+            if (null === $user) {
+                $queryBuilder->andWhere(sprintf("%s.visibility = 'public'", $rootAlias));
+
+                return;
+            }
+
+            $queryBuilder->andWhere(sprintf("%s.owner = :current_user OR %s.visibility = 'public'", $rootAlias, $rootAlias));
+            $queryBuilder->setParameter('current_user', $user);
+
+            return;
+        }
+
         if (
             Campaign::class !== $resourceClass &&
             Character::class !== $resourceClass &&
-            CustomCreature::class !== $resourceClass &&
             Quest::class !== $resourceClass &&
             Clue::class !== $resourceClass &&
             Session::class !== $resourceClass &&
             Encounter::class !== $resourceClass &&
-            HomebrewEntry::class !== $resourceClass &&
             CampaignMembership::class !== $resourceClass
         ) {
             return;
@@ -61,12 +81,6 @@ final readonly class CurrentUserExtension implements QueryCollectionExtensionInt
         if (Campaign::class === $resourceClass) {
             // Strictement propriétaire : les joueurs passent par SharedCampaign.
             $queryBuilder->andWhere(sprintf('%s.owner = :current_user', $rootAlias));
-        } elseif (CustomCreature::class === $resourceClass) {
-            // Monstres « maison » : les miens OU les publics (bibliothèque communautaire).
-            $queryBuilder->andWhere(sprintf("%s.owner = :current_user OR %s.visibility = 'public'", $rootAlias, $rootAlias));
-        } elseif (HomebrewEntry::class === $resourceClass) {
-            // Bibliothèque : les miennes OU les publiques (communauté).
-            $queryBuilder->andWhere(sprintf("%s.owner = :current_user OR %s.visibility = 'public'", $rootAlias, $rootAlias));
         } elseif (Character::class === $resourceClass) {
             // Propriétaire de la fiche OU MJ de la campagne à laquelle elle est rattachée.
             $queryBuilder

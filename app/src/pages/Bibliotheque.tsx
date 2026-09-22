@@ -1,14 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { PageContainer, PageHeader } from '../components/common';
 import { HomebrewBrowser } from '../components/homebrew/HomebrewBrowser';
 import { LEXIQUE } from '../domain/lexique';
+import { useAuth } from '../hooks/useAuth';
 
 /**
  * Bibliothèque : vue « toutes catégories » du contenu homebrew. Le cœur (liste + CRUD)
  * vit dans HomebrewBrowser, réutilisé aussi par les pages de type du compendium.
+ *
+ * Page publique (lisible sans compte, cf. App.tsx) : un visiteur anonyme n'a pas de
+ * « Mes créations » à afficher, d'où l'onglet Communauté par défaut — un membre connecté
+ * repasse sur « Mes créations » dès que `isLoading` confirme la session (l'état initial
+ * d'AuthContext vaut `false` le temps de cette vérification ; s'y fier tout de suite
+ * ferait clignoter le mauvais onglet par défaut pour un membre connecté).
  */
 export const Bibliotheque: React.FC = () => {
-    const [tab, setTab] = useState<'mine' | 'community'>('mine');
+    const { isAuthenticated, isLoading } = useAuth();
+    const [tab, setTab] = useState<'mine' | 'community'>('community');
+    useEffect(() => {
+        if (!isLoading && isAuthenticated) setTab('mine');
+    }, [isLoading, isAuthenticated]);
     return (
         <PageContainer>
             <PageHeader

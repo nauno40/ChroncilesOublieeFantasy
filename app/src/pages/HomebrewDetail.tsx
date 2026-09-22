@@ -131,9 +131,12 @@ export const HomebrewDetail: React.FC = () => {
                 mine={mine}
                 duplicating={duplicating}
                 onEdit={mine ? () => navigate(`/bibliotheque/${entry.id}/modifier?retour=${encodeURIComponent(location.pathname)}`) : undefined}
-                onDuplicate={handleDuplicate}
+                // Dupliquer et signaler exigent un compte (ROLE_USER côté API) : la fiche
+                // est désormais lisible sans compte (jalon B), donc un visiteur anonyme ne
+                // doit pas voir un bouton qui échouerait systématiquement.
+                onDuplicate={user ? handleDuplicate : undefined}
                 onDelete={mine ? handleDelete : undefined}
-                onReport={() => setReportOpen(true)}
+                onReport={user ? () => setReportOpen(true) : undefined}
             />
             <ReportContentModal
                 isOpen={reportOpen}

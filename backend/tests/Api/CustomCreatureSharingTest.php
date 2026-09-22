@@ -6,8 +6,8 @@ use App\Entity\CustomCreature;
 use App\Entity\User;
 
 /**
- * Monstres maison : owner-scopés en écriture, lecture « mien OU public »
- * (bibliothèque communautaire, aligné sur HomebrewEntry).
+ * Monstres maison : owner-scopés en écriture, lecture « mien OU public », y compris sans
+ * compte pour le contenu public (jalon B du site communautaire, aligné sur HomebrewEntry).
  */
 final class CustomCreatureSharingTest extends ApiSecurityTestCase
 {
@@ -75,6 +75,37 @@ final class CustomCreatureSharingTest extends ApiSecurityTestCase
 
         $this->client->request('GET', '/api/custom_creatures/'.$creature->getId(), ['headers' => $this->authHeaders($alice)]);
         $this->assertResponseStatusCodeSame(404);
+    }
+
+    public function testAnonymousCanReadPublicCreature(): void
+    {
+        $bob = $this->createUser('bob@example.com');
+        $creature = $this->makeCreature($bob, 'Hydre partagée', 'public');
+
+        $this->client->request('GET', '/api/custom_creatures/'.$creature->getId());
+        $this->assertResponseStatusCodeSame(200);
+    }
+
+    public function testAnonymousCannotReadPrivateCreature(): void
+    {
+        $bob = $this->createUser('bob@example.com');
+        $creature = $this->makeCreature($bob, 'Secret de Bob', 'private');
+
+        $this->client->request('GET', '/api/custom_creatures/'.$creature->getId());
+        $this->assertResponseStatusCodeSame(404);
+    }
+
+    public function testAnonymousCollectionReturnsPublicOnly(): void
+    {
+        $bob = $this->createUser('bob@example.com');
+        $this->makeCreature($bob, 'Dragon PUBLIC de Bob', 'public');
+        $this->makeCreature($bob, 'Dragon PRIVE de Bob', 'private');
+
+        $response = $this->client->request('GET', '/api/custom_creatures');
+        $this->assertResponseStatusCodeSame(200);
+        $body = $response->getContent();
+        $this->assertStringContainsString('Dragon PUBLIC de Bob', $body);
+        $this->assertStringNotContainsString('Dragon PRIVE de Bob', $body);
     }
 
     public function testCannotEditOthersPublicCreature(): void

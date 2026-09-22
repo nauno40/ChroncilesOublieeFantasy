@@ -67,6 +67,19 @@ function App() {
             <Route path="/reset-password" element={<ResetPasswordPage />} />
             <Route path="/verify-email" element={<VerifyEmailPage />} />
 
+            {/* Bibliothèque communautaire publique : une fiche « public » se lit sans
+                compte (lien partageable), même barre de propriétaire que pour un membre
+                connecté — OwnerBar masque déjà Modifier/Dupliquer/Signaler sans gestionnaire,
+                donc un visiteur anonyme n'y voit tout simplement pas ces actions. Restent
+                dans <Layout> (même chrome, même recherche globale) mais hors <ProtectedRoute> :
+                cliquer un lien de nav qui exige un compte redirige alors normalement vers
+                /login, plutôt que de bloquer l'accès à la fiche elle-même. */}
+            <Route element={<Layout />}>
+              <Route path="bibliotheque" element={<Bibliotheque />} />
+              <Route path="homebrew/:id" element={<HomebrewDetail />} />
+              <Route path="creatures/maison/:id" element={<CustomCreatureDetail />} />
+            </Route>
+
             {/* Protected App Routes */}
             <Route element={<ProtectedRoute />}>
               {/* Vue d'impression : protégée mais hors Layout (pas de sidebar) */}
@@ -103,17 +116,12 @@ function App() {
                     « Officiel » face à des objets dans l'onglet communautaire. */}
                 <Route path="tools/magic-items" element={<MagicItems />} />
                 <Route path="magic-items" element={<CompendiumType category="objet-magique" official={<MagicItemsCatalogue />} />} />
-                {/* Une créature maison se consulte, comme une officielle : même feuille,
-                    seule la barre de propriétaire diffère. */}
-                <Route path="creatures/maison/:id" element={<CustomCreatureDetail />} />
                 <Route path="states" element={<CompendiumType category="etat" official={<States />} />} />
                 <Route path="poisons" element={<CompendiumType category="poison" official={<Poisons />} />} />
                 <Route path="traps" element={<CompendiumType category="piege" official={<Traps />} />} />
                 <Route path="rules" element={<Rules />} />
-                <Route path="bibliotheque" element={<Bibliotheque />} />
                 <Route path="bibliotheque/nouveau/:categorie" element={<HomebrewForm />} />
                 <Route path="bibliotheque/:id/modifier" element={<HomebrewForm />} />
-                <Route path="homebrew/:id" element={<HomebrewDetail />} />
                 <Route path="characters" element={<CharacterList />} />
                 <Route path="characters/new" element={<CharacterSheet />} />
                 <Route path="characters/:id" element={<CharacterSheet />} />

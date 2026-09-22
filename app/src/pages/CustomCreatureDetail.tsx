@@ -104,9 +104,12 @@ export const CustomCreatureDetail: React.FC = () => {
                         mine={mienne}
                         duplicating={duplication}
                         onEdit={mienne ? () => navigate('/tools/monsters', { state: { editerId: creature.id, retour: location.pathname } }) : undefined}
-                        onDuplicate={dupliquer}
+                        // Dupliquer et signaler exigent un compte (ROLE_USER côté API) : la
+                        // fiche est désormais lisible sans compte (jalon B), donc un visiteur
+                        // anonyme ne doit pas voir un bouton qui échouerait systématiquement.
+                        onDuplicate={user ? dupliquer : undefined}
                         onDelete={mienne ? supprimer : undefined}
-                        onReport={() => setReportOpen(true)}
+                        onReport={user ? () => setReportOpen(true) : undefined}
                     />
                 )}
             />

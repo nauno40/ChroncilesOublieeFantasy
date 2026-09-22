@@ -38,13 +38,16 @@ const DENSE_CATEGORIES = new Set(['voie', 'capacite', 'sort']);
 interface RowActionsProps {
     entry: HomebrewEntry;
     mine: boolean;
+    /** Faux pour un visiteur anonyme : dupliquer exige un compte (ROLE_USER côté API),
+     *  et la liste est désormais consultable sans compte (jalon B, site communautaire). */
+    authenticated: boolean;
     duplicating: boolean;
     onEdit: () => void;
     onDelete: () => void;
     onDuplicate: () => void;
 }
 
-const RowActions: React.FC<RowActionsProps> = ({ entry, mine, duplicating, onEdit, onDelete, onDuplicate }) => (
+const RowActions: React.FC<RowActionsProps> = ({ entry, mine, authenticated, duplicating, onEdit, onDelete, onDuplicate }) => (
     mine ? (
         <div className="flex items-center justify-end gap-1">
             <button onClick={e => { e.stopPropagation(); onEdit(); }} title="Modifier" className="p-1.5 rounded-lg text-stone-400 hover:text-primary-400 hover:bg-white/5 transition-colors"><Edit size={14} /></button>
@@ -55,7 +58,9 @@ const RowActions: React.FC<RowActionsProps> = ({ entry, mine, duplicating, onEdi
     ) : (
         <div className="flex items-center justify-end gap-2">
             <AuthorTag pseudo={entry.authorPseudo} size="sm" />
-            <button onClick={e => { e.stopPropagation(); onDuplicate(); }} disabled={duplicating} title="Dupliquer chez moi" className="p-1.5 rounded-lg text-stone-400 hover:text-primary-400 hover:bg-white/5 transition-colors disabled:opacity-50"><Copy size={14} /></button>
+            {authenticated && (
+                <button onClick={e => { e.stopPropagation(); onDuplicate(); }} disabled={duplicating} title="Dupliquer chez moi" className="p-1.5 rounded-lg text-stone-400 hover:text-primary-400 hover:bg-white/5 transition-colors disabled:opacity-50"><Copy size={14} /></button>
+            )}
         </div>
     )
 );
@@ -69,16 +74,16 @@ const Visibilite: React.FC<{ entry: HomebrewEntry; size?: number }> = ({ entry, 
 
 /** Pied d'actions d'une carte communautaire : identique pour les états et pour les
  *  autres types, il était pourtant écrit deux fois, à deux tailles d'icône près. */
-const CardActions: React.FC<{ entry: HomebrewEntry; mine: boolean; duplicating: boolean; onEdit: () => void; onDelete: () => void; onDuplicate: () => void }> = ({ mine, duplicating, onEdit, onDelete, onDuplicate }) => (
+const CardActions: React.FC<{ entry: HomebrewEntry; mine: boolean; authenticated: boolean; duplicating: boolean; onEdit: () => void; onDelete: () => void; onDuplicate: () => void }> = ({ mine, authenticated, duplicating, onEdit, onDelete, onDuplicate }) => (
     mine ? (
         <div className="flex">
             <button onClick={e => { e.stopPropagation(); onEdit(); }} className="flex-1 py-2 text-[11px] font-bold uppercase text-stone-400 hover:text-primary-400 hover:bg-white/[0.03] flex items-center justify-center gap-1.5 transition-all"><Edit size={12} /> Modifier</button>
             <button onClick={e => { e.stopPropagation(); onDuplicate(); }} disabled={duplicating} className="flex-1 py-2 text-[11px] font-bold uppercase text-stone-400 hover:text-primary-400 hover:bg-white/[0.03] flex items-center justify-center gap-1.5 transition-all border-l border-white/5 disabled:opacity-50"><Copy size={12} /> {duplicating ? 'Copie…' : 'Dupliquer'}</button>
             <button onClick={e => { e.stopPropagation(); onDelete(); }} className="flex-1 py-2 text-[11px] font-bold uppercase text-stone-400 hover:text-red-400 hover:bg-white/[0.03] flex items-center justify-center gap-1.5 transition-all border-l border-white/5"><Trash2 size={12} /> Supprimer</button>
         </div>
-    ) : (
+    ) : authenticated ? (
         <button onClick={e => { e.stopPropagation(); onDuplicate(); }} disabled={duplicating} className="w-full py-2 text-[11px] font-bold uppercase text-stone-400 hover:text-primary-400 hover:bg-white/[0.03] flex items-center justify-center gap-1.5 transition-all disabled:opacity-50"><Copy size={12} /> {duplicating ? 'Copie…' : 'Dupliquer chez moi'}</button>
-    )
+    ) : null
 );
 
 interface HomebrewListProps {
@@ -129,6 +134,7 @@ export const HomebrewList: React.FC<HomebrewListProps> = ({ entries, category, m
                         <RowActions
                             entry={e}
                             mine={e.authorId === myId}
+                            authenticated={myId !== undefined}
                             duplicating={duplicatingId === e.id}
                             onEdit={() => onEdit(e)}
                             onDelete={() => onDelete(e)}
@@ -150,7 +156,7 @@ export const HomebrewList: React.FC<HomebrewListProps> = ({ entries, category, m
                         onClick={() => onOpen(entry)}
                         mediaPosition="left"
                         className="min-w-[200px] max-w-[320px] flex-1"
-                        footer={<CardActions entry={entry} mine={entry.authorId === myId} duplicating={duplicatingId === entry.id} onEdit={() => onEdit(entry)} onDelete={() => onDelete(entry)} onDuplicate={() => onDuplicate(entry)} />}
+                        footer={<CardActions entry={entry} mine={entry.authorId === myId} authenticated={myId !== undefined} duplicating={duplicatingId === entry.id} onEdit={() => onEdit(entry)} onDelete={() => onDelete(entry)} onDuplicate={() => onDuplicate(entry)} />}
                     >
                         <div className="flex items-start gap-2">
                             <div className="flex-1 min-w-0">
@@ -183,7 +189,7 @@ export const HomebrewList: React.FC<HomebrewListProps> = ({ entries, category, m
                         onClick={() => onOpen(entry)}
                         className="h-full"
                         media={IMAGE_CATEGORIES.has(entry.category) ? <CardMedia alt={entry.name} src={dataImg} /> : undefined}
-                        footer={<CardActions entry={entry} mine={mine} duplicating={duplicatingId === entry.id} onEdit={() => onEdit(entry)} onDelete={() => onDelete(entry)} onDuplicate={() => onDuplicate(entry)} />}
+                        footer={<CardActions entry={entry} mine={mine} authenticated={myId !== undefined} duplicating={duplicatingId === entry.id} onEdit={() => onEdit(entry)} onDelete={() => onDelete(entry)} onDuplicate={() => onDuplicate(entry)} />}
                     >
                         <div className="flex items-start justify-between gap-2 mb-2">
                             {!locked

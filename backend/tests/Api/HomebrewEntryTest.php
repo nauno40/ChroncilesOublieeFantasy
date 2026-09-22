@@ -72,6 +72,37 @@ final class HomebrewEntryTest extends ApiSecurityTestCase
         $this->assertStringNotContainsString('Sort PRIVE de Bob', $body);  // privée d'autrui : jamais
     }
 
+    public function testAnonymousCanReadPublicEntry(): void
+    {
+        $bob = $this->createUser('bob@example.com');
+        $entry = $this->makeEntry($bob, 'Sort public de Bob', 'public');
+
+        $this->client->request('GET', '/api/homebrew_entries/'.$entry->getId());
+        $this->assertResponseStatusCodeSame(200);
+    }
+
+    public function testAnonymousCannotReadPrivateEntry(): void
+    {
+        $bob = $this->createUser('bob@example.com');
+        $entry = $this->makeEntry($bob, 'Secret de Bob', 'private');
+
+        $this->client->request('GET', '/api/homebrew_entries/'.$entry->getId());
+        $this->assertResponseStatusCodeSame(404);
+    }
+
+    public function testAnonymousCollectionReturnsPublicOnly(): void
+    {
+        $bob = $this->createUser('bob@example.com');
+        $this->makeEntry($bob, 'Sort PUBLIC de Bob', 'public');
+        $this->makeEntry($bob, 'Sort PRIVE de Bob', 'private');
+
+        $response = $this->client->request('GET', '/api/homebrew_entries');
+        $this->assertResponseStatusCodeSame(200);
+        $body = $response->getContent();
+        $this->assertStringContainsString('Sort PUBLIC de Bob', $body);
+        $this->assertStringNotContainsString('Sort PRIVE de Bob', $body);
+    }
+
     public function testCannotEditOthersEntry(): void
     {
         $alice = $this->createUser('alice@example.com');

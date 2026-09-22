@@ -7,9 +7,11 @@ use App\Entity\User;
 
 /**
  * Access control on the CustomCreature resource (MJ « house » monsters):
- *  - authentication required
+ *  - writes require authentication
  *  - the owner is assigned automatically on create (CustomCreatureStateProcessor)
- *  - collections and items are scoped to the owner (CurrentUserExtension)
+ *  - collections and items are scoped to the owner OR public visibility
+ *    (CurrentUserExtension) — reads work with or without a session, see
+ *    CustomCreatureSharingTest for the public/anonymous cases in detail
  */
 final class CustomCreatureSecurityTest extends ApiSecurityTestCase
 {
@@ -29,10 +31,16 @@ final class CustomCreatureSecurityTest extends ApiSecurityTestCase
         return $creature;
     }
 
-    public function testListRequiresAuthentication(): void
+    public function testAnonymousListOnlyReturnsPublicCreatures(): void
     {
+        // Jalon B (site communautaire) : la liste reste consultable sans compte, mais
+        // uniquement le contenu public — cf. CustomCreatureSharingTest pour le détail.
+        $owner = $this->createUser('mj@example.com');
+        $this->createCustomCreature($owner);
+
         $this->client->request('GET', '/api/custom_creatures');
-        $this->assertResponseStatusCodeSame(401);
+        $this->assertResponseStatusCodeSame(200);
+        $this->assertStringNotContainsString('Gobelin maison', (string) $this->client->getResponse()->getContent());
     }
 
     public function testCreateAssignsCurrentUserAsOwner(): void

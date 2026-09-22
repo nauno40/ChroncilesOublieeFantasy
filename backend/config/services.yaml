@@ -19,6 +19,11 @@ services:
     App\:
         resource: '../src/'
 
+    App\EventSubscriber\RateLimitSubscriber:
+        arguments:
+            $cache: '@cache.app'
+            $enabled: '%env(bool:RATE_LIMIT_ENABLED)%'
+
     App\State\UserPasswordHasher:
         bind:
             $persistProcessor: '@api_platform.doctrine.orm.state.persist_processor'

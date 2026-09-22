@@ -628,7 +628,10 @@ class AppFixtures extends Fixture
             $e->setRange($item['range'] ?? null);
             $e->setCritical($item['critical'] ?? null);
             $e->setReload($item['reload'] ?? null);
-            
+            $e->setRequirements($item['requirements'] ?? null);
+            $e->setComments($item['comments'] ?? null);
+            $e->setIsRanged($item['isRanged'] ?? null);
+
             $manager->persist($e);
             $entities[$item['id']] = $e;
         }
@@ -645,6 +648,7 @@ class AppFixtures extends Fixture
              $e->setAcBonus($item['defense'] ?? null);
              $e->setAcMaxAgi($item['agiMax'] ?? null);
              $e->setAcPenalty($item['penalty'] ?? 0);
+             $e->setComments($item['comments'] ?? null);
 
              $manager->persist($e);
              $entities[$item['id']] = $e;

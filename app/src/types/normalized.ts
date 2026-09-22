@@ -27,7 +27,6 @@ export interface Race {
     startingAge: number;
     lifeExpectancy: number;
 
-    characteristics?: string;
     modifiers?: RaceModifier[]; // Array of stat modifiers from API
     speed?: string; // Vitesse (ex. "20 m/tour") — champ réel de l'API sur les 8 races officielles
     physicalTraits: string;

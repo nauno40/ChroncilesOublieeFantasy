@@ -67,6 +67,21 @@ class Equipment
     #[ORM\Column(nullable: true)]
     private ?array $properties = null;
 
+    // Trois colonnes présentes dans data/weapons.json et data/armors.json depuis toujours
+    // (armes : requirements + isRanged ; armes et armures : comments — un vrai texte de
+    // règles, ex. « AGI max +3 », « seul le chevalier peut la porter »), jamais lues par
+    // AppFixtures::loadEquipment() ni exposées : ces trois champs restaient systématiquement
+    // vides pour les 44 armes/armures officielles (cf. scripts/audit-types-api.mjs, qui
+    // les listait « déclarés mais jamais servis » côté types front).
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $requirements = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $comments = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $isRanged = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -130,4 +145,13 @@ class Equipment
 
     public function getReload(): ?string { return $this->reload; }
     public function setReload(?string $reload): static { $this->reload = $reload; return $this; }
+
+    public function getRequirements(): ?string { return $this->requirements; }
+    public function setRequirements(?string $requirements): static { $this->requirements = $requirements; return $this; }
+
+    public function getComments(): ?string { return $this->comments; }
+    public function setComments(?string $comments): static { $this->comments = $comments; return $this; }
+
+    public function isIsRanged(): ?bool { return $this->isRanged; }
+    public function setIsRanged(?bool $isRanged): static { $this->isRanged = $isRanged; return $this; }
 }

@@ -3,6 +3,7 @@
 namespace App\Tests\Api;
 
 use App\Entity\Capability;
+use App\Entity\Equipment;
 use App\Entity\Profile;
 use App\Entity\Voie;
 
@@ -71,5 +72,34 @@ final class CompendiumContractTest extends ApiSecurityTestCase
         $data = json_decode($response->getContent(), true);
 
         $this->assertSame(4, $data['armorMaxDef']);
+    }
+
+    /**
+     * `data/weapons.json` et `data/armors.json` portent `requirements`/`comments`/`isRanged`
+     * depuis toujours (un vrai texte de règles, ex. « AGI max +3 »), silencieusement jamais lu
+     * par `AppFixtures::loadEquipment()` ni exposé jusqu'ici (scripts/audit-types-api.mjs).
+     * `isRanged` prend au passage l'alias `isIsRanged()` qu'exige le PropertyAccessor d'un
+     * back-office éditable pour une propriété déjà préfixée `is` (même besoin que
+     * `Capability::isIsSpell()`) — ce test verrouille que la sérialisation JSON en sort bien
+     * sous le nom `isRanged`, pas `isIsRanged`.
+     */
+    public function testEquipmentExposesRequirementsCommentsAndIsRanged(): void
+    {
+        $weapon = new Equipment();
+        $weapon->setName('Épée de test');
+        $weapon->setType('Contact');
+        $weapon->setRequirements('Valeur minimale de +1 en FOR');
+        $weapon->setComments('Arme à deux mains');
+        $weapon->setIsRanged(false);
+        $this->em->persist($weapon);
+        $this->em->flush();
+
+        $response = $this->client->request('GET', '/api/equipment/'.$weapon->getId());
+        $this->assertResponseStatusCodeSame(200);
+        $data = json_decode($response->getContent(), true);
+
+        $this->assertSame('Valeur minimale de +1 en FOR', $data['requirements']);
+        $this->assertSame('Arme à deux mains', $data['comments']);
+        $this->assertFalse($data['isRanged']);
     }
 }

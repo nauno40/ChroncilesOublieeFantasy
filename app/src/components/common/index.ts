@@ -25,3 +25,4 @@ export { SearchToolbar } from './SearchToolbar';
 export { SelectFiltre, GrilleFiltres } from './SelectFiltre';
 export type { OptionFiltre } from './SelectFiltre';
 export { imagePlaceholder, onImageError } from './imagePlaceholder';
+export { ReportContentModal } from './ReportContentModal';

@@ -26,6 +26,14 @@ abstract class AbstractWritableCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         $metadata = $this->entityManager->getClassMetadata(static::getEntityFqcn());
+        $readOnly = $this->readOnlyFields();
+        $disableIfReadOnly = function ($field) use ($readOnly) {
+            if (\in_array($field->getAsDto()->getProperty(), $readOnly, true)) {
+                $field->setFormTypeOption('disabled', true);
+            }
+
+            return $field;
+        };
 
         // Les champs par défaut d'EasyAdmin : les colonnes scalaires, sans les JSON, qu'il
         // exclut de ses quatre pages (voir FieldProvider::getDefaultFields()). Les colonnes
@@ -39,12 +47,12 @@ abstract class AbstractWritableCrudController extends AbstractCrudController
                 continue;
             }
 
-            yield $field;
+            yield $disableIfReadOnly($field);
         }
 
         foreach ($metadata->getFieldNames() as $fieldName) {
             if ('float' === $metadata->getTypeOfField($fieldName)) {
-                yield NumberField::new($fieldName)->setNumDecimals(1);
+                yield $disableIfReadOnly(NumberField::new($fieldName)->setNumDecimals(1));
             }
         }
 
@@ -52,7 +60,7 @@ abstract class AbstractWritableCrudController extends AbstractCrudController
             // Les collections ne sont montrées qu'en détail : sur un formulaire, elles
             // chargeraient toute la table liée pour remplir une liste déroulante.
             if ($metadata->isSingleValuedAssociation($association) || Crud::PAGE_DETAIL === $pageName) {
-                yield AssociationField::new($association);
+                yield $disableIfReadOnly(AssociationField::new($association));
             }
         }
 
@@ -72,7 +80,7 @@ abstract class AbstractWritableCrudController extends AbstractCrudController
                 $field->setFormTypeOption('disabled', true);
             }
 
-            yield $field;
+            yield $disableIfReadOnly($field);
         }
     }
 
@@ -82,6 +90,18 @@ abstract class AbstractWritableCrudController extends AbstractCrudController
      * @return string[]
      */
     protected function derivedJsonFields(): array
+    {
+        return [];
+    }
+
+    /**
+     * Colonnes affichées mais jamais saisissables, tous types confondus (au-delà du JSON
+     * dérivé ci-dessus) — p. ex. l'auteur d'un signalement, posé par le serveur et jamais
+     * par le formulaire.
+     *
+     * @return string[]
+     */
+    protected function readOnlyFields(): array
     {
         return [];
     }

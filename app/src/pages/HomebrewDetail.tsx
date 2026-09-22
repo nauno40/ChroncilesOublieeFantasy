@@ -4,7 +4,7 @@ import { ArrowLeft, Globe, Lock, User as UserIcon } from 'lucide-react';
 import { HomebrewService, categoryLabel, categoryPath, categoryPathLabel, cheminInterne, childrenOf, messageSuppression, type HomebrewEntry } from '../services/homebrewService';
 import { HOMEBREW_SCHEMAS, CARAC_KEYS, type HomebrewFieldDef } from '../services/homebrewSchemas';
 import { hasValue } from '../services/homebrewValidation';
-import { Loader } from '../components/common';
+import { Loader, ReportContentModal } from '../components/common';
 import { RaceSheet, ProfileSheet, VoieSheet, CapaciteSheet, OwnerBar } from '../components/sheets';
 import { homebrewToRaceVM, homebrewToProfileVM, homebrewToVoieVM, homebrewToCapaciteVM } from '../components/sheets/adapters/fromHomebrew';
 import { duplicateEntry, resumeDuplication } from '../services/homebrewChildren';
@@ -36,6 +36,7 @@ export const HomebrewDetail: React.FC = () => {
     const [loading, setLoading] = useState(true);
     const [activeTab, setActiveTab] = useState<'lore' | 'rules'>('lore');
     const [duplicating, setDuplicating] = useState(false);
+    const [reportOpen, setReportOpen] = useState(false);
     // Entités nécessaires à la résolution des liens de déclaration. La feuille est pure :
     // c'est la page qui charge. Un échec laisse la collection vide, donc aucune pastille,
     // sans empêcher la fiche de s'afficher.
@@ -123,15 +124,24 @@ export const HomebrewDetail: React.FC = () => {
 
     const mine = entry.authorId === user?.id;
     const ownerBar = (
-        <OwnerBar
-            pseudo={entry.authorPseudo}
-            visibility={entry.visibility}
-            mine={mine}
-            duplicating={duplicating}
-            onEdit={mine ? () => navigate(`/bibliotheque/${entry.id}/modifier?retour=${encodeURIComponent(location.pathname)}`) : undefined}
-            onDuplicate={handleDuplicate}
-            onDelete={mine ? handleDelete : undefined}
-        />
+        <>
+            <OwnerBar
+                pseudo={entry.authorPseudo}
+                visibility={entry.visibility}
+                mine={mine}
+                duplicating={duplicating}
+                onEdit={mine ? () => navigate(`/bibliotheque/${entry.id}/modifier?retour=${encodeURIComponent(location.pathname)}`) : undefined}
+                onDuplicate={handleDuplicate}
+                onDelete={mine ? handleDelete : undefined}
+                onReport={() => setReportOpen(true)}
+            />
+            <ReportContentModal
+                isOpen={reportOpen}
+                targetType="homebrew_entry"
+                targetId={entry.id}
+                onClose={() => setReportOpen(false)}
+            />
+        </>
     );
 
     if (entry.category === 'race') {

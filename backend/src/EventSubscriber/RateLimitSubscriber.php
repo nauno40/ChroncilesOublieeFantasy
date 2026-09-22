@@ -35,6 +35,12 @@ final class RateLimitSubscriber implements EventSubscriberInterface
             'limit' => 5,
             'window' => 600,
         ],
+        'content_report' => [
+            'path' => '#^/api/content_reports(/|$)#',
+            'methods' => ['POST'],
+            'limit' => 20,
+            'window' => 600,
+        ],
     ];
 
     public function __construct(

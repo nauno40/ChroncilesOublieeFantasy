@@ -57,6 +57,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::subMenu('Contenu communautaire', 'fas fa-users-rays')->setSubItems([
             MenuItem::linkToCrud('Créations partagées', 'fas fa-scroll', \App\Entity\HomebrewEntry::class),
             MenuItem::linkToCrud('Monstres maison', 'fas fa-ghost', \App\Entity\CustomCreature::class),
+            MenuItem::linkToCrud('Signalements', 'fas fa-flag', \App\Entity\ContentReport::class),
         ]);
 
         // Données appartenant aux utilisateurs : consultation et suppression seulement.

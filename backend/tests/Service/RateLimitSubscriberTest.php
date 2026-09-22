@@ -89,6 +89,17 @@ final class RateLimitSubscriberTest extends TestCase
         $this->assertSame(429, $this->send($subscriber, 'POST', '/api/verify-email')->getResponse()->getStatusCode());
     }
 
+    public function testLesSignalementsSontLimitesAVingtParDixMinutes(): void
+    {
+        $subscriber = new RateLimitSubscriber(new ArrayAdapter());
+
+        for ($i = 0; $i < 20; ++$i) {
+            $this->send($subscriber, 'POST', '/api/content_reports');
+        }
+
+        $this->assertSame(429, $this->send($subscriber, 'POST', '/api/content_reports')->getResponse()->getStatusCode());
+    }
+
     public function testDesactiveIlNeBloqueRien(): void
     {
         $subscriber = new RateLimitSubscriber(new ArrayAdapter(), false);

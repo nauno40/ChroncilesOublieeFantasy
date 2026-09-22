@@ -138,6 +138,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    /**
+     * Libellé affiché dans les listes à choix du back-office (p. ex. le déclarant d'un
+     * signalement) ; sans conversion en chaîne, EasyAdmin lève une erreur au rendu du
+     * formulaire — même besoin que Race/Profile/Voie/Family/CreatureFamily/Creature.
+     */
+    public function __toString(): string
+    {
+        return $this->pseudo ?? $this->email ?? '';
+    }
+
     public function isVerified(): bool
     {
         return $this->isVerified;

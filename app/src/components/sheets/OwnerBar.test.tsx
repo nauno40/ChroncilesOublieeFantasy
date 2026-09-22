@@ -38,4 +38,17 @@ describe('OwnerBar', () => {
         const { container } = render(<OwnerBar pseudo="moi" visibility="private" mine />);
         expect(container.querySelectorAll('button')).toHaveLength(0);
     });
+
+    it('propose de signaler le contenu d’autrui', () => {
+        const onReport = vi.fn();
+        render(<OwnerBar pseudo="quelqu’un" visibility="public" mine={false} onReport={onReport} />);
+
+        fireEvent.click(screen.getByText('Signaler'));
+        expect(onReport).toHaveBeenCalledOnce();
+    });
+
+    it('n’offre pas de signaler son propre contenu', () => {
+        render(<OwnerBar pseudo="moi" visibility="public" mine onReport={() => {}} />);
+        expect(screen.queryByText('Signaler')).toBeNull();
+    });
 });

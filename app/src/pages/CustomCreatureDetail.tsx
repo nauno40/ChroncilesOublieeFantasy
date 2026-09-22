@@ -7,7 +7,7 @@ import { DataService } from '../services/dataService';
 import { useAuth } from '../hooks/useAuth';
 import { CreatureSheet, OwnerBar } from '../components/sheets';
 import { customCreatureToVM } from '../components/sheets/adapters/fromCustomCreature';
-import { Loader } from '../components/common';
+import { Loader, ReportContentModal } from '../components/common';
 import type { ReferencesDeclaration } from '../components/homebrew/HomebrewFields';
 
 /**
@@ -26,6 +26,7 @@ export const CustomCreatureDetail: React.FC = () => {
     const [creature, setCreature] = useState<CustomCreature | null>(null);
     const [loading, setLoading] = useState(true);
     const [duplication, setDuplication] = useState(false);
+    const [reportOpen, setReportOpen] = useState(false);
     const [references, setReferences] = useState<ReferencesDeclaration>({
         etats: [],
         sources: { creatures: [], monstresMaison: [], armes: [], armures: [], communautaire: [] },
@@ -90,22 +91,31 @@ export const CustomCreatureDetail: React.FC = () => {
     };
 
     return (
-        <CreatureSheet
-            vm={customCreatureToVM(creature)}
-            backTo="/creatures"
-            backLabel="Retour aux créatures"
-            references={references}
-            header={(
-                <OwnerBar
-                    pseudo={creature.authorPseudo}
-                    visibility={creature.visibility ?? 'private'}
-                    mine={mienne}
-                    duplicating={duplication}
-                    onEdit={mienne ? () => navigate('/tools/monsters', { state: { editerId: creature.id, retour: location.pathname } }) : undefined}
-                    onDuplicate={dupliquer}
-                    onDelete={mienne ? supprimer : undefined}
-                />
-            )}
-        />
+        <>
+            <CreatureSheet
+                vm={customCreatureToVM(creature)}
+                backTo="/creatures"
+                backLabel="Retour aux créatures"
+                references={references}
+                header={(
+                    <OwnerBar
+                        pseudo={creature.authorPseudo}
+                        visibility={creature.visibility ?? 'private'}
+                        mine={mienne}
+                        duplicating={duplication}
+                        onEdit={mienne ? () => navigate('/tools/monsters', { state: { editerId: creature.id, retour: location.pathname } }) : undefined}
+                        onDuplicate={dupliquer}
+                        onDelete={mienne ? supprimer : undefined}
+                        onReport={() => setReportOpen(true)}
+                    />
+                )}
+            />
+            <ReportContentModal
+                isOpen={reportOpen}
+                targetType="custom_creature"
+                targetId={creature.id}
+                onClose={() => setReportOpen(false)}
+            />
+        </>
     );
 };

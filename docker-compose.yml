@@ -18,6 +18,14 @@ services:
     volumes:
       - ./backend:/app
       - ./backend/data:/app/data
+      # `./backend` est monté depuis l'hôte Windows (via WSL2 : protocole 9p) — chaque appel
+      # PHP y relit des milliers de fichiers (autoload de vendor/, cache Symfony), d'où des
+      # requêtes à plusieurs secondes. Ces deux volumes anonymes reprennent le principe déjà
+      # appliqué à node_modules/ côté frontend (ligne ci-dessous, service `frontend`) : vendor/
+      # et var/ (cache+log) vivent dans le système de fichiers natif du conteneur, rapide,
+      # au prix d'un `composer install` à relancer dans le conteneur après un premier démarrage.
+      - /app/vendor
+      - /app/var
     environment:
       DATABASE_URL: "postgresql://app:!ChangeMe!@database:5432/app?serverVersion=15&charset=utf8"
       APP_ENV: dev

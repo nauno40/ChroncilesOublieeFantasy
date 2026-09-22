@@ -1,0 +1,4 @@
+# Les scripts shell tournent dans les conteneurs Linux (entrypoints Docker) : une fin de
+# ligne CRLF (checkout Windows avec core.autocrlf=true) casse `sh script.sh` au démarrage
+# du conteneur ("illegal option --") sans rapport avec le contenu du script lui-même.
+*.sh text eol=lf

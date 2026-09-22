@@ -52,6 +52,7 @@ const CharacterList = lazy(() => import('./pages/CharacterList').then(m => ({ de
 const CharacterSheet = lazy(() => import('./pages/CharacterSheet').then(m => ({ default: m.CharacterSheet })));
 const PrintableCharacterSheet = lazy(() => import('./pages/PrintableCharacterSheet').then(m => ({ default: m.PrintableCharacterSheet })));
 const PlayMode = lazy(() => import('./pages/PlayMode/PlayMode').then(m => ({ default: m.PlayMode })));
+const AuthorProfile = lazy(() => import('./pages/AuthorProfile').then(m => ({ default: m.AuthorProfile })));
 
 function App() {
   return (
@@ -78,6 +79,7 @@ function App() {
               <Route path="bibliotheque" element={<Bibliotheque />} />
               <Route path="homebrew/:id" element={<HomebrewDetail />} />
               <Route path="creatures/maison/:id" element={<CustomCreatureDetail />} />
+              <Route path="profil/:authorId" element={<AuthorProfile />} />
             </Route>
 
             {/* Protected App Routes */}

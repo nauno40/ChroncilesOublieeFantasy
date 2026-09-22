@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import { ArrowLeft, Globe, Lock, User as UserIcon } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { HomebrewService, categoryLabel, categoryPath, categoryPathLabel, cheminInterne, childrenOf, messageSuppression, type HomebrewEntry } from '../services/homebrewService';
 import { HOMEBREW_SCHEMAS, CARAC_KEYS, type HomebrewFieldDef } from '../services/homebrewSchemas';
 import { hasValue } from '../services/homebrewValidation';
@@ -128,6 +128,7 @@ export const HomebrewDetail: React.FC = () => {
             <OwnerBar
                 pseudo={entry.authorPseudo}
                 visibility={entry.visibility}
+                authorId={entry.authorId}
                 mine={mine}
                 duplicating={duplicating}
                 onEdit={mine ? () => navigate(`/bibliotheque/${entry.id}/modifier?retour=${encodeURIComponent(location.pathname)}`) : undefined}
@@ -213,14 +214,16 @@ export const HomebrewDetail: React.FC = () => {
 
                     <div className="flex items-center gap-3 mb-3">
                         <span className="text-[11px] uppercase font-bold tracking-widest text-primary-400/90 border border-primary-500/40 rounded px-2 py-0.5">{categoryLabel(entry.category)}</span>
-                        <span className="text-[11px] text-stone-400 flex items-center gap-1.5">
-                            <UserIcon size={12} /> {entry.authorPseudo || 'Anonyme'}
-                            {entry.visibility === 'public'
-                                ? <><Globe size={12} className="text-green-500/70 ml-1" /> Public</>
-                                : <><Lock size={12} className="ml-1" /> Privé</>}
-                        </span>
                     </div>
                     <h1 className="text-4xl md:text-6xl font-display font-bold text-white drop-shadow-xl">{entry.name}</h1>
+                    {/* Ce rendu générique (équipement, poison, piège, état, objet magique, autre)
+                        avait son propre badge auteur fait à la main, sans lien de profil ni
+                        actions — les quatre autres catégories passent par `ownerBar`
+                        (RaceSheet/ProfileSheet/VoieSheet/CapaciteSheet). Même bandeau ici :
+                        OwnerBar est censée être « l'unique différence visuelle admise » entre
+                        une fiche officielle et communautaire, pas seulement pour certaines
+                        catégories. */}
+                    {ownerBar}
                     {entry.description && <p className="text-lg text-primary-100/90 mt-4 max-w-3xl leading-relaxed">{entry.description}</p>}
                 </div>
 

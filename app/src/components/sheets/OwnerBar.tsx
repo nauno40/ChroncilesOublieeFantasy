@@ -11,15 +11,17 @@ interface OwnerBarProps {
     onDelete?: () => void;
     onDuplicate?: () => void;
     onReport?: () => void;
+    /** Renvoie vers le profil public de l'auteur — cf. AuthorTag. */
+    authorId?: number | string | null;
 }
 
 /**
  * Bandeau propriétaire : unique différence visuelle admise entre une fiche officielle
  * et une fiche communautaire. Toute autre divergence doit être refusée en revue.
  */
-export const OwnerBar: React.FC<OwnerBarProps> = ({ pseudo, visibility, mine, duplicating, onEdit, onDelete, onDuplicate, onReport }) => (
+export const OwnerBar: React.FC<OwnerBarProps> = ({ pseudo, visibility, mine, duplicating, onEdit, onDelete, onDuplicate, onReport, authorId }) => (
     <div className="mt-4 flex flex-wrap items-center gap-3 glass-panel rounded-xl border border-white/5 px-4 py-2.5">
-        <AuthorTag pseudo={pseudo} visibility={visibility} size="md" />
+        <AuthorTag pseudo={pseudo} visibility={visibility} size="md" authorId={authorId} />
         <div className="flex items-center gap-2 ml-auto">
             {/* Un bouton n'est rendu que si son gestionnaire existe : pas d'action morte. */}
             {mine && onEdit && (

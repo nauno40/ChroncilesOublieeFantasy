@@ -101,6 +101,7 @@ export const CustomCreatureDetail: React.FC = () => {
                     <OwnerBar
                         pseudo={creature.authorPseudo}
                         visibility={creature.visibility ?? 'private'}
+                        authorId={creature.authorId}
                         mine={mienne}
                         duplicating={duplication}
                         onEdit={mienne ? () => navigate('/tools/monsters', { state: { editerId: creature.id, retour: location.pathname } }) : undefined}

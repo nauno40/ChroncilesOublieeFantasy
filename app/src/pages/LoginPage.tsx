@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Mail, Lock, LogIn, AlertCircle, Loader2 } from 'lucide-react';
+import { Mail, Lock, LogIn, AlertCircle, Loader2, MailCheck } from 'lucide-react';
 import { AuthService } from '../services/AuthService';
 import { useAuth } from '../hooks/useAuth';
 import { AuthShell } from '../components/auth/AuthShell';
@@ -12,10 +12,17 @@ export const LoginPage: React.FC = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [resendMessage, setResendMessage] = useState<string | null>(null);
+    const [isResending, setIsResending] = useState(false);
+
+    // UserChecker (backend) rejette la connexion d'un compte non confirmé avec ce message
+    // précis — on propose alors de renvoyer le lien plutôt que de laisser une erreur sèche.
+    const needsVerification = error?.includes('Confirmez votre adresse e-mail') ?? false;
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError(null);
+        setResendMessage(null);
         setIsLoading(true);
 
         try {
@@ -29,6 +36,19 @@ export const LoginPage: React.FC = () => {
         }
     };
 
+    const handleResend = async () => {
+        setIsResending(true);
+        setResendMessage(null);
+        try {
+            const msg = await AuthService.resendVerification(email);
+            setResendMessage(msg);
+        } catch (err) {
+            setResendMessage(err instanceof Error ? err.message : 'Une erreur est survenue.');
+        } finally {
+            setIsResending(false);
+        }
+    };
+
     return (
         <AuthShell backTo="/" backLabel="Retour à l'accueil">
             <div className="text-center mb-8">
@@ -37,9 +57,28 @@ export const LoginPage: React.FC = () => {
             </div>
 
                     {error && (
-                        <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center gap-3 text-red-400 text-sm">
-                            <AlertCircle size={18} />
-                            <span>{error}</span>
+                        <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 flex flex-col gap-3 text-red-400 text-sm">
+                            <div className="flex items-center gap-3">
+                                <AlertCircle size={18} />
+                                <span>{error}</span>
+                            </div>
+                            {needsVerification && (
+                                resendMessage ? (
+                                    <div className="flex items-center gap-2 text-green-400">
+                                        <MailCheck size={16} />
+                                        <span>{resendMessage}</span>
+                                    </div>
+                                ) : (
+                                    <button
+                                        type="button"
+                                        onClick={handleResend}
+                                        disabled={isResending || !email}
+                                        className="self-start font-bold text-primary-500 hover:text-primary-400 disabled:opacity-50"
+                                    >
+                                        {isResending ? 'Envoi…' : 'Renvoyer le lien de confirmation'}
+                                    </button>
+                                )
+                            )}
                         </div>
                     )}
 

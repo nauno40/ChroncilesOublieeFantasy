@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { Mail, Lock, User, AlertCircle, Loader2, Users } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Mail, Lock, User, AlertCircle, Loader2, Users, MailCheck } from 'lucide-react';
 import { AuthService } from '../services/AuthService';
-import { useAuth } from '../hooks/useAuth';
 import { AuthShell } from '../components/auth/AuthShell';
 
 export const RegisterPage: React.FC = () => {
-    const navigate = useNavigate();
-    const { login } = useAuth();
     const [email, setEmail] = useState('');
     const [pseudo, setPseudo] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [registered, setRegistered] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -21,14 +19,33 @@ export const RegisterPage: React.FC = () => {
 
         try {
             await AuthService.register(email, password, pseudo);
-            login(); // synchronise le contexte (isAuthenticated) avant la navigation SPA
-            navigate('/dashboard');
+            setRegistered(true);
         } catch (err) {
             setError(err instanceof Error ? err.message : "Une erreur est survenue lors de l'inscription");
         } finally {
             setIsLoading(false);
         }
     };
+
+    if (registered) {
+        return (
+            <AuthShell backTo="/" backLabel="Retour à l'accueil">
+                <div className="text-center space-y-4">
+                    <div className="inline-flex size-14 bg-green-500/10 rounded-2xl items-center justify-center text-green-400 mb-2">
+                        <MailCheck size={28} />
+                    </div>
+                    <h2 className="text-2xl font-display font-bold text-white">Vérifiez vos e-mails</h2>
+                    <p className="text-stone-400 text-sm">
+                        Un lien de confirmation vient d'être envoyé à <strong className="text-stone-200">{email}</strong>.
+                        Cliquez dessus pour activer votre compte.
+                    </p>
+                    <Link to="/login" className="inline-block mt-2 font-bold text-primary-500 hover:text-primary-400">
+                        Retour à la connexion
+                    </Link>
+                </div>
+            </AuthShell>
+        );
+    }
 
     return (
         <AuthShell backTo="/" backLabel="Retour à l'accueil">

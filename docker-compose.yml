@@ -24,6 +24,10 @@ services:
       APP_SECRET: 5a79a1d82b3d6e5c8f9e0a1b2c3d4e5f
       # Dev/e2e : la suite Playwright crée des dizaines de comptes depuis une seule IP.
       RATE_LIMIT_ENABLED: "false"
+      # Dev/e2e : `e2e/fixtures.ts` s'inscrit puis attend une connexion immédiate — un compte
+      # démarre donc déjà confirmé, sans e-mail à aller chercher (phpunit garde la vraie
+      # vérification active, cf. phpunit.dist.xml).
+      EMAIL_VERIFICATION_REQUIRED: "false"
       # Dev : les e-mails (reset mot de passe) sont capturés par Mailpit (UI http://localhost:8025).
       MAILER_DSN: "smtp://mailpit:1025"
     depends_on:

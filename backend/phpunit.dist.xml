@@ -17,6 +17,10 @@
              sets a real APP_ENV=dev environment variable that would otherwise win. -->
         <env name="APP_ENV" value="test" force="true" />
         <server name="APP_ENV" value="test" force="true" />
+        <!-- Same reasoning: docker-compose disables email verification for the live dev/e2e
+             server (Playwright registers dozens of accounts and expects immediate login) —
+             the test suite must keep the real gate on to verify UserChecker/EmailVerificationController. -->
+        <env name="EMAIL_VERIFICATION_REQUIRED" value="true" force="true" />
         <server name="SHELL_VERBOSITY" value="-1" />
     </php>
 

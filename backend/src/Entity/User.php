@@ -55,6 +55,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups(['user:read'])]
     private array $roles = [];
 
+    // Confirmé par le lien reçu à l'inscription (EmailVerificationController). Volontairement
+    // absent des groupes `write` : un client ne peut pas s'auto-vérifier via l'API.
+    #[ORM\Column(options: ['default' => false])]
+    #[Groups(['user:read'])]
+    private bool $isVerified = false;
+
     /**
      * @var string The hashed password
      */
@@ -128,6 +134,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setRoles(array $roles): static
     {
         $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    // Alias pour le PropertyAccessor du back-office (BooleanField) : une propriété déjà
+    // préfixée `is` exige le préfixe doublé pour être résolue en lecture/écriture — même
+    // besoin que `Capability::isIsSpell()` à côté de `Capability::isSpell()`.
+    public function isIsVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setVerified(bool $isVerified): static
+    {
+        $this->isVerified = $isVerified;
 
         return $this;
     }

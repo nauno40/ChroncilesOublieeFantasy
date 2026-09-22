@@ -52,10 +52,36 @@ export const AuthService = {
     },
 
     async register(email: string, password: string, pseudo: string): Promise<void> {
-        // API Platform POST to /users
+        // API Platform POST to /users. Pas de connexion automatique : le compte doit
+        // d'abord confirmer son adresse e-mail (lien envoyé par UserPasswordHasher côté
+        // backend) avant que login_check n'accepte ses identifiants (UserChecker).
         await ApiService.post('users', { email, password, pseudo });
-        // Automatically login after registration
-        await this.login(email, password);
+    },
+
+    // Confirme l'adresse e-mail à partir du jeton reçu par e-mail.
+    async verifyEmail(token: string): Promise<string> {
+        const base = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
+        const response = await fetch(`${base}/verify-email`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({ token })
+        });
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(data.message || 'Lien invalide ou expiré.');
+        return data.message || 'Adresse e-mail confirmée.';
+    },
+
+    // Redemande l'e-mail de confirmation. Réponse volontairement neutre côté API.
+    async resendVerification(email: string): Promise<string> {
+        const base = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
+        const response = await fetch(`${base}/resend-verification`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({ email })
+        });
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(data.message || "Une erreur est survenue.");
+        return data.message || "Si un compte existe, un e-mail vient d'être envoyé.";
     },
 
     // Demande un e-mail de réinitialisation. Réponse volontairement neutre côté API

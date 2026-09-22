@@ -46,11 +46,12 @@ abstract class ApiSecurityTestCase extends ApiTestCase
         }
     }
 
-    protected function createUser(string $email, array $roles = [], string $password = 'password'): User
+    protected function createUser(string $email, array $roles = [], string $password = 'password', bool $verified = true): User
     {
         $user = new User();
         $user->setEmail($email);
         $user->setRoles($roles);
+        $user->setVerified($verified);
 
         $hasher = static::getContainer()->get(UserPasswordHasherInterface::class);
         $user->setPassword($hasher->hashPassword($user, $password));

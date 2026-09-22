@@ -28,6 +28,7 @@ use App\Entity\HomebrewEntry;
 use App\Entity\Encounter;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -52,6 +53,10 @@ class AppFixtures extends Fixture
     public function __construct(
         private readonly UserPasswordHasherInterface $passwordHasher,
         private readonly CapabilityEffectBuilder $effectBuilder,
+        #[Autowire('%kernel.environment%')] private readonly string $appEnv = 'dev',
+        #[Autowire('%env(SEED_ADMIN_PASSWORD)%')] private readonly string $seedAdminPassword = 'admin',
+        #[Autowire('%env(SEED_NAUNO_PASSWORD)%')] private readonly string $seedNaunoPassword = 'chroniques',
+        #[Autowire('%env(SEED_DEMO_PASSWORD)%')] private readonly string $seedDemoPassword = 'password',
     ) {
         // Docker environment (volume mounted at /app/data)
         if (is_dir('/app/data')) {
@@ -64,6 +69,19 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
+        // Les fixtures PURGENT toutes les tables (`--purge-with-truncate` implicite du
+        // chargeur Doctrine) et sèment des comptes admin à mot de passe connu — les deux
+        // sont acceptables en dev (données jetables) mais catastrophiques en production.
+        // Une correction de donnée en prod passe par une migration (cf. backend.md §8 :
+        // « Migrations de données »), jamais par un rechargement des fixtures.
+        if ('prod' === $this->appEnv) {
+            throw new \RuntimeException(
+                'Fixtures refusées en environnement de production (APP_ENV=prod) : elles '.
+                'purgeraient toutes les tables et sèmeraient des comptes admin à mot de passe '.
+                'connu. Voir doc/etat_des_lieux/backend.md pour corriger une donnée en prod.'
+            );
+        }
+
         // 1. Load Creature Families
         $familyContext = $this->loadCreatureFamilies($manager);
         
@@ -731,7 +749,8 @@ class AppFixtures extends Fixture
         $admin->setEmail('admin@example.com');
         $admin->setPseudo('Maître du Jeu');
         $admin->setRoles(['ROLE_ADMIN']);
-        $admin->setPassword($this->passwordHasher->hashPassword($admin, 'admin'));
+        $admin->setPassword($this->passwordHasher->hashPassword($admin, $this->seedAdminPassword));
+        $admin->setVerified(true);
         $manager->persist($admin);
 
         // Compte personnel de Nauno — MJ propriétaire des campagnes de démo.
@@ -740,7 +759,8 @@ class AppFixtures extends Fixture
         $nauno->setEmail('nauno40@gmail.com');
         $nauno->setPseudo('Nauno');
         $nauno->setRoles(['ROLE_ADMIN']);
-        $nauno->setPassword($this->passwordHasher->hashPassword($nauno, 'chroniques'));
+        $nauno->setPassword($this->passwordHasher->hashPassword($nauno, $this->seedNaunoPassword));
+        $nauno->setVerified(true);
         $manager->persist($nauno);
 
         return $nauno;
@@ -836,7 +856,8 @@ class AppFixtures extends Fixture
             $p->setEmail($email);
             $p->setPseudo($pseudo);
             $p->setRoles([]);
-            $p->setPassword($this->passwordHasher->hashPassword($p, 'password'));
+            $p->setPassword($this->passwordHasher->hashPassword($p, $this->seedDemoPassword));
+            $p->setVerified(true);
             $manager->persist($p);
             $players[] = $p;
         }

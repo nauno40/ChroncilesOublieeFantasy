@@ -65,31 +65,15 @@ export const RaceDetail: React.FC = () => {
 
                     // Collect capabilities for all found voies
                     // Normalize capability voie reference to ID string
+                    // `voie` (IRI) est servie pour les 650 capacités officielles.
                     const allCaps = capacities.filter(c => {
-                        const capVoieRef = c.voie || c.voieId; // Handle potential IRI in 'voie' or ID in 'voieId'
-                        if (!capVoieRef) return false;
+                        if (!c.voie) return false;
 
-                        const capVoieId = String(capVoieRef).split('/').pop();
+                        const capVoieId = String(c.voie).split('/').pop();
                         return foundVoies.some(v => String(v.id) === capVoieId);
                     }).sort((a, b) => (a.rank || 0) - (b.rank || 0));
 
                     setRaceCapacities(allCaps);
-                }
-                // Fallback to legacy field logic if no availableVoies
-                else if (foundRace && foundRace.voieId) {
-                    const foundVoie = voies.find(v => String(v.id) === foundRace.voieId);
-                    if (foundVoie) {
-                        setRaceVoies([foundVoie]);
-                        const filteredCapacities = capacities
-                            .filter(c => {
-                                const capVoieRef = c.voie || c.voieId;
-                                if (!capVoieRef) return false;
-                                const capVoieId = String(capVoieRef).split('/').pop();
-                                return String(capVoieId) === String(foundVoie.id);
-                            })
-                            .sort((a, b) => (a.rank || 0) - (b.rank || 0));
-                        setRaceCapacities(filteredCapacities);
-                    }
                 }
             } catch (error) {
                 console.error("Failed to fetch race details", error);

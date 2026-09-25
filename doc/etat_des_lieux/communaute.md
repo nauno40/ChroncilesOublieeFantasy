@@ -46,7 +46,7 @@ Le produit est une **très bonne aide de table pour un MJ isolé** (compendium f
 - 147 créatures du bestiaire absentes du livre : non vérifiables, non corrigées volontairement.
 - 32 champs de `types/normalized.ts` déclarés mais jamais servis par l'API (`scripts/audit-types-api.mjs`).
 - ~~`Campaign` ↔ `Character` : supprimer une campagne avec des personnages rattachés est refusé (409)~~ — corrigé le 2026-09-25 : `ON DELETE SET NULL`, la campagne supprimée détache les fiches de ses joueurs au lieu de les bloquer (cf. `backend.md` §6).
-- Suite backend lente (~12 min) et base de test partagée : frein au rythme de contribution.
+- ~~Suite backend lente (~12 min)~~ — ~2 min 30 depuis le 2026-09-25 (remise à zéro de la base par `DELETE` au lieu de recréer le schéma à chaque test, cf. `backend.md`). La base de test reste partagée : deux exécutions concurrentes se gênent.
 - État local : Docker n'est pas installé sur ce poste ; le projet n'a donc pas été lancé lors de cet état des lieux.
 
 ## 5. Proposition de feuille de route communautaire

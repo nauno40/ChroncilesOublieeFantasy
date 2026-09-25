@@ -32,17 +32,67 @@ abstract class ApiSecurityTestCase extends ApiTestCase
         $this->resetSchema();
     }
 
+    /** Le schéma est recréé une seule fois par processus PHPUnit, pas avant chaque test. */
+    private static bool $schemaReady = false;
+
     private function resetSchema(): void
     {
-        // Postgres-only project: wiping the public schema is the cleanest reset
-        // and avoids "table does not exist" issues on the very first run.
         $connection = $this->em->getConnection();
+
+        if (self::$schemaReady) {
+            $this->emptyTables();
+
+            return;
+        }
+
+        // Premier test du processus : Postgres-only project, wiping the public schema is the
+        // cleanest reset and avoids "table does not exist" issues on the very first run.
         $connection->executeStatement('DROP SCHEMA public CASCADE');
         $connection->executeStatement('CREATE SCHEMA public');
 
         $metadata = $this->em->getMetadataFactory()->getAllMetadata();
         if (!empty($metadata)) {
             (new SchemaTool($this->em))->createSchema($metadata);
+        }
+
+        self::$schemaReady = true;
+    }
+
+    /**
+     * Vide toutes les tables et remet les séquences à 1, comme un schéma neuf.
+     *
+     * Recréer ~30 tables avant CHAQUE test (DROP SCHEMA + createSchema) coûtait plus de dix
+     * secondes par test — `tests/Api` dépassait vingt minutes. `TRUNCATE` seul restait à ~6 s
+     * (opérations sur fichiers + fsync par table, sur le stockage Docker/WSL2) : mesuré à
+     * 6 119 ms pour 32 tables, contre ~40 ms pour des `DELETE` en une transaction. Les
+     * triggers de clés étrangères sont suspendus le temps de cette transaction
+     * (`session_replication_role`, réservé aux superusers) pour ne pas avoir à ordonner
+     * les suppressions ; sans ce droit, on retombe sur `TRUNCATE`, plus lent mais équivalent.
+     */
+    private function emptyTables(): void
+    {
+        $connection = $this->em->getConnection();
+        $tables = $connection->fetchFirstColumn("SELECT quote_ident(tablename) FROM pg_tables WHERE schemaname = 'public'");
+        if ([] === $tables) {
+            return;
+        }
+        $sequences = $connection->fetchFirstColumn("SELECT quote_ident(sequencename) FROM pg_sequences WHERE schemaname = 'public'");
+
+        try {
+            $connection->beginTransaction();
+            $connection->executeStatement('SET LOCAL session_replication_role = replica');
+            foreach ($tables as $table) {
+                $connection->executeStatement('DELETE FROM '.$table);
+            }
+            foreach ($sequences as $sequence) {
+                $connection->executeStatement('ALTER SEQUENCE '.$sequence.' RESTART');
+            }
+            $connection->commit();
+        } catch (\Throwable) {
+            if ($connection->isTransactionActive()) {
+                $connection->rollBack();
+            }
+            $connection->executeStatement('TRUNCATE '.implode(', ', $tables).' RESTART IDENTITY CASCADE');
         }
     }
 

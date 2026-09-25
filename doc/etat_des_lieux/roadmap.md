@@ -83,7 +83,7 @@ serait inventer.
   `tests/Form` 6/10) — sécurité par propriétaire, durcissement des autorisations, JWT, contrat de
   sérialisation du compendium, garde-fou du back-office EasyAdmin (accès, rendu des 27 sections,
   fermeture des écritures sur les 10 sections en consultation seule, suppression en cascade et
-  refus mesuré à 409), et des suites pures sur les services, le transformateur JSON du back-office
+  détachement des fiches d'une campagne supprimée), et des suites pures sur les services, le transformateur JSON du back-office
   et les données source des profils/états.
 - **Frontend** : **576 tests unitaires** (Vitest, 42 fichiers) et **76 tests E2E** (Playwright,
   20 fichiers), lancés par `bash scripts/e2e.sh` contre le stack docker compose.

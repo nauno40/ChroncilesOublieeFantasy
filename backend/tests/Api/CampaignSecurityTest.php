@@ -76,4 +76,27 @@ final class CampaignSecurityTest extends ApiSecurityTestCase
         $this->assertStringContainsString('Alice Campaign', $body);
         $this->assertStringNotContainsString('Bob Campaign', $body);
     }
+
+    public function testDeletingCampaignDetachesPlayerCharactersInsteadOfBlockingOrDeletingThem(): void
+    {
+        // Le cas courant du produit : un joueur a rattaché sa fiche à la campagne du MJ.
+        // Avant Version20260925090000, la FK sans ON DELETE valait RESTRICT et la
+        // suppression échouait ; elle ne doit surtout pas emporter la fiche du joueur.
+        $mj = $this->createUser('mj@example.com');
+        $player = $this->createUser('joueur@example.com');
+        $campaign = $this->createCampaign($mj);
+        $character = $this->createCharacter($player, 'Héros du joueur');
+        $character->setCampaign($campaign);
+        $this->em->flush();
+        $characterId = $character->getId();
+
+        $this->client->request('DELETE', '/api/campaigns/'.$campaign->getId(), ['headers' => $this->authHeaders($mj)]);
+        $this->assertResponseStatusCodeSame(204);
+
+        $this->em->clear();
+        $survivant = $this->em->find(\App\Entity\Character::class, $characterId);
+        $this->assertNotNull($survivant, 'La fiche du joueur doit survivre à la campagne.');
+        $this->assertNull($survivant->getCampaign());
+        $this->assertSame($player->getId(), $survivant->getOwner()->getId());
+    }
 }

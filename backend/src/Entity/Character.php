@@ -81,7 +81,12 @@ class Character
     // par opération référence object.getCampaign(), ce qui pousse API Platform à joindre la
     // relation en profondeur et dépasse max_joins). La campagne reste sérialisée en lazy.
     #[ApiProperty(fetchEager: false)]
+    // ON DELETE SET NULL : une fiche appartient à son joueur (`owner`), la campagne n'est
+    // qu'un rattachement. Supprimer la campagne d'un MJ détache donc les fiches au lieu de
+    // les bloquer (la FK d'origine, sans clause ON DELETE, valait RESTRICT : 409 dès qu'un
+    // joueur avait rejoint) — et surtout de ne jamais les supprimer avec elle.
     #[ORM\ManyToOne(inversedBy: 'characters')]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
     #[Groups(['character:read', 'character:write', 'campaign:read', 'campaign:write'])]
     private ?Campaign $campaign = null;
 

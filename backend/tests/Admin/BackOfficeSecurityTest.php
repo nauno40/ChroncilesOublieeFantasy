@@ -217,7 +217,7 @@ final class BackOfficeSecurityTest extends ApiSecurityTestCase
      * retraduit en `EntityRemoveException`, une `HttpException` avec un code 409 — la requête
      * ne remonte donc pas comme exception non interceptée jusqu'à PHPUnit, elle répond 409.
      */
-    public function testCampaignDeletionIsRefusedWhenACharacterIsAttached(): void
+    public function testCampaignDeletionDetachesAttachedCharacters(): void
     {
         $admin = $this->createUser('admin@example.com', ['ROLE_ADMIN']);
         $entities = BackOfficeFixture::seed($this->em, $admin);
@@ -226,15 +226,17 @@ final class BackOfficeSecurityTest extends ApiSecurityTestCase
         $this->em->flush();
 
         $campaignId = $entities['campaign']->getId();
+        $characterId = $entities['character']->getId();
 
-        self::assertSame(
-            409,
-            $this->deleteAsAdmin('campaign', $campaignId),
-            'La suppression doit être refusée par la contrainte de clé étrangère « character.campaign_id ».'
-        );
+        // Version20260925090000 : la FK est ON DELETE SET NULL — la fiche appartient à son
+        // joueur, elle survit à la campagne de son MJ (avant : RESTRICT, réponse 409).
+        self::assertSame(302, $this->deleteAsAdmin('campaign', $campaignId));
 
         $this->em->clear();
-        self::assertNotNull($this->em->find(Campaign::class, $campaignId), 'La campagne doit rester en base après le refus.');
+        self::assertNull($this->em->find(Campaign::class, $campaignId), 'La campagne doit avoir disparu.');
+        $character = $this->em->find(\App\Entity\Character::class, $characterId);
+        self::assertNotNull($character, 'La fiche du joueur doit survivre à la campagne.');
+        self::assertNull($character->getCampaign(), 'La fiche doit être détachée, pas supprimée.');
     }
 
     /**

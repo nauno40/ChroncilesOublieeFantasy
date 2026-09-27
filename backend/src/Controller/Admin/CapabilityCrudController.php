@@ -3,7 +3,9 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Capability;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+#[IsGranted('ROLE_ADMIN')]
 class CapabilityCrudController extends AbstractWritableCrudController
 {
     public static function getEntityFqcn(): string

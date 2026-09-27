@@ -14,8 +14,12 @@ use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use App\Filter\HomebrewScopeFilter;
 use App\Filter\HomebrewSearchFilter;
+use App\Filter\PopularityFilter;
+use App\Filter\TagFilter;
 use App\Repository\HomebrewEntryRepository;
 use App\State\HomebrewEntryStateProcessor;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -47,6 +51,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ApiFilter(SearchFilter::class, properties: ['category' => 'exact', 'parent' => 'exact'])]
 #[ApiFilter(HomebrewSearchFilter::class)]
 #[ApiFilter(HomebrewScopeFilter::class)]
+#[ApiFilter(TagFilter::class)]
+#[ApiFilter(PopularityFilter::class)]
 class HomebrewEntry
 {
     #[ORM\Id]
@@ -106,6 +112,55 @@ class HomebrewEntry
     #[ORM\Column]
     #[Groups(['homebrew:read'])]
     private ?\DateTimeImmutable $updatedAt = null;
+
+    #[ORM\ManyToMany(targetEntity: Tag::class)]
+    #[ORM\JoinTable(name: 'homebrew_entry_tag')]
+    private Collection $tagEntities;
+
+    /**
+     * Écriture uniquement : noms de tags bruts envoyés par le client (`["boss","urbain"]`),
+     * résolus (find-or-create, normalisés) par HomebrewEntryStateProcessor via TagResolver —
+     * jamais persistés tels quels. `null` (jamais envoyé) signifie « ne pas toucher aux tags
+     * existants » ; `[]` signifie « les retirer tous » — distinction nécessaire pour qu'un
+     * PATCH qui ne parle pas des tags ne les efface pas silencieusement.
+     */
+    private ?array $rawTagNames = null;
+
+    public function __construct()
+    {
+        $this->tagEntities = new ArrayCollection();
+    }
+
+    #[Groups(['homebrew:read'])]
+    public function getTags(): array
+    {
+        return array_map(static fn (Tag $t) => $t->getName(), $this->tagEntities->toArray());
+    }
+
+    #[Groups(['homebrew:write'])]
+    public function setTags(array $tags): static
+    {
+        $this->rawTagNames = $tags;
+
+        return $this;
+    }
+
+    public function getRawTagNames(): ?array
+    {
+        return $this->rawTagNames;
+    }
+
+    public function getTagEntities(): Collection
+    {
+        return $this->tagEntities;
+    }
+
+    public function setTagEntities(Collection $tagEntities): static
+    {
+        $this->tagEntities = $tagEntities;
+
+        return $this;
+    }
 
     #[Groups(['homebrew:read'])]
     public function getAuthorId(): ?int

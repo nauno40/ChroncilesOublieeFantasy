@@ -3,6 +3,8 @@
 namespace App\Tests\Admin;
 
 use App\Entity\Campaign;
+use App\Entity\ContentReport;
+use App\Entity\User;
 use App\Tests\Api\ApiSecurityTestCase;
 
 /**
@@ -268,5 +270,92 @@ final class BackOfficeSecurityTest extends ApiSecurityTestCase
         ]);
 
         return $this->client->getKernelBrowser()->getResponse()->getContent();
+    }
+
+    // --- ROLE_MODERATOR : un bénévole traite les signalements, rien d'autre ---
+
+    private function makeReport(User $reporter): ContentReport
+    {
+        $report = new ContentReport();
+        $report->setReporter($reporter);
+        $report->setTargetType('homebrew_entry');
+        $report->setTargetId(1);
+        $report->setReason('Contenu hors charte');
+        $report->setStatus('pending');
+        $report->setCreatedAt(new \DateTimeImmutable());
+        $this->em->persist($report);
+        $this->em->flush();
+
+        return $report;
+    }
+
+    public function testDashboardRedirectsModeratorToContentReportsNotBestiary(): void
+    {
+        $this->createUser('mod@example.com', ['ROLE_MODERATOR']);
+
+        $this->client->request('GET', '/admin', ['auth_basic' => ['mod@example.com', 'password']]);
+        $response = $this->client->getKernelBrowser()->getResponse();
+        $this->assertTrue($response->isRedirect());
+        $this->assertStringContainsString('content-report', (string) $response->headers->get('Location'));
+    }
+
+    public function testModeratorCanViewAndEditAContentReport(): void
+    {
+        $this->createUser('mod@example.com', ['ROLE_MODERATOR']);
+        $reporter = $this->createUser('joueur@example.com');
+        $report = $this->makeReport($reporter);
+
+        $this->client->request('GET', '/admin/content-report/'.$report->getId(), ['auth_basic' => ['mod@example.com', 'password']]);
+        $this->assertResponseIsSuccessful('Un modérateur doit pouvoir consulter un signalement.');
+
+        $this->client->request('GET', '/admin/content-report/'.$report->getId().'/edit', ['auth_basic' => ['mod@example.com', 'password']]);
+        $this->assertResponseIsSuccessful('Un modérateur doit pouvoir ouvrir le formulaire de traitement.');
+    }
+
+    public function testModeratorCannotDeleteAContentReport(): void
+    {
+        // La suppression reste un geste admin (nettoyage), pas de la modération courante
+        // (changer un statut) — cf. le commentaire de ContentReportCrudController.
+        $this->createUser('mod@example.com', ['ROLE_MODERATOR']);
+        $reporter = $this->createUser('joueur@example.com');
+        $report = $this->makeReport($reporter);
+
+        $browser = $this->client->getKernelBrowser();
+        $browser->request(
+            'POST',
+            sprintf('/admin/content-report/%d/delete', $report->getId()),
+            ['token' => 'peu-importe'],
+            [],
+            ['PHP_AUTH_USER' => 'mod@example.com', 'PHP_AUTH_PW' => 'password'],
+        );
+        $this->assertSame(403, $browser->getResponse()->getStatusCode());
+    }
+
+    /** Sections que ROLE_MODERATOR ne doit jamais atteindre — le cœur du correctif. */
+    private const MODERATOR_DENIED_SECTIONS = [
+        'user', 'race', 'creature', 'equipment', 'homebrew-entry', 'custom-creature',
+        'campaign', 'character', 'quest',
+    ];
+
+    public function testModeratorIsDeniedEverySectionExceptContentReport(): void
+    {
+        $moderator = $this->createUser('mod@example.com', ['ROLE_MODERATOR']);
+        BackOfficeFixture::seed($this->em, $moderator);
+
+        foreach (self::MODERATOR_DENIED_SECTIONS as $section) {
+            $this->client->request('GET', '/admin/'.$section, ['auth_basic' => ['mod@example.com', 'password']]);
+            $this->assertResponseStatusCodeSame(403, sprintf('La section « %s » doit être refusée à un modérateur.', $section));
+        }
+    }
+
+    public function testRegularUserWithoutModeratorRoleCannotReachContentReports(): void
+    {
+        // Ni ROLE_ADMIN ni ROLE_MODERATOR : un compte joueur ordinaire, même avec un
+        // signalement à son nom, ne doit pas pouvoir consulter la file de modération.
+        $player = $this->createUser('joueur@example.com');
+        $this->makeReport($player);
+
+        $this->client->request('GET', '/admin/content-report', ['auth_basic' => ['joueur@example.com', 'password']]);
+        $this->assertResponseStatusCodeSame(403);
     }
 }

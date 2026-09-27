@@ -10,9 +10,14 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
+use ApiPlatform\Metadata\ApiFilter;
 use App\Entity\Trait\CreatureProfileTrait;
+use App\Filter\PopularityFilter;
+use App\Filter\TagFilter;
 use App\Repository\CustomCreatureRepository;
 use App\State\CustomCreatureStateProcessor;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -42,6 +47,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
     normalizationContext: ['groups' => ['custom_creature:read']],
     denormalizationContext: ['groups' => ['custom_creature:write']]
 )]
+#[ApiFilter(TagFilter::class)]
+#[ApiFilter(PopularityFilter::class)]
 class CustomCreature
 {
     use CreatureProfileTrait;
@@ -71,6 +78,53 @@ class CustomCreature
     #[ORM\Column(length: 20, options: ['default' => 'private'])]
     #[Groups(['custom_creature:read', 'custom_creature:write'])]
     private string $visibility = 'private';
+
+    #[ORM\ManyToMany(targetEntity: Tag::class)]
+    #[ORM\JoinTable(name: 'custom_creature_tag')]
+    private Collection $tagEntities;
+
+    /**
+     * Écriture uniquement : noms de tags bruts, résolus (find-or-create) par
+     * CustomCreatureStateProcessor via TagResolver — voir HomebrewEntry::$rawTagNames pour
+     * le détail de la convention `null` (ne pas toucher) vs `[]` (tout retirer).
+     */
+    private ?array $rawTagNames = null;
+
+    public function __construct()
+    {
+        $this->tagEntities = new ArrayCollection();
+    }
+
+    #[Groups(['custom_creature:read'])]
+    public function getTags(): array
+    {
+        return array_map(static fn (Tag $t) => $t->getName(), $this->tagEntities->toArray());
+    }
+
+    #[Groups(['custom_creature:write'])]
+    public function setTags(array $tags): static
+    {
+        $this->rawTagNames = $tags;
+
+        return $this;
+    }
+
+    public function getRawTagNames(): ?array
+    {
+        return $this->rawTagNames;
+    }
+
+    public function getTagEntities(): Collection
+    {
+        return $this->tagEntities;
+    }
+
+    public function setTagEntities(Collection $tagEntities): static
+    {
+        $this->tagEntities = $tagEntities;
+
+        return $this;
+    }
 
     public function getId(): ?int
     {

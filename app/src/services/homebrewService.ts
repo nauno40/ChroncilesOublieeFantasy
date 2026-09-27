@@ -17,6 +17,8 @@ export interface HomebrewEntry {
     authorPseudo: string | null;
     createdAt: string;
     updatedAt: string;
+    /** Étiquettes libres (découverte communautaire) — noms normalisés (minuscules) côté serveur. */
+    tags?: string[];
 }
 
 export interface HomebrewInput {
@@ -31,6 +33,9 @@ export interface HomebrewInput {
      *  transmis quand même côté client, la règle serveur étant une garantie, pas une
      *  dispense. */
     parent?: string | null;
+    /** Noms de tags bruts — absent laisse les tags existants intacts, `[]` les retire tous
+     *  (cf. HomebrewEntry::$rawTagNames côté backend pour cette convention). */
+    tags?: string[];
 }
 
 /** Catégories de contenu homebrew (miroir des types du compendium). */
@@ -157,6 +162,10 @@ export interface HomebrewPageParams {
     scope?: 'mine' | 'community';
     category?: string | string[];
     search?: string;
+    /** Ne garde que les entrées portant ce tag (nom exact, insensible à la casse). */
+    tag?: string;
+    /** 'popular' trie par nombre de favoris (décroissant) ; omis = tri par défaut (récent). */
+    sort?: 'recent' | 'popular';
 }
 
 export const HomebrewService = {
@@ -167,8 +176,14 @@ export const HomebrewService = {
     getAll: () => ApiService.getAll<HomebrewEntry>('homebrew_entries?pagination=false&itemsPerPage=500'),
     // Une page filtrée/paginée côté serveur — ce que HomebrewBrowser.tsx doit utiliser pour
     // afficher une liste, quelle que soit la taille réelle de la bibliothèque communautaire.
-    getPage: ({ page, itemsPerPage, scope, category, search }: HomebrewPageParams) =>
-        ApiService.getPage<HomebrewEntry>('homebrew_entries', { page, itemsPerPage, scope, category, search }),
+    getPage: ({ page, itemsPerPage, scope, category, search, tag, sort }: HomebrewPageParams) =>
+        ApiService.getPage<HomebrewEntry>('homebrew_entries', {
+            page, itemsPerPage, scope, category, search, tag,
+            'order[popularity]': sort === 'popular' ? 'desc' : undefined,
+        }),
+    // Tags déjà utilisés (auto-complétion) — collection publique, jamais paginée côté serveur
+    // (cf. Tag::paginationEnabled=false), le vocabulaire reste petit par construction.
+    getAllTags: () => ApiService.getAll<{ id: number; name: string }>('tags'),
     // Capacités d'une voie (résolues côté serveur par IRI parent), pour la suppression en
     // cascade et la duplication — jamais depuis une page déjà chargée : une fois la
     // bibliothèque paginée (`getPage`), rien ne garantit que les capacités d'une voie

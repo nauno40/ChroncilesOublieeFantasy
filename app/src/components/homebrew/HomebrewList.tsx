@@ -98,9 +98,12 @@ interface HomebrewListProps {
     /** Sous-type d'équipement affiché (pastilles Armes / Armures / Matériel de la page
      *  officielle) : il pilote le jeu de colonnes, comme les onglets côté officiel. */
     sousType?: 'arme' | 'armure' | 'materiel';
+    /** Clic sur une étiquette d'une carte — absent, les étiquettes restent affichées mais
+     *  ne réagissent pas (rendu grille de cartes uniquement, cf. commentaire plus bas). */
+    onTagClick?: (tag: string) => void;
 }
 
-export const HomebrewList: React.FC<HomebrewListProps> = ({ entries, category, myId, duplicatingId, onOpen, onEdit, onDelete, onDuplicate, sousType }) => {
+export const HomebrewList: React.FC<HomebrewListProps> = ({ entries, category, myId, duplicatingId, onOpen, onEdit, onDelete, onDuplicate, sousType, onTagClick }) => {
     const locked = typeof category === 'string';
 
     // --- Types dont la table est partagée avec la page officielle ---
@@ -199,6 +202,19 @@ export const HomebrewList: React.FC<HomebrewListProps> = ({ entries, category, m
                         </div>
                         <h3 className={`font-display font-bold mb-2 transition-colors leading-tight ${dense ? 'text-lg text-primary-200 group-hover:text-primary-100' : 'text-xl text-primary-300 group-hover:text-primary-200'}`}>{entry.name}</h3>
                         {entry.description && <p className={`text-stone-400 line-clamp-3 ${dense ? 'text-xs leading-relaxed' : 'text-sm'}`}>{entry.description}</p>}
+                        {entry.tags && entry.tags.length > 0 && (
+                            <div className="mt-2 flex flex-wrap gap-1">
+                                {entry.tags.map(tag => (
+                                    <button
+                                        key={tag}
+                                        onClick={e => { e.stopPropagation(); onTagClick?.(tag); }}
+                                        className="text-[10px] uppercase font-bold tracking-wide text-primary-400/70 hover:text-primary-300 bg-primary-500/10 hover:bg-primary-500/20 rounded px-1.5 py-0.5 transition-colors"
+                                    >
+                                        #{tag}
+                                    </button>
+                                ))}
+                            </div>
+                        )}
                         {!mine && <div className="mt-3 pt-3 border-t border-white/5"><AuthorTag pseudo={entry.authorPseudo} /></div>}
                     </ContentCard>
                 );

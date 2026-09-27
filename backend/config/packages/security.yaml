@@ -49,4 +49,7 @@ security:
         # Le back-office n'était couvert par AUCUNE règle : `/admin` répondait 200 à un
         # visiteur anonyme, y compris `/admin/user` qui liste les adresses e-mail de tous
         # les comptes, et offrait la modification et la suppression de tout le compendium.
-        - { path: ^/admin,     roles: ROLE_ADMIN }
+        # ROLE_MODERATOR n'ouvre que ContentReportCrudController (son propre #[IsGranted]) :
+        # cette ligne ne fait que le laisser franchir le pare-feu, chaque contrôleur reste
+        # gardé individuellement (ROLE_ADMIN sur tous les autres).
+        - { path: ^/admin,     roles: [ROLE_ADMIN, ROLE_MODERATOR] }

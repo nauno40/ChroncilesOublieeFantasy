@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Plus } from 'lucide-react';
+import { Plus, X } from 'lucide-react';
 import { Loader, SearchToolbar, SelectFiltre, GrilleFiltres, FilterPanel } from '../common';
 import { useAuth } from '../../hooks/useAuth';
 import { HomebrewService, HOMEBREW_CATEGORIES, categoryLabel, messageSuppression, type HomebrewEntry } from '../../services/homebrewService';
@@ -100,6 +100,8 @@ export const HomebrewBrowser: React.FC<HomebrewBrowserProps> = ({ tab, onTabChan
     const pastilles = typePage ? PASTILLES_COMMUNAUTAIRES[typePage] : undefined;
     const [pastilleActive, setPastilleActive] = useState('all');
     const [duplicatingId, setDuplicatingId] = useState<number | null>(null);
+    const [tagFilter, setTagFilter] = useState<string | undefined>(undefined);
+    const [sort, setSort] = useState<'recent' | 'popular'>('recent');
 
     // Débounce : la recherche n'interroge le serveur qu'après une pause dans la frappe.
     useEffect(() => {
@@ -118,6 +120,8 @@ export const HomebrewBrowser: React.FC<HomebrewBrowserProps> = ({ tab, onTabChan
                 scope: tab,
                 category: categoryParam,
                 search: search || undefined,
+                tag: tagFilter,
+                sort,
             });
             setEntries(prev => (replace ? items : [...prev, ...items]));
             setTotalItems(total);
@@ -133,7 +137,7 @@ export const HomebrewBrowser: React.FC<HomebrewBrowserProps> = ({ tab, onTabChan
     // Repart de la page 1 à chaque changement d'onglet/catégorie/recherche — jamais un
     // simple ajout, sous peine de mélanger des résultats de filtres différents.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(() => { fetchPage(1, true); }, [tab, categoryParam, search]);
+    useEffect(() => { fetchPage(1, true); }, [tab, categoryParam, search, tagFilter, sort]);
 
     const reload = () => fetchPage(1, true);
     const loadMore = () => fetchPage(page + 1, false);
@@ -231,6 +235,34 @@ export const HomebrewBrowser: React.FC<HomebrewBrowserProps> = ({ tab, onTabChan
                 )}
             />
 
+            {/* Tri par popularité (favoris) et rappel du tag actif — axes serveur au même
+                titre que tab/catégorie/recherche, mais hors de la barre de recherche pour
+                ne pas se disputer son emplacement de chips avec catégorie/pastilles. */}
+            <div className="flex items-center gap-3 flex-wrap">
+                <div className="flex items-center gap-1 text-xs">
+                    <button
+                        onClick={() => setSort('recent')}
+                        className={`px-3 py-1.5 rounded-lg font-bold uppercase tracking-wide transition-colors ${sort === 'recent' ? 'bg-primary-600 text-stone-950' : 'text-stone-400 hover:text-primary-300 hover:bg-white/5'}`}
+                    >
+                        Récent
+                    </button>
+                    <button
+                        onClick={() => setSort('popular')}
+                        className={`px-3 py-1.5 rounded-lg font-bold uppercase tracking-wide transition-colors ${sort === 'popular' ? 'bg-primary-600 text-stone-950' : 'text-stone-400 hover:text-primary-300 hover:bg-white/5'}`}
+                    >
+                        Populaire
+                    </button>
+                </div>
+                {tagFilter && (
+                    <button
+                        onClick={() => setTagFilter(undefined)}
+                        className="flex items-center gap-1.5 text-xs font-bold uppercase text-primary-300 bg-primary-500/10 hover:bg-primary-500/20 rounded-lg px-3 py-1.5 transition-colors"
+                    >
+                        #{tagFilter} <X size={12} />
+                    </button>
+                )}
+            </div>
+
             {visible.length === 0 ? (
                 <div className="text-center py-16 text-stone-400">
                     <p className="text-sm">{tab === 'mine' ? "Vous n'avez pas encore créé de contenu ici." : "Aucun contenu partagé pour cette section."}</p>
@@ -250,6 +282,7 @@ export const HomebrewBrowser: React.FC<HomebrewBrowserProps> = ({ tab, onTabChan
                         onDelete={handleDelete}
                         onDuplicate={handleDuplicate}
                         sousType={estEquipement ? sousType : undefined}
+                        onTagClick={setTagFilter}
                     />
                     {entries.length < totalItems && (
                         <div className="text-center pt-4">

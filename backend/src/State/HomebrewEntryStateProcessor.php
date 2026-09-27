@@ -6,6 +6,8 @@ use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
 use App\Entity\HomebrewEntry;
 use App\Repository\HomebrewEntryRepository;
+use App\Service\TagResolver;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
@@ -23,6 +25,7 @@ final readonly class HomebrewEntryStateProcessor implements ProcessorInterface
         private Security $security,
         private HomebrewEntryRepository $repository,
         private EntityManagerInterface $entityManager,
+        private TagResolver $tagResolver,
     ) {
     }
 
@@ -77,6 +80,12 @@ final readonly class HomebrewEntryStateProcessor implements ProcessorInterface
                         $child->setVisibility($data->getVisibility());
                     }
                 }
+            }
+
+            // `null` (le client n'a pas parlé de tags dans cette requête) laisse les tags
+            // existants intacts — un PATCH portant sur un autre champ ne doit pas les effacer.
+            if (null !== $data->getRawTagNames()) {
+                $data->setTagEntities(new ArrayCollection($this->tagResolver->resolve($data->getRawTagNames())));
             }
         }
 

@@ -16,7 +16,11 @@ class DashboardController extends AbstractDashboardController
     public function index(): Response
     {
         $adminUrlGenerator = $this->container->get(\EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator::class);
-        return $this->redirect($adminUrlGenerator->setController(CreatureCrudController::class)->generateUrl());
+        // Un modérateur (ROLE_MODERATOR sans ROLE_ADMIN) n'a accès qu'aux signalements —
+        // le rediriger vers le bestiaire par défaut le renverrait droit sur un 403.
+        $controller = $this->isGranted('ROLE_ADMIN') ? CreatureCrudController::class : ContentReportCrudController::class;
+
+        return $this->redirect($adminUrlGenerator->setController($controller)->generateUrl());
     }
 
     public function configureDashboard(): Dashboard
@@ -29,10 +33,16 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToDashboard('Tableau de bord', 'fa fa-home');
 
-        yield MenuItem::section('Comptes');
-        yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', \App\Entity\User::class);
+        // Remonté hors de « Contenu communautaire » (qui, lui, reste ROLE_ADMIN) : c'est le
+        // SEUL lien qu'un modérateur (ROLE_MODERATOR sans ROLE_ADMIN) doit voir dans le menu.
+        // Le vrai garde-fou reste le #[IsGranted] de ContentReportCrudController, pas ce menu
+        // — masquer un lien n'empêche jamais une requête directe sur son URL.
+        yield MenuItem::linkToCrud('Signalements', 'fas fa-flag', \App\Entity\ContentReport::class);
 
-        yield MenuItem::subMenu('Compendium', 'fas fa-book')->setSubItems([
+        yield MenuItem::section('Comptes')->setPermission('ROLE_ADMIN');
+        yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', \App\Entity\User::class)->setPermission('ROLE_ADMIN');
+
+        yield MenuItem::subMenu('Compendium', 'fas fa-book')->setPermission('ROLE_ADMIN')->setSubItems([
             MenuItem::linkToCrud('Peuples', 'fas fa-dna', \App\Entity\Race::class),
             MenuItem::linkToCrud('Familles de profils', 'fas fa-users', \App\Entity\Family::class),
             MenuItem::linkToCrud('Profils', 'fas fa-id-card', \App\Entity\Profile::class),
@@ -48,20 +58,19 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud('Pièges', 'fas fa-bomb', \App\Entity\Trap::class),
         ]);
 
-        yield MenuItem::subMenu('Bestiaire', 'fas fa-dragon')->setSubItems([
+        yield MenuItem::subMenu('Bestiaire', 'fas fa-dragon')->setPermission('ROLE_ADMIN')->setSubItems([
             MenuItem::linkToCrud('Familles de créatures', 'fas fa-sitemap', \App\Entity\CreatureFamily::class),
             MenuItem::linkToCrud('Créatures', 'fas fa-paw', \App\Entity\Creature::class),
             MenuItem::linkToCrud('Voies de créature', 'fas fa-route', \App\Entity\CreatureVoie::class),
         ]);
 
-        yield MenuItem::subMenu('Contenu communautaire', 'fas fa-users-rays')->setSubItems([
+        yield MenuItem::subMenu('Contenu communautaire', 'fas fa-users-rays')->setPermission('ROLE_ADMIN')->setSubItems([
             MenuItem::linkToCrud('Créations partagées', 'fas fa-scroll', \App\Entity\HomebrewEntry::class),
             MenuItem::linkToCrud('Monstres maison', 'fas fa-ghost', \App\Entity\CustomCreature::class),
-            MenuItem::linkToCrud('Signalements', 'fas fa-flag', \App\Entity\ContentReport::class),
         ]);
 
         // Données appartenant aux utilisateurs : consultation et suppression seulement.
-        yield MenuItem::subMenu('Données des utilisateurs', 'fas fa-lock')->setSubItems([
+        yield MenuItem::subMenu('Données des utilisateurs', 'fas fa-lock')->setPermission('ROLE_ADMIN')->setSubItems([
             MenuItem::linkToCrud('Campagnes', 'fas fa-map', \App\Entity\Campaign::class),
             MenuItem::linkToCrud('Adhésions', 'fas fa-user-plus', \App\Entity\CampaignMembership::class),
             MenuItem::linkToCrud('Quêtes', 'fas fa-flag', \App\Entity\Quest::class),

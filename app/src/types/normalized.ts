@@ -442,4 +442,6 @@ export interface CustomCreature {
     /** Auteur (exposé en lecture) — sert à distinguer mon contenu de celui de la communauté. */
     authorId?: number;
     authorPseudo?: string | null;
+    /** Étiquettes libres (découverte communautaire) — noms normalisés (minuscules) côté serveur. */
+    tags?: string[];
 }

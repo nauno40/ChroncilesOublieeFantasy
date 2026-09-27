@@ -76,7 +76,8 @@ class Campaign
 
     #[Groups(['campaign:read'])]
     #[ORM\ManyToOne(inversedBy: 'campaigns')]
-    #[ORM\JoinColumn(nullable: false)]
+    // ON DELETE CASCADE : supprimer son compte supprime les campagnes qu'on possède.
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private ?User $owner = null;
 
     #[Groups(['campaign:read', 'campaign:write'])]

@@ -48,8 +48,11 @@ class HomebrewEntry
     #[Groups(['homebrew:read'])]
     private ?int $id = null;
 
+    // ON DELETE CASCADE : supprimer son compte supprime les entrées de bibliothèque qu'on
+    // possède, y compris publiques — un favori/commentaire d'un tiers qui pointait dessus
+    // devient orphelin et disparaît simplement de l'affichage (déjà géré côté front).
     #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private ?User $owner = null;
 
     // Catégorie (type de contenu) : validée côté front via une liste (sort, race, classe…).

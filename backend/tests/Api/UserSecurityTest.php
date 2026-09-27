@@ -2,6 +2,12 @@
 
 namespace App\Tests\Api;
 
+use App\Entity\Campaign;
+use App\Entity\Character;
+use App\Entity\CustomCreature;
+use App\Entity\HomebrewEntry;
+use App\Entity\User;
+
 /**
  * Access control on the User resource:
  *  - registration (POST) is public
@@ -88,5 +94,97 @@ final class UserSecurityTest extends ApiSecurityTestCase
             'json' => ['email' => 'hijacked@example.com'],
         ]);
         $this->assertResponseStatusCodeSame(403);
+    }
+
+    private function createCustomCreature(User $owner, string $name = 'Créature'): CustomCreature
+    {
+        $creature = new CustomCreature();
+        $creature->setName($name);
+        $creature->setNc(1);
+        $creature->setHp(8);
+        $creature->setDef(12);
+        $creature->setInit(10);
+        $creature->setOwner($owner);
+        $this->em->persist($creature);
+        $this->em->flush();
+
+        return $creature;
+    }
+
+    private function createHomebrewEntry(User $owner): HomebrewEntry
+    {
+        $entry = new HomebrewEntry();
+        $entry->setOwner($owner);
+        $entry->setCategory('sort');
+        $entry->setName('Sort de test');
+        $entry->setCreatedAt(new \DateTimeImmutable());
+        $entry->setUpdatedAt(new \DateTimeImmutable());
+        $this->em->persist($entry);
+        $this->em->flush();
+
+        return $entry;
+    }
+
+    /**
+     * Les quatre clés étrangères vers `user` posées sans clause ON DELETE (campaign,
+     * character, custom_creature, homebrew_entry) faisaient échouer la suppression de son
+     * propre compte en 500 (violation de contrainte brute) dès qu'on possédait le moindre
+     * contenu — la fonctionnalité était donc en pratique cassée pour tout compte réel.
+     */
+    public function testUserCanDeleteOwnAccountEvenWhileOwningACampaign(): void
+    {
+        $alice = $this->createUser('alice@example.com');
+        $campaign = $this->createCampaign($alice);
+
+        $this->client->request('DELETE', '/api/users/'.$alice->getId(), ['headers' => $this->authHeaders($alice)]);
+        $this->assertResponseStatusCodeSame(204);
+
+        $this->em->clear();
+        $this->assertNull($this->em->getRepository(Campaign::class)->find($campaign->getId()));
+    }
+
+    public function testDeletingOwnAccountDetachesCharacterInsteadOfDeletingIt(): void
+    {
+        // Choix tranché avec l'utilisateur : une fiche de personnage survit, détachée
+        // (owner_id à NULL — colonne déjà nullable pour les fiches « legacy »), plutôt que
+        // d'être supprimée avec le compte — cohérent avec ON DELETE SET NULL déjà posé sur
+        // character.campaign_id (suppression de campagne) pour la même raison.
+        $alice = $this->createUser('alice@example.com');
+        $character = $this->createCharacter($alice);
+
+        $this->client->request('DELETE', '/api/users/'.$alice->getId(), ['headers' => $this->authHeaders($alice)]);
+        $this->assertResponseStatusCodeSame(204);
+
+        $this->em->clear();
+        $fresh = $this->em->getRepository(Character::class)->find($character->getId());
+        $this->assertNotNull($fresh);
+        $this->assertNull($fresh->getOwner());
+    }
+
+    public function testDeletingOwnAccountDeletesOwnedCustomCreatures(): void
+    {
+        // Choix tranché avec l'utilisateur : supprimer son compte supprime aussi son contenu
+        // communautaire publié (même logique qu'un compte GitHub emporte ses dépôts non
+        // transférés), plutôt que de le laisser orphelin.
+        $alice = $this->createUser('alice@example.com');
+        $creature = $this->createCustomCreature($alice);
+
+        $this->client->request('DELETE', '/api/users/'.$alice->getId(), ['headers' => $this->authHeaders($alice)]);
+        $this->assertResponseStatusCodeSame(204);
+
+        $this->em->clear();
+        $this->assertNull($this->em->getRepository(CustomCreature::class)->find($creature->getId()));
+    }
+
+    public function testDeletingOwnAccountDeletesOwnedHomebrewEntries(): void
+    {
+        $alice = $this->createUser('alice@example.com');
+        $entry = $this->createHomebrewEntry($alice);
+
+        $this->client->request('DELETE', '/api/users/'.$alice->getId(), ['headers' => $this->authHeaders($alice)]);
+        $this->assertResponseStatusCodeSame(204);
+
+        $this->em->clear();
+        $this->assertNull($this->em->getRepository(HomebrewEntry::class)->find($entry->getId()));
     }
 }

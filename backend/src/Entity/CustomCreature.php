@@ -56,7 +56,10 @@ class CustomCreature
     // ce qui pousse API Platform à joindre la relation en eager. On la garde lazy (cf. Character).
     #[ApiProperty(fetchEager: false)]
     #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
+    // ON DELETE CASCADE : supprimer son compte supprime les monstres maison qu'on possède,
+    // y compris publics — un favori/commentaire d'un tiers qui pointait dessus devient
+    // orphelin et disparaît simplement de l'affichage (déjà géré côté front).
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     #[Groups(['custom_creature:read'])]
     private ?User $owner = null;
 

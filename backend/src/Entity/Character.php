@@ -98,8 +98,11 @@ class Character
     #[Groups(['character:write'])]
     private ?int $campaignId = null;
 
+    // ON DELETE SET NULL : supprimer son compte détache la fiche au lieu de la supprimer,
+    // même logique que campaign_id (Version20260925090000) — la fiche reste visible du MJ
+    // de sa campagne. Nullable de toute façon pour les fiches « legacy » sans propriétaire.
     #[ORM\ManyToOne(inversedBy: 'characters')]
-    #[ORM\JoinColumn(nullable: true)] # Nullable for legacy characters
+    #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
     #[Groups(['character:read'])]
     private ?User $owner = null;
 

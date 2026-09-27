@@ -6,8 +6,9 @@ import type { NavItem } from './NavItem';
 import { NavItemComponent } from './NavItem';
 import { DiceRoller, GlobalNotes, Soundboard, DraggableWindow, GlobalSearch } from '../common';
 import { useToggle } from '../../hooks/useToggle';
-import { Dices, StickyNote, Music, Search, LogOut, User as UserIcon, Wand2, X } from 'lucide-react';
+import { Dices, StickyNote, Music, Search, LogOut, User as UserIcon, Wand2, X, Download } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
+import { AuthService } from '../../services/AuthService';
 import { preloadRoute } from '../../routePreload';
 import { LEXIQUE } from '../../domain/lexique';
 
@@ -21,6 +22,18 @@ export const Layout: React.FC = () => {
     const [isFabOpen, toggleFab] = useToggle(false);
 
     const [openSection, setOpenSection] = React.useState<string | null>(null);
+    const [exporting, setExporting] = React.useState(false);
+
+    const exportData = async () => {
+        setExporting(true);
+        try {
+            await AuthService.exportData();
+        } catch (e) {
+            alert(e instanceof Error ? e.message : "L'export a échoué.");
+        } finally {
+            setExporting(false);
+        }
+    };
 
     // Keyboard shortcut for search
     React.useEffect(() => {
@@ -216,6 +229,20 @@ export const Layout: React.FC = () => {
                                 <div className="text-sm font-bold truncate text-stone-100">{user?.email?.split('@')[0]}</div>
                                 <div className="text-[11px] text-stone-400 truncate">{user?.email}</div>
                             </div>
+                            {/* Ce bandeau reste affiché (nom/e-mail vides) sur les pages publiques du
+                                Layout pour un visiteur anonyme — Déconnexion y est inoffensif, mais
+                                exporter ses données exige une session : pas de bouton qui échouerait
+                                systématiquement (même principe que Favoris/Signaler/Dupliquer). */}
+                            {user && (
+                                <button
+                                    onClick={exportData}
+                                    disabled={exporting}
+                                    className="p-2 rounded-lg text-stone-400 hover:text-primary-400 hover:bg-primary-500/10 transition-all disabled:opacity-50"
+                                    title="Exporter mes données"
+                                >
+                                    <Download size={18} />
+                                </button>
+                            )}
                             <button
                                 onClick={logout}
                                 className="p-2 rounded-lg text-stone-400 hover:text-red-400 hover:bg-red-500/10 transition-all"

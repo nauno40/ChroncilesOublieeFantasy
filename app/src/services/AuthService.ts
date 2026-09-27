@@ -111,6 +111,27 @@ export const AuthService = {
         return data.message || 'Mot de passe réinitialisé.';
     },
 
+    // Export de données personnelles (portabilité) : `fetch` manuel plutôt qu'un simple lien,
+    // car le téléchargement doit porter le jeton (Authorization) — un <a href> ne le peut pas.
+    async exportData(): Promise<void> {
+        const token = this.getToken();
+        if (!token) throw new Error('Connectez-vous pour exporter vos données.');
+
+        const base = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
+        const response = await fetch(`${base}/me/export`, {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+        if (!response.ok) throw new Error("L'export a échoué. Réessayez plus tard.");
+
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'export-chroniques-oubliees.json';
+        a.click();
+        URL.revokeObjectURL(url);
+    },
+
     logout(): void {
         localStorage.removeItem(TOKEN_KEY);
         localStorage.removeItem(USER_KEY);

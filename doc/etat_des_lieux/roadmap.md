@@ -111,8 +111,14 @@ serait inventer.
 - [x] **Armure et capacités (chap. 9)** : une capacité garde la restriction d'armure du profil dont elle est issue, même chez un hybride. La fiche propose désormais **toutes** les armures (porter n'est pas interdit — c'est l'usage des capacités qui tombe), signale celles hors limite, et un panneau « Sous l'armure » liste par profil les capacités bridées et le **surcoût de PM** des sorts (`domain/rules/spellcasting.ts`). Sorts de prêtre exemptés ; forgesort/druide/barde ne paient que la différence.
 
 ### Ce qui restera ouvert par construction
-- **147 créatures servies absentes du livre** : non vérifiables par `audit-bestiaire.mjs`. Leur
-  silence n'est pas un satisfecit, mais les corriger au jugé serait inventer.
+- **Portée du compendium officiel tranchée avec l'utilisateur (2026-09-27) : on ne garde que ce
+  qui est dans les données de règles fournies** — pour le bestiaire comme pour toute autre
+  catégorie (sorts, classes/profils, races/peuples, voies, objets…). Ce n'est pas une limite
+  technique à lever un jour, c'est une décision produit permanente : compléter une catégorie au
+  jugé, sans la source officielle sous les yeux, reviendrait à inventer des règles au nom du
+  livre. Les **147 créatures servies absentes du livre** (non vérifiables par
+  `audit-bestiaire.mjs`) restent le cas le plus visible de ce principe, mais il vaut pour
+  l'ensemble du compendium, pas seulement le bestiaire.
 - **Invocations officielles** : seules deux capacités du livre désignent une créature du
   bestiaire (« Animation des morts » → Zombi humain, « Panthère »). Les autres portent le profil
   de l'invoquée **dans le texte du sort** (élémentaire, démon, serviteur invisible — souvent

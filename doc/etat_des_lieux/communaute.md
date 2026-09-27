@@ -43,7 +43,7 @@ Le produit est une **très bonne aide de table pour un MJ isolé** (compendium f
 
 ## 4. Dette et risques techniques utiles à connaître
 
-- 147 créatures du bestiaire absentes du livre : non vérifiables, non corrigées volontairement.
+- 147 créatures du bestiaire absentes du livre : non vérifiables, non corrigées volontairement. **Décision produit (2026-09-27), généralisée à tout le compendium officiel** (sorts, classes, races, voies, objets…) : on ne garde que ce qui est dans les données de règles fournies, jamais complété au jugé.
 - 32 champs de `types/normalized.ts` déclarés mais jamais servis par l'API (`scripts/audit-types-api.mjs`).
 - ~~`Campaign` ↔ `Character` : supprimer une campagne avec des personnages rattachés est refusé (409)~~ — corrigé le 2026-09-25 : `ON DELETE SET NULL`, la campagne supprimée détache les fiches de ses joueurs au lieu de les bloquer (cf. `backend.md` §6).
 - ~~Suite backend lente (~12 min)~~ — ~2 min 30 depuis le 2026-09-25 (remise à zéro de la base par `DELETE` au lieu de recréer le schéma à chaque test, cf. `backend.md`). La base de test reste partagée : deux exécutions concurrentes se gênent.

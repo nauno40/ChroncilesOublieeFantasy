@@ -80,6 +80,14 @@ function App() {
               <Route path="homebrew/:id" element={<HomebrewDetail />} />
               <Route path="creatures/maison/:id" element={<CustomCreatureDetail />} />
               <Route path="profil/:authorId" element={<AuthorProfile />} />
+              {/* Page « Créatures » (3 onglets Officiel/Communauté/Mes créations) : l'onglet
+                  Officiel appelle déjà une API publique en lecture (compendium), et
+                  CustomMonsters gère déjà l'absence de session (mine=false pour un
+                  anonyme) — seul le bouton « Dupliquer chez moi » restait à garder
+                  (cf. CustomMonsters.tsx). `bestiary/:id` (détail officiel) reste protégé :
+                  seule la partie communautaire est dans le périmètre de ce chantier. */}
+              <Route path="creatures" element={<Creatures />} />
+              <Route path="bestiary" element={<Creatures />} />
             </Route>
 
             {/* Protected App Routes */}
@@ -90,8 +98,6 @@ function App() {
               <Route path="/play/:id" element={<PlayMode />} />
               <Route element={<Layout />}>
                 <Route path="/dashboard" element={<Home />} />
-                <Route path="creatures" element={<Creatures />} />
-                <Route path="bestiary" element={<Creatures />} />
                 <Route path="bestiary/:id" element={<CreatureDetail />} />
                 <Route path="campaign" element={<Campaign />} />
                 <Route path="campaign/:id" element={<CampaignDetail />} />

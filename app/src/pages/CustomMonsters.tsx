@@ -706,14 +706,20 @@ export const CustomMonsters: React.FC<CustomMonstersProps> = ({ embedded = false
                                     </div>
                                 ) : (
                                     <div className="flex items-center justify-between gap-2 border-t border-white/5 px-3 py-2">
-                                        <AuthorTag pseudo={c.authorPseudo} size="sm" />
-                                        <button
-                                            onClick={() => handleDuplicate(c)}
-                                            disabled={duplicatingId === c.id}
-                                            className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase text-stone-400 hover:text-primary-400 transition-colors disabled:opacity-50"
-                                        >
-                                            <Copy size={12} /> {duplicatingId === c.id ? 'Copie…' : 'Dupliquer chez moi'}
-                                        </button>
+                                        <AuthorTag pseudo={c.authorPseudo} authorId={c.authorId} size="sm" />
+                                        {/* Dupliquer exige un compte (ROLE_USER côté API) : la page est
+                                            désormais consultable sans compte, un visiteur anonyme ne doit
+                                            pas voir un bouton qui échouerait systématiquement (même
+                                            correctif que HomebrewList.tsx). */}
+                                        {myId !== undefined && (
+                                            <button
+                                                onClick={() => handleDuplicate(c)}
+                                                disabled={duplicatingId === c.id}
+                                                className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase text-stone-400 hover:text-primary-400 transition-colors disabled:opacity-50"
+                                            >
+                                                <Copy size={12} /> {duplicatingId === c.id ? 'Copie…' : 'Dupliquer chez moi'}
+                                            </button>
+                                        )}
                                     </div>
                                 )}
                             />

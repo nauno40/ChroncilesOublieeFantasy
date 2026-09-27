@@ -1,9 +1,10 @@
 import React from 'react';
 import { LegalLayout } from './LegalLayout';
+import { LEGAL_INFO, DERNIERE_MISE_A_JOUR } from './legalInfo';
 
 export const CGU: React.FC = () => (
     <LegalLayout title="Conditions générales d'utilisation">
-        <p><em>Dernière mise à jour : [À COMPLÉTER]</em></p>
+        <p><em>Dernière mise à jour : {DERNIERE_MISE_A_JOUR}</em></p>
 
         <h2>1. Objet</h2>
         <p>
@@ -54,23 +55,26 @@ export const CGU: React.FC = () => (
         <h2>5. Disponibilité et responsabilité</h2>
         <p>
             Le site est fourni « en l'état », à titre gratuit et non professionnel, sans garantie de
-            disponibilité continue. [À COMPLÉTER : préciser si un hébergement professionnel avec engagement de
-            disponibilité est mis en place.] L'éditeur ne saurait être tenu responsable d'une perte de données
-            liée à un incident technique, sans préjudice de son obligation de moyens raisonnables pour la
-            sécuriser.
+            disponibilité continue. Aucun engagement de disponibilité (SLA) n'est souscrit auprès d'un
+            hébergeur à ce jour. L'éditeur ne saurait être tenu responsable d'une perte de données liée à un
+            incident technique, sans préjudice de son obligation de moyens raisonnables pour la sécuriser
+            (sauvegardes régulières une fois le site déployé en production).
         </p>
 
         <h2>6. Évolution des présentes conditions</h2>
         <p>
             Ces conditions peuvent être modifiées à tout moment ; la version en vigueur est celle publiée sur
-            cette page. Les membres seront informés de toute modification substantielle [À COMPLÉTER : par
-            quel moyen — e-mail, bandeau sur le site].
+            cette page, avec sa date de dernière mise à jour. Toute modification substantielle sera annoncée
+            par un bandeau sur le site et, pour les membres inscrits, par e-mail.
         </p>
 
         <h2>7. Droit applicable</h2>
-        <p>Les présentes conditions sont soumises au droit français. [À COMPLÉTER : juridiction compétente en cas de litige.]</p>
+        <p>
+            Les présentes conditions sont soumises au droit français. À défaut de résolution amiable, tout
+            litige relève des tribunaux français compétents selon les règles de droit commun.
+        </p>
 
         <h2>8. Contact</h2>
-        <p>Pour toute question relative aux présentes conditions : [À COMPLÉTER : adresse e-mail de contact].</p>
+        <p>Pour toute question relative aux présentes conditions : {LEGAL_INFO.contactEmail}.</p>
     </LegalLayout>
 );

@@ -1,12 +1,13 @@
 import React from 'react';
 import { LegalLayout } from './LegalLayout';
+import { LEGAL_INFO, DERNIERE_MISE_A_JOUR } from './legalInfo';
 
 export const Confidentialite: React.FC = () => (
     <LegalLayout title="Politique de confidentialité">
-        <p><em>Dernière mise à jour : [À COMPLÉTER]</em></p>
+        <p><em>Dernière mise à jour : {DERNIERE_MISE_A_JOUR}</em></p>
 
         <h2>1. Responsable de traitement</h2>
-        <p>[À COMPLÉTER : nom et contact de la personne ou entité responsable du traitement des données.]</p>
+        <p>{LEGAL_INFO.exploitantNom} — {LEGAL_INFO.contactEmail}.</p>
 
         <h2>2. Données collectées</h2>
         <p>Le site collecte uniquement les données nécessaires à son fonctionnement :</p>
@@ -73,12 +74,12 @@ export const Confidentialite: React.FC = () => (
 
         <h2>7. Sécurité</h2>
         <p>
-            Les mots de passe sont stockés sous forme hachée, jamais en clair. [À COMPLÉTER : préciser le
-            chiffrement des communications (HTTPS) une fois le site en production, et les mesures de sauvegarde
-            mises en place.]
+            Les mots de passe sont stockés sous forme hachée, jamais en clair. Le site n'est pas encore
+            déployé en production à ce jour ; une fois en ligne, les communications avec le serveur seront
+            chiffrées (HTTPS) et des sauvegardes régulières de la base de données seront mises en place.
         </p>
 
         <h2>8. Contact</h2>
-        <p>Pour exercer vos droits ou pour toute question relative à cette politique : [À COMPLÉTER : adresse e-mail de contact].</p>
+        <p>Pour exercer vos droits ou pour toute question relative à cette politique : {LEGAL_INFO.contactEmail}.</p>
     </LegalLayout>
 );

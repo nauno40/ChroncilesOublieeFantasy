@@ -12,6 +12,7 @@ use App\Entity\User;
 use App\Repository\CustomCreatureRepository;
 use App\Repository\FavoriteRepository;
 use App\Repository\HomebrewEntryRepository;
+use App\Service\NotificationMailer;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
@@ -34,6 +35,7 @@ final readonly class FavoriteStateProcessor implements ProcessorInterface
         private HomebrewEntryRepository $homebrewEntries,
         private CustomCreatureRepository $customCreatures,
         private FavoriteRepository $favorites,
+        private NotificationMailer $notificationMailer,
     ) {
     }
 
@@ -42,6 +44,7 @@ final readonly class FavoriteStateProcessor implements ProcessorInterface
      */
     public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): mixed
     {
+        $target = null;
         if ($operation instanceof Post) {
             /** @var User $user */
             $user = $this->security->getUser();
@@ -66,7 +69,13 @@ final readonly class FavoriteStateProcessor implements ProcessorInterface
             }
         }
 
-        return $this->persistProcessor->process($data, $operation, $uriVariables, $context);
+        $result = $this->persistProcessor->process($data, $operation, $uriVariables, $context);
+
+        if ($target instanceof HomebrewEntry || $target instanceof CustomCreature) {
+            $this->notificationMailer->notifyNewFavorite($data, $target);
+        }
+
+        return $result;
     }
 
     private function findTarget(?string $targetType, ?int $targetId): HomebrewEntry|CustomCreature|null

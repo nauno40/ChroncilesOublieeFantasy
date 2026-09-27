@@ -11,6 +11,7 @@ use App\Entity\HomebrewEntry;
 use App\Entity\User;
 use App\Repository\CustomCreatureRepository;
 use App\Repository\HomebrewEntryRepository;
+use App\Service\NotificationMailer;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -28,6 +29,7 @@ final readonly class CommentStateProcessor implements ProcessorInterface
         private Security $security,
         private HomebrewEntryRepository $homebrewEntries,
         private CustomCreatureRepository $customCreatures,
+        private NotificationMailer $notificationMailer,
     ) {
     }
 
@@ -36,18 +38,26 @@ final readonly class CommentStateProcessor implements ProcessorInterface
      */
     public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): mixed
     {
+        $target = null;
         if ($operation instanceof Post) {
             /** @var User $user */
             $user = $this->security->getUser();
             $data->setAuthor($user);
             $data->setCreatedAt(new \DateTimeImmutable());
 
-            if (null === $this->findVisibleTarget($data->getTargetType(), $data->getTargetId(), $user)) {
+            $target = $this->findVisibleTarget($data->getTargetType(), $data->getTargetId(), $user);
+            if (null === $target) {
                 throw new NotFoundHttpException('Cible du commentaire introuvable.');
             }
         }
 
-        return $this->persistProcessor->process($data, $operation, $uriVariables, $context);
+        $result = $this->persistProcessor->process($data, $operation, $uriVariables, $context);
+
+        if ($target instanceof HomebrewEntry || $target instanceof CustomCreature) {
+            $this->notificationMailer->notifyNewComment($data, $target);
+        }
+
+        return $result;
     }
 
     private function findVisibleTarget(?string $targetType, ?int $targetId, User $user): HomebrewEntry|CustomCreature|null

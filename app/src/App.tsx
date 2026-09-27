@@ -13,6 +13,9 @@ import { RegisterPage } from './pages/RegisterPage';
 import { ForgotPasswordPage } from './pages/ForgotPasswordPage';
 import { ResetPasswordPage } from './pages/ResetPasswordPage';
 import { VerifyEmailPage } from './pages/VerifyEmailPage';
+import { CGU } from './pages/legal/CGU';
+import { MentionsLegales } from './pages/legal/MentionsLegales';
+import { Confidentialite } from './pages/legal/Confidentialite';
 
 // Pages protégées : code-splitting (React.lazy) → un chunk par page, chargé à la demande.
 // Les exports nommés sont remappés en `default` (contrat attendu par React.lazy).
@@ -68,6 +71,9 @@ function App() {
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
             <Route path="/reset-password" element={<ResetPasswordPage />} />
             <Route path="/verify-email" element={<VerifyEmailPage />} />
+            <Route path="/cgu" element={<CGU />} />
+            <Route path="/mentions-legales" element={<MentionsLegales />} />
+            <Route path="/confidentialite" element={<Confidentialite />} />
 
             {/* Bibliothèque communautaire publique : une fiche « public » se lit sans
                 compte (lien partageable), même barre de propriétaire que pour un membre

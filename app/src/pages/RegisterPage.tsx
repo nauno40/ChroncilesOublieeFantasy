@@ -133,6 +133,13 @@ export const RegisterPage: React.FC = () => {
                         </div>
                     </form>
 
+                    <p className="mt-6 text-center text-xs text-stone-500">
+                        En créant un compte, vous acceptez les{' '}
+                        <Link to="/cgu" className="underline hover:text-stone-300">conditions générales d'utilisation</Link>
+                        {' '}et la{' '}
+                        <Link to="/confidentialite" className="underline hover:text-stone-300">politique de confidentialité</Link>.
+                    </p>
+
                     <div className="mt-8 pt-8 border-t border-white/5 text-center">
                         <p className="text-stone-400 text-sm">
                             Déjà un compte ?{' '}

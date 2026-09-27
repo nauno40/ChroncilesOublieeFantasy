@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { BookOpen, Swords, Shield, Scroll, Play, ChevronRight, Sparkles, Zap, Users, Share2 } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 
@@ -217,6 +217,12 @@ export const LandingPage: React.FC = () => {
                         </div>
                         <span className="font-display font-bold">ChroniquesOubliées</span>
                     </div>
+
+                    <nav className="flex items-center gap-4 text-xs text-stone-400">
+                        <Link to="/cgu" className="hover:text-stone-200 transition-colors">CGU</Link>
+                        <Link to="/mentions-legales" className="hover:text-stone-200 transition-colors">Mentions légales</Link>
+                        <Link to="/confidentialite" className="hover:text-stone-200 transition-colors">Confidentialité</Link>
+                    </nav>
 
                     <div className="text-xs text-stone-400">
                         &copy; 2026 Chroniques Oubliées. Basé sur les règles ORC de Black Book Editions.

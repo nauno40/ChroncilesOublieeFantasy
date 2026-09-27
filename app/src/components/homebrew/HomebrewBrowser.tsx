@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Plus } from 'lucide-react';
 import { Loader, SearchToolbar, SelectFiltre, GrilleFiltres, FilterPanel } from '../common';
 import { useAuth } from '../../hooks/useAuth';
-import { HomebrewService, HOMEBREW_CATEGORIES, categoryLabel, childrenOf, messageSuppression, type HomebrewEntry } from '../../services/homebrewService';
+import { HomebrewService, HOMEBREW_CATEGORIES, categoryLabel, messageSuppression, type HomebrewEntry } from '../../services/homebrewService';
 import { duplicateEntry, resumeDuplication } from '../../services/homebrewChildren';
 import { HomebrewList } from './HomebrewList';
 import { FILTRES_COMMUNAUTAIRES, PASTILLES_COMMUNAUTAIRES, appliquerFiltres } from '../../domain/filtresCompendium';
@@ -11,6 +11,14 @@ import { sousTypeEquipement } from '../../domain/tablesCompendium';
 import { invitRecherche, compteurDuType } from '../../domain/compendium';
 
 type Tab = 'mine' | 'community';
+
+// Taille de page côté serveur : au-delà, « Charger plus » plutôt que de tout charger d'un
+// coup (cf. l'état des lieux communauté — `pagination=false` chargeait toute la table).
+const ITEMS_PER_PAGE = 24;
+// Attend une pause dans la frappe avant d'interroger le serveur : la recherche était
+// jusqu'ici instantanée (filtrage local sur des données déjà en mémoire) — une recherche
+// réseau à chaque frappe ajouterait une requête par lettre tapée.
+const DEBOUNCE_MS = 300;
 
 /** Filtre par catégorie de la Bibliothèque (mode « toutes catégories »). Il vivait dans
  *  sa propre rangée de pastilles sous la barre : même intention, même barre. */
@@ -47,6 +55,14 @@ interface HomebrewBrowserProps {
  * Cœur réutilisable de la Bibliothèque : liste + création/édition/détail/duplication du
  * contenu homebrew. Utilisé tel quel par la Bibliothèque (toutes catégories) et par les
  * pages de type du compendium (catégorie verrouillée), sous l'onglet Communauté/Mes créations.
+ *
+ * Onglet, catégorie et recherche texte sont filtrés CÔTÉ SERVEUR (paginés) : ce sont les
+ * axes qui comptent le plus de valeurs possibles et ceux qui justifiaient `pagination=false`
+ * (toute la table à chaque ouverture). Le sous-type d'équipement, les pastilles et la grille
+ * de filtres par catégorie restent côté client — ils lisent le champ JSON libre `data`,
+ * différent par catégorie, que Doctrine ne sait pas interroger proprement sans requête SQL
+ * native par catégorie ; ils ne s'appliquent donc qu'à la page déjà chargée, pas à toute la
+ * catégorie. Compromis accepté tant que leur usage reste marginal.
  */
 export const HomebrewBrowser: React.FC<HomebrewBrowserProps> = ({ tab, onTabChange, category, retourLabel }) => {
     const { user } = useAuth();
@@ -61,9 +77,14 @@ export const HomebrewBrowser: React.FC<HomebrewBrowserProps> = ({ tab, onTabChan
     );
     const locked = cats?.length === 1;                 // sélecteur/chips/badge masqués
 
-    const [entries, setEntries] = useState<HomebrewEntry[] | null>(null);
+    const [entries, setEntries] = useState<HomebrewEntry[]>([]);
+    const [totalItems, setTotalItems] = useState(0);
+    const [page, setPage] = useState(1);
+    const [loading, setLoading] = useState(true);
+    const [loadingMore, setLoadingMore] = useState(false);
     const [categoryFilter, setCategoryFilter] = useState<string>('');
-    const [search, setSearch] = useState('');
+    const [searchInput, setSearchInput] = useState('');
+    const [search, setSearch] = useState(''); // valeur débouncée, réellement envoyée au serveur
     // Sous-type d'équipement affiché : la page officielle range armes, armures et matériel
     // sous trois pastilles, avec trois jeux de colonnes. La liste communautaire les reprend
     // — sans quoi une arme et une potion se retrouvaient dans la même table.
@@ -80,23 +101,53 @@ export const HomebrewBrowser: React.FC<HomebrewBrowserProps> = ({ tab, onTabChan
     const [pastilleActive, setPastilleActive] = useState('all');
     const [duplicatingId, setDuplicatingId] = useState<number | null>(null);
 
-    const reload = () => HomebrewService.getAll().then(setEntries).catch(() => setEntries([]));
-    useEffect(() => { reload(); }, []);
+    // Débounce : la recherche n'interroge le serveur qu'après une pause dans la frappe.
+    useEffect(() => {
+        const t = setTimeout(() => setSearch(searchInput), DEBOUNCE_MS);
+        return () => clearTimeout(t);
+    }, [searchInput]);
+
+    const categoryParam = cats ?? (categoryFilter || undefined);
+
+    const fetchPage = async (targetPage: number, replace: boolean) => {
+        if (replace) setLoading(true); else setLoadingMore(true);
+        try {
+            const { items, totalItems: total } = await HomebrewService.getPage({
+                page: targetPage,
+                itemsPerPage: ITEMS_PER_PAGE,
+                scope: tab,
+                category: categoryParam,
+                search: search || undefined,
+            });
+            setEntries(prev => (replace ? items : [...prev, ...items]));
+            setTotalItems(total);
+            setPage(targetPage);
+        } catch {
+            if (replace) { setEntries([]); setTotalItems(0); }
+        } finally {
+            setLoading(false);
+            setLoadingMore(false);
+        }
+    };
+
+    // Repart de la page 1 à chaque changement d'onglet/catégorie/recherche — jamais un
+    // simple ajout, sous peine de mélanger des résultats de filtres différents.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect(() => { fetchPage(1, true); }, [tab, categoryParam, search]);
+
+    const reload = () => fetchPage(1, true);
+    const loadMore = () => fetchPage(page + 1, false);
 
     const visible = useMemo(() => {
-        const all = entries ?? [];
-        const base = tab === 'mine'
-            ? all.filter(e => e.authorId === myId)
-            : all.filter(e => e.visibility === 'public' && e.authorId !== myId);
-        const retenues = base
-            .filter(e => cats ? cats.includes(e.category) : (!categoryFilter || e.category === categoryFilter))
-            .filter(e => !search || (e.name + ' ' + (e.description ?? '')).toLowerCase().includes(search.toLowerCase()))
-            .filter(e => !estEquipement || sousTypeEquipement(e.data ?? {}) === sousType);
+        // Onglet/catégorie/recherche sont déjà appliqués côté serveur (cf. `fetchPage`) :
+        // `entries` est déjà la bonne page. Restent les filtres dérivés du JSON `data`,
+        // qui ne s'appliquent qu'à cette page (cf. le commentaire du composant).
+        const retenues = entries.filter(e => !estEquipement || sousTypeEquipement(e.data ?? {}) === sousType);
         const parPastille = pastilles && pastilleActive !== 'all'
             ? retenues.filter(e => pastilles.lit((e.data ?? {})[pastilles.key]) === pastilleActive)
             : retenues;
         return appliquerFiltres(parPastille, filtres, choixFiltres);
-    }, [entries, tab, myId, cats, categoryFilter, search, estEquipement, sousType, filtres, choixFiltres, pastilles, pastilleActive]);
+    }, [entries, estEquipement, sousType, filtres, choixFiltres, pastilles, pastilleActive]);
 
     // La création/édition se fait désormais sur une page dédiée (HomebrewForm) — plus
     // adaptée au mobile qu'une modale — avec retour vers la page courante après coup.
@@ -113,9 +164,9 @@ export const HomebrewBrowser: React.FC<HomebrewBrowserProps> = ({ tab, onTabChan
     const openEdit = (e: HomebrewEntry) => navigate(`/bibliotheque/${e.id}/modifier?retour=${encodeURIComponent(location.pathname)}`);
 
     const handleDelete = async (e: HomebrewEntry) => {
-        // `entries` porte déjà toutes les entrées visibles : compter les capacités
-        // emportées par la cascade ne coûte aucun appel supplémentaire.
-        const enfants = childrenOf(e.id, entries ?? []);
+        // Résolues côté serveur par IRI parent : une fois la bibliothèque paginée, rien ne
+        // garantit que les capacités d'une voie soient sur la page déjà chargée.
+        const enfants = await HomebrewService.getChildrenOf(e.id);
         if (!confirm(messageSuppression(e.name, enfants.length))) return;
         await HomebrewService.remove(e.id);
         await reload();
@@ -124,8 +175,8 @@ export const HomebrewBrowser: React.FC<HomebrewBrowserProps> = ({ tab, onTabChan
     const handleDuplicate = async (e: HomebrewEntry) => {
         setDuplicatingId(e.id);
         try {
-            // Les capacités d'une voie suivent la copie (`entries` les porte déjà).
-            const { copiees, echecs } = await duplicateEntry(e, childrenOf(e.id, entries ?? []));
+            const enfants = await HomebrewService.getChildrenOf(e.id);
+            const { copiees, echecs } = await duplicateEntry(e, enfants);
             const avertissement = resumeDuplication(copiees, echecs);
             if (avertissement) alert(avertissement);
             onTabChange('mine');
@@ -133,7 +184,7 @@ export const HomebrewBrowser: React.FC<HomebrewBrowserProps> = ({ tab, onTabChan
         } finally { setDuplicatingId(null); }
     };
 
-    if (entries === null) return <Loader />;
+    if (loading) return <Loader />;
 
     const createLabel = locked ? `Créer — ${categoryLabel(cats![0])}` : 'Nouveau';
 
@@ -142,8 +193,8 @@ export const HomebrewBrowser: React.FC<HomebrewBrowserProps> = ({ tab, onTabChan
             {/* Même barre que les pages officielles : recherche, pastilles de sous-type,
                 action principale et compte de résultats font corps. */}
             <SearchToolbar
-                value={search}
-                onChange={setSearch}
+                value={searchInput}
+                onChange={setSearchInput}
                 placeholder={estEquipement ? invitRecherche(sousType) : typePage ? invitRecherche(typePage) : 'Rechercher…'}
                 chips={estEquipement ? CHIPS_EQUIPEMENT : pastilles ? pastilles.options : !cats ? CHIPS_CATEGORIES : undefined}
                 chipActif={estEquipement ? sousType : pastilles ? pastilleActive : categoryFilter}
@@ -186,19 +237,32 @@ export const HomebrewBrowser: React.FC<HomebrewBrowserProps> = ({ tab, onTabChan
                     {tab === 'mine' && <button onClick={openNew} className="text-primary-400 hover:text-primary-300 text-sm underline mt-2">Créer votre premier contenu</button>}
                 </div>
             ) : (
-                <HomebrewList
-                    entries={visible}
-                    category={category}
-                    myId={myId}
-                    duplicatingId={duplicatingId}
-                    onOpen={e => navigate(`/homebrew/${e.id}`, {
-                        state: retourLabel ? { retour: location.pathname + location.search, retourLabel } : undefined,
-                    })}
-                    onEdit={openEdit}
-                    onDelete={handleDelete}
-                    onDuplicate={handleDuplicate}
-                    sousType={estEquipement ? sousType : undefined}
-                />
+                <>
+                    <HomebrewList
+                        entries={visible}
+                        category={category}
+                        myId={myId}
+                        duplicatingId={duplicatingId}
+                        onOpen={e => navigate(`/homebrew/${e.id}`, {
+                            state: retourLabel ? { retour: location.pathname + location.search, retourLabel } : undefined,
+                        })}
+                        onEdit={openEdit}
+                        onDelete={handleDelete}
+                        onDuplicate={handleDuplicate}
+                        sousType={estEquipement ? sousType : undefined}
+                    />
+                    {entries.length < totalItems && (
+                        <div className="text-center pt-4">
+                            <button
+                                onClick={loadMore}
+                                disabled={loadingMore}
+                                className="text-primary-400 hover:text-primary-300 text-sm font-bold uppercase tracking-wide disabled:opacity-50"
+                            >
+                                {loadingMore ? 'Chargement…' : `Charger plus (${entries.length}/${totalItems})`}
+                            </button>
+                        </div>
+                    )}
+                </>
             )}
         </div>
     );

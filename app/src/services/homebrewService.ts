@@ -151,9 +151,30 @@ export const parRangCroissant = (
 export const childrenOf = (parentId: number, entries: HomebrewEntry[]): HomebrewEntry[] =>
     entries.filter(e => e.parent === `/api/homebrew_entries/${parentId}`);
 
+export interface HomebrewPageParams {
+    page?: number;
+    itemsPerPage?: number;
+    scope?: 'mine' | 'community';
+    category?: string | string[];
+    search?: string;
+}
+
 export const HomebrewService = {
     // Renvoie les entrées visibles : les miennes (privées + publiques) + les publiques d'autrui.
+    // Réservé aux consommateurs qui ont besoin de TOUTE la collection comme table de
+    // correspondance (résolution de voie/capacité parent-enfant, compteurs du tableau de
+    // bord…) — jamais pour peupler une liste affichée à l'utilisateur, cf. `getPage`.
     getAll: () => ApiService.getAll<HomebrewEntry>('homebrew_entries?pagination=false&itemsPerPage=500'),
+    // Une page filtrée/paginée côté serveur — ce que HomebrewBrowser.tsx doit utiliser pour
+    // afficher une liste, quelle que soit la taille réelle de la bibliothèque communautaire.
+    getPage: ({ page, itemsPerPage, scope, category, search }: HomebrewPageParams) =>
+        ApiService.getPage<HomebrewEntry>('homebrew_entries', { page, itemsPerPage, scope, category, search }),
+    // Capacités d'une voie (résolues côté serveur par IRI parent), pour la suppression en
+    // cascade et la duplication — jamais depuis une page déjà chargée : une fois la
+    // bibliothèque paginée (`getPage`), rien ne garantit que les capacités d'une voie
+    // soient sur la même page que la voie elle-même.
+    getChildrenOf: (parentId: number) =>
+        ApiService.getAll<HomebrewEntry>(`homebrew_entries?parent=/api/homebrew_entries/${parentId}&pagination=false`),
     getById: (id: number | string) => ApiService.getOne<HomebrewEntry>('homebrew_entries', id),
     create: (data: HomebrewInput) => ApiService.post<HomebrewEntry>('homebrew_entries', data),
     update: (id: number, data: Partial<HomebrewInput>) => ApiService.patch<HomebrewEntry>('homebrew_entries', id, data),

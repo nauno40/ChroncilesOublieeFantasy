@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
@@ -10,6 +12,8 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
+use App\Filter\HomebrewScopeFilter;
+use App\Filter\HomebrewSearchFilter;
 use App\Repository\HomebrewEntryRepository;
 use App\State\HomebrewEntryStateProcessor;
 use Doctrine\DBAL\Types\Types;
@@ -40,6 +44,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
     denormalizationContext: ['groups' => ['homebrew:write']],
     order: ['updatedAt' => 'DESC'],
 )]
+#[ApiFilter(SearchFilter::class, properties: ['category' => 'exact', 'parent' => 'exact'])]
+#[ApiFilter(HomebrewSearchFilter::class)]
+#[ApiFilter(HomebrewScopeFilter::class)]
 class HomebrewEntry
 {
     #[ORM\Id]

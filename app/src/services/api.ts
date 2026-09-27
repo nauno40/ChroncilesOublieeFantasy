@@ -4,7 +4,12 @@ const API_BASE_URL = (import.meta.env.VITE_API_URL || 'http://localhost:8000/api
 interface HydraView { 'hydra:next'?: string; next?: string }
 // Réponse de collection : soit un objet Hydra (`hydra:member`/`member` + `hydra:view`),
 // soit un tableau brut selon l'endpoint. `getAll` gère les deux formes.
-interface HydraCollection<T> { member?: T[]; 'hydra:member'?: T[]; 'hydra:view'?: HydraView; view?: HydraView }
+interface HydraCollection<T> {
+    member?: T[]; 'hydra:member'?: T[]; 'hydra:view'?: HydraView; view?: HydraView;
+    totalItems?: number; 'hydra:totalItems'?: number;
+}
+
+export interface Page<T> { items: T[]; totalItems: number }
 
 const TOKEN_KEY = 'co_auth_token';
 const USER_KEY = 'co_auth_user';
@@ -141,6 +146,27 @@ export const ApiService = {
         }
 
         return allItems;
+    },
+
+    // Une SEULE page (contrairement à `getAll`, qui suit `hydra:next` jusqu'à épuisement) —
+    // pour une liste qui doit rester rapide quelle que soit la taille de la collection
+    // entière (cf. HomebrewBrowser.tsx, remplace un `pagination=false` qui chargeait tout).
+    // `params` porte page/itemsPerPage et les filtres API Platform (category, search, scope…) ;
+    // une valeur `undefined`/`''` est omise plutôt qu'envoyée comme filtre vide.
+    async getPage<T>(resource: string, params: Record<string, string | number | string[] | undefined> = {}): Promise<Page<T>> {
+        const query = new URLSearchParams();
+        Object.entries(params).forEach(([key, value]) => {
+            if (value === undefined || value === '') return;
+            // Plusieurs valeurs pour une même clé (ex. category[]=sort&category[]=capacite) :
+            // convention API Platform pour un IN() sur un SearchFilter `exact`.
+            if (Array.isArray(value)) value.forEach(v => query.append(`${key}[]`, v));
+            else query.set(key, String(value));
+        });
+        const qs = query.toString();
+        const data = await this.get<HydraCollection<T>>(`${resource}${qs ? `?${qs}` : ''}`);
+        const items = data.member ?? data['hydra:member'] ?? [];
+        const totalItems = data.totalItems ?? data['hydra:totalItems'] ?? items.length;
+        return { items, totalItems };
     },
 
     async getOne<T>(resource: string, id: string | number): Promise<T> {

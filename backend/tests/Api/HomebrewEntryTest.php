@@ -305,4 +305,131 @@ final class HomebrewEntryTest extends ApiSecurityTestCase
         $countAfter = (int) $this->em->createQuery('SELECT COUNT(e.id) FROM App\Entity\HomebrewEntry e')->getSingleScalarResult();
         $this->assertSame($countBefore, $countAfter);
     }
+
+    // --- Pagination serveur (remplace `pagination=false` côté client sur HomebrewBrowser) ---
+
+    public function testCategoryFilterNarrowsCollection(): void
+    {
+        $user = $this->createUser('mj@example.com');
+        $sort = $this->makeEntry($user, 'Un sort', 'public');
+        $sort->setCategory('sort');
+        $race = $this->makeEntry($user, 'Une race', 'public');
+        $race->setCategory('race');
+        $this->em->flush();
+
+        $response = $this->client->request('GET', '/api/homebrew_entries?category=sort', ['headers' => $this->authHeaders($user)]);
+        $this->assertResponseStatusCodeSame(200);
+        $body = $response->getContent();
+        $this->assertStringContainsString('Un sort', $body);
+        $this->assertStringNotContainsString('Une race', $body);
+    }
+
+    public function testSearchFilterMatchesNameOrDescriptionCaseInsensitive(): void
+    {
+        $user = $this->createUser('mj@example.com');
+        $parNom = $this->makeEntry($user, 'Éclat de givre', 'public');
+        $parDescription = $this->makeEntry($user, 'Sort sans rapport', 'public');
+        $parDescription->setDescription('Provoque un ÉCLAT lumineux');
+        $sansRapport = $this->makeEntry($user, 'Boule de feu', 'public');
+        $this->em->flush();
+
+        $response = $this->client->request('GET', '/api/homebrew_entries?search=éclat', ['headers' => $this->authHeaders($user)]);
+        $this->assertResponseStatusCodeSame(200);
+        $body = $response->getContent();
+        $this->assertStringContainsString('Éclat de givre', $body);
+        $this->assertStringContainsString('Sort sans rapport', $body);
+        $this->assertStringNotContainsString('Boule de feu', $body);
+    }
+
+    public function testSearchFilterWithNoMatchReturnsEmptyCollection(): void
+    {
+        $user = $this->createUser('mj@example.com');
+        $this->makeEntry($user, 'Boule de feu', 'public');
+
+        $response = $this->client->request('GET', '/api/homebrew_entries?search=inexistant', ['headers' => $this->authHeaders($user)]);
+        $this->assertResponseStatusCodeSame(200);
+        $body = $response->toArray();
+        $this->assertCount(0, $body['member'] ?? $body['hydra:member']);
+    }
+
+    public function testScopeMineReturnsOnlyOwnEntriesEvenPublicOnesFromOthers(): void
+    {
+        $alice = $this->createUser('alice@example.com');
+        $bob = $this->createUser('bob@example.com');
+        $this->makeEntry($alice, 'À moi', 'private');
+        $this->makeEntry($bob, 'À Bob, publique', 'public');
+
+        $response = $this->client->request('GET', '/api/homebrew_entries?scope=mine', ['headers' => $this->authHeaders($alice)]);
+        $body = $response->toArray();
+        $this->assertCount(1, $body['member'] ?? $body['hydra:member']);
+        $this->assertStringContainsString('À moi', $response->getContent());
+    }
+
+    public function testScopeCommunityExcludesMyOwnPublicEntries(): void
+    {
+        $alice = $this->createUser('alice@example.com');
+        $bob = $this->createUser('bob@example.com');
+        $this->makeEntry($alice, 'Publique à moi', 'public');
+        $this->makeEntry($bob, 'Publique à Bob', 'public');
+        $this->makeEntry($bob, 'Privée à Bob', 'private');
+
+        $response = $this->client->request('GET', '/api/homebrew_entries?scope=community', ['headers' => $this->authHeaders($alice)]);
+        $body = $response->getContent();
+        $this->assertStringContainsString('Publique à Bob', $body);
+        $this->assertStringNotContainsString('Publique à moi', $body);
+        $this->assertStringNotContainsString('Privée à Bob', $body);
+    }
+
+    public function testScopeMineForAnonymousVisitorReturnsEmptyNotAnError(): void
+    {
+        $bob = $this->createUser('bob@example.com');
+        $this->makeEntry($bob, 'Publique à Bob', 'public');
+
+        $response = $this->client->request('GET', '/api/homebrew_entries?scope=mine');
+        $this->assertResponseStatusCodeSame(200);
+        $body = $response->toArray();
+        $this->assertCount(0, $body['member'] ?? $body['hydra:member']);
+    }
+
+    public function testParentFilterReturnsOnlyTheChildrenOfThatVoie(): void
+    {
+        // HomebrewBrowser.tsx compte/copie les capacités d'une voie via ce filtre plutôt
+        // que via la page déjà chargée (qui peut ne pas les contenir toutes une fois la
+        // bibliothèque paginée) — la correction dépend donc de ce filtre, pas d'un hasard
+        // d'ordre de tri.
+        $user = $this->createUser('mj@example.com');
+        $voieA = $this->makeEntry($user, 'Voie A', 'private');
+        $voieB = $this->makeEntry($user, 'Voie B', 'private');
+        $capA1 = $this->makeEntry($user, 'Capacité A1', 'private');
+        $capA1->setParent($voieA);
+        $capA2 = $this->makeEntry($user, 'Capacité A2', 'private');
+        $capA2->setParent($voieA);
+        $capB1 = $this->makeEntry($user, 'Capacité B1', 'private');
+        $capB1->setParent($voieB);
+        $this->em->flush();
+
+        $response = $this->client->request('GET', '/api/homebrew_entries?parent=/api/homebrew_entries/'.$voieA->getId(), [
+            'headers' => $this->authHeaders($user),
+        ]);
+        $this->assertResponseStatusCodeSame(200);
+        $body = $response->getContent();
+        $this->assertStringContainsString('Capacité A1', $body);
+        $this->assertStringContainsString('Capacité A2', $body);
+        $this->assertStringNotContainsString('Capacité B1', $body);
+        $this->assertStringNotContainsString('"name":"Voie A"', $body);
+    }
+
+    public function testCollectionIsActuallyPaginatedWithCorrectTotal(): void
+    {
+        $user = $this->createUser('mj@example.com');
+        for ($i = 1; $i <= 5; ++$i) {
+            $this->makeEntry($user, "Entrée $i", 'public');
+        }
+
+        $response = $this->client->request('GET', '/api/homebrew_entries?itemsPerPage=2', ['headers' => $this->authHeaders($user)]);
+        $this->assertResponseStatusCodeSame(200);
+        $body = $response->toArray();
+        $this->assertCount(2, $body['member'] ?? $body['hydra:member']);
+        $this->assertSame(5, $body['totalItems'] ?? $body['hydra:totalItems']);
+    }
 }

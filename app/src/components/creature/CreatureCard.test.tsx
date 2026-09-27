@@ -7,9 +7,9 @@
  * pied de statistiques. Le test monte les deux view-models issus des deux sources et
  * vérifie que le DOM porte les mêmes libellés et les mêmes valeurs.
  */
-import { afterEach, describe, expect, it } from 'vitest';
-import { cleanup, render, within } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
+import { afterEach, describe, expect, it, vi } from 'vitest';
+import { cleanup, fireEvent, render, screen, within } from '@testing-library/react';
+import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import { CreatureCard } from './CreatureCard';
 import { carteDepuisCreature, carteDepuisMonstreMaison } from '../../domain/creature';
 import type { Creature, CustomCreature } from '../../types';
@@ -64,5 +64,34 @@ describe('carte de créature', () => {
     it('porte la description d’une créature maison, absente du bestiaire officiel', () => {
         const { container } = rendu(carteDepuisMonstreMaison(maison));
         expect(container.textContent).toContain('Variante maison');
+    });
+
+    it('affiche les étiquettes et un clic dessus déclenche onTagClick sans naviguer vers la fiche', () => {
+        // La carte entière est un <Link> (prop `to`) : un clic sur une étiquette nichée
+        // dedans doit être intercepté (preventDefault + stopPropagation), sinon le
+        // navigateur suit quand même le lien de la carte en plus d'appeler onTagClick.
+        const onTagClick = vi.fn();
+        render(
+            <MemoryRouter initialEntries={['/depart']}>
+                <Routes>
+                    <Route path="/depart" element={
+                        <CreatureCard carte={carteDepuisMonstreMaison(maison)} to="/x" tags={['boss', 'urbain']} onTagClick={onTagClick} />
+                    } />
+                    <Route path="/x" element={<div>Fiche de la créature</div>} />
+                </Routes>
+            </MemoryRouter>,
+        );
+
+        expect(screen.getByText('#boss')).toBeTruthy();
+        expect(screen.getByText('#urbain')).toBeTruthy();
+
+        fireEvent.click(screen.getByText('#boss'));
+        expect(onTagClick).toHaveBeenCalledWith('boss');
+        expect(screen.queryByText('Fiche de la créature')).toBeNull();
+    });
+
+    it('ne rend aucune étiquette quand la créature n’en porte pas', () => {
+        const { container } = rendu(carteDepuisMonstreMaison(maison));
+        expect(container.querySelector('button')).toBeNull();
     });
 });

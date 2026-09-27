@@ -9,7 +9,7 @@ const WRITABLE_FIELDS: (keyof CustomCreature)[] = [
     'name', 'description', 'nc', 'hp', 'def', 'init',
     'stats', 'statsSuperior', 'specialAbilities', 'attacks', 'capabilities',
     'picture', 'category', 'environment', 'archetype', 'size',
-    'visibility',
+    'visibility', 'tags',
 ];
 
 const toPayload = (data: Partial<CustomCreature>): Record<string, unknown> => {
@@ -22,9 +22,15 @@ const toPayload = (data: Partial<CustomCreature>): Record<string, unknown> => {
     return payload;
 };
 
-export const getMonsters = async (): Promise<CustomCreature[]> => {
+/**
+ * `sort: 'popular'` trie côté serveur par nombre de favoris (décroissant) avant pagination —
+ * `getAll` suit ensuite `hydra:next` en conservant cet ordre, donc le tableau final reste
+ * trié même après concaténation des pages. Omis, l'ordre par défaut (le plus récent) s'applique.
+ */
+export const getMonsters = async (sort?: 'recent' | 'popular'): Promise<CustomCreature[]> => {
     try {
-        return await ApiService.getAll<CustomCreature>(RESOURCE);
+        const query = sort === 'popular' ? '?order%5Bpopularity%5D=desc' : '';
+        return await ApiService.getAll<CustomCreature>(RESOURCE + query);
     } catch (error) {
         console.error('Failed to fetch custom monsters', error);
         return [];

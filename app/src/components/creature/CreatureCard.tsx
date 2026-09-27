@@ -35,13 +35,16 @@ interface CreatureCardProps {
     entete?: React.ReactNode;
     /** Pied d'actions (créations communautaires uniquement). */
     footer?: React.ReactNode;
+    /** Étiquettes libres (monstres maison uniquement — le bestiaire officiel n'en porte pas). */
+    tags?: string[];
+    onTagClick?: (tag: string) => void;
 }
 
 /** Une valeur absente s'affiche en tiret, jamais en case vide. */
 const ou = (v: number | string | undefined): string =>
     v === undefined || v === null || v === '' ? '—' : String(v);
 
-export const CreatureCard: React.FC<CreatureCardProps> = ({ carte, to, entete, footer }) => (
+export const CreatureCard: React.FC<CreatureCardProps> = ({ carte, to, entete, footer, tags, onTagClick }) => (
     <ContentCard
         to={to}
         className="h-full"
@@ -74,5 +77,18 @@ export const CreatureCard: React.FC<CreatureCardProps> = ({ carte, to, entete, f
             )}
         </div>
         {carte.description && <p className="text-sm text-stone-400 mt-3 line-clamp-2">{carte.description}</p>}
+        {tags && tags.length > 0 && (
+            <div className="mt-2 flex flex-wrap gap-1">
+                {tags.map(tag => (
+                    <button
+                        key={tag}
+                        onClick={e => { e.preventDefault(); e.stopPropagation(); onTagClick?.(tag); }}
+                        className="text-[10px] uppercase font-bold tracking-wide text-primary-400/70 hover:text-primary-300 bg-primary-500/10 hover:bg-primary-500/20 rounded px-1.5 py-0.5 transition-colors"
+                    >
+                        #{tag}
+                    </button>
+                ))}
+            </div>
+        )}
     </ContentCard>
 );

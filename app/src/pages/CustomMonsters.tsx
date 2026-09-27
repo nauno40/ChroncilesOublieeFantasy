@@ -60,6 +60,8 @@ interface MonsterForm {
     archetype: string;
     size: string;
     visibility: 'private' | 'public';
+    /** Saisie libre, séparée par des virgules — convertie en tableau à l'envoi. */
+    tagsText: string;
 }
 
 // Échelle COF2 : les caractéristiques sont des valeurs (0 = moyen), pas des scores 3‑18.
@@ -83,6 +85,7 @@ const emptyForm = (): MonsterForm => ({
     archetype: '',
     size: '',
     visibility: 'private',
+    tagsText: '',
 });
 
 const toForm = (c: CustomCreature): MonsterForm => ({
@@ -104,6 +107,7 @@ const toForm = (c: CustomCreature): MonsterForm => ({
     archetype: c.archetype ?? '',
     size: c.size ?? '',
     visibility: c.visibility ?? 'private',
+    tagsText: (c.tags ?? []).join(', '),
 });
 
 const toPayload = (form: MonsterForm): Partial<CustomCreature> => ({
@@ -126,6 +130,9 @@ const toPayload = (form: MonsterForm): Partial<CustomCreature> => ({
     archetype: form.archetype.trim() || undefined,
     size: form.size.trim() || undefined,
     visibility: form.visibility,
+    // Toujours envoyé (même vide) : ce formulaire couvre tout l'état du monstre, pas un
+    // correctif partiel — vider le champ doit bien retirer les tags existants.
+    tags: form.tagsText.split(',').map(t => t.trim().toLowerCase()).filter(Boolean),
 });
 
 interface CustomMonstersProps {
@@ -154,17 +161,23 @@ export const CustomMonsters: React.FC<CustomMonstersProps> = ({ embedded = false
     const [filtreCategorie, setFiltreCategorie] = useState('all');
     const [filtreMilieu, setFiltreMilieu] = useState('all');
     const [filtreTaille, setFiltreTaille] = useState('all');
+    const [filtreTag, setFiltreTag] = useState<string | undefined>(undefined);
+    const [tri, setTri] = useState<'recent' | 'popular'>('recent');
     const location = useLocation();
     const [error, setError] = useState<string | null>(null);
 
     const load = () => {
         setLoading(true);
-        getMonsters()
+        getMonsters(tri)
             .then(setMonsters)
             .finally(() => setLoading(false));
     };
 
-    useEffect(load, []);
+    // Recharge quand le tri change : lui seul est demandé au serveur (cf. getMonsters) —
+    // les autres axes (onglet, recherche, catégorie, tag…) filtrent `monsters` côté client
+    // ci-dessous, sans nouvel appel réseau.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect(load, [tri]);
 
     // Bestiaire SRD : alimente les suggestions des <datalist> (chargé une fois).
     useEffect(() => {
@@ -202,11 +215,14 @@ export const CustomMonsters: React.FC<CustomMonstersProps> = ({ embedded = false
             ? base.filter((c) => (c.name + ' ' + (c.description ?? '') + ' ' + (c.category ?? '')).toLowerCase().includes(terme))
             : base;
         const correspond = (valeur: string | undefined, choix: string) => choix === 'all' || (valeur ?? '') === choix;
+        // Le tri (récent/populaire) vient du serveur (cf. `load`) : `filter` préserve l'ordre
+        // du tableau reçu, donc pas besoin de re-trier ici.
         return parTexte.filter((c) =>
             correspond(c.category, filtreCategorie)
             && correspond(c.environment, filtreMilieu)
-            && correspond(c.size, filtreTaille));
-    }, [monsters, tab, myId, recherche, filtreCategorie, filtreMilieu, filtreTaille]);
+            && correspond(c.size, filtreTaille)
+            && (!filtreTag || (c.tags ?? []).includes(filtreTag)));
+    }, [monsters, tab, myId, recherche, filtreCategorie, filtreMilieu, filtreTaille, filtreTag]);
 
     const startCreate = () => {
         setError(null);
@@ -358,6 +374,35 @@ export const CustomMonsters: React.FC<CustomMonstersProps> = ({ embedded = false
                         </button>
                     )}
                 />
+            )}
+
+            {/* Tri par popularité (favoris) et rappel de l'étiquette active — mêmes intitulés
+                que la Bibliothèque (HomebrewBrowser.tsx), pour une expérience cohérente. */}
+            {!form && (
+                <div className="flex items-center gap-3 flex-wrap">
+                    <div className="flex items-center gap-1 text-xs">
+                        <button
+                            onClick={() => setTri('recent')}
+                            className={`px-3 py-1.5 rounded-lg font-bold uppercase tracking-wide transition-colors ${tri === 'recent' ? 'bg-primary-600 text-stone-950' : 'text-stone-400 hover:text-primary-300 hover:bg-white/5'}`}
+                        >
+                            Récent
+                        </button>
+                        <button
+                            onClick={() => setTri('popular')}
+                            className={`px-3 py-1.5 rounded-lg font-bold uppercase tracking-wide transition-colors ${tri === 'popular' ? 'bg-primary-600 text-stone-950' : 'text-stone-400 hover:text-primary-300 hover:bg-white/5'}`}
+                        >
+                            Populaire
+                        </button>
+                    </div>
+                    {filtreTag && (
+                        <button
+                            onClick={() => setFiltreTag(undefined)}
+                            className="flex items-center gap-1.5 text-xs font-bold uppercase text-primary-300 bg-primary-500/10 hover:bg-primary-500/20 rounded-lg px-3 py-1.5 transition-colors"
+                        >
+                            #{filtreTag} <X size={12} />
+                        </button>
+                    )}
+                </div>
             )}
 
             {error && !form && (
@@ -639,6 +684,18 @@ export const CustomMonsters: React.FC<CustomMonstersProps> = ({ embedded = false
                         />
                     </div>
 
+                    {/* Étiquettes (découverte communautaire) */}
+                    <div>
+                        <label className={labelClass}>Étiquettes (séparées par des virgules)</label>
+                        <input
+                            aria-label="Étiquettes (séparées par des virgules)"
+                            className={inputClass}
+                            value={form.tagsText}
+                            onChange={(e) => patch({ tagsText: e.target.value })}
+                            placeholder="boss, aquatique, urbain"
+                        />
+                    </div>
+
                     {/* Partage communautaire */}
                     <label className="flex items-center gap-2 text-sm text-stone-300 cursor-pointer">
                         <input
@@ -696,6 +753,8 @@ export const CustomMonsters: React.FC<CustomMonstersProps> = ({ embedded = false
                                 key={c.id}
                                 carte={carteDepuisMonstreMaison(c)}
                                 to={`/creatures/maison/${c.id}`}
+                                tags={c.tags}
+                                onTagClick={setFiltreTag}
                                 entete={c.visibility === 'public'
                                     ? <Globe size={13} className="text-green-500/70 shrink-0" aria-label="Public" />
                                     : <Lock size={13} className="text-stone-400 shrink-0" aria-label="Privé" />}

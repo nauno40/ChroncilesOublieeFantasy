@@ -27,7 +27,7 @@ Le produit est une **très bonne aide de table pour un MJ isolé** (compendium f
 2. **Aucune attribution** : `owner` n'est dans aucun groupe de lecture. Un contenu public n'affiche pas son auteur ; pas de profil public, pas de « mes contenus publiés » vus de l'extérieur.
 3. **Aucune modération** : pas de signalement, pas de statut (en attente / approuvé / retiré), pas de rôle modérateur. Seule issue : suppression par un admin. Et `ROLE_ADMIN` donne aujourd'hui lecture des notes privées des MJ (choix assumé tant que l'admin est l'exploitant, cf. `backend.md` §6) : **à revoir avant d'introduire des modérateurs**.
 4. **Aucune protection anti-abus** : aucun `rate_limiter` configuré, pas de vérification d'e-mail à l'inscription, pas de CAPTCHA. L'inscription est publique et l'API d'écriture communautaire l'est de fait.
-5. **Cadre légal non repéré** : pas de CGU, mentions légales, politique de confidentialité/RGPD, ni de suppression de compte ou d'export de données côté utilisateur ; pas de mention de licence pour le contenu déposé par les membres (à vérifier dans le front).
+5. **Cadre légal non repéré** : pas de CGU, mentions légales, politique de confidentialité/RGPD ; pas de mention de licence pour le contenu déposé par les membres (à vérifier dans le front). ~~Ni de suppression de compte ou d'export de données~~ — fait le 2026-09-27 : la suppression de compte, censée déjà exister, échouait en réalité en 500 pour tout compte possédant du contenu (FK sans `ON DELETE`, corrigé) ; export ajouté (`GET /api/me/export`).
 6. ~~Pas de chemin de production documenté~~ — `doc/deploiement-prod.md` (2026-09-22) : variables d'env à changer, HTTPS, sauvegardes, checklist. Les comptes de seed (`admin@example.com`, mot de passe de Nauno en clair dans le dépôt) sont neutralisés : `AppFixtures`/`app:create-test-user` refusent `APP_ENV=prod`, mots de passe sortis en variables d'env.
 
 ### Importants (ce qui fait « vivre » la communauté)
@@ -53,7 +53,7 @@ Le produit est une **très bonne aide de table pour un MJ isolé** (compendium f
 
 **Jalon A — « Ouvrable à des inconnus »** (sécurité et légal)
 - Rate limiting + vérification d'e-mail ; changer identifiants de seed hors dev
-- CGU / mentions / confidentialité ; suppression et export de compte
+- CGU / mentions / confidentialité (texte à écrire/valider par un humain) ; ~~suppression et export de compte~~ faits (2026-09-27)
 - Signalement + statut de modération + `ROLE_MODERATOR` distinct de l'admin
 - Guide de déploiement : hébergement, HTTPS, sauvegardes, secrets
 

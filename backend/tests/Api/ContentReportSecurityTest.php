@@ -155,6 +155,44 @@ final class ContentReportSecurityTest extends ApiSecurityTestCase
         $this->assertNotNull($fresh->getResolvedAt());
     }
 
+    public function testRePatchingAResolvedReportDoesNotRestampResolverOrTimestamp(): void
+    {
+        // La garde `null === $data->getResolvedAt()` dans ContentReportStateProcessor ne
+        // doit stamper qu'une fois : re-patcher un signalement déjà résolu (par ex. pour
+        // changer resolved -> dismissed) ne doit ni réécrire resolvedBy/resolvedAt, ni
+        // redéclencher la notification par e-mail au déclarant.
+        $firstAdmin = $this->createUser('admin1@example.com', ['ROLE_ADMIN']);
+        $reporter = $this->createUser('joueur@example.com');
+        $report = $this->createReport($reporter);
+
+        $this->client->request('PATCH', '/api/content_reports/'.$report->getId(), [
+            'headers' => $this->authHeaders($firstAdmin) + ['Content-Type' => 'application/merge-patch+json'],
+            'json' => ['status' => 'resolved'],
+        ]);
+        $this->assertResponseStatusCodeSame(200);
+
+        $this->em->clear();
+        $resolvedAt = $this->em->getRepository(ContentReport::class)->find($report->getId())->getResolvedAt();
+        $this->assertNotNull($resolvedAt);
+
+        $secondAdmin = $this->createUser('admin2@example.com', ['ROLE_ADMIN']);
+        $this->client->request('PATCH', '/api/content_reports/'.$report->getId(), [
+            'headers' => $this->authHeaders($secondAdmin) + ['Content-Type' => 'application/merge-patch+json'],
+            'json' => ['status' => 'dismissed'],
+        ]);
+        $this->assertResponseStatusCodeSame(200);
+        // Le statut a bien changé, mais le résolveur et l'horodatage d'origine restent ceux
+        // du premier admin — pas de "second resolvedBy" qui écraserait qui a réellement agi.
+        $this->assertJsonContains([
+            'status' => 'dismissed',
+            'resolvedBy' => '/api/users/'.$firstAdmin->getId(),
+        ]);
+
+        $this->em->clear();
+        $fresh = $this->em->getRepository(ContentReport::class)->find($report->getId());
+        $this->assertEquals($resolvedAt, $fresh->getResolvedAt());
+    }
+
     public function testRegularUserCannotResolveAReport(): void
     {
         $reporter = $this->createUser('joueur@example.com');

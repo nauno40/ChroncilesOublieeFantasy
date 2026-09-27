@@ -126,6 +126,38 @@ final class CommentSecurityTest extends ApiSecurityTestCase
         $this->assertResponseStatusCodeSame(404);
     }
 
+    public function testUnknownAndPrivateTargetsAreRejectedWithTheSameBody(): void
+    {
+        // La propriété de sécurité revendiquée par Comment (cf. son docblock) est que
+        // « cible introuvable » et « cible privée d'autrui » ne se distinguent PAS : sans
+        // ça, la réponse elle-même révélerait qu'un contenu privé existe à cet id.
+        $bob = $this->createUser('bob@example.com');
+        $entry = $this->makeEntry($bob, 'private');
+        $alice = $this->createUser('alice@example.com');
+
+        $unknown = $this->client->request('POST', '/api/comments', [
+            'headers' => $this->authHeaders($alice),
+            'json' => ['targetType' => 'homebrew_entry', 'targetId' => 999999, 'content' => 'Bravo !'],
+        ]);
+        $unknownBody = json_decode($unknown->getContent(false), true);
+
+        $private = $this->client->request('POST', '/api/comments', [
+            'headers' => $this->authHeaders($alice),
+            'json' => ['targetType' => 'homebrew_entry', 'targetId' => $entry->getId(), 'content' => 'Bravo !'],
+        ]);
+        $privateBody = json_decode($private->getContent(false), true);
+
+        $this->assertSame(404, $unknown->getStatusCode());
+        $this->assertSame(404, $private->getStatusCode());
+        // `trace` (chemin/ligne d'appel du processor) diffère forcément d'un appel à
+        // l'autre en mode debug — ce n'est pas ce que revendique la propriété de sécurité.
+        // Ce qui doit être strictement identique, c'est ce qu'un client voit réellement :
+        // titre, détail, statut, type.
+        foreach (['title', 'detail', 'status', 'type', 'description'] as $field) {
+            $this->assertSame($unknownBody[$field] ?? null, $privateBody[$field] ?? null, "champ « $field »");
+        }
+    }
+
     public function testAnonymousCanReadCommentsOnPublicEntry(): void
     {
         $bob = $this->createUser('bob@example.com');

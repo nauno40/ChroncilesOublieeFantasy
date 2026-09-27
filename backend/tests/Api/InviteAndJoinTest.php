@@ -21,6 +21,22 @@ final class InviteAndJoinTest extends ApiSecurityTestCase
         $this->assertNotEmpty($data['inviteCode']);
     }
 
+    public function testCreateIgnoresClientSuppliedInviteCode(): void
+    {
+        // `inviteCode` n'est que dans le groupe `campaign:read` (jamais `campaign:write`) :
+        // un client ne peut pas choisir/prédire son propre code, ni entrer en collision
+        // avec celui d'une autre campagne — seul CampaignStateProcessor (création) ou
+        // RegenerateInviteProcessor (régénération) en posent un, toujours généré côté serveur.
+        $mj = $this->createUser('mj@example.com');
+
+        $response = $this->client->request('POST', '/api/campaigns', [
+            'headers' => $this->authHeaders($mj),
+            'json' => ['name' => 'Osgild', 'inviteCode' => 'CHOISIPARMOI'],
+        ]);
+        $this->assertResponseStatusCodeSame(201);
+        $this->assertNotSame('CHOISIPARMOI', $response->toArray()['inviteCode']);
+    }
+
     public function testOwnerCanRegenerateInviteCode(): void
     {
         $mj = $this->createUser('mj@example.com');

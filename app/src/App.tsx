@@ -53,6 +53,7 @@ const CharacterSheet = lazy(() => import('./pages/CharacterSheet').then(m => ({ 
 const PrintableCharacterSheet = lazy(() => import('./pages/PrintableCharacterSheet').then(m => ({ default: m.PrintableCharacterSheet })));
 const PlayMode = lazy(() => import('./pages/PlayMode/PlayMode').then(m => ({ default: m.PlayMode })));
 const AuthorProfile = lazy(() => import('./pages/AuthorProfile').then(m => ({ default: m.AuthorProfile })));
+const MyFavorites = lazy(() => import('./pages/MyFavorites').then(m => ({ default: m.MyFavorites })));
 
 function App() {
   return (
@@ -130,6 +131,7 @@ function App() {
                 <Route path="rules" element={<Rules />} />
                 <Route path="bibliotheque/nouveau/:categorie" element={<HomebrewForm />} />
                 <Route path="bibliotheque/:id/modifier" element={<HomebrewForm />} />
+                <Route path="favoris" element={<MyFavorites />} />
                 <Route path="characters" element={<CharacterList />} />
                 <Route path="characters/new" element={<CharacterSheet />} />
                 <Route path="characters/:id" element={<CharacterSheet />} />

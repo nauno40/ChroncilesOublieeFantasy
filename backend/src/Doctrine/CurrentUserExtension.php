@@ -11,6 +11,7 @@ use App\Entity\CampaignMembership;
 use App\Entity\Character;
 use App\Entity\CustomCreature;
 use App\Entity\Encounter;
+use App\Entity\Favorite;
 use App\Entity\HomebrewEntry;
 use App\Entity\Quest;
 use App\Entity\Clue;
@@ -66,7 +67,8 @@ final readonly class CurrentUserExtension implements QueryCollectionExtensionInt
             Clue::class !== $resourceClass &&
             Session::class !== $resourceClass &&
             Encounter::class !== $resourceClass &&
-            CampaignMembership::class !== $resourceClass
+            CampaignMembership::class !== $resourceClass &&
+            Favorite::class !== $resourceClass
         ) {
             return;
         }
@@ -91,6 +93,9 @@ final readonly class CurrentUserExtension implements QueryCollectionExtensionInt
             $queryBuilder
                 ->leftJoin(sprintf('%s.campaign', $rootAlias), 'ms_camp')
                 ->andWhere(sprintf('%s.player = :current_user OR ms_camp.owner = :current_user', $rootAlias));
+        } elseif (Favorite::class === $resourceClass) {
+            // Strictement personnel : personne ne voit les favoris de quelqu'un d'autre.
+            $queryBuilder->andWhere(sprintf('%s.user = :current_user', $rootAlias));
         } else {
             // Quest, Clue, Session, Encounter : filtrés par le propriétaire de leur campagne.
             $queryBuilder

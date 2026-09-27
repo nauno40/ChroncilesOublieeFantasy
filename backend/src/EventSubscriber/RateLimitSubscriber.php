@@ -41,6 +41,12 @@ final class RateLimitSubscriber implements EventSubscriberInterface
             'limit' => 20,
             'window' => 600,
         ],
+        'favorite_write' => [
+            'path' => '#^/api/favorites(/|$)#',
+            'methods' => ['POST', 'DELETE'],
+            'limit' => 60,
+            'window' => 300,
+        ],
     ];
 
     public function __construct(

@@ -51,4 +51,23 @@ describe('OwnerBar', () => {
         render(<OwnerBar pseudo="moi" visibility="public" mine onReport={() => {}} />);
         expect(screen.queryByText('Signaler')).toBeNull();
     });
+
+    it('propose de mettre en favori le contenu d’autrui, pas encore favori', () => {
+        const onToggleFavorite = vi.fn();
+        render(<OwnerBar pseudo="quelqu’un" visibility="public" mine={false} favorited={false} onToggleFavorite={onToggleFavorite} />);
+
+        fireEvent.click(screen.getByText('Ajouter aux favoris'));
+        expect(onToggleFavorite).toHaveBeenCalledOnce();
+    });
+
+    it('affiche « Favori » quand le contenu l’est déjà', () => {
+        render(<OwnerBar pseudo="quelqu’un" visibility="public" mine={false} favorited onToggleFavorite={() => {}} />);
+        expect(screen.getByText('Favori')).toBeTruthy();
+        expect(screen.queryByText('Ajouter aux favoris')).toBeNull();
+    });
+
+    it('n’offre pas de mettre en favori son propre contenu', () => {
+        render(<OwnerBar pseudo="moi" visibility="public" mine onToggleFavorite={() => {}} />);
+        expect(screen.queryByText(/favori/i)).toBeNull();
+    });
 });

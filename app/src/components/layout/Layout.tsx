@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
-import { Mountain, Sword, Swords, Users, Home, BookOpen, GraduationCap, Sparkles, Zap, Package, Truck, UtensilsCrossed, AlertCircle, ScrollText, Skull, Footprints, Tent, Map, BookMarked, Ghost } from 'lucide-react';
+import { Mountain, Sword, Swords, Users, Home, BookOpen, GraduationCap, Sparkles, Zap, Package, Truck, UtensilsCrossed, AlertCircle, ScrollText, Skull, Footprints, Tent, Map, BookMarked, Ghost, Heart } from 'lucide-react';
 import clsx from 'clsx';
 import type { NavItem } from './NavItem';
 import { NavItemComponent } from './NavItem';
@@ -45,6 +45,7 @@ export const Layout: React.FC = () => {
             subItems: [
                 { path: '/campaign', icon: Map, label: 'Campagnes' },
                 { path: '/characters', icon: Users, label: LEXIQUE.mesPersonnages },
+                { path: '/favoris', icon: Heart, label: 'Mes favoris' },
             ]
         },
         {

@@ -12,6 +12,7 @@ import { DataService } from '../services/dataService';
 import { getMonsters } from '../services/monsterService';
 import type { ReferencesDeclaration } from '../components/homebrew/HomebrewFields';
 import { useAuth } from '../hooks/useAuth';
+import { useFavorite } from '../hooks/useFavorite';
 
 // Champs « compacts » (colonne latérale) vs « longs » (colonne principale).
 const isSidebar = (f: HomebrewFieldDef) => f.type === 'number' || f.type === 'select' || f.type === 'text' || f.type === 'bool';
@@ -37,6 +38,8 @@ export const HomebrewDetail: React.FC = () => {
     const [activeTab, setActiveTab] = useState<'lore' | 'rules'>('lore');
     const [duplicating, setDuplicating] = useState(false);
     const [reportOpen, setReportOpen] = useState(false);
+    // Appelé avant tout retour anticipé (loading / introuvable) : règle des hooks.
+    const favorite = useFavorite('homebrew_entry', entry?.id);
     // Entités nécessaires à la résolution des liens de déclaration. La feuille est pure :
     // c'est la page qui charge. Un échec laisse la collection vide, donc aucune pastille,
     // sans empêcher la fiche de s'afficher.
@@ -138,6 +141,9 @@ export const HomebrewDetail: React.FC = () => {
                 onDuplicate={user ? handleDuplicate : undefined}
                 onDelete={mine ? handleDelete : undefined}
                 onReport={user ? () => setReportOpen(true) : undefined}
+                favorited={favorite.favorited}
+                favoriting={favorite.favoriting}
+                onToggleFavorite={favorite.onToggleFavorite}
             />
             <ReportContentModal
                 isOpen={reportOpen}

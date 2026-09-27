@@ -5,6 +5,7 @@ import type { CustomCreature } from '../types';
 import { getMonster, getMonsters, deleteMonster, createMonster } from '../services/monsterService';
 import { DataService } from '../services/dataService';
 import { useAuth } from '../hooks/useAuth';
+import { useFavorite } from '../hooks/useFavorite';
 import { CreatureSheet, OwnerBar } from '../components/sheets';
 import { customCreatureToVM } from '../components/sheets/adapters/fromCustomCreature';
 import { Loader, ReportContentModal } from '../components/common';
@@ -27,6 +28,8 @@ export const CustomCreatureDetail: React.FC = () => {
     const [loading, setLoading] = useState(true);
     const [duplication, setDuplication] = useState(false);
     const [reportOpen, setReportOpen] = useState(false);
+    // Appelé avant tout retour anticipé (loading / introuvable) : règle des hooks.
+    const favorite = useFavorite('custom_creature', creature?.id);
     const [references, setReferences] = useState<ReferencesDeclaration>({
         etats: [],
         sources: { creatures: [], monstresMaison: [], armes: [], armures: [], communautaire: [] },
@@ -111,6 +114,9 @@ export const CustomCreatureDetail: React.FC = () => {
                         onDuplicate={user ? dupliquer : undefined}
                         onDelete={mienne ? supprimer : undefined}
                         onReport={user ? () => setReportOpen(true) : undefined}
+                        favorited={favorite.favorited}
+                        favoriting={favorite.favoriting}
+                        onToggleFavorite={favorite.onToggleFavorite}
                     />
                 )}
             />

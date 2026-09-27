@@ -1,5 +1,5 @@
 import React from 'react';
-import { Edit, Trash2, Copy, Flag } from 'lucide-react';
+import { Edit, Trash2, Copy, Flag, Heart } from 'lucide-react';
 import { AuthorTag } from '../common';
 
 interface OwnerBarProps {
@@ -13,13 +13,17 @@ interface OwnerBarProps {
     onReport?: () => void;
     /** Renvoie vers le profil public de l'auteur — cf. AuthorTag. */
     authorId?: number | string | null;
+    /** Favori du membre connecté sur CE contenu (jamais le sien — cf. onToggleFavorite). */
+    favorited?: boolean;
+    favoriting?: boolean;
+    onToggleFavorite?: () => void;
 }
 
 /**
  * Bandeau propriétaire : unique différence visuelle admise entre une fiche officielle
  * et une fiche communautaire. Toute autre divergence doit être refusée en revue.
  */
-export const OwnerBar: React.FC<OwnerBarProps> = ({ pseudo, visibility, mine, duplicating, onEdit, onDelete, onDuplicate, onReport, authorId }) => (
+export const OwnerBar: React.FC<OwnerBarProps> = ({ pseudo, visibility, mine, duplicating, onEdit, onDelete, onDuplicate, onReport, authorId, favorited, favoriting, onToggleFavorite }) => (
     <div className="mt-4 flex flex-wrap items-center gap-3 glass-panel rounded-xl border border-white/5 px-4 py-2.5">
         <AuthorTag pseudo={pseudo} visibility={visibility} size="md" authorId={authorId} />
         <div className="flex items-center gap-2 ml-auto">
@@ -40,6 +44,18 @@ export const OwnerBar: React.FC<OwnerBarProps> = ({ pseudo, visibility, mine, du
             {onDuplicate && (
                 <button onClick={onDuplicate} disabled={duplicating} className="flex items-center gap-1.5 text-xs font-bold uppercase text-stone-400 hover:text-primary-300 transition-colors px-2 py-1 rounded-lg hover:bg-white/5 disabled:opacity-50">
                     <Copy size={14} /> {duplicating ? 'Copie…' : (mine ? 'Dupliquer' : 'Dupliquer chez moi')}
+                </button>
+            )}
+            {/* Mettre son propre contenu en favori n'a pas de sens (refusé côté serveur) —
+                seul le contenu d'autrui propose l'action, comme Signaler. */}
+            {!mine && onToggleFavorite && (
+                <button
+                    onClick={onToggleFavorite}
+                    disabled={favoriting}
+                    className={`flex items-center gap-1.5 text-xs font-bold uppercase transition-colors px-2 py-1 rounded-lg hover:bg-white/5 disabled:opacity-50 ${favorited ? 'text-rose-400 hover:text-rose-300' : 'text-stone-400 hover:text-rose-300'}`}
+                >
+                    <Heart size={14} fill={favorited ? 'currentColor' : 'none'} />
+                    {favorited ? 'Favori' : 'Ajouter aux favoris'}
                 </button>
             )}
             {/* Signaler son propre contenu n'a pas de sens : seul le contenu d'autrui l'offre. */}

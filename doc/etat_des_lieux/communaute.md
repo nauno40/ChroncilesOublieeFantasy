@@ -31,9 +31,9 @@ Le produit est une **très bonne aide de table pour un MJ isolé** (compendium f
 6. ~~Pas de chemin de production documenté~~ — `doc/deploiement-prod.md` (2026-09-22) : variables d'env à changer, HTTPS, sauvegardes, checklist. Les comptes de seed (`admin@example.com`, mot de passe de Nauno en clair dans le dépôt) sont neutralisés : `AppFixtures`/`app:create-test-user` refusent `APP_ENV=prod`, mots de passe sortis en variables d'env.
 
 ### Importants (ce qui fait « vivre » la communauté)
-7. **Découverte** : pas de tri par popularité/nouveauté, pas de tags, pas de recherche communautaire dédiée au-delà des filtres du compendium.
-8. **Interactions** : pas de favoris/likes, pas de commentaires, pas de « dupliquer / adapter » le contenu d'autrui (fork), pas de notes de version.
-9. **Notifications** : seul e-mail existant = réinitialisation de mot de passe (Messenger est configuré mais peu exploité).
+7. **Découverte** : pas de tri par popularité/nouveauté (un signal existe désormais — les favoris —, mais aucun tri/UI ne l'exploite), pas de tags, pas de recherche communautaire dédiée au-delà des filtres du compendium.
+8. ~~**Interactions** : pas de favoris/likes, pas de commentaires, pas de « dupliquer / adapter » le contenu d'autrui (fork)~~ — jalon C fait (2026-09-27) : favoris, commentaires (visibilité alignée sur celle de la cible), duplication déjà couverte par « Dupliquer chez moi ». Pas de notes de version.
+9. ~~**Notifications** : seul e-mail existant = réinitialisation de mot de passe~~ — jalon C fait (2026-09-27) : nouveau commentaire/favori sur son contenu, signalement traité, notifient désormais par e-mail (`NotificationMailer`). Pas de préférence de désabonnement (aucune infrastructure de préférences sur `User`).
 10. **Performance à l'échelle — mesuré (2026-09-27), pas théorique.** `itemsPerPage=500` est un leurre : la requête porte aussi `pagination=false`, qui désactive toute limite côté API Platform (renvoie tout, quel que soit `itemsPerPage`) — `HomebrewService.getAll()` charge donc **la table entière** à chaque visite de la Bibliothèque ou d'une fiche (pas de cache, contrairement à `DataService`). Mesuré en insérant 3 000 entrées synthétiques puis en interrogeant `GET /api/homebrew_entries?pagination=false&itemsPerPage=500` depuis le réseau Docker (nginx) : **~1,7–2,1 s, 866 Ko**, pour un volume qui reste modeste au regard d'une vraie communauté. Ce n'est pas un correctif ponctuel : `HomebrewBrowser.tsx` filtre aussi tab/catégorie/recherche **côté client** sur ce jeu complet — une vraie pagination demanderait de déplacer ce filtrage côté serveur (requêtes paginées + filtres API), pas seulement de retirer `pagination=false`. Chantier à part entière, pas fait ici.
 
 ### Choix produit à trancher (sinon le périmètre dérive)
@@ -62,9 +62,8 @@ Le produit est une **très bonne aide de table pour un MJ isolé** (compendium f
 - Pages publiques de contenu (lecture anonyme, URL partageables, méta pour partage)
 - Tri (récent / populaire), tags, recherche communautaire
 
-**Jalon C — « Faire vivre »**
-- Favoris, fork/adaptation, commentaires, notifications par e-mail
-- Collections / packs de contenu, import-export d'une campagne
+**Jalon C — « Faire vivre »** — fait (2026-09-27) : favoris, commentaires, notifications par e-mail (fork/adaptation déjà couvert par « Dupliquer chez moi », antérieur à ce jalon).
+- Reste ouvert : collections / packs de contenu, import-export d'une campagne
 
 **Jalon D — « Ouverture »** (à décider)
 - Licence explicite du contenu membre, API publique documentée, éventuels contributions au compendium officiel par PR de données

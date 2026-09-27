@@ -116,9 +116,19 @@ serait inventer.
   catégorie (sorts, classes/profils, races/peuples, voies, objets…). Ce n'est pas une limite
   technique à lever un jour, c'est une décision produit permanente : compléter une catégorie au
   jugé, sans la source officielle sous les yeux, reviendrait à inventer des règles au nom du
-  livre. Les **147 créatures servies absentes du livre** (non vérifiables par
-  `audit-bestiaire.mjs`) restent le cas le plus visible de ce principe, mais il vaut pour
-  l'ensemble du compendium, pas seulement le bestiaire.
+  livre. **Bestiaire nettoyé en conséquence (2026-09-27, `Version20260927140000`)** : les 147
+  créatures servies sans aucune correspondance numérique avec le livre de base (constaté stat par
+  stat, pas au jugé — ex. la base servait « Ogre » NC3/DEF16/PV30 quand le livre donne « Ogre de
+  base » NC3/DEF17/PV40, proche mais pas le même bloc) ont été supprimées ; les 9 profils du
+  livre qui manquaient encore (Aigle commun, Animal minuscule/très petit/petit, Cheval de guerre,
+  Ogre de base, Orc de base, Zombie choursette, Chimère draconique) ont été ajoutés en extrayant
+  leurs stats du texte. Le bestiaire officiel compte désormais **81 créatures, toutes vérifiées
+  contre le livre** (`scripts/audit-bestiaire.mjs` : 80 profils comparés, 0 divergence — le 81ᵉ,
+  Chimère draconique, hérite des stats de Chimère et n'a pas de bloc Caractéristiques propre à
+  comparer). Même principe pas encore appliqué aux autres catégories (sorts, classes, races,
+  voies, objets) : à auditer une par une avant toute suppression, l'exercice sur le bestiaire
+  ayant montré qu'une ressemblance de nom ne suffit jamais à conclure — il faut vérifier les
+  stats.
 - **Invocations officielles** : seules deux capacités du livre désignent une créature du
   bestiaire (« Animation des morts » → Zombi humain, « Panthère »). Les autres portent le profil
   de l'invoquée **dans le texte du sort** (élémentaire, démon, serviteur invisible — souvent

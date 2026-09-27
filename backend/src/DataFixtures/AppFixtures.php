@@ -1194,8 +1194,8 @@ class AppFixtures extends Fixture
             [$c2, 'La bande du Borgne (péage)', 'Au pont brisé — la négociation peut éviter le combat.', [['Bandit vétéran', 2], ['Bandit de base', 3]]],
             [$c2, 'Rôdeurs nocturnes', 'Attaque surprise pendant la veille du campement.', [['Gnoll de base', 2], ['Orque noir', 1]]],
             [$c3, 'Gardiens squelettes du Tombeau', 'Première salle des catacombes.', [['Squelette de base', 6]]],
-            [$c3, 'L\'archiviste spectral', 'Bibliothèque engloutie, dans la brume.', [['Spectre', 1], ['Squelette de géant', 1]]],
-            [$c3, 'Vhorst et le dernier Roi-Sorcier', 'Combat final sur le pont-levis au-dessus du gouffre.', [['Momie', 1], ['Goule', 2], ['Ogre', 1]]],
+            [$c3, 'L\'archiviste spectral', 'Bibliothèque engloutie, dans la brume.', [['Vampire', 1], ['Squelette de géant', 1]]],
+            [$c3, 'Vhorst et le dernier Roi-Sorcier', 'Combat final sur le pont-levis au-dessus du gouffre.', [['Momie', 1], ['Goule', 2], ['Ogre de base', 1]]],
         ] as [$camp, $name, $notes, $roster]) {
             $mkEncounter($camp, $name, $notes, $roster);
         }

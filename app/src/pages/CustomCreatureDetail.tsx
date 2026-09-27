@@ -8,7 +8,7 @@ import { useAuth } from '../hooks/useAuth';
 import { useFavorite } from '../hooks/useFavorite';
 import { CreatureSheet, OwnerBar } from '../components/sheets';
 import { customCreatureToVM } from '../components/sheets/adapters/fromCustomCreature';
-import { Loader, ReportContentModal } from '../components/common';
+import { Loader, ReportContentModal, CommentThread } from '../components/common';
 import type { ReferencesDeclaration } from '../components/homebrew/HomebrewFields';
 
 /**
@@ -126,6 +126,9 @@ export const CustomCreatureDetail: React.FC = () => {
                 targetId={creature.id}
                 onClose={() => setReportOpen(false)}
             />
+            <div className="container mx-auto px-4">
+                <CommentThread targetType="custom_creature" targetId={creature.id} />
+            </div>
         </>
     );
 };

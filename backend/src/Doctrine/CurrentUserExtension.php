@@ -9,6 +9,7 @@ use ApiPlatform\Metadata\Operation;
 use App\Entity\Campaign;
 use App\Entity\CampaignMembership;
 use App\Entity\Character;
+use App\Entity\Comment;
 use App\Entity\CustomCreature;
 use App\Entity\Encounter;
 use App\Entity\Favorite;
@@ -56,6 +57,31 @@ final readonly class CurrentUserExtension implements QueryCollectionExtensionInt
 
             $queryBuilder->andWhere(sprintf("%s.owner = :current_user OR %s.visibility = 'public'", $rootAlias, $rootAlias));
             $queryBuilder->setParameter('current_user', $user);
+
+            return;
+        }
+
+        // Commentaires : aucune relation Doctrine vers leur cible (targetType/targetId en
+        // pointeur faible, comme Favorite), donc la visibilité — celle de la cible, pas une
+        // colonne propre au commentaire — se filtre par sous-requête plutôt que par jointure.
+        if (Comment::class === $resourceClass) {
+            $rootAlias = $queryBuilder->getRootAliases()[0];
+            $user = $this->security->getUser();
+
+            $visibleHomebrew = "SELECT h.id FROM App\Entity\HomebrewEntry h WHERE h.visibility = 'public'";
+            $visibleCreatures = "SELECT cc.id FROM App\Entity\CustomCreature cc WHERE cc.visibility = 'public'";
+            if (null !== $user) {
+                $visibleHomebrew .= ' OR h.owner = :current_user';
+                $visibleCreatures .= ' OR cc.owner = :current_user';
+            }
+
+            $queryBuilder->andWhere(sprintf(
+                "(%s.targetType = 'homebrew_entry' AND %s.targetId IN (%s)) OR (%s.targetType = 'custom_creature' AND %s.targetId IN (%s))",
+                $rootAlias, $rootAlias, $visibleHomebrew, $rootAlias, $rootAlias, $visibleCreatures
+            ));
+            if (null !== $user) {
+                $queryBuilder->setParameter('current_user', $user);
+            }
 
             return;
         }

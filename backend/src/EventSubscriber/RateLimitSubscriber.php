@@ -47,6 +47,12 @@ final class RateLimitSubscriber implements EventSubscriberInterface
             'limit' => 60,
             'window' => 300,
         ],
+        'comment_write' => [
+            'path' => '#^/api/comments(/|$)#',
+            'methods' => ['POST', 'DELETE'],
+            'limit' => 30,
+            'window' => 300,
+        ],
     ];
 
     public function __construct(

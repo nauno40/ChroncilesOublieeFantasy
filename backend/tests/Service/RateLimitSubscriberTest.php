@@ -111,6 +111,17 @@ final class RateLimitSubscriberTest extends TestCase
         $this->assertSame(429, $this->send($subscriber, 'DELETE', '/api/favorites/1')->getResponse()->getStatusCode());
     }
 
+    public function testLesCommentairesSontLimitesATrenteParCinqMinutes(): void
+    {
+        $subscriber = new RateLimitSubscriber(new ArrayAdapter());
+
+        for ($i = 0; $i < 30; ++$i) {
+            $this->send($subscriber, 'POST', '/api/comments');
+        }
+
+        $this->assertSame(429, $this->send($subscriber, 'DELETE', '/api/comments/1')->getResponse()->getStatusCode());
+    }
+
     public function testDesactiveIlNeBloqueRien(): void
     {
         $subscriber = new RateLimitSubscriber(new ArrayAdapter(), false);

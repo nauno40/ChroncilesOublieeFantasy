@@ -4,7 +4,7 @@ import { ArrowLeft } from 'lucide-react';
 import { HomebrewService, categoryLabel, categoryPath, categoryPathLabel, cheminInterne, childrenOf, messageSuppression, type HomebrewEntry } from '../services/homebrewService';
 import { HOMEBREW_SCHEMAS, CARAC_KEYS, type HomebrewFieldDef } from '../services/homebrewSchemas';
 import { hasValue } from '../services/homebrewValidation';
-import { Loader, ReportContentModal } from '../components/common';
+import { Loader, ReportContentModal, CommentThread } from '../components/common';
 import { RaceSheet, ProfileSheet, VoieSheet, CapaciteSheet, OwnerBar } from '../components/sheets';
 import { homebrewToRaceVM, homebrewToProfileVM, homebrewToVoieVM, homebrewToCapaciteVM } from '../components/sheets/adapters/fromHomebrew';
 import { duplicateEntry, resumeDuplication } from '../services/homebrewChildren';
@@ -154,16 +154,21 @@ export const HomebrewDetail: React.FC = () => {
         </>
     );
 
+    // Le fil de commentaires suit la largeur propre à chaque feuille — elles ne partagent
+    // pas toutes le même conteneur (RaceSheet/ProfileSheet en `container mx-auto px-4`,
+    // VoieSheet/CapaciteSheet en `max-w-4xl mx-auto`).
+    const comments = <CommentThread targetType="homebrew_entry" targetId={entry.id} />;
+
     if (entry.category === 'race') {
-        return <RaceSheet vm={homebrewToRaceVM(entry)} backTo={backTo} backLabel={backLabel} header={ownerBar} references={references} />;
+        return <><RaceSheet vm={homebrewToRaceVM(entry)} backTo={backTo} backLabel={backLabel} header={ownerBar} references={references} /><div className="container mx-auto px-4">{comments}</div></>;
     }
 
     if (entry.category === 'classe') {
-        return <ProfileSheet vm={homebrewToProfileVM(entry)} backTo={backTo} backLabel={backLabel} header={ownerBar} references={references} />;
+        return <><ProfileSheet vm={homebrewToProfileVM(entry)} backTo={backTo} backLabel={backLabel} header={ownerBar} references={references} /><div className="container mx-auto px-4">{comments}</div></>;
     }
 
     if (entry.category === 'voie') {
-        return <VoieSheet vm={homebrewToVoieVM(entry, children)} backTo={backTo} backLabel={backLabel} header={ownerBar} references={references} />;
+        return <><VoieSheet vm={homebrewToVoieVM(entry, children)} backTo={backTo} backLabel={backLabel} header={ownerBar} references={references} /><div className="max-w-4xl mx-auto">{comments}</div></>;
     }
 
     if (entry.category === 'capacite' || entry.category === 'sort') {
@@ -173,7 +178,7 @@ export const HomebrewDetail: React.FC = () => {
         const avecVoie = voieParente
             ? { ...vm, voieName: voieParente.name, voieHref: `/homebrew/${voieParente.id}` }
             : vm;
-        return <CapaciteSheet vm={avecVoie} backTo={backTo} backLabel={backLabel} header={ownerBar} references={references} />;
+        return <><CapaciteSheet vm={avecVoie} backTo={backTo} backLabel={backLabel} header={ownerBar} references={references} /><div className="max-w-4xl mx-auto">{comments}</div></>;
     }
 
     const schema = HOMEBREW_SCHEMAS[entry.category] ?? [];
@@ -293,6 +298,8 @@ export const HomebrewDetail: React.FC = () => {
                         </div>
                     </div>
                 </div>
+
+                {comments}
             </div>
         </div>
     );

@@ -57,6 +57,61 @@
   --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
 }
 
+/*
+ * Habillage « parchemin » de l'assistant de création de personnage (2026-09), inspiré de
+ * Lands of Evershade — scopé à cette seule page (data-attribute/classe posée sur son
+ * conteneur racine), pas un mode clair global : le reste de l'appli garde le thème sombre.
+ *
+ * Les panneaux réutilisés par l'assistant (VoiesTree, AttributesPanel, ProtectionSection…,
+ * partagés avec la fiche classique) écrivent leurs couleurs en dur via des classes Tailwind
+ * (bg-stone-900/40, text-stone-400, border-white/10, glass-panel…). Plutôt que de les
+ * modifier un par un — risqué, ce sont des composants partagés avec la fiche classique —
+ * cette classe redéfinit les VARIABLES CSS dont ces classes dépendent (vérifié dans le CSS
+ * généré : `.bg-stone-900\/40` compile en `color-mix(in oklab, var(--color-stone-900) 40%,
+ * transparent)`). Tout composant sous `.parchment`, réutilisé ou non, se reskinne donc sans
+ * qu'aucun fichier de composant n'ait besoin d'être touché. `primary` (ambre/or) reste
+ * inchangé : c'est déjà la teinte d'accent de la référence.
+ */
+.parchment {
+  --color-stone-950: #f6ecd4;
+  --color-stone-900: #f1e4c2;
+  --color-stone-800: #ddc99b;
+  --color-stone-700: #c7ad78;
+  --color-stone-600: #a88f5c;
+  --color-stone-500: #8c7549;
+  --color-stone-400: #6b5738;
+  --color-stone-300: #4a3823;
+  --color-stone-200: #34260f;
+  --color-stone-100: #24190a;
+  --color-stone-50: #180f05;
+  /* `border-white/10`, `hover:text-white`… un blanc littéral serait invisible sur crème. */
+  --color-white: #2a1d0f;
+
+  --color-surface-translucent: hsla(42, 55%, 88%, 0.6);
+  --color-surface-strong: hsla(42, 55%, 92%, 0.88);
+  --glass-border: 1px solid hsla(30, 45%, 30%, 0.25);
+  --glass-shadow: 0 8px 28px 0 rgba(120, 90, 40, 0.25);
+
+  --font-body: "EB Garamond", serif;
+  font-family: "EB Garamond", serif;
+  color: var(--color-stone-300);
+  background:
+    radial-gradient(ellipse at 15% 10%, rgba(255, 255, 255, 0.4), transparent 55%),
+    radial-gradient(ellipse at 85% 80%, rgba(120, 90, 40, 0.1), transparent 55%),
+    var(--color-stone-950);
+  box-shadow: 0 20px 60px rgba(40, 25, 5, 0.35);
+}
+
+/* `primary-50/100/200` : teintes ambre très pâles, lisibles en texte sur fond sombre,
+   invisibles sur crème (ex. le nom d'un choix dans EquipmentChoiceModal, les badges de
+   voie active). `primary` lui-même n'est pas touché (utilisé aussi comme fond de badge,
+   bordure…) — seul le rôle « texte clair sur fond sombre » est concerné. */
+.parchment .text-primary-50,
+.parchment .text-primary-100,
+.parchment .text-primary-200 {
+  color: hsl(32, 65%, 26%);
+}
+
 body {
   margin: 0;
   min-width: 320px;

@@ -232,9 +232,21 @@ son commentaire lignes 316-328) : race A → profil → race B → profil → ra
 l'étape Voies l'héritage racial et les 5 voies de profil s'échafaudent correctement sans
 doublon ni entrée obsolète — confirmé en base (`character_voie`) après sauvegarde.
 
-L'habillage visuel « parchemin » (palette claire, portraits façon livre) inspiré du même site
-de référence est un chantier séparé, non fait ici — le thème sombre actuel de l'appli est
-inchangé.
+**Habillage « parchemin » (2026-09, phase 2)** — scopé à cette seule page (pas de mode
+clair global, pas d'interrupteur) : classe `.parchment` posée sur le conteneur racine de
+`CharacterCreationWizard.tsx` (`index.css`). Plutôt que de modifier les ~70 classes Tailwind
+écrites en dur dans les panneaux réutilisés (`bg-stone-900/40`, `text-stone-400`,
+`border-white/10`, `glass-panel`…), la classe **redéfinit les variables CSS** dont ces
+utilitaires dépendent (`--color-stone-50…950`, `--color-white`, les variables de
+`.glass-panel`) — vérifié dans le CSS généré : Tailwind v4 compile chaque teinte en
+`color-mix(in oklab, var(--color-stone-900) …)`, une variable et non une valeur figée. Tout
+composant sous `.parchment`, réutilisé ou non, se reskinne donc automatiquement, sans
+qu'aucun fichier de panneau n'ait été touché. `--font-body` bascule sur EB Garamond (Google
+Font ajoutée) ; `--font-display` (Cinzel) et la teinte d'accent `primary` (ambre/or)
+inchangés. Seul ajustement ponctuel : `text-primary-50/100/200` (texte très pâle, illisible
+sur fond clair — ex. `EquipmentChoiceModal`) recoloré en encre ambrée sombre, sous
+`.parchment` uniquement. Le reste de l'appli (dashboard, compendium, fiche classique
+`/characters/:id`) reste au thème sombre, vérifié inchangé.
 
 ## 10. Points d'attention
 

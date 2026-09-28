@@ -199,62 +199,64 @@ export const CharacterCreationWizard: React.FC = () => {
     };
 
     return (
-        <div className="max-w-[95%] mx-auto space-y-6 pb-24 pt-6 px-4 animate-fade-in">
-            <div className="flex items-center gap-4">
-                <button
-                    onClick={() => navigate('/characters')}
-                    aria-label="Retour à la liste des personnages"
-                    className="w-10 h-10 rounded-xl glass-panel flex items-center justify-center text-stone-400 hover:text-primary-400 hover:border-primary-500/30 transition-all group border border-white/5"
-                >
-                    <ArrowLeft size={20} className="group-hover:-translate-x-0.5 transition-transform" />
-                </button>
-                <div>
-                    <h1 className="text-3xl font-bold font-display text-gradient-gold tracking-widest leading-none">Nouveau Héros</h1>
-                    <p className="text-[11px] uppercase font-black text-stone-400 tracking-[0.3em] mt-2 ml-0.5 opacity-70">
-                        Étape {step} sur {STEP_LABELS.length}
-                    </p>
+        <div className="max-w-6xl mx-auto py-6 px-4 animate-fade-in">
+            <div className="parchment space-y-6 rounded-3xl p-5 md:p-10 pb-16 md:pb-20">
+                <div className="flex items-center gap-4">
+                    <button
+                        onClick={() => navigate('/characters')}
+                        aria-label="Retour à la liste des personnages"
+                        className="w-10 h-10 rounded-xl glass-panel flex items-center justify-center text-stone-400 hover:text-primary-400 hover:border-primary-500/30 transition-all group border border-white/5"
+                    >
+                        <ArrowLeft size={20} className="group-hover:-translate-x-0.5 transition-transform" />
+                    </button>
+                    <div>
+                        <h1 className="text-3xl font-bold font-display text-gradient-gold tracking-widest leading-none">Nouveau Héros</h1>
+                        <p className="text-[11px] uppercase font-black text-stone-400 tracking-[0.3em] mt-2 ml-0.5 opacity-70">
+                            Étape {step} sur {STEP_LABELS.length}
+                        </p>
+                    </div>
                 </div>
-            </div>
 
-            <WizardStepBar labels={STEP_LABELS} current={step} maxUnlocked={maxUnlocked} onJump={goTo} />
+                <WizardStepBar labels={STEP_LABELS} current={step} maxUnlocked={maxUnlocked} onJump={goTo} />
 
-            <div className="grid grid-cols-1 xl:grid-cols-[1fr_300px] gap-6 items-start">
-                <div>{renderStep()}</div>
-                <div className="xl:sticky xl:top-6">
-                    <WizardSummaryDrawer
-                        character={character}
-                        races={races}
-                        profiles={profiles}
-                        finalStats={finalStats}
-                        maxHp={maxHp}
-                        combatStats={combatStats}
-                        luckPoints={luckPoints}
-                        manaPoints={manaPoints}
-                        spentPoints={spentPoints}
-                        maxStartingPoints={maxStartingPoints}
-                    />
+                <div className="grid grid-cols-1 xl:grid-cols-[1fr_300px] gap-6 items-start">
+                    <div>{renderStep()}</div>
+                    <div className="xl:sticky xl:top-6">
+                        <WizardSummaryDrawer
+                            character={character}
+                            races={races}
+                            profiles={profiles}
+                            finalStats={finalStats}
+                            maxHp={maxHp}
+                            combatStats={combatStats}
+                            luckPoints={luckPoints}
+                            manaPoints={manaPoints}
+                            spentPoints={spentPoints}
+                            maxStartingPoints={maxStartingPoints}
+                        />
+                    </div>
                 </div>
+
+                <EquipmentChoiceModal
+                    isOpen={showEquipmentModal}
+                    title={`Votre profil vous offre un choix d'équipement (${currentChoiceIndex + 1}/${equipmentChoiceQueue.length}) :`}
+                    choices={equipmentChoiceQueue[currentChoiceIndex] || []}
+                    onSelect={(choice) => {
+                        const nextPlayState = { ...character.playState! };
+                        addEquipmentItem(choice, nextPlayState);
+                        setCharacter(prev => ({ ...prev, playState: nextPlayState }));
+
+                        const nextIndex = currentChoiceIndex + 1;
+                        if (nextIndex < equipmentChoiceQueue.length) {
+                            setCurrentChoiceIndex(nextIndex);
+                        } else {
+                            setShowEquipmentModal(false);
+                            setEquipmentChoiceQueue([]);
+                            setCurrentChoiceIndex(0);
+                        }
+                    }}
+                />
             </div>
-
-            <EquipmentChoiceModal
-                isOpen={showEquipmentModal}
-                title={`Votre profil vous offre un choix d'équipement (${currentChoiceIndex + 1}/${equipmentChoiceQueue.length}) :`}
-                choices={equipmentChoiceQueue[currentChoiceIndex] || []}
-                onSelect={(choice) => {
-                    const nextPlayState = { ...character.playState! };
-                    addEquipmentItem(choice, nextPlayState);
-                    setCharacter(prev => ({ ...prev, playState: nextPlayState }));
-
-                    const nextIndex = currentChoiceIndex + 1;
-                    if (nextIndex < equipmentChoiceQueue.length) {
-                        setCurrentChoiceIndex(nextIndex);
-                    } else {
-                        setShowEquipmentModal(false);
-                        setEquipmentChoiceQueue([]);
-                        setCurrentChoiceIndex(0);
-                    }
-                }}
-            />
         </div>
     );
 };

@@ -1,8 +1,6 @@
 import React from 'react';
 import type { Character } from '../../types/character';
-import { ADVENTURER_PACK } from '../../hooks/useCharacterSheet';
-import { findProfile } from '../../domain/rules';
-import type { EquipmentLikeItem } from '../../types/compendiumRefs';
+import { applyProfileSelection } from '../../domain/characterCreation';
 import type { RaceList, ProfileList, AddEquipmentItem, EquipmentChoiceQueueSetter } from './types';
 
 interface Props {
@@ -90,33 +88,7 @@ export const IdentityBlock: React.FC<Props> = ({
                     value={(character.profile as { '@id'?: string })?.['@id'] || (typeof character.profile === 'string' ? character.profile : '')}
                     onChange={e => {
                         const selectedId = e.target.value; // IRI
-
-                        // Parse Starting Equipment
-                        const p = findProfile(selectedId, profiles);
-
-                        // Réinitialise armes / protection / inventaire au changement de profil.
-                        const nextPlayState = {
-                            ...character.playState!,
-                            weapons: [],
-                            protection: { armor: { name: '', def: 0 }, shield: { name: '', def: 0 } },
-                            equipment: []
-                        };
-
-                        const choicesFound: EquipmentLikeItem[][] = [];
-
-                        if (p && p.startingEquipment) {
-                            p.startingEquipment.forEach(eq => {
-                                if (typeof eq === 'string') return;
-                                // Direct Item
-                                if (eq.item) {
-                                    addEquipmentItem(eq, nextPlayState);
-                                }
-                                // Choice
-                                else if (eq.choice) {
-                                    choicesFound.push(eq.choice);
-                                }
-                            });
-                        }
+                        const { characterPatch, choicesFound } = applyProfileSelection(selectedId, character, profiles, addEquipmentItem);
 
                         // If we found choices, start the queue
                         if (choicesFound.length > 0) {
@@ -128,22 +100,7 @@ export const IdentityBlock: React.FC<Props> = ({
                             setEquipmentChoiceQueue([]);
                         }
 
-                        // Add Sac d'Aventurier
-                        const adventurerEquipment = [...ADVENTURER_PACK];
-
-                        // Bourse de 2d6 pa
-                        const roll2d6 = () => (Math.floor(Math.random() * 6) + 1) + (Math.floor(Math.random() * 6) + 1);
-                        const initialGold = roll2d6();
-
-                        setCharacter(prev => ({
-                            ...prev,
-                            profile: selectedId,
-                            playState: {
-                                ...nextPlayState,
-                                money: { ...nextPlayState.money, pa: initialGold },
-                                equipment: [...adventurerEquipment, ...nextPlayState.equipment]
-                            }
-                        }));
+                        setCharacter(prev => ({ ...prev, ...characterPatch }));
                     }}
                 >
                     <option value="">Choisir un profil...</option>

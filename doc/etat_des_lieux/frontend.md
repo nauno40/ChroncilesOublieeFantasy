@@ -74,7 +74,7 @@ src/
 |---|---|---|
 | `/dashboard` | `Home` | Tableau de bord (stats, dernières campagnes, quick actions) |
 | `/characters` | `CharacterList` | Liste des personnages du joueur |
-| `/characters/new` | `CharacterSheet` | Création de personnage |
+| `/characters/new` | `CharacterCreationWizard` | Création de personnage — assistant pas-à-pas (2026-09) |
 | `/characters/:id` | `CharacterSheet` | Édition de personnage (orchestrateur ~230 lignes) |
 
 #### Encyclopédie / Compendium
@@ -204,6 +204,37 @@ Fonctionnalités clés :
   transformations, états activables, substitutions de carac, repos court/long)
 - Langues de peuple, bornes physiques et maîtrises affichées en guide ; modal d'équipement de
   départ ; persistance via API
+
+### 9.1 Assistant de création pas-à-pas (`CharacterCreationWizard.tsx`, 2026-09)
+
+Inspiré d'un créateur de personnage tiers jugé « stylé » par l'utilisateur (parcours guidé en
+chapitres, fiche en direct sur le côté, portraits par choix). `characters/new` charge désormais
+`src/pages/CharacterCreationWizard.tsx` (édition d'un personnage existant, `characters/:id`,
+inchangée — toujours `CharacterSheet.tsx`).
+
+Appelle `useCharacterSheet`/`useCharacterData` **une seule fois**, exactement comme
+`CharacterSheet.tsx`, et répartit leur retour entre 8 étapes (`src/components/character/wizard/
+steps/`) qui **réutilisent verbatim** les panneaux existants (`VoiesTree`, `AttributesPanel`,
+`ProtectionSection`…) — aucun changement dans `useCharacterSheet.ts` ni dans les panneaux
+eux-mêmes. Étape courante portée par `?step=` (`useWizardStep`, retour navigateur/rafraîchissement
+gérés), verrouillage des étapes non atteintes (`WizardStepBar`), mini-fiche en direct
+(`WizardSummaryDrawer`).
+
+Seul changement de fond : la cascade d'équipement de départ déclenchée au choix du profil
+(reset armes/protection, résolution `startingEquipment`, bourse 2d6, sac d'aventurier) était
+écrite en ligne dans `IdentityBlock.tsx` — extraite en fonction pure partagée,
+`src/domain/characterCreation.ts::applyProfileSelection`, appelée par `IdentityBlock.tsx`
+(fiche classique) et `StepProfile.tsx` (assistant), pour ne pas dupliquer ~50 lignes de règle
+entre les deux. Comportement inchangé, couvert par `characterCreation.test.ts`.
+
+Non-régression vérifiée manuellement (le hook a un historique de bug sur ce point précis, cf.
+son commentaire lignes 316-328) : race A → profil → race B → profil → race A de nouveau, à
+l'étape Voies l'héritage racial et les 5 voies de profil s'échafaudent correctement sans
+doublon ni entrée obsolète — confirmé en base (`character_voie`) après sauvegarde.
+
+L'habillage visuel « parchemin » (palette claire, portraits façon livre) inspiré du même site
+de référence est un chantier séparé, non fait ici — le thème sombre actuel de l'appli est
+inchangé.
 
 ## 10. Points d'attention
 

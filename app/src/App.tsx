@@ -53,6 +53,7 @@ const MagicItemsCatalogue = lazy(() => import('./pages/MagicItemsCatalogue').the
 const CustomCreatureDetail = lazy(() => import('./pages/CustomCreatureDetail').then(m => ({ default: m.CustomCreatureDetail })));
 const CharacterList = lazy(() => import('./pages/CharacterList').then(m => ({ default: m.CharacterList })));
 const CharacterSheet = lazy(() => import('./pages/CharacterSheet').then(m => ({ default: m.CharacterSheet })));
+const CharacterCreationWizard = lazy(() => import('./pages/CharacterCreationWizard').then(m => ({ default: m.CharacterCreationWizard })));
 const PrintableCharacterSheet = lazy(() => import('./pages/PrintableCharacterSheet').then(m => ({ default: m.PrintableCharacterSheet })));
 const PlayMode = lazy(() => import('./pages/PlayMode/PlayMode').then(m => ({ default: m.PlayMode })));
 const AuthorProfile = lazy(() => import('./pages/AuthorProfile').then(m => ({ default: m.AuthorProfile })));
@@ -139,7 +140,7 @@ function App() {
                 <Route path="bibliotheque/:id/modifier" element={<HomebrewForm />} />
                 <Route path="favoris" element={<MyFavorites />} />
                 <Route path="characters" element={<CharacterList />} />
-                <Route path="characters/new" element={<CharacterSheet />} />
+                <Route path="characters/new" element={<CharacterCreationWizard />} />
                 <Route path="characters/:id" element={<CharacterSheet />} />
               </Route>
             </Route>

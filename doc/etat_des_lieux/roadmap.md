@@ -137,8 +137,18 @@ serait inventer.
   que la source est disponible (`AppFixtures::loadSpecialVoies()`, `special_voies.json`) — rendue
   navigable, mais le choix « la prendre à la place de sa voie de peuple » reste une règle de
   création de personnage non outillée dans l'UI, hors périmètre de cette correction de données.
-  Les objets magiques (chapitre du livre) n'ont aucune entité en base à ce jour — absence
-  complète, pas une divergence, distinct du reste de l'audit.
+  **Objets magiques audités le 2026-09-28** : contrairement à ce que l'audit précédent laissait
+  penser (« aucune entité en base »), le chapitre est déjà représenté côté frontend
+  (`app/src/data/magicItemTables.ts`, `app/src/domain/magicItems.ts`) — fidèlement, car le livre
+  ne fournit lui-même aucune liste d'objets nommés, seulement des formules de valeur et des
+  tables de tirage (constat déjà documenté dans le code : « Les règles ne donnent pas de liste
+  d'objets »). Page `/tools/magic-items` (générateur + évaluateur) et onglet Officiel de
+  `/magic-items` (catalogue des objets/propriétés que les tables nomment explicitement, 65
+  entrées) déjà corrects et testés (13 tests). Un seul vrai manque trouvé en comparant table par
+  table avec le livre : la table de référence « Niveau de magie des objets mineurs de puissance »
+  (DR/PC/PM/PV) et les formules « objet de puissance » (bonus × 3) et « grimoire de pouvoir »
+  (somme des rangs / 3) n'étaient pas transcrites — ajoutées, avec les exemples chiffrés du livre
+  posés en test (cape de charisme +2 → niveau de magie 6 ; Grimoire des illusions perdues → 5).
 - **Invocations officielles** : seules deux capacités du livre désignent une créature du
   bestiaire (« Animation des morts » → Zombi humain, « Panthère »). Les autres portent le profil
   de l'invoquée **dans le texte du sort** (élémentaire, démon, serviteur invisible — souvent

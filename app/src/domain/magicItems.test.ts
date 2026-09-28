@@ -5,6 +5,9 @@ import {
     potionScrollValue,
     wandValue,
     resaleValue,
+    powerObjectMagicLevel,
+    grimoireMagicLevel,
+    SKILL_OBJECT_MAGIC_LEVEL,
     rollOnTable,
     MAGIC_ITEM_TABLES,
     type MagicTable,
@@ -26,6 +29,17 @@ describe('valeur des objets magiques (COF2)', () => {
     });
     it('revente = 50 % au maximum', () => {
         expect(resaleValue(800)).toBe(400);
+    });
+    it('objet de puissance = bonus de caractéristique × 3', () => {
+        expect(powerObjectMagicLevel(2)).toBe(6); // cape de charisme +2, exemple du livre
+        expect(powerObjectMagicLevel(1)).toBe(3);
+    });
+    it('grimoire de pouvoir = somme des rangs des sorts / 3, arrondi', () => {
+        expect(grimoireMagicLevel([1, 1, 1])).toBe(1);          // trois fois rang 1
+        expect(grimoireMagicLevel([1, 2, 3, 4, 5])).toBe(5);    // Grimoire des illusions perdues
+    });
+    it('objet de compétence = niveau de magie 1, fixe', () => {
+        expect(SKILL_OBJECT_MAGIC_LEVEL).toBe(1);
     });
 });
 

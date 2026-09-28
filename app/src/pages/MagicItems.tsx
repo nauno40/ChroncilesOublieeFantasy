@@ -4,6 +4,7 @@ import {
     magicItemValue,
     potionScrollValue,
     resaleValue,
+    powerObjectMagicLevel,
     rollOnTable,
     tablesByCategory,
     type MagicTable,
@@ -13,10 +14,12 @@ export const MagicItems: React.FC = () => {
     const groups = useMemo(() => tablesByCategory(), []);
     const [magicLevel, setMagicLevel] = useState(1);
     const [spellRank, setSpellRank] = useState(1);
+    const [statBonus, setStatBonus] = useState(1);
     const [lastRoll, setLastRoll] = useState<{ table: string; roll: number; result: string } | null>(null);
 
     const itemValue = magicItemValue(magicLevel);
     const scrollValue = potionScrollValue(spellRank);
+    const powerLevel = powerObjectMagicLevel(statBonus);
 
     const roll = (t: MagicTable) => {
         const r = rollOnTable(t);
@@ -32,7 +35,7 @@ export const MagicItems: React.FC = () => {
                 <h3 className="text-xl font-display font-bold text-stone-200 mb-4 flex items-center gap-2">
                     <Coins size={20} className="text-primary-400" /> Valeur d'un objet magique
                 </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div className="bg-stone-900/40 rounded-xl p-4 border border-stone-800">
                         <label className="block text-sm font-medium text-stone-300 mb-2">
                             Niveau de magie <span className="text-stone-400">(= bonus accordé)</span>
@@ -59,6 +62,20 @@ export const MagicItems: React.FC = () => {
                         <div className="mt-3 text-sm text-stone-400 space-y-1">
                             <div>Valeur : <b className="text-stone-200 font-mono">{scrollValue.toLocaleString('fr-FR')} pa</b> <span className="text-stone-400">(rang² × 50)</span></div>
                             <div className="text-stone-400 text-xs">Une baguette = ce prix × son nombre de charges.</div>
+                        </div>
+                    </div>
+                    <div className="bg-stone-900/40 rounded-xl p-4 border border-stone-800">
+                        <label className="block text-sm font-medium text-stone-300 mb-2">
+                            Objet de puissance <span className="text-stone-400">(bonus de carac.)</span>
+                        </label>
+                        <input
+                            type="number" min={1} max={3} value={statBonus}
+                            onChange={e => setStatBonus(Math.max(1, parseInt(e.target.value) || 1))}
+                            className="w-24 px-3 py-2 bg-stone-950/50 border border-stone-700 rounded-lg text-2xl font-display font-bold text-emerald-300 outline-none focus:border-emerald-500"
+                        />
+                        <div className="mt-3 text-sm text-stone-400 space-y-1">
+                            <div>Niveau de magie : <b className="text-stone-200 font-mono">{powerLevel}</b> <span className="text-stone-400">(bonus × 3)</span></div>
+                            <div className="text-stone-400 text-xs">Objet mineur (DR/PC/PM/PV) : voir la table de référence ci-dessous.</div>
                         </div>
                     </div>
                 </div>

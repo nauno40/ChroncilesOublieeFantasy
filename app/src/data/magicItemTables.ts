@@ -943,4 +943,16 @@ export const MAGIC_ITEM_TABLES: MagicTable[] = [
       [4, 4, "Parade : niveau de magie = bonus de DEF"],
     ],
   },
+  {
+    name: "Niveau de magie des objets mineurs de puissance",
+    category: "Objets de puissance",
+    die: 4,
+    reference: true,
+    entries: [
+      [1, 1, "DR : 1 niveau de magie par point ajouté"],
+      [2, 2, "PC : 1 niveau de magie par point ajouté"],
+      [3, 3, "PM : 1 niveau de magie par tranche de 3 PM"],
+      [4, 4, "PV : 1 niveau de magie par tranche de 5 PV"],
+    ],
+  },
 ];

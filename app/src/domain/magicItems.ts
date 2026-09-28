@@ -21,6 +21,20 @@ export const wandValue = (spellRank: number, charges: number): number =>
 // Prix de revente d'un objet magique : au maximum 50 % de sa valeur réelle.
 export const resaleValue = (fullValue: number): number => Math.round(fullValue / 2);
 
+// Objet de puissance (majeur) : niveau de magie = bonus de caractéristique × 3.
+// Ex. livre : une cape de charisme +2 a un niveau de magie de +6.
+export const powerObjectMagicLevel = (statBonus: number): number =>
+    Math.max(0, Math.round(statBonus)) * 3;
+
+// Grimoire de pouvoir : niveau de magie = somme des rangs des sorts inscrits / 3, arrondi
+// au plus proche. Ex. livre : trois fois Projectile de mana (rang 1) ⇒ (1+1+1)/3 = 1 ;
+// le Grimoire des illusions perdues (rangs 1 à 5) ⇒ (1+2+3+4+5)/3 = 5.
+export const grimoireMagicLevel = (spellRanks: number[]): number =>
+    Math.round(spellRanks.reduce((sum, r) => sum + r, 0) / 3);
+
+// Objet de compétence : niveau de magie toujours égal à 1 (bonus fixe de +5 à un type de test).
+export const SKILL_OBJECT_MAGIC_LEVEL = 1;
+
 // --- Moteur de tirage sur table ---
 
 export interface TableRoll {

@@ -1,0 +1,40 @@
+[
+  {
+    "id": "voie_du_mage",
+    "name": "Voie du mage",
+    "description": "Les mages ne sont pas un peuple, un mage est simplement un personnage qui a choisi un profil de la famille des mages. Un personnage de la famille des mages (ensorceleur, forgesort, magicien, sorcier) peut choisir de remplacer sa voie de peuple par la voie du mage. Il renonce à ses racines en échange d'un plus grand pouvoir occulte. Il ne conserve que la capacité de rang 1 de sa voie de peuple, acquise dès la création du personnage. Ce choix doit être fait avant d'obtenir le rang 2 de la voie de peuple et il est définitif. Cette voie remplace la voie de peuple du personnage, elle occupe le même emplacement sur la fiche de personnage et son premier rang est gratuit comme n'importe quelle voie de peuple.",
+    "family": "mages",
+    "abilities": [
+      {
+        "rank": 1,
+        "name": "Capacité de peuple + occultisme",
+        "type": "Passif",
+        "description": "Le mage conserve sa capacité de peuple de rang 1. De plus, il ajoute son rang + 2 aux tests de connaissance et d'érudition en rapport avec la magie."
+      },
+      {
+        "rank": 2,
+        "name": "Maîtrise de la magie",
+        "type": "Action Limitée (L)*",
+        "description": "Le mage peut détecter la présence de magie (y compris la présence d'objets magiques) dans un rayon de 10 m. Un test d'INT difficulté [10 + rang du sort] permet de déterminer la fonction générale de l'enchantement. Il peut aussi tenter de dissiper un sort non permanent d'un rang maximal égal à ceux qu'il est capable de lancer en emportant un test opposé d'attaque magique contre l'auteur du sort."
+      },
+      {
+        "rank": 3,
+        "name": "Tour de magie",
+        "type": "Action Gratuite (G)*",
+        "description": "Le mage peut réaliser un tour de magie (portée 10 m) par round en action gratuite sans dépenser aucun PM. Par exemple, fermer une porte à distance, éteindre ou allumer une bougie en claquant des doigts. Il ne peut réaliser aucune action qui nécessite une valeur de caractéristique supérieure à 0 (par exemple, s'il faut au moins +1 ou un test de FOR pour pousser une porte lourde, ce sort ne permet pas de la fermer). Cette capacité ne peut produire aucun DM direct. De plus, le mage gagne +1 en DEF et +2 PM (en plus de celui gagné avec cette capacité ; au total, en apprenant ce sort, le mage acquiert donc 3 PM d'un coup)."
+      },
+      {
+        "rank": 4,
+        "name": "Esprit supérieur",
+        "type": "Passif",
+        "description": "Le mage augmente son INT et sa VOL de +1. Désormais, il obtient un dé bonus aux tests d'INT."
+      },
+      {
+        "rank": 5,
+        "name": "Tempête de mana",
+        "type": "Passif",
+        "description": "Lorsqu'il lance un sort, le mage peut augmenter les DM de +1d4° (en cas de DM sur la durée, une seule fois) en payant +1 PM pour un sort à cible unique ou +3 PM pour un sort de zone (Explosion de feu, Foudre, etc.)."
+      }
+    ]
+  }
+]

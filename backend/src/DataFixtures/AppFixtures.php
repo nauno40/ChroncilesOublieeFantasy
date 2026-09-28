@@ -108,6 +108,10 @@ class AppFixtures extends Fixture
         // 5.6 Load Prestige Voies (compendium, category = Prestige)
         $this->loadPrestigeVoies($manager);
 
+        // 5.7 Load Special Voies (compendium, category = Race — occupe le même emplacement
+        // qu'une voie de peuple, mais n'est pas liée à une race précise : voir loadSpecialVoies())
+        $this->loadSpecialVoies($manager);
+
         // 6. Load Creatures
         $this->loadCreatures($manager, $familyContext['monsterMap']);
 
@@ -490,6 +494,50 @@ class AppFixtures extends Fixture
                 // Déclarations facultatives (cf. spec 2026-08-03) : absentes du JSON, elles laissent
                 // les colonnes nulles. Les QUATRE sites qui construisent une Capability doivent les
                 // lire, sinon une partie du compendium resterait muette sans rien signaler.
+                $cap->setStates($capData['states'] ?? null);
+                $cap->setSummons($capData['summons'] ?? null);
+
+                $manager->persist($cap);
+            }
+        }
+    }
+
+    /**
+     * Voies « spéciales » du livre qui remplacent une voie de peuple sans être elles-mêmes
+     * liées à une race — actuellement la seule : la voie du mage (p. 60), qu'un personnage
+     * de la famille des mages peut choisir en remplacement de sa voie de peuple. Trouvée
+     * absente du compendium lors de l'audit du 2026-09-28 alors que la source (03-peuples.md)
+     * est disponible ; ajoutée ici plutôt que dans Races/*.json car elle n'appartient à
+     * aucune race en particulier (category = 'Race' car elle occupe le même emplacement sur
+     * la fiche, cf. le livre : « elle occupe le même emplacement sur la fiche de personnage »).
+     * Le choix « remplacer sa voie de peuple par celle-ci » reste une décision de création de
+     * personnage non outillée dans l'UI actuelle — cette méthode rend seulement la voie et ses
+     * capacités visibles et navigables dans le compendium, fidèles au texte du livre.
+     */
+    private function loadSpecialVoies(ObjectManager $manager): void
+    {
+        $data = $this->getData('special_voies.json');
+
+        foreach ($data as $item) {
+            $voie = new Voie();
+            $voie->setName($item['name']);
+            $voie->setDescription($item['description'] ?? '');
+            $voie->setCategory('Race');
+            $voie->setMaxRank(5);
+            $voie->setDetails(['famille' => $item['family'] ?? null]);
+            $manager->persist($voie);
+
+            foreach ($item['abilities'] ?? [] as $capData) {
+                $cap = new Capability();
+                $cap->setName($capData['name']);
+                $cap->setDescription($capData['description'] ?? '');
+                $this->effectBuilder->apply($cap);
+                $cap->setRank($capData['rank']);
+                $type = $capData['type'] ?? '';
+                $cap->setLimited(str_contains(strtolower($type), 'limité'));
+                $cap->setIsSpell(str_contains(strtolower($type), 'sort') || str_contains($type, '*'));
+                $cap->setActionType($type !== '' ? $type : null);
+                $cap->setVoie($voie);
                 $cap->setStates($capData['states'] ?? null);
                 $cap->setSummons($capData['summons'] ?? null);
 

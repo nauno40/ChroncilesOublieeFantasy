@@ -125,10 +125,20 @@ serait inventer.
   leurs stats du texte. Le bestiaire officiel compte désormais **81 créatures, toutes vérifiées
   contre le livre** (`scripts/audit-bestiaire.mjs` : 80 profils comparés, 0 divergence — le 81ᵉ,
   Chimère draconique, hérite des stats de Chimère et n'a pas de bloc Caractéristiques propre à
-  comparer). Même principe pas encore appliqué aux autres catégories (sorts, classes, races,
-  voies, objets) : à auditer une par une avant toute suppression, l'exercice sur le bestiaire
-  ayant montré qu'une ressemblance de nom ne suffit jamais à conclure — il faut vérifier les
-  stats.
+  comparer). **Reste du compendium audité le 2026-09-28** (`Version20260928100000`), catégorie
+  par catégorie, texte contre texte (pas par ressemblance de nom) : sorts (198/198 conformes),
+  capacités de classe/voies (615/615 conformes), races (35/35 capacités raciales + modificateurs
+  conformes), armures/matériel/montures/poisons/pièges/états (tous conformes). Contrairement au
+  bestiaire, ce contenu était déjà fidèle au livre — pas d'import wiki tiers ici. Trois écarts
+  réels trouvés et corrigés : **« Katana »** (arme) supprimé (aucune trace dans le livre) ;
+  prix de **Banquet** et de 3 lignes de **logement** resserrés sur les valeurs exactes du livre
+  (la base servait des fourchettes plus larges) ; **« Voie du mage »** (`03-peuples.md`, p. 60 —
+  remplace la voie de peuple pour les 4 classes de mages) ajoutée au compendium, absente alors
+  que la source est disponible (`AppFixtures::loadSpecialVoies()`, `special_voies.json`) — rendue
+  navigable, mais le choix « la prendre à la place de sa voie de peuple » reste une règle de
+  création de personnage non outillée dans l'UI, hors périmètre de cette correction de données.
+  Les objets magiques (chapitre du livre) n'ont aucune entité en base à ce jour — absence
+  complète, pas une divergence, distinct du reste de l'audit.
 - **Invocations officielles** : seules deux capacités du livre désignent une créature du
   bestiaire (« Animation des morts » → Zombi humain, « Panthère »). Les autres portent le profil
   de l'invoquée **dans le texte du sort** (élémentaire, démon, serviteur invisible — souvent

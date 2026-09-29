@@ -301,6 +301,56 @@ réussie, relecture sur `CharacterSheet.tsx` (`/characters/26`) : rang de voie e
 identiques à ce que l'assistant avait posé — non-régression sur le point historiquement
 fragile de `useCharacterSheet.ts` confirmée une fois de plus.
 
+**Habillage visuel (2026-09, phase 4)** — la phase 3 corrigeait la structure (colonne unique,
+fiche en overlay, étapes simplifiées) mais retour utilisateur après comparaison directe avec
+la référence, capture à capture : « moche, le site que tu m'as montré est bcp mieux fini ».
+Le vrai écart cette fois : pas la structure, la **finition visuelle**. Concrètement, contre
+Lands of Evershade à sa vraie largeur :
+- Chrome applicatif (en-tête, barre de nav basse, bouton outils flottant) visible en
+  permanence autour de l'assistant → cassait l'illusion « page de livre » que la référence
+  n'a pas du tout (site à page unique, sans habillage).
+- Typographie « jeu vidéo » (titres en dégradé or brillant `text-gradient-gold`, tout en
+  majuscules grasses très espacées) contre la sobriété quasi-littéraire de la référence
+  (petites capitales discrètes, encre sombre plate, pas de lueur).
+- Barre d'étapes en pastilles encadrées contre une simple ligne de chiffres romains
+  soulignés.
+- Bouton d'action en pilule ambre brillante contre une petite pilule encre sombre discrète.
+- Portraits encadrés (rectangle à bordure + anneau) contre une illustration qui se fond
+  directement dans la page, sans cadre visible.
+- Sélecteur de peuple/profil en grille de cartes contre un bandeau de médaillons ronds.
+
+Corrections, dans l'ordre d'impact :
+1. **Chrome masqué sur l'assistant** — `Layout.tsx` calcule `immersive = pathname ===
+   '/characters/new'` et n'affiche l'en-tête/la sidebar/la nav basse/le FAB que si `false` ;
+   `<main>` perd son padding réservé à ce chrome sur cette route. Le reste de l'appli
+   (vérifié : `/characters`, `/characters/:id`) est inchangé.
+2. **`.parchment` plein cadre** — n'est plus une carte flottante (`rounded-3xl` + ombre) mais
+   couvre tout le viewport comme une vraie page ; l'ancien traitement « carte » est conservé
+   sous `.parchment-panel` pour `WizardCharacterSheetOverlay`, qui en a encore besoin (panneau
+   posé par-dessus le reste). Un grain de papier (filtre SVG `feTurbulence` encodé en donnée,
+   pas un fichier image) casse l'à-plat de couleur.
+3. **Typographie et boutons restreints** — `text-gradient-gold` retiré des titres d'étape
+   (`StepWelcome`, `StepReview`) au profit d'un encre sobre ; `WizardStepBar` réécrit en
+   ligne de chiffres romains soulignés (plus de pastilles) ; boutons Précédent/Suivant de
+   `WizardShellLayout` réduits à un lien texte et une petite pilule encre sombre. Piège
+   trouvé en vérifiant en navigateur : la rampe `--color-stone-*` de `.parchment` est
+   **inversée** (950 = crème clair, 50 = encre la plus sombre, cf. phase 2) — utiliser
+   `text-stone-800` pour du texte « sombre » donne en fait un texte quasi illisible, trop
+   clair ; toutes les nouvelles classes de cette passe utilisent `stone-100/200/300` pour le
+   texte principal et `stone-500` pour les libellés discrets, jamais l'inverse.
+4. **Portraits fondus** — nouvelle classe utilitaire `.portrait-feather` (`mask-image` radial
+   dégradé vers transparent) posée sur les images de `StepRace`/`StepProfile` : aucun nouvel
+   asset, seul le canal alpha de rendu de l'image existante est modulé.
+5. **Bandeau de médaillons** — nouveau `WizardAvatarStrip.tsx` (médaillons ronds, anneau +
+   coche sur la sélection) remplace la grille de cartes rectangulaires dans `StepRace.tsx`/
+   `StepProfile.tsx`.
+
+Vérifié : build + `tsc -b` + suite Vitest (664 tests) sans erreur + vrai navigateur sur la
+vraie pile Docker, parcours complet (Bienvenue → Race → Profil avec choix d'équipement →
+Voies → Caractéristiques → Équipement), desktop et mobile (375px). Reste de l'appli
+(`/characters`, fiche classique `/characters/:id`) vérifié inchangé — chrome applicatif et
+thème sombre intacts.
+
 ## 10. Points d'attention
 
 - **Écart types ↔ API** : `node scripts/audit-types-api.mjs [url]` confronte

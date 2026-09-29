@@ -4,6 +4,7 @@ import type { ProfileList, AddEquipmentItem, EquipmentChoiceQueueSetter } from '
 import { applyProfileSelection } from '../../../../domain/characterCreation';
 import { onImageError } from '../../../common/imagePlaceholder';
 import { WizardShellLayout } from '../WizardShellLayout';
+import { WizardAvatarStrip } from '../WizardAvatarStrip';
 
 interface ProfileWithArt {
     '@id'?: string;
@@ -55,62 +56,31 @@ export const StepProfile: React.FC<Props> = ({
         setCharacter(prev => ({ ...prev, ...characterPatch }));
     };
 
+    const items = list.map(p => ({ iri: p['@id'] || '', name: p.name || '', image: p.imageUrl || '' }));
+
     return (
-        <WizardShellLayout
-            onBack={onBack}
-            onNext={onNext}
-            nextDisabled={!selectedIri}
-            aside={
-                <div className="glass-panel rounded-2xl border border-white/10 overflow-hidden">
-                    {selected ? (
-                        <>
-                            <img
-                                src={selected.imageUrl}
-                                onError={onImageError(selected.name || '', 'portrait')}
-                                alt={selected.name}
-                                className="w-full aspect-[3/4] object-cover"
-                            />
-                            <div className="p-5 space-y-3">
-                                <h2 className="font-display font-bold text-2xl text-white">{selected.name}</h2>
-                                {selected.description && (
-                                    <p className="text-stone-300 text-sm font-body leading-relaxed">{selected.description}</p>
-                                )}
-                            </div>
-                        </>
-                    ) : (
-                        <div className="p-8 text-center text-stone-400 text-sm">
-                            Choisissez un profil dans la liste pour découvrir sa description.
-                        </div>
+        <WizardShellLayout onBack={onBack} onNext={onNext} nextDisabled={!selectedIri}>
+            <h2 className="font-display text-2xl text-stone-200 text-center">Choisissez votre profil</h2>
+            <WizardAvatarStrip items={items} selectedIri={selectedIri} onSelect={pick} />
+
+            {selected ? (
+                <div className="space-y-4 text-center">
+                    <img
+                        src={selected.imageUrl}
+                        onError={onImageError(selected.name || '', 'portrait')}
+                        alt={selected.name}
+                        className="portrait-feather w-full max-w-sm mx-auto aspect-[3/4] object-cover"
+                    />
+                    <h2 className="font-display text-2xl text-stone-200">{selected.name}</h2>
+                    {selected.description && (
+                        <p className="text-stone-400 text-sm font-body leading-relaxed max-w-md mx-auto">{selected.description}</p>
                     )}
                 </div>
-            }
-        >
-            <div className="glass-panel p-5 rounded-xl border border-white/10">
-                <h2 className="font-display font-bold text-primary-400 uppercase text-sm tracking-wider mb-4">Choisissez votre profil</h2>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                    {list.map(p => {
-                        const isSelected = p['@id'] === selectedIri;
-                        return (
-                            <button
-                                key={p['@id']}
-                                type="button"
-                                onClick={() => pick(p['@id'] || '')}
-                                className={`text-left rounded-xl overflow-hidden border transition-all ${isSelected ? 'border-primary-500 ring-2 ring-primary-500/40' : 'border-white/10 hover:border-primary-500/40'}`}
-                            >
-                                <img
-                                    src={p.imageUrl}
-                                    onError={onImageError(p.name || '', 'card')}
-                                    alt={p.name}
-                                    className="w-full aspect-[4/3] object-cover"
-                                />
-                                <div className="px-3 py-2 bg-stone-900/60">
-                                    <span className="font-display font-bold text-sm text-stone-100">{p.name}</span>
-                                </div>
-                            </button>
-                        );
-                    })}
-                </div>
-            </div>
+            ) : (
+                <p className="text-center text-stone-500 text-sm italic py-8">
+                    Choisissez un profil ci-dessus pour découvrir sa description.
+                </p>
+            )}
         </WizardShellLayout>
     );
 };

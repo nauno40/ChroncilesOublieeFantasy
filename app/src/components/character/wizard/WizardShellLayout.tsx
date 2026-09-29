@@ -23,20 +23,20 @@ export const WizardShellLayout: React.FC<Props> = ({ aside, children, onBack, on
         {aside}
         <div className="space-y-4">{children}</div>
 
-        <div className="flex justify-between items-center pt-4 border-t border-white/10">
+        <div className="flex justify-between items-center pt-5 border-t border-stone-400/20">
             <button
                 type="button"
                 onClick={onBack}
                 disabled={!onBack}
-                className="flex items-center gap-2 px-4 py-3 rounded-xl glass-panel text-stone-300 hover:text-primary-300 hover:border-primary-500/30 transition-all border border-white/5 disabled:opacity-0 disabled:pointer-events-none"
+                className="flex items-center gap-1.5 text-stone-500 hover:text-stone-300 text-xs uppercase tracking-[0.15em] transition-colors disabled:opacity-0 disabled:pointer-events-none"
             >
-                <ArrowLeft size={16} /> Précédent
+                <ArrowLeft size={14} /> Précédent
             </button>
             <button
                 type="button"
                 onClick={onNext}
                 disabled={nextDisabled || nextLoading}
-                className="flex items-center gap-2 bg-primary-600 hover:bg-primary-500 text-stone-950 font-display font-black uppercase text-xs tracking-widest px-6 py-3 rounded-xl transition-all shadow-lg shadow-primary-900/20 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed border border-primary-400/20"
+                className="flex items-center gap-2 bg-stone-100 hover:bg-stone-200 text-stone-950 font-display text-sm tracking-wide px-5 py-2.5 rounded-full transition-all active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed"
             >
                 {nextLoading ? <RefreshCw className="animate-spin" size={16} /> : null}
                 {nextLabel}

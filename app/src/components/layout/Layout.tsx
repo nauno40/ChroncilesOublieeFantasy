@@ -159,10 +159,15 @@ export const Layout: React.FC = () => {
         if (fabHidden && isFabOpen) toggleFab();
     }, [fabHidden, isFabOpen, toggleFab]);
 
+    // Assistant de création de personnage : page immersive, sans chrome applicatif
+    // (header/sidebar/nav basse/bouton outils) — cohérent avec la référence visuelle
+    // (Lands of Evershade), qui n'a aucun habillage de site autour de son parcours.
+    const immersive = location.pathname === '/characters/new';
+
     return (
         <div className="min-h-screen text-stone-200 font-sans flex flex-col md:flex-row">
             {/* Mobile Header - Visible only on small screens */}
-            <header className="md:hidden fixed top-0 left-0 right-0 z-20 p-4 pb-2 bg-gradient-to-b from-stone-950/95 to-transparent backdrop-blur-sm">
+            {!immersive && <header className="md:hidden fixed top-0 left-0 right-0 z-20 p-4 pb-2 bg-gradient-to-b from-stone-950/95 to-transparent backdrop-blur-sm">
                 <div className="glass-panel px-4 py-3 rounded-xl border-primary-500/20 flex justify-between items-center shadow-lg">
                     <h1 className="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-400 to-primary-600 font-display tracking-wider drop-shadow-sm">
                         CHRONIQUES OUBLIÉES FANTASY
@@ -183,10 +188,10 @@ export const Layout: React.FC = () => {
                         </button>
                     </div>
                 </div>
-            </header>
+            </header>}
 
             {/* Desktop Sidebar - Visible on medium+ screens */}
-            <aside className="hidden md:flex flex-col w-72 fixed left-0 top-0 bottom-0 z-30 p-4">
+            {!immersive && <aside className="hidden md:flex flex-col w-72 fixed left-0 top-0 bottom-0 z-30 p-4">
                 <div className="glass-panel h-full rounded-2xl border-primary-500/20 flex flex-col shadow-2xl backdrop-blur-xl bg-stone-950/40">
                     <div className="p-6 border-b border-white/5">
                         <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-400 to-primary-600 font-display tracking-wider drop-shadow-sm leading-tight">
@@ -254,19 +259,19 @@ export const Layout: React.FC = () => {
                         <div className="text-[11px] text-stone-400 font-display text-center pt-3 italic">v1.0.0 Alpha</div>
                     </div>
                 </div>
-            </aside>
+            </aside>}
 
             {/* Main Content Area */}
             {/* pb-40 (mobile) / pb-28 (desktop) : dégage la barre de nav basse ET le bouton flottant,
                 pour que la dernière ligne de contenu puisse défiler au-dessus d'eux. */}
             {/* pt-28 (112px) : l'en-tête mobile fixe mesure ~106px — pt-24 laissait le
                 titre de page passer sous son dégradé (haut des lettres rogné). */}
-            <main className="flex-1 px-4 pt-28 pb-40 md:pt-8 md:pb-28 md:pl-80 w-full overflow-x-hidden min-h-screen">
+            <main className={clsx('flex-1 w-full overflow-x-hidden min-h-screen', !immersive && 'px-4 pt-28 pb-40 md:pt-8 md:pb-28 md:pl-80')}>
                 <Outlet />
             </main>
 
             {/* Mobile Bottom Navigation - Visible only on small screens */}
-            <nav className="md:hidden fixed bottom-6 left-4 right-4 z-30">
+            {!immersive && <nav className="md:hidden fixed bottom-6 left-4 right-4 z-30">
                 <div className="glass-panel rounded-2xl max-w-md mx-auto h-16 flex justify-around items-center px-2 border-primary-500/30 shadow-[0_8px_32px_rgba(0,0,0,0.6)] backdrop-blur-xl bg-stone-900/80">
                     {navItems.map((item) => {
                         // For mobile, show direct link for items without subitems, or link to first subitem
@@ -306,10 +311,10 @@ export const Layout: React.FC = () => {
                         );
                     })}
                 </div>
-            </nav>
+            </nav>}
             {/* Boutons flottants — repliables (au repos : un seul bouton, pour ne pas masquer le
                 contenu) et escamotés au défilement vers le bas sur mobile (cf. fabHidden). */}
-            <div className={clsx(
+            {!immersive && <div className={clsx(
                 "fixed bottom-24 right-4 md:bottom-8 md:right-8 z-40 flex items-end gap-3 flex-col transition-all duration-300",
                 fabHidden && "translate-y-28 opacity-0 pointer-events-none md:translate-y-0 md:opacity-100 md:pointer-events-auto",
             )}>
@@ -363,7 +368,7 @@ export const Layout: React.FC = () => {
                 >
                     {isFabOpen ? <X size={24} strokeWidth={2.5} /> : <Wand2 size={24} strokeWidth={2.5} />}
                 </button>
-            </div>
+            </div>}
 
             <DraggableWindow
                 id="soundboard"

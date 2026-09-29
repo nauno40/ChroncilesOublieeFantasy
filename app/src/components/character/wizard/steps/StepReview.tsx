@@ -39,7 +39,7 @@ export const StepReview: React.FC<Props> = ({
         <WizardShellLayout onBack={onBack} onNext={onSave} nextLabel="Créer le héros" nextLoading={saving}>
             <div className="glass-panel p-8 rounded-2xl border border-white/10 space-y-6">
                 <div>
-                    <h2 className="font-display font-bold text-3xl text-gradient-gold">{character.name || 'Sans nom'}</h2>
+                    <h2 className="font-display text-3xl text-stone-200">{character.name || 'Sans nom'}</h2>
                     <p className="text-stone-400 text-sm mt-1">
                         {[raceName, profileName].filter(Boolean).join(' · ') || 'Race et profil non choisis'}
                     </p>

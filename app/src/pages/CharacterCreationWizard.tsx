@@ -186,29 +186,30 @@ export const CharacterCreationWizard: React.FC = () => {
         }
     };
 
+    const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII'];
+
     return (
-        <div className="max-w-2xl mx-auto py-6 px-4 animate-fade-in">
-            <div className="parchment space-y-6 rounded-3xl p-5 md:p-8 pb-16 md:pb-20">
-                <div className="flex items-center gap-4">
+        <div className="parchment min-h-screen w-full animate-fade-in">
+            <div className="max-w-2xl mx-auto px-5 md:px-8 py-8 pb-24 space-y-6">
+                <div className="flex items-center gap-3">
                     <button
                         onClick={() => navigate('/characters')}
                         aria-label="Retour à la liste des personnages"
-                        className="w-10 h-10 rounded-xl glass-panel flex items-center justify-center text-stone-400 hover:text-primary-400 hover:border-primary-500/30 transition-all group border border-white/5"
+                        className="text-stone-400 hover:text-stone-200 transition-colors -ml-1 p-1"
                     >
-                        <ArrowLeft size={20} className="group-hover:-translate-x-0.5 transition-transform" />
+                        <ArrowLeft size={18} className="hover:-translate-x-0.5 transition-transform" />
                     </button>
-                    <div className="flex-1">
-                        <h1 className="text-3xl font-bold font-display text-gradient-gold tracking-widest leading-none">Nouveau Héros</h1>
-                        <p className="text-[11px] uppercase font-black text-stone-400 tracking-[0.3em] mt-2 ml-0.5 opacity-70">
-                            Étape {step} sur {STEP_LABELS.length}
+                    <div className="flex-1 text-center">
+                        <p className="text-[10px] uppercase tracking-[0.25em] text-stone-500 whitespace-nowrap">
+                            Livret du héros · Chapitre {ROMAN[step - 1] ?? step}
                         </p>
                     </div>
                     <button
                         onClick={() => setShowSheet(true)}
                         aria-label="Voir ma fiche de personnage"
-                        className="w-10 h-10 rounded-xl glass-panel flex items-center justify-center text-stone-400 hover:text-primary-400 hover:border-primary-500/30 transition-all border border-white/5"
+                        className="text-stone-400 hover:text-stone-200 transition-colors p-1"
                     >
-                        <ScrollText size={20} />
+                        <ScrollText size={18} />
                     </button>
                 </div>
 

@@ -6,8 +6,9 @@ import type { NavItem } from './NavItem';
 import { NavItemComponent } from './NavItem';
 import { DiceRoller, GlobalNotes, Soundboard, DraggableWindow, GlobalSearch } from '../common';
 import { useToggle } from '../../hooks/useToggle';
-import { Dices, StickyNote, Music, Search, LogOut, User as UserIcon, Wand2, X, Download } from 'lucide-react';
+import { Dices, StickyNote, Music, Search, LogOut, User as UserIcon, Wand2, X, Download, Sun, Moon } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
+import { useTheme } from '../../hooks/useTheme';
 import { AuthService } from '../../services/AuthService';
 import { preloadRoute } from '../../routePreload';
 import { LEXIQUE } from '../../domain/lexique';
@@ -15,6 +16,7 @@ import { LEXIQUE } from '../../domain/lexique';
 export const Layout: React.FC = () => {
     const location = useLocation();
     const { logout, user } = useAuth();
+    const { theme, toggleTheme } = useTheme();
     const [isDiceRollerOpen, toggleDiceRoller] = useToggle(false);
     const [isNotesOpen, toggleNotes] = useToggle(false);
     const [isSoundboardOpen, toggleSoundboard] = useToggle(false);
@@ -180,6 +182,13 @@ export const Layout: React.FC = () => {
                             <Search size={20} />
                         </button>
                         <button
+                            onClick={toggleTheme}
+                            className="p-2 text-primary-400 hover:bg-primary-500/10 rounded-lg transition-colors"
+                            title={theme === 'light' ? 'Thème sombre' : 'Thème clair'}
+                        >
+                            {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
+                        </button>
+                        <button
                             onClick={logout}
                             className="p-2 text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"
                             title="Déconnexion"
@@ -199,14 +208,23 @@ export const Layout: React.FC = () => {
                         </h1>
                         <div className="flex items-center justify-between mt-4">
                             <div className="text-[11px] font-mono text-primary-400/60 border border-primary-500/20 px-2 py-0.5 rounded-full inline-block bg-primary-950/30">MJ TOOLKIT</div>
-                            <button
-                                onClick={toggleSearch}
-                                className="flex items-center gap-2 text-xs text-stone-400 hover:text-primary-400 transition-colors px-2 py-1 rounded hover:bg-white/5 border border-transparent hover:border-white/5"
-                                title="Rechercher (Cmd+K)"
-                            >
-                                <Search size={14} />
-                                <span>Cmd+K</span>
-                            </button>
+                            <div className="flex items-center gap-1">
+                                <button
+                                    onClick={toggleSearch}
+                                    className="flex items-center gap-2 text-xs text-stone-400 hover:text-primary-400 transition-colors px-2 py-1 rounded hover:bg-white/5 border border-transparent hover:border-white/5"
+                                    title="Rechercher (Cmd+K)"
+                                >
+                                    <Search size={14} />
+                                    <span>Cmd+K</span>
+                                </button>
+                                <button
+                                    onClick={toggleTheme}
+                                    className="p-1.5 text-stone-400 hover:text-primary-400 transition-colors rounded hover:bg-white/5 border border-transparent hover:border-white/5"
+                                    title={theme === 'light' ? 'Thème sombre' : 'Thème clair'}
+                                >
+                                    {theme === 'light' ? <Moon size={14} /> : <Sun size={14} />}
+                                </button>
+                            </div>
                         </div>
                     </div>
 

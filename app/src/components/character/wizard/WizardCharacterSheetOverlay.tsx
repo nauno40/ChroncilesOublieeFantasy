@@ -18,14 +18,16 @@ interface Props {
  * `fixed` se retrouvait descendant du `<main>` scrollable du layout applicatif, qui le
  * rognait à sa propre boîte au lieu du viewport — invisible pour un modal centré (jamais
  * remarqué), mais ici son en-tête (titre + bouton fermer, ancrés en haut) disparaissait
- * derrière la barre d'appli mobile. `.parchment` est reposé sur la racine portée : les
- * variables CSS qu'elle redéfinit ne descendent pas jusqu'à `document.body`.
+ * derrière la barre d'appli mobile. Pas besoin de reposer `.parchment` sur la racine portée
+ * (contrairement à une version antérieure de ce fichier) : elle vit maintenant sur `<html>`
+ * (`ThemeProvider`), qui reste un ancêtre de `document.body` — ses variables CSS cascadent
+ * donc jusqu'ici sans qu'on ait à la reposer localement.
  */
 export const WizardCharacterSheetOverlay: React.FC<Props> = ({ isOpen, onClose, children }) => {
     if (!isOpen) return null;
 
     return createPortal(
-        <div className="parchment fixed inset-0 z-50 flex justify-end bg-black/70 backdrop-blur-sm" onClick={onClose}>
+        <div className="fixed inset-0 z-50 flex justify-end bg-black/70 backdrop-blur-sm" onClick={onClose}>
             <div
                 className="w-full max-w-sm h-full bg-stone-950 border-l border-white/10 shadow-2xl overflow-y-auto p-5 space-y-4"
                 onClick={e => e.stopPropagation()}

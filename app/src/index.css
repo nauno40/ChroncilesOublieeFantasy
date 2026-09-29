@@ -59,22 +59,25 @@
   --color-surface-strong: hsla(240, 10%, 8%, 0.9);
   --glass-border: 1px solid hsla(35, 90%, 50%, 0.15);
   --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+  --color-body-text: #e5e5e5;
+  --color-focus-ring: hsl(35, 90%, 55%);
 }
 
 /*
- * Habillage « parchemin » de l'assistant de création de personnage (2026-09), inspiré de
- * Lands of Evershade — scopé à cette seule page (data-attribute/classe posée sur son
- * conteneur racine), pas un mode clair global : le reste de l'appli garde le thème sombre.
+ * Thème clair « parchemin » (2026-09), inspiré de Lands of Evershade — né sur la seule page
+ * de l'assistant de création, étendu depuis à toute l'appli : `ThemeProvider` pose cette
+ * classe sur `<html>` quand l'utilisateur choisit le thème clair (bouton dans `Layout.tsx`),
+ * ce qui la fait cascader à toute page, y compris les panneaux flottants portés hors de
+ * l'arbre React via un portail (`<body>` reste toujours descendant de `<html>`).
  *
- * Les panneaux réutilisés par l'assistant (VoiesTree, AttributesPanel, ProtectionSection…,
- * partagés avec la fiche classique) écrivent leurs couleurs en dur via des classes Tailwind
+ * Les composants de toute l'appli écrivent leurs couleurs en dur via des classes Tailwind
  * (bg-stone-900/40, text-stone-400, border-white/10, glass-panel…). Plutôt que de les
- * modifier un par un — risqué, ce sont des composants partagés avec la fiche classique —
- * cette classe redéfinit les VARIABLES CSS dont ces classes dépendent (vérifié dans le CSS
- * généré : `.bg-stone-900\/40` compile en `color-mix(in oklab, var(--color-stone-900) 40%,
- * transparent)`). Tout composant sous `.parchment`, réutilisé ou non, se reskinne donc sans
- * qu'aucun fichier de composant n'ait besoin d'être touché. `primary` (ambre/or) reste
- * inchangé : c'est déjà la teinte d'accent de la référence.
+ * modifier un par un — des centaines de fichiers — cette classe redéfinit les VARIABLES CSS
+ * dont ces classes dépendent (vérifié dans le CSS généré : `.bg-stone-900\/40` compile en
+ * `color-mix(in oklab, var(--color-stone-900) 40%, transparent)`). Tout composant sous
+ * `.parchment`, où qu'il vive dans l'appli, se reskine donc sans qu'aucun fichier de
+ * composant n'ait besoin d'être touché. `primary` (ambre/or) reste la teinte d'accent des
+ * deux thèmes, inchangée.
  */
 .parchment {
   --color-stone-950: #f6ecd4;
@@ -124,6 +127,31 @@
   --color-blue-700: #3d4a5c;
   --color-blue-400: #2f3a48;
   --color-blue-300: #465363;
+  /* `red`/`green`/`purple` : mêmes états sémantiques que sur l'assistant (dégâts/erreurs,
+     soin/succès, magie/rareté) mais utilisés dans le reste de l'appli — fiche de
+     personnage, suivi de combat, bibliothèque… Mêmes teintes claires conçues pour du fond
+     sombre, mêmes soucis de lisibilité sur crème (identifiées par grep : ce sont les seules
+     nuances de ces familles réellement utilisées comme texte/bordure/fond). */
+  --color-red-100: #7a2b2b;
+  --color-red-200: #6b2424;
+  --color-red-300: #5c1e1e;
+  --color-red-400: #4d1818;
+  --color-red-500: #3f1313;
+  --color-green-100: #4d7a4d;
+  --color-green-200: #3f6b3f;
+  --color-green-300: #336033;
+  --color-green-400: #2b552b;
+  --color-green-500: #234a23;
+  --color-green-600: #1d3f1d;
+  --color-purple-50: #6b5580;
+  --color-purple-100: #5c4870;
+  --color-purple-200: #4d3c60;
+  --color-purple-300: #403050;
+  --color-purple-400: #362840;
+  --color-purple-500: #2c2033;
+
+  --color-body-text: var(--color-stone-300);
+  --color-focus-ring: hsl(35, 70%, 35%);
 
   --color-surface-translucent: hsla(42, 55%, 88%, 0.6);
   --color-surface-strong: hsla(42, 55%, 92%, 0.88);
@@ -174,9 +202,21 @@ body {
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  color: #e5e5e5;
+  color: var(--color-body-text);
   font-family: var(--font-body);
   overflow-x: hidden;
+}
+
+/* Thème clair : même dégradé + grain que `.parchment` (pas de nouvel asset), posé sur
+   <body> puisque `background-image`/`-attachment` ne sont pas des propriétés héritées —
+   `.parchment` sur <html> ne les propage pas telles quelles à <body>. */
+.parchment body {
+  background-image:
+    radial-gradient(ellipse at 15% 10%, rgba(255, 255, 255, 0.4), transparent 55%),
+    radial-gradient(ellipse at 85% 80%, rgba(120, 90, 40, 0.1), transparent 55%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  background-color: var(--color-stone-950);
+  background-attachment: fixed, fixed, fixed;
 }
 
 /* Custom Utility Classes */
@@ -197,6 +237,16 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+/* Thème clair : un dégradé doré brillant façon jeu vidéo jure sur une page de livre — une
+   encre plate, cohérente avec le reste de la typographie du thème clair. */
+.parchment .text-gradient-gold {
+  background: none;
+  -webkit-text-fill-color: var(--color-stone-200);
+  color: var(--color-stone-200);
+  background-clip: unset;
+  -webkit-background-clip: unset;
 }
 
 /* Hide number input spinners */
@@ -223,7 +273,7 @@ input[type=number] {
   /* !important : garantit un repère clavier même sur les éléments qui neutralisent
      l'outline via focus:outline-none (barre latérale, etc.). Ne s'active qu'au
      clavier (:focus-visible) et cohabite sans gêne avec les focus:ring existants. */
-  outline: 2px solid hsl(35, 90%, 55%) !important;
+  outline: 2px solid var(--color-focus-ring) !important;
   outline-offset: 2px !important;
 }
 

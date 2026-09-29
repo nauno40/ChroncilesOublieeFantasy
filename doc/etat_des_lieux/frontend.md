@@ -139,18 +139,30 @@ src/
 
 L'application n'utilise **pas** Redux ou Zustand. La gestion d'état repose sur :
 
-- **React Context** : `AuthContext` pour l'authentification (utilisateur, token, login/logout)
-- **localStorage** : Token JWT (`co_auth_token`), utilisateur (`co_auth_user`), notes (`co_global_notes`), pistes audio (`co_soundboard_tracks`), suivi de combat (`co_combat_tracker`), positions fenêtres (`window_state_*`)
+- **React Context** : `AuthContext` pour l'authentification (utilisateur, token, login/logout),
+  `ThemeContext` (2026-09) pour le thème clair/sombre — même découpage à 3 fichiers que
+  `AuthContext` (`context/themeContextValue.ts` le `createContext`, `context/ThemeContext.tsx`
+  le provider, `hooks/useTheme.ts` le hook), imposé par Vite react-refresh (un module ne doit
+  exporter qu'un composant).
+- **localStorage** : Token JWT (`co_auth_token`), utilisateur (`co_auth_user`), thème
+  (`co_theme`, `'light'` ou absent = `'dark'`), notes (`co_global_notes`), pistes audio
+  (`co_soundboard_tracks`), suivi de combat (`co_combat_tracker`), positions fenêtres
+  (`window_state_*`)
 - **Hooks locaux** : `useState`, `useEffect`, `useMemo`, `useRef`, `useCallback` dans chaque page
 - **Hooks customs** : `useSearch<T>` (filtrage), `useToggle` (toggle booléen)
 
 ## 7. Styling et Thème
 
 - **Tailwind CSS v4** : Configuration via `@theme` dans `index.css` (pas de fichier `tailwind.config.js`)
-- **Couleur primaire** : Ambre/or (hsl(35, 90%, ...)) du 50 au 900
-- **Polices** : Cinzel (serif, titres) + Inter (sans-serif, corps)
-- **Design system** : Glassmorphism (fond semi-transparent, blur, bordures ambre), background image `bg.png`
+- **Couleur primaire** : Ambre/or (hsl(35, 90%, ...)) du 50 au 900, inchangée entre les deux thèmes
+- **Polices** : Cinzel (serif, titres) + Inter (sans-serif, corps) ; EB Garamond en thème clair (§9)
+- **Design system** : Glassmorphism (fond semi-transparent, blur, bordures ambre), background image `bg.webp`
 - **Animations** : `float`, `pulse-glow`, `fade-in`
+- **Thème clair/sombre (2026-09)** : `ThemeProvider` pose la classe `.parchment` sur
+  `<html>` quand l'utilisateur choisit le thème clair (bouton soleil/lune dans
+  `Layout.tsx`, sidebar desktop + en-tête mobile) — persisté (`co_theme`), défaut sombre.
+  Couvre l'intégralité du site, pas seulement l'assistant de création où le thème clair est
+  né (§9.1) : voir §9.1 pour le détail de la technique (variables CSS) et son extension.
 
 ## 8. Authentification
 
@@ -390,6 +402,58 @@ ou alors la voie sélectionnée qui rend pas bien » :
 Vérifié : build + suite Vitest (664 tests) + vrai navigateur (étape Voies avec un Magicien —
 seule façon de voir les badges de PM —, bascule Mage, fiche classique en comparaison,
 surlignage de capacité active visible des deux côtés).
+
+**Extension à l'intégralité du site (2026-09, phase 5)** — une fois le résultat validé sur
+l'assistant : « maintenant que t'as compris le truc, je voudrais adapté ça à l'intégralité
+du site ». Exploration préalable (3 agents en parallèle) : ~45 routes (`App.tsx`) + overlays
+persistants (`GlobalSearch`, `DraggableWindow` hébergeant Soundboard/DiceRoller/GlobalNotes) ;
+sur ~4400 usages de classes de couleur, ~88-90 % reposaient déjà sur les familles couvertes
+(stone/white/primary/amber/yellow/blue) — le reste concentré sur `red`/`green`/`purple`
+(dégâts, soin, magie/rareté), en quelques teintes claires précises, aucun hex/`style` en dur
+nulle part dans les composants. Décision produit : les outils de MJ temps réel (suivi de
+combat, dés, soundboard) **inclus** dans le thème clair (pas d'exception « outils vs
+lecture ») ; **vrai bouton** clair/sombre persisté, pas un remplacement forcé comme sur
+l'assistant seul.
+
+Ce qui a changé :
+- `ThemeContext`/`ThemeProvider`/`useTheme` (nouveau, §6) — pose/retire `.parchment` sur
+  `<html>` plutôt que sur une div de l'assistant : cascade à toute page ET aux panneaux
+  portés hors de l'arbre React (`document.body` reste descendant de `<html>`).
+- `index.css` étendu avec les mêmes variables `--color-red-100..500`/`--color-green-
+  100..600`/`--color-purple-50..500` (méthode identique à amber/yellow/blue : shades
+  identifiées par grep, assombries, vérifiées dans le CSS généré). Trois points auparavant
+  en dur rendus theme-aware : `.text-gradient-gold` (dégradé doré brillant → encre plate en
+  thème clair, inchangé en sombre), `body { color }` (variable `--color-body-text`), `body {
+  background-image }` (`.parchment body` réutilise le dégradé + grain SVG déjà construits
+  pour l'assistant — aucun nouvel asset ; `bg.webp`, l'image sombre, reste celle du thème
+  sombre par défaut). **Zéro fichier de composant modifié** pour cette extension — entièrement
+  porté par les variables CSS, sur les ~45 pages.
+- `CharacterCreationWizard.tsx` et `WizardCharacterSheetOverlay.tsx` : retrait de leur
+  classe `parchment` forcée (devenue redondante, et incohérente avec un thème sombre choisi
+  globalement) — l'assistant suit désormais le thème du site comme le reste. Sa mise en page
+  propre (chrome masqué, bandeau de médaillons, portraits fondus, navigation minimale) reste
+  strictement identique dans les deux thèmes — seule la palette bascule, vérifié en
+  navigateur (l'assistant en thème sombre garde son immersion, dans la palette d'origine).
+- Bouton soleil/lune dans `Layout.tsx` (sidebar desktop près de Cmd+K, en-tête mobile près de
+  Recherche/Déconnexion) — gabarit de bouton-icône déjà existant, aucun nouveau pattern.
+
+**Portée assumée, pas silencieuse** : ce chantier livre le thème clair/sombre — la couleur —
+sur tout le site. Il ne reproduit **pas** la refonte structurelle propre à l'assistant
+(bandeau de médaillons, portraits fondus, chrome masqué, navigation en chiffres romains) sur
+les ~45 autres pages — refonte UX pensée spécifiquement pour un parcours pas-à-pas immersif,
+qui n'aurait pas de sens telle quelle sur une liste du compendium ou le suivi de combat.
+Chantier séparé si souhaité plus tard, page par page.
+
+Vérifié : build + `tsc -b` + suite Vitest (664 tests) sans erreur + vrai navigateur, bascule
+testée sur un échantillon (Dashboard, Races liste + détail, Suivi de combat avec un
+combattant ajouté, fiche de personnage classique, assistant dans les deux thèmes,
+Bibliothèque, page de connexion) — **contrôle direct des couleurs calculées via
+`getComputedStyle` en plus du visuel** (ex. `text-red-500` → `rgb(63, 19, 19)`, exactement la
+valeur redéfinie) sur la fiche de personnage, la page la plus dense en rouge/vert/violet.
+Persistance du choix vérifiée à travers la navigation et une reconnexion. Étant donné
+l'ampleur, une couverture exhaustive des ~45 pages n'est pas garantie dès cette passe — comme
+pour les phases précédentes, d'éventuelles retouches ponctuelles se corrigeront au fil des
+retours.
 
 ## 10. Points d'attention
 

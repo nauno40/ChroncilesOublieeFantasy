@@ -189,7 +189,7 @@ export const CharacterCreationWizard: React.FC = () => {
     const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII'];
 
     return (
-        <div className="parchment min-h-screen w-full animate-fade-in">
+        <div className="min-h-screen w-full animate-fade-in">
             <div className="max-w-2xl mx-auto px-5 md:px-8 py-8 pb-24 space-y-6">
                 <div className="flex items-center gap-3">
                     <button

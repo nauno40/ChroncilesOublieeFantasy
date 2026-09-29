@@ -149,6 +149,19 @@
   --color-purple-300: #403050;
   --color-purple-400: #362840;
   --color-purple-500: #2c2033;
+  /* `rose`/`emerald`/`sky`/`violet`/`orange`/`teal` : palette d'avatars d'auteur
+     (`AuthorTag.tsx`, couleur déterministe depuis le pseudo, 7 teintes pour distinguer les
+     auteurs d'un coup d'œil) — même mécanisme que primary/amber/blue/red/green/purple :
+     `text-xxx-200` pâle sur fond sombre, invisible sur crème. `bg-xxx-500/25` (le disque de
+     fond, faible opacité) reste tel quel : un pastel doux, lisible dans les deux thèmes. */
+  --color-rose-200: #6b2b3d;
+  --color-emerald-200: #1d4d35;
+  --color-sky-200: #1d3d52;
+  --color-violet-200: #3d2c52;
+  --color-orange-200: #6b3410;
+  --color-orange-300: #5c2c0d;
+  --color-orange-400: #4d240a;
+  --color-teal-200: #1d4d47;
 
   --color-body-text: var(--color-stone-300);
   --color-focus-ring: hsl(35, 70%, 35%);

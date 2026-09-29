@@ -87,6 +87,27 @@
   /* `border-white/10`, `hover:text-white`… un blanc littéral serait invisible sur crème. */
   --color-white: #2a1d0f;
 
+  /*
+   * `primary-50..400`, `amber-200/300`, `yellow-500` : teintes claires/vives, conçues pour
+   * ressortir sur fond sombre (texte, bordures, l'« argent » en po/pa/pc de
+   * `ProtectionSection`, l'encombrement dans `ArmorImpactPanel`…) — beaucoup trop pâles ou
+   * trop vives pour rester lisibles sur crème, comme n'importe quel jaune/orange direct sur
+   * un fond beige. Vérifié dans le CSS généré (comme pour stone/white) : ces utilitaires
+   * compilent en `color-mix(in oklab, var(--color-xxx) …)`, donc redéfinir la variable
+   * reskine tout ce qui en dépend — texte, bordure, fond — sans toucher aux composants
+   * (`CapabilityNode`, `ArmorImpactPanel`, `ProtectionSection`… partagés avec la fiche
+   * classique, où ces teintes restent inchangées, hors de `.parchment`). `primary-500` et
+   * au-delà restent tels quels : déjà assez sombres pour rester lisibles sur crème.
+   */
+  --color-primary-50: #6b4a1e;
+  --color-primary-100: #5c3f1a;
+  --color-primary-200: #4a3316;
+  --color-primary-300: #3d2a12;
+  --color-primary-400: #33230f;
+  --color-amber-200: #6b5320;
+  --color-amber-300: #58441a;
+  --color-yellow-500: #6b5220;
+
   --color-surface-translucent: hsla(42, 55%, 88%, 0.6);
   --color-surface-strong: hsla(42, 55%, 92%, 0.88);
   --glass-border: 1px solid hsla(30, 45%, 30%, 0.25);
@@ -126,16 +147,6 @@
 .portrait-feather {
   mask-image: radial-gradient(ellipse 78% 88% at 50% 38%, black 58%, transparent 100%);
   -webkit-mask-image: radial-gradient(ellipse 78% 88% at 50% 38%, black 58%, transparent 100%);
-}
-
-/* `primary-50/100/200` : teintes ambre très pâles, lisibles en texte sur fond sombre,
-   invisibles sur crème (ex. le nom d'un choix dans EquipmentChoiceModal, les badges de
-   voie active). `primary` lui-même n'est pas touché (utilisé aussi comme fond de badge,
-   bordure…) — seul le rôle « texte clair sur fond sombre » est concerné. */
-.parchment .text-primary-50,
-.parchment .text-primary-100,
-.parchment .text-primary-200 {
-  color: hsl(32, 65%, 26%);
 }
 
 body {

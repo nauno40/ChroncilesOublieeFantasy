@@ -351,6 +351,22 @@ Voies → Caractéristiques → Équipement), desktop et mobile (375px). Reste d
 (`/characters`, fiche classique `/characters/:id`) vérifié inchangé — chrome applicatif et
 thème sombre intacts.
 
+**Contraste jaune/orange sur crème (même jour, retour immédiat)** — l'argent (po/pa/pc) de
+`ProtectionSection`, le panneau « Sous l'armure » d'`ArmorImpactPanel` et le libellé « Rang N »
+actif de `CapabilityNode` utilisent des teintes Tailwind directes (`text-yellow-500`,
+`text-amber-200/300`) ou `primary-300/400` — conçues pour ressortir sur fond sombre, quasi
+illisibles sur crème (un jaune/orange vif sur beige, comme n'importe où ailleurs). Même
+technique que pour `stone`/`white` (phase 2) : ces utilitaires compilent aussi en
+`color-mix(in oklab, var(--color-xxx) …)` (vérifié dans le CSS généré), donc `.parchment`
+redéfinit `--color-primary-50..400`, `--color-amber-200/300` et `--color-yellow-500` vers des
+encres sombres — `primary-500` et au-delà restaient déjà assez sombres, non touchés. Remplace
+l'ancien correctif ponctuel de la phase 2 (`.parchment .text-primary-50/100/200 { color: … }`),
+qui ne couvrait ni les bordures/fonds ni les variantes d'opacité (`/70`, `/80`…) — redéfinir la
+variable couvre tout d'un coup, sans toucher aux composants partagés (`CapabilityNode`,
+`ArmorImpactPanel`, `ProtectionSection`), inchangés hors `.parchment` (vérifié sur la fiche
+classique, toujours en jaune/ambre vif sur fond sombre). Vérifié : build + suite Vitest (664
+tests) + vrai navigateur (étapes Voies et Équipement, fiche classique en comparaison).
+
 ## 10. Points d'attention
 
 - **Écart types ↔ API** : `node scripts/audit-types-api.mjs [url]` confronte

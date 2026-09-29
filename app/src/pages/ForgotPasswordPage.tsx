@@ -29,7 +29,7 @@ export const ForgotPasswordPage: React.FC = () => {
             {sentMessage ? (
                         <div className="text-center space-y-4">
                             <div className="inline-flex size-14 bg-green-500/10 rounded-2xl items-center justify-center text-green-400 mb-2">
-                                <MailCheck size={28} />
+                                <MailCheck size={24} />
                             </div>
                             <h2 className="text-2xl font-display font-bold text-white">Vérifiez vos e-mails</h2>
                             <p className="text-stone-400 text-sm">{sentMessage}</p>
@@ -46,7 +46,7 @@ export const ForgotPasswordPage: React.FC = () => {
 
                             {error && (
                                 <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center gap-3 text-red-400 text-sm">
-                                    <AlertCircle size={18} />
+                                    <AlertCircle size={16} />
                                     <span>{error}</span>
                                 </div>
                             )}
@@ -56,7 +56,7 @@ export const ForgotPasswordPage: React.FC = () => {
                                     <label className="text-xs font-bold uppercase tracking-widest text-stone-400 ml-1">Email</label>
                                     <div className="relative">
                                         <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-stone-400">
-                                            <Mail size={18} />
+                                            <Mail size={16} />
                                         </div>
                                         <input
                                             type="email"

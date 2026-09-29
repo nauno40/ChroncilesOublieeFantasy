@@ -49,7 +49,7 @@ export const GlobalNotes: React.FC<GlobalNotesProps> = ({ isOpen }) => {
                     {isSaving ? (
                         <>Enregistrement...</>
                     ) : (
-                        <><Check size={10} className="text-green-500" /> Sauvegardé</>
+                        <><Check size={12} className="text-green-500" /> Sauvegardé</>
                     )}
                 </span>
                 <span>{notes.length} car.</span>

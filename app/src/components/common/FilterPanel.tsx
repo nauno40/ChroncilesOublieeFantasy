@@ -31,7 +31,7 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
                 className="w-full p-4 flex items-center justify-between hover:bg-stone-900/30 transition-colors"
             >
                 <div className="flex items-center gap-2">
-                    <Filter size={18} className="text-primary-400" />
+                    <Filter size={16} className="text-primary-400" />
                     <span className="font-display font-bold text-stone-200">
                         Filtres
                     </span>

@@ -32,7 +32,7 @@ export const CapaciteSheet: React.FC<CapaciteSheetProps> = ({ vm, backTo, backLa
         <div className="max-w-4xl mx-auto space-y-6 animate-fade-in pb-12">
             {backTo && (
                 <Link to={backTo} className="inline-flex items-center text-stone-400 hover:text-primary-400 transition-colors group mb-2">
-                    <ArrowLeft size={18} className="mr-2 group-hover:-translate-x-1 transition-transform" />
+                    <ArrowLeft size={16} className="mr-2 group-hover:-translate-x-1 transition-transform" />
                     <span className="font-display font-medium">{backLabel}</span>
                 </Link>
             )}

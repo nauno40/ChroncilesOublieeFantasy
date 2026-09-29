@@ -69,7 +69,7 @@ export const ArmorImpactPanel: React.FC<Props> = ({ impacts, armorName, malusEnc
                         <ul className="space-y-0.5">
                             {impact.spells.map(spell => (
                                 <li key={spell.name} className="text-[11px] text-stone-400 flex items-center gap-1.5">
-                                    <Sparkles size={11} className="text-primary-400/70 shrink-0" />
+                                    <Sparkles size={12} className="text-primary-400/70 shrink-0" />
                                     <span className="text-stone-200">{spell.name}</span>
                                     <span className="font-mono">
                                         {spell.base} + {impact.surcharge} = <strong className="text-primary-300">{spell.total} PM</strong>

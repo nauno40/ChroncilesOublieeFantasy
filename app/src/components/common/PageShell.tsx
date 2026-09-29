@@ -31,7 +31,7 @@ export const PageShell: React.FC<PageShellProps> = ({ title, subtitle, icon: Ico
         <div className="flex flex-wrap items-start justify-between gap-4">
             <div className="min-w-0">
                 <h1 className="text-3xl md:text-4xl font-display font-bold text-white drop-shadow-sm flex items-center gap-3">
-                    <Icon className="text-primary-400/90 shrink-0" size={28} />
+                    <Icon className="text-primary-400/90 shrink-0" size={24} />
                     <span className="truncate">{title}</span>
                 </h1>
                 {subtitle && <p className="text-stone-400 mt-1.5 text-sm max-w-2xl">{subtitle}</p>}
@@ -41,7 +41,7 @@ export const PageShell: React.FC<PageShellProps> = ({ title, subtitle, icon: Ico
 
         {search && (
             <div className="relative">
-                <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-stone-400" />
+                <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-stone-400" />
                 <input
                     value={search.value}
                     onChange={e => search.onChange(e.target.value)}

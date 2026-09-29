@@ -263,7 +263,7 @@ export const Layout: React.FC = () => {
                                     className="p-2 rounded-lg text-stone-400 hover:text-primary-400 hover:bg-primary-500/10 transition-all disabled:opacity-50"
                                     title="Exporter mes données"
                                 >
-                                    <Download size={18} />
+                                    <Download size={16} />
                                 </button>
                             )}
                             <button
@@ -271,7 +271,7 @@ export const Layout: React.FC = () => {
                                 className="p-2 rounded-lg text-stone-400 hover:text-red-400 hover:bg-red-500/10 transition-all"
                                 title="Déconnexion"
                             >
-                                <LogOut size={18} />
+                                <LogOut size={16} />
                             </button>
                         </div>
                         <div className="text-[11px] text-stone-400 font-display text-center pt-3 italic">v1.0.0 Alpha</div>
@@ -316,7 +316,7 @@ export const Layout: React.FC = () => {
                                 )}
 
                                 <Icon
-                                    size={isActive ? 22 : 20}
+                                    size={20}
                                     className={clsx(
                                         "transition-all duration-300 z-10 flex-none",
                                         isActive && "scale-110 drop-shadow-[0_0_8px_rgba(245,158,11,0.5)]"
@@ -344,7 +344,7 @@ export const Layout: React.FC = () => {
                             className="md:hidden bg-gradient-to-br from-stone-800 to-stone-900 border border-primary-500/30 text-primary-400 p-3 rounded-full shadow-xl active:scale-95 transition-all animate-in slide-in-from-bottom-2 fade-in-0"
                             title="Rechercher (Cmd+K)"
                         >
-                            <Search size={22} strokeWidth={2.5} />
+                            <Search size={20} strokeWidth={2.5} />
                         </button>
                         {/* Soundboard */}
                         <button
@@ -352,7 +352,7 @@ export const Layout: React.FC = () => {
                             className="bg-gradient-to-br from-primary-500 to-primary-700 hover:from-primary-400 text-stone-950 p-3 md:p-3.5 rounded-full shadow-xl shadow-primary-900/30 hover:scale-110 active:scale-95 transition-all animate-in slide-in-from-bottom-2 fade-in-0"
                             title="Soundboard"
                         >
-                            <Music size={22} strokeWidth={2.5} />
+                            <Music size={20} strokeWidth={2.5} />
                         </button>
                         {/* Notes */}
                         <button
@@ -360,7 +360,7 @@ export const Layout: React.FC = () => {
                             className="bg-gradient-to-br from-primary-500 to-primary-700 hover:from-primary-400 text-stone-950 p-3 md:p-3.5 rounded-full shadow-xl shadow-primary-900/30 hover:scale-110 active:scale-95 transition-all animate-in slide-in-from-bottom-2 fade-in-0"
                             title="Notes Globales"
                         >
-                            <StickyNote size={22} strokeWidth={2.5} />
+                            <StickyNote size={20} strokeWidth={2.5} />
                         </button>
                         {/* Dés */}
                         <button

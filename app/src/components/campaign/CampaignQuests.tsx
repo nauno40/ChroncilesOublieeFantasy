@@ -135,7 +135,7 @@ export const CampaignQuests: React.FC<Props> = ({ campaign, onCampaignSaved }) =
                         {(campaign.quests || []).filter((q: Quest) => q.type === 'main').map((quest: Quest) => (
                             <div key={quest.id} className={clsx("flex items-start gap-3 p-3 rounded-lg border transition-all", quest.status === 'completed' ? "bg-stone-900/30 border-transparent opacity-60" : "bg-stone-900/80 border-amber-500/20")}>
                                 <button onClick={() => handleToggleQuest(quest.id)} className="mt-0.5 text-stone-400 hover:text-amber-500 transition-colors">
-                                    {quest.status === 'completed' ? <CheckSquare size={18} /> : <Square size={18} />}
+                                    {quest.status === 'completed' ? <CheckSquare size={16} /> : <Square size={16} />}
                                 </button>
                                 {editingQuestId === quest.id ? (
                                     <>
@@ -155,7 +155,7 @@ export const CampaignQuests: React.FC<Props> = ({ campaign, onCampaignSaved }) =
                                             <p className={clsx("text-stone-200 leading-snug", quest.status === 'completed' && "line-through text-stone-400")}>{quest.title}</p>
                                         </div>
                                         {shareButton(quest, 13)}
-                                        <button onClick={() => startEditQuest(quest)} title="Modifier" className="text-stone-400 hover:text-amber-500 opacity-0 group-hover:opacity-100 transition-opacity"><Edit size={13} /></button>
+                                        <button onClick={() => startEditQuest(quest)} title="Modifier" className="text-stone-400 hover:text-amber-500 opacity-0 group-hover:opacity-100 transition-opacity"><Edit size={14} /></button>
                                         <button onClick={() => handleDeleteQuest(quest.id)} title="Supprimer" className="text-stone-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"><X size={14} /></button>
                                     </>
                                 )}

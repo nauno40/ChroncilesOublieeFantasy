@@ -287,7 +287,7 @@ export const PlayMode: React.FC = () => {
                     sharedCampaigns === null ? <Stub label="Chargement de la campagne…" />
                     : !myCampaign ? (
                         <div className="flex flex-col items-center justify-center text-center text-stone-400 gap-3 py-16 px-6">
-                            <ScrollText size={28} className="text-stone-400" />
+                            <ScrollText size={24} className="text-stone-400" />
                             <p className="text-sm">Tu n'as pas encore rejoint de campagne.</p>
                             <Link to="/campaign" className="text-xs text-primary-400 underline">Rejoindre une campagne</Link>
                         </div>

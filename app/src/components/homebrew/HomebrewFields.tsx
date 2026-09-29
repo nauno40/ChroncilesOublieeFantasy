@@ -191,7 +191,7 @@ const LinesInput: React.FC<{ label: string; value: string[]; onChange: (v: strin
                         <button type="button" onClick={() => remove(i)} className="text-stone-400 hover:text-red-400 px-2" aria-label="Retirer"><X size={16} /></button>
                     </div>
                 ))}
-                <button type="button" onClick={() => onChange([...value, ''])} className="text-primary-400 hover:text-primary-300 text-xs font-bold flex items-center gap-1"><Plus size={13} /> Ajouter</button>
+                <button type="button" onClick={() => onChange([...value, ''])} className="text-primary-400 hover:text-primary-300 text-xs font-bold flex items-center gap-1"><Plus size={14} /> Ajouter</button>
             </div>
         </div>
     );

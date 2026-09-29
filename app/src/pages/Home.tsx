@@ -94,7 +94,7 @@ export const Home: React.FC = () => {
                                         <div className="font-display font-bold text-stone-100 group-hover:text-primary-300 truncate">{ch.name}</div>
                                         <div className="text-xs text-stone-400">Niveau {ch.level}</div>
                                     </div>
-                                    <ChevronRight size={18} className="text-stone-400 group-hover:text-primary-400 shrink-0" />
+                                    <ChevronRight size={16} className="text-stone-400 group-hover:text-primary-400 shrink-0" />
                                 </button>
                             ))}
                         </div>
@@ -115,7 +115,7 @@ export const Home: React.FC = () => {
                                         <div className="font-display font-bold text-stone-100 group-hover:text-primary-300 truncate">{e.name}</div>
                                         <div className="mt-1"><AuthorTag pseudo={e.authorPseudo} /></div>
                                     </div>
-                                    <ChevronRight size={18} className="text-stone-400 group-hover:text-primary-400 shrink-0" />
+                                    <ChevronRight size={16} className="text-stone-400 group-hover:text-primary-400 shrink-0" />
                                 </button>
                             ))}
                         </div>
@@ -150,7 +150,7 @@ const Section: React.FC<{ title: string; to: string; toLabel: string; children: 
     <div className="glass-panel rounded-2xl border border-white/5 p-5">
         <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-display font-bold text-stone-100">{title}</h3>
-            <Link to={to} className="text-xs font-bold text-primary-400 hover:text-primary-300 flex items-center gap-1 uppercase tracking-wider">{toLabel} <ArrowRight size={13} /></Link>
+            <Link to={to} className="text-xs font-bold text-primary-400 hover:text-primary-300 flex items-center gap-1 uppercase tracking-wider">{toLabel} <ArrowRight size={14} /></Link>
         </div>
         {children}
     </div>

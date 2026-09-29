@@ -48,7 +48,7 @@ export const TabGroup: React.FC<TabGroupProps> = ({
                                     : 'text-stone-400 hover:text-stone-200 hover:bg-stone-900/30'
                             )}
                         >
-                            {Icon && <Icon size={18} />}
+                            {Icon && <Icon size={16} />}
                             {tab.label}
                         </button>
                     );

@@ -177,7 +177,7 @@ export const Soundboard: React.FC<SoundboardProps> = ({ isOpen }) => {
                                         onClick={(e) => { e.stopPropagation(); handleDeleteTrack(track.id); }}
                                         className="absolute -top-1 -right-1 bg-red-600 text-white p-0.5 rounded-full shadow-lg hover:scale-110 transition-transform z-10"
                                     >
-                                        <Trash2 size={10} />
+                                        <Trash2 size={12} />
                                     </button>
                                 )}
                             </div>

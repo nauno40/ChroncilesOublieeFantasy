@@ -171,8 +171,10 @@
   --glass-border: 1px solid hsla(30, 45%, 30%, 0.25);
   --glass-shadow: 0 8px 28px 0 rgba(120, 90, 40, 0.25);
 
-  --font-body: "EB Garamond", serif;
-  font-family: "EB Garamond", serif;
+  /* Police du corps de texte volontairement PAS redéfinie ici : Inter reste la même dans
+     les deux thèmes (choix explicite — EB Garamond, gardée un temps pour l'esprit « livre »
+     du seul assistant de création, donnait l'impression de deux produits différents une
+     fois le thème clair étendu à tout le site). Seule la couleur change. */
   color: var(--color-stone-300);
   /*
    * Grain de papier : filtre SVG feTurbulence encodé en donnée, pas un fichier image — un

@@ -124,13 +124,13 @@ export const CampaignClues: React.FC<Props> = ({ campaign, onCampaignSaved }) =>
                             <p className={clsx("mb-2", clue.status === 'solved' ? "text-stone-400 line-through" : "text-stone-300")}>{clue.content}</p>
                         )}
                         <div className="flex justify-between items-center text-[11px] text-stone-400">
-                            <span className="flex items-center gap-1"><MapPin size={10} /> Trouvé le {formatDateSafe(clue.found_at)}</span>
+                            <span className="flex items-center gap-1"><MapPin size={12} /> Trouvé le {formatDateSafe(clue.found_at)}</span>
                             <div className="flex gap-2">
                                 <button onClick={() => handleToggleClue(clue.id)} className={clsx("hover:underline", clue.status === 'solved' ? "text-stone-400" : "text-green-600")}>
                                     {clue.status === 'solved' ? "Rouvrir" : "Résoudre"}
                                 </button>
                                 <button onClick={() => handleToggleShareClue(clue.id)} title={clue.shared ? 'Partagé aux joueurs — cliquer pour masquer' : 'Partager aux joueurs'} className={clsx("flex items-center gap-1", clue.shared ? "text-primary-400" : "text-stone-400 hover:text-primary-400")}>
-                                    {clue.shared ? <Eye size={11} /> : <EyeOff size={11} />} {clue.shared ? 'Partagé' : 'Partager'}
+                                    {clue.shared ? <Eye size={12} /> : <EyeOff size={12} />} {clue.shared ? 'Partagé' : 'Partager'}
                                 </button>
                                 {editingClueId !== clue.id && (
                                     <button onClick={() => startEditClue(clue)} className="text-stone-400 hover:text-stone-300 opacity-0 group-hover/clue:opacity-100 transition-opacity">Modifier</button>

@@ -32,11 +32,11 @@ export const CapabilityRefs: React.FC<{
         <div className="flex flex-wrap items-center gap-1.5 mt-3">
             {etats.map(etat => (onEtat ? (
                 <button key={etat} type="button" onClick={() => onEtat(etat)} className={styleEtat}>
-                    <Zap size={10} /> {etat}
+                    <Zap size={12} /> {etat}
                 </button>
             ) : (
                 <Link key={etat} to={lienEtat(etat)} className={styleEtat}>
-                    <Zap size={10} /> {etat}
+                    <Zap size={12} /> {etat}
                 </Link>
             )))}
 
@@ -46,7 +46,7 @@ export const CapabilityRefs: React.FC<{
                     to={resolue.lien}
                     className="inline-flex items-center gap-1 text-[11px] uppercase tracking-wide bg-primary-950/40 text-primary-200 px-2 py-0.5 rounded border border-primary-500/30 hover:bg-primary-900/50 transition-colors"
                 >
-                    <Sparkles size={10} />
+                    <Sparkles size={12} />
                     {resolue.type === 'creature' ? resolue.creature.name : resolue.nom}
                     {(invocation.quantity ?? 1) > 1 && ` ×${invocation.quantity}`}
                 </Link>

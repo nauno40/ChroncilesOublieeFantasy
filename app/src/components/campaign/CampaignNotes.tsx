@@ -48,7 +48,7 @@ export const CampaignNotes: React.FC<Props> = ({ campaign }) => {
                         {isSaving ? (
                             <>Enregistrement...</>
                         ) : (
-                            <><Check size={10} className="text-green-500" /> Sauvegardé</>
+                            <><Check size={12} className="text-green-500" /> Sauvegardé</>
                         )}
                     </span>
                     <span>{notes.length} caractères</span>

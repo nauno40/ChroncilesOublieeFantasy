@@ -32,7 +32,7 @@ export const CommentThread: React.FC<CommentThreadProps> = ({ targetType, target
     return (
         <section className="mt-8 glass-panel rounded-2xl border border-white/5 p-6">
             <h3 className="flex items-center gap-2 text-lg font-display font-bold text-white mb-4">
-                <MessageCircle size={18} className="text-primary-400" />
+                <MessageCircle size={16} className="text-primary-400" />
                 Commentaires{comments && comments.length > 0 ? ` (${comments.length})` : ''}
             </h3>
 

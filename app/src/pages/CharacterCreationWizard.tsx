@@ -197,7 +197,7 @@ export const CharacterCreationWizard: React.FC = () => {
                         aria-label="Retour à la liste des personnages"
                         className="text-stone-400 hover:text-stone-200 transition-colors -ml-1 p-1"
                     >
-                        <ArrowLeft size={18} className="hover:-translate-x-0.5 transition-transform" />
+                        <ArrowLeft size={16} className="hover:-translate-x-0.5 transition-transform" />
                     </button>
                     <div className="flex-1 text-center">
                         <p className="text-[10px] uppercase tracking-[0.25em] text-stone-500 whitespace-nowrap">
@@ -209,7 +209,7 @@ export const CharacterCreationWizard: React.FC = () => {
                         aria-label="Voir ma fiche de personnage"
                         className="text-stone-400 hover:text-stone-200 transition-colors p-1"
                     >
-                        <ScrollText size={18} />
+                        <ScrollText size={16} />
                     </button>
                 </div>
 

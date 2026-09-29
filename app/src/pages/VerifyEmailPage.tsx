@@ -51,7 +51,7 @@ export const VerifyEmailPage: React.FC = () => {
             {status === 'success' && (
                 <div className="text-center space-y-4">
                     <div className="inline-flex size-14 bg-green-500/10 rounded-2xl items-center justify-center text-green-400 mb-2">
-                        <CheckCircle2 size={28} />
+                        <CheckCircle2 size={24} />
                     </div>
                     <h2 className="text-2xl font-display font-bold text-white">Adresse confirmée</h2>
                     <p className="text-stone-400 text-sm">{message}</p>
@@ -64,7 +64,7 @@ export const VerifyEmailPage: React.FC = () => {
             {status === 'error' && (
                 <div className="text-center space-y-4">
                     <div className="inline-flex size-14 bg-red-500/10 rounded-2xl items-center justify-center text-red-400 mb-2">
-                        <AlertCircle size={28} />
+                        <AlertCircle size={24} />
                     </div>
                     <h2 className="text-2xl font-display font-bold text-white">Lien invalide</h2>
                     <p className="text-stone-400 text-sm">{message || 'Ce lien de confirmation est incomplet ou a expiré.'}</p>

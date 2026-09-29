@@ -173,7 +173,7 @@ export const CampaignSessions: React.FC<Props> = ({ campaign, onCampaignSaved })
                                     <h3 className="font-bold text-lg text-stone-200 group-hover:text-primary-400 transition-colors">{session.title}</h3>
                                     {session.level && (
                                         <span className="text-xs font-mono text-primary-500/60 bg-primary-900/10 px-2 py-1 rounded flex items-center gap-1">
-                                            <Trophy size={10} /> Niv {session.level}
+                                            <Trophy size={12} /> Niv {session.level}
                                         </span>
                                     )}
                                 </div>

@@ -67,7 +67,7 @@ export const CharacterList: React.FC = () => {
                 icon={User}
                 actions={
                     <Link to="/characters/new" className="bg-primary-600 hover:bg-primary-500 text-stone-950 font-bold py-2.5 px-4 rounded-xl flex items-center gap-2 transition-all shadow-lg hover:shadow-primary-500/25 text-sm">
-                        <Plus size={18} /> Nouveau Personnage
+                        <Plus size={16} /> Nouveau Personnage
                     </Link>
                 }
             />

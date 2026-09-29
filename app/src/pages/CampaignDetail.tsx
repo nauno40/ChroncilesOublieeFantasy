@@ -436,7 +436,7 @@ export const CampaignDetail: React.FC = () => {
                 >
                     <span className="flex items-center gap-3">
                         <span className="bg-primary-900/30 p-2 rounded-lg border border-primary-500/20">
-                            <Users size={18} className="text-primary-400" />
+                            <Users size={16} className="text-primary-400" />
                         </span>
                         <span className="font-display font-bold text-stone-200">Joueurs & partage</span>
                         <span className="text-xs text-stone-400">

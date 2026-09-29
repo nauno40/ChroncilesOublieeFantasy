@@ -127,7 +127,7 @@ export const Voies: React.FC = () => {
                                 aria-label="Réinitialiser les filtres"
                                 className="p-1.5 text-stone-400 hover:text-red-400 hover:bg-red-400/10 rounded-lg transition-colors"
                             >
-                                <X size={18} />
+                                <X size={16} />
                             </button>
                         )}
                     </div>
@@ -148,7 +148,7 @@ export const Voies: React.FC = () => {
                         >
                             <div className="flex justify-between items-start mb-3">
                                 <div className="text-stone-400">
-                                    <TypeIcon size={18} />
+                                    <TypeIcon size={16} />
                                 </div>
                                 {profileName && (
                                     <Badge variant="outline" size="sm" className="max-w-[120px] truncate">

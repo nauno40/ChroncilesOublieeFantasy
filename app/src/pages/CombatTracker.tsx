@@ -644,7 +644,7 @@ export const CombatTracker: React.FC = () => {
                         </div>
 
                         <button onClick={() => handleRemove(c.id)} className="text-stone-400 hover:text-red-500 p-2 rounded-full hover:bg-stone-900/50 transition-colors">
-                            <Trash2 size={18} />
+                            <Trash2 size={16} />
                         </button>
                     </div>
                 ))}

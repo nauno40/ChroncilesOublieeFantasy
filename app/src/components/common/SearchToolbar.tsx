@@ -47,7 +47,7 @@ export const SearchToolbar: React.FC<SearchToolbarProps> = ({
         <div className={`space-y-3 ${className ?? ''}`}>
             <div className="flex flex-wrap items-center gap-3">
                 <label className="relative flex-1 min-w-[220px]">
-                    <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-stone-400 pointer-events-none" />
+                    <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-stone-400 pointer-events-none" />
                     <input
                         value={value}
                         onChange={e => onChange(e.target.value)}

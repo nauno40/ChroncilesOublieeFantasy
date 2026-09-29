@@ -59,7 +59,7 @@ export const LoginPage: React.FC = () => {
                     {error && (
                         <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 flex flex-col gap-3 text-red-400 text-sm">
                             <div className="flex items-center gap-3">
-                                <AlertCircle size={18} />
+                                <AlertCircle size={16} />
                                 <span>{error}</span>
                             </div>
                             {needsVerification && (
@@ -87,7 +87,7 @@ export const LoginPage: React.FC = () => {
                             <label className="text-xs font-bold uppercase tracking-widest text-stone-400 ml-1">Email</label>
                             <div className="relative">
                                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-stone-400">
-                                    <Mail size={18} />
+                                    <Mail size={16} />
                                 </div>
                                 <input
                                     type="email"
@@ -107,7 +107,7 @@ export const LoginPage: React.FC = () => {
                             </div>
                             <div className="relative">
                                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-stone-400">
-                                    <Lock size={18} />
+                                    <Lock size={16} />
                                 </div>
                                 <input
                                     type="password"

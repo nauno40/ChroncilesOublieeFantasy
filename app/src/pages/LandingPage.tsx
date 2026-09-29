@@ -213,7 +213,7 @@ export const LandingPage: React.FC = () => {
                 <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
                     <div className="flex items-center gap-2">
                         <div className="size-8 bg-primary-600/20 rounded-lg flex items-center justify-center text-primary-500">
-                            <Scroll size={18} />
+                            <Scroll size={16} />
                         </div>
                         <span className="font-display font-bold">ChroniquesOubliées</span>
                     </div>
@@ -242,7 +242,7 @@ interface FeatureCardProps {
 const FeatureCard: React.FC<FeatureCardProps> = ({ icon: Icon, title, description }) => (
     <div className="glass-panel p-8 rounded-3xl border-white/5 hover:border-primary-500/30 transition-all hover:-translate-y-1 group">
         <div className="size-14 rounded-2xl bg-white/5 flex items-center justify-center mb-6 text-stone-300 group-hover:bg-primary-600 group-hover:text-stone-950 transition-all duration-300">
-            <Icon size={28} />
+            <Icon size={24} />
         </div>
         <h3 className="text-xl font-display font-bold mb-3 group-hover:text-primary-400 transition-colors">{title}</h3>
         <p className="text-stone-400 text-sm leading-relaxed">{description}</p>

@@ -42,7 +42,7 @@ export const WizardCharacterSheetOverlay: React.FC<Props> = ({ isOpen, onClose, 
                         aria-label="Fermer"
                         className="text-stone-400 hover:text-white p-1 rounded-lg hover:bg-white/5 transition-colors"
                     >
-                        <X size={18} />
+                        <X size={16} />
                     </button>
                 </div>
                 {children}

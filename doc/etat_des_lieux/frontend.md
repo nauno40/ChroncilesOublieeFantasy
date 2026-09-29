@@ -455,6 +455,32 @@ l'ampleur, une couverture exhaustive des ~45 pages n'est pas garantie dès cette
 pour les phases précédentes, d'éventuelles retouches ponctuelles se corrigeront au fil des
 retours.
 
+**Cohérence pro (2026-09, même semaine)** — retour après la phase 5 : « il reste encore des
+trucs pas fou pour les 2 thèmes, comme les polices, tailles, couleurs, icônes ». Trois
+correctifs :
+- **Avatars d'auteur illisibles en clair** — `AuthorTag.tsx` (couleur déterministe depuis le
+  pseudo, 7 teintes) utilisait `rose`/`emerald`/`sky`/`violet`/`orange`/`teal` en `-200`,
+  familles jamais couvertes jusqu'ici — même défaut que primary/amber/blue/red/green/purple
+  (phases 2-5), corrigé par la même technique (variables CSS redéfinies sous `.parchment`).
+- **Échelle d'icônes incohérente** — 14 tailles Lucide différentes utilisées au cas par cas
+  dans tout le code (10 à 150px, sans échelle). Ramenées à 12/14/16/20/24/32 (+ un palier
+  décoratif 48-150px assumé pour les grandes illustrations — `Tools.tsx`, watermark de
+  `ProfileSheet.tsx` — qui n'a rien d'incohérent, juste une autre échelle). Remplacement
+  mécanique (`sed`) des valeurs isolées les plus proches vers ce palier, sur tout `src/` ;
+  deux tailles conditionnelles (`size={cond ? A : B}`) que le remplacement littéral ne
+  pouvait pas voir corrigées à la main (`AuthorTag.tsx`, `Layout.tsx` — cette dernière
+  simplifiée : l'agrandissement au survol actif reposait déjà aussi sur `scale-110`,
+  redondant avec un `size` conditionnel).
+- **Police différente selon le thème** — `.parchment` imposait EB Garamond (serif) au corps
+  de texte, hérité du seul assistant de création (esprit « livre »), quand le thème sombre
+  restait sur Inter (sans-serif) — deux thèmes qui ne se lisaient plus comme un seul produit.
+  Tranché avec l'utilisateur : Inter partout, plus de redéfinition de `--font-body` sous
+  `.parchment` ; import Google Fonts d'EB Garamond retiré (`index.html`, plus utilisée nulle
+  part). `--font-display` (Cinzel, les titres) inchangé dans les deux thèmes.
+
+Vérifié : build + `tsc -b` + suite Vitest (664 tests) sans erreur + vrai navigateur (dashboard
+clair/sombre côte à côte, échelle d'icônes visible sur plusieurs pages).
+
 ## 10. Points d'attention
 
 - **Écart types ↔ API** : `node scripts/audit-types-api.mjs [url]` confronte

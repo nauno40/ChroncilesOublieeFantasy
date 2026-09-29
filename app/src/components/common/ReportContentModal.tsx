@@ -53,7 +53,7 @@ export const ReportContentModal: React.FC<ReportContentModalProps> = ({ isOpen, 
                 {done ? (
                     <div className="text-center space-y-3">
                         <div className="inline-flex size-12 bg-green-500/10 rounded-xl items-center justify-center text-green-400">
-                            <Flag size={22} />
+                            <Flag size={20} />
                         </div>
                         <h3 className="text-lg font-display font-bold text-white">Signalement envoyé</h3>
                         <p className="text-stone-400 text-sm">Un administrateur va l'examiner.</p>
@@ -67,7 +67,7 @@ export const ReportContentModal: React.FC<ReportContentModalProps> = ({ isOpen, 
                 ) : (
                     <>
                         <h3 className="text-lg font-display font-bold text-white mb-1 flex items-center gap-2">
-                            <Flag size={18} className="text-red-400" /> Signaler ce contenu
+                            <Flag size={16} className="text-red-400" /> Signaler ce contenu
                         </h3>
                         <p className="text-stone-400 mb-4 text-sm">Expliquez ce qui pose problème.</p>
 

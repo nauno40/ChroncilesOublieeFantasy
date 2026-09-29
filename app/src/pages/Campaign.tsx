@@ -133,7 +133,7 @@ export const Campaign: React.FC = () => {
                         onClick={() => setShowCreateForm(!showCreateForm)}
                         className="bg-primary-600 hover:bg-primary-500 text-stone-950 font-bold py-2.5 px-4 rounded-xl flex items-center gap-2 transition-all shadow-lg hover:shadow-primary-500/25 text-sm"
                     >
-                        <Plus size={18} /> Nouvelle campagne
+                        <Plus size={16} /> Nouvelle campagne
                     </button>
                 }
             />
@@ -203,12 +203,12 @@ export const Campaign: React.FC = () => {
                         disabled={joining || !joinCode.trim()}
                         className="bg-primary-600 hover:bg-primary-500 text-stone-950 font-bold px-6 py-3 rounded-lg transition-all shadow-md disabled:opacity-50 flex items-center gap-2"
                     >
-                        {joining ? <Loader2 size={18} className="animate-spin" /> : null} Rejoindre
+                        {joining ? <Loader2 size={16} className="animate-spin" /> : null} Rejoindre
                     </button>
                 </form>
                 {joinError && (
                     <div className="mt-3 p-3 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center gap-3 text-red-400 text-sm">
-                        <AlertCircle size={18} className="shrink-0" />
+                        <AlertCircle size={16} className="shrink-0" />
                         <span>{joinError}</span>
                     </div>
                 )}
@@ -235,7 +235,7 @@ export const Campaign: React.FC = () => {
                                 <div className="flex items-center justify-between gap-3 px-5 py-3">
                                     <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-stone-400 min-w-0">
                                         <span className="flex items-center gap-1.5 text-primary-400/80">
-                                            <Users size={13} /> {campaign.characters?.length || 0} joueur{(campaign.characters?.length || 0) > 1 ? 's' : ''}
+                                            <Users size={14} /> {campaign.characters?.length || 0} joueur{(campaign.characters?.length || 0) > 1 ? 's' : ''}
                                         </span>
                                         <span className="flex items-center gap-1.5 truncate">
                                             <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse shrink-0"></span>
@@ -254,7 +254,7 @@ export const Campaign: React.FC = () => {
                         >
                             <div className="flex items-start justify-between mb-4">
                                 <div className="w-12 h-12 bg-primary-900/30 rounded-full flex items-center justify-center text-primary-400 border border-primary-500/20 group-hover:scale-110 transition-transform">
-                                    <BookOpen size={22} />
+                                    <BookOpen size={20} />
                                 </div>
                             </div>
                             <h3 className="text-xl font-display font-bold text-stone-100 group-hover:text-primary-400 transition-colors mb-1">{campaign.name}</h3>
@@ -269,12 +269,12 @@ export const Campaign: React.FC = () => {
             {/* Campagnes rejointes : vue joueur en lecture seule (résumés de séance) */}
             <div className="pt-6">
                 <h2 className="text-2xl font-display font-bold text-stone-200 mb-4 flex items-center gap-2">
-                    <BookOpen size={22} className="text-primary-400" /> Campagnes rejointes
+                    <BookOpen size={20} className="text-primary-400" /> Campagnes rejointes
                 </h2>
 
                 {attachError && (
                     <div className="mb-4 p-3 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center gap-3 text-red-400 text-sm">
-                        <AlertCircle size={18} className="shrink-0" />
+                        <AlertCircle size={16} className="shrink-0" />
                         <span>{attachError}</span>
                     </div>
                 )}

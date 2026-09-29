@@ -44,7 +44,7 @@ export const WizardAvatarStrip: React.FC<Props> = ({ items, selectedIri, onSelec
                         />
                         {isSelected && (
                             <span className="absolute -top-0.5 -right-0.5 w-4 h-4 rounded-full bg-primary-600 text-stone-950 flex items-center justify-center">
-                                <Check size={10} strokeWidth={3} />
+                                <Check size={12} strokeWidth={3} />
                             </span>
                         )}
                     </span>

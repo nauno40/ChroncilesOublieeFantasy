@@ -713,14 +713,14 @@ export const CustomMonsters: React.FC<CustomMonstersProps> = ({ embedded = false
                             onClick={cancel}
                             className="inline-flex items-center gap-2 border border-white/10 text-stone-300 hover:bg-white/5 rounded-lg px-4 py-2 transition-colors"
                         >
-                            <X size={18} /> Annuler
+                            <X size={16} /> Annuler
                         </button>
                         <button
                             onClick={handleSave}
                             disabled={saving || !form.name.trim()}
                             className="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-medium rounded-lg px-4 py-2 transition-colors"
                         >
-                            <Save size={18} /> {saving ? 'Enregistrement…' : 'Enregistrer'}
+                            <Save size={16} /> {saving ? 'Enregistrement…' : 'Enregistrer'}
                         </button>
                     </div>
                 </div>
@@ -756,8 +756,8 @@ export const CustomMonsters: React.FC<CustomMonstersProps> = ({ embedded = false
                                 tags={c.tags}
                                 onTagClick={setFiltreTag}
                                 entete={c.visibility === 'public'
-                                    ? <Globe size={13} className="text-green-500/70 shrink-0" aria-label="Public" />
-                                    : <Lock size={13} className="text-stone-400 shrink-0" aria-label="Privé" />}
+                                    ? <Globe size={14} className="text-green-500/70 shrink-0" aria-label="Public" />
+                                    : <Lock size={14} className="text-stone-400 shrink-0" aria-label="Privé" />}
                                 footer={mine ? (
                                     <div className="flex border-t border-white/5">
                                         <button onClick={() => startEdit(c)} className="flex-1 py-2 text-[11px] font-bold uppercase text-stone-400 hover:text-primary-400 hover:bg-white/[0.03] flex items-center justify-center gap-1.5 transition-all"><Pencil size={12} /> Modifier</button>

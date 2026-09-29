@@ -248,6 +248,59 @@ sur fond clair — ex. `EquipmentChoiceModal`) recoloré en encre ambrée sombre
 `.parchment` uniquement. Le reste de l'appli (dashboard, compendium, fiche classique
 `/characters/:id`) reste au thème sombre, vérifié inchangé.
 
+**Refonte structurelle (2026-09, phase 3)** — retour utilisateur après la phase 2 : « moche
+et pas pratique », le site de référence restant nettement plus proche de l'objectif. La
+comparaison directe (capture à sa largeur réelle, ~392px, colonne unique même en grand
+écran) a montré que l'écart n'était pas la couleur mais la structure : mise en page large à
+deux colonnes avec fiche récapitulative toujours visible, panneaux de la fiche classique
+réutilisés tels quels (arbre de 5 rangs × 6 voies, tableau d'armes façon tableur) — une
+interface de référence recolorée, pas une expérience guidée redessinée. Deux changements :
+
+- **Colonne unique resserrée** (`max-w-2xl`, était `max-w-6xl`) : `WizardShellLayout`
+  empile désormais portrait/narratif au-dessus du contenu de l'étape (était côte à côte,
+  grille 5/7 colonnes) ; la fiche récapitulative n'est plus une colonne permanente mais un
+  panneau coulissant (`WizardCharacterSheetOverlay`, nouveau) ouvert par une icône dans
+  l'en-tête — `WizardSummaryDrawer` a perdu son repli mobile interne, devenu inutile.
+- **Étapes Voies et Équipement reconstruites** pour l'assistant, seules étapes où la fiche
+  classique était vraiment dense :
+  - `WizardVoiesPicker.tsx` (nouveau) remplace `VoiesTree` à cette étape. À la création
+    (niveau 0), seul le rang 1 des voies de profil est en jeu — le rang 2 exige le niveau 2
+    (niveau 1 pour un mage), les rangs 3-5 un niveau que la création n'atteint jamais
+    (COF2 Progression) ; afficher les 5 rangs × 6 voies (fiche classique) n'y montre donc
+    que du bruit. Le nouveau composant n'affiche que ce qui est jouable — rang 1 par voie de
+    profil, rang 2 seulement pour les mages (bonus gratuit) — en réutilisant directement
+    `canAcquireRank`/`rankUnlockLevel` (`domain/rules`), sans reprendre le JSX de `VoiesTree`.
+  - `WizardEquipmentSummary.tsx` (nouveau) remplace, à cette étape, `WeaponsSection` (tableau
+    éditable 12 colonnes) + `MasteriesBlock` + `InventorySection` par une liste en lecture
+    seule de ce que la cascade de départ (`applyProfileSelection`) a déjà posé. `ProtectionSection`
+    (déjà compact, vraie décision) et `ArmorImpactPanel` (conséquences de cette décision,
+    déjà auto-masqué si rien à signaler) restent inchangés à cette étape.
+- **Zéro changement** dans `useCharacterSheet.ts` ni dans les panneaux partagés avec la
+  fiche classique (`VoiesTree.tsx`, `WeaponsSection.tsx`, `ArmorImpactPanel.tsx`,
+  `MasteriesBlock.tsx`, `InventorySection.tsx`, `AttributesPanel.tsx`…) : `CharacterSheet.tsx`
+  continue de les utiliser tels quels.
+
+**Bug trouvé en vérifiant dans un vrai navigateur** (pas visible en test, ni sur l'ancien
+`EquipmentChoiceModal`, centré donc indifférent au symptôme) : `WizardCharacterSheetOverlay`,
+rendu en place, se retrouvait descendant du `<main>` scrollable du layout applicatif
+(`overflow-y-auto`) — ce moteur de rendu rogne un descendant `position: fixed` à la boîte de
+cet ancêtre au lieu du viewport, alors même qu'aucun ancêtre ne crée de contexte
+d'empilement au sens strict de la spec CSS (aucun `transform`/`filter`/`opacity<1` sur la
+chaîne, vérifié élément par élément). Un panneau ancré en haut (titre + bouton fermer) s'en
+trouvait invisible, caché sous la barre d'appli mobile. Corrigé en portant l'overlay vers
+`document.body` (`createPortal`, comme tout modal React robuste), avec `.parchment` reposé
+sur la racine portée puisque les variables CSS qu'elle redéfinit ne descendent pas jusqu'à
+`document.body`.
+
+Vérifié : build + suite Vitest (664 tests) + `tsc -b` sans erreur + **vrai navigateur sur la
+vraie pile Docker** (`dockerd` relancé manuellement dans WSL2 — installation documentée dans
+le kanban du projet, pas persistante après un redémarrage). Parcours complet Nain/Guerrier
+avec choix d'équipement,
+un rang de voie acquis via `WizardVoiesPicker` (« Points restants » 2→1 confirmé), sauvegarde
+réussie, relecture sur `CharacterSheet.tsx` (`/characters/26`) : rang de voie et armes/armure
+identiques à ce que l'assistant avait posé — non-régression sur le point historiquement
+fragile de `useCharacterSheet.ts` confirmée une fois de plus.
+
 ## 10. Points d'attention
 
 - **Écart types ↔ API** : `node scripts/audit-types-api.mjs [url]` confronte

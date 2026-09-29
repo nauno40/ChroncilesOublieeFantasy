@@ -1,12 +1,13 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, ScrollText } from 'lucide-react';
 import { EquipmentChoiceModal } from '../components/EquipmentChoiceModal';
 import { useCharacterData } from '../hooks/useCharacterData';
 import { useCharacterSheet } from '../hooks/useCharacterSheet';
 import { useWizardStep } from '../hooks/useWizardStep';
 import { WizardStepBar } from '../components/character/wizard/WizardStepBar';
 import { WizardSummaryDrawer } from '../components/character/wizard/WizardSummaryDrawer';
+import { WizardCharacterSheetOverlay } from '../components/character/wizard/WizardCharacterSheetOverlay';
 import { StepWelcome } from '../components/character/wizard/steps/StepWelcome';
 import { StepRace } from '../components/character/wizard/steps/StepRace';
 import { StepProfile } from '../components/character/wizard/steps/StepProfile';
@@ -33,7 +34,7 @@ export const CharacterCreationWizard: React.FC = () => {
     const campaignParam = searchParams.get('campaign');
     const campaignId = campaignParam ? Number(campaignParam) : undefined;
 
-    const { races, profiles, allWeapons, allArmors, allVoies, prestigePaths } = useCharacterData();
+    const { races, profiles, allArmors, allVoies } = useCharacterData();
 
     const {
         character, setCharacter,
@@ -56,17 +57,7 @@ export const CharacterCreationWizard: React.FC = () => {
     } = useCharacterSheet({ races, profiles, allVoies, id: undefined, isNew: true, navigate, campaignId });
 
     const { step, goNext, goBack, goTo } = useWizardStep(STEP_LABELS.length);
-
-    // Voies groupées par profil (voies hybrides hors profil principal) — même calcul que CharacterSheet.tsx.
-    const voieOptionsByProfile = useMemo(() => profiles
-        .map(p => ({
-            profile: p.name ?? '',
-            voies: (p.voies ?? [])
-                .map(v => ({ iri: v['@id'] ?? '', name: v.name ?? '' }))
-                .filter(v => v.iri && v.name),
-        }))
-        .filter(g => g.profile && g.voies.length > 0)
-        .sort((a, b) => a.profile.localeCompare(b.profile)), [profiles]);
+    const [showSheet, setShowSheet] = useState(false);
 
     // Garde-fous : une étape n'est débloquée que si son prérequis est rempli.
     const maxUnlocked = useMemo(() => {
@@ -112,8 +103,6 @@ export const CharacterCreationWizard: React.FC = () => {
                         races={races}
                         profiles={profiles}
                         allVoies={allVoies}
-                        prestigePaths={prestigePaths}
-                        voieOptionsByProfile={voieOptionsByProfile}
                         spentPoints={spentPoints}
                         maxStartingPoints={maxStartingPoints}
                         isMageFamily={isMageFamily}
@@ -154,7 +143,6 @@ export const CharacterCreationWizard: React.FC = () => {
                         character={character}
                         setCharacter={setCharacter}
                         allArmors={allArmors}
-                        allWeapons={allWeapons}
                         profiles={profiles}
                         armorCap={armorCap}
                         armorImpacts={armorImpacts}
@@ -199,8 +187,8 @@ export const CharacterCreationWizard: React.FC = () => {
     };
 
     return (
-        <div className="max-w-6xl mx-auto py-6 px-4 animate-fade-in">
-            <div className="parchment space-y-6 rounded-3xl p-5 md:p-10 pb-16 md:pb-20">
+        <div className="max-w-2xl mx-auto py-6 px-4 animate-fade-in">
+            <div className="parchment space-y-6 rounded-3xl p-5 md:p-8 pb-16 md:pb-20">
                 <div className="flex items-center gap-4">
                     <button
                         onClick={() => navigate('/characters')}
@@ -209,33 +197,39 @@ export const CharacterCreationWizard: React.FC = () => {
                     >
                         <ArrowLeft size={20} className="group-hover:-translate-x-0.5 transition-transform" />
                     </button>
-                    <div>
+                    <div className="flex-1">
                         <h1 className="text-3xl font-bold font-display text-gradient-gold tracking-widest leading-none">Nouveau Héros</h1>
                         <p className="text-[11px] uppercase font-black text-stone-400 tracking-[0.3em] mt-2 ml-0.5 opacity-70">
                             Étape {step} sur {STEP_LABELS.length}
                         </p>
                     </div>
+                    <button
+                        onClick={() => setShowSheet(true)}
+                        aria-label="Voir ma fiche de personnage"
+                        className="w-10 h-10 rounded-xl glass-panel flex items-center justify-center text-stone-400 hover:text-primary-400 hover:border-primary-500/30 transition-all border border-white/5"
+                    >
+                        <ScrollText size={20} />
+                    </button>
                 </div>
 
                 <WizardStepBar labels={STEP_LABELS} current={step} maxUnlocked={maxUnlocked} onJump={goTo} />
 
-                <div className="grid grid-cols-1 xl:grid-cols-[1fr_300px] gap-6 items-start">
-                    <div>{renderStep()}</div>
-                    <div className="xl:sticky xl:top-6">
-                        <WizardSummaryDrawer
-                            character={character}
-                            races={races}
-                            profiles={profiles}
-                            finalStats={finalStats}
-                            maxHp={maxHp}
-                            combatStats={combatStats}
-                            luckPoints={luckPoints}
-                            manaPoints={manaPoints}
-                            spentPoints={spentPoints}
-                            maxStartingPoints={maxStartingPoints}
-                        />
-                    </div>
-                </div>
+                {renderStep()}
+
+                <WizardCharacterSheetOverlay isOpen={showSheet} onClose={() => setShowSheet(false)}>
+                    <WizardSummaryDrawer
+                        character={character}
+                        races={races}
+                        profiles={profiles}
+                        finalStats={finalStats}
+                        maxHp={maxHp}
+                        combatStats={combatStats}
+                        luckPoints={luckPoints}
+                        manaPoints={manaPoints}
+                        spentPoints={spentPoints}
+                        maxStartingPoints={maxStartingPoints}
+                    />
+                </WizardCharacterSheetOverlay>
 
                 <EquipmentChoiceModal
                     isOpen={showEquipmentModal}

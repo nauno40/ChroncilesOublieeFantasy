@@ -14,21 +14,14 @@ interface Props {
 }
 
 /**
- * Mise en page partagée par chaque étape de l'assistant : portrait/description à gauche
- * (optionnel), contenu de l'étape à droite, barre Précédent/Suivant en bas. Le thème reste
- * celui de l'appli (glass-panel, Cinzel/Inter, ambre) — l'habillage « parchemin » est un
- * chantier séparé, pas fait ici.
+ * Mise en page partagée par chaque étape de l'assistant : portrait/description au-dessus
+ * (optionnel, pleine largeur — colonne unique resserrée, à la Lands of Evershade), contenu
+ * de l'étape en dessous, barre Précédent/Suivant en bas.
  */
 export const WizardShellLayout: React.FC<Props> = ({ aside, children, onBack, onNext, nextLabel = 'Suivant', nextDisabled, nextLoading }) => (
     <div className="space-y-6">
-        {aside ? (
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-                <div className="lg:col-span-5">{aside}</div>
-                <div className="lg:col-span-7 space-y-4">{children}</div>
-            </div>
-        ) : (
-            <div className="space-y-4">{children}</div>
-        )}
+        {aside}
+        <div className="space-y-4">{children}</div>
 
         <div className="flex justify-between items-center pt-4 border-t border-white/10">
             <button

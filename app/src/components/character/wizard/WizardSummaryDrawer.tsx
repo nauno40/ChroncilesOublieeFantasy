@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { ScrollText, ChevronDown, ChevronUp } from 'lucide-react';
+import React from 'react';
 import clsx from 'clsx';
 import type { Character } from '../../../types/character';
 import type { Stats } from '../../../domain/rules';
@@ -23,20 +22,19 @@ const iriOf = (v: unknown): string => (typeof v === 'string' ? v : (v as { '@id'
 const CARAC_ORDER: (keyof Stats)[] = ['AGI', 'CON', 'FOR', 'PER', 'CHA', 'INT', 'VOL'];
 
 /**
- * Mini-fiche de personnage en direct, visible pendant tout l'assistant (distincte de
- * l'étape Résumé finale, qui est en pleine page). Lecture seule : aucun éditeur ici.
+ * Mini-fiche de personnage en direct (distincte de l'étape Résumé finale, en pleine page).
+ * Lecture seule : aucun éditeur ici. Affichée dans `WizardCharacterSheetOverlay`, qui gère
+ * l'ouverture/fermeture — ce composant n'a donc plus de repli mobile interne.
  */
 export const WizardSummaryDrawer: React.FC<Props> = ({
     character, races, profiles, finalStats, maxHp, combatStats, luckPoints, manaPoints, spentPoints, maxStartingPoints,
 }) => {
-    const [open, setOpen] = useState(false);
-
     const raceName = races.find(r => r['@id'] === iriOf(character.race))?.name;
     const profileName = profiles.find(p => p['@id'] === iriOf(character.profile))?.name;
 
-    const content = (
-        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-1 gap-4 lg:gap-3">
-            <div className="lg:pb-3 lg:border-b lg:border-white/5 col-span-2 sm:col-span-4 lg:col-span-1">
+    return (
+        <div className="space-y-4">
+            <div className="pb-3 border-b border-white/5">
                 <div className="font-display font-bold text-lg text-white leading-tight">{character.name || 'Sans nom'}</div>
                 <div className="text-xs text-stone-400 mt-0.5">
                     {[raceName, profileName].filter(Boolean).join(' · ') || 'Race et profil à choisir'}
@@ -63,25 +61,6 @@ export const WizardSummaryDrawer: React.FC<Props> = ({
             <div className="text-[11px] text-stone-400">
                 Points de voies : <b className={clsx(spentPoints > maxStartingPoints ? 'text-red-400' : 'text-stone-200')}>{spentPoints}</b> / {maxStartingPoints}
             </div>
-        </div>
-    );
-
-    return (
-        <div className="glass-panel rounded-xl border border-white/10 p-4">
-            <button
-                type="button"
-                onClick={() => setOpen(o => !o)}
-                className="w-full flex items-center justify-between gap-2 lg:hidden text-left"
-            >
-                <span className="flex items-center gap-2 text-primary-400 font-display font-bold uppercase text-xs tracking-wider">
-                    <ScrollText size={16} /> Votre personnage
-                </span>
-                {open ? <ChevronUp size={16} className="text-stone-400" /> : <ChevronDown size={16} className="text-stone-400" />}
-            </button>
-            <div className="hidden lg:flex items-center gap-2 text-primary-400 font-display font-bold uppercase text-xs tracking-wider mb-3">
-                <ScrollText size={16} /> Votre personnage
-            </div>
-            <div className={clsx('mt-3 lg:mt-0', open ? 'block' : 'hidden lg:block')}>{content}</div>
         </div>
     );
 };

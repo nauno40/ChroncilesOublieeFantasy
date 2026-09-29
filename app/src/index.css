@@ -11,6 +11,10 @@
   --color-primary-700: hsl(35, 90%, 30%);
   --color-primary-800: hsl(35, 90%, 20%);
   --color-primary-900: hsl(35, 90%, 10%);
+  /* Manquait : `CapabilityNode` utilise `bg-primary-950/20` pour le fond d'une capacité
+     active (thème sombre) — sans cette variable, la classe ne compile à rien et ce fond
+     reste invisible (transparent), déjà avant l'assistant/le parchemin. */
+  --color-primary-950: hsl(35, 90%, 6%);
 
   --font-display: "Cinzel", serif;
   --font-body: "Inter", sans-serif;
@@ -107,6 +111,19 @@
   --color-amber-200: #6b5320;
   --color-amber-300: #58441a;
   --color-yellow-500: #6b5220;
+  /* Fond d'une capacité active (`CapabilityNode`, `bg-primary-950/20`) : sur fond sombre
+     c'est un lavis quasi noir (cf. valeur de base ci-dessus) ; sur crème, le même ton
+     assombrirait la page au lieu de la faire ressortir — un lavis doré CLAIR fait office de
+     surlignage, comme un trait de surligneur sur une vraie page. */
+  --color-primary-950: hsl(38, 60%, 82%);
+  /* `blue-950/700/400/300` : coût en PM d'un sort (`CapabilityNode`) — bleu vif conçu pour
+     ressortir sur fond sombre, discordant et peu lisible sur crème (même problème que
+     jaune/ambre, teinte différente). Assombri vers une encre ardoise, pour rester
+     identifiable comme « une donnée à part » sans jurer avec le reste de la page. */
+  --color-blue-950: #dbe1ea;
+  --color-blue-700: #3d4a5c;
+  --color-blue-400: #2f3a48;
+  --color-blue-300: #465363;
 
   --color-surface-translucent: hsla(42, 55%, 88%, 0.6);
   --color-surface-strong: hsla(42, 55%, 92%, 0.88);

@@ -367,6 +367,30 @@ variable couvre tout d'un coup, sans toucher aux composants partagés (`Capabili
 classique, toujours en jaune/ambre vif sur fond sombre). Vérifié : build + suite Vitest (664
 tests) + vrai navigateur (étapes Voies et Équipement, fiche classique en comparaison).
 
+**Trois autres coquilles signalées à l'étape Voies (même jour)** — « les PM affichés en bleu,
+ou alors la voie sélectionnée qui rend pas bien » :
+1. Coût en PM d'un sort (`CapabilityNode`, badge `bg-blue-950/40 text-blue-400`) : même
+   principe que jaune/ambre — bleu vif conçu pour du fond sombre, discordant sur crème.
+   `.parchment` redéfinit `--color-blue-950/700/400/300` vers une encre ardoise.
+2. **Bug préexistant, pas propre au parchemin** : le fond d'une capacité active
+   (`CapabilityNode`, `bg-primary-950/20`) était invisible — transparent — **y compris sur le
+   thème sombre d'origine**, faute de variable `--color-primary-950` dans l'échelle `primary`
+   du `@theme` (seuls 50 à 900 existaient). Ajoutée (`hsl(35, 90%, 6%)`, cohérente avec la
+   progression 50→900) : corrige la fiche classique au passage (vérifié — surlignage
+   maintenant visible derrière une capacité active) ; `.parchment` la redéfinit séparément en
+   lavis doré clair (`hsl(38, 60%, 82%)`, un surlignage assombrirait la page au lieu de la
+   faire ressortir sur crème, contrairement au thème sombre).
+3. Bouton « Remplacer (Mage) » actif de `WizardVoiesPicker.tsx` (composant propre à
+   l'assistant, pas partagé) : violet (`bg-purple-500/20 text-purple-300`, copié depuis
+   `VoiesTree.tsx`), détonnait sur crème. Corrigé en dur dans le composant (pas de variable
+   CSS à redéfinir, cette fois — `VoiesTree.tsx`, seul autre utilisateur de ce violet, garde
+   le sien tel quel, thème sombre inchangé) vers `primary-600/700`, cohérent avec le reste de
+   la page.
+
+Vérifié : build + suite Vitest (664 tests) + vrai navigateur (étape Voies avec un Magicien —
+seule façon de voir les badges de PM —, bascule Mage, fiche classique en comparaison,
+surlignage de capacité active visible des deux côtés).
+
 ## 10. Points d'attention
 
 - **Écart types ↔ API** : `node scripts/audit-types-api.mjs [url]` confronte

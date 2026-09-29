@@ -122,7 +122,7 @@ export const WizardVoiesPicker: React.FC<Props> = ({
                             className={clsx(
                                 'text-[11px] uppercase font-bold py-1 px-2 rounded border transition-all',
                                 mageReplacedRaceVoie
-                                    ? 'bg-purple-500/20 border-purple-500 text-purple-300'
+                                    ? 'bg-primary-600/15 border-primary-600 text-primary-700'
                                     : 'bg-stone-950 border-stone-700 text-stone-400 hover:text-white',
                             )}
                         >
